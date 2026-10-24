@@ -51,6 +51,14 @@ Cream Rawdah logo (`public/images/brand/logo-cream.png`) is the main logo, alway
 are Rawdah's own (V1 and the live page): ivory, sand, date brown, clay, sand-gold; Cormorant Garamond and DM Sans.
 Shape language from the logo's square-kufic grid.
 
+## Hosting
+
+Vercel project `rawdah-tours-v2` (account `j-1308s-projects`), linked to this repo on 25 October 2026. Every push
+deploys: `main` to production (`rawdah-tours-v2-j-1308s-projects.vercel.app`), any other branch to a preview.
+Deployments sit behind Vercel's login (the team default), so only signed-in team members can open them.
+rawdahtours.co.uk is not attached yet. Env vars: see `docs/booking.md`; none are set yet, so forms fall back to
+WhatsApp and `/admin` is off.
+
 ## Rules
 
 Branch per task, PR into `main`; `npm run build` before pushing; no secrets in the repo or chat (Jibril sets env

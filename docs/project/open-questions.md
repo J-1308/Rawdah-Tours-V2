@@ -32,8 +32,8 @@ Things only Rawdah (or Jibril) can answer. Each one is marked on the page where 
 
 ## Practical
 
-15. **Vercel preview:** Jibril to create or connect the Vercel project for `J-1308/Rawdah-Tours-V2` (not done
-    from here without his go-ahead).
+15. **Merge into `main`:** the Vercel project builds production from `main`, which has no site yet. Merging
+    the V2 pull request makes the `.vercel.app` production address show V2 (rawdahtours.co.uk is unaffected).
 16. **Env vars** (Supabase, Stripe, Resend, bank details, admin): Jibril adds them in Vercel himself.
 17. **Domain switch:** rawdahtours.co.uk currently serves the Hajj 2027 page by another developer. Decide when V2
     replaces it; the redirects in `next.config.ts` cover the old V1 and live URLs.
