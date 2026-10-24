@@ -40,11 +40,23 @@ balance in instalments to 40 days before departure.
 7. **Age floor 18** blocks under-18s on family trips. That's why family bookings went to a separate enquiry
    form. Reconsider whether V2 needs real multi-traveller bookings.
 
-## 3. Environment variables (names only)
+## 3. Environment variables
 
-`NEXT_PUBLIC_SITE_URL`, `STRIPE_SECRET_KEY`, `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY`, `STRIPE_WEBHOOK_SECRET`,
-`RESEND_API_KEY`, `EMAIL_FROM`, `EMAIL_OWNER_TO`, `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`,
-`SUPABASE_SERVICE_ROLE_KEY`. Values live in Vercel and the cloud environment, never in the repo.
+V2's list is in `.env.example` (names only; values live in Vercel and the cloud environment, never in the repo).
+Bank transfer details are env vars (`BANK_*`), not code.
 
-Bank account details for transfers live in V1 `lib/constants.ts`. **Move them to env vars in V2**, and don't
-commit them while this repo is public.
+## 4. V2 implementation (24 Oct 2026)
+
+- **Trips** live in `src/lib/trips.ts`: one source for prices, deposit, card fee and status. A trip is bookable when
+  its status is `open`. Prices are only read on the server.
+- **Checkout** (`src/app/actions/booking.ts`): validates, checks capacity (if set) and duplicates, inserts a
+  `pending` booking, then either redirects to Stripe Checkout (session expires after 30 minutes) or emails bank
+  transfer instructions.
+- **Fixes from §2:** abandoned checkouts are released by `checkout.session.expired`; duplicates are only blocked for
+  the same trip, email *and* name with a paid deposit or a pending bank transfer (so a couple can share an email);
+  trips are data, not code; optional `capacity`; `/admin` lists bookings and has "Mark transfer received", which
+  confirms the booking and emails the traveller.
+- **Webhook** (`/api/stripe/webhook`): inserts the `payments` row first (unique `external_id`) as the idempotency
+  guard, then confirms the booking and sends emails exactly once.
+- **Under-18s and families** still go through register interest with a traveller count; online booking is 18+.
+- **Without env vars** the forms explain that booking isn't connected and offer WhatsApp.

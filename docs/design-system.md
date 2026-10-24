@@ -2,54 +2,51 @@
 
 Extracted 24 Oct 2026 from Rawdah Tours V1 (`J-1308/Rawdahtoursw-website`, `docs/brand-system.md`, `app/globals.css`)
 and The Umrah Company (`J-1308/The_Umrah_Experience`, `DESIGN.md`, `src/app/globals.css`).
-**Status: proposed. The decision in §1 is open until Jibril confirms it.**
+**Status: implemented on `feat/v2-site`; open to client feedback.**
 
-## 1. The decision to make first
+## 1. Direction (decided 24 Oct 2026)
 
-The two sources disagree on purpose:
+Rawdah keeps its own warm identity and borrows the Umrah Company's *disciplines* (§4), never its palette, fonts or
+copy. The two clients are both Umrah operators and must not look related.
 
-- **Rawdah V1** is warm cream, sand, terracotta and antique gold ("creamy, desert-soft, heavenly").
-- **The Umrah Company** explicitly rejects *"generic cream-and-gold Islamic luxury travel"* and uses a cool
-  grey-ivory, near-black ink and desaturated bronze.
+The site is lit like a Madinah courtyard at midday: a white ground, dappled shade in the photos, and dark used only
+for whole chapters (the journey section, the Nusuk checklist, the footer).
 
-Both clients are Umrah operators. If Rawdah adopts the Umrah Company's palette, the two client sites will look
-related, which is bad for both.
-
-**Recommendation:** keep Rawdah's own warm palette as the brand, and borrow the Umrah Company's *disciplines*
-(§4), not its colours. This fixes V1's real weakness (soft, mid-sized, everything the same density) without
-making Rawdah look like another client.
-
-## 2. Colour (Rawdah palette, from V1)
+## 2. Colour (tokens in `src/app/globals.css`)
 
 | Token | Value | Use |
 | --- | --- | --- |
-| `ivory` | `#F6F0E6` | Default page ground |
-| `alt-bg` | `#EDE4D6` | Alternate section ground |
-| `sand` | `#E8D8C3` | Soft surfaces, cards |
-| `beige` | `#DCC7AF` | Borders, dividers on light |
-| `dusty` | `#B58D7A` | Secondary accents |
-| `terracotta` | `#A8745B` | Primary accent |
-| `mocha` | `#6E5447` | Secondary text |
-| `brown` | `#4E3A33` | Body text; primary CTA fill |
-| `plum` | `#5A4745` | Dark accents |
-| `dark-bg` | `#3A2920` | Dark sections (use as a first-class chapter ground, see §4) |
-| `gold` | `#B08D57` | Hairlines, small caps, icon details only. Never a fill, gradient or button |
+| `ihram` | `#FBF9F5` | Page ground |
+| `sand` / `sand-soft` | `#EADCC4` / `#F3EBDD` | Register-interest band; quiet sections |
+| `ajwa` | `#2E2020` | Text; dark chapters; primary button |
+| `palm` | `#2D4A3A` | WhatsApp button, links, "confirmed" markers |
+| `brass` | `#A6844F` | Hairlines, step numerals, large Arabic only. Never small text or fills |
+| `dust` | `#6B5E57` | Secondary text |
+| `henna` | `#9B5940` | "Not confirmed yet" markers and form errors |
+| `parchment` | `#EFE5D4` | Text on dark |
 
-Contrast rule (both sources agree): softness comes from warmth, never from low contrast. Body text is `brown` on
-`ivory`; no `mocha` text on `sand`.
+All text pairs pass WCAG AA. Palm green comes from Rawdah's own posters and the garden in the logo.
 
-## 3. Typography
+## 3. Typography (self-hosted, `public/fonts`)
 
-| Role | V1 | Note |
-| --- | --- | --- |
-| Display | Cormorant Garamond | Keep, or test against Instrument Serif. Do **not** reuse Outfit/Jost; that is the Umrah Company's campaign voice |
-| Body | DM Sans | Keep |
+| Role | Face |
+| --- | --- |
+| Headings and reading passages ("spirit") | EB Garamond |
+| Practical information, forms, buttons ("logistics") | Source Sans 3 |
+| Arabic (place names, روضة, ﷺ) | Amiri, which also sits behind both stacks as a fallback |
+
+Transliterated terms are set plainly (ihram, tawaf, saʿi). No uppercase tracked labels.
+
+## Status markers
+
+A filled palm dot means confirmed; a henna ring means not confirmed yet. Use `StatusList` whenever the site states a
+fact about a trip, so visitors can always see what's settled.
 
 ## 4. Disciplines borrowed from The Umrah Company
 
 1. **Gold is a hairline, never a surface.**
-2. **Dark is a chapter, not a footer.** Use `dark-bg` for one or two whole sections to give the page range.
-3. **Extreme type scale.** Big display headings and small tracked labels; avoid mid-sized everything (Umrah's diagnosis of its own V1, and true of Rawdah V1).
+2. **Dark is a chapter, not a footer.** Use `ajwa` for one or two whole sections to give the page range.
+3. **Extreme type scale.** Big display headings against small, quiet supporting text; avoid mid-sized everything (Umrah's diagnosis of its own V1, and true of Rawdah V1).
 4. **Sections are compositions**, not repeated identical card grids. No three-identical-cards default.
 5. **Documentary photography**, full-bleed where it earns it; no blanket fade on every image.
 6. **Restrained motion:** one settle on load, no entrance animations on ordinary text, respect `prefers-reduced-motion`. Don't hide the hero image behind a fade-in (hurts load time).

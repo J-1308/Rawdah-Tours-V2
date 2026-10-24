@@ -33,7 +33,7 @@
      Amiri sits behind EB Garamond so Arabic words and ﷺ inside English text
      fall back to it automatically. */
   --font-serif: "EB Garamond", "Amiri", Garamond, Georgia, serif;
-  --font-sans: "Source Sans 3", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-sans: "Source Sans 3", "Amiri", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-arabic: "Amiri", "Noto Naskh Arabic", "Geeza Pro", serif;
 }
 
