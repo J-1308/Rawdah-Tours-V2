@@ -3,6 +3,18 @@
 Extracted 24 Oct 2026 from V1 (`app/page.tsx`, `docs/content-map.md`, `lib/constants.ts`). The last trip
 (Path of Purity II, 4–15 Aug 2026) has run, so trip-specific facts below are **historical** until the next trip is confirmed.
 
+## Live site now (rawdahtours.co.uk, checked 24 Oct 2026)
+
+A single **Hajj 2027 register-interest** landing page, not a booking site. It has a Hajj/Umrah "Journey mode" switch,
+the headline "A Hajj journey prepared with knowledge, care, and intention", and these sections: what is confirmed,
+what Rawdah is preparing (6 tabs), before you commit (8 cards), still being confirmed, after you register (5 steps
+ending at the official Nusuk Hajj platform), 12 FAQs, team, and an interest form (name, email, phone, number of
+travellers, departure location, message, marketing consent).
+
+Key facts: no Hajj dates or prices yet; Hajj packages are booked and paid via **Nusuk**, not by Rawdah.
+Team shown: Brother Ayuub Mohamed Musa (Group Leader) and **Ustadh Abu Abdulaziz Ahmed** (Hajj Guide, King Saud
+University graduate). Footer credit: 36Builds. **Source repo for this page is unknown.**
+
 ## Positioning (still current)
 
 - Premium, calm, community-led Umrah. Trust before payment.
