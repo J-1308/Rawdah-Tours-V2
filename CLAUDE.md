@@ -9,6 +9,7 @@ Next.js (App Router) · TypeScript · Tailwind v4 · Supabase · Stripe Checkout
 - Design or UI change → `docs/design-system.md`
 - Booking, payments, email, database → `docs/booking.md`
 - Copy, people, trip facts, assets → `docs/content-inventory.md`
+- Where the V2 build is up to → `docs/build-plan.md`
 
 ## Reference repos (read-only, open only when a task needs them)
 - `J-1308/Rawdahtoursw-website`: V1. Booking/Stripe code to consult. Never push to it.
