@@ -7,7 +7,8 @@ Pick up from "Still to build" below.
 
 - **Scope:** one site for Hajj 2027 (register interest only; packages booked and paid on Nusuk) and Umrah
   (bookable with a deposit per trip once dates and prices are confirmed; register interest until then).
-- **Onboarding app** (another developer's): linked from the site via `NEXT_PUBLIC_ONBOARDING_APP_URL`, nothing more.
+- **Onboarding app** (another developer's): unrelated to this build. It may be featured on the site later as an extra;
+  don't build anything for it now (the `NEXT_PUBLIC_ONBOARDING_APP_URL` placeholder can stay unused).
 - **Stack:** Next.js 16.4 (async `params`, `proxy.ts` not middleware, ESLint CLI, `images.qualities`), Tailwind v4,
   Supabase (server-side service role only), Stripe Checkout, Resend.
 - **Fonts are self-hosted** (`public/fonts`, `src/app/fonts.css`) because build machines may not reach Google Fonts.
