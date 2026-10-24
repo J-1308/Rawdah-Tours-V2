@@ -1,63 +1,69 @@
-# Rawdah Tours V2 — Content Inventory
+# Rawdah Tours V2 — Content inventory
 
-Extracted 24 Oct 2026 from V1 (`app/page.tsx`, `docs/content-map.md`, `lib/constants.ts`). The last trip
-(Path of Purity II, 4–15 Aug 2026) has run, so trip-specific facts below are **historical** until the next trip is confirmed.
+Every word and number on the site lives in `src/app/_site/content.ts`, with a status and a source beside it.
+This file says where the facts came from and what is still missing. Last updated 24 October 2026.
 
-## Live site now (rawdahtours.co.uk, checked 24 Oct 2026)
+## Sources
 
-A single **Hajj 2027 register-interest** landing page, not a booking site. It has a Hajj/Umrah "Journey mode" switch,
-the headline "A Hajj journey prepared with knowledge, care, and intention", and these sections: what is confirmed,
-what Rawdah is preparing (6 tabs), before you commit (8 cards), still being confirmed, after you register (5 steps
-ending at the official Nusuk Hajj platform), 12 FAQs, team, and an interest form (name, email, phone, number of
-travellers, departure location, message, marketing consent).
+| Code | Source |
+| --- | --- |
+| V1 | `J-1308/Rawdahtoursw-website`: homepage, FAQ, about, terms (April 2026), `lib/pricing.ts` |
+| LIVE | rawdahtours.co.uk, the Hajj 2027 register-interest page (read 24 Oct 2026; built by another developer, footer "36Builds", source repo unknown) |
+| POSTER | Path of Purity II poster and hotel posters (V1 `public/images`) |
+| PHOTOS | Rawdah's own trip photographs, supplied by Jibril on 24 Oct 2026 |
 
-Key facts: no Hajj dates or prices yet; Hajj packages are booked and paid via **Nusuk**, not by Rawdah.
-Team shown: Brother Ayuub Mohamed Musa (Group Leader) and **Ustadh Abu Abdulaziz Ahmed** (Hajj Guide, King Saud
-University graduate). Footer credit: 36Builds. **Source repo for this page is unknown.**
+## Status marks on the page
 
-## Positioning (still current)
+`confirmed` and `evidenced` and `draft` show no mark. `proposed` shows **Suggested**, `to confirm` shows
+**To confirm**, `sample` shows **Sample**. Nothing marked may reach the live domain.
 
-- Premium, calm, community-led Umrah. Trust before payment.
-- Differentiators: special guest scholar · spiritually richer itinerary · community/brotherhood feel.
-- Two equal CTAs: **Reserve Your Place** and **Chat on WhatsApp**.
-- Audience: individuals and families, many arriving from Instagram and WhatsApp.
+## Contact and company
 
-## Contact
-
-- WhatsApp / phone: +44 7809 281429
-- Email: rawdahtours@gmail.com
-- Sending domain: rawdahtours.co.uk
+- WhatsApp / phone: +44 7809 281429 · email rawdahtours@gmail.com · Instagram @rawdahtours
+- Registered office: 5 Sir Denis Drive, Birmingham, England, B9 5DU (V1 terms)
+- Company number: **missing**
+- ATOL: 5311 via Polani Travel Ltd for the 2026 trips (V1 terms). **Future trips to confirm.**
 
 ## People
 
-| Name | Role | Photo in V1 |
-| --- | --- | --- |
-| Ustadh Abdulrahman Hassan | Tour Guide & Teacher | `public/images/guides/abdulrahman_hassan.jpg` |
-| Brother Ayuub Mohamed Musa | Group Leader | `ayuub_mohamed_musa.jpg` |
-| Ustadh Issa Uthman | Tour Guide & Teacher | `issa_uthman.jpg` |
-| Special guest scholar | Not named in V1 | — |
+| Name | Role | Source | Photo |
+| --- | --- | --- | --- |
+| Brother Ayuub Mohamed Musa | Group leader | V1, LIVE | `people/ayuub-mohamed-musa.jpg` (V1) |
+| Ustadh Abu Abdulaziz Ahmed | Hajj guide, Hajj 2027; King Saud University graduate, student of Shaykh Dr. Sa‘d al-Shithri | LIVE | `people/abu-abdulaziz-ahmed.jpg` (LIVE) |
+| Ustadh Issa Uthman | Guide and teacher, Path of Purity II | V1, POSTER | `people/issa-uthman.jpg` (V1) |
+| Ustadh Abdulrahman Hassan | Guide and teacher, Path of Purity II | V1, POSTER | `people/abdulrahman-hassan.jpg` (V1) |
 
-## Last trip format (Path of Purity II, Aug 2026)
+The bios for Issa and Abdulrahman are our wording of their role (draft). The person in the Rawdah vest photos
+is **not** identified on the site.
 
-- 11 days, 10 nights: 5 in Madinah (Peninsula Worth Hotel), 5 in Makkah (Address Jabal Omar), ~3 min walk to each Haram, breakfast included.
-- Qatar Airways from Heathrow, return.
-- Included: visa, transport, VIP coach Madinah→Makkah, guided ziyarah, guided Umrah step by step, daily lessons and reminders, ihram and handbook.
-- Itinerary arc: Madinah (seerah, history) → VIP transfer → Makkah (Umrah).
+## Trips
 
-## Reusable copy
+- **Hajj 2027** (LIVE): registration of interest; dates, packages and prices published on Nusuk; Rawdah takes
+  no Hajj payments. Itinerary is the days of Hajj in outline (draft).
+- **Next group Umrah**: not announced. The page shows Path of Purity II's shape and prices as a guide, all
+  marked Suggested.
+- **Path of Purity II: Summer Edition** (V1, POSTER): 4–15 Aug 2026; 5 nights Peninsula Worth (Madinah), 5 nights
+  Address Jabal Omar (Makkah), breakfast; Qatar Airways from Heathrow; quad £1,799, triple £1,835, double £2,025
+  per person; land only from £1,040 (V1 terms; the poster's £1,099 is superseded); £500 deposit; balance cleared
+  40 days before departure. Prices live once, in `src/lib/trips.ts`.
 
-V1 has 6 "included" items, 3 "why us" items, 3 journey stages, 13 FAQs (inclusions, cancellation, visa, booking,
-families, solo travellers, itinerary, packing, payment, emergencies, accommodation, meals). All in `app/page.tsx`.
-Reuse the structure; re-check every factual answer against the next trip.
+## Copy
 
-## Assets in V1 (`public/images/`)
+Headings use V1's own words where it had them: "Why choose Rawdah", "The people who will walk with you", "Our
+last trip", "Accommodation & travel", "Common questions". FAQs use V1's questions verbatim plus the LIVE Hajj
+questions. The hero line ("Walk the path with people who know it.") is ours (draft), after V1's "show you the
+path" and the Path of Purity trips. **No copy is taken from The Umrah Company site.**
 
-Brand: `logo_primary.png`, `preview_logo.png`. Gallery: 7 trip photos (Haram, Nabawi, morning session,
-brotherhood, ziyarah, knowledge session, Path of Purity). Hotels: 2. Guides: 3. **No SVG logo in the repo**
-(the brief says one exists, so it needs finding).
+## Photos (`public/images/trips/`, see its README)
 
-## To confirm before reuse
+Used: group-uhud-hill, group-quba-mosque, group-quba-mosque-bright, group-nabawi-roof, group-haram-night,
+group-address-jabal-omar, three-after-umrah-haram, two-ihram-clock-tower, two-at-nabawi-night,
+two-in-ihram-arrival, two-at-islamic-university, five-at-islamic-university, six-after-umrah, parrots-young-man,
+rawdah-vest-back, rawdah-vest-thumbs-up, rawdah-vest-palms, hajj-preparation-session (LIVE).
 
-- **Testimonials:** V1 quotes are attributed to "Brother Abdullah / Yusuf / Hamza". Confirm these are real travellers before V2 uses them.
-- Next trip: name, dates, hotels, flights, prices, deposit, scholar.
-- Where is the revamped landing page? It isn't in any repo yet.
+Not used yet: parrots-two-teens, rawdah-vest-parrot (both show younger travellers; held until Rawdah confirms
+consent).
+
+## Still missing
+
+See `docs/project/open-questions.md`.

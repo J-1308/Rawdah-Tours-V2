@@ -1,4 +1,43 @@
-# Rawdah Tours V2 — Booking Architecture
+# Rawdah Tours V2 — Booking architecture
+
+§0 is what V2 does now. §1–3 are the V1 extraction it was built from (24 Oct 2026).
+
+## 0. V2 as built
+
+**One price list:** `src/lib/trips.ts` (pence). The page content (`src/app/_site/content.ts`) reads room prices
+from it, and the checkout reads it on the server. A trip is bookable only when its status is `open`.
+
+**Routes**
+
+| Route | What it does |
+| --- | --- |
+| `/trips/[slug]` | Trip page with the join panel (`reserve.tsx`): rooms, travellers, live total, deposit, instalments. "Pay the deposit" appears only when the trip is bookable. |
+| `/trips/[slug]/book` | Booking form (`booking-form.tsx`) → server action `createBooking` (`src/app/actions/booking.ts`). 404 unless bookable. |
+| `/booking/confirmed` | Stripe success return. |
+| `/booking/cancelled` | Stripe cancel return, with a retry link to `/trips/[slug]/book`. |
+| `/booking/bank-transfer` | Bank details (from env vars) and the reference, for bank-transfer bookings. |
+| `/api/stripe/webhook` | `checkout.session.completed` marks the deposit paid (idempotent via `payments.stripe_event_id`); `checkout.session.expired` releases the booking so the person can try again. |
+| `/admin` | Bookings and enquiries list, behind basic auth (`src/proxy.ts`). 404 if `ADMIN_PASSWORD` is unset. |
+
+**Register interest:** `RegisterForm` → `submitEnquiry` (`src/app/actions/enquiry.ts`) → `enquiries` table and
+emails. If Supabase or Resend is not configured, the form hands the person a pre-written WhatsApp message instead.
+
+**Card checkout:** Stripe Checkout, deposit plus card fee, session expires after 30 minutes.
+
+**Preview flag:** `BOOKING_DEMO=true` on a preview deployment shows Path of Purity II as a bookable demo so the
+flow can be tried. Never set in production.
+
+**Schema:** `supabase/migrations/20261024000000_v2_schema.sql`: `bookings`, `payments`, `enquiries`, RLS on with no
+policies (service role only).
+
+**Env vars (names only):** `NEXT_PUBLIC_SITE_URL`, `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`,
+`STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET`, `RESEND_API_KEY`, `EMAIL_FROM`, `EMAIL_OWNER_TO`,
+`BANK_ACCOUNT_NAME`, `BANK_SORT_CODE`, `BANK_ACCOUNT_NUMBER`, `ADMIN_USER`, `ADMIN_PASSWORD`, `BOOKING_DEMO`,
+`NEXT_PUBLIC_ONBOARDING_APP_URL`. See `.env.example`. Jibril sets the values in Vercel; never in the repo or chat.
+
+**Hajj:** no booking or payment on this site. Packages are booked and paid on Nusuk.
+
+---
 
 Extracted 24 Oct 2026 from V1 (`J-1308/Rawdahtoursw-website`): `app/api/checkout`, `app/api/webhooks/stripe`,
 `app/api/family-enquiry`, `lib/pricing.ts`, `lib/email.ts`, `supabase/migrations/001–003`.
