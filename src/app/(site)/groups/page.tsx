@@ -51,7 +51,7 @@ export default function GroupsPage() {
                   <Mark s={g.status} />
                 </span>
               </p>
-              <p className="mt-1.5 text-[0.92rem] leading-[1.6] text-ink/62 sm:mt-2">{g.text}</p>
+              <p className="mt-1.5 text-[0.92rem] leading-[1.6] text-ink/68 sm:mt-2">{g.text}</p>
             </li>
           ))}
         </ul>
@@ -86,9 +86,9 @@ export default function GroupsPage() {
                 </div>
                 <div className="p-6">
                   <p className="display text-[2rem]">Your Masjid’s Umrah, spring 2027</p>
-                  <p className="mt-2 font-editorial text-[1.1rem] text-ink/65 italic">“Salaam everyone, we’d love you to join us. Our imam will teach each evening in Madinah and Makkah.”</p>
+                  <p className="mt-2 font-editorial text-[1.1rem] text-ink/70 italic">“Salaam everyone, we’d love you to join us. Our imam will teach each evening in Madinah and Makkah.”</p>
                   <div className="mt-5 flex flex-wrap items-center justify-between gap-4 border-t border-ink/8 pt-4">
-                    <p className="text-[0.86rem] text-ink/60">
+                    <p className="text-[0.86rem] text-ink/68">
                       10 nights, from {gbp(1799)} per person, {gbp(500)} deposit
                     </p>
                     <span className="btn-ink rounded-[0.85rem] px-4 py-2.5 text-[0.86rem] font-medium">Book your place</span>
@@ -105,7 +105,7 @@ export default function GroupsPage() {
           <div className="lg:col-span-5">
             <Label>Start here</Label>
             <Heading className="mt-4 text-[clamp(2.4rem,4vw,3.8rem)]">Your group, in a few lines</Heading>
-            <p className="mt-5 max-w-[26rem] text-[1rem] leading-[1.7] text-ink/68">A minute of questions, sent to us on WhatsApp. We’ll get back to you to talk it through, with no obligation.</p>
+            <p className="mt-5 max-w-[26rem] text-[1rem] leading-[1.7] text-ink/72">A minute of questions, sent to us on WhatsApp. We’ll get back to you to talk it through, with no obligation.</p>
             <div className="glass mt-8 rounded-[1.5rem] px-5 py-1">
               {groupsPage.questions.map((f, i) => (
                 <details key={f.q} className={`group ${i ? "border-t border-ink/8" : ""}`}>
@@ -118,7 +118,7 @@ export default function GroupsPage() {
                       +
                     </span>
                   </summary>
-                  <p className="pb-4 text-[0.93rem] leading-[1.65] text-ink/68">{f.a}</p>
+                  <p className="pb-4 text-[0.93rem] leading-[1.65] text-ink/72">{f.a}</p>
                 </details>
               ))}
             </div>

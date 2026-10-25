@@ -28,6 +28,10 @@ invitation, the planner summary, the footer's rounded top).
 
 A faint paper grain sits over the page (`body::after`).
 
+**Readable greys:** quieter text is cocoa at reduced opacity, never below `text-ink/62` (about 4:1 on cream) and
+`text-ink/68` or more for anything people read in sentences (4.5:1 and up). Many travellers are older and read
+on phones outdoors.
+
 ## 2. Type
 
 | Role | Face | Setting |

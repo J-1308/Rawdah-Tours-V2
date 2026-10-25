@@ -36,7 +36,7 @@ export function ReservePanel({ j, bookable = false }: { j: Journey; bookable?: b
       <div className={box}>
         <div className={head}>
           <span className="font-editorial text-[1.15rem] italic text-bronze">Completed</span>
-          <span className="text-[0.86rem] text-ink/55">{j.dates.value}</span>
+          <span className="text-[0.86rem] text-ink/65">{j.dates.value}</span>
         </div>
         <div className="p-5">
           <p className="display text-[1.9rem]">This trip is complete.</p>
@@ -47,7 +47,7 @@ export function ReservePanel({ j, bookable = false }: { j: Journey; bookable?: b
             </span>
             <span>Tell me about the next trip</span>
           </a>
-          <Link href={`${routes.nextUmrah}#${anchors.form}`} className="mt-3 block text-center text-[0.86rem] text-ink/65 underline decoration-ink/25 underline-offset-4">
+          <Link href={`${routes.nextUmrah}#${anchors.form}`} className="mt-3 block text-center text-[0.86rem] text-ink/70 underline decoration-ink/25 underline-offset-4">
             Or register for the next Umrah
           </Link>
         </div>
@@ -61,7 +61,7 @@ export function ReservePanel({ j, bookable = false }: { j: Journey; bookable?: b
       <div className={box}>
         <div className={head}>
           <span className="font-editorial text-[1.15rem] italic text-bronze">Register your interest</span>
-          <span className="text-[0.86rem] text-ink/55">{j.name}</span>
+          <span className="text-[0.86rem] text-ink/65">{j.name}</span>
         </div>
         <div className="p-5">
           <p className="display text-[1.8rem]">Start with a message.</p>
@@ -77,7 +77,7 @@ export function ReservePanel({ j, bookable = false }: { j: Journey; bookable?: b
             <Chevron dir="down" className="size-3 opacity-60" />
           </a>
           {j.kind === "hajj" ? (
-            <p className="mt-4 text-[0.78rem] leading-relaxed text-ink/60">
+            <p className="mt-4 text-[0.78rem] leading-relaxed text-ink/68">
               Hajj packages are booked and paid on{" "}
               <a href={brand.nusuk} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2">
                 Nusuk
@@ -112,7 +112,7 @@ export function ReservePanel({ j, bookable = false }: { j: Journey; bookable?: b
     <div className="flex items-center justify-between py-2.5">
       <span>
         <span className="block text-[0.93rem] font-medium">{label}</span>
-        <span className="block text-[0.78rem] text-ink/55">{note}</span>
+        <span className="block text-[0.78rem] text-ink/65">{note}</span>
       </span>
       <span className="flex items-center">
         <button type="button" aria-label={`Fewer ${label.toLowerCase()}`} onClick={() => set(Math.max(min, value - 1))} className="grid size-11 place-items-center rounded-l-[0.8rem] border border-ink/15 bg-white/[0.06] text-[1.1rem] disabled:opacity-30 sm:size-9 sm:text-base" disabled={value <= min}>
@@ -134,7 +134,7 @@ export function ReservePanel({ j, bookable = false }: { j: Journey; bookable?: b
     <div className={box}>
       <div className={head}>
         <span className="font-editorial text-[1.15rem] italic text-bronze">{open ? "Book your place" : "Register your interest"}</span>
-        <span className="text-[0.86rem] text-ink/55">
+        <span className="text-[0.86rem] text-ink/65">
           {j.dates.value}
           <Mark s={j.dates.status} />
         </span>
@@ -154,7 +154,7 @@ export function ReservePanel({ j, bookable = false }: { j: Journey; bookable?: b
               className={`rounded-[1rem] border px-3 py-3 text-left transition-colors ${room === r.type ? "border-ink bg-ink text-canvas shadow-[var(--shadow-lift)]" : "border-ink/10 bg-white/[0.06] hover:border-ink/35"}`}
             >
               <span className="block text-[0.84rem] font-medium">{r.type}</span>
-              <span className={`block text-[0.74rem] ${room === r.type ? "text-cream/70" : "text-ink/55"}`}>{r.sharing} sharing</span>
+              <span className={`block text-[0.74rem] ${room === r.type ? "text-cream/70" : "text-ink/65"}`}>{r.sharing} sharing</span>
               <span className="display mt-1.5 block text-[1.4rem] leading-none">{gbp(flights ? r.price : r.price - landGap)}</span>
             </button>
           ))}
@@ -186,14 +186,14 @@ export function ReservePanel({ j, bookable = false }: { j: Journey; bookable?: b
 
         <dl className="mt-5 grid grid-cols-1 gap-1.5 rounded-[1.1rem] bg-canvas-warm/80 p-4 text-[0.9rem]">
           <div className="flex justify-between">
-            <dt className="text-ink/65">
+            <dt className="text-ink/70">
               {adults} adult{adults === 1 ? "" : "s"}, {chosen.type.toLowerCase()}
             </dt>
             <dd>{gbp(each * adults)}</dd>
           </div>
           {children ? (
             <div className="flex justify-between">
-              <dt className="text-ink/65">
+              <dt className="text-ink/70">
                 {children} child{children === 1 ? "" : "ren"}
                 <Mark s="proposed" />
               </dt>
@@ -206,7 +206,7 @@ export function ReservePanel({ j, bookable = false }: { j: Journey; bookable?: b
           </div>
           {deposit ? (
             <div className="flex justify-between">
-              <dt className="text-ink/65">
+              <dt className="text-ink/70">
                 Deposit
                 <Mark s={j.deposit?.status} />
               </dt>
@@ -215,7 +215,7 @@ export function ReservePanel({ j, bookable = false }: { j: Journey; bookable?: b
           ) : null}
           {j.months && deposit ? (
             <div className="flex justify-between">
-              <dt className="text-ink/65">
+              <dt className="text-ink/70">
                 Then {j.months.value} instalments of
                 <Mark s={j.months.status} />
               </dt>
@@ -236,11 +236,11 @@ export function ReservePanel({ j, bookable = false }: { j: Journey; bookable?: b
           <span>{open ? `Book ${adults + children} place${adults + children === 1 ? "" : "s"} on WhatsApp` : "Register interest on WhatsApp"}</span>
         </a>
         {!open ? (
-          <a href={`#${anchors.form}`} className="mt-3 block text-center text-[0.86rem] text-ink/65 underline decoration-ink/25 underline-offset-4">
+          <a href={`#${anchors.form}`} className="mt-3 block text-center text-[0.86rem] text-ink/70 underline decoration-ink/25 underline-offset-4">
             Or use the form
           </a>
         ) : null}
-        <p className="mt-4 text-[0.78rem] leading-relaxed text-ink/60">
+        <p className="mt-4 text-[0.78rem] leading-relaxed text-ink/68">
           {open
             ? "Pay the deposit online by card (a small card fee applies) or by bank transfer with no fee. Prefer to talk first? WhatsApp us."
             : "No payment now. Prices are a guide from our last trip; we’ll message you when the dates and prices are confirmed."}

@@ -43,7 +43,7 @@ export default function PrivatePage() {
                     <Mark s={r.status} />
                   </span>
                 </span>
-                <span className="mt-1 block text-[0.88rem] text-ink/65 sm:pl-[1.1rem]">{r.text}</span>
+                <span className="mt-1 block text-[0.88rem] text-ink/70 sm:pl-[1.1rem]">{r.text}</span>
               </span>
             </li>
           ))}
@@ -52,7 +52,7 @@ export default function PrivatePage() {
 
       <section id="planner" className={`scroll-mt-28 bg-canvas py-[clamp(3rem,6vw,5rem)] ${gutter}`}>
         <Heading className="mb-6 text-[clamp(2.3rem,4vw,3.8rem)] sm:mb-8">Plan your Umrah</Heading>
-        <Suspense fallback={<p className="text-ink/60">Loading the planner…</p>}>
+        <Suspense fallback={<p className="text-ink/68">Loading the planner…</p>}>
           <Builder />
         </Suspense>
       </section>
@@ -74,7 +74,7 @@ export default function PrivatePage() {
                       {t}
                       <Mark s={i === 0 ? "draft" : "proposed"} />
                     </span>
-                    <span className="block text-[0.9rem] text-ink/65">{d}</span>
+                    <span className="block text-[0.9rem] text-ink/70">{d}</span>
                   </span>
                 </li>
               ))}

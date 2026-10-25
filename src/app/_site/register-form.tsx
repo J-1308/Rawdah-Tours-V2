@@ -33,10 +33,10 @@ function Field({
     <div>
       <label htmlFor={id} className="block font-medium">
         {label}
-        {optional ? <span className="font-normal text-ink/65"> (optional)</span> : null}
+        {optional ? <span className="font-normal text-ink/70"> (optional)</span> : null}
       </label>
       {hint ? (
-        <p id={`${id}-hint`} className="mt-1 text-[0.9375rem] text-ink/65">
+        <p id={`${id}-hint`} className="mt-1 text-[0.9375rem] text-ink/70">
           {hint}
         </p>
       ) : null}
@@ -68,7 +68,7 @@ export function RegisterForm({ defaultJourney = 'not-sure', page }: { defaultJou
           {state.firstName ? `Thank you, ${state.firstName}. ` : 'Thank you. '}
           Someone from Rawdah will be in touch about {state.journeyLabel || 'your trip'}, in sha Allah. We’ve sent a copy to your email.
         </p>
-        <p className="mt-4 text-ink/65">Registering doesn’t reserve a place or commit you to anything.</p>
+        <p className="mt-4 text-ink/70">Registering doesn’t reserve a place or commit you to anything.</p>
         <p className="mt-6">
           <Link href="/" className="font-medium text-ink underline underline-offset-4">
             Back to the homepage
@@ -95,7 +95,7 @@ export function RegisterForm({ defaultJourney = 'not-sure', page }: { defaultJou
         {state.status === 'unavailable' ? (
           <div role="alert" className="rounded-[0.95rem] border border-ink/20 bg-canvas p-5">
             <p className="font-medium">Your details couldn’t be sent from the website just now.</p>
-            <p className="mt-1 text-ink/65">Send them to us on WhatsApp instead. We’ve written the message for you.</p>
+            <p className="mt-1 text-ink/70">Send them to us on WhatsApp instead. We’ve written the message for you.</p>
             <a
               href={state.whatsapp}
               target="_blank"
@@ -119,7 +119,7 @@ export function RegisterForm({ defaultJourney = 'not-sure', page }: { defaultJou
               <input type="radio" name="journey" value={o.value} defaultChecked={journey === o.value} className="choice mt-0.5" />
               <span>
                 <span className="block font-medium leading-tight">{o.label}</span>
-                <span className="mt-1 block text-[0.9375rem] leading-snug text-ink/65">{o.hint}</span>
+                <span className="mt-1 block text-[0.9375rem] leading-snug text-ink/70">{o.hint}</span>
               </span>
             </label>
           ))}
@@ -213,7 +213,7 @@ export function RegisterForm({ defaultJourney = 'not-sure', page }: { defaultJou
       <input type="hidden" name="page" value={page} />
 
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-        <p className="max-w-[28rem] text-[0.9375rem] text-ink/65">
+        <p className="max-w-[28rem] text-[0.9375rem] text-ink/70">
           We use these details to reply to you. Registering doesn’t reserve a place. See our{' '}
           <Link href="/privacy" className="underline underline-offset-4">
             privacy policy

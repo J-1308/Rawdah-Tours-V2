@@ -56,7 +56,7 @@ export function CommunityForm() {
       {sel("When", when, setWhen, times)}
       {sel("Who’s travelling", kind, setKind, ["Brothers and sisters", "Brothers", "Sisters", "Families", "Young people"])}
       <label className="flex flex-col gap-2 text-[0.9rem] font-medium sm:col-span-2">
-        Anything else <span className="font-normal text-ink/60">(optional: what you’re studying, a teacher, a budget)</span>
+        Anything else <span className="font-normal text-ink/68">(optional: what you’re studying, a teacher, a budget)</span>
         <textarea value={notes} onChange={(e) => setNotes(e.target.value)} rows={3} className="field font-normal" />
       </label>
       <label className="flex flex-col gap-2 text-[0.9rem] font-medium sm:col-span-2">

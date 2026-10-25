@@ -87,7 +87,7 @@ export function SiteHeader() {
                           <li key={c.href}>
                             <Link href={c.href} className="flex items-baseline justify-between gap-4 rounded-[0.9rem] px-4 py-3 transition-colors hover:bg-white/[0.1]">
                               <span className="font-editorial text-[1.2rem]">{c.label}</span>
-                              <span className="text-[0.76rem] text-ink/50">{c.note}</span>
+                              <span className="text-[0.76rem] text-ink/62">{c.note}</span>
                             </Link>
                           </li>
                         ))}
@@ -153,7 +153,7 @@ export function SiteHeader() {
                   <Link href={item.href} onClick={() => setOpen(false)} className="group flex items-center justify-between gap-4 py-3.5">
                     <span>
                       <span className="display block text-[1.9rem] leading-[1.1]">{item.label}</span>
-                      {"note" in item ? <span className="mt-1 block text-[0.8rem] text-ink/50">{item.note}</span> : null}
+                      {"note" in item ? <span className="mt-1 block text-[0.8rem] text-ink/62">{item.note}</span> : null}
                     </span>
                     <Chevron className="size-3 shrink-0 text-ink/35" />
                   </Link>
@@ -168,7 +168,7 @@ export function SiteHeader() {
                 <WaGlyph className="size-5 text-wa" /> WhatsApp us
               </a>
             </div>
-            <div className="mt-8 grid grid-cols-1 gap-1 text-[0.92rem] text-ink/60">
+            <div className="mt-8 grid grid-cols-1 gap-1 text-[0.92rem] text-ink/68">
               <a href={brand.phone.href}>{brand.phone.display}</a>
               <a href={`mailto:${brand.email}`}>{brand.email}</a>
             </div>

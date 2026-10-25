@@ -51,11 +51,11 @@ export function TripRow({ j }: { j: Journey; tone?: "canvas" | "ink" }) {
             {j.name}
           </Link>
         </h3>
-        <p className="mt-1 font-editorial text-[1.1rem] leading-snug text-ink/65 italic sm:mt-1.5 sm:text-[1.15rem]">{j.tagline}</p>
+        <p className="mt-1 font-editorial text-[1.1rem] leading-snug text-ink/70 italic sm:mt-1.5 sm:text-[1.15rem]">{j.tagline}</p>
         <dl className="mt-4 grid grid-cols-[5.25rem_1fr] gap-x-3 gap-y-2 text-[0.9rem] sm:mt-5 sm:grid-cols-[5.5rem_1fr] sm:gap-x-4 sm:text-[0.92rem]">
           {facts.map((f) => (
             <div key={f.k} className="contents">
-              <dt className="text-ink/50">{f.k}</dt>
+              <dt className="text-ink/62">{f.k}</dt>
               <dd className="text-ink/85">
                 {f.v}
                 <Mark s={f.s} />
@@ -68,14 +68,14 @@ export function TripRow({ j }: { j: Journey; tone?: "canvas" | "ink" }) {
       <div className="flex flex-col justify-between gap-4 rounded-[1.35rem] bg-canvas-warm/80 p-4 sm:gap-5 sm:rounded-[1.5rem] sm:p-5">
         {price ? (
           <div>
-            <p className="text-[0.8rem] text-ink/55">{j.state === "past" ? "Was from" : "From"}</p>
+            <p className="text-[0.8rem] text-ink/65">{j.state === "past" ? "Was from" : "From"}</p>
             <p className="mt-0.5 flex flex-wrap items-baseline gap-x-2">
               <span className="display text-[2.3rem] leading-none sm:text-[2.6rem]">{gbp(price)}</span>
-              <span className="text-[0.84rem] text-ink/55">per person</span>
+              <span className="text-[0.84rem] text-ink/65">per person</span>
               <Mark s={j.rooms?.status} />
             </p>
             {j.deposit ? (
-              <p className="mt-2 text-[0.84rem] text-ink/60">
+              <p className="mt-2 text-[0.84rem] text-ink/68">
                 {gbp(j.deposit.value)} deposit
                 {j.months ? `, then ${j.months.value} × ${gbp(monthly(price, j.deposit.value, j.months.value))}` : ""}
                 <Mark s={j.months?.status ?? j.deposit.status} />
@@ -84,9 +84,9 @@ export function TripRow({ j }: { j: Journey; tone?: "canvas" | "ink" }) {
           </div>
         ) : (
           <div>
-            <p className="text-[0.8rem] text-ink/55">Prices</p>
+            <p className="text-[0.8rem] text-ink/65">Prices</p>
             <p className="display mt-0.5 text-[1.8rem] leading-tight">On Nusuk</p>
-            <p className="mt-2 text-[0.84rem] text-ink/60">
+            <p className="mt-2 text-[0.84rem] text-ink/68">
               {j.priceNote?.value}
               <Mark s={j.priceNote?.status} />
             </p>

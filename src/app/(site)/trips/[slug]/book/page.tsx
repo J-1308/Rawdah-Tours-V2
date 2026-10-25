@@ -25,7 +25,7 @@ export default async function BookPage({ params }: { params: Promise<{ slug: str
         <Link href={`/trips/${trip.slug}`} className="font-medium text-ink underline underline-offset-4">
           {trip.name}
         </Link>
-        <span className="text-ink/65"> / Book your place</span>
+        <span className="text-ink/70"> / Book your place</span>
       </p>
 
       {demo ? (
@@ -38,7 +38,7 @@ export default async function BookPage({ params }: { params: Promise<{ slug: str
       <div className="mt-8 grid gap-10 sm:gap-14 lg:grid-cols-12 lg:gap-10">
         <div className="lg:col-span-7">
           <h1 className="display text-[clamp(2.4rem,1.6rem+3vw,4rem)]">Book your place</h1>
-          <p className="mt-4 max-w-[36rem] text-lg text-ink/65">
+          <p className="mt-4 max-w-[36rem] text-lg text-ink/70">
             {trip.name}, {formatDateRange(trip.startDate, trip.endDate)}. Booking takes about five minutes. You’ll need your passport details to hand.
           </p>
           <div className="mt-8 sm:mt-10">
@@ -55,7 +55,7 @@ export default async function BookPage({ params }: { params: Promise<{ slug: str
         <aside className="lg:col-span-4 lg:col-start-9">
           <div className="glass rounded-[1.75rem] p-5 sm:p-7 lg:sticky lg:top-28">
             <h2 className="display text-[1.75rem]">{trip.name}</h2>
-            <p className="mt-1 text-ink/65">{formatDateRange(trip.startDate, trip.endDate)}</p>
+            <p className="mt-1 text-ink/70">{formatDateRange(trip.startDate, trip.endDate)}</p>
             <dl className="mt-6 space-y-3 text-[0.9375rem]">
               {rooms.map((r) => (
                 <div key={r.id} className="flex justify-between gap-4 border-b border-ink/10 pb-3">
@@ -73,8 +73,8 @@ export default async function BookPage({ params }: { params: Promise<{ slug: str
               </div>
             </dl>
             <h3 className="mt-8 font-medium">After your deposit</h3>
-            <p className="mt-2 text-[0.9375rem] leading-relaxed text-ink/65">{balancePlan}</p>
-            <p className="mt-4 text-[0.9375rem] leading-relaxed text-ink/65">
+            <p className="mt-2 text-[0.9375rem] leading-relaxed text-ink/70">{balancePlan}</p>
+            <p className="mt-4 text-[0.9375rem] leading-relaxed text-ink/70">
               You’ll get a confirmation email, then your payment schedule, packing list and visa steps.
             </p>
           </div>

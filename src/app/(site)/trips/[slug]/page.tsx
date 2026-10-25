@@ -63,11 +63,11 @@ export default async function TripPage({ params }: { params: Promise<{ slug: str
         <div className="mt-4">
           <StateTag j={j} />
         </div>
-        <p className="mt-4 max-w-[34rem] font-editorial text-[clamp(1.4rem,2vw,1.8rem)] leading-snug text-ink/65 italic">{j.tagline}</p>
+        <p className="mt-4 max-w-[34rem] font-editorial text-[clamp(1.4rem,2vw,1.8rem)] leading-snug text-ink/70 italic">{j.tagline}</p>
         <dl className="mt-6 grid max-w-[36rem] grid-cols-2 gap-2 text-[0.9rem] sm:mt-7 sm:gap-2.5 sm:text-[0.92rem]">
           {[...facts, { k: j.kind === "hajj" ? "The rites" : "Route", v: routeText(j), s: j.route.status }].map((f, i, all) => (
             <div key={f.k} className={`glass rounded-[1.1rem] p-3.5 [--glass-shadow:none] ${i === all.length - 1 ? "col-span-2" : ""}`}>
-              <dt className="text-[0.78rem] text-ink/50">{f.k}</dt>
+              <dt className="text-[0.78rem] text-ink/62">{f.k}</dt>
               <dd className="mt-1 leading-snug">
                 {f.v}
                 <Mark s={f.s} />
@@ -139,7 +139,7 @@ export default async function TripPage({ params }: { params: Promise<{ slug: str
                 ))}
               </ol>
               {j.kind === "hajj" ? (
-                <p className="max-w-[38rem] text-[0.88rem] text-ink/60">The rites in outline. Your guide teaches each one in detail before you perform it, and each package’s timings are set out on Nusuk.</p>
+                <p className="max-w-[38rem] text-[0.88rem] text-ink/68">The rites in outline. Your guide teaches each one in detail before you perform it, and each package’s timings are set out on Nusuk.</p>
               ) : null}
             </section>
           ) : null}
@@ -159,7 +159,7 @@ export default async function TripPage({ params }: { params: Promise<{ slug: str
                           {named?.value ?? h.name}
                           <Mark s={named?.status ?? h.status} />
                         </p>
-                        <p className="mt-0.5 text-[0.88rem] text-ink/65">
+                        <p className="mt-0.5 text-[0.88rem] text-ink/70">
                           {h.walk}. {h.board}.
                         </p>
                       </div>
@@ -195,7 +195,7 @@ export default async function TripPage({ params }: { params: Promise<{ slug: str
                 <TeacherList list={theirTeachers} tone="canvas" />
               ) : (
                 <div className="glass grid grid-cols-[4.75rem_1fr] items-center gap-4 rounded-[1.5rem] p-4 sm:grid-cols-[7rem_1fr] sm:gap-5 sm:p-3 sm:pr-5">
-                  <div className="grid aspect-square place-items-center rounded-[1.1rem] border border-dashed border-ink/25 p-2 text-center text-[0.72rem] text-ink/55">To be named</div>
+                  <div className="grid aspect-square place-items-center rounded-[1.1rem] border border-dashed border-ink/25 p-2 text-center text-[0.72rem] text-ink/65">To be named</div>
                   <div>
                     <p className="display text-[1.45rem] leading-tight sm:text-[1.65rem]">
                       {j.teacher.value}
