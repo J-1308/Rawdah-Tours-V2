@@ -25,7 +25,7 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
-export const viewport: Viewport = { themeColor: "#f8f3eb" };
+export const viewport: Viewport = { themeColor: "#1b1410" };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   preload("/fonts/cormorant-garamond-latin-wght-normal.woff2", { as: "font", type: "font/woff2", crossOrigin: "anonymous" });

@@ -65,7 +65,7 @@ export default function PrivatePage() {
                 ["A deposit holds it", "Then the rest in instalments before you fly."],
               ].map(([t, d], i) => (
                 <li key={t} className="grid grid-cols-[2.75rem_1fr] items-center gap-4 border-t border-ink/8 py-4 first:border-0">
-                  <span className="display grid size-11 place-items-center rounded-full bg-white/70 text-[1.4rem] text-bronze shadow-[var(--shadow-lift)]">{i + 1}</span>
+                  <span className="display grid size-11 place-items-center rounded-full bg-white/[0.06] text-[1.4rem] text-bronze shadow-[var(--shadow-lift)]">{i + 1}</span>
                   <span>
                     <span className="block text-[1rem] font-medium">
                       {t}

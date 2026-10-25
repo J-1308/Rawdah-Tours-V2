@@ -18,7 +18,7 @@ import { Chevron, WaGlyph } from "@/app/_site/whatsapp";
  */
 
 const box = "glass overflow-hidden rounded-[1.75rem]";
-const head = "flex items-center justify-between gap-3 border-b border-ink/8 bg-white/40 px-6 py-4";
+const head = "flex items-center justify-between gap-3 border-b border-ink/8 bg-white/[0.06] px-6 py-4";
 const waBtn = "flex min-h-[3.25rem] items-center justify-center gap-2.5 rounded-[0.95rem] bg-wa px-4 text-[0.95rem] font-medium text-white shadow-[0_14px_30px_-16px_rgb(31_168_85/0.7)]";
 const waCell = "grid place-items-center";
 
@@ -72,7 +72,7 @@ export function ReservePanel({ j, bookable = false }: { j: Journey; bookable?: b
             </span>
             <span>Register on WhatsApp</span>
           </a>
-          <a href={`#${anchors.form}`} className="mt-2 flex min-h-[3.25rem] items-center justify-center gap-2 rounded-[0.95rem] border border-ink/15 bg-white/50 text-[0.95rem] font-medium hover:border-ink/40">
+          <a href={`#${anchors.form}`} className="mt-2 flex min-h-[3.25rem] items-center justify-center gap-2 rounded-[0.95rem] border border-ink/15 bg-white/[0.06] text-[0.95rem] font-medium hover:border-ink/40">
             <span>Or use the form</span>
             <Chevron dir="down" className="size-3 opacity-60" />
           </a>
@@ -115,13 +115,13 @@ export function ReservePanel({ j, bookable = false }: { j: Journey; bookable?: b
         <span className="block text-[0.76rem] text-ink/55">{note}</span>
       </span>
       <span className="flex items-center">
-        <button type="button" aria-label={`Fewer ${label.toLowerCase()}`} onClick={() => set(Math.max(min, value - 1))} className="grid size-9 place-items-center rounded-l-[0.8rem] border border-ink/15 bg-white/60 disabled:opacity-30" disabled={value <= min}>
+        <button type="button" aria-label={`Fewer ${label.toLowerCase()}`} onClick={() => set(Math.max(min, value - 1))} className="grid size-9 place-items-center rounded-l-[0.8rem] border border-ink/15 bg-white/[0.06] disabled:opacity-30" disabled={value <= min}>
           −
         </button>
-        <span className="grid h-9 w-10 place-items-center border-y border-ink/15 bg-white/60 tabular-nums" aria-live="polite">
+        <span className="grid h-9 w-10 place-items-center border-y border-ink/15 bg-white/[0.06] tabular-nums" aria-live="polite">
           {value}
         </span>
-        <button type="button" aria-label={`More ${label.toLowerCase()}`} onClick={() => set(Math.min(12, value + 1))} className="grid size-9 place-items-center rounded-r-[0.8rem] border border-ink/15 bg-white/60">
+        <button type="button" aria-label={`More ${label.toLowerCase()}`} onClick={() => set(Math.min(12, value + 1))} className="grid size-9 place-items-center rounded-r-[0.8rem] border border-ink/15 bg-white/[0.06]">
           +
         </button>
       </span>
@@ -151,10 +151,10 @@ export function ReservePanel({ j, bookable = false }: { j: Journey; bookable?: b
               type="button"
               aria-pressed={room === r.type}
               onClick={() => setRoom(r.type)}
-              className={`rounded-[1rem] border px-3 py-3 text-left transition-colors ${room === r.type ? "border-ink bg-ink text-canvas shadow-[var(--shadow-lift)]" : "border-ink/10 bg-white/55 hover:border-ink/35"}`}
+              className={`rounded-[1rem] border px-3 py-3 text-left transition-colors ${room === r.type ? "border-ink bg-ink text-canvas shadow-[var(--shadow-lift)]" : "border-ink/10 bg-white/[0.06] hover:border-ink/35"}`}
             >
               <span className="block text-[0.84rem] font-medium">{r.type}</span>
-              <span className={`block text-[0.7rem] ${room === r.type ? "text-canvas/70" : "text-ink/55"}`}>{r.sharing} sharing</span>
+              <span className={`block text-[0.7rem] ${room === r.type ? "text-cream/70" : "text-ink/55"}`}>{r.sharing} sharing</span>
               <span className="display mt-1.5 block text-[1.4rem] leading-none">{gbp(flights ? r.price : r.price - landGap)}</span>
             </button>
           ))}
@@ -163,7 +163,7 @@ export function ReservePanel({ j, bookable = false }: { j: Journey; bookable?: b
         {j.landOnly ? (
           <div className="mt-3 grid grid-cols-2 gap-1.5 text-[0.86rem]">
             {[true, false].map((f) => (
-              <button key={String(f)} type="button" aria-pressed={flights === f} onClick={() => setFlights(f)} className={`rounded-[0.8rem] border py-2.5 font-medium transition-colors ${flights === f ? "border-ink bg-ink text-canvas" : "border-ink/10 bg-white/55 text-ink/75"}`}>
+              <button key={String(f)} type="button" aria-pressed={flights === f} onClick={() => setFlights(f)} className={`rounded-[0.8rem] border py-2.5 font-medium transition-colors ${flights === f ? "border-ink bg-ink text-canvas" : "border-ink/10 bg-white/[0.06] text-ink/75"}`}>
                 {f ? "With flights" : "Land only"}
               </button>
             ))}
@@ -178,7 +178,7 @@ export function ReservePanel({ j, bookable = false }: { j: Journey; bookable?: b
         <p className={`mt-4 ${label}`}>Sharing a room with</p>
         <div className="mt-2 flex flex-wrap gap-1.5 text-[0.84rem]">
           {shareOptions.map((s) => (
-            <button key={s} type="button" aria-pressed={share === s} onClick={() => setShare(s)} className={`rounded-full border px-3 py-1.5 transition-colors ${share === s ? "border-ink bg-ink text-canvas" : "border-ink/10 bg-white/55 hover:border-ink/35"}`}>
+            <button key={s} type="button" aria-pressed={share === s} onClick={() => setShare(s)} className={`rounded-full border px-3 py-1.5 transition-colors ${share === s ? "border-ink bg-ink text-canvas" : "border-ink/10 bg-white/[0.06] hover:border-ink/35"}`}>
               {s}
             </button>
           ))}

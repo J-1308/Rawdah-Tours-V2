@@ -68,7 +68,7 @@ export function CommunityForm() {
           <WaGlyph className="size-5" />
           Send on WhatsApp
         </a>
-        <a href={`mailto:${brand.email}?subject=${encodeURIComponent("A trip for our group")}&body=${encodeURIComponent(message)}`} className="flex min-h-[3.25rem] flex-1 items-center justify-center rounded-[0.95rem] border border-ink/15 bg-white/50 text-[0.95rem] font-medium hover:border-ink/40">
+        <a href={`mailto:${brand.email}?subject=${encodeURIComponent("A trip for our group")}&body=${encodeURIComponent(message)}`} className="flex min-h-[3.25rem] flex-1 items-center justify-center rounded-[0.95rem] border border-ink/15 bg-white/[0.06] text-[0.95rem] font-medium hover:border-ink/40">
           Email it instead
         </a>
       </div>

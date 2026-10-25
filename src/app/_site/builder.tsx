@@ -47,7 +47,7 @@ function Segments<T extends string>({ value, options, onChange, label }: { value
           type="button"
           aria-pressed={value === o}
           onClick={() => onChange(o)}
-          className={`rounded-full border px-4 py-2.5 text-[0.88rem] transition-colors ${value === o ? "border-ink bg-ink text-canvas shadow-[var(--shadow-lift)]" : "border-ink/10 bg-white/60 hover:border-ink/35"}`}
+          className={`rounded-full border px-4 py-2.5 text-[0.88rem] transition-colors ${value === o ? "border-ink bg-ink text-canvas shadow-[var(--shadow-lift)]" : "border-ink/10 bg-white/[0.06] hover:border-ink/35"}`}
         >
           {o}
         </button>
@@ -59,13 +59,13 @@ function Segments<T extends string>({ value, options, onChange, label }: { value
 function Count({ label, value, set, min, max }: { label: string; value: number; set: (n: number) => void; min: number; max: number }) {
   return (
     <span className="inline-flex items-center">
-      <button type="button" aria-label={`Fewer: ${label}`} disabled={value <= min} onClick={() => set(Math.max(min, value - 1))} className="grid size-10 place-items-center rounded-l-[0.8rem] border border-ink/12 bg-white/70 disabled:opacity-30">
+      <button type="button" aria-label={`Fewer: ${label}`} disabled={value <= min} onClick={() => set(Math.max(min, value - 1))} className="grid size-10 place-items-center rounded-l-[0.8rem] border border-ink/12 bg-white/[0.06] disabled:opacity-30">
         −
       </button>
-      <span className="grid h-10 w-12 place-items-center border-y border-ink/12 bg-white/70 tabular-nums" aria-live="polite">
+      <span className="grid h-10 w-12 place-items-center border-y border-ink/12 bg-white/[0.06] tabular-nums" aria-live="polite">
         {value}
       </span>
-      <button type="button" aria-label={`More: ${label}`} disabled={value >= max} onClick={() => set(Math.min(max, value + 1))} className="grid size-10 place-items-center rounded-r-[0.8rem] border border-ink/12 bg-white/70 disabled:opacity-30">
+      <button type="button" aria-label={`More: ${label}`} disabled={value >= max} onClick={() => set(Math.min(max, value + 1))} className="grid size-10 place-items-center rounded-r-[0.8rem] border border-ink/12 bg-white/[0.06] disabled:opacity-30">
         +
       </button>
     </span>
@@ -188,7 +188,7 @@ export function Builder() {
 
       {/* The plan: sticky beside the sheet on desktop, after it on phones */}
       <aside className="lg:sticky lg:top-28 lg:col-span-5">
-        <div className="panel-dark rounded-[2rem] p-7 text-canvas [&_.site-mark]:border-sand/60 [&_.site-mark]:text-sand">
+        <div className="panel-dark rounded-[2rem] p-7 text-cream [&_.site-mark]:border-sand/60 [&_.site-mark]:text-sand">
           <p className="flex items-center gap-2.5 font-editorial text-[1.15rem] italic text-sand">
             <span aria-hidden className="mark-mask h-4 text-sand/80" />
             Your plan
@@ -205,23 +205,23 @@ export function Builder() {
               ["Hotels", hotel],
               ["Extras", `${transport}, ziyarah: ${ziyarah.toLowerCase()}`],
             ].map(([k, v]) => (
-              <div key={k} className="grid grid-cols-[4.5rem_1fr] gap-3 border-t border-canvas/15 py-2.5">
-                <dt className="text-canvas/55">{k}</dt>
+              <div key={k} className="grid grid-cols-[4.5rem_1fr] gap-3 border-t border-cream/15 py-2.5">
+                <dt className="text-cream/55">{k}</dt>
                 <dd>{v}</dd>
               </div>
             ))}
           </dl>
           <div className="mt-2 rounded-[1.25rem] bg-white/[0.06] p-5 ring-1 ring-white/10">
-            <p className="text-[0.8rem] text-canvas/70">
+            <p className="text-[0.8rem] text-cream/70">
               Rough cost per adult
               <Mark s={privatePricing.status} />
             </p>
             <p className="display mt-1 text-[3rem] leading-none">{gbp(est.adult)}</p>
-            <p className="mt-2 text-[0.84rem] text-canvas/70">
+            <p className="mt-2 text-[0.84rem] text-cream/70">
               About {gbp(est.total)} in total{children ? `, children ${gbp(est.child)} each` : ""}. A guide, not a quote: we come back with real prices.
             </p>
           </div>
-          <label className="mt-5 flex flex-col gap-2 text-[0.86rem] text-canvas/80">
+          <label className="mt-5 flex flex-col gap-2 text-[0.86rem] text-cream/80">
             Your name
             <input value={name} onChange={(e) => setName(e.target.value)} autoComplete="name" className="field" />
           </label>
@@ -229,10 +229,10 @@ export function Builder() {
           <WaGlyph className="size-5" />
           Send this plan on WhatsApp
           </a>
-          <a href={`mailto:${brand.email}?subject=${encodeURIComponent("Private Umrah plan")}&body=${encodeURIComponent(message)}`} className="mt-3 block text-center text-[0.84rem] text-canvas/65 underline decoration-canvas/30 underline-offset-4">
+          <a href={`mailto:${brand.email}?subject=${encodeURIComponent("Private Umrah plan")}&body=${encodeURIComponent(message)}`} className="mt-3 block text-center text-[0.84rem] text-cream/65 underline decoration-canvas/30 underline-offset-4">
             Or email it to us
           </a>
-          <p className="mt-4 text-[0.78rem] leading-relaxed text-canvas/60">
+          <p className="mt-4 text-[0.78rem] leading-relaxed text-cream/60">
             Nothing is booked and nothing is paid. We reply with real options.
             <Mark s="proposed" />
           </p>

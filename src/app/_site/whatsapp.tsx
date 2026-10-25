@@ -23,7 +23,7 @@ export function WhatsAppFloat() {
       rel="noopener noreferrer"
       aria-label="Message Rawdah Tours on WhatsApp"
       title="Message us on WhatsApp"
-      className="fixed right-6 bottom-6 z-50 hidden size-14 place-items-center rounded-full border border-white/70 bg-canvas/90 text-wa shadow-[var(--shadow-float)] backdrop-blur transition-transform duration-300 hover:-translate-y-0.5 lg:grid"
+      className="fixed right-6 bottom-6 z-50 hidden size-14 place-items-center rounded-full border border-white/10 bg-canvas/90 text-wa shadow-[var(--shadow-float)] backdrop-blur transition-transform duration-300 hover:-translate-y-0.5 lg:grid"
     >
       <WaGlyph className="size-7" />
     </a>
@@ -44,8 +44,8 @@ export function MobileBar() {
         : { label: strip.cta, href: strip.href };
   return (
     <div className="fixed inset-x-0 bottom-0 z-50 px-2.5 pb-[calc(0.5rem+env(safe-area-inset-bottom))] lg:hidden">
-      <div className="grid grid-cols-[auto_1fr] gap-1.5 rounded-[1.15rem] border border-white/70 bg-canvas/85 p-1.5 shadow-[var(--shadow-float)] backdrop-blur-md">
-        <a href={wa(say.general)} target="_blank" rel="noopener noreferrer" className="flex h-12 items-center gap-2 rounded-[0.85rem] bg-white/70 px-4 text-[0.92rem] font-medium text-ink">
+      <div className="grid grid-cols-[auto_1fr] gap-1.5 rounded-[1.15rem] border border-white/10 bg-canvas/85 p-1.5 shadow-[var(--shadow-float)] backdrop-blur-md">
+        <a href={wa(say.general)} target="_blank" rel="noopener noreferrer" className="flex h-12 items-center gap-2 rounded-[0.85rem] bg-white/[0.06] px-4 text-[0.92rem] font-medium text-ink">
           <WaGlyph className="size-5 text-wa" />
           WhatsApp
         </a>

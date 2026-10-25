@@ -19,7 +19,7 @@ type Variant = "primary" | "outline";
 export function ButtonLink({ href, variant = "primary", className, children }: { href: string; variant?: Variant; className?: string; children: ReactNode }) {
   const cls = cx(
     "inline-flex min-h-[3.25rem] items-center justify-center gap-3 rounded-[0.95rem] px-6 py-3.5 text-[0.95rem] font-medium transition-colors",
-    variant === "primary" ? "btn-ink" : "border border-ink/15 bg-white/50 hover:border-ink/40",
+    variant === "primary" ? "btn-ink" : "border border-ink/15 bg-white/[0.06] hover:border-ink/40",
     className,
   );
   return (
@@ -37,7 +37,7 @@ export function WhatsAppButton({ message, variant = "primary", className, label 
       rel="noopener noreferrer"
       className={cx(
         "inline-flex min-h-[3.25rem] items-center justify-center gap-2.5 rounded-[0.95rem] px-6 py-3.5 text-[0.95rem] font-medium transition-colors",
-        variant === "primary" ? "bg-wa text-white hover:opacity-90" : "border border-ink/15 bg-white/50 hover:border-ink/40",
+        variant === "primary" ? "bg-wa text-white hover:opacity-90" : "border border-ink/15 bg-white/[0.06] hover:border-ink/40",
         className,
       )}
     >

@@ -12,7 +12,7 @@ export function StateTag({ j, className = "" }: { j: Journey; className?: string
   return (
     <span
       className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-[0.74rem] font-medium backdrop-blur ${
-        j.state === "past" ? "bg-white/80 text-ink/70" : "bg-white/85 text-ink"
+        j.state === "past" ? "bg-black/50 text-cream/75" : "bg-black/50 text-cream"
       } ${className}`}
     >
       <span aria-hidden className={`size-1.5 rounded-full ${j.state === "past" ? "bg-ink/30" : "bg-[#6f9a74]"}`} />
@@ -97,7 +97,7 @@ export function TripRow({ j }: { j: Journey; tone?: "canvas" | "ink" }) {
             {cta}
             <Chevron className="size-3 opacity-70 transition-transform group-hover:translate-x-0.5" />
           </Link>
-          <a href={wa(j.waText)} target="_blank" rel="noopener noreferrer" aria-label={`Ask about ${j.name} on WhatsApp`} className="grid size-12 place-items-center rounded-[0.9rem] border border-ink/12 bg-white/70 text-wa">
+          <a href={wa(j.waText)} target="_blank" rel="noopener noreferrer" aria-label={`Ask about ${j.name} on WhatsApp`} className="grid size-12 place-items-center rounded-[0.9rem] border border-ink/12 bg-white/[0.06] text-wa">
             <WaGlyph className="size-5" />
           </a>
         </div>

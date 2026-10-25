@@ -32,7 +32,7 @@ export default function GroupsPage() {
         </p>
         <ul className="mt-7 flex flex-wrap gap-2">
           {groupsPage.who.map((w) => (
-            <li key={w} className="rounded-full border border-ink/10 bg-white/55 px-3.5 py-1.5 text-[0.84rem] text-ink/75">
+            <li key={w} className="rounded-full border border-ink/10 bg-white/[0.06] px-3.5 py-1.5 text-[0.84rem] text-ink/75">
               {w}
             </li>
           ))}
@@ -67,7 +67,7 @@ export default function GroupsPage() {
                     <span className="display grid size-10 shrink-0 place-items-center rounded-full bg-sand/15 text-[1.35rem] text-sand">{i + 1}</span>
                     <span>
                       <span className="block text-[1rem] font-medium">{s.title}</span>
-                      <span className="block text-[0.9rem] text-canvas/62">{s.text}</span>
+                      <span className="block text-[0.9rem] text-cream/62">{s.text}</span>
                     </span>
                   </li>
                 ))}
@@ -112,7 +112,7 @@ export default function GroupsPage() {
                       {f.q}
                       <Mark s={f.status} />
                     </span>
-                    <span aria-hidden className="mt-0.5 grid size-6 shrink-0 place-items-center rounded-full bg-white/80 text-[0.9rem] leading-none text-ink/70 shadow-[0_4px_12px_-6px_rgb(58_43_36/0.4)] transition-transform group-open:rotate-45">
+                    <span aria-hidden className="mt-0.5 grid size-6 shrink-0 place-items-center rounded-full bg-white/[0.06] text-[0.9rem] leading-none text-ink/70 shadow-[0_4px_12px_-6px_rgb(58_43_36/0.4)] transition-transform group-open:rotate-45">
                       +
                     </span>
                   </summary>

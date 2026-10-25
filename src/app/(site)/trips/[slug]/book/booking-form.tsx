@@ -98,7 +98,7 @@ export function BookingForm({
           {rooms.map((r) => (
             <label
               key={r.id}
-              className="flex cursor-pointer flex-col gap-1 rounded-[0.95rem] border border-ink/10 bg-white/55 p-4 transition-colors hover:border-ink/40 has-[:checked]:border-ink has-[:checked]:bg-white has-[:checked]:shadow-[0_0_0_4px_rgb(216_195_161/0.35)]"
+              className="flex cursor-pointer flex-col gap-1 rounded-[0.95rem] border border-ink/10 bg-white/[0.06] p-4 transition-colors hover:border-ink/40 has-[:checked]:border-ink has-[:checked]:bg-white/[0.08] has-[:checked]:shadow-[0_0_0_4px_rgb(216_195_161/0.35)]"
             >
               <span className="flex items-center gap-3">
                 <input type="radio" name="roomId" value={r.id} defaultChecked={v.roomId === r.id} className="choice" required />
@@ -174,7 +174,7 @@ export function BookingForm({
 
       <Group title="Payment">
         <div className="grid gap-3 sm:grid-cols-2">
-          <label className="flex cursor-pointer items-start gap-3 rounded-[0.95rem] border border-ink/10 bg-white/55 p-4 has-[:checked]:border-ink has-[:checked]:bg-white has-[:checked]:shadow-[0_0_0_4px_rgb(216_195_161/0.35)]">
+          <label className="flex cursor-pointer items-start gap-3 rounded-[0.95rem] border border-ink/10 bg-white/[0.06] p-4 has-[:checked]:border-ink has-[:checked]:bg-white/[0.08] has-[:checked]:shadow-[0_0_0_4px_rgb(216_195_161/0.35)]">
             <input type="radio" name="paymentMethod" value="card" checked={method === 'card'} onChange={() => setMethod('card')} className="choice mt-0.5" />
             <span>
               <span className="block font-medium">Card, online now</span>
@@ -183,7 +183,7 @@ export function BookingForm({
               </span>
             </span>
           </label>
-          <label className="flex cursor-pointer items-start gap-3 rounded-[0.95rem] border border-ink/10 bg-white/55 p-4 has-[:checked]:border-ink has-[:checked]:bg-white has-[:checked]:shadow-[0_0_0_4px_rgb(216_195_161/0.35)]">
+          <label className="flex cursor-pointer items-start gap-3 rounded-[0.95rem] border border-ink/10 bg-white/[0.06] p-4 has-[:checked]:border-ink has-[:checked]:bg-white/[0.08] has-[:checked]:shadow-[0_0_0_4px_rgb(216_195_161/0.35)]">
             <input
               type="radio"
               name="paymentMethod"

@@ -62,8 +62,8 @@ type Tone = "ink" | "gold" | "line-ink" | "line-canvas";
 const btnTone: Record<Tone, string> = {
   ink: "btn-ink",
   gold: "btn-sand",
-  "line-ink": "border border-ink/20 bg-white/40 text-ink hover:border-ink/45 hover:bg-white/70",
-  "line-canvas": "border border-canvas/30 bg-white/5 text-canvas hover:border-canvas/60",
+  "line-ink": "border border-ink/20 bg-white/[0.06] text-ink hover:border-ink/45 hover:bg-white/[0.1]",
+  "line-canvas": "border border-cream/30 bg-white/5 text-cream hover:border-cream/60",
 };
 
 const btnBase = "group inline-flex min-h-[3.25rem] items-center justify-center gap-3 rounded-[0.95rem] px-6 py-3 text-[0.95rem] font-medium transition-[background,border-color,transform] duration-300 active:scale-[0.99]";
@@ -161,7 +161,7 @@ export function Framed({
       <div className={`relative overflow-hidden rounded-[1.75rem] bg-beige shadow-[var(--shadow-soft)] ${className}`}>
         <Image src={src} alt={alt} fill sizes={sizes} priority={priority} className={`object-cover ${position}`} />
       </div>
-      {caption ? <figcaption className={`mt-3 font-editorial text-[1rem] italic ${captionTone === "canvas" ? "text-canvas/60" : "text-ink/55"}`}>{caption}</figcaption> : null}
+      {caption ? <figcaption className={`mt-3 font-editorial text-[1rem] italic ${captionTone === "canvas" ? "text-cream/60" : "text-ink/55"}`}>{caption}</figcaption> : null}
     </figure>
   );
 }
@@ -215,7 +215,7 @@ export function PageLead({
 }) {
   return (
     <section className={`wash-hero relative overflow-hidden pt-5 pb-[clamp(4rem,8vw,7rem)] ${gutter}`}>
-      <Emblem className="pointer-events-none absolute top-[-8%] right-[-6%] h-[115%] text-sand/20" />
+      <Emblem className="pointer-events-none absolute top-[-8%] right-[-6%] h-[115%] text-sand/[0.05]" />
       {crumbs ? (
         <nav aria-label="Breadcrumb" className="relative mb-6 flex flex-wrap items-center gap-x-2 text-[0.82rem] text-ink/55">
           {crumbs.map((c, i) => (
@@ -282,7 +282,7 @@ export function ConfirmedPending({
 }
 
 export function SiteFooter() {
-  const link = "text-canvas/70 transition-colors hover:text-canvas";
+  const link = "text-cream/70 transition-colors hover:text-cream";
   const cols = [
     { title: "Trips", links: tripLinks },
     {
@@ -311,7 +311,7 @@ export function SiteFooter() {
           <Link href="/" aria-label="Rawdah Tours, home" className="inline-block text-cream">
             <Logo className="h-20 sm:h-24" />
           </Link>
-          <p className="mt-7 max-w-[24rem] font-editorial text-[1.5rem] leading-snug text-canvas/85">Guided Umrah and Hajj from the UK, with teachers beside you.</p>
+          <p className="mt-7 max-w-[24rem] font-editorial text-[1.5rem] leading-snug text-cream/85">Guided Umrah and Hajj from the UK, with teachers beside you.</p>
           <div className="mt-8 flex flex-col gap-2.5 sm:flex-row sm:flex-wrap">
             <WaTile text={say.general} label="WhatsApp" tone="line-canvas" />
             <a href={brand.phone.href} className={`${btnBase} ${btnTone["line-canvas"]}`}>
@@ -347,10 +347,10 @@ export function SiteFooter() {
           </div>
         </div>
       </div>
-      <div className="relative mt-14 grid grid-cols-1 gap-2 border-t border-canvas/12 pt-6 text-[0.78rem] leading-relaxed text-canvas/50">
+      <div className="relative mt-14 grid grid-cols-1 gap-2 border-t border-cream/12 pt-6 text-[0.78rem] leading-relaxed text-cream/50">
         <p>
           Hajj packages are booked and paid on the official{" "}
-          <a href={brand.nusuk} target="_blank" rel="noopener noreferrer" className="underline underline-offset-4 hover:text-canvas">
+          <a href={brand.nusuk} target="_blank" rel="noopener noreferrer" className="underline underline-offset-4 hover:text-cream">
             Nusuk Hajj platform
           </a>
           . Rawdah Tours does not take payment for Hajj packages.

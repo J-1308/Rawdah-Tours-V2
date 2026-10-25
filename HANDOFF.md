@@ -53,6 +53,13 @@ in the header, cream on cocoa in the footer, and the kufic mark as a faint water
 Rawdah's own, softened: cream, linen, beige, sand and cocoa; Cormorant Garamond and DM Sans. The look is soft,
 blended and premium (ADR 0002); it must never resemble The Umrah Company's site (ADR 0001).
 
+## Versions
+
+Two looks are on the table (25 October 2026):
+- `feat/v2-rebuild`: the soft cream site with the cocoa-on-cream logo (ADR 0002). Jibril likes it; keep as is.
+- `feat/v2-dark`: the same site at night with the beige logo and a new hero (ADR 0003).
+Each branch has its own Vercel preview. Pick one, then merge it into `main`.
+
 ## Hosting
 
 Vercel project `rawdah-tours-v2` (account `j-1308s-projects`), linked to this repo on 25 October 2026. Every push

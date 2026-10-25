@@ -22,33 +22,36 @@
 --------------------------------------------------------------------------- */
 
 @theme {
-  --color-canvas: #f8f3eb;
-  --color-canvas-warm: #f0e7da;
-  --color-beige: #e7d9c4;
+  /* Dark variant (feat/v2-dark): the same token names, night values. "canvas"
+     is the ground and "ink" the text, so most of the kit flips on its own;
+     "cream" stays light for words on panels and photographs. */
+  --color-canvas: #1b1410;
+  --color-canvas-warm: #241b16;
+  --color-beige: #2d221c;
   --color-sand: #d8c3a1;
-  --color-gold: #bfa27a;
-  --color-bronze: #80613a;
-  --color-ink: #3a2b24;
-  --color-ink-deep: #2a1f1a;
-  --color-clay: #5a463b;
-  --color-muted: #76604f;
+  --color-gold: #c6a978;
+  --color-bronze: #d6bf96;
+  --color-ink: #efe4d2;
+  --color-ink-deep: #1a120e;
+  --color-clay: #3a2c25;
+  --color-muted: #b7a58f;
   --color-cream: #efe4d2;
   --color-gold-soft: #d8c3a1;
-  --color-wa: #1fa855;
-  --color-error: #9b4a2f;
+  --color-wa: #25b862;
+  --color-error: #e08a6a;
 
   --font-editorial: "Cormorant Garamond", "Amiri", ui-serif, Georgia, serif;
   --font-display: "DM Sans", "Amiri", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-arabic: "Amiri", "Geeza Pro", "Noto Naskh Arabic", serif;
 
-  --shadow-soft: 0 34px 70px -38px rgb(58 43 36 / 0.42);
-  --shadow-lift: 0 18px 40px -22px rgb(58 43 36 / 0.35);
-  --shadow-float: 0 24px 60px -24px rgb(42 31 26 / 0.45);
+  --shadow-soft: 0 34px 70px -34px rgb(0 0 0 / 0.65);
+  --shadow-lift: 0 18px 40px -20px rgb(0 0 0 / 0.6);
+  --shadow-float: 0 24px 60px -22px rgb(0 0 0 / 0.75);
 }
 
 :root {
   --hero-pad-x: clamp(1.25rem, 4vw, 4.5rem);
-  color-scheme: light;
+  color-scheme: dark;
 }
 
 body {
@@ -65,8 +68,8 @@ body::after {
   inset: 0;
   z-index: 100;
   pointer-events: none;
-  opacity: 0.045;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.23 0 0 0 0 0.17 0 0 0 0 0.14 0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.94 0 0 0 0 0.89 0 0 0 0 0.82 0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
 ::selection {
@@ -134,42 +137,39 @@ body::after {
 }
 .wash-hero {
   background:
-    radial-gradient(60% 70% at 88% 18%, rgb(216 195 161 / 0.55) 0%, transparent 70%),
-    radial-gradient(50% 60% at 0% 100%, rgb(231 217 196 / 0.7) 0%, transparent 70%),
+    radial-gradient(55% 65% at 85% 20%, rgb(216 195 161 / 0.16) 0%, transparent 70%),
+    radial-gradient(45% 55% at 0% 100%, rgb(122 92 68 / 0.28) 0%, transparent 70%),
     var(--color-canvas);
 }
 
 /* The one dark ground: a rounded cocoa panel lit from a corner. */
 .panel-dark {
   background:
-    radial-gradient(90% 70% at 92% 0%, rgb(122 92 68 / 0.55) 0%, transparent 60%),
-    radial-gradient(70% 60% at 0% 100%, rgb(90 70 59 / 0.6) 0%, transparent 65%),
-    var(--color-ink);
-  color: var(--color-canvas);
+    radial-gradient(90% 70% at 92% 0%, rgb(178 140 96 / 0.22) 0%, transparent 60%),
+    radial-gradient(70% 60% at 0% 100%, rgb(122 92 68 / 0.3) 0%, transparent 65%),
+    #2a1f19;
+  color: var(--color-cream);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.06), 0 40px 80px -40px rgb(0 0 0 / 0.8);
 }
 
 /* Glass cards on cream. */
 .glass {
-  background: rgb(255 252 247 / 0.62);
-  border: 1px solid rgb(255 255 255 / 0.7);
+  background: linear-gradient(180deg, rgb(255 248 238 / 0.065) 0%, rgb(255 248 238 / 0.035) 100%);
+  border: 1px solid rgb(255 245 230 / 0.09);
   box-shadow: var(--shadow-soft);
   -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
 }
 
 /* Primary button: cocoa with a soft top light. */
-.btn-ink {
-  background: linear-gradient(180deg, #4b392f 0%, #3a2b24 100%);
-  color: var(--color-canvas);
-  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.12), 0 14px 30px -16px rgb(42 31 26 / 0.6);
-}
-.btn-ink:hover { background: linear-gradient(180deg, #554035 0%, #3f2f27 100%); }
+.btn-ink,
 .btn-sand {
-  background: linear-gradient(180deg, #e6d4b6 0%, #d3bb94 100%);
+  background: linear-gradient(180deg, #e9d8bb 0%, #cdb48b 100%);
   color: var(--color-ink-deep);
-  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.45), 0 14px 30px -16px rgb(0 0 0 / 0.5);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.5), 0 16px 34px -16px rgb(0 0 0 / 0.7);
 }
-.btn-sand:hover { background: linear-gradient(180deg, #ecdcc2 0%, #dbc49f 100%); }
+.btn-ink:hover,
+.btn-sand:hover { background: linear-gradient(180deg, #f0e2c9 0%, #d8c19a 100%); }
 
 /* --- motion: the hero settles in; images on the page fade up gently ------- */
 
@@ -190,7 +190,7 @@ body::after {
 .field {
   width: 100%;
   border: 1px solid color-mix(in oklab, var(--color-ink) 16%, transparent);
-  background: rgb(255 253 249 / 0.85);
+  background: rgb(255 248 238 / 0.05);
   border-radius: 0.8rem;
   padding: 0.85rem 1rem;
   font-size: 0.95rem;
@@ -199,11 +199,12 @@ body::after {
   transition: border-color 150ms ease, box-shadow 150ms ease;
 }
 .field::placeholder { color: color-mix(in oklab, var(--color-muted) 70%, transparent); }
-.field:focus { outline: none; border-color: var(--color-gold); box-shadow: 0 0 0 4px rgb(216 195 161 / 0.35); }
+.field:focus { outline: none; border-color: var(--color-gold); box-shadow: 0 0 0 4px rgb(216 195 161 / 0.16); }
+.field option { background: #241b16; color: var(--color-ink); }
 .field[aria-invalid="true"] { border-color: var(--color-error); }
 select.field {
   appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%233a2b24' stroke-width='1.3'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%23efe4d2' stroke-width='1.3'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right 1rem center;
   padding-right: 2.5rem;
@@ -220,3 +221,18 @@ details > summary::-webkit-details-marker { display: none; }
 /* Horizontal scrollers on phones: no visible bar. */
 .no-scrollbar { scrollbar-width: none; }
 .no-scrollbar::-webkit-scrollbar { display: none; }
+
+/* --- night hero: the photograph dissolves into the dark ------------------- */
+
+.night-photo {
+  -webkit-mask-image: linear-gradient(to bottom, #000 45%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 45%, transparent 100%);
+}
+@media (min-width: 64rem) {
+  .night-photo {
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 42%), linear-gradient(to top, transparent 0%, #000 30%);
+    -webkit-mask-composite: source-in;
+    mask-image: linear-gradient(to right, transparent 0%, #000 42%), linear-gradient(to top, transparent 0%, #000 30%);
+    mask-composite: intersect;
+  }
+}

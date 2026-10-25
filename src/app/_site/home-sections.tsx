@@ -50,30 +50,18 @@ function Dot() {
 /* ------------------------------------------------------------------------ */
 
 export function Hero() {
-  const [a, b, c] = hero.mosaic;
+  const [a, , c] = hero.mosaic;
   return (
-    <section className="wash-hero relative overflow-hidden">
-      <Emblem className="pointer-events-none absolute top-[-14%] right-[-30%] h-[80%] text-sand/[0.22] sm:right-[-12%] lg:top-[-12%] lg:right-[-3%] lg:h-[128%]" />
-      <div className={`relative grid grid-cols-1 gap-x-16 gap-y-12 pt-6 pb-[clamp(5rem,9vw,8rem)] lg:grid-cols-12 lg:items-center lg:pt-12 ${gutter}`}>
-        <div className="lg:order-2 lg:col-span-6">
-          <div className="relative mx-auto max-w-[20rem] sm:max-w-[34rem] lg:max-w-[40rem]">
-            <PhotoStack photos={[a, b, c]} priority />
-            <Link
-              href={strip.href}
-              className="glass settle absolute right-[-0.5rem] bottom-[12%] hidden rounded-[1.1rem] px-4 py-3 text-[0.84rem] transition-transform hover:-translate-y-0.5 sm:block"
-              style={{ animationDelay: "420ms" }}
-            >
-              <span className="flex items-center gap-2 font-medium">
-                <span aria-hidden className="size-2 rounded-full bg-[#6f9a74] shadow-[0_0_0_4px_rgb(111_154_116/0.18)]" />
-                Hajj 2027
-              </span>
-              <span className="mt-0.5 block text-ink/60">Registration of interest is open</span>
-            </Link>
-          </div>
-        </div>
-        <div className="lg:order-1 lg:col-span-6">
+    <section className="wash-hero relative isolate overflow-hidden">
+      {/* The main photograph, dissolving into the night: on top on phones, the right side on desktop. */}
+      <div className="settle relative h-[min(30rem,118vw)] w-full lg:absolute lg:inset-y-0 lg:right-0 lg:h-auto lg:w-[62%]">
+        <Image src={a.src} alt={a.alt} fill priority sizes="(min-width: 1024px) 62vw, 100vw" className="night-photo object-cover object-[50%_55%]" />
+      </div>
+      <Emblem className="pointer-events-none absolute top-[18%] left-[-14%] -z-10 h-[90%] text-sand/[0.05] lg:top-[-6%] lg:left-[-4%] lg:h-[115%]" />
+      <div className={`relative grid grid-cols-1 lg:min-h-[calc(100svh-7.5rem)] lg:grid-cols-12 lg:items-center ${gutter}`}>
+        <div className="-mt-12 pb-[clamp(4.5rem,9vw,7rem)] lg:col-span-6 lg:mt-0 lg:py-24 xl:col-span-5">
           <Label>{hero.label}</Label>
-          <Heading as="h1" className="mt-5 text-[clamp(2.9rem,5.8vw,6rem)]">
+          <Heading as="h1" className="mt-5 text-[clamp(2.9rem,5.8vw,6rem)] text-cream">
             {hero.headline}
           </Heading>
           <p className="mt-6 max-w-[33rem] text-[1.04rem] leading-[1.75] text-ink/70">
@@ -81,7 +69,7 @@ export function Hero() {
             <Mark s={hero.text.status} />
           </p>
           <Actions primary={{ label: "Register for Hajj 2027", href: strip.href }} waText={say.general} className="mt-9" />
-          <ul className="mt-10 flex flex-wrap gap-x-7 gap-y-2.5 text-[0.86rem] text-ink/60">
+          <ul className="mt-10 flex flex-wrap gap-x-7 gap-y-2.5 text-[0.86rem] text-ink/55">
             {hero.facts.map((f) => (
               <li key={f.value} className="flex items-start gap-2.5">
                 <Dot />
@@ -92,6 +80,19 @@ export function Hero() {
               </li>
             ))}
           </ul>
+        </div>
+        {/* Desktop: a second photograph and the Hajj note float over the dissolving edge. */}
+        <div className="relative hidden h-full lg:col-span-6 lg:block xl:col-span-7">
+          <div className="settle absolute bottom-[8%] left-[2%] aspect-[3/4] w-[27%] overflow-hidden rounded-[1.5rem] shadow-[var(--shadow-float)] ring-1 ring-white/10" style={{ animationDelay: "200ms" }}>
+            <Image src={c.src} alt={c.alt} fill sizes="20vw" className={`object-cover ${c.position}`} />
+          </div>
+          <Link href={strip.href} className="settle absolute top-[16%] right-[4%] rounded-[1.1rem] border border-white/10 bg-canvas/75 px-4 py-3 text-[0.84rem] shadow-[var(--shadow-float)] backdrop-blur-md transition-transform hover:-translate-y-0.5" style={{ animationDelay: "420ms" }}>
+            <span className="flex items-center gap-2 font-medium">
+              <span aria-hidden className="size-2 rounded-full bg-[#7fb488] shadow-[0_0_0_4px_rgb(127_180_136/0.2)]" />
+              Hajj 2027
+            </span>
+            <span className="mt-0.5 block text-ink/60">Registration of interest is open</span>
+          </Link>
         </div>
       </div>
     </section>
@@ -113,18 +114,18 @@ export function Starts() {
               <div className="relative aspect-[4/5] overflow-hidden rounded-[1.75rem] bg-beige shadow-[var(--shadow-lift)]">
                 <Image src={s.photo.src} alt="" fill sizes="(min-width: 1024px) 23vw, (min-width: 640px) 42vw, 74vw" className={`object-cover transition-transform duration-[1.2s] group-hover:scale-[1.04] ${s.photo.position}`} />
                 <div aria-hidden className="absolute inset-0 bg-[linear-gradient(to_top,rgb(42_31_26/0.85)_0%,rgb(42_31_26/0.25)_45%,transparent_70%)]" />
-                <span className="absolute top-3 left-3 rounded-full bg-white/85 px-3 py-1 text-[0.74rem] font-medium text-ink backdrop-blur">
+                <span className="absolute top-3 left-3 rounded-full bg-black/50 px-3 py-1 text-[0.74rem] font-medium text-cream backdrop-blur">
                   {s.tag.value}
                   <Mark s={s.tag.status} />
                 </span>
-                <div className="absolute inset-x-0 bottom-0 p-5 text-canvas">
+                <div className="absolute inset-x-0 bottom-0 p-5 text-cream">
                   <p className="display flex items-center justify-between gap-3 text-[1.95rem]">
                     {s.title}
-                    <span aria-hidden className="grid size-9 shrink-0 place-items-center rounded-full bg-white/15 backdrop-blur transition-colors group-hover:bg-white/30">
+                    <span aria-hidden className="grid size-9 shrink-0 place-items-center rounded-full bg-white/[0.06] backdrop-blur transition-colors group-hover:bg-white/[0.1]">
                       <Chevron className="size-3" />
                     </span>
                   </p>
-                  <p className="mt-1 text-[0.88rem] leading-[1.5] text-canvas/80">{s.text}</p>
+                  <p className="mt-1 text-[0.88rem] leading-[1.5] text-cream/80">{s.text}</p>
                 </div>
               </div>
             </Link>
@@ -171,9 +172,9 @@ export function HajjBand() {
             <p lang="ar" className="ar text-left text-[clamp(1.8rem,3vw,2.6rem)] leading-[1.7] text-sand">
               {hajjBand.talbiyah}
             </p>
-            <p className="font-editorial text-[1.1rem] text-canvas/55 italic">{hajjBand.talbiyahEn}</p>
+            <p className="font-editorial text-[1.1rem] text-cream/55 italic">{hajjBand.talbiyahEn}</p>
             <Heading className="mt-8 text-[clamp(4.2rem,8.6vw,8.2rem)] leading-[0.92] text-cream">{hajjBand.headline}</Heading>
-            <p className="mt-6 max-w-[30rem] text-[1.02rem] leading-[1.75] text-canvas/72">
+            <p className="mt-6 max-w-[30rem] text-[1.02rem] leading-[1.75] text-cream/72">
               {hajjBand.text.value}
               <Mark s={hajjBand.text.status} />
             </p>
@@ -185,11 +186,11 @@ export function HajjBand() {
                 <li key={s.title} className="flex gap-5 rounded-[1.3rem] bg-white/[0.045] p-4 ring-1 ring-white/[0.06] sm:p-5">
                   <span className="display grid size-11 shrink-0 place-items-center rounded-full bg-sand/15 text-[1.45rem] text-sand">{i + 1}</span>
                   <span>
-                    <span className="block text-[1.02rem] font-medium text-canvas">
+                    <span className="block text-[1.02rem] font-medium text-cream">
                       {s.title}
                       <Mark s={s.status} />
                     </span>
-                    <span className="mt-0.5 block text-[0.92rem] leading-[1.6] text-canvas/62">{s.text}</span>
+                    <span className="mt-0.5 block text-[0.92rem] leading-[1.6] text-cream/62">{s.text}</span>
                   </span>
                 </li>
               ))}
@@ -198,7 +199,7 @@ export function HajjBand() {
               <div className="relative size-24 shrink-0 overflow-hidden rounded-[1.25rem] sm:size-28">
                 <Image src={hajjBand.photo.src} alt={hajjBand.photo.alt} fill sizes="7rem" className="object-cover object-[50%_60%]" />
               </div>
-              <figcaption className="text-[0.92rem] text-canvas/70">
+              <figcaption className="text-[0.92rem] text-cream/70">
                 <span className="font-editorial text-[1.1rem] italic">{hajjBand.photo.caption}.</span>{" "}
                 <Link href={routes.hajj} className="font-medium text-sand underline decoration-sand/40 underline-offset-4">
                   Read about Hajj 2027
@@ -397,7 +398,7 @@ export function PaymentPlan({ tone = "ink" }: { tone?: "ink" | "canvas" }) {
       </p>
       <div aria-hidden className="relative mt-6 flex h-2.5 gap-1.5">
         {parts.map((p, i) => (
-          <span key={i} className={`rounded-full ${i === 0 ? "bg-[linear-gradient(90deg,#e6d4b6,#c9ac7c)]" : dark ? "bg-canvas/20" : "bg-ink/12"}`} style={{ flex: p }} />
+          <span key={i} className={`rounded-full ${i === 0 ? "bg-[linear-gradient(90deg,#e6d4b6,#c9ac7c)]" : dark ? "bg-cream/15" : "bg-ink/12"}`} style={{ flex: p }} />
         ))}
       </div>
       <ol className="relative mt-7 grid grid-cols-1 gap-x-6 gap-y-5 sm:grid-cols-4">
@@ -406,7 +407,7 @@ export function PaymentPlan({ tone = "ink" }: { tone?: "ink" | "canvas" }) {
             <p className={`text-[0.8rem] ${dark ? "text-sand" : "text-bronze"}`}>{s.when}</p>
             <p className={`display mt-1 text-[1.8rem] leading-tight ${dark ? "text-cream" : ""}`}>{amounts[i]}</p>
             <p className="mt-0.5 text-[0.9rem] font-medium">{s.what}</p>
-            <p className={`mt-1 text-[0.86rem] leading-[1.55] ${dark ? "text-canvas/62" : "text-ink/60"}`}>
+            <p className={`mt-1 text-[0.86rem] leading-[1.55] ${dark ? "text-cream/62" : "text-ink/60"}`}>
               {s.note}
               <Mark s={s.status} />
             </p>
@@ -524,7 +525,7 @@ export function GroupsBand() {
           </p>
           <ul className="mt-6 flex flex-wrap gap-2">
             {groupsBand.who.map((w) => (
-              <li key={w} className="rounded-full border border-ink/10 bg-white/55 px-3.5 py-1.5 text-[0.84rem] text-ink/75">
+              <li key={w} className="rounded-full border border-ink/10 bg-white/[0.06] px-3.5 py-1.5 text-[0.84rem] text-ink/75">
                 {w}
               </li>
             ))}
@@ -620,7 +621,7 @@ export function FaqList({ items }: { items: Faq[] }) {
               {f.q}
               <Mark s={f.status} />
             </span>
-            <span aria-hidden className="mt-0.5 grid size-6 shrink-0 place-items-center rounded-full bg-white/80 text-[0.9rem] leading-none text-ink/70 shadow-[0_4px_12px_-6px_rgb(58_43_36/0.4)] transition-transform group-open:rotate-45">
+            <span aria-hidden className="mt-0.5 grid size-6 shrink-0 place-items-center rounded-full bg-white/[0.06] text-[0.9rem] leading-none text-ink/70 shadow-[0_4px_12px_-6px_rgb(58_43_36/0.4)] transition-transform group-open:rotate-45">
               +
             </span>
           </summary>
@@ -663,7 +664,7 @@ export function Closing() {
           <div className="lg:col-span-6">
             <Emblem className="h-12 text-cream/80" />
             <Heading className="mt-6 text-[clamp(2.6rem,5vw,4.8rem)] text-cream">{closing.headline}</Heading>
-            <p className="mt-5 max-w-[32rem] text-[1.02rem] leading-[1.7] text-canvas/75">{closing.text}</p>
+            <p className="mt-5 max-w-[32rem] text-[1.02rem] leading-[1.7] text-cream/75">{closing.text}</p>
             <div className="mt-9 flex flex-col gap-2.5 sm:flex-row sm:flex-wrap">
               <TileLink href={strip.href} tone="gold">
                 Register for Hajj 2027
