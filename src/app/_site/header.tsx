@@ -59,7 +59,7 @@ export function SiteHeader() {
 
   return (
     <header
-      className={`top-zone sticky top-0 ${open ? "z-[80]" : "z-40"} transition-[background,box-shadow,border-color] duration-500 ${open ? "" : "backdrop-blur-md"} ${
+      className={`top-zone sticky top-0 ${open ? "z-[80]" : "z-40"} transition-[box-shadow,border-color] duration-300 ${open ? "" : "backdrop-blur-md"} ${
         scrolled ? "border-b border-ink/6 bg-canvas/85 shadow-[0_10px_40px_-28px_rgb(58_43_36/0.5)]" : "border-b border-transparent bg-canvas/60"
       }`}
     >
@@ -93,7 +93,7 @@ export function SiteHeader() {
                   </button>
                   {panel ? (
                     <div className="absolute top-full left-0 w-[22rem] pt-2">
-                      <ul className="glass rounded-[1.25rem] p-2">
+                      <ul className="rounded-[1.25rem] border border-(--edge) bg-canvas/95 p-2 shadow-[var(--shadow-float)] backdrop-blur-md">
                         {trips.children.map((c) => (
                           <li key={c.href}>
                             <Link href={c.href} className="flex items-baseline justify-between gap-4 rounded-[0.9rem] px-4 py-3 transition-colors hover:bg-(--raise-hi)">

@@ -63,9 +63,9 @@ export default function GroupsPage() {
       </Chapter>
 
       <Chapter tone="night">
-      <section className={`relative py-[clamp(3.75rem,9vw,8rem)] ${gutter} ${onInk}`}>
+      <section className={`relative overflow-hidden py-[clamp(3.75rem,9vw,8rem)] ${gutter} ${onInk}`}>
         <div>
-          <Emblem className="watermark pointer-events-none absolute top-[-10%] left-[-8%] h-[120%]" />
+          <Emblem className="watermark pointer-events-none absolute top-[5%] left-[-8%] h-[100%]" />
           <div className="relative grid grid-cols-1 gap-x-16 gap-y-12 lg:grid-cols-12 lg:items-center">
             <div className="lg:col-span-5">
               <Heading className="text-[clamp(2.2rem,3.6vw,3.4rem)] text-cream">How it comes together</Heading>

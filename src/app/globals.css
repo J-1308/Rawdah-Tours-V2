@@ -65,7 +65,7 @@
   --btn-bg-hover: linear-gradient(180deg, #554035 0%, #3f2f27 100%);
   --btn-fg: #f8f3eb;
   --btn-shadow: inset 0 1px 0 rgb(255 255 255 / 0.12), 0 14px 30px -16px rgb(42 31 26 / 0.6);
-  --hero-glow: radial-gradient(60% 70% at 88% 18%, rgb(216 195 161 / 0.55) 0%, transparent 70%), radial-gradient(50% 60% at 0% 100%, rgb(231 217 196 / 0.7) 0%, transparent 70%);
+  --hero-glow: linear-gradient(180deg, transparent 78%, #f8f3eb 100%), radial-gradient(60% 70% at 88% 18%, rgb(216 195 161 / 0.55) 0%, transparent 70%), radial-gradient(50% 60% at 0% 100%, rgb(231 217 196 / 0.7) 0%, transparent 70%);
   --chapter-glow: linear-gradient(transparent, transparent);
   --watermark: rgb(216 195 161 / 0.22);
   --logo-fill: none;
@@ -158,7 +158,12 @@ body {
   background-color: #1b1410;
 }
 
-/* A faint paper grain over everything, so the creams feel like stock, not screen. */
+/* A faint paper grain over everything, so the creams feel like stock, not screen.
+   Desktop only: on phones it is a full-screen fixed layer that iPhone Safari
+   has to redraw on every scroll, and at this strength you can't see it there. */
+@media (hover: none), (pointer: coarse) {
+  body::after { display: none; }
+}
 body::after {
   content: "";
   position: fixed;
@@ -207,18 +212,26 @@ p, li, blockquote, figcaption, dd {
 
 /* --- chapters: day and night grounds that meet as soft rounded sheets ------ */
 
+/* Chapters don't clip what's inside them (only sideways): a rounded clip over
+   a long page makes iPhone Safari redraw every card as you scroll. The rounded
+   edge is just the chapter's own background. */
 .chapter {
   position: relative;
-  overflow: clip;
+  overflow-x: clip;
   background: var(--chapter-glow), var(--color-canvas);
 }
-.chapter + .chapter {
+/* A sheet edge only where day meets night; two day chapters simply continue. */
+.chapter:not(.night):not(.top-zone) + .chapter.night,
+:root[data-top="day"] .chapter.top-zone + .chapter.night,
+.chapter.night + .chapter:not(.night),
+:root[data-top="night"] .chapter.top-zone + .chapter:not(.night) {
   margin-top: calc(-1 * var(--sheet));
   border-top-left-radius: var(--sheet);
   border-top-right-radius: var(--sheet);
 }
 /* A night sheet casts a soft shadow up onto the cream before it. */
-.chapter + .chapter.night,
+.chapter:not(.night):not(.top-zone) + .chapter.night,
+:root[data-top="day"] .chapter.top-zone + .chapter.night,
 .chapter-foot {
   box-shadow: 0 -30px 60px -40px rgb(42 31 26 / 0.55);
 }
@@ -289,13 +302,14 @@ p, li, blockquote, figcaption, dd {
   color: var(--color-cream);
 }
 
-/* Glass cards: translucent cream on day, a faint lit pane on night. */
+/* Glass cards: translucent cream on day, a faint lit pane on night. No backdrop
+   blur: they sit on flat grounds, where blur shows nothing and makes iPhone
+   Safari flicker. Blur stays only on things that float over moving content
+   (the header, the phone bar, menus). */
 .glass {
   background: var(--glass-bg);
   border: 1px solid var(--glass-line);
   box-shadow: var(--glass-shadow, var(--shadow-soft));
-  -webkit-backdrop-filter: blur(10px);
-  backdrop-filter: blur(10px);
 }
 /* Lists that are one card on a phone and separate cards on wider screens:
    .glass-phone on the list, .glass-wide on each item. */
@@ -304,8 +318,6 @@ p, li, blockquote, figcaption, dd {
     background: var(--glass-bg);
     border: 1px solid var(--glass-line);
     box-shadow: var(--glass-shadow, var(--shadow-soft));
-    -webkit-backdrop-filter: blur(10px);
-    backdrop-filter: blur(10px);
   }
 }
 @media (min-width: 40rem) {
@@ -313,8 +325,6 @@ p, li, blockquote, figcaption, dd {
     background: var(--glass-bg);
     border: 1px solid var(--glass-line);
     box-shadow: var(--glass-shadow, var(--shadow-soft));
-    -webkit-backdrop-filter: blur(10px);
-    backdrop-filter: blur(10px);
   }
 }
 
@@ -338,22 +348,24 @@ p, li, blockquote, figcaption, dd {
   from { opacity: 0; transform: translateY(14px) scale(0.985); }
   to { opacity: 1; transform: none; }
 }
+/* "backwards", not "both": once it has settled the photo is an ordinary
+   element again, not a layer the browser has to keep redrawing. */
 .settle {
-  animation: settle 1s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  animation: settle 1s cubic-bezier(0.2, 0.7, 0.2, 1) backwards;
 }
 
 @media (prefers-reduced-motion: reduce) {
   .settle { animation: none; }
 }
 
-/* Photographs rise gently into place as they scroll into view. Browsers
-   without scroll-driven animation simply show them. */
+/* Photographs rise gently into place as they scroll into view, on desktop.
+   Phones and browsers without scroll-driven animation simply show them. */
 @keyframes rise {
   from { opacity: 0.001; transform: translateY(22px) scale(0.985); }
   to { opacity: 1; transform: none; }
 }
 @supports (animation-timeline: view()) {
-  @media (prefers-reduced-motion: no-preference) {
+  @media (prefers-reduced-motion: no-preference) and (hover: hover) and (pointer: fine) {
     .rise {
       animation: rise linear both;
       animation-timeline: view();

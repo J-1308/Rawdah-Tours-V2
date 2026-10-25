@@ -67,11 +67,11 @@ function CameraGlyph({ className = "size-5" }: { className?: string }) {
 export function StayFrame({ photo, className = "", sizes = "(min-width: 1024px) 40vw, 90vw", priority = false }: { photo: StayPhoto; className?: string; sizes?: string; priority?: boolean }) {
   if (photo.src) {
     return (
-      <figure className={className}>
-        <div className="relative h-full min-h-0 overflow-hidden rounded-[1.25rem] bg-beige shadow-[var(--shadow-lift)] sm:rounded-[1.5rem]">
-          <Image src={photo.src} alt={photo.alt ?? ""} fill sizes={sizes} priority={priority} className={`object-cover ${photo.position ?? ""}`} />
-          {photo.caption ? <figcaption className="absolute inset-x-0 bottom-0 bg-[linear-gradient(to_top,rgb(26_18_14/0.75),transparent)] px-4 pt-8 pb-3 font-editorial text-[0.98rem] text-cream italic">{photo.caption}</figcaption> : null}
-        </div>
+      // The figure is the frame itself (no inner box sized by percentage), so
+      // its aspect ratio alone sets the height in every browser.
+      <figure className={`relative overflow-hidden rounded-[1.25rem] bg-beige shadow-[var(--shadow-lift)] sm:rounded-[1.5rem] ${className}`}>
+        <Image src={photo.src} alt={photo.alt ?? ""} fill sizes={sizes} priority={priority} className={`object-cover ${photo.position ?? ""}`} />
+        {photo.caption ? <figcaption className="absolute inset-x-0 bottom-0 bg-[linear-gradient(to_top,rgb(26_18_14/0.75),transparent)] px-4 pt-8 pb-3 font-editorial text-[0.98rem] text-cream italic">{photo.caption}</figcaption> : null}
       </figure>
     );
   }

@@ -56,6 +56,13 @@ photographs), then day for what's included, the people, paying, questions and th
 **Review tools on phones** are one small "Review" pill that opens both switches, so they never sit over the
 headline.
 
+**Rendering (25 October, after Jibril saw cards and photos go blank in Chrome when flipping the top):**
+cards have no backdrop blur (they sit on flat grounds, so it showed nothing), chapters don't clip their
+contents to the rounded corners (`overflow-x: clip` only; the rounded edge is the background), the sheet edge
+appears only where day meets night, `.settle` uses `backwards` so finished photos stop being animated layers,
+and on phones the paper grain and the scroll-linked rise are off. Blur stays only on things that float over
+moving content: the header, its menu, the phone bar, the WhatsApp button and the review tools.
+
 ## Consequences
 
 - Before launch, pick a top: set `data-top` on `<html>` in `src/app/layout.tsx`, then delete the inline script

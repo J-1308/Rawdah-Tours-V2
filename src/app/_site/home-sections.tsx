@@ -87,7 +87,7 @@ export function Hero() {
           <div className="settle absolute bottom-[8%] left-[2%] aspect-[3/4] w-[27%] overflow-hidden rounded-[1.5rem] shadow-[var(--shadow-float)] ring-1 ring-white/10" style={{ animationDelay: "200ms" }}>
             <Image src={c.src} alt={c.alt} fill sizes="20vw" className={`object-cover ${c.position}`} />
           </div>
-          <Link href={strip.href} className="settle absolute top-[16%] right-[4%] rounded-[1.1rem] border border-(--edge) bg-canvas/75 px-4 py-3 text-[0.84rem] shadow-[var(--shadow-float)] backdrop-blur-md transition-transform hover:-translate-y-0.5" style={{ animationDelay: "420ms" }}>
+          <Link href={strip.href} className="settle absolute top-[16%] right-[4%] rounded-[1.1rem] border border-(--edge) bg-canvas/90 px-4 py-3 text-[0.84rem] shadow-[var(--shadow-float)] transition-transform hover:-translate-y-0.5" style={{ animationDelay: "420ms" }}>
             <span className="flex items-center gap-2 font-medium">
               <span aria-hidden className="size-2 rounded-full bg-[#7fb488] shadow-[0_0_0_4px_rgb(127_180_136/0.2)]" />
               Hajj 2027
@@ -115,14 +115,14 @@ export function Starts() {
               <div className="relative aspect-[4/5] overflow-hidden rounded-[1.75rem] bg-beige shadow-[var(--shadow-lift)]">
                 <Image src={s.photo.src} alt="" fill sizes="(min-width: 1024px) 23vw, (min-width: 640px) 42vw, 74vw" className={`object-cover transition-transform duration-[1.2s] group-hover:scale-[1.04] ${s.photo.position}`} />
                 <div aria-hidden className="absolute inset-0 bg-[linear-gradient(to_top,rgb(42_31_26/0.85)_0%,rgb(42_31_26/0.25)_45%,transparent_70%)]" />
-                <span className="absolute top-3 left-3 rounded-full bg-black/50 px-3 py-1 text-[0.78rem] font-medium text-cream backdrop-blur [&_.site-mark]:border-sand/60 [&_.site-mark]:text-sand">
+                <span className="absolute top-3 left-3 rounded-full bg-black/60 px-3 py-1 text-[0.78rem] font-medium text-cream [&_.site-mark]:border-sand/60 [&_.site-mark]:text-sand">
                   {s.tag.value}
                   <Mark s={s.tag.status} />
                 </span>
                 <div className="absolute inset-x-0 bottom-0 p-5 text-cream">
                   <p className="display flex items-center justify-between gap-3 text-[1.95rem]">
                     {s.title}
-                    <span aria-hidden className="grid size-9 shrink-0 place-items-center rounded-full bg-(--raise) backdrop-blur transition-colors group-hover:bg-(--raise-hi)">
+                    <span aria-hidden className="grid size-9 shrink-0 place-items-center rounded-full bg-white/20 transition-colors group-hover:bg-white/30">
                       <Chevron className="size-3" />
                     </span>
                   </p>
@@ -165,9 +165,9 @@ export function Trips() {
 
 export function HajjBand() {
   return (
-    <section id="hajj" className={`relative scroll-mt-24 py-[clamp(3.75rem,9vw,8rem)] ${gutter} ${onInk}`}>
+    <section id="hajj" className={`relative scroll-mt-24 overflow-hidden py-[clamp(3.75rem,9vw,8rem)] ${gutter} ${onInk}`}>
       <div>
-        <Emblem className="watermark pointer-events-none absolute top-[-6%] right-[-10%] h-[110%]" />
+        <Emblem className="watermark pointer-events-none absolute top-[5%] right-[-10%] h-[95%]" />
         <div className="relative grid grid-cols-1 gap-x-16 gap-y-12 lg:grid-cols-12">
           <div className="lg:col-span-5">
             <p lang="ar" className="ar text-left text-[clamp(1.8rem,3vw,2.6rem)] leading-[1.7] text-sand">
@@ -642,9 +642,9 @@ export function Questions() {
 
 export function Closing() {
   return (
-    <section className={`relative py-[clamp(3.75rem,9vw,8rem)] ${gutter} ${onInk}`}>
+    <section className={`relative overflow-hidden py-[clamp(3.75rem,9vw,8rem)] ${gutter} ${onInk}`}>
       <div>
-        <Emblem className="watermark pointer-events-none absolute top-[-10%] left-[-8%] h-[120%]" />
+        <Emblem className="watermark pointer-events-none absolute top-[5%] left-[-8%] h-[100%]" />
         <div className="relative grid grid-cols-1 gap-x-16 gap-y-12 lg:grid-cols-12 lg:items-center">
           <div className="lg:col-span-6">
             <Emblem className="h-12 text-cream/80" />

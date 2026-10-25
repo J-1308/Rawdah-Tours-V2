@@ -48,7 +48,7 @@ on phones outdoors.
 
 Buttons `rounded-[0.95rem]`; cards `rounded-[1.5rem]`; photos `rounded-[1.75rem–2rem]`; dark panels
 `rounded-[2.5rem]`. Depth from soft shadows (`--shadow-soft`, `--shadow-lift`, `--shadow-float`) and `.glass`
-cards (translucent cream, white edge, blur). No hard borders, no pills, no arches.
+cards (translucent cream, white edge; no backdrop blur, see ADR 0004). No hard borders, no pills, no arches.
 
 ## 4. The logo
 
