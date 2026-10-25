@@ -18,7 +18,7 @@ import { Chevron, WaGlyph } from "@/app/_site/whatsapp";
  */
 
 const box = "glass overflow-hidden rounded-[1.75rem]";
-const head = "flex items-center justify-between gap-3 border-b border-ink/8 bg-white/40 px-6 py-4";
+const head = "flex flex-wrap items-center justify-between gap-x-3 gap-y-1 border-b border-ink/8 bg-white/40 px-5 py-4 sm:px-6";
 const waBtn = "flex min-h-[3.25rem] items-center justify-center gap-2.5 rounded-[0.95rem] bg-wa px-4 text-[0.95rem] font-medium text-white shadow-[0_14px_30px_-16px_rgb(31_168_85/0.7)]";
 const waCell = "grid place-items-center";
 
@@ -112,16 +112,16 @@ export function ReservePanel({ j, bookable = false }: { j: Journey; bookable?: b
     <div className="flex items-center justify-between py-2.5">
       <span>
         <span className="block text-[0.93rem] font-medium">{label}</span>
-        <span className="block text-[0.76rem] text-ink/55">{note}</span>
+        <span className="block text-[0.78rem] text-ink/55">{note}</span>
       </span>
       <span className="flex items-center">
-        <button type="button" aria-label={`Fewer ${label.toLowerCase()}`} onClick={() => set(Math.max(min, value - 1))} className="grid size-9 place-items-center rounded-l-[0.8rem] border border-ink/15 bg-white/60 disabled:opacity-30" disabled={value <= min}>
+        <button type="button" aria-label={`Fewer ${label.toLowerCase()}`} onClick={() => set(Math.max(min, value - 1))} className="grid size-11 place-items-center rounded-l-[0.8rem] border border-ink/15 bg-white/60 text-[1.1rem] disabled:opacity-30 sm:size-9 sm:text-base" disabled={value <= min}>
           −
         </button>
-        <span className="grid h-9 w-10 place-items-center border-y border-ink/15 bg-white/60 tabular-nums" aria-live="polite">
+        <span className="grid h-11 w-11 place-items-center border-y border-ink/15 bg-white/60 tabular-nums sm:h-9 sm:w-10" aria-live="polite">
           {value}
         </span>
-        <button type="button" aria-label={`More ${label.toLowerCase()}`} onClick={() => set(Math.min(12, value + 1))} className="grid size-9 place-items-center rounded-r-[0.8rem] border border-ink/15 bg-white/60">
+        <button type="button" aria-label={`More ${label.toLowerCase()}`} onClick={() => set(Math.min(12, value + 1))} className="grid size-11 place-items-center rounded-r-[0.8rem] border border-ink/15 bg-white/60 text-[1.1rem] sm:size-9 sm:text-base">
           +
         </button>
       </span>
@@ -154,7 +154,7 @@ export function ReservePanel({ j, bookable = false }: { j: Journey; bookable?: b
               className={`rounded-[1rem] border px-3 py-3 text-left transition-colors ${room === r.type ? "border-ink bg-ink text-canvas shadow-[var(--shadow-lift)]" : "border-ink/10 bg-white/55 hover:border-ink/35"}`}
             >
               <span className="block text-[0.84rem] font-medium">{r.type}</span>
-              <span className={`block text-[0.7rem] ${room === r.type ? "text-canvas/70" : "text-ink/55"}`}>{r.sharing} sharing</span>
+              <span className={`block text-[0.74rem] ${room === r.type ? "text-canvas/70" : "text-ink/55"}`}>{r.sharing} sharing</span>
               <span className="display mt-1.5 block text-[1.4rem] leading-none">{gbp(flights ? r.price : r.price - landGap)}</span>
             </button>
           ))}
@@ -178,7 +178,7 @@ export function ReservePanel({ j, bookable = false }: { j: Journey; bookable?: b
         <p className={`mt-4 ${label}`}>Sharing a room with</p>
         <div className="mt-2 flex flex-wrap gap-1.5 text-[0.84rem]">
           {shareOptions.map((s) => (
-            <button key={s} type="button" aria-pressed={share === s} onClick={() => setShare(s)} className={`rounded-full border px-3 py-1.5 transition-colors ${share === s ? "border-ink bg-ink text-canvas" : "border-ink/10 bg-white/55 hover:border-ink/35"}`}>
+            <button key={s} type="button" aria-pressed={share === s} onClick={() => setShare(s)} className={`rounded-full border px-3.5 py-2 transition-colors sm:px-3 sm:py-1.5 ${share === s ? "border-ink bg-ink text-canvas" : "border-ink/10 bg-white/55 hover:border-ink/35"}`}>
               {s}
             </button>
           ))}

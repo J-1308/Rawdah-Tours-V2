@@ -20,7 +20,7 @@ export default async function BookPage({ params }: { params: Promise<{ slug: str
   const { depositPence, cardFeePence, rooms, balancePlan } = trip.pricing
 
   return (
-    <Container className="bg-canvas pb-[clamp(4rem,8vw,7rem)] pt-10 lg:pt-14">
+    <Container className="bg-canvas pb-[clamp(3rem,8vw,7rem)] pt-10 lg:pt-14">
       <p className="text-[0.9375rem]">
         <Link href={`/trips/${trip.slug}`} className="font-medium text-ink underline underline-offset-4">
           {trip.name}

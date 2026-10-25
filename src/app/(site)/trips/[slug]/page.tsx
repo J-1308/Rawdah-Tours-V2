@@ -3,11 +3,11 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import { anchors, covers, faqs, fromPrice, gbp, journey, journeys, leader, nightsOf, routes, routeText, stay, teachers } from "@/app/_site/content";
-import { FaqList, PaymentPlan, TeacherList } from "@/app/_site/home-sections";
+import { CoverGroups, FaqList, PaymentPlan, TeacherList, Tick } from "@/app/_site/home-sections";
 import { Mark } from "@/app/_site/marks";
 import { RegisterForm } from "@/app/_site/register-form";
 import { ReservePanel } from "@/app/_site/reserve";
-import { ConfirmedPending, gutter, Heading, PageLead, Square } from "@/app/_site/shell";
+import { ConfirmedPending, gutter, Heading, PageLead } from "@/app/_site/shell";
 import { StateTag } from "@/app/_site/trip-row";
 import { Chevron } from "@/app/_site/whatsapp";
 import { getTrip, isBookable, isDemoBooking } from "@/lib/trips";
@@ -64,22 +64,18 @@ export default async function TripPage({ params }: { params: Promise<{ slug: str
           <StateTag j={j} />
         </div>
         <p className="mt-4 max-w-[34rem] font-editorial text-[clamp(1.4rem,2vw,1.8rem)] leading-snug text-ink/65 italic">{j.tagline}</p>
-        <dl className="mt-7 grid max-w-[36rem] grid-cols-2 gap-2.5 text-[0.92rem]">
-          {facts.map((f) => (
-            <div key={f.k} className="glass rounded-[1.1rem] p-3.5 shadow-none">
+        <dl className="mt-6 grid max-w-[36rem] grid-cols-2 gap-2 text-[0.9rem] sm:mt-7 sm:gap-2.5 sm:text-[0.92rem]">
+          {[...facts, { k: j.kind === "hajj" ? "The rites" : "Route", v: routeText(j), s: j.route.status }].map((f, i, all) => (
+            <div key={f.k} className={`glass rounded-[1.1rem] p-3.5 [--glass-shadow:none] ${i === all.length - 1 ? "col-span-2" : ""}`}>
               <dt className="text-[0.78rem] text-ink/50">{f.k}</dt>
-              <dd className="mt-1">
+              <dd className="mt-1 leading-snug">
                 {f.v}
                 <Mark s={f.s} />
               </dd>
             </div>
           ))}
         </dl>
-        <p className="mt-4 text-[0.9rem] text-ink/60">
-          {routeText(j)}
-          <Mark s={j.route.status} />
-        </p>
-        <a href={`#${anchors.join}`} className="btn-ink mt-7 flex min-h-[3.25rem] items-center justify-center gap-2 rounded-[0.95rem] text-[0.95rem] font-medium lg:hidden">
+        <a href={`#${anchors.join}`} className="btn-ink mt-6 flex min-h-[3.25rem] items-center justify-center gap-2 rounded-[0.95rem] text-[0.95rem] font-medium lg:hidden">
           {joinLabel} <Chevron dir="down" className="size-3 opacity-70" />
         </a>
       </PageLead>
@@ -104,14 +100,14 @@ export default async function TripPage({ params }: { params: Promise<{ slug: str
         <div className="min-w-0 lg:order-1 lg:col-span-8">
           <section>
             <Heading className={h2}>About this trip</Heading>
-            <p className="mt-4 max-w-[44rem] font-editorial text-[clamp(1.45rem,2vw,1.8rem)] leading-[1.45]">
+            <p className="mt-4 max-w-[44rem] font-editorial text-[clamp(1.25rem,2vw,1.8rem)] leading-[1.5] sm:leading-[1.45]">
               {j.intro}
               <Mark s={j.introStatus} />
             </p>
-            <ul className="mt-7 grid grid-cols-1 gap-1.5 sm:grid-cols-2">
-              {j.highlights.map((h) => (
-                <li key={h.value} className="glass flex items-start gap-3 rounded-[1.1rem] px-4 py-3.5 text-[0.95rem] shadow-none">
-                  <Square className="mt-[0.45em] bg-gold" />
+            <ul className="glass-phone mt-6 grid grid-cols-1 rounded-[1.25rem] px-4 py-1 [--glass-shadow:none] sm:mt-7 sm:grid-cols-2 sm:gap-1.5 sm:p-0">
+              {j.highlights.map((h, i) => (
+                <li key={h.value} className={`glass-wide flex items-start gap-3 py-3 text-[0.95rem] sm:rounded-[1.1rem] sm:px-4 sm:py-3.5 ${i ? "border-t border-ink/8" : ""}`}>
+                  <Tick className="mt-[0.2em]" />
                   <span>
                     {h.value}
                     <Mark s={h.status} />
@@ -122,7 +118,7 @@ export default async function TripPage({ params }: { params: Promise<{ slug: str
           </section>
 
           {j.itinerary ? (
-            <section className="mt-16">
+            <section className="mt-12 sm:mt-16">
               <Heading className={h2}>
                 {j.kind === "hajj" ? "The days of Hajj" : "How the trip runs"}
                 <Mark s={j.itinerary.status} />
@@ -149,7 +145,7 @@ export default async function TripPage({ params }: { params: Promise<{ slug: str
           ) : null}
 
           {j.kind === "umrah" ? (
-            <section className="mt-16">
+            <section className="mt-12 sm:mt-16">
               <Heading className={h2}>{stay.headline}</Heading>
               <div className="glass mt-6 rounded-[1.5rem] px-5 py-1 sm:px-7">
                 {stay.hotels.map((h) => {
@@ -184,39 +180,24 @@ export default async function TripPage({ params }: { params: Promise<{ slug: str
           ) : null}
 
           {j.kind === "umrah" ? (
-            <section className="mt-16">
+            <section className="mt-12 sm:mt-16">
               <Heading className={h2}>{covers.headline}</Heading>
-              <div className="mt-6 grid grid-cols-1 gap-1.5 sm:grid-cols-2">
-                {covers.groups.map((g) => (
-                  <div key={g.title} className="glass rounded-[1.5rem] p-6">
-                    <p className="font-editorial text-[1.25rem] text-bronze italic">{g.title}</p>
-                    <ul className="mt-3 grid gap-2.5">
-                      {g.items.map((it) => (
-                        <li key={it.title}>
-                          <span className="block text-[0.95rem] font-medium">
-                            {it.title}
-                            <Mark s={j.state === "past" || it.status === "confirmed" ? it.status : "proposed"} />
-                          </span>
-                          <span className="block text-[0.88rem] text-ink/65">{it.text}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                ))}
+              <div className="mt-6">
+                <CoverGroups groups={covers.groups} status={(s) => (j.state === "past" || s === "confirmed" ? s : "proposed")} />
               </div>
             </section>
           ) : null}
 
-          <section className="mt-16">
+          <section className="mt-12 sm:mt-16">
             <Heading className={h2}>The people who will walk with you</Heading>
             <div className="mt-6">
               {theirTeachers.length ? (
                 <TeacherList list={theirTeachers} tone="canvas" />
               ) : (
-                <div className="glass grid grid-cols-[5.5rem_1fr] items-center gap-5 rounded-[1.5rem] p-3 pr-5 sm:grid-cols-[7rem_1fr]">
+                <div className="glass grid grid-cols-[4.75rem_1fr] items-center gap-4 rounded-[1.5rem] p-4 sm:grid-cols-[7rem_1fr] sm:gap-5 sm:p-3 sm:pr-5">
                   <div className="grid aspect-square place-items-center rounded-[1.1rem] border border-dashed border-ink/25 p-2 text-center text-[0.72rem] text-ink/55">To be named</div>
                   <div>
-                    <p className="display text-[1.65rem] leading-tight">
+                    <p className="display text-[1.45rem] leading-tight sm:text-[1.65rem]">
                       {j.teacher.value}
                       <Mark s={j.teacher.status} />
                     </p>
@@ -231,13 +212,13 @@ export default async function TripPage({ params }: { params: Promise<{ slug: str
           </section>
 
           {j.confirmed || j.pending ? (
-            <section className="mt-16 grid grid-cols-1 gap-1.5 sm:grid-cols-2">
+            <section className="mt-12 grid grid-cols-1 gap-2 sm:mt-16 sm:grid-cols-2 sm:gap-1.5">
               <ConfirmedPending confirmed={j.confirmed} pending={j.pending} />
             </section>
           ) : null}
 
           {j.kind === "umrah" ? (
-            <section className="mt-16">
+            <section className="mt-12 sm:mt-16">
               <Heading className={h2}>Paying for your place</Heading>
               <div className="mt-6">
                 <PaymentPlan tone="canvas" />
@@ -245,7 +226,7 @@ export default async function TripPage({ params }: { params: Promise<{ slug: str
             </section>
           ) : null}
 
-          <section className="mt-16">
+          <section className="mt-12 sm:mt-16">
             <Heading className={h2}>Common questions</Heading>
             <div className="glass mt-6 rounded-[1.5rem] px-5 py-1">
               <FaqList items={qs} />
@@ -255,7 +236,7 @@ export default async function TripPage({ params }: { params: Promise<{ slug: str
       </div>
 
       {j.state !== "past" ? (
-        <section id={anchors.form} className={`wash-linen scroll-mt-28 py-[clamp(5rem,10vw,9rem)] ${gutter}`}>
+        <section id={anchors.form} className={`wash-linen scroll-mt-28 py-[clamp(3.75rem,10vw,9rem)] ${gutter}`}>
           <div className="grid grid-cols-1 gap-x-14 gap-y-10 lg:grid-cols-12">
             <div className="lg:col-span-4">
               <Heading className="text-[clamp(2.4rem,4vw,3.6rem)]">{j.kind === "hajj" ? "Register for Hajj 2027" : "Hear first when the dates are out"}</Heading>

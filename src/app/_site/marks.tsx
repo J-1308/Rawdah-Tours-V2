@@ -42,9 +42,10 @@ export function MarksFrame({ children }: { children: ReactNode }) {
         type="button"
         onClick={() => setOn((x) => !x)}
         aria-pressed={on}
-        className="fixed top-[45%] right-0 z-[60] rounded-l-lg border border-r-0 border-dashed border-bronze/60 bg-canvas/90 backdrop-blur px-[3px] py-2.5 text-[0.58rem] font-medium text-bronze [writing-mode:vertical-rl] lg:top-1/2 lg:right-auto lg:left-0 lg:-translate-y-1/2 lg:rounded-l-none lg:rounded-r-lg lg:border-r lg:border-l-0 lg:px-1.5 lg:py-3 lg:text-[0.62rem]"
+        className="fixed bottom-[calc(5.4rem+env(safe-area-inset-bottom))] left-2.5 z-[60] rounded-full border border-dashed border-bronze/60 bg-canvas/90 px-2.5 py-1 text-[0.62rem] font-medium text-bronze shadow-[var(--shadow-lift)] backdrop-blur lg:top-1/2 lg:bottom-auto lg:left-0 lg:-translate-y-1/2 lg:rounded-l-none lg:rounded-r-lg lg:border-l-0 lg:px-1.5 lg:py-3 lg:shadow-none lg:[writing-mode:vertical-rl]"
       >
-        {on ? "Review marks on" : "Review marks off"}
+        <span className="lg:hidden">{on ? "Marks on" : "Marks off"}</span>
+        <span className="hidden lg:inline">{on ? "Review marks on" : "Review marks off"}</span>
       </button>
     </div>
   );

@@ -39,24 +39,26 @@ export default function GroupsPage() {
         </ul>
       </PageLead>
 
-      <section className={`bg-canvas py-[clamp(4.5rem,9vw,8rem)] ${gutter}`}>
-        <Heading className="text-[clamp(2.4rem,4.2vw,4rem)]">What your group gets</Heading>
-        <ul className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {groupsPage.offers.map((g) => (
-            <li key={g.title} className="glass rounded-[1.5rem] p-6">
-              <Emblem className="h-5 text-gold" />
-              <p className="display mt-4 text-[1.6rem] leading-tight">
-                {g.title}
-                <Mark s={g.status} />
+      <section className={`bg-canvas py-[clamp(3.25rem,9vw,8rem)] ${gutter}`}>
+        <Heading className="text-[clamp(2.3rem,4.2vw,4rem)]">What your group gets</Heading>
+        <ul className="glass-phone mt-8 grid grid-cols-1 rounded-[1.5rem] px-5 py-1 sm:mt-10 sm:grid-cols-2 sm:gap-4 sm:p-0 lg:grid-cols-3">
+          {groupsPage.offers.map((g, i) => (
+            <li key={g.title} className={`glass-wide py-5 sm:rounded-[1.5rem] sm:p-6 ${i ? "border-t border-ink/8" : ""}`}>
+              <p className="display flex items-start gap-3 text-[1.45rem] leading-tight sm:block sm:text-[1.6rem]">
+                <Emblem className="mt-[0.2em] h-[0.85em] shrink-0 text-gold sm:mt-0 sm:mb-4 sm:h-5" />
+                <span>
+                  {g.title}
+                  <Mark s={g.status} />
+                </span>
               </p>
-              <p className="mt-2 text-[0.92rem] leading-[1.6] text-ink/62">{g.text}</p>
+              <p className="mt-1.5 text-[0.92rem] leading-[1.6] text-ink/62 sm:mt-2">{g.text}</p>
             </li>
           ))}
         </ul>
       </section>
 
       <section className={`bg-canvas ${insetPad}`}>
-        <div className={`panel-dark relative overflow-hidden rounded-[2.5rem] px-[clamp(1.25rem,5vw,5rem)] py-[clamp(3.5rem,7vw,6rem)] ${onInk}`}>
+        <div className={`panel-dark relative overflow-hidden rounded-[2.5rem] px-[clamp(1.25rem,5vw,5rem)] py-[clamp(3rem,7vw,6rem)] ${onInk}`}>
           <Emblem className="pointer-events-none absolute top-[-10%] left-[-6%] h-[120%] text-cream/[0.045]" />
           <div className="relative grid grid-cols-1 gap-x-16 gap-y-12 lg:grid-cols-12 lg:items-center">
             <div className="lg:col-span-5">
@@ -98,7 +100,7 @@ export default function GroupsPage() {
         </div>
       </section>
 
-      <section id="start" className={`wash-linen scroll-mt-28 py-[clamp(5rem,10vw,9rem)] ${gutter}`}>
+      <section id="start" className={`wash-linen scroll-mt-28 py-[clamp(3.75rem,10vw,9rem)] ${gutter}`}>
         <div className="grid grid-cols-1 gap-x-16 gap-y-12 lg:grid-cols-12">
           <div className="lg:col-span-5">
             <Label>Start here</Label>
