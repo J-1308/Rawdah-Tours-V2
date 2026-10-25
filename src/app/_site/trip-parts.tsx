@@ -14,9 +14,9 @@ export const leaderMember: Member = { name: leader.name, does: leader.does, line
 export const teacherMembers: Member[] = teachers.map((t) => ({ name: t.name, does: t.does, line: t.bio.value, status: t.bio.status, photo: t.photo }));
 export const allMembers: Member[] = [leaderMember, ...teacherMembers];
 
-export function TeamList({ members, className = "" }: { members: Member[]; className?: string }) {
+export function TeamList({ members, className = "", cols = "lg:grid-cols-4" }: { members: Member[]; className?: string; cols?: string }) {
   return (
-    <ul className={`grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2 sm:gap-y-10 lg:grid-cols-4 ${className}`}>
+    <ul className={`grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2 sm:gap-y-10 ${cols} ${className}`}>
       {members.map((m) => (
         <li key={m.name} className="grid grid-cols-[5.5rem_1fr] items-start gap-4 sm:block">
           <div className="relative aspect-[4/5] overflow-hidden rounded-[1.1rem] bg-beige shadow-[var(--shadow-lift)] sm:rounded-[1.5rem]">

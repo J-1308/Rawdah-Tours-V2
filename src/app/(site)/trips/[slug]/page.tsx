@@ -183,7 +183,7 @@ export default async function TripPage({ params }: { params: Promise<{ slug: str
             <Label>Hajj 2027</Label>
             <Heading className="mt-4 max-w-[44rem] text-[clamp(2.3rem,4.2vw,4rem)]">Experienced guidance, walking with you</Heading>
             <p className="mt-4 max-w-[36rem] text-[1rem] leading-[1.65] text-ink/72">From your first question in the UK to the last tawaf, the same people with you the whole way.</p>
-            <TeamList members={members} className="mt-10 lg:grid-cols-2 lg:max-w-[52rem]" />
+            <TeamList members={members} cols="lg:grid-cols-3" className="mt-10" />
             {j.itinerary ? (
               <div className="mt-16 max-w-[48rem] sm:mt-20">
                 <Itinerary j={j} />
@@ -214,7 +214,7 @@ export default async function TripPage({ params }: { params: Promise<{ slug: str
                 </section>
                 <section className="mt-12 sm:mt-16">
                   <Heading className={h2}>The people who will walk with you</Heading>
-                  <TeamList members={members} className="mt-8 lg:grid-cols-3" />
+                  <TeamList members={members} cols="lg:grid-cols-3" className="mt-8" />
                   <TeamLine />
                 </section>
                 <section className="mt-12 sm:mt-16">
