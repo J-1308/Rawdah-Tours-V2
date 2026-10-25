@@ -14,7 +14,6 @@ import {
   hero,
   journeys,
   lastTrip,
-  leader,
   meaning,
   paying,
   people,
@@ -25,14 +24,16 @@ import {
   starts,
   stay,
   strip,
-  teachers,
   whyRawdah,
   type Faq,
   type Status,
 } from "@/app/_site/content";
 import { Mark } from "@/app/_site/marks";
-import { Actions, Emblem, gutter, Heading, Label, onInk, PhotoStack, TileLink, WaSquare, WaTile } from "@/app/_site/shell";
+import { Actions, Emblem, gutter, Heading, Label, onInk, PhotoStack, Tick, TileLink, WaSquare, WaTile } from "@/app/_site/shell";
+
+export { Tick } from "@/app/_site/shell";
 import { TripRow } from "@/app/_site/trip-row";
+import { allMembers, TeamLine, TeamList } from "@/app/_site/trip-parts";
 import { Chevron } from "@/app/_site/whatsapp";
 
 const pad = "py-[clamp(3.25rem,9vw,8rem)]";
@@ -54,12 +55,12 @@ export function Hero() {
   return (
     <section className="wash-hero relative isolate overflow-hidden">
       {/* The main photograph, dissolving into the night: on top on phones, the right side on desktop. */}
-      <div className="settle relative h-[min(30rem,118vw)] w-full lg:absolute lg:inset-y-0 lg:right-0 lg:h-auto lg:w-[62%]">
-        <Image src={a.src} alt={a.alt} fill priority sizes="(min-width: 1024px) 62vw, 100vw" className="night-photo object-cover object-[50%_55%]" />
+      <div className="settle relative h-[min(17.5rem,64vw)] w-full sm:h-[min(30rem,70vw)] lg:absolute lg:inset-y-0 lg:right-0 lg:h-auto lg:w-[62%]">
+        <Image src={a.src} alt={a.alt} fill priority sizes="(min-width: 1024px) 62vw, 100vw" className="night-photo object-cover object-[50%_68%] sm:object-[50%_55%]" />
       </div>
       <Emblem className="pointer-events-none absolute top-[18%] left-[-14%] -z-10 h-[90%] watermark lg:top-[-6%] lg:left-[-4%] lg:h-[115%]" />
       <div className={`relative grid grid-cols-1 lg:min-h-[calc(100svh-7.5rem)] lg:grid-cols-12 lg:items-center ${gutter}`}>
-        <div className="-mt-12 pb-[clamp(3.5rem,9vw,7rem)] lg:col-span-6 lg:mt-0 lg:py-24 xl:col-span-5">
+        <div className="-mt-8 pb-[clamp(3.5rem,9vw,7rem)] sm:-mt-12 lg:col-span-6 lg:mt-0 lg:py-24 xl:col-span-5">
           <Label>{hero.label}</Label>
           <Heading as="h1" className="mt-4 text-[clamp(2.9rem,5.8vw,6rem)] text-ink sm:mt-5">
             {hero.headline}
@@ -370,17 +371,6 @@ export function CoverGroups({ groups, wide = "", status }: { groups: typeof cove
   );
 }
 
-/** A small soft tick for lists of what's included. */
-export function Tick({ className = "" }: { className?: string }) {
-  return (
-    <span aria-hidden className={`grid size-[1.1rem] shrink-0 place-items-center rounded-full bg-gold/20 text-bronze ${className}`}>
-      <svg viewBox="0 0 12 12" className="size-2.5" fill="none" stroke="currentColor" strokeWidth="1.8">
-        <path d="M2.5 6.2 5 8.5l4.5-5" strokeLinecap="round" strokeLinejoin="round" />
-      </svg>
-    </span>
-  );
-}
-
 export function Covers() {
   return (
     <section className={`${pad} ${gutter}`}>
@@ -469,62 +459,27 @@ export function Paying() {
 /* The people who will walk with you.                                        */
 /* ------------------------------------------------------------------------ */
 
-export function TeacherList({ list = teachers }: { list?: typeof teachers; tone?: "ink" | "canvas" }) {
-  return (
-    <ul className="grid gap-3">
-      {list.map((t) => (
-        <li key={t.name} className="glass grid grid-cols-[4.75rem_1fr] items-center gap-x-4 gap-y-3 rounded-[1.5rem] p-4 sm:grid-cols-[7rem_1fr] sm:gap-x-5 sm:p-3 sm:pr-5">
-          <div className="relative aspect-square overflow-hidden rounded-[1rem] bg-beige sm:rounded-[1.1rem]">
-            <Image src={t.photo.src} alt={t.photo.alt} fill sizes="7rem" className={`object-cover ${t.photo.position}`} />
-          </div>
-          <div className="contents sm:block">
-            <div>
-              <p className="display text-[1.45rem] leading-[1.1] sm:text-[1.6rem] sm:leading-tight">{t.name}</p>
-              <p className="mt-1 font-editorial text-[1rem] leading-snug text-bronze italic sm:mt-0.5 sm:text-[1.02rem]">{t.role}</p>
-            </div>
-            <p className="col-span-2 text-[0.9rem] leading-[1.6] text-ink/68 sm:mt-1.5">
-              {t.bio.value}
-              <Mark s={t.bio.status} />
-            </p>
-          </div>
-        </li>
-      ))}
-    </ul>
-  );
-}
 
+/**
+ * The people, straightforward: what each person does, their name, one line.
+ * The leader in the same format as the teachers.
+ */
 export function People({ link = true }: { link?: boolean }) {
   return (
     <section id={link ? "people" : "team"} className={`wash-linen scroll-mt-24 py-[clamp(3.75rem,10vw,9rem)] ${gutter}`}>
-      <div className="grid grid-cols-1 gap-x-16 gap-y-12 lg:grid-cols-12">
-        <div className="lg:col-span-5">
+      <div className="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
+        <div>
           <Heading className={h2}>{people.headline}</Heading>
           <p className="mt-4 max-w-[28rem] text-[1rem] leading-[1.7] text-ink/70">{people.text}</p>
-          <figure className="mt-8 grid grid-cols-[8.5rem_1fr] items-center gap-x-5 gap-y-4 sm:mt-10 sm:block sm:max-w-[24rem]">
-            <div className="relative aspect-[4/5] overflow-hidden rounded-[1.4rem] bg-beige shadow-[var(--shadow-soft)] sm:rounded-[2rem]">
-              <Image src={leader.photo.src} alt={leader.photo.alt} fill sizes="(min-width: 640px) 24rem, 9rem" className="object-cover object-[50%_25%]" />
-            </div>
-            <figcaption className="contents sm:mt-5 sm:block">
-              <div>
-                <p className="display text-[1.65rem] leading-[1.08] sm:text-[1.95rem] sm:leading-tight">{leader.name}</p>
-                <p className="mt-1 font-editorial text-[1.05rem] text-bronze italic sm:mt-0.5 sm:text-[1.1rem]">{leader.role}</p>
-              </div>
-              <p className="col-span-2 text-[0.95rem] leading-[1.7] text-ink/70 sm:mt-2">
-                {leader.line} {leader.bio.value}
-                <Mark s={leader.bio.status} />
-              </p>
-            </figcaption>
-          </figure>
         </div>
-        <div className="lg:col-span-6 lg:col-start-7 lg:self-center">
-          <TeacherList />
-          {link ? (
-            <TileLink href="/about#team" tone="line-ink" className="mt-6 w-full sm:w-auto">
-              More about the team
-            </TileLink>
-          ) : null}
-        </div>
+        {link ? (
+          <TileLink href="/about#team" tone="line-ink" className="self-start lg:self-auto">
+            More about the team
+          </TileLink>
+        ) : null}
       </div>
+      <TeamList members={allMembers} className="mt-10 sm:mt-12" />
+      <TeamLine />
     </section>
   );
 }

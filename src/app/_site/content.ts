@@ -253,6 +253,126 @@ export const stay = {
 };
 
 /**
+ * Where you'll stay and how you'll travel, for the Umrah trip pages. The hotels
+ * and travel are from our last trip (EVIDENCED). Photographs: Rawdah's own where
+ * we have them; `slot` marks a frame waiting for the hotel's official photograph
+ * (from Rawdah or the hotel's media kit, never copied from another site).
+ */
+export type StayPhoto = { src?: string; alt?: string; position?: string; caption?: string; slot?: string };
+export const journeyStay = {
+  headline: "Where you’ll stay, and how you’ll travel",
+  text: "From our last trip. Each new trip confirms its hotels and travel when it’s announced.",
+  hotels: [
+    {
+      city: "Madinah",
+      name: "Peninsula Worth Hotel",
+      stars: 5,
+      nights: 5,
+      walk: "1–2 minutes’ walk to Masjid an-Nabawi",
+      text: "A five-star hotel a minute or two from the Prophet’s Mosque, with breakfast each day. Close enough to walk to every prayer.",
+      status: "evidenced" as Status,
+      photos: [{ slot: "The hotel" }, { slot: "A room" }, { slot: "Breakfast" }, { slot: "The walk to the Haram" }] as StayPhoto[],
+    },
+    {
+      city: "Makkah",
+      name: "Address Jabal Omar",
+      stars: 5,
+      nights: 5,
+      walk: "About 2 minutes’ walk to Masjid al-Haram",
+      text: "A five-star hotel in the Jabal Omar development beside Masjid al-Haram, with breakfast each day.",
+      status: "evidenced" as Status,
+      photos: [
+        { src: "/images/trips/group-address-jabal-omar.jpg", alt: "The Path of Purity II group together in the lobby of Address Jabal Omar.", position: "object-[50%_55%]", caption: "Our group in the lobby, August 2026" },
+        { slot: "A room" },
+        { slot: "The view" },
+        { slot: "Breakfast" },
+      ] as StayPhoto[],
+    },
+  ],
+  travel: [
+    { title: "Flights", text: "Qatar Airways, return from London Heathrow.", status: "evidenced" as Status },
+    { title: "Madinah to Makkah", text: "By VIP coach on our last trip, the group travelling together.", status: "evidenced" as Status },
+  ],
+  train: {
+    title: "The Haramain high-speed train",
+    text: "Madinah to Makkah in around two to two and a half hours, at up to 300 km/h. A calm, comfortable way between the two cities, and an option for future trips.",
+    status: "proposed" as Status,
+    photos: [{ slot: "The Haramain train" }, { slot: "On board" }] as StayPhoto[],
+  },
+  ziyarah: {
+    title: "Ziyarah",
+    text: "Visits to the places of the seerah, with the story told where it happened.",
+    status: "evidenced" as Status,
+    places: [
+      { name: "Masjid Quba", city: "Madinah", photo: { src: "/images/trips/group-quba-mosque.jpg", alt: "The group outside Masjid Quba.", position: "object-[50%_75%]" } as StayPhoto },
+      { name: "Mount Uhud", city: "Madinah", photo: { src: "/images/trips/group-uhud-hill.jpg", alt: "The group at Uhud, the mountains behind them.", position: "object-[50%_70%]" } as StayPhoto },
+      { name: "The sites around Makkah", city: "Makkah", photo: { slot: "Ziyarah in Makkah" } as StayPhoto },
+    ],
+  },
+};
+
+/**
+ * Hajj through Nusuk, for the Hajj 2027 page. The structure follows the
+ * reference Rawdah sent (Dar al Islam's Nusuk page, read 25 Oct 2026); the
+ * wording is ours and none of their facts are used. Nusuk dates are estimates
+ * from last year's cycle (Wego, 1 July 2026; Islam Channel, 2023).
+ */
+export const hajjNusuk = {
+  headline: "Hajj is now booked directly on Nusuk",
+  text: v(
+    "Since 2023, pilgrims from the UK book their Hajj package on Nusuk Hajj, the official platform of the Saudi Ministry of Hajj and Umrah, from providers it has approved. Groups like ours no longer sell Hajj packages. Our part is everything around the booking: getting you registered, helping you choose, preparing you, and travelling with you.",
+    "evidenced",
+  ),
+  timeline: [
+    { when: "Autumn 2026", title: "Open your Nusuk account", text: "Register and verify your account on hajj.nusuk.sa. Last year registration opened in October." },
+    { when: "Around December 2026", title: "Packages are published", text: "Approved providers publish their packages, dates and prices on Nusuk." },
+    { when: "December to January", title: "Choose, and get ready", text: "We go through the packages with you, and you choose yours and get your payment ready." },
+    { when: "Early 2027", title: "Booking opens", text: "You book and pay for your package on Nusuk. Last year booking opened on 1 February." },
+    { when: "Mid-May 2027", title: "Hajj 1448", text: "The days of Hajj are expected in mid-May. The exact days follow the moon." },
+  ],
+  timelineNote: "Estimates from last year’s timeline. Nusuk announces the real dates.",
+  steps: {
+    headline: "Register with us first, then with Nusuk",
+    text: v("Registering with us first means we can help you get your Nusuk details right the first time, and you’re part of the group from the start.", "proposed"),
+    items: [
+      { title: "Register with Rawdah", text: "Tell us who’s travelling. We add you to the group and our Hajj updates, and talk you through what comes next.", status: "proposed" as Status },
+      { title: "Open your Nusuk Hajj account", text: "At hajj.nusuk.sa. It’s separate from the Nusuk app you may have used for Umrah.", status: "evidenced" as Status },
+      { title: "Choose your package", text: "When packages are published, we tell you which one the group is travelling on, and why.", status: "proposed" as Status },
+      { title: "Book, then prepare with us", text: "You book and pay on Nusuk when booking opens. Then preparation sessions in the UK before you fly.", status: "confirmed" as Status },
+    ],
+  },
+  needs: {
+    headline: "Nusuk registration isn’t a five-minute form",
+    text: v("It asks for exact passport details and a photo that meets its rules, and every account is checked before it’s approved. Mistakes cause delays, so we go through it with you before you submit.", "proposed"),
+    items: [
+      "Your passport, valid well beyond your travel dates",
+      "A recent passport-style photo that meets Nusuk’s size and background rules",
+      "Your name and details exactly as they appear on your passport",
+      "An email address and phone number you check often",
+      "The same for anyone travelling with you",
+    ],
+  },
+  group: {
+    headline: "Our Hajj 2027 group",
+    items: [
+      { k: "Group dates", v: "Announced with the packages, around December", s: "to confirm" as Status },
+      { k: "Package and hotels", v: "The package the group travels on, chosen when packages go live", s: "to confirm" as Status },
+      { k: "Prices", v: "Set by the provider on Nusuk. You pay Nusuk, not Rawdah.", s: "confirmed" as Status },
+      { k: "Our Nusuk provider", v: "To be named", s: "to confirm" as Status },
+    ],
+  },
+  updates: {
+    title: "Hajj 2027 updates on WhatsApp",
+    text: "When Nusuk opens, when packages go live, and our preparation sessions: we’ll message you as it happens.",
+    status: "to confirm" as Status,
+  },
+  closing: {
+    title: "Labbayk Allahumma labbayk",
+    text: "Register now, so you’re ready, verified and in the group when the packages open.",
+  },
+};
+
+/**
  * Paying for your place, as a timeline with a worked example. V1 terms
  * (April 2026): £500 deposit, balance cleared 40 days before departure.
  * The number of instalments is our suggestion.
@@ -275,6 +395,7 @@ export const teachers = [
   {
     name: "Ustadh Abu Abdulaziz Ahmed",
     role: "Hajj guide, Hajj 2027",
+    does: "Guides the Hajj group",
     /** LIVE team profile. */
     bio: v("A graduate of King Saud University and a student of Shaykh Dr. Sa‘d al-Shithri.", "confirmed"),
     photo: { src: "/images/people/abu-abdulaziz-ahmed.jpg", alt: "Ustadh Abu Abdulaziz Ahmed", position: "object-[50%_15%]" },
@@ -282,6 +403,7 @@ export const teachers = [
   {
     name: "Ustadh Issa Uthman",
     role: "Guide and teacher, Path of Purity II",
+    does: "Guides and teaches on Umrah",
     /** V1 and POSTER: role only. */
     bio: v("Guided and taught our August 2026 group in Madinah and Makkah.", "draft"),
     photo: { src: "/images/people/issa-uthman.jpg", alt: "Ustadh Issa Uthman", position: "object-[40%_25%]" },
@@ -289,6 +411,7 @@ export const teachers = [
   {
     name: "Ustadh Abdulrahman Hassan",
     role: "Guide and teacher, Path of Purity II",
+    does: "Guides and teaches on Umrah",
     bio: v("Guided and taught our August 2026 group in Madinah and Makkah.", "draft"),
     photo: { src: "/images/people/abdulrahman-hassan.jpg", alt: "Ustadh Abdulrahman Hassan", position: "object-[40%_30%]" },
   },
@@ -298,6 +421,7 @@ export const teachers = [
 export const leader = {
   name: "Brother Ayuub Mohamed Musa",
   role: "Group leader",
+  does: "Leads every trip",
   line: "Your point of care from the first message to the flight home, on every Rawdah trip.",
   bio: v("Over ten years of da‘wah in the local community, serving others and supporting their growth in faith.", "evidenced"), // V1
   photo: { src: "/images/people/ayuub-mohamed-musa.jpg", alt: "Brother Ayuub Mohamed Musa, Rawdah Tours group leader" },
@@ -306,6 +430,8 @@ export const leader = {
 export const people = {
   headline: "The people who will walk with you", // V1
   text: "Every trip travels with students of knowledge and our group leader.",
+  /** The team behind them, in one line (DRAFT: Rawdah to confirm who travels besides the teachers). */
+  team: v("Behind them, the Rawdah team: from your first message to the airport, and on the ground in Madinah and Makkah.", "draft"),
 };
 
 /** Groups band on the home page. */

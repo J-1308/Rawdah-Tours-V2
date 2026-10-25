@@ -40,12 +40,23 @@ is **not** identified on the site.
 
 - **Hajj 2027** (LIVE): registration of interest; dates, packages and prices published on Nusuk; Rawdah takes
   no Hajj payments. Itinerary is the days of Hajj in outline (draft).
+  The page follows the structure of the Nusuk page Rawdah sent as a reference (Dar al Islam's Dar Haj site,
+  read 25 Oct 2026): how booking works on Nusuk, an estimated timeline, register with us then Nusuk, what
+  registration needs, our group, guidance, the days of Hajj, updates, a Labbayk close. **Only the structure and
+  general Nusuk facts are used.** Their wording, scholars, package dates, prices, provider and partner are theirs
+  and appear nowhere. Timeline estimates: Nusuk registration opened 7 Oct 2025 and booking 1 Feb 2026 last
+  cycle (Wego, updated 1 Jul 2026); Hajj 1448 expected around 15–19 May 2027 (same source). Rawdah's own
+  group dates, package, hotels and Nusuk provider are marked To confirm (`hajjNusuk` in `content.ts`).
 - **Next group Umrah**: not announced. The page shows Path of Purity II's shape and prices as a guide, all
   marked Suggested.
 - **Path of Purity II: Summer Edition** (V1, POSTER): 4–15 Aug 2026; 5 nights Peninsula Worth (Madinah), 5 nights
   Address Jabal Omar (Makkah), breakfast; Qatar Airways from Heathrow; quad £1,799, triple £1,835, double £2,025
   per person; land only from £1,040 (V1 terms; the poster's £1,099 is superseded); £500 deposit; balance cleared
   40 days before departure. Prices live once, in `src/lib/trips.ts`.
+
+- **Where you'll stay** (Umrah trip pages, `journeyStay`): the two hotels from the last trip with walking times,
+  flights and the coach (EVIDENCED); the Haramain train is Suggested (not used on the last trip); ziyarah with
+  Rawdah's own Quba and Uhud photos. Layout idea from The Sunnah Experience's hotel galleries; nothing copied.
 
 ## Copy
 
@@ -60,6 +71,10 @@ Used: group-uhud-hill, group-quba-mosque, group-quba-mosque-bright, group-nabawi
 group-address-jabal-omar, three-after-umrah-haram, two-ihram-clock-tower, two-at-nabawi-night,
 two-in-ihram-arrival, two-at-islamic-university, five-at-islamic-university, six-after-umrah, parrots-young-man,
 rawdah-vest-back, rawdah-vest-thumbs-up, rawdah-vest-palms, hajj-preparation-session (LIVE).
+
+**Hotel and train photographs:** frames marked "Photo to come" wait for official photographs from Rawdah or
+the hotels' media kits (Address Jabal Omar, and Peninsula Worth or Hilton in Madinah). Never copy them from
+another operator's site (e.g. The Sunnah Experience): they belong to the hotels or that operator.
 
 Not used yet: parrots-two-teens, rawdah-vest-parrot (both show younger travellers; held until Rawdah confirms
 consent).

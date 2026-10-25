@@ -408,3 +408,14 @@ export function SiteFooter() {
     </footer>
   );
 }
+
+/** A small soft tick for lists of what's included. */
+export function Tick({ className = "" }: { className?: string }) {
+  return (
+    <span aria-hidden className={`grid size-[1.1rem] shrink-0 place-items-center rounded-full bg-gold/20 text-bronze ${className}`}>
+      <svg viewBox="0 0 12 12" className="size-2.5" fill="none" stroke="currentColor" strokeWidth="1.8">
+        <path d="M2.5 6.2 5 8.5l4.5-5" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+    </span>
+  );
+}

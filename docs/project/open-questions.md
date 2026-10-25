@@ -1,6 +1,6 @@
 # Open questions
 
-Things only Rawdah (or Jibril) can answer. Each one is marked on the page where it shows. Updated 24 October 2026.
+Things only Rawdah (or Jibril) can answer. Each one is marked on the page where it shows. Updated 25 October 2026.
 
 ## Before launch (blocking)
 
@@ -12,6 +12,11 @@ Things only Rawdah (or Jibril) can answer. Each one is marked on the page where 
 4. **Next group Umrah:** name, dates, hotels, flights, prices, deposit, number of instalments, teachers. Until
    then the page shows Path of Purity II as a guide, marked Suggested.
 5. **Hajj 2027 "open to":** brothers, sisters and families? (marked To confirm)
+5a. **Hajj 2027 group:** which Nusuk provider Rawdah works with, the group's dates and package, hotels, and
+    whether Rawdah helps with Nusuk registration as the page suggests. Is there a WhatsApp updates group?
+5b. **Hotels for the next Umrah:** Address Jabal Omar in Makkah; Peninsula Worth or Hilton in Madinah? And the
+    hotels' official photographs (media kits) for the "Where you'll stay" galleries. Will future trips use the
+    Haramain train?
 
 ## Offers we've suggested (Rawdah to accept, change or remove)
 

@@ -45,13 +45,21 @@ cocoa on day). `.day` restores day inside night (the sample trip page card on Gr
 
 **The switch (review only).** `<html data-top="night|day">` decides the top zone: the strip, the header, the
 first chapter, the phone bar and the desktop WhatsApp button. Dark top: beige-gold logo. Light top: brown logo,
-and the hero photo dissolves into cream instead of night. A pill beside "Marks on" flips it; `?top=light` and
+and the hero photo dissolves into cream instead of night. A tab on the left edge (desktop) or the "Review" pill (phones) flips it; `?top=light` and
 `?top=dark` in a link choose one, remembered per browser; an inline script sets it before paint.
+
+**Trip pages** (added the same day): top (switch), then day for the join panel and the facts (for Hajj: how
+booking works on Nusuk, the steps with us, what registration needs, our group), night for the journey (for
+Umrah: where you'll stay, getting between the cities, ziyarah; for Hajj: the guidance, the days of Hajj and
+photographs), then day for what's included, the people, paying, questions and the form.
+
+**Review tools on phones** are one small "Review" pill that opens both switches, so they never sit over the
+headline.
 
 ## Consequences
 
 - Before launch, pick a top: set `data-top` on `<html>` in `src/app/layout.tsx`, then delete the inline script
-  and the `TopSwitch` in `marks.tsx`.
+  and the top switch (`useTop`) in `marks.tsx`.
 - New sections must sit inside a `Chapter` and use the flipping tokens (`text-ink`, `bg-(--raise)`), not fixed
   light or dark colours. `text-cream` is only for words on photographs and cocoa panels.
 - `feat/v2-rebuild` (cream) and `feat/v2-dark` (night) stay as they are for comparison.

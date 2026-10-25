@@ -2,12 +2,13 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
-import { anchors, covers, faqs, fromPrice, gbp, journey, journeys, leader, nightsOf, routes, routeText, stay, teachers } from "@/app/_site/content";
-import { CoverGroups, FaqList, PaymentPlan, TeacherList, Tick } from "@/app/_site/home-sections";
+import { anchors, covers, faqs, fromPrice, gbp, hajjBand, hajjNusuk, journey, journeys, nightsOf, routes, routeText, say, type Journey } from "@/app/_site/content";
+import { CoverGroups, FaqList, PaymentPlan, Tick } from "@/app/_site/home-sections";
 import { Mark } from "@/app/_site/marks";
 import { RegisterForm } from "@/app/_site/register-form";
 import { ReservePanel } from "@/app/_site/reserve";
-import { Chapter, ConfirmedPending, gutter, Heading, PageLead } from "@/app/_site/shell";
+import { Chapter, ConfirmedPending, gutter, Heading, Label, PageLead, WaTile } from "@/app/_site/shell";
+import { HajjOnNusuk, leaderMember, MomentStrip, TeamLine, TeamList, teacherMembers, WhereYouStay, type Member } from "@/app/_site/trip-parts";
 import { StateTag } from "@/app/_site/trip-row";
 import { Chevron } from "@/app/_site/whatsapp";
 import { getTrip, isBookable, isDemoBooking } from "@/lib/trips";
@@ -26,11 +27,45 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
 const h2 = "text-[clamp(2.1rem,3.4vw,3.1rem)]";
 
+/** How the trip runs (Umrah) or the days of Hajj, as a quiet timeline. */
+function Itinerary({ j }: { j: Journey }) {
+  if (!j.itinerary) return null;
+  return (
+    <section className={j.kind === "umrah" ? "mt-12 sm:mt-16" : ""}>
+      <Heading className={h2}>
+        {j.kind === "hajj" ? "The days of Hajj" : "How the trip runs"}
+        <Mark s={j.itinerary.status} />
+      </Heading>
+      <ol className="mt-8">
+        {j.itinerary.value.map((d, i, all) => (
+          <li key={d.day + d.title} className="grid grid-cols-[1.5rem_1fr] gap-x-4">
+            <span aria-hidden className="flex flex-col items-center">
+              <span className="mt-1.5 size-3 shrink-0 rounded-full bg-gold ring-4 ring-gold/20" />
+              {i < all.length - 1 ? <span className="mt-2 w-px flex-1 bg-gradient-to-b from-gold/50 to-gold/10" /> : null}
+            </span>
+            <div className="pb-8">
+              <p className="text-[0.82rem] font-medium text-bronze">{d.day}</p>
+              <p className="display mt-1 text-[1.65rem] leading-tight">{d.title}</p>
+              <p className="mt-1.5 max-w-[38rem] text-[0.96rem] leading-[1.65] text-ink/75">{d.text}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
+      {j.kind === "hajj" ? (
+        <p className="max-w-[38rem] text-[0.88rem] text-ink/68">The rites in outline. Your guide teaches each one in detail before you perform it, and each package’s timings are set out on Nusuk.</p>
+      ) : null}
+    </section>
+  );
+}
+
 /**
- * A trip's own page: the facts and a photo mosaic up top, the join panel
- * beside the story, then how the trip runs, where you stay, what the price
- * covers, the people, what's settled and what isn't, paying, questions, and
- * the register-interest form.
+ * A trip's own page, in chapters (ADR 0004). Top: the facts and photographs.
+ * Day: the join panel beside the story; for Hajj, how booking works on Nusuk,
+ * the steps with us, what you need and our group; for Umrah, how the trip runs;
+ * then what's settled and what isn't. Night: for Umrah, where you'll stay and
+ * how you'll travel; for Hajj, the guidance, the days of Hajj and photographs.
+ * Day: what's included, the people and paying (Umrah), questions, Hajj
+ * updates, and the register-interest form.
  */
 export default async function TripPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
@@ -42,7 +77,13 @@ export default async function TripPage({ params }: { params: Promise<{ slug: str
   const demo = Boolean(trip && isDemoBooking(trip));
   const price = fromPrice(j);
   const nights = nightsOf(j);
-  const theirTeachers = teachers.filter((t) => j.teacher.value.includes(t.name.replace(/^Ustadh /, "")));
+  const theirTeachers = teacherMembers.filter((t) => j.teacher.value.includes(t.name.replace(/^Ustadh /, "")));
+  const members: Member[] = [
+    leaderMember,
+    ...(theirTeachers.length
+      ? theirTeachers
+      : [{ name: j.teacher.value, does: "Students of knowledge", line: "Students of knowledge travel with every group. They’ll be named here when the trip is announced.", status: j.teacher.status }]),
+  ];
   const qs = faqs.filter((f) => (j.kind === "hajj" ? f.topic === "hajj" : f.topic !== "hajj"));
   const joinLabel = j.state === "open" ? "Book your place" : j.state === "past" ? "Hear about the next trip" : "Register interest";
 
@@ -120,139 +161,115 @@ export default async function TripPage({ params }: { params: Promise<{ slug: str
             </ul>
           </section>
 
-          {j.itinerary ? (
-            <section className="mt-12 sm:mt-16">
-              <Heading className={h2}>
-                {j.kind === "hajj" ? "The days of Hajj" : "How the trip runs"}
-                <Mark s={j.itinerary.status} />
-              </Heading>
-              <ol className="mt-8">
-                {j.itinerary.value.map((d, i, all) => (
-                  <li key={d.day + d.title} className="grid grid-cols-[1.5rem_1fr] gap-x-4">
-                    <span aria-hidden className="flex flex-col items-center">
-                      <span className="mt-1.5 size-3 shrink-0 rounded-full bg-gold ring-4 ring-gold/20" />
-                      {i < all.length - 1 ? <span className="mt-2 w-px flex-1 bg-gradient-to-b from-gold/50 to-gold/10" /> : null}
-                    </span>
-                    <div className="pb-8">
-                      <p className="text-[0.82rem] font-medium text-bronze">{d.day}</p>
-                      <p className="display mt-1 text-[1.65rem] leading-tight">{d.title}</p>
-                      <p className="mt-1.5 max-w-[38rem] text-[0.96rem] leading-[1.65] text-ink/75">{d.text}</p>
-                    </div>
-                  </li>
-                ))}
-              </ol>
-              {j.kind === "hajj" ? (
-                <p className="max-w-[38rem] text-[0.88rem] text-ink/68">The rites in outline. Your guide teaches each one in detail before you perform it, and each package’s timings are set out on Nusuk.</p>
-              ) : null}
-            </section>
-          ) : null}
+          {j.kind === "hajj" ? <HajjOnNusuk /> : null}
 
-          {j.kind === "umrah" ? (
-            <section className="mt-12 sm:mt-16">
-              <Heading className={h2}>{stay.headline}</Heading>
-              <div className="glass mt-6 rounded-[1.5rem] px-5 py-1 sm:px-7">
-                {stay.hotels.map((h) => {
-                  const named = h.city === "Madinah" ? j.hotels?.madinah : j.hotels?.makkah;
-                  return (
-                    <div key={h.city} className="grid grid-cols-[1fr_auto] gap-x-4 gap-y-1 border-b border-ink/8 py-5 sm:grid-cols-[8rem_1fr_auto] sm:items-baseline">
-                      <p className="display text-[1.8rem] leading-none">{h.city}</p>
-                      <p className="text-right text-[0.92rem] sm:order-last">{h.nights} nights</p>
-                      <div className="col-span-2 sm:col-span-1">
-                        <p className="text-[1rem] font-medium">
-                          {named?.value ?? h.name}
-                          <Mark s={named?.status ?? h.status} />
-                        </p>
-                        <p className="mt-0.5 text-[0.88rem] text-ink/70">
-                          {h.walk}. {h.board}.
-                        </p>
-                      </div>
-                    </div>
-                  );
-                })}
-                {j.flights ? (
-                  <p className="grid grid-cols-1 gap-1 py-4 text-[0.95rem] sm:grid-cols-[8rem_1fr]">
-                    <span className="display text-[1.8rem] leading-none">Flights</span>
-                    <span className="self-center">
-                      {j.flights.value}
-                      <Mark s={j.flights.status} />
-                    </span>
-                  </p>
-                ) : null}
-              </div>
-            </section>
-          ) : null}
-
-          {j.kind === "umrah" ? (
-            <section className="mt-12 sm:mt-16">
-              <Heading className={h2}>{covers.headline}</Heading>
-              <div className="mt-6">
-                <CoverGroups groups={covers.groups} status={(s) => (j.state === "past" || s === "confirmed" ? s : "proposed")} />
-              </div>
-            </section>
-          ) : null}
-
-          <section className="mt-12 sm:mt-16">
-            <Heading className={h2}>The people who will walk with you</Heading>
-            <div className="mt-6">
-              {theirTeachers.length ? (
-                <TeacherList list={theirTeachers} tone="canvas" />
-              ) : (
-                <div className="glass grid grid-cols-[4.75rem_1fr] items-center gap-4 rounded-[1.5rem] p-4 sm:grid-cols-[7rem_1fr] sm:gap-5 sm:p-3 sm:pr-5">
-                  <div className="grid aspect-square place-items-center rounded-[1.1rem] border border-dashed border-ink/25 p-2 text-center text-[0.72rem] text-ink/65">To be named</div>
-                  <div>
-                    <p className="display text-[1.45rem] leading-tight sm:text-[1.65rem]">
-                      {j.teacher.value}
-                      <Mark s={j.teacher.status} />
-                    </p>
-                    <p className="mt-2 text-[0.93rem] leading-[1.6] text-ink/70">Students of knowledge travel with every group. They’ll be named here when the trip is announced.</p>
-                  </div>
-                </div>
-              )}
-            </div>
-            <p className="mt-5 text-[0.95rem] text-ink/72">
-              Led by <span className="font-medium text-ink">{leader.name}</span>, our group leader: {leader.line.charAt(0).toLowerCase() + leader.line.slice(1)}
-            </p>
-          </section>
+          {j.kind === "umrah" && j.itinerary ? <Itinerary j={j} /> : null}
 
           {j.confirmed || j.pending ? (
             <section className="mt-12 grid grid-cols-1 gap-2 sm:mt-16 sm:grid-cols-2 sm:gap-1.5">
               <ConfirmedPending confirmed={j.confirmed} pending={j.pending} />
             </section>
           ) : null}
-
-          {j.kind === "umrah" ? (
-            <section className="mt-12 sm:mt-16">
-              <Heading className={h2}>Paying for your place</Heading>
-              <div className="mt-6">
-                <PaymentPlan tone="canvas" />
-              </div>
-            </section>
-          ) : null}
-
-          <section className="mt-12 sm:mt-16">
-            <Heading className={h2}>Common questions</Heading>
-            <div className="glass mt-6 rounded-[1.5rem] px-5 py-1">
-              <FaqList items={qs} />
-            </div>
-          </section>
         </div>
       </div>
+      </Chapter>
 
-      {j.state !== "past" ? (
-        <section id={anchors.form} className={`wash-linen scroll-mt-28 py-[clamp(3.75rem,10vw,9rem)] ${gutter}`}>
-          <div className="grid grid-cols-1 gap-x-14 gap-y-10 lg:grid-cols-12">
-            <div className="lg:col-span-4">
-              <Heading className="text-[clamp(2.4rem,4vw,3.6rem)]">{j.kind === "hajj" ? "Register for Hajj 2027" : "Hear first when the dates are out"}</Heading>
-              <p className="mt-5 max-w-[24rem] text-[1rem] leading-[1.65] text-ink/72">
-                Two minutes, and someone from Rawdah will be in touch. Registering doesn’t reserve a place or commit you to anything.
-              </p>
-            </div>
-            <div className="glass rounded-[1.75rem] p-5 sm:p-8 lg:col-span-7 lg:col-start-6">
-              <RegisterForm defaultJourney={j.kind === "hajj" ? "hajj-2027" : "umrah"} page={`/trips/${j.slug}`} />
-            </div>
+      {/* Night: the journey itself */}
+      <Chapter tone="night">
+        {j.kind === "umrah" ? (
+          <WhereYouStay j={j} />
+        ) : (
+          <section className={`py-[clamp(3.75rem,9vw,8rem)] ${gutter}`}>
+            <Label>Hajj 2027</Label>
+            <Heading className="mt-4 max-w-[44rem] text-[clamp(2.3rem,4.2vw,4rem)]">Experienced guidance, walking with you</Heading>
+            <p className="mt-4 max-w-[36rem] text-[1rem] leading-[1.65] text-ink/72">From your first question in the UK to the last tawaf, the same people with you the whole way.</p>
+            <TeamList members={members} className="mt-10 lg:grid-cols-2 lg:max-w-[52rem]" />
+            {j.itinerary ? (
+              <div className="mt-16 max-w-[48rem] sm:mt-20">
+                <Itinerary j={j} />
+              </div>
+            ) : null}
+            <MomentStrip
+              photos={[
+                { src: "/images/trips/hajj-preparation-session.jpg", alt: "A Rawdah preparation session in the UK.", position: "object-[50%_60%]" },
+                { src: "/images/trips/three-after-umrah-haram.jpg", alt: "Three travellers in ihram outside Masjid al-Haram at dusk.", position: "object-[50%_50%]" },
+                { src: "/images/trips/two-ihram-clock-tower.jpg", alt: "Two travellers in ihram at night, the clock tower behind them.", position: "object-[50%_40%]" },
+              ]}
+              caption="From our preparation sessions and Umrah trips. Our Hajj group’s photos will follow."
+            />
+          </section>
+        )}
+      </Chapter>
+
+      <Chapter tone="day">
+        <div className={`py-[clamp(3.75rem,9vw,8rem)] ${gutter}`}>
+          <div className="max-w-[60rem]">
+            {j.kind === "umrah" ? (
+              <>
+                <section>
+                  <Heading className={h2}>{covers.headline}</Heading>
+                  <div className="mt-6">
+                    <CoverGroups groups={covers.groups} status={(s) => (j.state === "past" || s === "confirmed" ? s : "proposed")} />
+                  </div>
+                </section>
+                <section className="mt-12 sm:mt-16">
+                  <Heading className={h2}>The people who will walk with you</Heading>
+                  <TeamList members={members} className="mt-8 lg:grid-cols-3" />
+                  <TeamLine />
+                </section>
+                <section className="mt-12 sm:mt-16">
+                  <Heading className={h2}>Paying for your place</Heading>
+                  <div className="mt-6">
+                    <PaymentPlan tone="canvas" />
+                  </div>
+                </section>
+              </>
+            ) : null}
+
+            <section className={j.kind === "umrah" ? "mt-12 sm:mt-16" : ""}>
+              <Heading className={h2}>Common questions</Heading>
+              <div className="glass mt-6 rounded-[1.5rem] px-5 py-1">
+                <FaqList items={qs} />
+              </div>
+            </section>
+
+            {j.kind === "hajj" ? (
+              <section className="mt-12 sm:mt-16">
+                <div className="glass flex flex-col gap-5 rounded-[1.75rem] p-5 sm:flex-row sm:items-center sm:justify-between sm:p-7">
+                  <div>
+                    <p className="display text-[1.7rem] leading-tight">
+                      {hajjNusuk.updates.title}
+                      <Mark s={hajjNusuk.updates.status} />
+                    </p>
+                    <p className="mt-1.5 max-w-[30rem] text-[0.95rem] leading-[1.6] text-ink/70">{hajjNusuk.updates.text}</p>
+                  </div>
+                  <WaTile text={say.hajj} label="Get the updates" tone="solid" className="shrink-0" />
+                </div>
+              </section>
+            ) : null}
           </div>
-        </section>
-      ) : null}
+        </div>
+
+        {j.state !== "past" ? (
+          <section id={anchors.form} className={`wash-linen scroll-mt-28 py-[clamp(3.75rem,10vw,9rem)] ${gutter}`}>
+            <div className="grid grid-cols-1 gap-x-14 gap-y-10 lg:grid-cols-12">
+              <div className="lg:col-span-4">
+                {j.kind === "hajj" ? (
+                  <p lang="ar" className="ar mb-2 text-left text-[clamp(1.6rem,2.6vw,2.2rem)] leading-[1.7] text-bronze">
+                    {hajjBand.talbiyah}
+                  </p>
+                ) : null}
+                <Heading className="text-[clamp(2.4rem,4vw,3.6rem)]">{j.kind === "hajj" ? hajjNusuk.closing.title : "Hear first when the dates are out"}</Heading>
+                <p className="mt-5 max-w-[24rem] text-[1rem] leading-[1.65] text-ink/72">
+                  {j.kind === "hajj" ? `${hajjNusuk.closing.text} ` : ""}Two minutes, and someone from Rawdah will be in touch. Registering doesn’t reserve a place or commit you to anything.
+                </p>
+              </div>
+              <div className="glass rounded-[1.75rem] p-5 sm:p-8 lg:col-span-7 lg:col-start-6">
+                <RegisterForm defaultJourney={j.kind === "hajj" ? "hajj-2027" : "umrah"} page={`/trips/${j.slug}`} />
+              </div>
+            </div>
+          </section>
+        ) : null}
       </Chapter>
     </>
   );
