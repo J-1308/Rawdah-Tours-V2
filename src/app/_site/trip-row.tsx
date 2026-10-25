@@ -11,7 +11,7 @@ export const tripHref = (j: Journey) => `/trips/${j.slug}`;
 export function StateTag({ j, className = "" }: { j: Journey; className?: string }) {
   return (
     <span
-      className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-[0.74rem] font-medium backdrop-blur ${
+      className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-[0.78rem] font-medium backdrop-blur ${
         j.state === "past" ? "bg-black/50 text-cream/75" : "bg-black/50 text-cream"
       } ${className}`}
     >
@@ -39,20 +39,20 @@ export function TripRow({ j }: { j: Journey; tone?: "canvas" | "ink" }) {
   ];
 
   return (
-    <article className="glass grid grid-cols-1 gap-5 rounded-[2rem] p-3 sm:p-4 lg:grid-cols-[19rem_1fr_18rem] lg:gap-8">
-      <Link href={href} tabIndex={-1} aria-hidden className="relative block aspect-[16/10] overflow-hidden rounded-[1.5rem] bg-beige lg:aspect-auto lg:min-h-[15rem]">
+    <article className="glass grid grid-cols-1 gap-4 rounded-[1.75rem] p-2.5 sm:gap-5 sm:rounded-[2rem] sm:p-4 lg:grid-cols-[19rem_1fr_18rem] lg:gap-8">
+      <Link href={href} tabIndex={-1} aria-hidden className="relative block aspect-[16/9] overflow-hidden rounded-[1.35rem] bg-beige sm:aspect-[16/10] sm:rounded-[1.5rem] lg:aspect-auto lg:min-h-[15rem]">
         <Image src={j.photo.src} alt="" fill sizes="(min-width: 1024px) 19rem, 100vw" className={`object-cover transition-transform duration-[1.2s] hover:scale-[1.04] ${j.photo.position ?? ""}`} />
         <StateTag j={j} className="absolute top-3 left-3" />
       </Link>
 
-      <div className="flex flex-col justify-center px-2 pb-1 lg:px-0 lg:py-3">
+      <div className="flex flex-col justify-center px-2.5 lg:px-0 lg:py-3">
         <h3 className="display text-[clamp(1.9rem,2.8vw,2.6rem)]">
           <Link href={href} className="transition-colors hover:text-bronze">
             {j.name}
           </Link>
         </h3>
-        <p className="mt-1.5 font-editorial text-[1.15rem] text-ink/65 italic">{j.tagline}</p>
-        <dl className="mt-5 grid grid-cols-[5.5rem_1fr] gap-x-4 gap-y-2 text-[0.92rem]">
+        <p className="mt-1 font-editorial text-[1.1rem] leading-snug text-ink/65 italic sm:mt-1.5 sm:text-[1.15rem]">{j.tagline}</p>
+        <dl className="mt-4 grid grid-cols-[5.25rem_1fr] gap-x-3 gap-y-2 text-[0.9rem] sm:mt-5 sm:grid-cols-[5.5rem_1fr] sm:gap-x-4 sm:text-[0.92rem]">
           {facts.map((f) => (
             <div key={f.k} className="contents">
               <dt className="text-ink/50">{f.k}</dt>
@@ -65,12 +65,12 @@ export function TripRow({ j }: { j: Journey; tone?: "canvas" | "ink" }) {
         </dl>
       </div>
 
-      <div className="flex flex-col justify-between gap-5 rounded-[1.5rem] bg-canvas-warm/80 p-5">
+      <div className="flex flex-col justify-between gap-4 rounded-[1.35rem] bg-canvas-warm/80 p-4 sm:gap-5 sm:rounded-[1.5rem] sm:p-5">
         {price ? (
           <div>
             <p className="text-[0.8rem] text-ink/55">{j.state === "past" ? "Was from" : "From"}</p>
             <p className="mt-0.5 flex flex-wrap items-baseline gap-x-2">
-              <span className="display text-[2.6rem] leading-none">{gbp(price)}</span>
+              <span className="display text-[2.3rem] leading-none sm:text-[2.6rem]">{gbp(price)}</span>
               <span className="text-[0.84rem] text-ink/55">per person</span>
               <Mark s={j.rooms?.status} />
             </p>

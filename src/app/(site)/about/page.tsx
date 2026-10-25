@@ -24,13 +24,13 @@ export default function AboutPage() {
         ]}
       />
 
-      <section className={`bg-canvas py-[clamp(3.5rem,7vw,6rem)] ${gutter}`}>
+      <section className={`bg-canvas py-[clamp(3rem,7vw,6rem)] ${gutter}`}>
         <div className="grid grid-cols-1 gap-x-14 gap-y-10 lg:grid-cols-12">
           <figure className="lg:col-span-5">
             <span aria-hidden className="display block h-[0.55em] text-[5rem] leading-[0.9] text-gold">
               “
             </span>
-            <blockquote className="display text-[clamp(1.9rem,3vw,2.8rem)] leading-[1.15]">{about.quote.value}”</blockquote>
+            <blockquote className="display text-[clamp(1.75rem,3vw,2.8rem)] leading-[1.15]">{about.quote.value}”</blockquote>
             <figcaption className="mt-4 text-[0.86rem] text-ink/60">
               From Rawdah’s first website
               <Mark s={about.quote.status} />
@@ -49,15 +49,17 @@ export default function AboutPage() {
 
       <Meaning />
 
-      <section className={`bg-canvas py-[clamp(3.5rem,7vw,6rem)] ${gutter}`}>
+      <section className={`bg-canvas py-[clamp(3rem,7vw,6rem)] ${gutter}`}>
         <Heading className="text-[clamp(2.2rem,3.8vw,3.4rem)]">What we hold to</Heading>
-        <ul className="mt-9 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {about.values.map((v) => (
-            <li key={v.title} className="glass rounded-[1.5rem] p-6">
-              <Emblem className="h-5 text-gold" />
-              <p className="display mt-6 text-[1.7rem] leading-tight">
-                {v.title}
-                <Mark s={v.status} />
+        <ul className="glass-phone mt-8 grid grid-cols-1 rounded-[1.5rem] px-5 py-1 sm:mt-9 sm:grid-cols-2 sm:gap-4 sm:p-0 lg:grid-cols-4">
+          {about.values.map((v, i) => (
+            <li key={v.title} className={`glass-wide py-5 sm:rounded-[1.5rem] sm:p-6 ${i ? "border-t border-ink/8" : ""}`}>
+              <p className="display flex items-start gap-3 text-[1.5rem] leading-tight sm:block sm:text-[1.7rem]">
+                <Emblem className="mt-[0.2em] h-[0.85em] shrink-0 text-gold sm:mt-0 sm:mb-6 sm:h-5" />
+                <span>
+                  {v.title}
+                  <Mark s={v.status} />
+                </span>
               </p>
               <p className="mt-1.5 text-[0.92rem] text-ink/68">{v.text}</p>
             </li>
@@ -67,22 +69,22 @@ export default function AboutPage() {
 
       <People link={false} />
 
-      <section id="contact" className={`scroll-mt-28 bg-canvas py-[clamp(3.5rem,7vw,6rem)] ${gutter}`}>
+      <section id="contact" className={`scroll-mt-28 bg-canvas py-[clamp(3rem,7vw,6rem)] ${gutter}`}>
         <div className="grid grid-cols-1 gap-x-14 gap-y-12 lg:grid-cols-12">
           <div className="lg:col-span-6">
             <Heading className="text-[clamp(2.2rem,3.8vw,3.4rem)]">Get in touch</Heading>
             <p className="mt-4 max-w-[30rem] text-[1rem] leading-[1.65] text-ink/72">WhatsApp is the quickest way to reach us. Registration of interest is open for Hajj 2027, and the next Umrah is being planned.</p>
             <Actions primary={{ label: "Register for Hajj 2027", href: `${routes.hajj}#register-interest` }} waText={say.general} tone="canvas" className="mt-7" />
-            <dl className="mt-8 grid grid-cols-1 gap-3 sm:grid-cols-2">
+            <dl className="glass-phone mt-8 grid grid-cols-1 rounded-[1.25rem] px-4 py-1 sm:grid-cols-2 sm:gap-3 sm:p-0">
               {[
                 ["Phone and WhatsApp", <a key="p" href={brand.phone.href} className="underline decoration-ink/25 underline-offset-4">{brand.phone.display}</a>],
                 ["Email", <a key="e" href={`mailto:${brand.email}`} className="break-all underline decoration-ink/25 underline-offset-4">{brand.email}</a>],
                 ["Instagram", <a key="i" href={brand.instagram.href} target="_blank" rel="noopener noreferrer" className="underline decoration-ink/25 underline-offset-4">{brand.instagram.handle}</a>],
                 ["Based in", "Birmingham"],
-              ].map(([k, val]) => (
-                <div key={String(k)} className="glass rounded-[1.25rem] p-4">
-                  <dt className="text-[0.8rem] text-ink/55">{k}</dt>
-                  <dd className="mt-1 text-[0.98rem]">{val}</dd>
+              ].map(([k, val], i) => (
+                <div key={String(k)} className={`glass-wide flex items-baseline justify-between gap-4 py-3.5 sm:block sm:rounded-[1.25rem] sm:p-4 ${i ? "border-t border-ink/8" : ""}`}>
+                  <dt className="shrink-0 text-[0.8rem] text-ink/55">{k}</dt>
+                  <dd className="min-w-0 text-right text-[0.95rem] sm:mt-1 sm:text-left sm:text-[0.98rem]">{val}</dd>
                 </div>
               ))}
             </dl>
@@ -95,19 +97,19 @@ export default function AboutPage() {
                 ["Registered in", "England and Wales"],
                 ["Registered office", brand.address],
               ].map(([k, val]) => (
-                <div key={k} className="grid grid-cols-[9rem_1fr] gap-4 border-t border-ink/8 py-3 first:border-0">
+                <div key={k} className="grid grid-cols-[7.5rem_1fr] gap-3 border-t border-ink/8 py-3 first:border-0 sm:grid-cols-[9rem_1fr] sm:gap-4">
                   <dt className="text-ink/55">{k}</dt>
                   <dd>{val}</dd>
                 </div>
               ))}
-              <div className="grid grid-cols-[9rem_1fr] gap-4 border-t border-ink/8 py-3 first:border-0">
+              <div className="grid grid-cols-[7.5rem_1fr] gap-3 border-t border-ink/8 py-3 first:border-0 sm:grid-cols-[9rem_1fr] sm:gap-4">
                 <dt className="text-ink/55">Company number</dt>
                 <dd>
                   {brand.companyNumber.value}
                   <Mark s={brand.companyNumber.status} />
                 </dd>
               </div>
-              <div className="grid grid-cols-[9rem_1fr] gap-4 border-t border-ink/8 py-3 first:border-0">
+              <div className="grid grid-cols-[7.5rem_1fr] gap-3 border-t border-ink/8 py-3 first:border-0 sm:grid-cols-[9rem_1fr] sm:gap-4">
                 <dt className="text-ink/55">Protection</dt>
                 <dd>
                   ATOL 5311 through Polani Travel Ltd, for the 2026 trips

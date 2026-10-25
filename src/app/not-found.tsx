@@ -9,7 +9,7 @@ export default function NotFound() {
     <>
       <div className={`flex justify-center bg-canvas py-5 ${gutter}`}>
         <Link href="/" aria-label="Rawdah Tours, home" className="inline-block text-ink">
-          <Logo className="h-12" />
+          <Logo className="logo-gold h-12" />
         </Link>
       </div>
       <NoticePage title="This page isn’t here">

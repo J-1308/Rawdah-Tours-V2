@@ -66,12 +66,12 @@ const btnTone: Record<Tone, string> = {
   "line-canvas": "border border-cream/30 bg-white/5 text-cream hover:border-cream/60",
 };
 
-const btnBase = "group inline-flex min-h-[3.25rem] items-center justify-center gap-3 rounded-[0.95rem] px-6 py-3 text-[0.95rem] font-medium transition-[background,border-color,transform] duration-300 active:scale-[0.99]";
+const btnBase = "group inline-flex min-h-[3.25rem] items-center justify-center rounded-[0.95rem] py-3 text-[0.95rem] font-medium transition-[background,border-color,transform] duration-300 active:scale-[0.99]";
 
 /** The main button. Full width on phones when stacked in Actions. */
-export function TileLink({ href, children, tone = "ink", className = "" }: { href: string; children: ReactNode; tone?: Tone; className?: string }) {
+export function TileLink({ href, children, tone = "ink", className = "", pad = "gap-3 px-6" }: { href: string; children: ReactNode; tone?: Tone; className?: string; pad?: string }) {
   return (
-    <Link href={href} className={`${btnBase} ${btnTone[tone]} ${className}`}>
+    <Link href={href} className={`${btnBase} ${pad} ${btnTone[tone]} ${className}`}>
       {children}
       <Chevron className="size-3.5 opacity-70 transition-transform duration-300 group-hover:translate-x-0.5" />
     </Link>
@@ -82,14 +82,27 @@ export function TileLink({ href, children, tone = "ink", className = "" }: { hre
 export function WaTile({ text, label = "WhatsApp us", tone = "line-ink", className = "" }: { text: string; label?: string; tone?: "solid" | "line-ink" | "line-canvas"; className?: string }) {
   const look = tone === "solid" ? "bg-wa text-white shadow-[0_14px_30px_-16px_rgb(31_168_85/0.7)] hover:brightness-95" : btnTone[tone];
   return (
-    <a href={wa(text)} target="_blank" rel="noopener noreferrer" className={`${btnBase} ${look} ${className}`}>
+    <a href={wa(text)} target="_blank" rel="noopener noreferrer" className={`${btnBase} gap-3 px-6 ${look} ${className}`}>
       <WaGlyph className={`size-5 ${tone === "solid" ? "" : "text-wa"}`} />
       {label}
     </a>
   );
 }
 
-/** A section's two actions: the main one and WhatsApp. Stacked full width on phones. */
+/** WhatsApp as a square glyph button: beside the main button on phones, where the bottom bar already names WhatsApp. */
+export function WaSquare({ text, tone = "line-ink", className = "" }: { text: string; tone?: "line-ink" | "line-canvas"; className?: string }) {
+  return (
+    <a href={wa(text)} target="_blank" rel="noopener noreferrer" aria-label="WhatsApp us" className={`grid size-[3.25rem] shrink-0 place-items-center rounded-[0.95rem] text-wa transition-colors ${btnTone[tone]} ${className}`}>
+      <WaGlyph className="size-[1.35rem]" />
+    </a>
+  );
+}
+
+/**
+ * A section's two actions: the main one and WhatsApp. On phones the main
+ * button fills the row and WhatsApp sits beside it as a glyph; from tablet
+ * width both are full buttons.
+ */
 export function Actions({
   primary,
   waText,
@@ -106,14 +119,22 @@ export function Actions({
 }) {
   const main: Tone = tone === "ink" ? "gold" : "ink";
   const line = tone === "ink" ? "line-canvas" : "line-ink";
+  if (!primary) {
+    return (
+      <div className={`flex flex-col gap-2.5 sm:flex-row sm:flex-wrap ${className}`}>
+        <WaTile text={waText} label={waLabel} tone={line} />
+      </div>
+    );
+  }
   return (
-    <div className={`flex flex-col gap-2.5 sm:flex-row sm:flex-wrap ${className}`}>
-      {primary ? (
-        <TileLink href={primary.href} tone={main}>
-          {primary.label}
-        </TileLink>
-      ) : null}
-      <WaTile text={waText} label={waLabel} tone={line} />
+    <div className={`flex gap-2 sm:flex-wrap sm:gap-2.5 ${className}`}>
+      <TileLink href={primary.href} tone={main} pad="gap-2 px-4 sm:gap-3 sm:px-6" className="min-w-0 flex-1 sm:flex-none">
+        {primary.label}
+      </TileLink>
+      <WaSquare text={waText} tone={line} className="sm:hidden" />
+      <span className="hidden sm:contents">
+        <WaTile text={waText} label={waLabel} tone={line} />
+      </span>
     </div>
   );
 }
@@ -122,7 +143,7 @@ export function Actions({
 export function AnnouncementStrip() {
   return (
     <div className="bg-beige/70 text-ink">
-      <Link href={strip.href} className={`flex items-center justify-center gap-3 py-2 text-[0.8rem] ${gutter}`}>
+      <Link href={strip.href} className={`flex min-h-10 items-center justify-center gap-3 py-2 text-[0.8rem] ${gutter}`}>
         <Emblem className="h-3.5 text-bronze" />
         <span className="sm:hidden">{strip.short}</span>
         <span className="hidden sm:inline">{strip.text}</span>
@@ -214,15 +235,15 @@ export function PageLead({
   children?: ReactNode;
 }) {
   return (
-    <section className={`wash-hero relative overflow-hidden pt-5 pb-[clamp(4rem,8vw,7rem)] ${gutter}`}>
+    <section className={`wash-hero relative overflow-hidden pt-5 pb-[clamp(3rem,8vw,7rem)] ${gutter}`}>
       <Emblem className="pointer-events-none absolute top-[-8%] right-[-6%] h-[115%] text-sand/[0.05]" />
       {crumbs ? (
-        <nav aria-label="Breadcrumb" className="relative mb-6 flex flex-wrap items-center gap-x-2 text-[0.82rem] text-ink/55">
+        <nav aria-label="Breadcrumb" className="relative mb-4 flex flex-wrap items-center gap-x-2 text-[0.82rem] text-ink/55 sm:mb-6">
           {crumbs.map((c, i) => (
             <span key={c.label} className="flex items-center gap-2">
               {i ? <span aria-hidden className="text-ink/30">/</span> : null}
               {c.href ? (
-                <Link href={c.href} className="hover:text-ink">
+                <Link href={c.href} className="-my-2 py-2 hover:text-ink">
                   {c.label}
                 </Link>
               ) : (
@@ -304,39 +325,49 @@ export function SiteFooter() {
     },
   ];
   return (
-    <footer className={`panel-dark relative overflow-hidden rounded-t-[2.5rem] pt-[clamp(4rem,8vw,6.5rem)] pb-[calc(6rem+env(safe-area-inset-bottom))] lg:pb-10 ${gutter} ${onInk}`}>
+    <footer className={`panel-dark relative overflow-hidden rounded-t-[2.5rem] pt-[clamp(3.25rem,8vw,6.5rem)] pb-[calc(6rem+env(safe-area-inset-bottom))] lg:pb-10 ${gutter} ${onInk}`}>
       <Emblem className="pointer-events-none absolute right-[-4%] bottom-[-10%] h-[85%] text-cream/[0.05]" />
-      <div className="relative grid grid-cols-1 gap-x-14 gap-y-12 lg:grid-cols-12">
+      <div className="relative grid grid-cols-1 gap-x-14 gap-y-11 lg:grid-cols-12">
         <div className="lg:col-span-5">
           <Link href="/" aria-label="Rawdah Tours, home" className="inline-block text-cream">
-            <Logo className="h-20 sm:h-24" />
+            <Logo className="logo-gold h-16 sm:h-24" />
           </Link>
-          <p className="mt-7 max-w-[24rem] font-editorial text-[1.5rem] leading-snug text-cream/85">Guided Umrah and Hajj from the UK, with teachers beside you.</p>
-          <div className="mt-8 flex flex-col gap-2.5 sm:flex-row sm:flex-wrap">
-            <WaTile text={say.general} label="WhatsApp" tone="line-canvas" />
-            <a href={brand.phone.href} className={`${btnBase} ${btnTone["line-canvas"]}`}>
-              Call {brand.phone.display}
+          <p className="mt-6 max-w-[24rem] font-editorial text-[1.35rem] leading-snug text-cream/85 sm:mt-7 sm:text-[1.5rem]">Guided Umrah and Hajj from the UK, with teachers beside you.</p>
+          <div className="mt-7 grid grid-cols-2 gap-2 sm:mt-8 sm:flex sm:flex-wrap sm:gap-2.5">
+            <WaTile text={say.general} label="WhatsApp" tone="line-canvas" className="px-3! sm:px-6!" />
+            <a href={brand.phone.href} className={`${btnBase} px-3 sm:px-6 ${btnTone["line-canvas"]}`}>
+              <span>
+                Call <span className="hidden sm:inline">{brand.phone.display}</span>
+                <span className="sm:hidden">us</span>
+              </span>
             </a>
           </div>
         </div>
-        <div className="grid grid-cols-1 gap-10 sm:grid-cols-3 lg:col-span-7">
-          {cols.map((c) => (
-            <nav key={c.title} aria-label={c.title}>
-              <p className="font-editorial text-[1.15rem] text-sand italic">{c.title}</p>
-              <ul className="mt-4 grid grid-cols-1 gap-2.5 text-[0.94rem]">
-                {c.links.map((l) => (
-                  <li key={l.href}>
-                    <Link href={l.href} className={link}>
-                      {l.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </nav>
-          ))}
-          <div className="sm:col-span-3">
+        {/* Phones: two link columns, the policies on one line, then how to reach us. */}
+        <div className="grid grid-cols-2 gap-x-6 gap-y-9 sm:grid-cols-3 sm:gap-10 lg:col-span-7">
+          {cols.map((c) => {
+            const policies = c.title === "Policies";
+            return (
+              <nav key={c.title} aria-label={c.title} className={policies ? "col-span-2 sm:col-span-1" : ""}>
+                <p className="font-editorial text-[1.15rem] text-sand italic">{c.title}</p>
+                <ul className={`mt-3 text-[0.94rem] sm:mt-4 sm:grid sm:grid-cols-1 sm:gap-2.5 ${policies ? "flex flex-wrap gap-x-5 gap-y-2" : "grid grid-cols-1 gap-2"}`}>
+                  {c.links.map((l) => (
+                    <li key={l.href}>
+                      <Link href={l.href} className={`inline-block py-0.5 ${link}`}>
+                        {l.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </nav>
+            );
+          })}
+          <div className="col-span-2 sm:col-span-3">
             <p className="font-editorial text-[1.15rem] text-sand italic">Get in touch</p>
-            <p className="mt-4 flex flex-wrap gap-x-6 gap-y-2 text-[0.94rem]">
+            <p className="mt-3 flex flex-col gap-2 text-[0.94rem] sm:mt-4 sm:flex-row sm:flex-wrap sm:gap-x-6">
+              <a href={brand.phone.href} className={link}>
+                {brand.phone.display}
+              </a>
               <a href={`mailto:${brand.email}`} className={`break-all ${link}`}>
                 {brand.email}
               </a>
@@ -347,7 +378,7 @@ export function SiteFooter() {
           </div>
         </div>
       </div>
-      <div className="relative mt-14 grid grid-cols-1 gap-2 border-t border-cream/12 pt-6 text-[0.78rem] leading-relaxed text-cream/50">
+      <div className="relative mt-11 grid grid-cols-1 gap-2 border-t border-cream/12 pt-6 sm:mt-14 text-[0.78rem] leading-relaxed text-cream/50">
         <p>
           Hajj packages are booked and paid on the official{" "}
           <a href={brand.nusuk} target="_blank" rel="noopener noreferrer" className="underline underline-offset-4 hover:text-cream">

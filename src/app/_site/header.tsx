@@ -48,7 +48,7 @@ export function SiteHeader() {
 
   return (
     <header
-      className={`sticky top-0 z-40 transition-[background,box-shadow,border-color] duration-500 ${open ? "" : "backdrop-blur-md"} ${
+      className={`sticky top-0 ${open ? "z-[80]" : "z-40"} transition-[background,box-shadow,border-color] duration-500 ${open ? "" : "backdrop-blur-md"} ${
         scrolled ? "border-b border-ink/6 bg-canvas/85 shadow-[0_10px_40px_-28px_rgb(58_43_36/0.5)]" : "border-b border-transparent bg-canvas/60"
       }`}
     >
@@ -107,7 +107,7 @@ export function SiteHeader() {
 
         {/* Centre: the logo */}
         <Link href="/" className="text-ink" aria-label="Rawdah Tours, home">
-          <Logo className="h-10 lg:h-[3.4rem]" />
+          <Logo className="logo-gold h-10 lg:h-[3.4rem]" />
         </Link>
 
         {/* Right: the other half on desktop, WhatsApp on phones */}
@@ -142,17 +142,20 @@ export function SiteHeader() {
               </svg>
             </button>
             <Link href="/" onClick={() => setOpen(false)} aria-label="Rawdah Tours, home">
-              <Logo className="h-10" />
+              <Logo className="logo-gold h-10" />
             </Link>
             <span />
           </div>
-          <div className={`relative pt-8 ${pad}`}>
+          <div className={`relative pt-4 ${pad}`}>
             <ul>
               {[tripLinks[0], tripLinks[1], ...nav.slice(2), tripLinks[2], tripLinks[3]].map((item) => (
                 <li key={item.href} className="border-b border-ink/8">
-                  <Link href={item.href} onClick={() => setOpen(false)} className="flex items-baseline justify-between gap-4 py-4">
-                    <span className="display text-[2rem]">{item.label}</span>
-                    {"note" in item ? <span className="text-right text-[0.76rem] text-ink/50">{item.note}</span> : null}
+                  <Link href={item.href} onClick={() => setOpen(false)} className="group flex items-center justify-between gap-4 py-3.5">
+                    <span>
+                      <span className="display block text-[1.9rem] leading-[1.1]">{item.label}</span>
+                      {"note" in item ? <span className="mt-1 block text-[0.8rem] text-ink/50">{item.note}</span> : null}
+                    </span>
+                    <Chevron className="size-3 shrink-0 text-ink/35" />
                   </Link>
                 </li>
               ))}

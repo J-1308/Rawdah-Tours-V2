@@ -1,7 +1,7 @@
 # Rawdah Tours V2 — handoff
 
 A self-contained briefing for whoever (or whatever tool) picks this up next. Keep it current.
-Last updated 24 October 2026.
+Last updated 25 October 2026.
 
 ## The business
 
@@ -57,7 +57,8 @@ blended and premium (ADR 0002); it must never resemble The Umrah Company's site 
 
 Two looks are on the table (25 October 2026):
 - `feat/v2-rebuild`: the soft cream site with the cocoa-on-cream logo (ADR 0002). Jibril likes it; keep as is.
-- `feat/v2-dark`: the same site at night with the beige logo and a new hero (ADR 0003).
+- `feat/v2-dark`: the same site at night with the logo in the sand-gold of the main button and a new hero (ADR 0003).
+Phone fixes are made on `feat/v2-rebuild` and merged into `feat/v2-dark`, so both stay equally phone friendly.
 Each branch has its own Vercel preview. Pick one, then merge it into `main`.
 
 ## Hosting

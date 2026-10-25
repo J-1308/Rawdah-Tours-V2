@@ -15,7 +15,9 @@ own Vercel previews. Nothing on `feat/v2-rebuild` changes.
 
 - Same token names with night values: `canvas` is the ground (#1B1410 espresso), `ink` the text (#EFE4D2
   cream), `cream` stays light for words on panels and photographs. Most of the kit flips on its own.
-- The beige logo: the traced lockup in cream in the header and footer; icons are the beige mark on espresso.
+- The beige logo: the traced lockup in the sand-gold of the "Register interest" button (`.logo-gold`, a soft
+  gradient through the mask) in the header, menu and footer. Jibril asked for that colour on 25 October 2026 after
+  seeing the near-white cream. Icons are the beige mark on espresso.
 - Panels (`.panel-dark`) become a raised, warmly lit surface (#2A1F19 with sand and clay glows).
 - Glass cards are faint cream on dark; primary buttons are a sand gradient with dark text.
 - Selected states invert (cream ground, dark text). Tags over photographs are dark glass.

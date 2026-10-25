@@ -3,7 +3,7 @@ import { Suspense } from "react";
 
 import { faqs, privatePage } from "@/app/_site/content";
 import { Builder } from "@/app/_site/builder";
-import { FaqList } from "@/app/_site/home-sections";
+import { FaqList, Tick } from "@/app/_site/home-sections";
 import { Mark } from "@/app/_site/marks";
 import { gutter, Heading, PageLead, Square } from "@/app/_site/shell";
 
@@ -30,31 +30,34 @@ export default function PrivatePage() {
         <p className="mt-5 max-w-[36rem] text-[1.04rem] leading-[1.75] text-ink/70">{privatePage.text}</p>
       </PageLead>
 
-      <section className={`bg-canvas pt-[clamp(2.5rem,5vw,4rem)] ${gutter}`}>
-        <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {privatePage.points.map((r) => (
-            <li key={r.title} className="glass rounded-[1.5rem] p-5">
-              <p className="flex items-start gap-2.5 text-[0.98rem] font-medium">
-                <Square className="mt-[0.5em] bg-gold" />
-                <span>
-                  {r.title}
-                  <Mark s={r.status} />
+      <section className={`bg-canvas pt-[clamp(2rem,5vw,4rem)] ${gutter}`}>
+        <ul className="glass-phone grid grid-cols-1 rounded-[1.5rem] px-5 py-1 sm:grid-cols-2 sm:gap-4 sm:p-0 lg:grid-cols-4">
+          {privatePage.points.map((r, i) => (
+            <li key={r.title} className={`glass-wide flex gap-3 py-4 sm:block sm:rounded-[1.5rem] sm:p-5 ${i ? "border-t border-ink/8" : ""}`}>
+              <Tick className="mt-[0.2em] sm:hidden" />
+              <span className="block">
+                <span className="flex items-start gap-2.5 text-[0.98rem] font-medium">
+                  <span className="hidden sm:flex"><Square className="mt-[0.5em] bg-gold" /></span>
+                  <span>
+                    {r.title}
+                    <Mark s={r.status} />
+                  </span>
                 </span>
-              </p>
-              <p className="mt-1 pl-[1.1rem] text-[0.88rem] text-ink/65">{r.text}</p>
+                <span className="mt-1 block text-[0.88rem] text-ink/65 sm:pl-[1.1rem]">{r.text}</span>
+              </span>
             </li>
           ))}
         </ul>
       </section>
 
       <section id="planner" className={`scroll-mt-28 bg-canvas py-[clamp(3rem,6vw,5rem)] ${gutter}`}>
-        <Heading className="mb-8 text-[clamp(2.3rem,4vw,3.8rem)]">Plan your Umrah</Heading>
+        <Heading className="mb-6 text-[clamp(2.3rem,4vw,3.8rem)] sm:mb-8">Plan your Umrah</Heading>
         <Suspense fallback={<p className="text-ink/60">Loading the planner…</p>}>
           <Builder />
         </Suspense>
       </section>
 
-      <section className={`wash-linen py-[clamp(5rem,10vw,9rem)] ${gutter}`}>
+      <section className={`wash-linen py-[clamp(3.75rem,10vw,9rem)] ${gutter}`}>
         <div className="grid grid-cols-1 gap-x-14 gap-y-10 lg:grid-cols-12">
           <div className="lg:col-span-5">
             <Heading className="text-[clamp(2rem,3.2vw,2.8rem)]">After you send it</Heading>

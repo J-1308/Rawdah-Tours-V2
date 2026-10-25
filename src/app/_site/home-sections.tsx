@@ -28,13 +28,14 @@ import {
   teachers,
   whyRawdah,
   type Faq,
+  type Status,
 } from "@/app/_site/content";
 import { Mark } from "@/app/_site/marks";
-import { Actions, Emblem, gutter, Heading, Label, onInk, PhotoStack, TileLink, WaTile } from "@/app/_site/shell";
+import { Actions, Emblem, gutter, Heading, Label, onInk, PhotoStack, TileLink, WaSquare, WaTile } from "@/app/_site/shell";
 import { TripRow } from "@/app/_site/trip-row";
 import { Chevron } from "@/app/_site/whatsapp";
 
-const pad = "py-[clamp(4.5rem,9vw,8rem)]";
+const pad = "py-[clamp(3.25rem,9vw,8rem)]";
 const h2 = "text-[clamp(2.5rem,4.6vw,4.4rem)]";
 /** Rounded panels sit closer to the page edge than text does. */
 const insetPad = "px-[max(calc(var(--hero-pad-x)*0.45),0.6rem)]";
@@ -59,17 +60,17 @@ export function Hero() {
       </div>
       <Emblem className="pointer-events-none absolute top-[18%] left-[-14%] -z-10 h-[90%] text-sand/[0.05] lg:top-[-6%] lg:left-[-4%] lg:h-[115%]" />
       <div className={`relative grid grid-cols-1 lg:min-h-[calc(100svh-7.5rem)] lg:grid-cols-12 lg:items-center ${gutter}`}>
-        <div className="-mt-12 pb-[clamp(4.5rem,9vw,7rem)] lg:col-span-6 lg:mt-0 lg:py-24 xl:col-span-5">
+        <div className="-mt-12 pb-[clamp(3.5rem,9vw,7rem)] lg:col-span-6 lg:mt-0 lg:py-24 xl:col-span-5">
           <Label>{hero.label}</Label>
-          <Heading as="h1" className="mt-5 text-[clamp(2.9rem,5.8vw,6rem)] text-cream">
+          <Heading as="h1" className="mt-4 text-[clamp(2.9rem,5.8vw,6rem)] text-cream sm:mt-5">
             {hero.headline}
           </Heading>
-          <p className="mt-6 max-w-[33rem] text-[1.04rem] leading-[1.75] text-ink/70">
+          <p className="mt-5 max-w-[33rem] text-[1.02rem] leading-[1.7] text-ink/70 sm:mt-6 sm:text-[1.04rem] sm:leading-[1.75]">
             {hero.text.value}
             <Mark s={hero.text.status} />
           </p>
-          <Actions primary={{ label: "Register for Hajj 2027", href: strip.href }} waText={say.general} className="mt-9" />
-          <ul className="mt-10 flex flex-wrap gap-x-7 gap-y-2.5 text-[0.86rem] text-ink/55">
+          <Actions primary={{ label: "Register for Hajj 2027", href: strip.href }} waText={say.general} className="mt-7 sm:mt-9" />
+          <ul className="mt-7 flex flex-wrap gap-x-7 gap-y-2 sm:mt-10 sm:gap-y-2.5 text-[0.86rem] text-ink/55">
             {hero.facts.map((f) => (
               <li key={f.value} className="flex items-start gap-2.5">
                 <Dot />
@@ -105,7 +106,7 @@ export function Hero() {
 
 export function Starts() {
   return (
-    <section className={`bg-canvas pt-[clamp(3rem,6vw,5rem)] ${gutter}`}>
+    <section className={`bg-canvas pt-[clamp(2.25rem,6vw,5rem)] ${gutter}`}>
       <Heading className="text-[clamp(2.2rem,3.6vw,3.4rem)]">Where would you like to start?</Heading>
       <ul className="no-scrollbar mt-8 flex snap-x snap-mandatory gap-4 overflow-x-auto pb-8 lg:mx-0! lg:grid lg:grid-cols-4 lg:overflow-visible lg:px-0!" style={bleed}>
         {starts.map((s) => (
@@ -114,7 +115,7 @@ export function Starts() {
               <div className="relative aspect-[4/5] overflow-hidden rounded-[1.75rem] bg-beige shadow-[var(--shadow-lift)]">
                 <Image src={s.photo.src} alt="" fill sizes="(min-width: 1024px) 23vw, (min-width: 640px) 42vw, 74vw" className={`object-cover transition-transform duration-[1.2s] group-hover:scale-[1.04] ${s.photo.position}`} />
                 <div aria-hidden className="absolute inset-0 bg-[linear-gradient(to_top,rgb(42_31_26/0.85)_0%,rgb(42_31_26/0.25)_45%,transparent_70%)]" />
-                <span className="absolute top-3 left-3 rounded-full bg-black/50 px-3 py-1 text-[0.74rem] font-medium text-cream backdrop-blur">
+                <span className="absolute top-3 left-3 rounded-full bg-black/50 px-3 py-1 text-[0.78rem] font-medium text-cream backdrop-blur">
                   {s.tag.value}
                   <Mark s={s.tag.status} />
                 </span>
@@ -142,7 +143,7 @@ export function Starts() {
 
 export function Trips() {
   return (
-    <section id="trips" className={`scroll-mt-24 bg-canvas pt-[clamp(3rem,6vw,5rem)] pb-[clamp(4.5rem,9vw,8rem)] ${gutter}`}>
+    <section id="trips" className={`scroll-mt-24 bg-canvas pt-[clamp(2rem,6vw,5rem)] pb-[clamp(3.25rem,9vw,8rem)] ${gutter}`}>
       <div className="flex items-end justify-between gap-6">
         <Heading className={h2}>Our trips</Heading>
         <Link href={routes.trips} className="group mb-2 flex items-center gap-1.5 text-[0.92rem] font-medium text-bronze">
@@ -165,7 +166,7 @@ export function Trips() {
 export function HajjBand() {
   return (
     <section id="hajj" className={`scroll-mt-24 bg-canvas ${insetPad}`}>
-      <div className={`panel-dark relative overflow-hidden rounded-[2.5rem] px-[clamp(1.25rem,5vw,5rem)] py-[clamp(3.5rem,7vw,6.5rem)] ${onInk}`}>
+      <div className={`panel-dark relative overflow-hidden rounded-[2.5rem] px-[clamp(1.25rem,5vw,5rem)] py-[clamp(3rem,7vw,6.5rem)] ${onInk}`}>
         <Emblem className="pointer-events-none absolute top-[-12%] right-[-8%] h-[125%] text-cream/[0.05]" />
         <div className="relative grid grid-cols-1 gap-x-16 gap-y-12 lg:grid-cols-12">
           <div className="lg:col-span-5">
@@ -183,8 +184,8 @@ export function HajjBand() {
           <div className="lg:col-span-6 lg:col-start-7">
             <ol className="grid gap-2">
               {hajjBand.steps.map((s, i) => (
-                <li key={s.title} className="flex gap-5 rounded-[1.3rem] bg-white/[0.045] p-4 ring-1 ring-white/[0.06] sm:p-5">
-                  <span className="display grid size-11 shrink-0 place-items-center rounded-full bg-sand/15 text-[1.45rem] text-sand">{i + 1}</span>
+                <li key={s.title} className="flex gap-4 rounded-[1.3rem] bg-white/[0.045] p-4 ring-1 ring-white/[0.06] sm:gap-5 sm:p-5">
+                  <span className="display grid size-10 shrink-0 place-items-center rounded-full bg-sand/15 text-[1.35rem] text-sand sm:size-11 sm:text-[1.45rem]">{i + 1}</span>
                   <span>
                     <span className="block text-[1.02rem] font-medium text-cream">
                       {s.title}
@@ -221,7 +222,7 @@ const shapes = ["aspect-[3/4]", "aspect-[4/3]", "aspect-[4/5]", "aspect-[3/4]", 
 
 export function LastTrip() {
   return (
-    <section className={`wash-linen py-[clamp(5rem,10vw,9rem)] ${gutter}`}>
+    <section className={`wash-linen py-[clamp(3.75rem,10vw,9rem)] ${gutter}`}>
       <div className="grid grid-cols-1 gap-x-14 gap-y-10 lg:grid-cols-12">
         <div className="self-start lg:sticky lg:top-28 lg:col-span-4">
           <Label>{lastTrip.label}</Label>
@@ -299,7 +300,7 @@ export function WhyRawdah() {
 
 export function Meaning() {
   return (
-    <section className={`wash-beige py-[clamp(5rem,10vw,9rem)] text-center ${gutter}`}>
+    <section className={`wash-beige py-[clamp(3.75rem,10vw,9rem)] text-center ${gutter}`}>
       <p lang="ar" aria-hidden className="ar text-center text-[clamp(5.5rem,13vw,11rem)] leading-[1.15] text-bronze/75">
         {meaning.ar}
       </p>
@@ -340,6 +341,47 @@ export function StayTable() {
   );
 }
 
+/**
+ * What the trip cost includes, by group. Phones: one card with the groups
+ * stacked inside it. Wider: a card per group.
+ */
+export function CoverGroups({ groups, wide = "", status }: { groups: typeof covers.groups; wide?: string; status?: (s: Status | undefined) => Status | undefined }) {
+  return (
+    <div className={`glass-phone grid grid-cols-1 rounded-[1.5rem] px-5 py-1 sm:grid-cols-2 sm:gap-4 sm:p-0 ${wide}`}>
+      {groups.map((g, i) => (
+        <div key={g.title} className={`glass-wide py-5 sm:rounded-[1.5rem] sm:border-t-0 sm:p-6 ${i ? "border-t border-ink/8" : ""}`}>
+          <p className="font-editorial text-[1.2rem] text-bronze italic sm:text-[1.25rem]">{g.title}</p>
+          <ul className="mt-3 grid gap-3 sm:mt-4 sm:gap-4">
+            {g.items.map((it) => (
+              <li key={it.title} className="flex gap-3 sm:block">
+                <Tick className="mt-[0.3em] sm:hidden" />
+                <span>
+                  <span className="block text-[0.96rem] font-medium sm:text-[0.98rem]">
+                    {it.title}
+                    <Mark s={status ? status(it.status) : it.status} />
+                  </span>
+                  <span className="mt-0.5 block text-[0.87rem] leading-[1.55] text-ink/60 sm:text-[0.88rem]">{it.text}</span>
+                </span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+/** A small soft tick for lists of what's included. */
+export function Tick({ className = "" }: { className?: string }) {
+  return (
+    <span aria-hidden className={`grid size-[1.1rem] shrink-0 place-items-center rounded-full bg-gold/20 text-bronze ${className}`}>
+      <svg viewBox="0 0 12 12" className="size-2.5" fill="none" stroke="currentColor" strokeWidth="1.8">
+        <path d="M2.5 6.2 5 8.5l4.5-5" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+    </span>
+  );
+}
+
 export function Covers() {
   return (
     <section className={`bg-canvas ${pad} ${gutter}`}>
@@ -347,25 +389,10 @@ export function Covers() {
         <Heading className={h2}>{covers.headline}</Heading>
         <p className="max-w-[26rem] font-editorial text-[1.25rem] leading-[1.5] text-ink/65 italic">{covers.text}</p>
       </div>
-      <div className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        {covers.groups.map((g) => (
-          <div key={g.title} className="glass rounded-[1.5rem] p-6">
-            <p className="font-editorial text-[1.25rem] text-bronze italic">{g.title}</p>
-            <ul className="mt-4 grid gap-4">
-              {g.items.map((it) => (
-                <li key={it.title}>
-                  <p className="text-[0.98rem] font-medium">
-                    {it.title}
-                    <Mark s={it.status} />
-                  </p>
-                  <p className="mt-0.5 text-[0.88rem] leading-[1.55] text-ink/60">{it.text}</p>
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))}
+      <div className="mt-8 sm:mt-10">
+        <CoverGroups groups={covers.groups} wide="lg:grid-cols-4" />
       </div>
-      <div className="mt-16 grid grid-cols-1 gap-x-14 gap-y-6 lg:grid-cols-12 lg:items-center">
+      <div className="mt-12 grid grid-cols-1 gap-x-14 gap-y-6 sm:mt-16 lg:grid-cols-12 lg:items-center">
         <div className="lg:col-span-3">
           <h3 className="display text-[clamp(2rem,2.8vw,2.7rem)]">{stay.headline}</h3>
           <p className="mt-2 text-[0.94rem] leading-[1.6] text-ink/60">{stay.text}</p>
@@ -390,7 +417,7 @@ export function PaymentPlan({ tone = "ink" }: { tone?: "ink" | "canvas" }) {
   const dark = tone === "ink";
   const amounts = [gbp(deposit), `${instalments} × ${gbp(each)}`, gbp(price), "Together"];
   return (
-    <div className={`relative overflow-hidden rounded-[2rem] p-6 sm:p-8 ${dark ? `panel-dark ${onInk}` : "glass"}`}>
+    <div className={`relative overflow-hidden rounded-[2rem] p-5 sm:p-8 ${dark ? `panel-dark ${onInk}` : "glass"}`}>
       {dark ? <Emblem className="pointer-events-none absolute right-[-4%] bottom-[-30%] h-[150%] text-cream/[0.04]" /> : null}
       <p className={`relative font-editorial text-[1.15rem] italic ${dark ? "text-sand" : "text-bronze"}`}>
         A worked example: {room}, {gbp(price)} per person
@@ -401,13 +428,13 @@ export function PaymentPlan({ tone = "ink" }: { tone?: "ink" | "canvas" }) {
           <span key={i} className={`rounded-full ${i === 0 ? "bg-[linear-gradient(90deg,#e6d4b6,#c9ac7c)]" : dark ? "bg-cream/15" : "bg-ink/12"}`} style={{ flex: p }} />
         ))}
       </div>
-      <ol className="relative mt-7 grid grid-cols-1 gap-x-6 gap-y-5 sm:grid-cols-4">
+      <ol className="relative mt-7 grid grid-cols-2 gap-x-5 gap-y-6 sm:grid-cols-4 sm:gap-x-6">
         {paying.stages.map((s, i) => (
           <li key={s.when}>
             <p className={`text-[0.8rem] ${dark ? "text-sand" : "text-bronze"}`}>{s.when}</p>
-            <p className={`display mt-1 text-[1.8rem] leading-tight ${dark ? "text-cream" : ""}`}>{amounts[i]}</p>
+            <p className={`display mt-1 text-[1.55rem] leading-tight sm:text-[1.8rem] ${dark ? "text-cream" : ""}`}>{amounts[i]}</p>
             <p className="mt-0.5 text-[0.9rem] font-medium">{s.what}</p>
-            <p className={`mt-1 text-[0.86rem] leading-[1.55] ${dark ? "text-cream/62" : "text-ink/60"}`}>
+            <p className={`mt-1 text-[0.84rem] leading-[1.5] sm:text-[0.86rem] sm:leading-[1.55] ${dark ? "text-cream/62" : "text-ink/60"}`}>
               {s.note}
               <Mark s={s.status} />
             </p>
@@ -420,7 +447,7 @@ export function PaymentPlan({ tone = "ink" }: { tone?: "ink" | "canvas" }) {
 
 export function Paying() {
   return (
-    <section className={`bg-canvas pb-[clamp(4.5rem,9vw,8rem)] ${gutter}`}>
+    <section className={`bg-canvas pb-[clamp(3.25rem,9vw,8rem)] ${gutter}`}>
       <div className="grid grid-cols-1 gap-x-14 gap-y-10 lg:grid-cols-12 lg:items-center">
         <div className="lg:col-span-4">
           <Heading className={h2}>{paying.headline}</Heading>
@@ -447,14 +474,16 @@ export function TeacherList({ list = teachers }: { list?: typeof teachers; tone?
   return (
     <ul className="grid gap-3">
       {list.map((t) => (
-        <li key={t.name} className="glass grid grid-cols-[5.5rem_1fr] items-center gap-5 rounded-[1.5rem] p-3 pr-5 sm:grid-cols-[7rem_1fr]">
-          <div className="relative aspect-square overflow-hidden rounded-[1.1rem] bg-beige">
+        <li key={t.name} className="glass grid grid-cols-[4.75rem_1fr] items-center gap-x-4 gap-y-3 rounded-[1.5rem] p-4 sm:grid-cols-[7rem_1fr] sm:gap-x-5 sm:p-3 sm:pr-5">
+          <div className="relative aspect-square overflow-hidden rounded-[1rem] bg-beige sm:rounded-[1.1rem]">
             <Image src={t.photo.src} alt={t.photo.alt} fill sizes="7rem" className={`object-cover ${t.photo.position}`} />
           </div>
-          <div>
-            <p className="display text-[1.6rem] leading-tight">{t.name}</p>
-            <p className="mt-0.5 font-editorial text-[1.02rem] text-bronze italic">{t.role}</p>
-            <p className="mt-1.5 text-[0.9rem] leading-[1.6] text-ink/62">
+          <div className="contents sm:block">
+            <div>
+              <p className="display text-[1.45rem] leading-[1.1] sm:text-[1.6rem] sm:leading-tight">{t.name}</p>
+              <p className="mt-1 font-editorial text-[1rem] leading-snug text-bronze italic sm:mt-0.5 sm:text-[1.02rem]">{t.role}</p>
+            </div>
+            <p className="col-span-2 text-[0.9rem] leading-[1.6] text-ink/62 sm:mt-1.5">
               {t.bio.value}
               <Mark s={t.bio.status} />
             </p>
@@ -467,19 +496,21 @@ export function TeacherList({ list = teachers }: { list?: typeof teachers; tone?
 
 export function People({ link = true }: { link?: boolean }) {
   return (
-    <section id={link ? "people" : "team"} className={`wash-linen scroll-mt-24 py-[clamp(5rem,10vw,9rem)] ${gutter}`}>
+    <section id={link ? "people" : "team"} className={`wash-linen scroll-mt-24 py-[clamp(3.75rem,10vw,9rem)] ${gutter}`}>
       <div className="grid grid-cols-1 gap-x-16 gap-y-12 lg:grid-cols-12">
         <div className="lg:col-span-5">
           <Heading className={h2}>{people.headline}</Heading>
           <p className="mt-4 max-w-[28rem] text-[1rem] leading-[1.7] text-ink/65">{people.text}</p>
-          <figure className="mt-10 max-w-[20rem] sm:max-w-[24rem]">
-            <div className="relative aspect-[4/5] overflow-hidden rounded-[2rem] bg-beige shadow-[var(--shadow-soft)]">
-              <Image src={leader.photo.src} alt={leader.photo.alt} fill sizes="24rem" className="object-cover object-[50%_25%]" />
+          <figure className="mt-8 grid grid-cols-[8.5rem_1fr] items-center gap-x-5 gap-y-4 sm:mt-10 sm:block sm:max-w-[24rem]">
+            <div className="relative aspect-[4/5] overflow-hidden rounded-[1.4rem] bg-beige shadow-[var(--shadow-soft)] sm:rounded-[2rem]">
+              <Image src={leader.photo.src} alt={leader.photo.alt} fill sizes="(min-width: 640px) 24rem, 9rem" className="object-cover object-[50%_25%]" />
             </div>
-            <figcaption className="mt-5">
-              <p className="display text-[1.95rem] leading-tight">{leader.name}</p>
-              <p className="mt-0.5 font-editorial text-[1.1rem] text-bronze italic">{leader.role}</p>
-              <p className="mt-2 text-[0.95rem] leading-[1.7] text-ink/65">
+            <figcaption className="contents sm:mt-5 sm:block">
+              <div>
+                <p className="display text-[1.65rem] leading-[1.08] sm:text-[1.95rem] sm:leading-tight">{leader.name}</p>
+                <p className="mt-1 font-editorial text-[1.05rem] text-bronze italic sm:mt-0.5 sm:text-[1.1rem]">{leader.role}</p>
+              </div>
+              <p className="col-span-2 text-[0.95rem] leading-[1.7] text-ink/65 sm:mt-2">
                 {leader.line} {leader.bio.value}
                 <Mark s={leader.bio.status} />
               </p>
@@ -539,7 +570,7 @@ export function GroupsBand() {
 
 export function PrivateBand() {
   return (
-    <section className={`wash-beige py-[clamp(5rem,10vw,9rem)] ${gutter}`}>
+    <section className={`wash-beige py-[clamp(3.75rem,10vw,9rem)] ${gutter}`}>
       <div className="grid grid-cols-1 gap-x-16 gap-y-12 lg:grid-cols-12 lg:items-center">
         <div className="lg:col-span-5">
           <div className="relative mx-auto aspect-[4/5] max-w-[26rem] overflow-hidden rounded-[2rem] bg-beige shadow-[var(--shadow-soft)]">
@@ -580,18 +611,18 @@ export function Reviews() {
   return (
     <section className={`bg-canvas ${pad} ${gutter}`}>
       <div className="mx-auto max-w-[56rem] text-center">
-        <Emblem className="mx-auto h-11 text-gold/70" />
+        <Emblem className="mx-auto h-9 text-gold/70 sm:h-11" />
         <Heading className="mt-5 text-[clamp(2.2rem,3.6vw,3.4rem)]">{reviews.headline}</Heading>
-        <blockquote className="mt-10 font-editorial text-[clamp(1.65rem,2.9vw,2.5rem)] leading-[1.38] text-ink/90">“{first.quote}”</blockquote>
+        <blockquote className="mt-7 font-editorial text-[clamp(1.4rem,2.9vw,2.5rem)] leading-[1.4] text-ink/90 sm:mt-10 sm:leading-[1.38]">“{first.quote}”</blockquote>
         <p className="mt-6 text-[0.9rem] text-ink/55">
           {first.who}, a previous trip
           <Mark s={first.status} />
         </p>
       </div>
-      <div className="mx-auto mt-14 grid max-w-[66rem] grid-cols-1 gap-4 sm:grid-cols-2">
+      <div className="mx-auto mt-10 grid max-w-[66rem] grid-cols-1 gap-3 sm:mt-14 sm:grid-cols-2 sm:gap-4">
         {rest.map((r) => (
-          <figure key={r.who} className="glass rounded-[1.75rem] p-7">
-            <blockquote className="font-editorial text-[1.35rem] leading-[1.45]">“{r.quote}”</blockquote>
+          <figure key={r.who} className="glass rounded-[1.75rem] p-6 sm:p-7">
+            <blockquote className="font-editorial text-[1.2rem] leading-[1.45] sm:text-[1.35rem]">“{r.quote}”</blockquote>
             <figcaption className="mt-4 text-[0.86rem] text-ink/55">
               {r.who}, a previous trip
               <Mark s={r.status} />
@@ -634,14 +665,14 @@ export function FaqList({ items }: { items: Faq[] }) {
 
 export function Questions() {
   return (
-    <section id="questions" className={`wash-linen scroll-mt-24 py-[clamp(5rem,10vw,9rem)] ${gutter}`}>
+    <section id="questions" className={`wash-linen scroll-mt-24 py-[clamp(3.75rem,10vw,9rem)] ${gutter}`}>
       <div className="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
         <Heading className={h2}>Common questions</Heading>
         <WaTile text={say.general} label="Question? WhatsApp us" className="self-start lg:self-auto" />
       </div>
-      <div className="mt-10 grid grid-cols-1 gap-4 lg:grid-cols-3">
+      <div className="mt-8 grid grid-cols-1 gap-3 sm:mt-10 sm:gap-4 lg:grid-cols-3">
         {faqTopics.map((t) => (
-          <div key={t.id} className="glass rounded-[1.75rem] px-6 pt-5 pb-2">
+          <div key={t.id} className="glass rounded-[1.75rem] px-5 pt-5 pb-2 sm:px-6">
             <p className="mb-1 font-editorial text-[1.3rem] text-bronze italic">{t.title}</p>
             <FaqList items={faqs.filter((f) => f.topic === t.id)} />
           </div>
@@ -658,21 +689,26 @@ export function Questions() {
 export function Closing() {
   return (
     <section className={`bg-canvas pt-4 pb-[clamp(1.5rem,3vw,2.5rem)] ${insetPad}`}>
-      <div className={`panel-dark relative overflow-hidden rounded-[2.5rem] px-[clamp(1.25rem,5vw,5rem)] py-[clamp(3.5rem,7vw,6rem)] ${onInk}`}>
+      <div className={`panel-dark relative overflow-hidden rounded-[2.5rem] px-[clamp(1.25rem,5vw,5rem)] py-[clamp(3rem,7vw,6rem)] ${onInk}`}>
         <Emblem className="pointer-events-none absolute top-[-14%] left-[-6%] h-[130%] text-cream/[0.045]" />
         <div className="relative grid grid-cols-1 gap-x-16 gap-y-12 lg:grid-cols-12 lg:items-center">
           <div className="lg:col-span-6">
             <Emblem className="h-12 text-cream/80" />
             <Heading className="mt-6 text-[clamp(2.6rem,5vw,4.8rem)] text-cream">{closing.headline}</Heading>
             <p className="mt-5 max-w-[32rem] text-[1.02rem] leading-[1.7] text-cream/75">{closing.text}</p>
-            <div className="mt-9 flex flex-col gap-2.5 sm:flex-row sm:flex-wrap">
+            <div className="mt-8 flex flex-col gap-2 sm:mt-9 sm:flex-row sm:flex-wrap sm:gap-2.5">
               <TileLink href={strip.href} tone="gold">
                 Register for Hajj 2027
               </TileLink>
-              <TileLink href={`${routes.nextUmrah}#${anchors.form}`} tone="line-canvas">
-                Hear about the next Umrah
-              </TileLink>
-              <WaTile text={say.general} label="WhatsApp us" tone="line-canvas" />
+              <div className="flex gap-2 sm:contents">
+                <TileLink href={`${routes.nextUmrah}#${anchors.form}`} tone="line-canvas" pad="gap-2 px-4 sm:gap-3 sm:px-6" className="min-w-0 flex-1 sm:flex-none">
+                  Hear about the next Umrah
+                </TileLink>
+                <WaSquare text={say.general} tone="line-canvas" className="sm:hidden" />
+                <span className="hidden sm:contents">
+                  <WaTile text={say.general} label="WhatsApp us" tone="line-canvas" />
+                </span>
+              </div>
             </div>
           </div>
           <div className="lg:col-span-5 lg:col-start-8">

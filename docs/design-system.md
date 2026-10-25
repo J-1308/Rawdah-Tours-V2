@@ -58,7 +58,7 @@ cards (translucent cream, white edge, blur). No hard borders, no pills, no arche
 | `Logo`, `Emblem` | The lockup and the mark, in the current text colour. |
 | `Heading`, `Label` | Headline; italic label with the tiny mark. |
 | `TileLink` | The main button (`ink` cocoa, `gold` sand on dark, `line-ink`, `line-canvas`). |
-| `WaTile`, `Actions` | WhatsApp button; a section's pair of actions. |
+| `WaTile`, `WaSquare`, `Actions` | WhatsApp button; WhatsApp as a square glyph; a section's pair of actions (on phones the main button fills the row with `WaSquare` beside it). |
 | `PhotoStack` | Two or three layered photos: tall main, an overlapping second with a cream ring, an optional third behind. |
 | `Framed` | One soft rounded photo. |
 | `PageLead` | Inner-page head: words beside a PhotoStack on `.wash-hero` with the mark embossed. |
@@ -74,6 +74,17 @@ cards (translucent cream, white edge, blur). No hard borders, no pills, no arche
 Homepage sections (`home-sections.tsx`): `Hero`, `Starts` (photo cards; a swipeable row on phones), `Trips`,
 `HajjBand`, `LastTrip` (masonry), `WhyRawdah`, `Meaning`, `Covers` + `StayTable`, `Paying`, `People`,
 `GroupsBand`, `PrivateBand`, `Reviews`, `Questions`, `Closing`.
+
+### Phones
+
+Every change is checked at 390px (and 360px). On phones:
+- Sections breathe less: the padding clamps start at about 3.25–3.75rem, so the page doesn't feel empty between sections.
+- Lists of short cards become one card with dividers (`.glass-phone` on the list, `.glass-wide` on each item;
+  separate glass cards from 640px up). Used for what the trip cost includes, trip highlights, what a group gets,
+  the values on About, the private Umrah points and the contact details.
+- Portraits sit beside the name (leader and teachers), with the bio full width underneath.
+- The footer has two link columns, the policies on one line.
+- The review-marks switch is a small pill above the bottom bar.
 
 ## 6. Conversion system
 
