@@ -36,10 +36,20 @@ export function SiteHeader() {
 
   useEffect(() => {
     document.documentElement.style.overflow = open ? "hidden" : "";
+    if (!open && !panel) return () => void (document.documentElement.style.overflow = "");
+    // Escape closes the phone menu and the trips dropdown.
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setOpen(false);
+        setPanel(false);
+      }
+    };
+    window.addEventListener("keydown", onKey);
     return () => {
+      window.removeEventListener("keydown", onKey);
       document.documentElement.style.overflow = "";
     };
-  }, [open]);
+  }, [open, panel]);
 
   const pad = "px-[max(var(--hero-pad-x),env(safe-area-inset-left))]";
   const isCurrent = (href: string) => pathname === href || pathname.startsWith(href + "/");
