@@ -94,18 +94,18 @@ export function BookingForm({
       <fieldset>
         <legend className="mb-2 font-editorial text-[1.75rem] leading-tight">Room</legend>
         <p className="mb-5 text-ink/65">Prices are per person. Solo travellers share with travellers of the same gender.</p>
-        <div className="grid gap-3 sm:grid-cols-3">
+        <div className="grid gap-2 sm:grid-cols-3 sm:gap-3">
           {rooms.map((r) => (
             <label
               key={r.id}
-              className="flex cursor-pointer flex-col gap-1 rounded-[0.95rem] border border-ink/10 bg-white/[0.06] p-4 transition-colors hover:border-ink/40 has-[:checked]:border-ink has-[:checked]:bg-white/[0.08] has-[:checked]:shadow-[0_0_0_4px_rgb(216_195_161/0.35)]"
+              className="grid cursor-pointer grid-cols-[1fr_auto] items-center gap-x-3 gap-y-0.5 rounded-[0.95rem] border border-ink/10 bg-white/[0.06] p-4 sm:flex sm:flex-col sm:items-stretch sm:gap-1 transition-colors hover:border-ink/40 has-[:checked]:border-ink has-[:checked]:bg-white/[0.08] has-[:checked]:shadow-[0_0_0_4px_rgb(216_195_161/0.35)]"
             >
               <span className="flex items-center gap-3">
                 <input type="radio" name="roomId" value={r.id} defaultChecked={v.roomId === r.id} className="choice" required />
                 <span className="font-medium">{r.label}</span>
               </span>
-              <span className="pl-[1.875rem] text-ink/65">Sharing between {r.occupancy}</span>
-              <span className="pl-[1.875rem] font-editorial text-[1.5rem]">{r.price}</span>
+              <span className="col-start-1 row-start-2 pl-[1.875rem] text-[0.92rem] text-ink/65 sm:text-base">Sharing between {r.occupancy}</span>
+              <span className="col-start-2 row-span-2 row-start-1 font-editorial text-[1.5rem] sm:pl-[1.875rem]">{r.price}</span>
             </label>
           ))}
         </div>

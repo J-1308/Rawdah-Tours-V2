@@ -77,6 +77,11 @@ body::after {
   color: var(--color-ink-deep);
 }
 
+/* No lonely last words in paragraphs and quotes. */
+p, li, blockquote, figcaption, dd {
+  text-wrap: pretty;
+}
+
 .font-editorial {
   font-weight: 500;
   font-feature-settings: "kern", "liga";
@@ -211,6 +216,22 @@ body::after {
 
 @media (prefers-reduced-motion: reduce) {
   .settle { animation: none; }
+}
+
+/* Photographs rise gently into place as they scroll into view. Browsers
+   without scroll-driven animation simply show them. */
+@keyframes rise {
+  from { opacity: 0.001; transform: translateY(22px) scale(0.985); }
+  to { opacity: 1; transform: none; }
+}
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .rise {
+      animation: rise linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 55%;
+    }
+  }
 }
 
 /* --- forms ---------------------------------------------------------------- */

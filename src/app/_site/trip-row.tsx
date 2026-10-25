@@ -39,7 +39,7 @@ export function TripRow({ j }: { j: Journey; tone?: "canvas" | "ink" }) {
   ];
 
   return (
-    <article className="glass grid grid-cols-1 gap-4 rounded-[1.75rem] p-2.5 sm:gap-5 sm:rounded-[2rem] sm:p-4 lg:grid-cols-[19rem_1fr_18rem] lg:gap-8">
+    <article className="rise glass grid grid-cols-1 gap-4 rounded-[1.75rem] p-2.5 sm:gap-5 sm:rounded-[2rem] sm:p-4 lg:grid-cols-[19rem_1fr_18rem] lg:gap-8">
       <Link href={href} tabIndex={-1} aria-hidden className="relative block aspect-[16/9] overflow-hidden rounded-[1.35rem] bg-beige sm:aspect-[16/10] sm:rounded-[1.5rem] lg:aspect-auto lg:min-h-[15rem]">
         <Image src={j.photo.src} alt="" fill sizes="(min-width: 1024px) 19rem, 100vw" className={`object-cover transition-transform duration-[1.2s] hover:scale-[1.04] ${j.photo.position ?? ""}`} />
         <StateTag j={j} className="absolute top-3 left-3" />

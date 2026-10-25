@@ -94,8 +94,9 @@ desktop; prices always with deposit and instalments; honest settled/not-yet list
 
 ## 7. Motion
 
-The hero's photos settle in on load (`.settle`, off under reduced motion). Photos zoom very slightly on hover.
-Nothing else moves.
+The hero's photos settle in on load (`.settle`). Section photographs and trip cards rise gently into place as
+they scroll into view (`.rise`, a CSS scroll-driven animation: browsers without it just show them). Photos zoom
+very slightly on hover. Both are off under reduced motion. Nothing else moves.
 
 ## 8. Photography
 

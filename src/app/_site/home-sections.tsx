@@ -241,7 +241,7 @@ export function LastTrip() {
         </div>
         <div className="columns-2 gap-3 sm:gap-4 lg:col-span-8 lg:columns-3">
           {lastTrip.photos.map((p, i) => (
-            <figure key={p.src} className="mb-3 break-inside-avoid sm:mb-4">
+            <figure key={p.src} className="rise mb-3 break-inside-avoid sm:mb-4">
               <div className={`relative overflow-hidden rounded-[1.5rem] bg-beige shadow-[var(--shadow-lift)] ${shapes[i % shapes.length]}`}>
                 <Image src={p.src} alt={p.alt} fill sizes="(min-width: 1024px) 21vw, 50vw" className={`object-cover ${p.position}`} />
               </div>
@@ -269,7 +269,7 @@ export function WhyRawdah() {
               { src: whyRawdah.photo.src, alt: whyRawdah.photo.alt, position: "object-[50%_35%]" },
               { src: "/images/trips/rawdah-vest-palms.jpg", alt: "A member of the Rawdah team among the date palms in the evening.", position: "object-[30%_50%]" },
             ]}
-            className="mx-auto max-w-[30rem]"
+            className="rise mx-auto max-w-[30rem]"
           />
         </div>
         <div className="lg:col-span-6 lg:col-start-7">
@@ -544,7 +544,7 @@ export function GroupsBand() {
               { src: groupsBand.photo.src, alt: groupsBand.photo.alt, position: "object-[50%_80%]" },
               { src: "/images/trips/group-address-jabal-omar.jpg", alt: "A Rawdah group together in the lobby of Address Jabal Omar, Makkah.", position: "object-[50%_55%]" },
             ]}
-            className="mx-auto max-w-[32rem]"
+            className="rise mx-auto max-w-[32rem]"
           />
         </div>
         <div className="lg:order-1 lg:col-span-5">
@@ -573,7 +573,7 @@ export function PrivateBand() {
     <section className={`wash-beige py-[clamp(3.75rem,10vw,9rem)] ${gutter}`}>
       <div className="grid grid-cols-1 gap-x-16 gap-y-12 lg:grid-cols-12 lg:items-center">
         <div className="lg:col-span-5">
-          <div className="relative mx-auto aspect-[4/5] max-w-[26rem] overflow-hidden rounded-[2rem] bg-beige shadow-[var(--shadow-soft)]">
+          <div className="rise relative mx-auto aspect-[4/5] max-w-[26rem] overflow-hidden rounded-[2rem] bg-beige shadow-[var(--shadow-soft)]">
             <Image src="/images/trips/two-at-nabawi-night.jpg" alt="Two travellers at Masjid an-Nabawi at night." fill sizes="(min-width: 1024px) 30vw, 90vw" className="object-cover object-[50%_45%]" />
           </div>
         </div>
@@ -712,7 +712,7 @@ export function Closing() {
             </div>
           </div>
           <div className="lg:col-span-5 lg:col-start-8">
-            <div className="relative mx-auto aspect-[4/5] max-w-[26rem] overflow-hidden rounded-[2rem] shadow-[var(--shadow-float)] ring-1 ring-white/10">
+            <div className="rise relative mx-auto aspect-[4/5] max-w-[26rem] overflow-hidden rounded-[2rem] shadow-[var(--shadow-float)] ring-1 ring-white/10">
               <Image src="/images/trips/six-after-umrah.jpg" alt="Six Rawdah travellers arm in arm and smiling after completing Umrah." fill sizes="(min-width: 1024px) 30vw, 90vw" className="object-cover object-[35%_40%]" />
             </div>
           </div>
