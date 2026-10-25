@@ -9,9 +9,10 @@ import { Emblem, Logo } from "@/app/_site/shell";
 import { Chevron, WaGlyph } from "@/app/_site/whatsapp";
 
 /**
- * The header: soft cream glass with the cocoa-on-cream logo at its centre,
- * the menu split either side on desktop. Phones: menu, logo, WhatsApp; the
- * menu opens a full-screen cream sheet.
+ * The header: soft glass in the top zone (night with the beige-gold logo, or
+ * cream with the cocoa logo, ADR 0004), the logo at its centre and the menu
+ * split either side on desktop. Phones: menu, logo, WhatsApp; the menu opens
+ * a full-screen sheet in the same colours.
  */
 export function SiteHeader() {
   const pathname = usePathname();
@@ -58,7 +59,7 @@ export function SiteHeader() {
 
   return (
     <header
-      className={`sticky top-0 ${open ? "z-[80]" : "z-40"} transition-[background,box-shadow,border-color] duration-500 ${open ? "" : "backdrop-blur-md"} ${
+      className={`top-zone sticky top-0 ${open ? "z-[80]" : "z-40"} transition-[background,box-shadow,border-color] duration-500 ${open ? "" : "backdrop-blur-md"} ${
         scrolled ? "border-b border-ink/6 bg-canvas/85 shadow-[0_10px_40px_-28px_rgb(58_43_36/0.5)]" : "border-b border-transparent bg-canvas/60"
       }`}
     >
@@ -95,7 +96,7 @@ export function SiteHeader() {
                       <ul className="glass rounded-[1.25rem] p-2">
                         {trips.children.map((c) => (
                           <li key={c.href}>
-                            <Link href={c.href} className="flex items-baseline justify-between gap-4 rounded-[0.9rem] px-4 py-3 transition-colors hover:bg-white/[0.1]">
+                            <Link href={c.href} className="flex items-baseline justify-between gap-4 rounded-[0.9rem] px-4 py-3 transition-colors hover:bg-(--raise-hi)">
                               <span className="font-editorial text-[1.2rem]">{c.label}</span>
                               <span className="text-[0.76rem] text-ink/62">{c.note}</span>
                             </Link>
@@ -136,7 +137,7 @@ export function SiteHeader() {
           <Link href={strip.href} className="btn-ink hidden h-11 items-center rounded-[0.85rem] px-5 text-[0.88rem] font-medium lg:inline-flex">
             Register interest
           </Link>
-          <a href={wa(say.general)} target="_blank" rel="noopener noreferrer" aria-label="WhatsApp us" className="-mr-1 grid size-11 place-items-center rounded-full bg-white/[0.06] text-wa shadow-[0_6px_18px_-10px_rgb(58_43_36/0.4)] lg:hidden">
+          <a href={wa(say.general)} target="_blank" rel="noopener noreferrer" aria-label="WhatsApp us" className="-mr-1 grid size-11 place-items-center rounded-full bg-(--raise) text-wa shadow-[0_6px_18px_-10px_rgb(58_43_36/0.4)] lg:hidden">
             <WaGlyph className="size-5" />
           </a>
         </div>
@@ -144,7 +145,7 @@ export function SiteHeader() {
 
       {open ? (
         <div className="wash-hero fixed inset-0 z-[70] overflow-y-auto pb-16 text-ink lg:hidden">
-          <Emblem className="pointer-events-none absolute right-[-18%] bottom-[-4%] h-[70%] text-sand/[0.06]" />
+          <Emblem className="pointer-events-none absolute right-[-18%] bottom-[-4%] h-[70%] watermark" />
           <div className={`relative grid h-[4.5rem] grid-cols-[1fr_auto_1fr] items-center ${pad}`}>
             <button type="button" aria-label="Close menu" onClick={() => setOpen(false)} className="-ml-2 grid size-11 place-items-center rounded-full">
               <svg viewBox="0 0 12 12" aria-hidden className="size-3.5" fill="none" stroke="currentColor" strokeWidth="1.3">
@@ -174,7 +175,7 @@ export function SiteHeader() {
               <Link href={strip.href} onClick={() => setOpen(false)} className="btn-ink flex h-[3.25rem] items-center justify-center gap-2 rounded-[0.95rem] text-[0.95rem] font-medium">
                 Register for Hajj 2027 <Chevron className="size-3 opacity-70" />
               </Link>
-              <a href={wa(say.general)} target="_blank" rel="noopener noreferrer" className="flex h-[3.25rem] items-center justify-center gap-2.5 rounded-[0.95rem] border border-ink/15 bg-white/[0.06] text-[0.95rem] font-medium">
+              <a href={wa(say.general)} target="_blank" rel="noopener noreferrer" className="flex h-[3.25rem] items-center justify-center gap-2.5 rounded-[0.95rem] border border-ink/15 bg-(--raise) text-[0.95rem] font-medium">
                 <WaGlyph className="size-5 text-wa" /> WhatsApp us
               </a>
             </div>

@@ -5,7 +5,7 @@ import { faqs, privatePage } from "@/app/_site/content";
 import { Builder } from "@/app/_site/builder";
 import { FaqList, Tick } from "@/app/_site/home-sections";
 import { Mark } from "@/app/_site/marks";
-import { gutter, Heading, PageLead, Square } from "@/app/_site/shell";
+import { Chapter, Heading, PageLead, Square, gutter } from "@/app/_site/shell";
 
 export const metadata: Metadata = {
   title: "Private & family Umrah",
@@ -17,6 +17,7 @@ export default function PrivatePage() {
   const qs = faqs.filter((f) => ["Are your trips suitable for families with children?", "Do I need a visa to travel with you?", "Is my trip ATOL protected?"].includes(f.q));
   return (
     <>
+      <Chapter tone="top">
       <PageLead
         label={
           <>
@@ -30,7 +31,10 @@ export default function PrivatePage() {
         <p className="mt-5 max-w-[36rem] text-[1.04rem] leading-[1.75] text-ink/70">{privatePage.text}</p>
       </PageLead>
 
-      <section className={`bg-canvas pt-[clamp(2rem,5vw,4rem)] ${gutter}`}>
+      </Chapter>
+
+      <Chapter tone="day">
+      <section className={`pt-[clamp(2.5rem,5vw,4rem)] ${gutter}`}>
         <ul className="glass-phone grid grid-cols-1 rounded-[1.5rem] px-5 py-1 sm:grid-cols-2 sm:gap-4 sm:p-0 lg:grid-cols-4">
           {privatePage.points.map((r, i) => (
             <li key={r.title} className={`glass-wide flex gap-3 py-4 sm:block sm:rounded-[1.5rem] sm:p-5 ${i ? "border-t border-ink/8" : ""}`}>
@@ -68,7 +72,7 @@ export default function PrivatePage() {
                 ["A deposit holds it", "Then the rest in instalments before you fly."],
               ].map(([t, d], i) => (
                 <li key={t} className="grid grid-cols-[2.75rem_1fr] items-center gap-4 border-t border-ink/8 py-4 first:border-0">
-                  <span className="display grid size-11 place-items-center rounded-full bg-white/[0.06] text-[1.4rem] text-bronze shadow-[var(--shadow-lift)]">{i + 1}</span>
+                  <span className="display grid size-11 place-items-center rounded-full bg-(--raise) text-[1.4rem] text-bronze shadow-[var(--shadow-lift)]">{i + 1}</span>
                   <span>
                     <span className="block text-[1rem] font-medium">
                       {t}
@@ -88,6 +92,7 @@ export default function PrivatePage() {
           </div>
         </div>
       </section>
+      </Chapter>
     </>
   );
 }

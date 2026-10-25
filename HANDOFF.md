@@ -58,6 +58,8 @@ blended and premium (ADR 0002); it must never resemble The Umrah Company's site 
 Two looks are on the table (25 October 2026):
 - `feat/v2-rebuild`: the soft cream site with the cocoa-on-cream logo (ADR 0002). Jibril likes it; keep as is.
 - `feat/v2-dark`: the same site at night with the logo in the sand-gold of the main button and a new hero (ADR 0003).
+- `feat/v2-mix`: day and night in chapters (ADR 0004), with a review switch for the top: dark with the beige-gold
+  logo, or light with the brown logo (`?top=light` / `?top=dark`). Jibril asked for this on 25 October 2026.
 Phone fixes are made on `feat/v2-rebuild` and merged into `feat/v2-dark`, so both stay equally phone friendly.
 Each branch has its own Vercel preview. Pick one, then merge it into `main`.
 

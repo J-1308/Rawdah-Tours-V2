@@ -18,6 +18,7 @@ import {
   Trips,
   WhyRawdah,
 } from "@/app/_site/home-sections";
+import { Chapter } from "@/app/_site/shell";
 
 export const metadata: Metadata = {
   title: { absolute: "Rawdah Tours — guided Umrah and Hajj from the UK" },
@@ -45,28 +46,47 @@ const organisation = {
  * mouth), so the first two screens let them act: the hero's Hajj action, a
  * tile for each kind of traveller, and the trips with prices. Then Hajj 2027
  * in depth, the proof of the last trip, the reasons, what's covered and how
- * paying works, the people, the other two ways to travel, travellers' words,
+ * paying works, the people and their words, the other two ways to travel,
  * questions, and one last call. See docs/adr/0001.
+ *
+ * Colour comes in chapters (ADR 0004): night for the moments (arriving, Hajj
+ * and the last trip, the people, the last call), day for choosing and deciding
+ * (trips and prices, what's included and paying, groups and private, questions).
+ * The top chapter follows the dark/light switch.
  */
 export default function Home() {
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organisation).replace(/</g, "\\u003c") }} />
-      <Hero />
-      <Starts />
-      <Trips />
-      <HajjBand />
-      <LastTrip />
-      <WhyRawdah />
-      <Meaning />
-      <Covers />
-      <Paying />
-      <People />
-      <GroupsBand />
-      <PrivateBand />
-      <Reviews />
-      <Questions />
-      <Closing />
+      <Chapter tone="top">
+        <Hero />
+        <Starts />
+      </Chapter>
+      <Chapter tone="day">
+        <Trips />
+      </Chapter>
+      <Chapter tone="night">
+        <HajjBand />
+        <LastTrip />
+      </Chapter>
+      <Chapter tone="day">
+        <WhyRawdah />
+        <Meaning />
+        <Covers />
+        <Paying />
+      </Chapter>
+      <Chapter tone="night">
+        <People />
+        <Reviews />
+      </Chapter>
+      <Chapter tone="day">
+        <GroupsBand />
+        <PrivateBand />
+        <Questions />
+      </Chapter>
+      <Chapter tone="night">
+        <Closing />
+      </Chapter>
     </>
   );
 }

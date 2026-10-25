@@ -47,7 +47,7 @@ function Segments<T extends string>({ value, options, onChange, label }: { value
           type="button"
           aria-pressed={value === o}
           onClick={() => onChange(o)}
-          className={`rounded-full border px-4 py-2.5 text-[0.88rem] transition-colors ${value === o ? "border-ink bg-ink text-canvas shadow-[var(--shadow-lift)]" : "border-ink/10 bg-white/[0.06] hover:border-ink/35"}`}
+          className={`rounded-full border px-4 py-2.5 text-[0.88rem] transition-colors ${value === o ? "border-ink bg-ink text-canvas shadow-[var(--shadow-lift)]" : "border-ink/10 bg-(--raise) hover:border-ink/35"}`}
         >
           {o}
         </button>
@@ -59,13 +59,13 @@ function Segments<T extends string>({ value, options, onChange, label }: { value
 function Count({ label, value, set, min, max }: { label: string; value: number; set: (n: number) => void; min: number; max: number }) {
   return (
     <span className="inline-flex items-center">
-      <button type="button" aria-label={`Fewer: ${label}`} disabled={value <= min} onClick={() => set(Math.max(min, value - 1))} className="grid size-10 place-items-center rounded-l-[0.8rem] border border-ink/12 bg-white/[0.06] disabled:opacity-30">
+      <button type="button" aria-label={`Fewer: ${label}`} disabled={value <= min} onClick={() => set(Math.max(min, value - 1))} className="grid size-10 place-items-center rounded-l-[0.8rem] border border-ink/12 bg-(--raise) disabled:opacity-30">
         −
       </button>
-      <span className="grid h-10 w-12 place-items-center border-y border-ink/12 bg-white/[0.06] tabular-nums" aria-live="polite">
+      <span className="grid h-10 w-12 place-items-center border-y border-ink/12 bg-(--raise) tabular-nums" aria-live="polite">
         {value}
       </span>
-      <button type="button" aria-label={`More: ${label}`} disabled={value >= max} onClick={() => set(Math.min(max, value + 1))} className="grid size-10 place-items-center rounded-r-[0.8rem] border border-ink/12 bg-white/[0.06] disabled:opacity-30">
+      <button type="button" aria-label={`More: ${label}`} disabled={value >= max} onClick={() => set(Math.min(max, value + 1))} className="grid size-10 place-items-center rounded-r-[0.8rem] border border-ink/12 bg-(--raise) disabled:opacity-30">
         +
       </button>
     </span>
@@ -211,7 +211,7 @@ export function Builder() {
               </div>
             ))}
           </dl>
-          <div className="mt-2 rounded-[1.25rem] bg-white/[0.06] p-5 ring-1 ring-white/10">
+          <div className="mt-2 rounded-[1.25rem] bg-(--raise) p-5 ring-1 ring-white/10">
             <p className="text-[0.8rem] text-cream/70">
               Rough cost per adult
               <Mark s={privatePricing.status} />

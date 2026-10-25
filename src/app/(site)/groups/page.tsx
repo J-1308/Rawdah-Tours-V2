@@ -4,19 +4,19 @@ import Image from "next/image";
 import { gbp, groupsPage } from "@/app/_site/content";
 import { CommunityForm } from "@/app/_site/community-form";
 import { Mark } from "@/app/_site/marks";
-import { Emblem, gutter, Heading, Label, onInk, PageLead } from "@/app/_site/shell";
+import { Chapter, Emblem, Heading, Label, PageLead, gutter, onInk } from "@/app/_site/shell";
 
 export const metadata: Metadata = {
   title: "Masjids & groups",
   description: "Umrah trips arranged by Rawdah Tours for masjids, study circles, youth groups and Islamic societies.",
 };
 
-const insetPad = "px-[max(calc(var(--hero-pad-x)*0.45),0.6rem)]";
 
 /** Masjids & groups: who it's for, what they get, the steps, an example trip page and the first message. */
 export default function GroupsPage() {
   return (
     <>
+      <Chapter tone="top">
       <PageLead
         label={groupsPage.label}
         title={groupsPage.headline}
@@ -32,14 +32,17 @@ export default function GroupsPage() {
         </p>
         <ul className="mt-7 flex flex-wrap gap-2">
           {groupsPage.who.map((w) => (
-            <li key={w} className="rounded-full border border-ink/10 bg-white/[0.06] px-3.5 py-1.5 text-[0.84rem] text-ink/75">
+            <li key={w} className="rounded-full border border-ink/10 bg-(--raise) px-3.5 py-1.5 text-[0.84rem] text-ink/75">
               {w}
             </li>
           ))}
         </ul>
       </PageLead>
 
-      <section className={`bg-canvas py-[clamp(3.25rem,9vw,8rem)] ${gutter}`}>
+      </Chapter>
+
+      <Chapter tone="day">
+      <section className={`py-[clamp(3.25rem,9vw,8rem)] ${gutter}`}>
         <Heading className="text-[clamp(2.3rem,4.2vw,4rem)]">What your group gets</Heading>
         <ul className="glass-phone mt-8 grid grid-cols-1 rounded-[1.5rem] px-5 py-1 sm:mt-10 sm:grid-cols-2 sm:gap-4 sm:p-0 lg:grid-cols-3">
           {groupsPage.offers.map((g, i) => (
@@ -57,9 +60,12 @@ export default function GroupsPage() {
         </ul>
       </section>
 
-      <section className={`bg-canvas ${insetPad}`}>
-        <div className={`panel-dark relative overflow-hidden rounded-[2.5rem] px-[clamp(1.25rem,5vw,5rem)] py-[clamp(3rem,7vw,6rem)] ${onInk}`}>
-          <Emblem className="pointer-events-none absolute top-[-10%] left-[-6%] h-[120%] text-cream/[0.045]" />
+      </Chapter>
+
+      <Chapter tone="night">
+      <section className={`relative py-[clamp(3.75rem,9vw,8rem)] ${gutter} ${onInk}`}>
+        <div>
+          <Emblem className="watermark pointer-events-none absolute top-[-10%] left-[-8%] h-[120%]" />
           <div className="relative grid grid-cols-1 gap-x-16 gap-y-12 lg:grid-cols-12 lg:items-center">
             <div className="lg:col-span-5">
               <Heading className="text-[clamp(2.2rem,3.6vw,3.4rem)] text-cream">How it comes together</Heading>
@@ -80,7 +86,7 @@ export default function GroupsPage() {
                 An example of your group’s trip page
                 <Mark s="sample" />
               </p>
-              <div className="mt-5 overflow-hidden rounded-[1.75rem] bg-canvas text-ink shadow-[var(--shadow-float)]">
+              <div className="day mt-5 overflow-hidden rounded-[1.75rem] bg-canvas text-ink shadow-[var(--shadow-float)]">
                 <div className="relative aspect-[16/8] bg-beige">
                   <Image src="/images/trips/group-quba-mosque.jpg" alt="" fill sizes="(min-width: 1024px) 45vw, 100vw" className="object-cover object-[50%_80%]" />
                 </div>
@@ -100,6 +106,9 @@ export default function GroupsPage() {
         </div>
       </section>
 
+      </Chapter>
+
+      <Chapter tone="day">
       <section id="start" className={`wash-linen scroll-mt-28 py-[clamp(3.75rem,10vw,9rem)] ${gutter}`}>
         <div className="grid grid-cols-1 gap-x-16 gap-y-12 lg:grid-cols-12">
           <div className="lg:col-span-5">
@@ -114,7 +123,7 @@ export default function GroupsPage() {
                       {f.q}
                       <Mark s={f.status} />
                     </span>
-                    <span aria-hidden className="mt-0.5 grid size-6 shrink-0 place-items-center rounded-full bg-white/[0.06] text-[0.9rem] leading-none text-ink/70 shadow-[0_4px_12px_-6px_rgb(58_43_36/0.4)] transition-transform group-open:rotate-45">
+                    <span aria-hidden className="mt-0.5 grid size-6 shrink-0 place-items-center rounded-full bg-(--raise) text-[0.9rem] leading-none text-ink/70 shadow-[0_4px_12px_-6px_rgb(58_43_36/0.4)] transition-transform group-open:rotate-45">
                       +
                     </span>
                   </summary>
@@ -128,6 +137,7 @@ export default function GroupsPage() {
           </div>
         </div>
       </section>
+      </Chapter>
     </>
   );
 }

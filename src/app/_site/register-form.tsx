@@ -114,7 +114,7 @@ export function RegisterForm({ defaultJourney = 'not-sure', page }: { defaultJou
           {JOURNEY_OPTIONS.map((o) => (
             <label
               key={o.value}
-              className="flex cursor-pointer items-start gap-3 rounded-[0.95rem] border border-ink/10 bg-white/[0.06] p-4 transition-colors hover:border-ink/40 has-[:checked]:border-ink has-[:checked]:bg-white/[0.08] has-[:checked]:shadow-[0_0_0_4px_rgb(216_195_161/0.35)]"
+              className="flex cursor-pointer items-start gap-3 rounded-[0.95rem] border border-ink/10 bg-(--raise) p-4 transition-colors hover:border-ink/40 has-[:checked]:border-ink has-[:checked]:bg-(--raise-hi) has-[:checked]:shadow-[0_0_0_4px_rgb(216_195_161/0.35)]"
             >
               <input type="radio" name="journey" value={o.value} defaultChecked={journey === o.value} className="choice mt-0.5" />
               <span>

@@ -1,5 +1,8 @@
 # Rawdah Tours V2 — Design system ("soft garden")
 
+> On `feat/v2-mix` the page is built in day and night chapters: see `docs/adr/0004-day-and-night-rhythm.md`
+> for the chapters, the night token scope and the top switch.
+
 Status: **in use** (25 October 2026). Why: `docs/adr/0002-soft-premium.md` (and 0001 for the rule that the
 site must never resemble The Umrah Company's). Tokens: `src/app/globals.css`. Kit: `src/app/_site/shell.tsx`.
 

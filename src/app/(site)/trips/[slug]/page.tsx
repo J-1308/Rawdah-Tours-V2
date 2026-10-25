@@ -7,7 +7,7 @@ import { CoverGroups, FaqList, PaymentPlan, TeacherList, Tick } from "@/app/_sit
 import { Mark } from "@/app/_site/marks";
 import { RegisterForm } from "@/app/_site/register-form";
 import { ReservePanel } from "@/app/_site/reserve";
-import { ConfirmedPending, gutter, Heading, PageLead } from "@/app/_site/shell";
+import { Chapter, ConfirmedPending, gutter, Heading, PageLead } from "@/app/_site/shell";
 import { StateTag } from "@/app/_site/trip-row";
 import { Chevron } from "@/app/_site/whatsapp";
 import { getTrip, isBookable, isDemoBooking } from "@/lib/trips";
@@ -55,13 +55,14 @@ export default async function TripPage({ params }: { params: Promise<{ slug: str
 
   return (
     <>
+      <Chapter tone="top">
       <PageLead
         crumbs={[{ label: "Home", href: "/" }, { label: "Trips", href: routes.trips }, { label: j.name }]}
         title={j.name}
         photos={[{ src: j.photo.src, alt: j.photo.alt, position: j.photo.position }, ...j.more]}
       >
         <div className="mt-4">
-          <StateTag j={j} />
+          <StateTag j={j} onPhoto={false} />
         </div>
         <p className="mt-4 max-w-[34rem] font-editorial text-[clamp(1.4rem,2vw,1.8rem)] leading-snug text-ink/70 italic">{j.tagline}</p>
         <dl className="mt-6 grid max-w-[36rem] grid-cols-2 gap-2 text-[0.9rem] sm:mt-7 sm:gap-2.5 sm:text-[0.92rem]">
@@ -79,7 +80,9 @@ export default async function TripPage({ params }: { params: Promise<{ slug: str
           {joinLabel} <Chevron dir="down" className="size-3 opacity-70" />
         </a>
       </PageLead>
+      </Chapter>
 
+      <Chapter tone="day">
       <div className={`grid grid-cols-1 gap-x-14 gap-y-12 py-[clamp(2.5rem,5vw,4.5rem)] lg:grid-cols-12 ${gutter}`}>
         {/* The join panel: beside the story on desktop, straight after the header on phones */}
         <aside id={anchors.join} className="scroll-mt-28 lg:order-2 lg:col-span-4">
@@ -250,6 +253,7 @@ export default async function TripPage({ params }: { params: Promise<{ slug: str
           </div>
         </section>
       ) : null}
+      </Chapter>
     </>
   );
 }

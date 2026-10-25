@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 
 import { journeys, routes, say } from "@/app/_site/content";
 import { LastTrip } from "@/app/_site/home-sections";
-import { Actions, gutter, Heading, Label } from "@/app/_site/shell";
+import { Actions, Chapter, gutter, Heading, Label } from "@/app/_site/shell";
 import { TripRow } from "@/app/_site/trip-row";
 
 export const metadata: Metadata = {
@@ -16,7 +16,8 @@ export default function TripsPage() {
   const past = journeys.filter((j) => j.state === "past");
   return (
     <>
-      <section className={`bg-canvas pt-[clamp(3rem,7vw,6rem)] ${gutter}`}>
+      <Chapter tone="top">
+      <section className={`wash-hero pt-[clamp(3rem,7vw,6rem)] pb-[clamp(3.5rem,7vw,5.5rem)] ${gutter}`}>
         <Label>Trips</Label>
         <Heading as="h1" className="mt-4 max-w-[60rem] text-[clamp(2.9rem,6vw,5.6rem)]">
           Hajj and Umrah, guided from the UK.
@@ -25,8 +26,10 @@ export default function TripsPage() {
           Teachers with every group, five-star hotels by the Haram, and a group leader from your first message to the flight home.
         </p>
       </section>
+      </Chapter>
 
-      <section className={`bg-canvas pt-12 pb-[clamp(3rem,6vw,5rem)] ${gutter}`}>
+      <Chapter tone="day">
+      <section className={`pt-[clamp(3rem,6vw,4.5rem)] pb-[clamp(3rem,6vw,5rem)] ${gutter}`}>
         <Heading className="text-[clamp(1.9rem,3vw,2.6rem)]">Open now and coming soon</Heading>
         <div className="mt-7 grid gap-5">
           {upcoming.map((j) => (
@@ -42,7 +45,7 @@ export default function TripsPage() {
         </div>
       </section>
 
-      <section className={`bg-canvas pb-[clamp(3rem,6vw,5rem)] ${gutter}`}>
+      <section className={`pb-[clamp(4rem,7vw,6rem)] ${gutter}`}>
         <Heading className="text-[clamp(1.9rem,3vw,2.6rem)]">Completed</Heading>
         <div className="mt-7 grid gap-5">
           {past.map((j) => (
@@ -50,8 +53,11 @@ export default function TripsPage() {
           ))}
         </div>
       </section>
+      </Chapter>
 
-      <LastTrip />
+      <Chapter tone="night">
+        <LastTrip />
+      </Chapter>
     </>
   );
 }

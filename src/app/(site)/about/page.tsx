@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { about, brand, routes, say } from "@/app/_site/content";
 import { Meaning, People } from "@/app/_site/home-sections";
 import { Mark } from "@/app/_site/marks";
-import { Actions, Emblem, gutter, Heading, Label, PageLead } from "@/app/_site/shell";
+import { Actions, Chapter, Emblem, Heading, Label, PageLead, gutter } from "@/app/_site/shell";
 
 export const metadata: Metadata = {
   title: "About us",
@@ -14,6 +14,7 @@ export const metadata: Metadata = {
 export default function AboutPage() {
   return (
     <>
+      <Chapter tone="top">
       <PageLead
         label={about.label}
         title={about.headline}
@@ -24,7 +25,10 @@ export default function AboutPage() {
         ]}
       />
 
-      <section className={`bg-canvas py-[clamp(3rem,7vw,6rem)] ${gutter}`}>
+      </Chapter>
+
+      <Chapter tone="day">
+      <section className={`py-[clamp(3rem,7vw,6rem)] ${gutter}`}>
         <div className="grid grid-cols-1 gap-x-14 gap-y-10 lg:grid-cols-12">
           <figure className="lg:col-span-5">
             <span aria-hidden className="display block h-[0.55em] text-[5rem] leading-[0.9] text-gold">
@@ -67,7 +71,13 @@ export default function AboutPage() {
         </ul>
       </section>
 
-      <People link={false} />
+      </Chapter>
+
+      <Chapter tone="night">
+        <People link={false} />
+      </Chapter>
+
+      <Chapter tone="day">
 
       <section id="contact" className={`scroll-mt-28 bg-canvas py-[clamp(3rem,7vw,6rem)] ${gutter}`}>
         <div className="grid grid-cols-1 gap-x-14 gap-y-12 lg:grid-cols-12">
@@ -120,6 +130,7 @@ export default function AboutPage() {
           </div>
         </div>
       </section>
+      </Chapter>
     </>
   );
 }

@@ -38,7 +38,6 @@ import { Chevron } from "@/app/_site/whatsapp";
 const pad = "py-[clamp(3.25rem,9vw,8rem)]";
 const h2 = "text-[clamp(2.5rem,4.6vw,4.4rem)]";
 /** Rounded panels sit closer to the page edge than text does. */
-const insetPad = "px-[max(calc(var(--hero-pad-x)*0.45),0.6rem)]";
 const bleed: CSSProperties = { marginInline: "calc(-1 * max(var(--hero-pad-x), env(safe-area-inset-left)))", paddingInline: "max(var(--hero-pad-x), env(safe-area-inset-left))", scrollPaddingInline: "max(var(--hero-pad-x), env(safe-area-inset-left))" };
 
 function Dot() {
@@ -58,11 +57,11 @@ export function Hero() {
       <div className="settle relative h-[min(30rem,118vw)] w-full lg:absolute lg:inset-y-0 lg:right-0 lg:h-auto lg:w-[62%]">
         <Image src={a.src} alt={a.alt} fill priority sizes="(min-width: 1024px) 62vw, 100vw" className="night-photo object-cover object-[50%_55%]" />
       </div>
-      <Emblem className="pointer-events-none absolute top-[18%] left-[-14%] -z-10 h-[90%] text-sand/[0.05] lg:top-[-6%] lg:left-[-4%] lg:h-[115%]" />
+      <Emblem className="pointer-events-none absolute top-[18%] left-[-14%] -z-10 h-[90%] watermark lg:top-[-6%] lg:left-[-4%] lg:h-[115%]" />
       <div className={`relative grid grid-cols-1 lg:min-h-[calc(100svh-7.5rem)] lg:grid-cols-12 lg:items-center ${gutter}`}>
         <div className="-mt-12 pb-[clamp(3.5rem,9vw,7rem)] lg:col-span-6 lg:mt-0 lg:py-24 xl:col-span-5">
           <Label>{hero.label}</Label>
-          <Heading as="h1" className="mt-4 text-[clamp(2.9rem,5.8vw,6rem)] text-cream sm:mt-5">
+          <Heading as="h1" className="mt-4 text-[clamp(2.9rem,5.8vw,6rem)] text-ink sm:mt-5">
             {hero.headline}
           </Heading>
           <p className="mt-5 max-w-[33rem] text-[1.02rem] leading-[1.7] text-ink/70 sm:mt-6 sm:text-[1.04rem] sm:leading-[1.75]">
@@ -87,7 +86,7 @@ export function Hero() {
           <div className="settle absolute bottom-[8%] left-[2%] aspect-[3/4] w-[27%] overflow-hidden rounded-[1.5rem] shadow-[var(--shadow-float)] ring-1 ring-white/10" style={{ animationDelay: "200ms" }}>
             <Image src={c.src} alt={c.alt} fill sizes="20vw" className={`object-cover ${c.position}`} />
           </div>
-          <Link href={strip.href} className="settle absolute top-[16%] right-[4%] rounded-[1.1rem] border border-white/10 bg-canvas/75 px-4 py-3 text-[0.84rem] shadow-[var(--shadow-float)] backdrop-blur-md transition-transform hover:-translate-y-0.5" style={{ animationDelay: "420ms" }}>
+          <Link href={strip.href} className="settle absolute top-[16%] right-[4%] rounded-[1.1rem] border border-(--edge) bg-canvas/75 px-4 py-3 text-[0.84rem] shadow-[var(--shadow-float)] backdrop-blur-md transition-transform hover:-translate-y-0.5" style={{ animationDelay: "420ms" }}>
             <span className="flex items-center gap-2 font-medium">
               <span aria-hidden className="size-2 rounded-full bg-[#7fb488] shadow-[0_0_0_4px_rgb(127_180_136/0.2)]" />
               Hajj 2027
@@ -106,7 +105,7 @@ export function Hero() {
 
 export function Starts() {
   return (
-    <section className={`bg-canvas pt-[clamp(2.25rem,6vw,5rem)] ${gutter}`}>
+    <section className={`pt-[clamp(2.25rem,6vw,5rem)] ${gutter}`}>
       <Heading className="text-[clamp(2.2rem,3.6vw,3.4rem)]">Where would you like to start?</Heading>
       <ul className="no-scrollbar mt-8 flex snap-x snap-mandatory gap-4 overflow-x-auto pb-8 lg:mx-0! lg:grid lg:grid-cols-4 lg:overflow-visible lg:px-0!" style={bleed}>
         {starts.map((s) => (
@@ -115,14 +114,14 @@ export function Starts() {
               <div className="relative aspect-[4/5] overflow-hidden rounded-[1.75rem] bg-beige shadow-[var(--shadow-lift)]">
                 <Image src={s.photo.src} alt="" fill sizes="(min-width: 1024px) 23vw, (min-width: 640px) 42vw, 74vw" className={`object-cover transition-transform duration-[1.2s] group-hover:scale-[1.04] ${s.photo.position}`} />
                 <div aria-hidden className="absolute inset-0 bg-[linear-gradient(to_top,rgb(42_31_26/0.85)_0%,rgb(42_31_26/0.25)_45%,transparent_70%)]" />
-                <span className="absolute top-3 left-3 rounded-full bg-black/50 px-3 py-1 text-[0.78rem] font-medium text-cream backdrop-blur">
+                <span className="absolute top-3 left-3 rounded-full bg-black/50 px-3 py-1 text-[0.78rem] font-medium text-cream backdrop-blur [&_.site-mark]:border-sand/60 [&_.site-mark]:text-sand">
                   {s.tag.value}
                   <Mark s={s.tag.status} />
                 </span>
                 <div className="absolute inset-x-0 bottom-0 p-5 text-cream">
                   <p className="display flex items-center justify-between gap-3 text-[1.95rem]">
                     {s.title}
-                    <span aria-hidden className="grid size-9 shrink-0 place-items-center rounded-full bg-white/[0.06] backdrop-blur transition-colors group-hover:bg-white/[0.1]">
+                    <span aria-hidden className="grid size-9 shrink-0 place-items-center rounded-full bg-(--raise) backdrop-blur transition-colors group-hover:bg-(--raise-hi)">
                       <Chevron className="size-3" />
                     </span>
                   </p>
@@ -143,7 +142,7 @@ export function Starts() {
 
 export function Trips() {
   return (
-    <section id="trips" className={`scroll-mt-24 bg-canvas pt-[clamp(2rem,6vw,5rem)] pb-[clamp(3.25rem,9vw,8rem)] ${gutter}`}>
+    <section id="trips" className={`scroll-mt-24 pt-[clamp(2rem,6vw,5rem)] pb-[clamp(3.25rem,9vw,8rem)] ${gutter}`}>
       <div className="flex items-end justify-between gap-6">
         <Heading className={h2}>Our trips</Heading>
         <Link href={routes.trips} className="group mb-2 flex items-center gap-1.5 text-[0.92rem] font-medium text-bronze">
@@ -165,9 +164,9 @@ export function Trips() {
 
 export function HajjBand() {
   return (
-    <section id="hajj" className={`scroll-mt-24 bg-canvas ${insetPad}`}>
-      <div className={`panel-dark relative overflow-hidden rounded-[2.5rem] px-[clamp(1.25rem,5vw,5rem)] py-[clamp(3rem,7vw,6.5rem)] ${onInk}`}>
-        <Emblem className="pointer-events-none absolute top-[-12%] right-[-8%] h-[125%] text-cream/[0.05]" />
+    <section id="hajj" className={`relative scroll-mt-24 py-[clamp(3.75rem,9vw,8rem)] ${gutter} ${onInk}`}>
+      <div>
+        <Emblem className="watermark pointer-events-none absolute top-[-6%] right-[-10%] h-[110%]" />
         <div className="relative grid grid-cols-1 gap-x-16 gap-y-12 lg:grid-cols-12">
           <div className="lg:col-span-5">
             <p lang="ar" className="ar text-left text-[clamp(1.8rem,3vw,2.6rem)] leading-[1.7] text-sand">
@@ -260,7 +259,7 @@ export function LastTrip() {
 
 export function WhyRawdah() {
   return (
-    <section className={`bg-canvas ${pad} ${gutter}`}>
+    <section className={`${pad} ${gutter}`}>
       <div className="grid grid-cols-1 gap-x-16 gap-y-14 lg:grid-cols-12 lg:items-center">
         <div className="lg:col-span-5">
           <PhotoStack
@@ -384,7 +383,7 @@ export function Tick({ className = "" }: { className?: string }) {
 
 export function Covers() {
   return (
-    <section className={`bg-canvas ${pad} ${gutter}`}>
+    <section className={`${pad} ${gutter}`}>
       <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
         <Heading className={h2}>{covers.headline}</Heading>
         <p className="max-w-[26rem] font-editorial text-[1.25rem] leading-[1.5] text-ink/70 italic">{covers.text}</p>
@@ -447,7 +446,7 @@ export function PaymentPlan({ tone = "ink" }: { tone?: "ink" | "canvas" }) {
 
 export function Paying() {
   return (
-    <section className={`bg-canvas pb-[clamp(3.25rem,9vw,8rem)] ${gutter}`}>
+    <section className={`pb-[clamp(3.25rem,9vw,8rem)] ${gutter}`}>
       <div className="grid grid-cols-1 gap-x-14 gap-y-10 lg:grid-cols-12 lg:items-center">
         <div className="lg:col-span-4">
           <Heading className={h2}>{paying.headline}</Heading>
@@ -536,7 +535,7 @@ export function People({ link = true }: { link?: boolean }) {
 
 export function GroupsBand() {
   return (
-    <section className={`bg-canvas ${pad} ${gutter}`}>
+    <section className={`${pad} ${gutter}`}>
       <div className="grid grid-cols-1 gap-x-16 gap-y-14 lg:grid-cols-12 lg:items-center">
         <div className="lg:order-2 lg:col-span-6 lg:col-start-7">
           <PhotoStack
@@ -556,7 +555,7 @@ export function GroupsBand() {
           </p>
           <ul className="mt-6 flex flex-wrap gap-2">
             {groupsBand.who.map((w) => (
-              <li key={w} className="rounded-full border border-ink/10 bg-white/[0.06] px-3.5 py-1.5 text-[0.84rem] text-ink/75">
+              <li key={w} className="rounded-full border border-ink/10 bg-(--raise) px-3.5 py-1.5 text-[0.84rem] text-ink/75">
                 {w}
               </li>
             ))}
@@ -609,7 +608,7 @@ export function PrivateBand() {
 export function Reviews() {
   const [first, ...rest] = reviews.items;
   return (
-    <section className={`bg-canvas ${pad} ${gutter}`}>
+    <section className={`${pad} ${gutter}`}>
       <div className="mx-auto max-w-[56rem] text-center">
         <Emblem className="mx-auto h-9 text-gold/70 sm:h-11" />
         <Heading className="mt-5 text-[clamp(2.2rem,3.6vw,3.4rem)]">{reviews.headline}</Heading>
@@ -652,7 +651,7 @@ export function FaqList({ items }: { items: Faq[] }) {
               {f.q}
               <Mark s={f.status} />
             </span>
-            <span aria-hidden className="mt-0.5 grid size-6 shrink-0 place-items-center rounded-full bg-white/[0.06] text-[0.9rem] leading-none text-ink/70 shadow-[0_4px_12px_-6px_rgb(58_43_36/0.4)] transition-transform group-open:rotate-45">
+            <span aria-hidden className="mt-0.5 grid size-6 shrink-0 place-items-center rounded-full bg-(--raise) text-[0.9rem] leading-none text-ink/70 shadow-[0_4px_12px_-6px_rgb(58_43_36/0.4)] transition-transform group-open:rotate-45">
               +
             </span>
           </summary>
@@ -688,9 +687,9 @@ export function Questions() {
 
 export function Closing() {
   return (
-    <section className={`bg-canvas pt-4 pb-[clamp(1.5rem,3vw,2.5rem)] ${insetPad}`}>
-      <div className={`panel-dark relative overflow-hidden rounded-[2.5rem] px-[clamp(1.25rem,5vw,5rem)] py-[clamp(3rem,7vw,6rem)] ${onInk}`}>
-        <Emblem className="pointer-events-none absolute top-[-14%] left-[-6%] h-[130%] text-cream/[0.045]" />
+    <section className={`relative py-[clamp(3.75rem,9vw,8rem)] ${gutter} ${onInk}`}>
+      <div>
+        <Emblem className="watermark pointer-events-none absolute top-[-10%] left-[-8%] h-[120%]" />
         <div className="relative grid grid-cols-1 gap-x-16 gap-y-12 lg:grid-cols-12 lg:items-center">
           <div className="lg:col-span-6">
             <Emblem className="h-12 text-cream/80" />

@@ -62,7 +62,7 @@ type Tone = "ink" | "gold" | "line-ink" | "line-canvas";
 const btnTone: Record<Tone, string> = {
   ink: "btn-ink",
   gold: "btn-sand",
-  "line-ink": "border border-ink/20 bg-white/[0.06] text-ink hover:border-ink/45 hover:bg-white/[0.1]",
+  "line-ink": "border border-ink/20 bg-(--raise) text-ink hover:border-ink/45 hover:bg-(--raise-hi)",
   "line-canvas": "border border-cream/30 bg-white/5 text-cream hover:border-cream/60",
 };
 
@@ -139,10 +139,24 @@ export function Actions({
   );
 }
 
+/**
+ * A chapter of the page: a day (cream) or night (espresso) ground. Chapters
+ * meet as soft rounded sheets (globals.css .chapter). "top" is the first
+ * chapter, which follows the dark/light top switch with the header.
+ */
+export function Chapter({ tone, children, className = "", id }: { tone: "top" | "day" | "night"; children: ReactNode; className?: string; id?: string }) {
+  const look = tone === "top" ? "top-zone" : tone === "night" ? "night" : "";
+  return (
+    <div id={id} className={`chapter ${look} ${className}`}>
+      {children}
+    </div>
+  );
+}
+
 /** A quiet line above the header: Hajj 2027, always one tap away. */
 export function AnnouncementStrip() {
   return (
-    <div className="bg-beige/70 text-ink">
+    <div className="top-zone bg-beige/70 text-ink">
       <Link href={strip.href} className={`flex min-h-10 items-center justify-center gap-3 py-2 text-[0.8rem] ${gutter}`}>
         <Emblem className="h-3.5 text-bronze" />
         <span className="sm:hidden">{strip.short}</span>
@@ -236,7 +250,7 @@ export function PageLead({
 }) {
   return (
     <section className={`wash-hero relative overflow-hidden pt-5 pb-[clamp(3rem,8vw,7rem)] ${gutter}`}>
-      <Emblem className="pointer-events-none absolute top-[-8%] right-[-6%] h-[115%] text-sand/[0.05]" />
+      <Emblem className="pointer-events-none absolute top-[-8%] right-[-6%] h-[115%] watermark" />
       {crumbs ? (
         <nav aria-label="Breadcrumb" className="relative mb-4 flex flex-wrap items-center gap-x-2 text-[0.82rem] text-ink/65 sm:mb-6">
           {crumbs.map((c, i) => (
@@ -325,7 +339,7 @@ export function SiteFooter() {
     },
   ];
   return (
-    <footer className={`panel-dark relative overflow-hidden rounded-t-[2.5rem] pt-[clamp(3.25rem,8vw,6.5rem)] pb-[calc(6rem+env(safe-area-inset-bottom))] lg:pb-10 ${gutter} ${onInk}`}>
+    <footer className={`chapter-foot panel-dark relative overflow-hidden pt-[clamp(3.25rem,8vw,6.5rem)] pb-[calc(6rem+env(safe-area-inset-bottom))] lg:pb-10 ${gutter} ${onInk}`}>
       <Emblem className="pointer-events-none absolute right-[-4%] bottom-[-10%] h-[85%] text-cream/[0.05]" />
       <div className="relative grid grid-cols-1 gap-x-14 gap-y-11 lg:grid-cols-12">
         <div className="lg:col-span-5">

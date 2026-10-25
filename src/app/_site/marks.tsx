@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, type ReactNode } from "react";
+import { useState, useSyncExternalStore, type ReactNode } from "react";
 
 import type { Status } from "@/app/_site/content";
 
@@ -30,6 +30,37 @@ export function Mark({ s, className = "" }: { s: Status | undefined; className?:
   );
 }
 
+/** Review only: flips the top of every page between dark (beige logo) and light (brown logo). */
+const watchTop = (onChange: () => void) => {
+  const observer = new MutationObserver(onChange);
+  observer.observe(document.documentElement, { attributes: true, attributeFilter: ["data-top"] });
+  return () => observer.disconnect();
+};
+const readTop = () => (document.documentElement.dataset.top === "day" ? "day" : "night");
+
+function TopSwitch() {
+  const top = useSyncExternalStore(watchTop, readTop, () => "night");
+  const flip = () => {
+    const next = top === "night" ? "day" : "night";
+    document.documentElement.dataset.top = next;
+    document.querySelector('meta[name="theme-color"]')?.setAttribute("content", next === "day" ? "#f8f3eb" : "#1b1410");
+    try {
+      localStorage.setItem("rawdah-top", next === "day" ? "light" : "dark");
+    } catch {}
+  };
+  return (
+    <button
+      type="button"
+      onClick={flip}
+      aria-label={top === "night" ? "Showing the dark top with the beige logo. Switch to the light top." : "Showing the light top with the brown logo. Switch to the dark top."}
+      className="fixed bottom-[calc(5.4rem+env(safe-area-inset-bottom))] left-[5.6rem] z-[60] flex items-center gap-1.5 rounded-full border border-dashed border-bronze/60 bg-canvas/90 px-2.5 py-1 text-[0.62rem] font-medium text-bronze shadow-[var(--shadow-lift)] backdrop-blur lg:top-[calc(50%+5.5rem)] lg:bottom-auto lg:left-0 lg:rounded-l-none lg:rounded-r-lg lg:border-l-0 lg:px-1.5 lg:py-3 lg:shadow-none lg:[writing-mode:vertical-rl]"
+    >
+      <span aria-hidden className={`size-2 rounded-full ${top === "night" ? "bg-[#2a1f19] ring-1 ring-sand" : "bg-[#f8f3eb] ring-1 ring-bronze/60"}`} />
+      {top === "night" ? "Top: dark" : "Top: light"}
+    </button>
+  );
+}
+
 export function MarksFrame({ children }: { children: ReactNode }) {
   const [on, setOn] = useState(true);
   return (
@@ -47,6 +78,7 @@ export function MarksFrame({ children }: { children: ReactNode }) {
         <span className="lg:hidden">{on ? "Marks on" : "Marks off"}</span>
         <span className="hidden lg:inline">{on ? "Review marks on" : "Review marks off"}</span>
       </button>
+      <TopSwitch />
     </div>
   );
 }

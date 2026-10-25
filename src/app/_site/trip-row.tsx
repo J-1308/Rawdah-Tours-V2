@@ -8,11 +8,11 @@ import { Chevron, WaGlyph } from "@/app/_site/whatsapp";
 export const tripHref = (j: Journey) => `/trips/${j.slug}`;
 
 /** The state as a small soft tag. */
-export function StateTag({ j, className = "" }: { j: Journey; className?: string }) {
+export function StateTag({ j, className = "", onPhoto = true }: { j: Journey; className?: string; onPhoto?: boolean }) {
   return (
     <span
       className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-[0.78rem] font-medium backdrop-blur ${
-        j.state === "past" ? "bg-black/50 text-cream/75" : "bg-black/50 text-cream"
+        onPhoto ? `[&_.site-mark]:border-sand/60 [&_.site-mark]:text-sand ${j.state === "past" ? "bg-black/50 text-cream/75" : "bg-black/50 text-cream"}` : "border border-ink/10 bg-(--raise) text-ink"
       } ${className}`}
     >
       <span aria-hidden className={`size-1.5 rounded-full ${j.state === "past" ? "bg-ink/30" : "bg-[#6f9a74]"}`} />
@@ -97,7 +97,7 @@ export function TripRow({ j }: { j: Journey; tone?: "canvas" | "ink" }) {
             {cta}
             <Chevron className="size-3 opacity-70 transition-transform group-hover:translate-x-0.5" />
           </Link>
-          <a href={wa(j.waText)} target="_blank" rel="noopener noreferrer" aria-label={`Ask about ${j.name} on WhatsApp`} className="grid size-12 place-items-center rounded-[0.9rem] border border-ink/12 bg-white/[0.06] text-wa">
+          <a href={wa(j.waText)} target="_blank" rel="noopener noreferrer" aria-label={`Ask about ${j.name} on WhatsApp`} className="grid size-12 place-items-center rounded-[0.9rem] border border-ink/12 bg-(--raise) text-wa">
             <WaGlyph className="size-5" />
           </a>
         </div>

@@ -1,57 +1,147 @@
 @import "tailwindcss";
 
 /* ---------------------------------------------------------------------------
-   Rawdah Tours — design foundation ("soft garden"). See docs/design-system.md
-   and docs/adr/0002-soft-premium.md.
+   Rawdah Tours — design foundation, mixed day and night (feat/v2-mix).
+   See docs/design-system.md and docs/adr/0004-day-and-night-rhythm.md.
 
-   Warm creams and beiges that blend into one another, a deep cocoa used
-   sparingly in rounded panels, the cream-and-cocoa logo, soft rounded photos
-   and quiet shadows. Sections never meet at a hard edge: tinted sections fade
-   in from cream and back out again (the .wash-* classes).
+   The page is cream ("day"). Some chapters are night: a `.night` wrapper
+   redefines the same tokens with the night values, so every component flips
+   on its own inside it. The top of each page (strip, header, first chapter,
+   phone bar) is `.top-zone`, which is night or day depending on
+   <html data-top="night|day"> — the switch that compares the beige-logo top
+   with the brown-logo top.
 
-   canvas       cream: the page                        #f8f3eb
-   canvas-warm  linen: soft sections and cards         #f0e7da
-   beige        deeper sections                        #e7d9c4
-   sand         the logo's beige; accents, rules       #d8c3a1
-   gold         soft gold lines and markers            #bfa27a
-   bronze       gold-coloured text on cream            #80613a
-   ink          cocoa: text, dark panels               #3a2b24
-   ink-deep     deepest cocoa                          #2a1f1a
-   clay         warm brown inside dark panels          #5a463b
-   cream        the logo on dark grounds               #efe4d2
+   Chapters meet as soft rounded sheets: each one slides over the one before
+   with rounded top corners (`.chapter`).
+
+   day                                    night
+   canvas       #f8f3eb cream            #1b1410 espresso
+   canvas-warm  #f0e7da linen            #241b16
+   beige        #e7d9c4                  #2d221c
+   ink          #3a2b24 cocoa (text)     #efe4d2 cream (text)
+   bronze       #80613a                  #d6bf96
+   cream        #efe4d2 always light: words on photos and cocoa panels
 --------------------------------------------------------------------------- */
 
 @theme {
-  /* Dark variant (feat/v2-dark): the same token names, night values. "canvas"
-     is the ground and "ink" the text, so most of the kit flips on its own;
-     "cream" stays light for words on panels and photographs. */
+  --color-canvas: #f8f3eb;
+  --color-canvas-warm: #f0e7da;
+  --color-beige: #e7d9c4;
+  --color-sand: #d8c3a1;
+  --color-gold: #bfa27a;
+  --color-bronze: #80613a;
+  --color-ink: #3a2b24;
+  --color-ink-deep: #2a1f1a;
+  --color-clay: #5a463b;
+  --color-muted: #76604f;
+  --color-cream: #efe4d2;
+  --color-gold-soft: #d8c3a1;
+  --color-wa: #1fa855;
+  --color-error: #9b4a2f;
+
+  --font-editorial: "Cormorant Garamond", "Amiri", ui-serif, Georgia, serif;
+  --font-display: "DM Sans", "Amiri", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-arabic: "Amiri", "Geeza Pro", "Noto Naskh Arabic", serif;
+
+  --shadow-soft: 0 34px 70px -38px rgb(58 43 36 / 0.42);
+  --shadow-lift: 0 18px 40px -22px rgb(58 43 36 / 0.35);
+  --shadow-float: 0 24px 60px -24px rgb(42 31 26 / 0.45);
+}
+
+/* Day surfaces. */
+:root {
+  --hero-pad-x: clamp(1.25rem, 4vw, 4.5rem);
+  --sheet: clamp(1.75rem, 4vw, 3rem);
+  color-scheme: light;
+
+  --glass-bg: rgb(255 252 247 / 0.62);
+  --glass-line: rgb(255 255 255 / 0.7);
+  --raise: rgb(255 255 255 / 0.55);
+  --raise-hi: #ffffff;
+  --edge: rgb(255 255 255 / 0.7);
+  --field-bg: rgb(255 253 249 / 0.85);
+  --field-ring: rgb(216 195 161 / 0.35);
+  --btn-bg: linear-gradient(180deg, #4b392f 0%, #3a2b24 100%);
+  --btn-bg-hover: linear-gradient(180deg, #554035 0%, #3f2f27 100%);
+  --btn-fg: #f8f3eb;
+  --btn-shadow: inset 0 1px 0 rgb(255 255 255 / 0.12), 0 14px 30px -16px rgb(42 31 26 / 0.6);
+  --hero-glow: radial-gradient(60% 70% at 88% 18%, rgb(216 195 161 / 0.55) 0%, transparent 70%), radial-gradient(50% 60% at 0% 100%, rgb(231 217 196 / 0.7) 0%, transparent 70%);
+  --chapter-glow: linear-gradient(transparent, transparent);
+  --watermark: rgb(216 195 161 / 0.22);
+  --logo-fill: none;
+  --select-arrow: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%233a2b24' stroke-width='1.3'/%3E%3C/svg%3E");
+}
+
+/* Day inside night: a card that stays cream on an espresso ground. */
+.day {
+  color-scheme: light;
+  color: var(--color-ink);
+  --color-canvas: #f8f3eb;
+  --color-canvas-warm: #f0e7da;
+  --color-beige: #e7d9c4;
+  --color-gold: #bfa27a;
+  --color-bronze: #80613a;
+  --color-ink: #3a2b24;
+  --color-ink-deep: #2a1f1a;
+  --color-clay: #5a463b;
+  --color-muted: #76604f;
+  --color-wa: #1fa855;
+  --color-error: #9b4a2f;
+  --shadow-soft: 0 34px 70px -38px rgb(58 43 36 / 0.42);
+  --shadow-lift: 0 18px 40px -22px rgb(58 43 36 / 0.35);
+  --shadow-float: 0 24px 60px -24px rgb(42 31 26 / 0.45);
+  --glass-bg: rgb(255 252 247 / 0.62);
+  --glass-line: rgb(255 255 255 / 0.7);
+  --raise: rgb(255 255 255 / 0.55);
+  --raise-hi: #ffffff;
+  --edge: rgb(255 255 255 / 0.7);
+  --field-bg: rgb(255 253 249 / 0.85);
+  --field-ring: rgb(216 195 161 / 0.35);
+  --btn-bg: linear-gradient(180deg, #4b392f 0%, #3a2b24 100%);
+  --btn-bg-hover: linear-gradient(180deg, #554035 0%, #3f2f27 100%);
+  --btn-fg: #f8f3eb;
+  --btn-shadow: inset 0 1px 0 rgb(255 255 255 / 0.12), 0 14px 30px -16px rgb(42 31 26 / 0.6);
+  --logo-fill: none;
+}
+
+/* Night: the same tokens, night values. */
+.night,
+:root[data-top="night"] .top-zone {
+  color-scheme: dark;
+  color: var(--color-ink);
+
   --color-canvas: #1b1410;
   --color-canvas-warm: #241b16;
   --color-beige: #2d221c;
-  --color-sand: #d8c3a1;
   --color-gold: #c6a978;
   --color-bronze: #d6bf96;
   --color-ink: #efe4d2;
   --color-ink-deep: #1a120e;
   --color-clay: #3a2c25;
   --color-muted: #b7a58f;
-  --color-cream: #efe4d2;
-  --color-gold-soft: #d8c3a1;
   --color-wa: #25b862;
   --color-error: #e08a6a;
-
-  --font-editorial: "Cormorant Garamond", "Amiri", ui-serif, Georgia, serif;
-  --font-display: "DM Sans", "Amiri", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
-  --font-arabic: "Amiri", "Geeza Pro", "Noto Naskh Arabic", serif;
 
   --shadow-soft: 0 34px 70px -34px rgb(0 0 0 / 0.65);
   --shadow-lift: 0 18px 40px -20px rgb(0 0 0 / 0.6);
   --shadow-float: 0 24px 60px -22px rgb(0 0 0 / 0.75);
-}
 
-:root {
-  --hero-pad-x: clamp(1.25rem, 4vw, 4.5rem);
-  color-scheme: dark;
+  --glass-bg: linear-gradient(180deg, rgb(255 248 238 / 0.065) 0%, rgb(255 248 238 / 0.035) 100%);
+  --glass-line: rgb(255 245 230 / 0.09);
+  --raise: rgb(255 248 238 / 0.06);
+  --raise-hi: rgb(255 248 238 / 0.11);
+  --edge: rgb(255 245 230 / 0.1);
+  --field-bg: rgb(255 248 238 / 0.05);
+  --field-ring: rgb(216 195 161 / 0.16);
+  --btn-bg: linear-gradient(180deg, #e9d8bb 0%, #cdb48b 100%);
+  --btn-bg-hover: linear-gradient(180deg, #f0e2c9 0%, #d8c19a 100%);
+  --btn-fg: #1a120e;
+  --btn-shadow: inset 0 1px 0 rgb(255 255 255 / 0.5), 0 16px 34px -16px rgb(0 0 0 / 0.7);
+  --hero-glow: radial-gradient(55% 65% at 85% 20%, rgb(216 195 161 / 0.16) 0%, transparent 70%), radial-gradient(45% 55% at 0% 100%, rgb(122 92 68 / 0.28) 0%, transparent 70%);
+  --chapter-glow: radial-gradient(70% 40% at 88% 0%, rgb(178 140 96 / 0.13) 0%, transparent 70%), radial-gradient(60% 40% at 0% 100%, rgb(122 92 68 / 0.16) 0%, transparent 70%);
+  --watermark: rgb(216 195 161 / 0.05);
+  --logo-fill: linear-gradient(172deg, #f1e3c7 0%, #dcc49c 52%, #c6a97c 100%);
+  --select-arrow: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%23efe4d2' stroke-width='1.3'/%3E%3C/svg%3E");
 }
 
 body {
@@ -63,6 +153,11 @@ body {
   -webkit-tap-highlight-color: rgb(191 162 122 / 0.18);
 }
 
+/* With the dark top, the page behind the translucent strip and header is night too. */
+:root[data-top="night"] body {
+  background-color: #1b1410;
+}
+
 /* A faint paper grain over everything, so the creams feel like stock, not screen. */
 body::after {
   content: "";
@@ -70,8 +165,8 @@ body::after {
   inset: 0;
   z-index: 100;
   pointer-events: none;
-  opacity: 0.035;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.94 0 0 0 0 0.89 0 0 0 0 0.82 0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity: 0.045;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.23 0 0 0 0 0.17 0 0 0 0 0.14 0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
 ::selection {
@@ -110,6 +205,41 @@ p, li, blockquote, figcaption, dd {
   unicode-bidi: isolate;
 }
 
+/* --- chapters: day and night grounds that meet as soft rounded sheets ------ */
+
+.chapter {
+  position: relative;
+  overflow: clip;
+  background: var(--chapter-glow), var(--color-canvas);
+}
+.chapter + .chapter {
+  margin-top: calc(-1 * var(--sheet));
+  border-top-left-radius: var(--sheet);
+  border-top-right-radius: var(--sheet);
+}
+/* A night sheet casts a soft shadow up onto the cream before it. */
+.chapter + .chapter.night,
+.chapter-foot {
+  box-shadow: 0 -30px 60px -40px rgb(42 31 26 / 0.55);
+}
+/* A day sheet over night catches a little light on its edge. */
+.chapter.night + .chapter:not(.night),
+:root[data-top="night"] .chapter.top-zone + .chapter:not(.night) {
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.55);
+}
+/* The footer is the last sheet on every page. */
+.chapter-foot {
+  position: relative;
+  margin-top: calc(-1 * var(--sheet));
+  border-top-left-radius: var(--sheet);
+  border-top-right-radius: var(--sheet);
+}
+
+/* The big faint kufic mark behind heroes and panels. */
+.watermark {
+  color: var(--watermark);
+}
+
 /* --- the logo, drawn from one SVG in any colour -------------------------- */
 
 .logo-mask,
@@ -128,9 +258,9 @@ p, li, blockquote, figcaption, dd {
   -webkit-mask-image: url("/images/brand/rawdah-logo.svg");
   mask-image: url("/images/brand/rawdah-logo.svg");
 }
-/* The logo in the sand-gold of the main buttons, softly lit from above. */
+/* On night grounds the logo takes the sand-gold of the main buttons; on day it is cocoa. */
 .logo-gold {
-  background-image: linear-gradient(172deg, #f1e3c7 0%, #dcc49c 52%, #c6a97c 100%);
+  background-image: var(--logo-fill);
 }
 .mark-mask {
   aspect-ratio: 1161 / 2016;
@@ -138,7 +268,7 @@ p, li, blockquote, figcaption, dd {
   mask-image: url("/images/brand/rawdah-mark.svg");
 }
 
-/* --- section washes: tinted grounds that fade in from cream and out again -- */
+/* --- section washes: tinted grounds that fade in from the ground and out again */
 
 .wash-linen {
   background: linear-gradient(180deg, var(--color-canvas) 0%, var(--color-canvas-warm) clamp(4rem, 12%, 9rem), var(--color-canvas-warm) calc(100% - clamp(4rem, 12%, 9rem)), var(--color-canvas) 100%);
@@ -147,27 +277,19 @@ p, li, blockquote, figcaption, dd {
   background: linear-gradient(180deg, var(--color-canvas) 0%, var(--color-beige) clamp(5rem, 16%, 11rem), var(--color-beige) calc(100% - clamp(5rem, 16%, 11rem)), var(--color-canvas) 100%);
 }
 .wash-hero {
-  background:
-    radial-gradient(55% 65% at 85% 20%, rgb(216 195 161 / 0.16) 0%, transparent 70%),
-    radial-gradient(45% 55% at 0% 100%, rgb(122 92 68 / 0.28) 0%, transparent 70%),
-    var(--color-canvas);
+  background: var(--hero-glow), var(--color-canvas);
 }
 
-/* The one dark ground: a rounded cocoa panel lit from a corner. */
+/* A rounded cocoa panel lit from a corner, for a dark card on a day ground. */
 .panel-dark {
   background:
-    radial-gradient(90% 70% at 92% 0%, rgb(178 140 96 / 0.22) 0%, transparent 60%),
-    radial-gradient(70% 60% at 0% 100%, rgb(122 92 68 / 0.3) 0%, transparent 65%),
-    #2a1f19;
+    radial-gradient(90% 70% at 92% 0%, rgb(122 92 68 / 0.55) 0%, transparent 60%),
+    radial-gradient(70% 60% at 0% 100%, rgb(90 70 59 / 0.6) 0%, transparent 65%),
+    #3a2b24;
   color: var(--color-cream);
-  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.06), 0 40px 80px -40px rgb(0 0 0 / 0.8);
 }
 
-/* Glass cards on cream. */
-:root {
-  --glass-bg: linear-gradient(180deg, rgb(255 248 238 / 0.065) 0%, rgb(255 248 238 / 0.035) 100%);
-  --glass-line: rgb(255 245 230 / 0.09);
-}
+/* Glass cards: translucent cream on day, a faint lit pane on night. */
 .glass {
   background: var(--glass-bg);
   border: 1px solid var(--glass-line);
@@ -196,14 +318,18 @@ p, li, blockquote, figcaption, dd {
   }
 }
 
-/* Primary button: cocoa with a soft top light. */
-.btn-ink,
+/* Main button: cocoa on day, sand on night. The sand button is sand everywhere. */
+.btn-ink {
+  background: var(--btn-bg);
+  color: var(--btn-fg);
+  box-shadow: var(--btn-shadow);
+}
+.btn-ink:hover { background: var(--btn-bg-hover); }
 .btn-sand {
   background: linear-gradient(180deg, #e9d8bb 0%, #cdb48b 100%);
-  color: var(--color-ink-deep);
-  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.5), 0 16px 34px -16px rgb(0 0 0 / 0.7);
+  color: #1a120e;
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.5), 0 16px 34px -16px rgb(0 0 0 / 0.6);
 }
-.btn-ink:hover,
 .btn-sand:hover { background: linear-gradient(180deg, #f0e2c9 0%, #d8c19a 100%); }
 
 /* --- motion: the hero settles in; images on the page fade up gently ------- */
@@ -241,7 +367,7 @@ p, li, blockquote, figcaption, dd {
 .field {
   width: 100%;
   border: 1px solid color-mix(in oklab, var(--color-ink) 16%, transparent);
-  background: rgb(255 248 238 / 0.05);
+  background: var(--field-bg);
   border-radius: 0.8rem;
   padding: 0.85rem 1rem;
   /* 16px or more, or iPhone Safari zooms the page when a field is tapped. */
@@ -251,10 +377,10 @@ p, li, blockquote, figcaption, dd {
   transition: border-color 150ms ease, box-shadow 150ms ease;
 }
 .field::placeholder { color: color-mix(in oklab, var(--color-muted) 70%, transparent); }
-.field:focus { outline: none; border-color: var(--color-gold); box-shadow: 0 0 0 4px rgb(216 195 161 / 0.16); }
-.field option { background: #241b16; color: var(--color-ink); }
+.field:focus { outline: none; border-color: var(--color-gold); box-shadow: 0 0 0 4px var(--field-ring); }
+.field option { background: var(--color-canvas-warm); color: var(--color-ink); }
 .field[aria-invalid="true"] { border-color: var(--color-error); }
-/* A field inside a dark panel: a soft lit well, not a pale box. */
+/* A field inside a cocoa panel: a soft lit well, not a pale box. */
 .panel-dark .field {
   background: rgb(255 248 238 / 0.08);
   border-color: rgb(255 245 230 / 0.18);
@@ -262,7 +388,7 @@ p, li, blockquote, figcaption, dd {
 }
 select.field {
   appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%23efe4d2' stroke-width='1.3'/%3E%3C/svg%3E");
+  background-image: var(--select-arrow);
   background-repeat: no-repeat;
   background-position: right 1rem center;
   padding-right: 2.5rem;
@@ -280,7 +406,7 @@ details > summary::-webkit-details-marker { display: none; }
 .no-scrollbar { scrollbar-width: none; }
 .no-scrollbar::-webkit-scrollbar { display: none; }
 
-/* --- night hero: the photograph dissolves into the dark ------------------- */
+/* --- the hero photograph dissolves into the ground (cream or night) -------- */
 
 .night-photo {
   -webkit-mask-image: linear-gradient(to bottom, #000 45%, transparent 100%);
