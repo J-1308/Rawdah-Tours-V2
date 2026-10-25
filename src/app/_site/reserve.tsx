@@ -154,7 +154,7 @@ export function ReservePanel({ j, bookable = false }: { j: Journey; bookable?: b
               className={`rounded-[1rem] border px-3 py-3 text-left transition-colors ${room === r.type ? "border-ink bg-ink text-canvas shadow-[var(--shadow-lift)]" : "border-ink/10 bg-white/[0.06] hover:border-ink/35"}`}
             >
               <span className="block text-[0.84rem] font-medium">{r.type}</span>
-              <span className={`block text-[0.74rem] ${room === r.type ? "text-cream/70" : "text-ink/65"}`}>{r.sharing} sharing</span>
+              <span className={`block text-[0.74rem] ${room === r.type ? "text-canvas/70" : "text-ink/65"}`}>{r.sharing} sharing</span>
               <span className="display mt-1.5 block text-[1.4rem] leading-none">{gbp(flights ? r.price : r.price - landGap)}</span>
             </button>
           ))}
