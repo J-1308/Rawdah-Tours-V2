@@ -14,10 +14,10 @@ function Field({ id, label, hint, error, optional, children }: { id: string; lab
     <div>
       <label htmlFor={id} className="block font-medium">
         {label}
-        {optional ? <span className="font-normal text-ink/65"> (optional)</span> : null}
+        {optional ? <span className="font-normal text-ink/70"> (optional)</span> : null}
       </label>
       {hint ? (
-        <p id={`${id}-hint`} className="mt-1 text-[0.9375rem] text-ink/65">
+        <p id={`${id}-hint`} className="mt-1 text-[0.9375rem] text-ink/70">
           {hint}
         </p>
       ) : null}
@@ -93,7 +93,7 @@ export function BookingForm({
 
       <fieldset>
         <legend className="mb-2 font-editorial text-[1.75rem] leading-tight">Room</legend>
-        <p className="mb-5 text-ink/65">Prices are per person. Solo travellers share with travellers of the same gender.</p>
+        <p className="mb-5 text-ink/70">Prices are per person. Solo travellers share with travellers of the same gender.</p>
         <div className="grid gap-2 sm:grid-cols-3 sm:gap-3">
           {rooms.map((r) => (
             <label
@@ -104,7 +104,7 @@ export function BookingForm({
                 <input type="radio" name="roomId" value={r.id} defaultChecked={v.roomId === r.id} className="choice" required />
                 <span className="font-medium">{r.label}</span>
               </span>
-              <span className="col-start-1 row-start-2 pl-[1.875rem] text-[0.92rem] text-ink/65 sm:text-base">Sharing between {r.occupancy}</span>
+              <span className="col-start-1 row-start-2 pl-[1.875rem] text-[0.92rem] text-ink/70 sm:text-base">Sharing between {r.occupancy}</span>
               <span className="col-start-2 row-span-2 row-start-1 font-editorial text-[1.5rem] sm:pl-[1.875rem]">{r.price}</span>
             </label>
           ))}
@@ -178,7 +178,7 @@ export function BookingForm({
             <input type="radio" name="paymentMethod" value="card" checked={method === 'card'} onChange={() => setMethod('card')} className="choice mt-0.5" />
             <span>
               <span className="block font-medium">Card, online now</span>
-              <span className="mt-1 block text-ink/65">
+              <span className="mt-1 block text-ink/70">
                 {depositWithFee} today ({deposit} deposit + {cardFee} card fee)
               </span>
             </span>
@@ -194,7 +194,7 @@ export function BookingForm({
             />
             <span>
               <span className="block font-medium">Bank transfer</span>
-              <span className="mt-1 block text-ink/65">{deposit} deposit, no fee. We email you the details.</span>
+              <span className="mt-1 block text-ink/70">{deposit} deposit, no fee. We email you the details.</span>
             </span>
           </label>
         </div>
@@ -234,7 +234,7 @@ export function BookingForm({
         >
           {pending ? 'Booking…' : method === 'card' ? 'Continue to card payment' : 'Book and get bank details'}
         </button>
-        <p className="mt-3 text-[0.9375rem] text-ink/65">
+        <p className="mt-3 text-[0.9375rem] text-ink/70">
           {method === 'card'
             ? 'You’ll pay securely with Stripe. Your place is reserved once the payment goes through.'
             : 'Your place is reserved once we’ve received your transfer and confirmed it by email.'}

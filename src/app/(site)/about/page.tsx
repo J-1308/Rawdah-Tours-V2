@@ -31,7 +31,7 @@ export default function AboutPage() {
               “
             </span>
             <blockquote className="display text-[clamp(1.75rem,3vw,2.8rem)] leading-[1.15]">{about.quote.value}”</blockquote>
-            <figcaption className="mt-4 text-[0.86rem] text-ink/60">
+            <figcaption className="mt-4 text-[0.86rem] text-ink/68">
               From Rawdah’s first website
               <Mark s={about.quote.status} />
             </figcaption>
@@ -61,7 +61,7 @@ export default function AboutPage() {
                   <Mark s={v.status} />
                 </span>
               </p>
-              <p className="mt-1.5 text-[0.92rem] text-ink/68">{v.text}</p>
+              <p className="mt-1.5 text-[0.92rem] text-ink/72">{v.text}</p>
             </li>
           ))}
         </ul>
@@ -83,7 +83,7 @@ export default function AboutPage() {
                 ["Based in", "Birmingham"],
               ].map(([k, val], i) => (
                 <div key={String(k)} className={`glass-wide flex items-baseline justify-between gap-4 py-3.5 sm:block sm:rounded-[1.25rem] sm:p-4 ${i ? "border-t border-ink/8" : ""}`}>
-                  <dt className="shrink-0 text-[0.8rem] text-ink/55">{k}</dt>
+                  <dt className="shrink-0 text-[0.8rem] text-ink/65">{k}</dt>
                   <dd className="min-w-0 text-right text-[0.95rem] sm:mt-1 sm:text-left sm:text-[0.98rem]">{val}</dd>
                 </div>
               ))}
@@ -98,19 +98,19 @@ export default function AboutPage() {
                 ["Registered office", brand.address],
               ].map(([k, val]) => (
                 <div key={k} className="grid grid-cols-[7.5rem_1fr] gap-3 border-t border-ink/8 py-3 first:border-0 sm:grid-cols-[9rem_1fr] sm:gap-4">
-                  <dt className="text-ink/55">{k}</dt>
+                  <dt className="text-ink/65">{k}</dt>
                   <dd>{val}</dd>
                 </div>
               ))}
               <div className="grid grid-cols-[7.5rem_1fr] gap-3 border-t border-ink/8 py-3 first:border-0 sm:grid-cols-[9rem_1fr] sm:gap-4">
-                <dt className="text-ink/55">Company number</dt>
+                <dt className="text-ink/65">Company number</dt>
                 <dd>
                   {brand.companyNumber.value}
                   <Mark s={brand.companyNumber.status} />
                 </dd>
               </div>
               <div className="grid grid-cols-[7.5rem_1fr] gap-3 border-t border-ink/8 py-3 first:border-0 sm:grid-cols-[9rem_1fr] sm:gap-4">
-                <dt className="text-ink/55">Protection</dt>
+                <dt className="text-ink/65">Protection</dt>
                 <dd>
                   ATOL 5311 through Polani Travel Ltd, for the 2026 trips
                   <Mark s="to confirm" />

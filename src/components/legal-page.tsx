@@ -10,7 +10,7 @@ export function LegalPage({ title, updated, intro, children }: { title: string; 
         <header className="lg:col-span-4">
           <Label>Legal</Label>
           <h1 className="mt-4 display text-[clamp(2.8rem,5.6vw,4.6rem)]">{title}</h1>
-          <p className="mt-4 text-[0.86rem] text-ink/55">Last updated {updated}</p>
+          <p className="mt-4 text-[0.86rem] text-ink/65">Last updated {updated}</p>
         </header>
         <div className="max-w-[42rem] lg:col-span-7 lg:col-start-6">
           {intro ? <div className="mb-10 font-editorial text-[1.45rem] leading-[1.45]">{intro}</div> : null}

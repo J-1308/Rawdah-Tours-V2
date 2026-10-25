@@ -31,7 +31,7 @@ function Row({ label, note, children }: { label: string; note?: string; children
     <div className="grid grid-cols-1 gap-2.5 border-b border-ink/8 py-4 last:border-0 sm:grid-cols-[11rem_1fr] sm:items-center sm:gap-6">
       <div>
         <p className="text-[0.95rem] font-medium">{label}</p>
-        {note ? <p className="text-[0.78rem] text-ink/55">{note}</p> : null}
+        {note ? <p className="text-[0.78rem] text-ink/65">{note}</p> : null}
       </div>
       <div>{children}</div>
     </div>

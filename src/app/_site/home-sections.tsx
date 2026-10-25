@@ -68,7 +68,7 @@ export function Hero() {
                 <span aria-hidden className="size-2 rounded-full bg-[#6f9a74] shadow-[0_0_0_4px_rgb(111_154_116/0.18)]" />
                 Hajj 2027
               </span>
-              <span className="mt-0.5 block text-ink/60">Registration of interest is open</span>
+              <span className="mt-0.5 block text-ink/68">Registration of interest is open</span>
             </Link>
           </div>
         </div>
@@ -82,7 +82,7 @@ export function Hero() {
             <Mark s={hero.text.status} />
           </p>
           <Actions primary={{ label: "Register for Hajj 2027", href: strip.href }} waText={say.general} className="mt-7 sm:mt-9" />
-          <ul className="mt-7 flex flex-wrap gap-x-7 gap-y-2 sm:mt-10 sm:gap-y-2.5 text-[0.86rem] text-ink/60">
+          <ul className="mt-7 flex flex-wrap gap-x-7 gap-y-2 sm:mt-10 sm:gap-y-2.5 text-[0.86rem] text-ink/68">
             {hero.facts.map((f) => (
               <li key={f.value} className="flex items-start gap-2.5">
                 <Dot />
@@ -229,7 +229,7 @@ export function LastTrip() {
           <dl className="glass mt-8 rounded-[1.5rem] px-5 py-2 text-[0.92rem]">
             {lastTrip.facts.map((f, i) => (
               <div key={f.k} className={`grid grid-cols-[5.25rem_1fr] gap-3 py-3 ${i ? "border-t border-ink/8" : ""}`}>
-                <dt className="text-ink/50">{f.k}</dt>
+                <dt className="text-ink/62">{f.k}</dt>
                 <dd>{f.v}</dd>
               </div>
             ))}
@@ -244,7 +244,7 @@ export function LastTrip() {
               <div className={`relative overflow-hidden rounded-[1.5rem] bg-beige shadow-[var(--shadow-lift)] ${shapes[i % shapes.length]}`}>
                 <Image src={p.src} alt={p.alt} fill sizes="(min-width: 1024px) 21vw, 50vw" className={`object-cover ${p.position}`} />
               </div>
-              <figcaption className="mt-2 px-1 font-editorial text-[1rem] text-ink/55 italic">{p.caption}</figcaption>
+              <figcaption className="mt-2 px-1 font-editorial text-[1rem] text-ink/65 italic">{p.caption}</figcaption>
             </figure>
           ))}
         </div>
@@ -283,7 +283,7 @@ export function WhyRawdah() {
                     <Mark s={r.status} />
                   </span>
                 </h3>
-                <p className="mt-1.5 max-w-[36rem] text-[0.98rem] leading-[1.7] text-ink/65">{r.text}</p>
+                <p className="mt-1.5 max-w-[36rem] text-[0.98rem] leading-[1.7] text-ink/70">{r.text}</p>
               </li>
             ))}
           </ul>
@@ -305,7 +305,7 @@ export function Meaning() {
       </p>
       <Heading className="mt-2 text-[clamp(2.3rem,3.8vw,3.6rem)]">{meaning.title}</Heading>
       <p className="mx-auto mt-4 max-w-[40rem] font-editorial text-[clamp(1.35rem,2vw,1.7rem)] leading-[1.5] text-ink/80">{meaning.text}</p>
-      <p className="mt-4 text-[0.84rem] text-ink/50">{meaning.source}</p>
+      <p className="mt-4 text-[0.84rem] text-ink/62">{meaning.source}</p>
     </section>
   );
 }
@@ -325,8 +325,8 @@ export function StayTable() {
             {h.name} <span className="text-gold">{"★".repeat(h.stars)}</span>
             <Mark s={h.status} />
           </p>
-          <p className="col-span-2 text-[0.9rem] text-ink/60 lg:col-span-1">{h.walk}</p>
-          <p className="col-span-2 text-[0.9rem] text-ink/60 lg:col-span-1">{h.board}</p>
+          <p className="col-span-2 text-[0.9rem] text-ink/68 lg:col-span-1">{h.walk}</p>
+          <p className="col-span-2 text-[0.9rem] text-ink/68 lg:col-span-1">{h.board}</p>
         </div>
       ))}
       <p className="grid grid-cols-1 gap-1 border-t border-ink/8 py-5 text-[0.95rem] lg:grid-cols-[8rem_1fr]">
@@ -359,7 +359,7 @@ export function CoverGroups({ groups, wide = "", status }: { groups: typeof cove
                     {it.title}
                     <Mark s={status ? status(it.status) : it.status} />
                   </span>
-                  <span className="mt-0.5 block text-[0.87rem] leading-[1.55] text-ink/60 sm:text-[0.88rem]">{it.text}</span>
+                  <span className="mt-0.5 block text-[0.87rem] leading-[1.55] text-ink/68 sm:text-[0.88rem]">{it.text}</span>
                 </span>
               </li>
             ))}
@@ -386,7 +386,7 @@ export function Covers() {
     <section className={`bg-canvas ${pad} ${gutter}`}>
       <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
         <Heading className={h2}>{covers.headline}</Heading>
-        <p className="max-w-[26rem] font-editorial text-[1.25rem] leading-[1.5] text-ink/65 italic">{covers.text}</p>
+        <p className="max-w-[26rem] font-editorial text-[1.25rem] leading-[1.5] text-ink/70 italic">{covers.text}</p>
       </div>
       <div className="mt-8 sm:mt-10">
         <CoverGroups groups={covers.groups} wide="lg:grid-cols-4" />
@@ -394,7 +394,7 @@ export function Covers() {
       <div className="mt-12 grid grid-cols-1 gap-x-14 gap-y-6 sm:mt-16 lg:grid-cols-12 lg:items-center">
         <div className="lg:col-span-3">
           <h3 className="display text-[clamp(2rem,2.8vw,2.7rem)]">{stay.headline}</h3>
-          <p className="mt-2 text-[0.94rem] leading-[1.6] text-ink/60">{stay.text}</p>
+          <p className="mt-2 text-[0.94rem] leading-[1.6] text-ink/68">{stay.text}</p>
         </div>
         <div className="lg:col-span-9">
           <StayTable />
@@ -433,7 +433,7 @@ export function PaymentPlan({ tone = "ink" }: { tone?: "ink" | "canvas" }) {
             <p className={`text-[0.8rem] ${dark ? "text-sand" : "text-bronze"}`}>{s.when}</p>
             <p className={`display mt-1 text-[1.55rem] leading-tight sm:text-[1.8rem] ${dark ? "text-cream" : ""}`}>{amounts[i]}</p>
             <p className="mt-0.5 text-[0.9rem] font-medium">{s.what}</p>
-            <p className={`mt-1 text-[0.84rem] leading-[1.5] sm:text-[0.86rem] sm:leading-[1.55] ${dark ? "text-canvas/62" : "text-ink/60"}`}>
+            <p className={`mt-1 text-[0.84rem] leading-[1.5] sm:text-[0.86rem] sm:leading-[1.55] ${dark ? "text-canvas/62" : "text-ink/68"}`}>
               {s.note}
               <Mark s={s.status} />
             </p>
@@ -450,8 +450,8 @@ export function Paying() {
       <div className="grid grid-cols-1 gap-x-14 gap-y-10 lg:grid-cols-12 lg:items-center">
         <div className="lg:col-span-4">
           <Heading className={h2}>{paying.headline}</Heading>
-          <p className="mt-4 text-[1rem] leading-[1.7] text-ink/68">{paying.text}</p>
-          <p className="mt-3 text-[0.94rem] leading-[1.6] text-ink/58">
+          <p className="mt-4 text-[1rem] leading-[1.7] text-ink/72">{paying.text}</p>
+          <p className="mt-3 text-[0.94rem] leading-[1.6] text-ink/68">
             {paying.sharing.value}
             <Mark s={paying.sharing.status} />
           </p>
@@ -482,7 +482,7 @@ export function TeacherList({ list = teachers }: { list?: typeof teachers; tone?
               <p className="display text-[1.45rem] leading-[1.1] sm:text-[1.6rem] sm:leading-tight">{t.name}</p>
               <p className="mt-1 font-editorial text-[1rem] leading-snug text-bronze italic sm:mt-0.5 sm:text-[1.02rem]">{t.role}</p>
             </div>
-            <p className="col-span-2 text-[0.9rem] leading-[1.6] text-ink/62 sm:mt-1.5">
+            <p className="col-span-2 text-[0.9rem] leading-[1.6] text-ink/68 sm:mt-1.5">
               {t.bio.value}
               <Mark s={t.bio.status} />
             </p>
@@ -499,7 +499,7 @@ export function People({ link = true }: { link?: boolean }) {
       <div className="grid grid-cols-1 gap-x-16 gap-y-12 lg:grid-cols-12">
         <div className="lg:col-span-5">
           <Heading className={h2}>{people.headline}</Heading>
-          <p className="mt-4 max-w-[28rem] text-[1rem] leading-[1.7] text-ink/65">{people.text}</p>
+          <p className="mt-4 max-w-[28rem] text-[1rem] leading-[1.7] text-ink/70">{people.text}</p>
           <figure className="mt-8 grid grid-cols-[8.5rem_1fr] items-center gap-x-5 gap-y-4 sm:mt-10 sm:block sm:max-w-[24rem]">
             <div className="relative aspect-[4/5] overflow-hidden rounded-[1.4rem] bg-beige shadow-[var(--shadow-soft)] sm:rounded-[2rem]">
               <Image src={leader.photo.src} alt={leader.photo.alt} fill sizes="(min-width: 640px) 24rem, 9rem" className="object-cover object-[50%_25%]" />
@@ -509,7 +509,7 @@ export function People({ link = true }: { link?: boolean }) {
                 <p className="display text-[1.65rem] leading-[1.08] sm:text-[1.95rem] sm:leading-tight">{leader.name}</p>
                 <p className="mt-1 font-editorial text-[1.05rem] text-bronze italic sm:mt-0.5 sm:text-[1.1rem]">{leader.role}</p>
               </div>
-              <p className="col-span-2 text-[0.95rem] leading-[1.7] text-ink/65 sm:mt-2">
+              <p className="col-span-2 text-[0.95rem] leading-[1.7] text-ink/70 sm:mt-2">
                 {leader.line} {leader.bio.value}
                 <Mark s={leader.bio.status} />
               </p>
@@ -549,7 +549,7 @@ export function GroupsBand() {
         <div className="lg:order-1 lg:col-span-5">
           <Label>Masjids & groups</Label>
           <Heading className="mt-4 text-[clamp(2.4rem,4vw,4rem)]">{groupsBand.headline}</Heading>
-          <p className="mt-5 text-[1rem] leading-[1.7] text-ink/68">
+          <p className="mt-5 text-[1rem] leading-[1.7] text-ink/72">
             {groupsBand.text.value}
             <Mark s={groupsBand.text.status} />
           </p>
@@ -579,7 +579,7 @@ export function PrivateBand() {
         <div className="lg:col-span-6 lg:col-start-7">
           <Label>Private & family</Label>
           <Heading className="mt-4 text-[clamp(2.4rem,4vw,4rem)]">{privateBand.headline}</Heading>
-          <p className="mt-5 text-[1rem] leading-[1.7] text-ink/68">
+          <p className="mt-5 text-[1rem] leading-[1.7] text-ink/72">
             {privateBand.text.value}
             <Mark s={privateBand.text.status} />
           </p>
@@ -613,7 +613,7 @@ export function Reviews() {
         <Emblem className="mx-auto h-9 text-gold/70 sm:h-11" />
         <Heading className="mt-5 text-[clamp(2.2rem,3.6vw,3.4rem)]">{reviews.headline}</Heading>
         <blockquote className="mt-7 font-editorial text-[clamp(1.4rem,2.9vw,2.5rem)] leading-[1.4] text-ink/90 sm:mt-10 sm:leading-[1.38]">“{first.quote}”</blockquote>
-        <p className="mt-6 text-[0.9rem] text-ink/55">
+        <p className="mt-6 text-[0.9rem] text-ink/65">
           {first.who}, a previous trip
           <Mark s={first.status} />
         </p>
@@ -622,14 +622,14 @@ export function Reviews() {
         {rest.map((r) => (
           <figure key={r.who} className="glass rounded-[1.75rem] p-6 sm:p-7">
             <blockquote className="font-editorial text-[1.2rem] leading-[1.45] sm:text-[1.35rem]">“{r.quote}”</blockquote>
-            <figcaption className="mt-4 text-[0.86rem] text-ink/55">
+            <figcaption className="mt-4 text-[0.86rem] text-ink/65">
               {r.who}, a previous trip
               <Mark s={r.status} />
             </figcaption>
           </figure>
         ))}
       </div>
-      <p className="mt-8 text-center text-[0.8rem] text-ink/45">
+      <p className="mt-8 text-center text-[0.8rem] text-ink/60">
         {reviews.note}
         <Mark s="to confirm" />
       </p>
@@ -655,7 +655,7 @@ export function FaqList({ items }: { items: Faq[] }) {
               +
             </span>
           </summary>
-          <p className="pb-5 text-[0.93rem] leading-[1.7] text-ink/68">{f.a}</p>
+          <p className="pb-5 text-[0.93rem] leading-[1.7] text-ink/72">{f.a}</p>
         </details>
       ))}
     </div>

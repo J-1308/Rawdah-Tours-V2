@@ -182,7 +182,7 @@ export function Framed({
       <div className={`relative overflow-hidden rounded-[1.75rem] bg-beige shadow-[var(--shadow-soft)] ${className}`}>
         <Image src={src} alt={alt} fill sizes={sizes} priority={priority} className={`object-cover ${position}`} />
       </div>
-      {caption ? <figcaption className={`mt-3 font-editorial text-[1rem] italic ${captionTone === "canvas" ? "text-canvas/60" : "text-ink/55"}`}>{caption}</figcaption> : null}
+      {caption ? <figcaption className={`mt-3 font-editorial text-[1rem] italic ${captionTone === "canvas" ? "text-canvas/60" : "text-ink/65"}`}>{caption}</figcaption> : null}
     </figure>
   );
 }
@@ -238,7 +238,7 @@ export function PageLead({
     <section className={`wash-hero relative overflow-hidden pt-5 pb-[clamp(3rem,8vw,7rem)] ${gutter}`}>
       <Emblem className="pointer-events-none absolute top-[-8%] right-[-6%] h-[115%] text-sand/20" />
       {crumbs ? (
-        <nav aria-label="Breadcrumb" className="relative mb-4 flex flex-wrap items-center gap-x-2 text-[0.82rem] text-ink/55 sm:mb-6">
+        <nav aria-label="Breadcrumb" className="relative mb-4 flex flex-wrap items-center gap-x-2 text-[0.82rem] text-ink/65 sm:mb-6">
           {crumbs.map((c, i) => (
             <span key={c.label} className="flex items-center gap-2">
               {i ? <span aria-hidden className="text-ink/30">/</span> : null}
@@ -288,7 +288,7 @@ export function ConfirmedPending({
         {items.map((c) => (
           <li key={c.title} className="border-t border-ink/8 py-3">
             <span className="block text-[0.95rem] font-medium">{c.title}</span>
-            <span className="block text-[0.88rem] text-ink/62">{c.text}</span>
+            <span className="block text-[0.88rem] text-ink/68">{c.text}</span>
           </li>
         ))}
       </ul>

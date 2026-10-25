@@ -49,7 +49,7 @@ export default async function BankTransferPage({ searchParams }: { searchParams:
             ['Reference', booking.id.slice(0, 8).toUpperCase()],
           ].map(([k, val]) => (
             <div key={k} className="flex justify-between gap-6 py-3.5">
-              <dt className="text-ink/60">{k}</dt>
+              <dt className="text-ink/68">{k}</dt>
               <dd className="text-right font-medium">{val}</dd>
             </div>
           ))}
