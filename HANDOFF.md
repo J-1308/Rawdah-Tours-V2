@@ -47,9 +47,11 @@ The site is `noindex` and `robots.txt` disallows everything until launch.
 
 ## Brand
 
-Cream Rawdah logo (`public/images/brand/logo-cream.png`) is the main logo, always on date brown. Palette and fonts
-are Rawdah's own (V1 and the live page): ivory, sand, date brown, clay, sand-gold; Cormorant Garamond and DM Sans.
-Shape language from the logo's square-kufic grid.
+The logo is the cocoa-on-cream Rawdah lockup (V1 `preview_logo`), traced to SVG
+(`public/images/brand/rawdah-logo.svg`, `rawdah-mark.svg`) so it renders crisply in any colour: cocoa on cream
+in the header, cream on cocoa in the footer, and the kufic mark as a faint watermark. Palette and fonts are
+Rawdah's own, softened: cream, linen, beige, sand and cocoa; Cormorant Garamond and DM Sans. The look is soft,
+blended and premium (ADR 0002); it must never resemble The Umrah Company's site (ADR 0001).
 
 ## Hosting
 

@@ -121,21 +121,20 @@ export const hero = {
     v("5★ hotels, 1–2 minutes from the Haram", "evidenced"), // POSTER
     v("Hajj booked through Nusuk", "confirmed"), // LIVE
   ],
+  /** The hero's layered photographs: a tall main photo, one overlapping it, one behind. */
   mosaic: [
-    { src: "/images/trips/group-uhud-hill.jpg", alt: "A Rawdah group together on the hill at Uhud, mountains and a white mosque behind them.", position: "object-[50%_70%]" },
+    { src: "/images/trips/group-nabawi-roof.jpg", alt: "A Rawdah group on the roof of Masjid an-Nabawi at golden hour, a minaret behind them.", position: "object-[50%_58%]" },
+    { src: "/images/trips/group-uhud-hill.jpg", alt: "The group together on the hill at Uhud, mountains behind them.", position: "object-[50%_70%]" },
     { src: "/images/trips/two-ihram-clock-tower.jpg", alt: "Two travellers in ihram at night in Makkah, the clock tower lit green behind them.", position: "object-[50%_40%]" },
-    { src: "/images/trips/rawdah-vest-thumbs-up.jpg", alt: "A member of the Rawdah team in a Rawdah Tours vest, smiling with both thumbs up.", position: "object-[45%_35%]" },
-    { src: "/images/trips/five-at-islamic-university.jpg", alt: "Five Rawdah travellers at the gate of the Islamic University of Madinah at sunset.", position: "object-[50%_55%]" },
-    { src: "/images/trips/six-after-umrah.jpg", alt: "Six travellers arm in arm and smiling after completing Umrah.", position: "object-[30%_40%]" },
   ],
 };
 
 /** "Where would you like to start?" — one way in for each kind of traveller. */
 export const starts = [
-  { title: "Hajj 2027", text: "Register your interest now. Packages open on Nusuk.", href: routes.hajj, tag: v("Open now", "confirmed") },
-  { title: "Group Umrah", text: "Our next trip: Madinah first, then Makkah.", href: routes.nextUmrah, tag: v("Dates soon", "to confirm") },
-  { title: "Private & family", text: "Your own dates, planned with us.", href: routes.private, tag: v("Any time of year", "proposed") },
-  { title: "Masjids & groups", text: "A trip for your masjid, circle or society.", href: routes.groups, tag: v("On request", "proposed") },
+  { title: "Hajj 2027", text: "Register your interest now. Packages open on Nusuk.", href: routes.hajj, tag: v("Open now", "confirmed"), photo: { src: "/images/trips/three-after-umrah-haram.jpg", position: "object-[50%_45%]" } },
+  { title: "Group Umrah", text: "Our next trip: Madinah first, then Makkah.", href: routes.nextUmrah, tag: v("Dates soon", "to confirm"), photo: { src: "/images/trips/group-quba-mosque-bright.jpg", position: "object-[50%_75%]" } },
+  { title: "Private & family", text: "Your own dates, planned with us.", href: routes.private, tag: v("Any time of year", "proposed"), photo: { src: "/images/trips/two-at-islamic-university.jpg", position: "object-[50%_40%]" } },
+  { title: "Masjids & groups", text: "A trip for your masjid, circle or society.", href: routes.groups, tag: v("On request", "proposed"), photo: { src: "/images/trips/five-at-islamic-university.jpg", position: "object-[50%_55%]" } },
 ];
 
 /** The Hajj band: the talbiyah, and the five steps from registering to Hajj. */

@@ -27,13 +27,13 @@ export default function PrivatePage() {
         title={privatePage.headline}
         photos={[privatePage.photo, { src: "/images/trips/two-at-nabawi-night.jpg", alt: "Two travellers at Masjid an-Nabawi at night.", position: "object-[50%_45%]" }, { src: "/images/trips/rawdah-vest-palms.jpg", alt: "A member of the Rawdah team among date palms.", position: "object-[30%_50%]" }]}
       >
-        <p className="mt-5 max-w-[36rem] text-[1.02rem] leading-[1.7] text-canvas/80">{privatePage.text}</p>
+        <p className="mt-5 max-w-[36rem] text-[1.04rem] leading-[1.75] text-ink/70">{privatePage.text}</p>
       </PageLead>
 
       <section className={`bg-canvas pt-[clamp(2.5rem,5vw,4rem)] ${gutter}`}>
-        <ul className="grid grid-cols-1 gap-1.5 sm:grid-cols-2 lg:grid-cols-4">
+        <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {privatePage.points.map((r) => (
-            <li key={r.title} className="rounded-[3px] bg-canvas-warm p-4">
+            <li key={r.title} className="glass rounded-[1.5rem] p-5">
               <p className="flex items-start gap-2.5 text-[0.98rem] font-medium">
                 <Square className="mt-[0.5em] bg-gold" />
                 <span>
@@ -54,7 +54,7 @@ export default function PrivatePage() {
         </Suspense>
       </section>
 
-      <section className={`bg-canvas-warm py-[clamp(3.5rem,7vw,6rem)] ${gutter}`}>
+      <section className={`wash-linen py-[clamp(5rem,10vw,9rem)] ${gutter}`}>
         <div className="grid grid-cols-1 gap-x-14 gap-y-10 lg:grid-cols-12">
           <div className="lg:col-span-5">
             <Heading className="text-[clamp(2rem,3.2vw,2.8rem)]">After you send it</Heading>
@@ -64,8 +64,8 @@ export default function PrivatePage() {
                 ["We send real options", "Hotels, flights and a price for your dates."],
                 ["A deposit holds it", "Then the rest in instalments before you fly."],
               ].map(([t, d], i) => (
-                <li key={t} className="grid grid-cols-[2.75rem_1fr] gap-4 border-t border-ink/15 py-4">
-                  <span className="display grid size-11 place-items-center bg-ink text-[1.4rem] text-gold-soft">{i + 1}</span>
+                <li key={t} className="grid grid-cols-[2.75rem_1fr] items-center gap-4 border-t border-ink/8 py-4 first:border-0">
+                  <span className="display grid size-11 place-items-center rounded-full bg-white/70 text-[1.4rem] text-bronze shadow-[var(--shadow-lift)]">{i + 1}</span>
                   <span>
                     <span className="block text-[1rem] font-medium">
                       {t}
@@ -79,7 +79,7 @@ export default function PrivatePage() {
           </div>
           <div className="lg:col-span-6 lg:col-start-7">
             <Heading className="text-[clamp(2rem,3.2vw,2.8rem)]">Questions</Heading>
-            <div className="mt-6">
+            <div className="glass mt-6 rounded-[1.5rem] px-5 py-1">
               <FaqList items={qs} />
             </div>
           </div>

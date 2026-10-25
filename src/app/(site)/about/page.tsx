@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { about, brand, routes, say } from "@/app/_site/content";
 import { Meaning, People } from "@/app/_site/home-sections";
 import { Mark } from "@/app/_site/marks";
-import { Actions, gutter, Heading, PageLead, Square } from "@/app/_site/shell";
+import { Actions, Emblem, gutter, Heading, Label, PageLead } from "@/app/_site/shell";
 
 export const metadata: Metadata = {
   title: "About us",
@@ -51,10 +51,10 @@ export default function AboutPage() {
 
       <section className={`bg-canvas py-[clamp(3.5rem,7vw,6rem)] ${gutter}`}>
         <Heading className="text-[clamp(2.2rem,3.8vw,3.4rem)]">What we hold to</Heading>
-        <ul className="mt-8 grid grid-cols-1 gap-1.5 sm:grid-cols-2 lg:grid-cols-4">
+        <ul className="mt-9 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {about.values.map((v) => (
-            <li key={v.title} className="rounded-[3px] bg-canvas-warm p-5">
-              <Square className="size-[9px] bg-gold" />
+            <li key={v.title} className="glass rounded-[1.5rem] p-6">
+              <Emblem className="h-5 text-gold" />
               <p className="display mt-6 text-[1.7rem] leading-tight">
                 {v.title}
                 <Mark s={v.status} />
@@ -73,14 +73,14 @@ export default function AboutPage() {
             <Heading className="text-[clamp(2.2rem,3.8vw,3.4rem)]">Get in touch</Heading>
             <p className="mt-4 max-w-[30rem] text-[1rem] leading-[1.65] text-ink/72">WhatsApp is the quickest way to reach us. Registration of interest is open for Hajj 2027, and the next Umrah is being planned.</p>
             <Actions primary={{ label: "Register for Hajj 2027", href: `${routes.hajj}#register-interest` }} waText={say.general} tone="canvas" className="mt-7" />
-            <dl className="mt-8 grid grid-cols-1 gap-1.5 sm:grid-cols-2">
+            <dl className="mt-8 grid grid-cols-1 gap-3 sm:grid-cols-2">
               {[
                 ["Phone and WhatsApp", <a key="p" href={brand.phone.href} className="underline decoration-ink/25 underline-offset-4">{brand.phone.display}</a>],
                 ["Email", <a key="e" href={`mailto:${brand.email}`} className="break-all underline decoration-ink/25 underline-offset-4">{brand.email}</a>],
                 ["Instagram", <a key="i" href={brand.instagram.href} target="_blank" rel="noopener noreferrer" className="underline decoration-ink/25 underline-offset-4">{brand.instagram.handle}</a>],
                 ["Based in", "Birmingham"],
               ].map(([k, val]) => (
-                <div key={String(k)} className="rounded-[3px] bg-canvas-warm p-4">
+                <div key={String(k)} className="glass rounded-[1.25rem] p-4">
                   <dt className="text-[0.8rem] text-ink/55">{k}</dt>
                   <dd className="mt-1 text-[0.98rem]">{val}</dd>
                 </div>
@@ -88,29 +88,26 @@ export default function AboutPage() {
             </dl>
           </div>
           <div className="lg:col-span-5 lg:col-start-8">
-            <p className="flex items-center gap-2.5 text-[0.86rem] font-medium text-bronze">
-              <Square />
-              The company
-            </p>
-            <dl className="mt-4 border-t-2 border-ink text-[0.94rem]">
+            <Label>The company</Label>
+            <dl className="glass mt-4 rounded-[1.5rem] px-5 py-1 text-[0.94rem]">
               {[
                 ["Registered name", brand.legalName],
                 ["Registered in", "England and Wales"],
                 ["Registered office", brand.address],
               ].map(([k, val]) => (
-                <div key={k} className="grid grid-cols-[9rem_1fr] gap-4 border-b border-ink/15 py-3">
+                <div key={k} className="grid grid-cols-[9rem_1fr] gap-4 border-t border-ink/8 py-3 first:border-0">
                   <dt className="text-ink/55">{k}</dt>
                   <dd>{val}</dd>
                 </div>
               ))}
-              <div className="grid grid-cols-[9rem_1fr] gap-4 border-b border-ink/15 py-3">
+              <div className="grid grid-cols-[9rem_1fr] gap-4 border-t border-ink/8 py-3 first:border-0">
                 <dt className="text-ink/55">Company number</dt>
                 <dd>
                   {brand.companyNumber.value}
                   <Mark s={brand.companyNumber.status} />
                 </dd>
               </div>
-              <div className="grid grid-cols-[9rem_1fr] gap-4 border-b border-ink/15 py-3">
+              <div className="grid grid-cols-[9rem_1fr] gap-4 border-t border-ink/8 py-3 first:border-0">
                 <dt className="text-ink/55">Protection</dt>
                 <dd>
                   ATOL 5311 through Polani Travel Ltd, for the 2026 trips

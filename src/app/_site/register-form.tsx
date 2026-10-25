@@ -62,7 +62,7 @@ export function RegisterForm({ defaultJourney = 'not-sure', page }: { defaultJou
 
   if (state.status === 'success') {
     return (
-      <div ref={summaryRef} tabIndex={-1} role="status" className="rounded-[3px] border border-ink/20 bg-canvas p-6 outline-none sm:p-8">
+      <div ref={summaryRef} tabIndex={-1} role="status" className="rounded-[0.95rem] border border-ink/20 bg-canvas p-6 outline-none sm:p-8">
         <p className="display text-[1.9rem]">Interest registered</p>
         <p className="mt-3 text-lg">
           {state.firstName ? `Thank you, ${state.firstName}. ` : 'Thank you. '}
@@ -88,19 +88,19 @@ export function RegisterForm({ defaultJourney = 'not-sure', page }: { defaultJou
     <form action={action} noValidate className="space-y-7" key={state.key}>
       <div ref={summaryRef} tabIndex={-1} className="outline-none">
         {state.status === 'invalid' ? (
-          <div role="alert" className="rounded-[3px] border border-error/40 bg-canvas p-4">
+          <div role="alert" className="rounded-[0.95rem] border border-error/40 bg-canvas p-4">
             <p className="font-medium text-error">Check the highlighted details and send again.</p>
           </div>
         ) : null}
         {state.status === 'unavailable' ? (
-          <div role="alert" className="rounded-[3px] border border-ink/20 bg-canvas p-5">
+          <div role="alert" className="rounded-[0.95rem] border border-ink/20 bg-canvas p-5">
             <p className="font-medium">Your details couldn’t be sent from the website just now.</p>
             <p className="mt-1 text-ink/65">Send them to us on WhatsApp instead. We’ve written the message for you.</p>
             <a
               href={state.whatsapp}
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-4 inline-flex min-h-12 items-center gap-2 rounded-[3px] bg-wa px-5 py-3 text-white hover:opacity-90"
+              className="mt-4 inline-flex min-h-12 items-center gap-2 rounded-[0.95rem] bg-wa px-5 py-3 text-white hover:opacity-90"
             >
               <WaGlyph className="size-5" /> Send on WhatsApp
             </a>
@@ -114,7 +114,7 @@ export function RegisterForm({ defaultJourney = 'not-sure', page }: { defaultJou
           {JOURNEY_OPTIONS.map((o) => (
             <label
               key={o.value}
-              className="flex cursor-pointer items-start gap-3 rounded-[3px] border border-ink/15 bg-canvas p-4 transition-colors hover:border-ink/40 has-[:checked]:border-ink has-[:checked]:shadow-[3px_3px_0_var(--color-gold-soft)]"
+              className="flex cursor-pointer items-start gap-3 rounded-[0.95rem] border border-ink/10 bg-white/55 p-4 transition-colors hover:border-ink/40 has-[:checked]:border-ink has-[:checked]:bg-white has-[:checked]:shadow-[0_0_0_4px_rgb(216_195_161/0.35)]"
             >
               <input type="radio" name="journey" value={o.value} defaultChecked={journey === o.value} className="choice mt-0.5" />
               <span>
@@ -224,7 +224,7 @@ export function RegisterForm({ defaultJourney = 'not-sure', page }: { defaultJou
           type="submit"
           disabled={pending}
           className={cx(
-            'inline-flex min-h-[3.25rem] shrink-0 items-center justify-center rounded-[3px] bg-ink px-7 py-3.5 font-medium text-canvas transition-colors hover:bg-ink-deep',
+            'inline-flex min-h-[3.25rem] shrink-0 items-center justify-center btn-ink rounded-[0.95rem] px-7 py-3.5 font-medium text-canvas transition-colors hover:bg-ink-deep',
             pending && 'cursor-wait opacity-70',
           )}
         >

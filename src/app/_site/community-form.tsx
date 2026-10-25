@@ -64,13 +64,11 @@ export function CommunityForm() {
         <input value={name} onChange={(e) => setName(e.target.value)} autoComplete="name" className="field font-normal" />
       </label>
       <div className="flex flex-col gap-1.5 sm:col-span-2 sm:flex-row">
-        <a href={wa(message)} target="_blank" rel="noopener noreferrer" className="flex min-h-[3.25rem] flex-1 items-stretch overflow-hidden rounded-[3px] bg-wa text-[0.95rem] font-medium text-white">
-          <span aria-hidden className="grid w-[3.25rem] place-items-center bg-black/12">
-            <WaGlyph className="size-5" />
-          </span>
-          <span className="flex items-center px-4">Send on WhatsApp</span>
+        <a href={wa(message)} target="_blank" rel="noopener noreferrer" className="flex min-h-[3.25rem] flex-1 items-center justify-center gap-2.5 rounded-[0.95rem] bg-wa px-4 text-[0.95rem] font-medium text-white shadow-[0_14px_30px_-16px_rgb(31_168_85/0.7)]">
+          <WaGlyph className="size-5" />
+          Send on WhatsApp
         </a>
-        <a href={`mailto:${brand.email}?subject=${encodeURIComponent("A trip for our group")}&body=${encodeURIComponent(message)}`} className="flex min-h-[3.25rem] flex-1 items-center justify-center rounded-[3px] border border-ink/30 text-[0.95rem] font-medium hover:border-ink">
+        <a href={`mailto:${brand.email}?subject=${encodeURIComponent("A trip for our group")}&body=${encodeURIComponent(message)}`} className="flex min-h-[3.25rem] flex-1 items-center justify-center rounded-[0.95rem] border border-ink/15 bg-white/50 text-[0.95rem] font-medium hover:border-ink/40">
           Email it instead
         </a>
       </div>

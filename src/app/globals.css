@@ -1,36 +1,39 @@
 @import "tailwindcss";
 
 /* ---------------------------------------------------------------------------
-   Rawdah Tours — design foundation. See docs/design-system.md and
-   docs/adr/0001-rawdah-visual-language.md.
+   Rawdah Tours — design foundation ("soft garden"). See docs/design-system.md
+   and docs/adr/0002-soft-premium.md.
 
-   The palette is Rawdah's own, sampled from V1 and the live Hajj page:
-   canvas       ivory: the page                              #f6f0e6 (V1 --ivory)
-   canvas-warm  sand: pauses, panels and tiles               #ede4d6 (V1 --alt-bg)
-   ink          date brown: the dark chapters, and text      #34251f (live site dark)
-   ink-deep     behind photos while they load                #241914
-   clay         a second dark ground (reviews)               #4e3a33 (live site brown)
-   muted        secondary text                               #6e5447 (V1 --mocha)
-   gold         squares, rules and ticks                     #b08d57 (V1 --gold)
-   bronze       gold text on ivory, readable                 #82602f
-   gold-soft    sand-gold: actions on dark, the Hajj band    #d7bd8a (live buttons)
-   cream        the logo's own colour                        #e2cba1
+   Warm creams and beiges that blend into one another, a deep cocoa used
+   sparingly in rounded panels, the cream-and-cocoa logo, soft rounded photos
+   and quiet shadows. Sections never meet at a hard edge: tinted sections fade
+   in from cream and back out again (the .wash-* classes).
 
-   Shape comes from the logo's square-kufic grid: squared corners (3px),
-   square tiles, square markers. No pills, no arches.
+   canvas       cream: the page                        #f8f3eb
+   canvas-warm  linen: soft sections and cards         #f0e7da
+   beige        deeper sections                        #e7d9c4
+   sand         the logo's beige; accents, rules       #d8c3a1
+   gold         soft gold lines and markers            #bfa27a
+   bronze       gold-coloured text on cream            #80613a
+   ink          cocoa: text, dark panels               #3a2b24
+   ink-deep     deepest cocoa                          #2a1f1a
+   clay         warm brown inside dark panels          #5a463b
+   cream        the logo on dark grounds               #efe4d2
 --------------------------------------------------------------------------- */
 
 @theme {
-  --color-canvas: #f6f0e6;
-  --color-canvas-warm: #ede4d6;
-  --color-ink: #34251f;
-  --color-ink-deep: #241914;
-  --color-clay: #4e3a33;
-  --color-muted: #6e5447;
-  --color-gold: #b08d57;
-  --color-bronze: #82602f;
-  --color-gold-soft: #d7bd8a;
-  --color-cream: #e2cba1;
+  --color-canvas: #f8f3eb;
+  --color-canvas-warm: #f0e7da;
+  --color-beige: #e7d9c4;
+  --color-sand: #d8c3a1;
+  --color-gold: #bfa27a;
+  --color-bronze: #80613a;
+  --color-ink: #3a2b24;
+  --color-ink-deep: #2a1f1a;
+  --color-clay: #5a463b;
+  --color-muted: #76604f;
+  --color-cream: #efe4d2;
+  --color-gold-soft: #d8c3a1;
   --color-wa: #1fa855;
   --color-error: #9b4a2f;
 
@@ -38,12 +41,13 @@
   --font-display: "DM Sans", "Amiri", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-arabic: "Amiri", "Geeza Pro", "Noto Naskh Arabic", serif;
 
-  --radius-tile: 3px;
+  --shadow-soft: 0 34px 70px -38px rgb(58 43 36 / 0.42);
+  --shadow-lift: 0 18px 40px -22px rgb(58 43 36 / 0.35);
+  --shadow-float: 0 24px 60px -24px rgb(42 31 26 / 0.45);
 }
 
 :root {
-  /* Page gutter. */
-  --hero-pad-x: clamp(1.25rem, 3.4vw, 4rem);
+  --hero-pad-x: clamp(1.25rem, 4vw, 4.5rem);
   color-scheme: light;
 }
 
@@ -54,21 +58,33 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+/* A faint paper grain over everything, so the creams feel like stock, not screen. */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  pointer-events: none;
+  opacity: 0.045;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.23 0 0 0 0 0.17 0 0 0 0 0.14 0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
 ::selection {
-  background: var(--color-gold-soft);
+  background: var(--color-sand);
   color: var(--color-ink-deep);
 }
 
-/* Headlines: Cormorant semibold, upright, one colour. */
 .font-editorial {
   font-weight: 500;
   font-feature-settings: "kern", "liga";
 }
+
+/* Headlines: Cormorant at a light-medium weight, generous and calm. */
 .display {
   font-family: var(--font-editorial);
-  font-weight: 600;
-  line-height: 1.02;
-  letter-spacing: -0.012em;
+  font-weight: 460;
+  line-height: 1.04;
+  letter-spacing: -0.015em;
   font-feature-settings: "kern", "liga", "lnum";
   text-wrap: balance;
 }
@@ -84,39 +100,110 @@ body {
   unicode-bidi: isolate;
 }
 
-/* --- the one moment of motion: the hero mosaic settles in --------------- */
+/* --- the logo, drawn from one SVG in any colour -------------------------- */
 
-@keyframes tile-in {
-  from { opacity: 0; transform: scale(0.97); }
+.logo-mask,
+.mark-mask {
+  display: block;
+  background-color: currentColor;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  -webkit-mask-position: center;
+  mask-position: center;
+}
+.logo-mask {
+  aspect-ratio: 3222 / 2016;
+  -webkit-mask-image: url("/images/brand/rawdah-logo.svg");
+  mask-image: url("/images/brand/rawdah-logo.svg");
+}
+.mark-mask {
+  aspect-ratio: 1161 / 2016;
+  -webkit-mask-image: url("/images/brand/rawdah-mark.svg");
+  mask-image: url("/images/brand/rawdah-mark.svg");
+}
+
+/* --- section washes: tinted grounds that fade in from cream and out again -- */
+
+.wash-linen {
+  background: linear-gradient(180deg, var(--color-canvas) 0%, var(--color-canvas-warm) clamp(4rem, 12%, 9rem), var(--color-canvas-warm) calc(100% - clamp(4rem, 12%, 9rem)), var(--color-canvas) 100%);
+}
+.wash-beige {
+  background: linear-gradient(180deg, var(--color-canvas) 0%, var(--color-beige) clamp(5rem, 16%, 11rem), var(--color-beige) calc(100% - clamp(5rem, 16%, 11rem)), var(--color-canvas) 100%);
+}
+.wash-hero {
+  background:
+    radial-gradient(60% 70% at 88% 18%, rgb(216 195 161 / 0.55) 0%, transparent 70%),
+    radial-gradient(50% 60% at 0% 100%, rgb(231 217 196 / 0.7) 0%, transparent 70%),
+    var(--color-canvas);
+}
+
+/* The one dark ground: a rounded cocoa panel lit from a corner. */
+.panel-dark {
+  background:
+    radial-gradient(90% 70% at 92% 0%, rgb(122 92 68 / 0.55) 0%, transparent 60%),
+    radial-gradient(70% 60% at 0% 100%, rgb(90 70 59 / 0.6) 0%, transparent 65%),
+    var(--color-ink);
+  color: var(--color-canvas);
+}
+
+/* Glass cards on cream. */
+.glass {
+  background: rgb(255 252 247 / 0.62);
+  border: 1px solid rgb(255 255 255 / 0.7);
+  box-shadow: var(--shadow-soft);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+}
+
+/* Primary button: cocoa with a soft top light. */
+.btn-ink {
+  background: linear-gradient(180deg, #4b392f 0%, #3a2b24 100%);
+  color: var(--color-canvas);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.12), 0 14px 30px -16px rgb(42 31 26 / 0.6);
+}
+.btn-ink:hover { background: linear-gradient(180deg, #554035 0%, #3f2f27 100%); }
+.btn-sand {
+  background: linear-gradient(180deg, #e6d4b6 0%, #d3bb94 100%);
+  color: var(--color-ink-deep);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.45), 0 14px 30px -16px rgb(0 0 0 / 0.5);
+}
+.btn-sand:hover { background: linear-gradient(180deg, #ecdcc2 0%, #dbc49f 100%); }
+
+/* --- motion: the hero settles in; images on the page fade up gently ------- */
+
+@keyframes settle {
+  from { opacity: 0; transform: translateY(14px) scale(0.985); }
   to { opacity: 1; transform: none; }
 }
-.tile-in {
-  animation: tile-in 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+.settle {
+  animation: settle 1s cubic-bezier(0.2, 0.7, 0.2, 1) both;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .tile-in { animation: none; }
+  .settle { animation: none; }
 }
 
 /* --- forms ---------------------------------------------------------------- */
 
 .field {
   width: 100%;
-  border: 1px solid color-mix(in oklab, var(--color-ink) 22%, transparent);
-  background: #fffdf9;
-  border-radius: var(--radius-tile);
-  padding: 0.8rem 0.95rem;
+  border: 1px solid color-mix(in oklab, var(--color-ink) 16%, transparent);
+  background: rgb(255 253 249 / 0.85);
+  border-radius: 0.8rem;
+  padding: 0.85rem 1rem;
   font-size: 0.95rem;
   line-height: 1.4;
   color: var(--color-ink);
   transition: border-color 150ms ease, box-shadow 150ms ease;
 }
 .field::placeholder { color: color-mix(in oklab, var(--color-muted) 70%, transparent); }
-.field:focus { outline: none; border-color: var(--color-ink); box-shadow: 3px 3px 0 var(--color-gold-soft); }
+.field:focus { outline: none; border-color: var(--color-gold); box-shadow: 0 0 0 4px rgb(216 195 161 / 0.35); }
 .field[aria-invalid="true"] { border-color: var(--color-error); }
 select.field {
   appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%2334251f' stroke-width='1.3'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%233a2b24' stroke-width='1.3'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right 1rem center;
   padding-right: 2.5rem;
@@ -129,3 +216,7 @@ select.field {
 }
 
 details > summary::-webkit-details-marker { display: none; }
+
+/* Horizontal scrollers on phones: no visible bar. */
+.no-scrollbar { scrollbar-width: none; }
+.no-scrollbar::-webkit-scrollbar { display: none; }

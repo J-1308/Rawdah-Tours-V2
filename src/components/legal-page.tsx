@@ -23,7 +23,7 @@ export function LegalPage({ title, updated, intro, children }: { title: string; 
 
 export function LegalSection({ title, children }: { title: string; children: ReactNode }) {
   return (
-    <section className="border-t-2 border-ink pt-6">
+    <section className="border-t border-ink/10 pt-7">
       <h2 className="display text-[1.8rem]">{title}</h2>
       <div className="mt-4 space-y-4 text-[0.98rem] leading-relaxed text-ink/80 [&_li]:ml-5 [&_li]:list-disc [&_li]:pl-1 [&_ul]:space-y-2 [&_strong]:font-medium">{children}</div>
     </section>

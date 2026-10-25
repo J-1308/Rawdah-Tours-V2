@@ -29,7 +29,7 @@ export default async function BookPage({ params }: { params: Promise<{ slug: str
       </p>
 
       {demo ? (
-        <div className="mt-6 rounded-[3px] border border-dashed border-bronze/60 bg-canvas-warm p-4 text-[0.9375rem]">
+        <div className="mt-6 rounded-[0.95rem] border border-dashed border-bronze/60 bg-canvas-warm p-4 text-[0.9375rem]">
           <strong>Preview only.</strong> This walks through booking using the August 2026 trip, which has already run. It isn’t available on the live site,
           and no payment is taken unless Stripe test keys are connected.
         </div>
@@ -53,7 +53,7 @@ export default async function BookPage({ params }: { params: Promise<{ slug: str
         </div>
 
         <aside className="lg:col-span-4 lg:col-start-9">
-          <div className="rounded-[3px] border-2 border-ink bg-canvas p-6 shadow-[6px_6px_0_var(--color-gold-soft)] lg:sticky lg:top-28">
+          <div className="glass rounded-[1.75rem] p-7 lg:sticky lg:top-28">
             <h2 className="display text-[1.75rem]">{trip.name}</h2>
             <p className="mt-1 text-ink/65">{formatDateRange(trip.startDate, trip.endDate)}</p>
             <dl className="mt-6 space-y-3 text-[0.9375rem]">

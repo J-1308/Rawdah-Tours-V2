@@ -28,7 +28,7 @@ const months = (() => {
 
 function Row({ label, note, children }: { label: string; note?: string; children: ReactNode }) {
   return (
-    <div className="grid grid-cols-1 gap-2.5 border-b border-ink/12 py-4 sm:grid-cols-[11rem_1fr] sm:items-center sm:gap-6">
+    <div className="grid grid-cols-1 gap-2.5 border-b border-ink/8 py-4 last:border-0 sm:grid-cols-[11rem_1fr] sm:items-center sm:gap-6">
       <div>
         <p className="text-[0.95rem] font-medium">{label}</p>
         {note ? <p className="text-[0.78rem] text-ink/55">{note}</p> : null}
@@ -47,7 +47,7 @@ function Segments<T extends string>({ value, options, onChange, label }: { value
           type="button"
           aria-pressed={value === o}
           onClick={() => onChange(o)}
-          className={`rounded-[3px] border px-3.5 py-2.5 text-[0.88rem] transition-colors ${value === o ? "border-ink bg-ink text-canvas" : "border-ink/20 bg-canvas hover:border-ink/50"}`}
+          className={`rounded-full border px-4 py-2.5 text-[0.88rem] transition-colors ${value === o ? "border-ink bg-ink text-canvas shadow-[var(--shadow-lift)]" : "border-ink/10 bg-white/60 hover:border-ink/35"}`}
         >
           {o}
         </button>
@@ -59,13 +59,13 @@ function Segments<T extends string>({ value, options, onChange, label }: { value
 function Count({ label, value, set, min, max }: { label: string; value: number; set: (n: number) => void; min: number; max: number }) {
   return (
     <span className="inline-flex items-center">
-      <button type="button" aria-label={`Fewer: ${label}`} disabled={value <= min} onClick={() => set(Math.max(min, value - 1))} className="grid size-10 place-items-center rounded-l-[3px] border border-ink/25 bg-canvas disabled:opacity-30">
+      <button type="button" aria-label={`Fewer: ${label}`} disabled={value <= min} onClick={() => set(Math.max(min, value - 1))} className="grid size-10 place-items-center rounded-l-[0.8rem] border border-ink/12 bg-white/70 disabled:opacity-30">
         −
       </button>
-      <span className="grid h-10 w-12 place-items-center border-y border-ink/25 bg-canvas tabular-nums" aria-live="polite">
+      <span className="grid h-10 w-12 place-items-center border-y border-ink/12 bg-white/70 tabular-nums" aria-live="polite">
         {value}
       </span>
-      <button type="button" aria-label={`More: ${label}`} disabled={value >= max} onClick={() => set(Math.min(max, value + 1))} className="grid size-10 place-items-center rounded-r-[3px] border border-ink/25 bg-canvas disabled:opacity-30">
+      <button type="button" aria-label={`More: ${label}`} disabled={value >= max} onClick={() => set(Math.min(max, value + 1))} className="grid size-10 place-items-center rounded-r-[0.8rem] border border-ink/12 bg-white/70 disabled:opacity-30">
         +
       </button>
     </span>
@@ -124,7 +124,7 @@ export function Builder() {
   return (
     <div className="grid grid-cols-1 gap-10 lg:grid-cols-12 lg:items-start">
       <div className="lg:col-span-7">
-        <div className="border-t-2 border-ink">
+        <div className="glass rounded-[1.75rem] px-5 py-1 sm:px-7">
           <Row label="Travellers">
             <div className="flex flex-wrap gap-x-6 gap-y-3 text-[0.86rem]">
               <span className="flex items-center gap-3">
@@ -188,9 +188,9 @@ export function Builder() {
 
       {/* The plan: sticky beside the sheet on desktop, after it on phones */}
       <aside className="lg:sticky lg:top-28 lg:col-span-5">
-        <div className="rounded-[3px] bg-ink p-6 text-canvas [&_.site-mark]:border-gold-soft/60 [&_.site-mark]:text-gold-soft">
-          <p className="flex items-center gap-2.5 text-[0.84rem] font-medium text-gold-soft">
-            <span aria-hidden className="size-[7px] bg-gold-soft" />
+        <div className="panel-dark rounded-[2rem] p-7 text-canvas [&_.site-mark]:border-sand/60 [&_.site-mark]:text-sand">
+          <p className="flex items-center gap-2.5 font-editorial text-[1.15rem] italic text-sand">
+            <span aria-hidden className="mark-mask h-4 text-sand/80" />
             Your plan
           </p>
           <p className="display mt-2 text-[1.9rem]">
@@ -211,7 +211,7 @@ export function Builder() {
               </div>
             ))}
           </dl>
-          <div className="mt-2 rounded-[3px] bg-clay p-4">
+          <div className="mt-2 rounded-[1.25rem] bg-white/[0.06] p-5 ring-1 ring-white/10">
             <p className="text-[0.8rem] text-canvas/70">
               Rough cost per adult
               <Mark s={privatePricing.status} />
@@ -225,11 +225,9 @@ export function Builder() {
             Your name
             <input value={name} onChange={(e) => setName(e.target.value)} autoComplete="name" className="field" />
           </label>
-          <a href={wa(message)} target="_blank" rel="noopener noreferrer" className="mt-3 flex min-h-[3.25rem] items-stretch overflow-hidden rounded-[3px] bg-wa text-[0.95rem] font-medium text-white">
-            <span aria-hidden className="grid w-[3.25rem] place-items-center bg-black/12">
-              <WaGlyph className="size-5" />
-            </span>
-            <span className="flex items-center px-4">Send this plan on WhatsApp</span>
+          <a href={wa(message)} target="_blank" rel="noopener noreferrer" className="mt-3 flex min-h-[3.25rem] items-center justify-center gap-2.5 rounded-[0.95rem] bg-wa px-4 text-[0.95rem] font-medium text-white shadow-[0_14px_30px_-16px_rgb(31_168_85/0.7)]">
+          <WaGlyph className="size-5" />
+          Send this plan on WhatsApp
           </a>
           <a href={`mailto:${brand.email}?subject=${encodeURIComponent("Private Umrah plan")}&body=${encodeURIComponent(message)}`} className="mt-3 block text-center text-[0.84rem] text-canvas/65 underline decoration-canvas/30 underline-offset-4">
             Or email it to us

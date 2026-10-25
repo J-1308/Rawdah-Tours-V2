@@ -7,7 +7,7 @@ Start with `HANDOFF.md`.
 Next.js 16 (App Router) · React 19 · TypeScript · Tailwind v4 · Supabase · Stripe Checkout · Resend · Vercel.
 
 ## Read before working
-- Design or UI change → `docs/design-system.md` and `docs/adr/0001-rawdah-visual-language.md`
+- Design or UI change → `docs/design-system.md`, `docs/adr/0002-soft-premium.md` and `docs/adr/0001-rawdah-visual-language.md`
 - Booking, payments, email, database → `docs/booking.md`
 - Copy, people, trip facts, assets → `docs/content-inventory.md` (all copy lives in `src/app/_site/content.ts`)
 - What only Rawdah can answer → `docs/project/open-questions.md`

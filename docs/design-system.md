@@ -1,100 +1,98 @@
-# Rawdah Tours V2 — Design system
+# Rawdah Tours V2 — Design system ("soft garden")
 
-Status: **in use** (24 October 2026). Why it looks like this: `docs/adr/0001-rawdah-visual-language.md`.
-Tokens live in `src/app/globals.css`; the kit lives in `src/app/_site/shell.tsx`.
+Status: **in use** (25 October 2026). Why: `docs/adr/0002-soft-premium.md` (and 0001 for the rule that the
+site must never resemble The Umrah Company's). Tokens: `src/app/globals.css`. Kit: `src/app/_site/shell.tsx`.
 
-The one-line brief: **Rawdah's own colours and fonts, shaped by the square-kufic grid of its cream logo.**
-Nothing may look or read like The Umrah Company site (a different client of ours selling similar trips).
+The brief in one line: **calm, warm and premium; creams that blend, soft photographs, and the Rawdah mark
+used like a watermark on good stationery.**
 
 ## 1. Colour
 
-All sampled from Rawdah's V1 site and the live Hajj page.
-
 | Token | Hex | Use |
 | --- | --- | --- |
-| `canvas` (ivory) | `#F6F0E6` | The page. |
-| `canvas-warm` (sand) | `#EDE4D6` | Panels and tiles on ivory; full-width "pause" bands (Meaning, Masjids & groups, register forms). |
-| `ink` (date brown) | `#34251F` | Header, footer, hero, the last trip, the people. Body text on light grounds. |
-| `ink-deep` | `#241914` | Behind photos while they load; pressed states. |
-| `clay` | `#4E3A33` | Reviews band; tiles on date brown. |
-| `muted` | `#6E5447` | Rarely; prefer `ink` at 60–75% opacity. |
-| `gold` | `#B08D57` | Squares, rules, stars. Not for text on ivory. |
-| `bronze` | `#82602F` | Gold-coloured text on ivory (labels, step names). 5:1 on ivory. |
-| `gold-soft` (sand-gold) | `#D7BD8A` | The action colour on dark grounds; the ground of the Hajj band and the closing call. |
-| `cream` | `#E2CBA1` | The logo's colour; taglines on date brown. |
-| `wa` | `#1FA855` | WhatsApp only. |
+| `canvas` (cream) | `#F8F3EB` | The page. |
+| `canvas-warm` (linen) | `#F0E7DA` | Soft sections (`.wash-linen`), panels inside cards. |
+| `beige` | `#E7D9C4` | Deeper sections (`.wash-beige`), the strip, photo placeholders. |
+| `sand` | `#D8C3A1` | The logo's beige: accents on dark, the watermark. |
+| `gold` | `#BFA27A` | Dots, rules, the tiny mark in labels. Not for text on cream. |
+| `bronze` | `#80613A` | Gold-coloured text on cream (labels). |
+| `ink` (cocoa) | `#3A2B24` | Text; the dark panels; the logo on cream. |
+| `clay` | `#5A463B` | Warmth inside dark panels. |
+| `cream` | `#EFE4D2` | The logo and headlines on cocoa. |
+| `wa` | `#1FA855` | WhatsApp glyph, and the one green button in the join panel. |
 
-Grounds on the homepage, in order: date brown (hero) → ivory (start tiles, trips) → sand-gold (Hajj 2027) →
-date brown (last trip) → ivory (why) → sand (meaning) → ivory (covers, paying) → date brown (people) →
-sand (groups) → ivory (private) → clay (reviews) → ivory (questions) → sand-gold (closing) → date brown (footer).
+**Blending:** tinted sections use `.wash-linen` / `.wash-beige`, which fade in from cream and back out, so
+sections never meet at a hard edge. Heroes use `.wash-hero` (cream lit from the top right). The one dark ground
+is `.panel-dark`: a rounded cocoa panel lit from a corner, inset from the page edge (Hajj 2027, the closing
+invitation, the planner summary, the footer's rounded top).
+
+A faint paper grain sits over the page (`body::after`).
 
 ## 2. Type
 
 | Role | Face | Setting |
 | --- | --- | --- |
-| Headlines | Cormorant Garamond 600 | `.display`: upright, one colour, line-height 1.02, slight negative tracking, `text-wrap: balance`. **Never** an italic second line. |
-| Quotes, taglines, long intros | Cormorant Garamond 500 | `.font-editorial` |
-| Everything else | DM Sans 400/500 | Body 0.93–1.05rem, line-height 1.6–1.7. |
-| Arabic | Amiri | `.ar`: the talbiyah in the Hajj band, روضة in the Meaning band. |
+| Headlines | Cormorant Garamond 460 | `.display`, upright, one colour, `text-wrap: balance`. |
+| Labels, captions, sub-titles | Cormorant Garamond italic | Bronze on cream, sand on cocoa, with the tiny mark (`<Label>`). |
+| Body and UI | DM Sans 400/500 | 0.92–1.05rem, line-height 1.6–1.75, ink at 60–75%. |
+| Arabic | Amiri | The talbiyah, روضة. |
 
-Labels are **sentence case** with a 7px gold square, never tracked capitals, and only where they tell the reader
-something (`<Label>`). Most sections have a heading and no label.
+## 3. Shape and depth
 
-## 3. Shape
+Buttons `rounded-[0.95rem]`; cards `rounded-[1.5rem]`; photos `rounded-[1.75rem–2rem]`; dark panels
+`rounded-[2.5rem]`. Depth from soft shadows (`--shadow-soft`, `--shadow-lift`, `--shadow-float`) and `.glass`
+cards (translucent cream, white edge, blur). No hard borders, no pills, no arches.
 
-From the logo's grid: squared corners (`rounded-[3px]`, 2px for small tags), square markers, square tiles.
-No pills, no arches, no soft drop shadows. Where something needs lifting it gets a hard offset in sand-gold
-(`shadow-[6px_6px_0_var(--color-gold-soft)]`), like a tile set slightly out of the grid.
+## 4. The logo
 
-## 4. Components (`src/app/_site/`)
+- `public/images/brand/rawdah-logo.svg` (lockup) and `rawdah-mark.svg` (the kufic mark), traced from the
+  original artwork. They're used as CSS masks (`.logo-mask`, `.mark-mask`) so they take any colour.
+- Header: cocoa on cream, centred. Footer: cream on cocoa. Icons: cocoa mark on beige.
+- `<Emblem>`: the mark as a large, faint watermark behind heroes and panels, and tiny as the label marker.
+- The original PNGs (`logo-cream.png`, `mark-cream.png`) stay for reference.
+
+## 5. Components (`src/app/_site/`)
 
 | Component | What it is |
 | --- | --- |
-| `Heading` | The `.display` headline. |
-| `Label` | Small sentence-case label with the gold square. |
-| `Square` | The gold square marker. |
-| `TileLink` | The main button: a label and a square chevron cell. Tones: `ink`, `gold`, `line-ink`, `line-canvas`. Full width on phones. |
-| `WaTile` | WhatsApp as a tile: the glyph in its own square cell, then the label. |
-| `Actions` | A section's pair: `TileLink` + `WaTile`, toned for the ground. |
-| `Framed` | A photo with an offset square behind it (sand-gold or date brown). Used for single photos. |
-| `LeadMosaic` / `PageLead` | Inner-page head: words on date brown beside a three-tile photo mosaic; phones show the mosaic first. |
-| `TripRow` (`trip-row.tsx`) | A trip: square photo, state tag, facts, price block with action and WhatsApp. |
-| `StateTag` | Booking open / Register interest / Completed. |
-| `ReservePanel` (`reserve.tsx`) | The join panel on a trip page: rooms, travellers, live total, deposit and instalments. |
-| `PaymentPlan` | The worked deposit-and-instalments example with a proportional bar. |
-| `TeacherList` | Square portraits in rows. |
-| `FaqList` | Accordions with a square +/− box. |
-| `ConfirmedPending` | "Settled" and "Still being arranged". |
-| `Builder` (`builder.tsx`) | The private Umrah planner: a sheet of rows, plan and rough cost on date brown. |
-| `Mark` / `MarksFrame` | Review marks (dashed bronze tags) and the switch. Remove before launch. |
+| `Logo`, `Emblem` | The lockup and the mark, in the current text colour. |
+| `Heading`, `Label` | Headline; italic label with the tiny mark. |
+| `TileLink` | The main button (`ink` cocoa, `gold` sand on dark, `line-ink`, `line-canvas`). |
+| `WaTile`, `Actions` | WhatsApp button; a section's pair of actions. |
+| `PhotoStack` | Two or three layered photos: tall main, an overlapping second with a cream ring, an optional third behind. |
+| `Framed` | One soft rounded photo. |
+| `PageLead` | Inner-page head: words beside a PhotoStack on `.wash-hero` with the mark embossed. |
+| `TripRow` | A trip as a glass card: photo with state, facts, price panel and actions. |
+| `ReservePanel` | The join panel: rooms, travellers, live total, deposit, instalments. |
+| `PaymentPlan` | The worked deposit example with a proportional bar. |
+| `TeacherList` | Glass cards with rounded portraits. |
+| `FaqList` | Accordions with a soft round +. |
+| `ConfirmedPending` | "Settled" and "Still being arranged" glass cards. |
+| `Builder` | The private Umrah planner; summary on a cocoa panel. |
+| `Mark`, `MarksFrame` | Review marks (dashed bronze tags) and the switch. Remove before launch. |
 
-The homepage sections are in `home-sections.tsx`: `Hero` (with the five-tile mosaic and the logo-mark tile),
-`Starts`, `Trips`, `HajjBand`, `LastTrip`, `WhyRawdah`, `Meaning`, `Covers` (+ `StayTable`), `Paying`, `People`,
+Homepage sections (`home-sections.tsx`): `Hero`, `Starts` (photo cards; a swipeable row on phones), `Trips`,
+`HajjBand`, `LastTrip` (masonry), `WhyRawdah`, `Meaning`, `Covers` + `StayTable`, `Paying`, `People`,
 `GroupsBand`, `PrivateBand`, `Reviews`, `Questions`, `Closing`.
 
-## 5. Conversion system (shared idea, Rawdah's own form)
+## 6. Conversion system
 
-- An action in every chapter: the main one (`TileLink`) and WhatsApp (`WaTile`).
-- The sand-gold strip above the header and the "Register interest" button in it: Hajj 2027 is one tap away.
-- Phones: a date-brown bar pinned to the bottom with WhatsApp and the page's main action (changes by page).
-- Desktop: a square WhatsApp tile fixed bottom right.
-- Prices always with the deposit and instalments beside them, and the worked example on the homepage.
-- Honest lists of what's settled and what isn't.
+An action and WhatsApp in every section; the Hajj 2027 line above the header and the header's "Register
+interest"; a floating cream bar on phones (WhatsApp and the page's main action); a round WhatsApp button on
+desktop; prices always with deposit and instalments; honest settled/not-yet lists.
 
-## 6. Motion
+## 7. Motion
 
-One moment only: the hero mosaic settles in on load (`.tile-in`, staggered, off under reduced motion).
-Hovers change colour; nothing else animates.
+The hero's photos settle in on load (`.settle`, off under reduced motion). Photos zoom very slightly on hover.
+Nothing else moves.
 
-## 7. Photography
+## 8. Photography
 
-Only Rawdah's own trip photos (`public/images/trips/`) and portraits (`public/images/people/`). Captions are
-true to the photo. No hotel marketing photos, no stock, and nothing from The Umrah Company. Mosaic tiles crop
-hard, so set `position` (object-position) per photo in `content.ts`.
+Only Rawdah's own trip photos and portraits; true captions; never words over a face. More photos and video are
+coming from Rawdah; a hero video can replace the main photo in the hero's PhotoStack.
 
-## 8. Never (the Umrah Company's signatures)
+## 9. Never (The Umrah Company's signatures)
 
-Arched portraits · pill buttons with trailing arrows · an italic second line in headlines · tracked-capital
-kickers over every heading · full-bleed photo leads with the headline over the picture · a tabbed finder card ·
-a scrolling proof strip · an accordion beside a photo · a stage stepper for "included" · five numbered columns
-for booking · three review cards with stars · Instrument Serif or Outfit · near-black `#12110F`.
+Pill buttons with trailing arrows · arched portraits · an italic second line in headlines · tracked-capital
+kickers over every heading · a full-bleed photo with the headline over it · a tabbed finder card · a scrolling
+proof strip · an accordion beside a photo · Instrument Serif or Outfit · near-black `#12110F`.

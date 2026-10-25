@@ -14,7 +14,7 @@ export function WaGlyph({ className = "size-5" }: { className?: string }) {
   );
 }
 
-/** Desktop: a square WhatsApp tile fixed to the bottom right of every page. */
+/** Desktop: a soft round WhatsApp button fixed to the bottom right of every page. */
 export function WhatsAppFloat() {
   return (
     <a
@@ -23,14 +23,14 @@ export function WhatsAppFloat() {
       rel="noopener noreferrer"
       aria-label="Message Rawdah Tours on WhatsApp"
       title="Message us on WhatsApp"
-      className="fixed right-5 bottom-5 z-50 hidden size-14 place-items-center rounded-[3px] bg-wa text-white shadow-[4px_4px_0_rgb(52_37_31/0.85)] transition-transform duration-200 hover:-translate-x-0.5 hover:-translate-y-0.5 lg:grid"
+      className="fixed right-6 bottom-6 z-50 hidden size-14 place-items-center rounded-full border border-white/70 bg-canvas/90 text-wa shadow-[var(--shadow-float)] backdrop-blur transition-transform duration-300 hover:-translate-y-0.5 lg:grid"
     >
       <WaGlyph className="size-7" />
     </a>
   );
 }
 
-/** Phones: a date-brown bar pinned to the bottom, WhatsApp and the page's main action. */
+/** Phones: a soft cream bar pinned to the bottom, WhatsApp and the page's main action. */
 export function MobileBar() {
   const path = usePathname();
   if (path.includes("/book")) return null;
@@ -43,17 +43,17 @@ export function MobileBar() {
         ? { label: path.includes("path-of-purity") ? "Hear about the next" : "Register interest", href: `#${anchors.join}` }
         : { label: strip.cta, href: strip.href };
   return (
-    <div className="fixed inset-x-0 bottom-0 z-50 grid grid-cols-[auto_1fr] gap-1.5 bg-ink p-1.5 pb-[calc(0.375rem+env(safe-area-inset-bottom))] lg:hidden">
-      <a href={wa(say.general)} target="_blank" rel="noopener noreferrer" className="flex h-12 items-center gap-2 rounded-[3px] bg-wa px-4 text-[0.92rem] font-medium text-white">
-        <WaGlyph className="size-5" />
-        WhatsApp
-      </a>
-      <Link href={cta.href} className="flex h-12 items-center justify-between rounded-[3px] bg-gold-soft pr-1.5 pl-4 text-[0.92rem] font-medium text-ink-deep">
-        {cta.label}
-        <span aria-hidden className="grid size-9 place-items-center rounded-[2px] bg-ink-deep/90 text-gold-soft">
-          <Chevron />
-        </span>
-      </Link>
+    <div className="fixed inset-x-0 bottom-0 z-50 px-2.5 pb-[calc(0.5rem+env(safe-area-inset-bottom))] lg:hidden">
+      <div className="grid grid-cols-[auto_1fr] gap-1.5 rounded-[1.15rem] border border-white/70 bg-canvas/85 p-1.5 shadow-[var(--shadow-float)] backdrop-blur-md">
+        <a href={wa(say.general)} target="_blank" rel="noopener noreferrer" className="flex h-12 items-center gap-2 rounded-[0.85rem] bg-white/70 px-4 text-[0.92rem] font-medium text-ink">
+          <WaGlyph className="size-5 text-wa" />
+          WhatsApp
+        </a>
+        <Link href={cta.href} className="btn-ink flex h-12 items-center justify-center gap-2 rounded-[0.85rem] px-4 text-[0.92rem] font-medium">
+          {cta.label}
+          <Chevron className="size-3 opacity-70" />
+        </Link>
+      </div>
     </div>
   );
 }

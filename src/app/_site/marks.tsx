@@ -23,7 +23,7 @@ export function Mark({ s, className = "" }: { s: Status | undefined; className?:
   if (!label) return null;
   return (
     <span
-      className={`site-mark ml-1.5 inline-block translate-y-[-0.12em] rounded-[2px] border border-dashed border-bronze/60 px-1 py-px align-middle font-display text-[0.62rem] leading-[1.3] font-medium whitespace-nowrap text-bronze not-italic ${className}`}
+      className={`site-mark ml-1.5 inline-block translate-y-[-0.12em] rounded-full border border-dashed border-bronze/55 px-1.5 py-px align-middle font-display text-[0.6rem] leading-[1.35] font-medium tracking-normal whitespace-nowrap text-bronze not-italic ${className}`}
     >
       {label}
     </span>
@@ -42,7 +42,7 @@ export function MarksFrame({ children }: { children: ReactNode }) {
         type="button"
         onClick={() => setOn((x) => !x)}
         aria-pressed={on}
-        className="fixed top-[45%] right-0 z-[60] rounded-l-[3px] border border-r-0 border-dashed border-bronze/70 bg-canvas/95 px-[3px] py-2.5 text-[0.58rem] font-medium text-bronze [writing-mode:vertical-rl] lg:top-1/2 lg:right-auto lg:left-0 lg:-translate-y-1/2 lg:rounded-l-none lg:rounded-r-[3px] lg:border-r lg:border-l-0 lg:px-1.5 lg:py-3 lg:text-[0.62rem]"
+        className="fixed top-[45%] right-0 z-[60] rounded-l-lg border border-r-0 border-dashed border-bronze/60 bg-canvas/90 backdrop-blur px-[3px] py-2.5 text-[0.58rem] font-medium text-bronze [writing-mode:vertical-rl] lg:top-1/2 lg:right-auto lg:left-0 lg:-translate-y-1/2 lg:rounded-l-none lg:rounded-r-lg lg:border-r lg:border-l-0 lg:px-1.5 lg:py-3 lg:text-[0.62rem]"
       >
         {on ? "Review marks on" : "Review marks off"}
       </button>

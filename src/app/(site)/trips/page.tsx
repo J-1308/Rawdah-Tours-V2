@@ -28,12 +28,12 @@ export default function TripsPage() {
 
       <section className={`bg-canvas pt-12 pb-[clamp(3rem,6vw,5rem)] ${gutter}`}>
         <Heading className="text-[clamp(1.9rem,3vw,2.6rem)]">Open now and coming soon</Heading>
-        <div className="mt-5 border-b border-ink/15">
+        <div className="mt-7 grid gap-5">
           {upcoming.map((j) => (
             <TripRow key={j.slug} j={j} />
           ))}
         </div>
-        <div className="mt-10 grid grid-cols-1 gap-6 rounded-[3px] bg-canvas-warm p-6 sm:p-8 lg:grid-cols-12 lg:items-center">
+        <div className="glass mt-10 grid grid-cols-1 gap-6 rounded-[2rem] p-6 sm:p-9 lg:grid-cols-12 lg:items-center">
           <div className="lg:col-span-7">
             <p className="display text-[2rem]">Can’t make these dates?</p>
             <p className="mt-2 max-w-[36rem] text-[0.98rem] text-ink/70">Plan a private Umrah on your own dates, or bring your masjid or circle on a trip of its own.</p>
@@ -44,7 +44,7 @@ export default function TripsPage() {
 
       <section className={`bg-canvas pb-[clamp(3rem,6vw,5rem)] ${gutter}`}>
         <Heading className="text-[clamp(1.9rem,3vw,2.6rem)]">Completed</Heading>
-        <div className="mt-5 border-b border-ink/15">
+        <div className="mt-7 grid gap-5">
           {past.map((j) => (
             <TripRow key={j.slug} j={j} />
           ))}

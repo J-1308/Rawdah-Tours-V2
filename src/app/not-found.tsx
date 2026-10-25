@@ -7,9 +7,9 @@ import { ButtonLink, WhatsAppButton } from '@/components/ui'
 export default function NotFound() {
   return (
     <>
-      <div className={`bg-ink py-4 ${gutter}`}>
-        <Link href="/" aria-label="Rawdah Tours, home" className="inline-block">
-          <Logo className="h-11 w-auto" />
+      <div className={`flex justify-center bg-canvas py-5 ${gutter}`}>
+        <Link href="/" aria-label="Rawdah Tours, home" className="inline-block text-ink">
+          <Logo className="h-12" />
         </Link>
       </div>
       <NoticePage title="This page isn’t here">

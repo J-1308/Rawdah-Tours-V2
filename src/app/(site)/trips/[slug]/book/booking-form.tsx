@@ -72,18 +72,18 @@ export function BookingForm({
     <form action={formAction} noValidate key={state.key} className="space-y-10">
       <div ref={summaryRef} tabIndex={-1} className="outline-none">
         {state.status === 'invalid' ? (
-          <div role="alert" className="rounded-[3px] border border-error/40 bg-canvas p-4 font-medium text-error">
+          <div role="alert" className="rounded-[0.95rem] border border-error/40 bg-canvas p-4 font-medium text-error">
             Check the highlighted details and try again.
           </div>
         ) : null}
         {state.status === 'blocked' || state.status === 'unavailable' ? (
-          <div role="alert" className="rounded-[3px] border border-ink/20 bg-canvas p-5">
+          <div role="alert" className="rounded-[0.95rem] border border-ink/20 bg-canvas p-5">
             <p className="font-medium">{state.message}</p>
             <a
               href={whatsappLink(WHATSAPP_MESSAGES.booking)}
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-4 inline-flex min-h-12 items-center gap-2 rounded-[3px] bg-wa px-5 py-3 text-white hover:opacity-90"
+              className="mt-4 inline-flex min-h-12 items-center gap-2 rounded-[0.95rem] bg-wa px-5 py-3 text-white hover:opacity-90"
             >
               <WaGlyph className="size-5" /> Message us on WhatsApp
             </a>
@@ -98,7 +98,7 @@ export function BookingForm({
           {rooms.map((r) => (
             <label
               key={r.id}
-              className="flex cursor-pointer flex-col gap-1 rounded-[3px] border border-ink/15 bg-canvas p-4 transition-colors hover:border-ink/40 has-[:checked]:border-ink has-[:checked]:shadow-[3px_3px_0_var(--color-gold-soft)]"
+              className="flex cursor-pointer flex-col gap-1 rounded-[0.95rem] border border-ink/10 bg-white/55 p-4 transition-colors hover:border-ink/40 has-[:checked]:border-ink has-[:checked]:bg-white has-[:checked]:shadow-[0_0_0_4px_rgb(216_195_161/0.35)]"
             >
               <span className="flex items-center gap-3">
                 <input type="radio" name="roomId" value={r.id} defaultChecked={v.roomId === r.id} className="choice" required />
@@ -174,7 +174,7 @@ export function BookingForm({
 
       <Group title="Payment">
         <div className="grid gap-3 sm:grid-cols-2">
-          <label className="flex cursor-pointer items-start gap-3 rounded-[3px] border border-ink/15 bg-canvas p-4 has-[:checked]:border-ink has-[:checked]:shadow-[3px_3px_0_var(--color-gold-soft)]">
+          <label className="flex cursor-pointer items-start gap-3 rounded-[0.95rem] border border-ink/10 bg-white/55 p-4 has-[:checked]:border-ink has-[:checked]:bg-white has-[:checked]:shadow-[0_0_0_4px_rgb(216_195_161/0.35)]">
             <input type="radio" name="paymentMethod" value="card" checked={method === 'card'} onChange={() => setMethod('card')} className="choice mt-0.5" />
             <span>
               <span className="block font-medium">Card, online now</span>
@@ -183,7 +183,7 @@ export function BookingForm({
               </span>
             </span>
           </label>
-          <label className="flex cursor-pointer items-start gap-3 rounded-[3px] border border-ink/15 bg-canvas p-4 has-[:checked]:border-ink has-[:checked]:shadow-[3px_3px_0_var(--color-gold-soft)]">
+          <label className="flex cursor-pointer items-start gap-3 rounded-[0.95rem] border border-ink/10 bg-white/55 p-4 has-[:checked]:border-ink has-[:checked]:bg-white has-[:checked]:shadow-[0_0_0_4px_rgb(216_195_161/0.35)]">
             <input
               type="radio"
               name="paymentMethod"
@@ -228,7 +228,7 @@ export function BookingForm({
           type="submit"
           disabled={pending}
           className={cx(
-            'inline-flex min-h-[3.25rem] w-full items-center justify-center rounded-[3px] bg-ink px-7 py-3.5 font-medium text-canvas transition-colors hover:bg-ink-deep sm:w-auto',
+            'inline-flex min-h-[3.25rem] w-full items-center justify-center btn-ink rounded-[0.95rem] px-7 py-3.5 font-medium text-canvas transition-colors hover:bg-ink-deep sm:w-auto',
             pending && 'cursor-wait opacity-70',
           )}
         >

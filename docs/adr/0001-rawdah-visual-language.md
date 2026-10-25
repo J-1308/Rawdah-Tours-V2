@@ -1,6 +1,6 @@
 # 0001 — Rawdah's own visual language
 
-Date: 24 October 2026 · Status: accepted
+Date: 24 October 2026 · Status: accepted; its visual table is amended by 0002 (soft, blended, premium). The rule that the site must never resemble The Umrah Company stands.
 
 ## Context
 
