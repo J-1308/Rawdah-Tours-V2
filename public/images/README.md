@@ -23,7 +23,7 @@ long edge 2400–3000px, JPEG, location data removed. Hotel and train photos sti
 media kits; never from another operator's site.
 
 **Under-18s:** Jibril confirmed on 31 October 2026 that parents have given permission for every photo of children;
-those photos are marked "under 18, consent given". candid-02 shows sisters: check they are happy to be on the site. Photos Jibril chose not to use are in `photos-not-used/` at the
+those photos are marked "under 18, consent given". candid-02 shows sisters: they are happy to be on the site (Jibril, 31 October 2026). Photos Jibril chose not to use are in `photos-not-used/` at the
 repo root (outside `public/`, so they are not deployed).
 
 ## What each file shows (ranked 31 October 2026; names in bold are Jibril's notes)

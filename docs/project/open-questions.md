@@ -31,7 +31,7 @@ Things only Rawdah (or Jibril) can answer. Each one is marked on the page where 
 ## Content and permissions
 
 10. **Photos of younger travellers:** settled. Jibril confirmed parents' permission for every photo of children (31 Oct 2026).
-11. **Photos of sisters and families:** none yet. The site says trips are open to families; photos would help.
+11. **Photos of sisters and families:** one so far (`candid/candid-02.jpg`, the sisters are happy to be on the site); more would help.
 12. **Teacher bios** for Ustadh Issa Uthman and Ustadh Abdulrahman Hassan: Rawdah to supply or approve.
 13. **The V1 quote:** settled. It sits on Ustadh Abdulrahman Hassan's guide card on V1, so the site credits him.
 14. **Hotel photographs:** the site uses group photos, never hotel marketing images.
