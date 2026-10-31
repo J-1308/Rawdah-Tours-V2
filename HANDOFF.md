@@ -1,0 +1,87 @@
+# Rawdah Tours V2 — handoff
+
+A self-contained briefing for whoever (or whatever tool) picks this up next. Keep it current.
+Last updated 25 October 2026.
+
+## The business
+
+Rawdah Tours Ltd, Birmingham. Guided Umrah from the UK with students of knowledge travelling with every group,
+and a group preparing for **Hajj 2027** (registration of interest; packages are booked and paid on Nusuk, never
+through Rawdah). Group leader: Brother Ayuub Mohamed Musa. Last trip: *Path of Purity II: Summer Edition*,
+4–15 August 2026. Audience: individuals and families, mostly arriving from Instagram, WhatsApp and word of mouth.
+
+## The repos
+
+- `J-1308/Rawdah-Tours-V2` — **this repo, the only one we develop in.**
+- `J-1308/Rawdahtoursw-website` — V1, read-only. Source of Rawdah's facts, copy, photos and the booking flow V2 rebuilt.
+- `J-1308/The_Umrah_Experience` — The Umrah Company, **a different client** selling similar trips. Read-only.
+  V2 shares its *conversion method* only. Its look, layout, copy, photos, people and facts must never appear here
+  (see `docs/adr/0001-rawdah-visual-language.md`). Jibril rejected an earlier V2 for looking like it.
+
+## What is built (branch `feat/v2-rebuild`)
+
+Next.js 16 App Router, React 19, TypeScript, Tailwind v4. Public pages in `src/app/(site)/`:
+
+| Route | Page |
+| --- | --- |
+| `/` | Home |
+| `/trips` | Every trip |
+| `/trips/hajj-2027` · `/trips/next-umrah` · `/trips/path-of-purity-ii` | Trip pages, each with a join panel and (unless past) a register-interest form |
+| `/trips/[slug]/book` | Deposit booking (card via Stripe, or bank transfer) — only for trips with status `open` |
+| `/private-umrah` | Private & family Umrah with a planner that writes a WhatsApp message |
+| `/groups` | Masjids & groups, with an organiser's message form |
+| `/about` | Story, meaning of Rawdah, values, team, contact and company details |
+| `/terms` · `/privacy` · `/cookies` | Legal (from V1, April 2026) |
+| `/booking/*` · `/admin` · `/api/stripe/webhook` | Booking returns, bookings list, Stripe webhook |
+
+Content: `src/app/_site/content.ts` (every word, with a status). Prices: `src/lib/trips.ts` (one source, server-side).
+Design: `docs/design-system.md`. Booking: `docs/booking.md`. Facts and sources: `docs/content-inventory.md`.
+
+## Real vs not yet
+
+The page shows review marks: **Suggested** (our proposal), **To confirm** (only Rawdah can say), **Sample**
+(illustrative). A switch on the left edge hides them to judge the look. Everything marked must be resolved, and
+the marks and switch removed, before the site goes on rawdahtours.co.uk. The list: `docs/project/open-questions.md`.
+
+Search engines are shut out everywhere except the production build on rawdahtours.co.uk (`IS_LIVE` in `src/lib/site.ts`): attach the domain, redeploy, and `robots.txt`, the sitemap and indexing open by themselves.
+
+## Brand
+
+The logo is the cocoa-on-cream Rawdah lockup (V1 `preview_logo`), traced to SVG
+(`public/images/brand/rawdah-logo.svg`, `rawdah-mark.svg`) so it renders crisply in any colour: cocoa on cream
+in the header, cream on cocoa in the footer, and the kufic mark as a faint watermark. Palette and fonts are
+Rawdah's own, softened: cream, linen, beige, sand and cocoa; Cormorant Garamond and DM Sans. The look is soft,
+blended and premium (ADR 0002); it must never resemble The Umrah Company's site (ADR 0001).
+
+## Versions
+
+Two looks are on the table (25 October 2026):
+- `feat/v2-rebuild`: the soft cream site with the cocoa-on-cream logo (ADR 0002). Jibril likes it; keep as is.
+- `feat/v2-dark`: the same site at night with the logo in the sand-gold of the main button and a new hero (ADR 0003).
+- `feat/v2-mix`: day and night in chapters (ADR 0004), with a review switch for the top: dark with the beige-gold
+  logo, or light with the brown logo (`?top=light` / `?top=dark`). Jibril asked for this on 25 October 2026.
+Phone fixes are made on `feat/v2-rebuild` and merged into `feat/v2-dark`, so both stay equally phone friendly.
+Each branch has its own Vercel preview. Pick one, then merge it into `main`.
+
+## Hosting
+
+Vercel project `rawdah-tours-v2` (account `j-1308s-projects`), linked to this repo on 25 October 2026. Every push
+deploys: `main` to production (`rawdah-tours-v2-j-1308s-projects.vercel.app`), any other branch to a preview.
+Deployments sit behind Vercel's login (the team default), so only signed-in team members can open them.
+rawdahtours.co.uk is not attached yet. Env vars: see `docs/booking.md`; none are set yet, so forms fall back to
+WhatsApp and `/admin` is off.
+
+## Rules
+
+Branch per task, PR into `main`; `npm run build` before pushing; no secrets in the repo or chat (Jibril sets env
+vars in Vercel); never invent people, testimonials, dates or prices; check every change at 390px wide; ask before
+creating Vercel projects or other outside resources.
+
+## Launch state (31 October 2026)
+
+- Branch `feat/v2-mix` is the site to launch. Dark top fixed; review marks and the top switch removed.
+- Ramadan 1448 with GGC shows as "coming soon" (`ramadanReveal = false` in `src/app/_site/content.ts`).
+- No online payments yet: booking on WhatsApp, deposits by bank transfer. Forms write a WhatsApp message until
+  Supabase is set up (the privacy notice says so).
+- Path of Purity II has no page; it lives in "Our last trip" on the home page.
+- Search engines open by themselves once the site is served from rawdahtours.co.uk in production (`IS_LIVE`).
