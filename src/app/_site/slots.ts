@@ -14,6 +14,11 @@ export function slot(name: string) {
   return `/images/slots/${f ?? `${name}.jpg`}`;
 }
 
+/** True once a photo has been dropped in for this slot. */
+export function slotFilled(name: string) {
+  return files.some((x) => x.replace(/\.[^.]+$/, "") === name);
+}
+
 /** True when a src points at a slot nobody has filled yet. */
 export function isEmptySlot(src: string) {
   return src.startsWith("/images/slots/") && !files.includes(src.split("/").pop() ?? "");

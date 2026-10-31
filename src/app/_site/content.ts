@@ -23,7 +23,7 @@
  */
 
 import { getTrip } from "@/lib/trips";
-import { slot } from "@/app/_site/slots";
+import { slot, slotFilled } from "@/app/_site/slots";
 
 export type Status = "confirmed" | "evidenced" | "draft" | "proposed" | "to confirm" | "sample";
 
@@ -442,7 +442,10 @@ export const groupsBand = {
   headline: "A trip for your organisation or community",
   text: v("Masjids, societies, charities and workplaces. Your people, your reasons for going: we plan the trip around your group, handle every booking, and travel with you.", "draft"),
   who: ["Masjids", "Islamic societies", "Charities", "Schools and madrasahs", "Workplaces", "Community groups"],
-  photo: { src: slot("groups-masjid"), alt: "A community gathered for a talk in a UK masjid.", position: "object-[50%_50%]" },
+  // A real Rawdah lesson until a UK masjid photo is dropped into the groups-masjid slot.
+  photo: slotFilled("groups-masjid")
+    ? { src: slot("groups-masjid"), alt: "A community gathered for a talk in a UK masjid.", position: "object-[50%_50%]" }
+    : { src: "/images/teaching/teaching-04.jpg", alt: "A Rawdah lesson in a hotel function room, the group seated and listening.", position: "object-[50%_50%]" },
 };
 
 /** Private band on the home page. */
