@@ -121,7 +121,7 @@ export default function AboutPage() {
               <div className="grid grid-cols-[7.5rem_1fr] gap-3 border-t border-ink/8 py-3 first:border-0 sm:grid-cols-[9rem_1fr] sm:gap-4">
                 <dt className="text-ink/65">Protection</dt>
                 <dd>
-                  ATOL 5311 through Polani Travel Ltd, for the 2026 trips
+                  Umrah trips ATOL protected (ATOL 5311)
                 </dd>
               </div>
             </dl>

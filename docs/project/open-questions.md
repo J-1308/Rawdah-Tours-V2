@@ -7,8 +7,8 @@ Things only Rawdah (or Jibril) can answer. Each one is marked on the page where 
 1. **Company number** for Rawdah Tours Ltd (footer, about page).
 2. **Testimonials.** The three quotes from V1 ("Brother Abdullah / Yusuf / Hamza"): are they real travellers, and
    do we have permission to use them? If not, remove them until real ones are collected.
-3. **ATOL / financial protection** for trips after 2026. V1 terms name ATOL 5311 via Polani Travel Ltd for the
-   2026 trips only.
+3. **ATOL:** settled. Jibril confirmed Rawdah's Umrah trips are ATOL protected (ATOL 5311). The site doesn't name the
+   ATOL provider (Jibril's instruction, 31 Oct 2026). Hajj is booked on Nusuk, so ATOL doesn't apply to it.
 4. **Next group Umrah:** name, dates, hotels, flights, prices, deposit, number of instalments, teachers. Until
    then the page shows Path of Purity II as a guide, marked Suggested.
 5. **Hajj 2027 "open to":** brothers, sisters and families? (marked To confirm)

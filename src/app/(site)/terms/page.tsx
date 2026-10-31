@@ -120,8 +120,8 @@ export default function TermsPage() {
 
       <LegalSection title="8. ATOL protection">
         <p>
-          Where flights and accommodation are arranged through ATOL-approved suppliers, the protection that applies is set out in your booking documents. For
-          our 2026 Umrah trips, ATOL protection (no. 5311) was provided by Polani Travel Ltd. If you’re unsure what protection applies, contact us or see the
+          Our Umrah trips are ATOL protected (ATOL 5311). When you book, you’ll receive an ATOL certificate setting out the protection that applies. Hajj
+          packages are booked and paid on Nusuk, not with us, so ATOL does not apply to them. If you’re unsure what protection applies, contact us or see the
           Civil Aviation Authority’s website.
         </p>
       </LegalSection>

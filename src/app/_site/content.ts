@@ -506,7 +506,7 @@ export const faqs: Faq[] = [
   { topic: "hajj", q: "How does Rawdah help with Hajj?", a: "We talk through your priorities, help you compare suitable Nusuk packages, prepare you before departure, and our team is on the ground with you throughout. The choice of package is always yours.", status: "confirmed" },
   { topic: "paying", q: "How do I pay for the trip?", a: "A deposit holds your place: £500 on our last trip, by card online (a small card fee applies) or by bank transfer with no fee. The balance is paid in instalments and cleared 40 days before departure.", status: "confirmed" },
   { topic: "paying", q: "What is your cancellation policy?", a: "Cancel in writing. 60 or more days before departure, up to 100% of what you’ve paid beyond the deposit is refunded; 40 to 59 days, up to 50%; under 40 days, no refund. Refunds depend on what we recover from suppliers, and visa fees are never refundable.", status: "confirmed" },
-  { topic: "paying", q: "Is my trip ATOL protected?", a: "On our 2026 Umrah, flights and accommodation were arranged through ATOL-approved suppliers, with ATOL protection (no. 5311) provided by Polani Travel Ltd. Each trip’s protection is set out in your booking documents.", status: "to confirm" },
+  { topic: "paying", q: "Is my trip ATOL protected?", a: "Yes. Our Umrah trips are ATOL protected (ATOL 5311), and you’ll get an ATOL certificate when you book. Hajj is different: you book and pay for your package on Nusuk, not with us, so it’s covered by Nusuk’s terms.", status: "confirmed" },
   { topic: "paying", q: "Do I need a visa to travel with you?", a: "Most travellers need a visa for Saudi Arabia. We arrange it and guide you through it, but approval is at the discretion of the authorities.", status: "confirmed" },
 ];
 
