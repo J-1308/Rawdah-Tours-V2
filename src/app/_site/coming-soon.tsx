@@ -2,13 +2,28 @@ import Link from "next/link";
 
 import { anchors, say, type Journey } from "@/app/_site/content";
 import { RegisterForm } from "@/app/_site/register-form";
-import { Actions, Chapter, Emblem, gutter, Heading, Pic, PartnerLogo } from "@/app/_site/shell";
+import { Actions, Chapter, Emblem, gutter, Heading, PartnerLogo } from "@/app/_site/shell";
 
 /**
  * "1448 · Ramadan · Coming soon", after the poster Rawdah and GGC shared, in Rawdah's colours: sand lettering on
  * cocoa, the Rawdah mark above and GGC's below. Josefin Sans (.font-poster) stands in for the poster's face.
  */
-export function RamadanLockup({ j, className = "" }: { j: Journey; className?: string }) {
+export function RamadanLockup({ j, className = "", compact = false }: { j: Journey; className?: string; compact?: boolean }) {
+  if (compact) {
+    // The same poster, small, filling a photo frame (the trip cards).
+    return (
+      <div className={`panel-dark absolute inset-0 isolate grid place-items-center overflow-hidden text-center text-sand ${className}`}>
+        <Emblem className="pointer-events-none absolute top-1/2 left-1/2 -z-10 h-[150%] -translate-x-1/2 -translate-y-1/2 text-cream/[0.04]" />
+        <div>
+          <Emblem className="mx-auto h-8" />
+          <p className="font-poster mt-3 text-[0.8rem] font-light tracking-[0.16em]">1448</p>
+          <p className="font-poster text-[2rem] leading-none font-semibold tracking-[0.06em] uppercase">Ramadan</p>
+          <p className="font-poster mt-1.5 text-[0.62rem] font-light tracking-[0.42em] uppercase">Coming soon</p>
+          {j.partnerLogo ? <PartnerLogo logo={j.partnerLogo} className="mx-auto mt-4 h-5" /> : null}
+        </div>
+      </div>
+    );
+  }
   return (
     <div className={`panel-dark relative isolate overflow-hidden rounded-[2rem] px-6 py-12 text-center text-sand sm:py-16 ${className}`}>
       <Emblem className="pointer-events-none absolute top-1/2 left-1/2 -z-10 h-[140%] -translate-x-1/2 -translate-y-1/2 text-cream/[0.04]" />
@@ -49,9 +64,6 @@ export function ComingSoonTrip({ j }: { j: Journey }) {
                 soon. Register now and you’ll hear first.
               </p>
               <Actions primary={{ label: "Register interest", href: `#${anchors.form}` }} waText={say.nextUmrah} className="mt-7" />
-              <div className="relative mt-8 hidden aspect-[16/9] overflow-hidden rounded-[1.5rem] lg:block">
-                <Pic src={j.photo.src} alt={j.photo.alt} sizes="30vw" className="object-cover" />
-              </div>
             </div>
           </div>
         </section>

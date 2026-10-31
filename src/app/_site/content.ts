@@ -590,6 +590,8 @@ export type Journey = {
   bookingSlug?: string;
   /** Joint trips: the partner, shown with the name ("GGC × Rawdah Tours"), and its logo. */
   partner?: string;
+  /** Show the "coming soon" poster in place of the photograph (Ramadan 1448 while it's kept back). */
+  poster?: boolean;
   partnerLogo?: { src: string; width: number; height: number; alt: string };
   plan?: TripPlan;
   intro: string;
@@ -630,6 +632,7 @@ const ramadanTeaser: Journey = {
   kind: "umrah",
   name: "Ramadan 1448",
   partner: "GGC × Rawdah Tours",
+  poster: true,
   partnerLogo: { src: "/images/brand/partners/ggc.png", width: 300, height: 100, alt: "Global Guidance Center (GGC)" },
   tagline: "A Ramadan Umrah with GGC. Coming soon.",
   state: "interest",
