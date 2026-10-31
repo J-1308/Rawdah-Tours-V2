@@ -9,7 +9,8 @@ Things only Rawdah (or Jibril) can answer. Each one is marked on the page where 
    do we have permission to use them? If not, remove them until real ones are collected.
 3. **ATOL:** settled. Jibril confirmed Rawdah's Umrah trips are ATOL protected (ATOL 5311). The site doesn't name the
    ATOL provider (Jibril's instruction, 31 Oct 2026). Hajj is booked on Nusuk, so ATOL doesn't apply to it.
-4. **Ramadan Umrah 2027 (GGC × Rawdah Tours):** settled with Jibril (31 Oct 2026): the £399 deposit is right (terms
+4. **Ramadan Umrah 2027 (GGC × Rawdah Tours):** hidden behind a "Ramadan 1448 · Coming soon" teaser at GGC's and
+   Rawdah's request (`ramadanReveal = false` in `content.ts`; set to true to show the full plan). Settled with Jibril (31 Oct 2026): the £399 deposit is right (terms
    6.1 updated from £299), visas are included, open to brothers, sisters and families, booking on WhatsApp with
    deposits by bank transfer (card payments with Stripe later), GGC is the Global Guidance Center and its logo is
    shown. Still open: the teachers (Jibril to say when announced) and hotel photos for Novotel Makkah Thakher City
@@ -49,3 +50,6 @@ Things only Rawdah (or Jibril) can answer. Each one is marked on the page where 
 17. **Domain switch:** rawdahtours.co.uk currently serves the Hajj 2027 page by another developer. Decide when V2
     replaces it; the redirects in `next.config.ts` cover the old V1 and live URLs.
 18. **Onboarding app:** may be linked later as an extra (`NEXT_PUBLIC_ONBOARDING_APP_URL`); nothing is built for it.
+
+**Last trip (31 Oct 2026, Jibril):** Path of Purity II no longer has its own page or a "Completed" list; it lives in
+the "Our last trip" section on the home and Trips pages. `/trips/path-of-purity-ii` redirects there.

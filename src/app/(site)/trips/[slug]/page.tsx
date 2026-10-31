@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
-import { anchors, covers, faqs, fromPrice, gbp, hajjBand, hajjNusuk, journey, journeys, nightsOf, routes, routeText, say, type Journey } from "@/app/_site/content";
+import { ComingSoonTrip } from "@/app/_site/coming-soon";
+import { anchors, covers, faqs, fromPrice, gbp, hajjBand, hajjNusuk, journey, journeys, nightsOf, ramadanReveal, routes, routeText, say, type Journey } from "@/app/_site/content";
 import { CoverGroups, FaqList, PaymentPlan, Tick } from "@/app/_site/home-sections";
 import { Mark } from "@/app/_site/marks";
 import { RegisterForm } from "@/app/_site/register-form";
@@ -14,15 +15,16 @@ import { Chevron } from "@/app/_site/whatsapp";
 import { getTrip, isBookable, isDemoBooking } from "@/lib/trips";
 
 export function generateStaticParams() {
-  return journeys.map((j) => ({ slug: j.slug }));
+  return journeys.filter((j) => j.state !== "past").map((j) => ({ slug: j.slug }));
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
   const j = journey(slug);
-  if (!j) return {};
+  if (!j || j.state === "past") return {};
+  if (j.slug === "ramadan-umrah-2027" && !ramadanReveal) return { title: "Ramadan 1448 with GGC, coming soon", description: "A Ramadan Umrah with Rawdah Tours and the Global Guidance Center. Register your interest to hear first." };
   const price = fromPrice(j);
-  return { title: price && j.state !== "past" ? `${j.name}, from ${gbp(price)} per person` : j.name, description: j.tagline };
+  return { title: price ? `${j.name}, from ${gbp(price)} per person` : j.name, description: j.tagline };
 }
 
 const h2 = "text-[clamp(2.1rem,3.4vw,3.1rem)]";
@@ -70,7 +72,8 @@ function Itinerary({ j }: { j: Journey }) {
 export default async function TripPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const j = journey(slug);
-  if (!j) notFound();
+  if (!j || j.state === "past") notFound();
+  if (j.slug === "ramadan-umrah-2027" && !ramadanReveal) return <ComingSoonTrip j={j} />;
 
   const trip = j.bookingSlug ? getTrip(j.bookingSlug) : undefined;
   const bookable = Boolean(trip && isBookable(trip) && j.state === "open");
@@ -87,13 +90,13 @@ export default async function TripPage({ params }: { params: Promise<{ slug: str
   /** On a trip with its plan set out above, the general answers about last year's itinerary, inclusions and meals would contradict it. */
   const shownAbove = ["What is included in the trip cost?", "What is the trip itinerary like?", "What about meal arrangements?"];
   const qs = faqs.filter((f) => (j.kind === "hajj" ? f.topic === "hajj" : f.topic !== "hajj") && !(j.plan && shownAbove.includes(f.q)));
-  const joinLabel = j.state === "open" ? "Book your place" : j.state === "past" ? "Hear about the next trip" : "Register interest";
+  const joinLabel = j.state === "open" ? "Book your place" : "Register interest";
 
   const facts = [
     { k: "Dates", v: j.dates.value, s: j.dates.status },
     { k: nights ? "Length" : "Booking", v: nights ? `${nights} nights in 2 cities` : "On Nusuk" },
     { k: j.kind === "hajj" ? "Hajj guide" : "Teachers", v: j.teacher.value, s: j.teacher.status },
-    { k: price ? (j.state === "past" ? "Was from" : "From") : "Prices", v: price ? `${gbp(price)} per person` : "Published on Nusuk", s: j.rooms?.status ?? j.priceNote?.status },
+    { k: price ? "From" : "Prices", v: price ? `${gbp(price)} per person` : "Published on Nusuk", s: j.rooms?.status ?? j.priceNote?.status },
   ];
 
   return (
@@ -246,7 +249,7 @@ export default async function TripPage({ params }: { params: Promise<{ slug: str
                 <section>
                   <Heading className={h2}>{covers.headline}</Heading>
                   <div className="mt-6">
-                    <CoverGroups groups={covers.groups} status={(s) => (j.state === "past" || s === "confirmed" ? s : "proposed")} />
+                    <CoverGroups groups={covers.groups} status={(s) => (s === "confirmed" ? s : "proposed")} />
                   </div>
                 </section>
                 <section className="mt-12 sm:mt-16">
@@ -287,26 +290,24 @@ export default async function TripPage({ params }: { params: Promise<{ slug: str
           </div>
         </div>
 
-        {j.state !== "past" ? (
-          <section id={anchors.form} className={`wash-linen scroll-mt-28 py-[clamp(3.75rem,10vw,9rem)] ${gutter}`}>
-            <div className="grid grid-cols-1 gap-x-14 gap-y-10 lg:grid-cols-12">
-              <div className="lg:col-span-4">
-                {j.kind === "hajj" ? (
-                  <p lang="ar" className="ar mb-2 text-left text-[clamp(1.6rem,2.6vw,2.2rem)] leading-[1.7] text-bronze">
-                    {hajjBand.talbiyah}
-                  </p>
-                ) : null}
-                <Heading className="text-[clamp(2.4rem,4vw,3.6rem)]">{j.kind === "hajj" ? hajjNusuk.closing.title : j.plan ? `Register for ${j.name}` : "Hear first when the dates are out"}</Heading>
-                <p className="mt-5 max-w-[24rem] text-[1rem] leading-[1.65] text-ink/72">
-                  {j.kind === "hajj" ? `${hajjNusuk.closing.text} ` : ""}Two minutes, and someone from Rawdah will be in touch. Registering doesn’t reserve a place or commit you to anything.
+        <section id={anchors.form} className={`wash-linen scroll-mt-28 py-[clamp(3.75rem,10vw,9rem)] ${gutter}`}>
+          <div className="grid grid-cols-1 gap-x-14 gap-y-10 lg:grid-cols-12">
+            <div className="lg:col-span-4">
+              {j.kind === "hajj" ? (
+                <p lang="ar" className="ar mb-2 text-left text-[clamp(1.6rem,2.6vw,2.2rem)] leading-[1.7] text-bronze">
+                  {hajjBand.talbiyah}
                 </p>
-              </div>
-              <div className="glass rounded-[1.75rem] p-5 sm:p-8 lg:col-span-7 lg:col-start-6">
-                <RegisterForm defaultJourney={j.kind === "hajj" ? "hajj-2027" : "umrah"} page={`/trips/${j.slug}`} />
-              </div>
+              ) : null}
+              <Heading className="text-[clamp(2.4rem,4vw,3.6rem)]">{j.kind === "hajj" ? hajjNusuk.closing.title : j.plan ? `Register for ${j.name}` : "Hear first when the dates are out"}</Heading>
+              <p className="mt-5 max-w-[24rem] text-[1rem] leading-[1.65] text-ink/72">
+                {j.kind === "hajj" ? `${hajjNusuk.closing.text} ` : ""}Two minutes, and someone from Rawdah will be in touch. Registering doesn’t reserve a place or commit you to anything.
+              </p>
             </div>
-          </section>
-        ) : null}
+            <div className="glass rounded-[1.75rem] p-5 sm:p-8 lg:col-span-7 lg:col-start-6">
+              <RegisterForm defaultJourney={j.kind === "hajj" ? "hajj-2027" : "umrah"} page={`/trips/${j.slug}`} />
+            </div>
+          </div>
+        </section>
       </Chapter>
     </>
   );

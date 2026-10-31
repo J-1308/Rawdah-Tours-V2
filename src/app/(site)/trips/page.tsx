@@ -7,13 +7,12 @@ import { TripRow } from "@/app/_site/trip-row";
 
 export const metadata: Metadata = {
   title: "Trips",
-  description: "Hajj 2027, the next group Umrah, and the trips Rawdah Tours has already run.",
+  description: "Hajj 2027, Ramadan with GGC, private Umrah, and our last trip.",
 };
 
 /** Every trip: what's open or coming, the last one as proof, and a way in for other dates. */
 export default function TripsPage() {
   const upcoming = journeys.filter((j) => j.state !== "past");
-  const past = journeys.filter((j) => j.state === "past");
   return (
     <>
       <Chapter tone="top">
@@ -23,7 +22,7 @@ export default function TripsPage() {
           Hajj and Umrah, guided from the UK.
         </Heading>
         <p className="mt-6 max-w-[40rem] text-[1.05rem] leading-[1.7] text-ink/75">
-          Teachers with every group, five-star hotels by the Haram, and a group leader from your first message to the flight home.
+          Teachers with every group, and a group leader from your first message to the flight home. Or your own dates, planned with us.
         </p>
       </section>
       </Chapter>
@@ -45,14 +44,6 @@ export default function TripsPage() {
         </div>
       </section>
 
-      <section className={`pb-[clamp(4rem,7vw,6rem)] ${gutter}`}>
-        <Heading className="text-[clamp(1.9rem,3vw,2.6rem)]">Completed</Heading>
-        <div className="mt-7 grid gap-5">
-          {past.map((j) => (
-            <TripRow key={j.slug} j={j} />
-          ))}
-        </div>
-      </section>
       </Chapter>
 
       <Chapter tone="night">

@@ -437,3 +437,8 @@ details > summary::-webkit-details-marker { display: none; }
     mask-image: linear-gradient(to bottom, #000 38%, transparent 96%);
   }
 }
+
+/* The Ramadan "coming soon" lettering (see fonts.css). */
+.font-poster {
+  font-family: "Josefin Sans", "DM Sans", system-ui, sans-serif;
+}

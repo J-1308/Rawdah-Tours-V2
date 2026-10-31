@@ -48,7 +48,7 @@ export function ReservePanel({ j, bookable = false }: { j: Journey; bookable?: b
             <span>Tell me about the next trip</span>
           </a>
           <Link href={`${routes.nextUmrah}#${anchors.form}`} className="mt-3 block text-center text-[0.86rem] text-ink/70 underline decoration-ink/25 underline-offset-4">
-            Or register for Ramadan 2027
+            Or register for Ramadan 1448
           </Link>
         </div>
       </div>

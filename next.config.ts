@@ -24,6 +24,8 @@ const nextConfig: NextConfig = {
       { source: '/umrah', destination: '/trips/ramadan-umrah-2027', permanent: false },
       { source: '/book', destination: '/trips/ramadan-umrah-2027', permanent: false },
       { source: '/book/:path*', destination: '/trips/ramadan-umrah-2027', permanent: false },
+      // The last trip no longer has a page: it lives on the home page.
+      { source: '/trips/path-of-purity-ii', destination: '/#last-trip', permanent: false },
       // The next trip's page before it had dates (shared in October 2026).
       { source: '/trips/next-umrah', destination: '/trips/ramadan-umrah-2027', permanent: false },
       { source: '/family-booking', destination: '/private-umrah', permanent: true },

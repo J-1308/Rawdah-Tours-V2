@@ -7,6 +7,7 @@ import { Mark } from "@/app/_site/marks";
 import { Actions, Emblem, gutter, Heading, Label, onInk, PartnerLogo, PhotoStack, Pic, Tick, TileLink, WaSquare, WaTile } from "@/app/_site/shell";
 
 export { Tick } from "@/app/_site/shell";
+import { slot } from "@/app/_site/slots";
 import { TripRow } from "@/app/_site/trip-row";
 import { allMembers, TeamLine, TeamList } from "@/app/_site/trip-parts";
 import { Chevron } from "@/app/_site/whatsapp";
@@ -115,9 +116,11 @@ export function Trips() {
         </Link>
       </div>
       <div className="mt-9 grid gap-5">
-        {journeys.map((j) => (
-          <TripRow key={j.slug} j={j} />
-        ))}
+        {journeys
+          .filter((j) => j.state !== "past")
+          .map((j) => (
+            <TripRow key={j.slug} j={j} />
+          ))}
       </div>
     </section>
   );
@@ -186,7 +189,7 @@ const shapes = ["aspect-[3/4]", "aspect-[4/3]", "aspect-[4/5]", "aspect-[3/4]", 
 
 export function LastTrip() {
   return (
-    <section className={`wash-linen py-[clamp(3.75rem,10vw,9rem)] ${gutter}`}>
+    <section id="last-trip" className={`wash-linen scroll-mt-24 py-[clamp(3.75rem,10vw,9rem)] ${gutter}`}>
       <div className="grid grid-cols-1 gap-x-14 gap-y-10 lg:grid-cols-12">
         <div className="self-start lg:sticky lg:top-28 lg:col-span-4">
           <Label>{lastTrip.label}</Label>
@@ -199,9 +202,6 @@ export function LastTrip() {
               </div>
             ))}
           </dl>
-          <TileLink href={routes.lastTrip} tone="ink" className="mt-6 w-full sm:w-auto">
-            See how the trip ran
-          </TileLink>
         </div>
         <div className="columns-2 gap-3 sm:gap-4 lg:col-span-8 lg:columns-3">
           {lastTrip.photos.map((p, i) => (
@@ -341,6 +341,9 @@ export function Covers() {
       <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
         <Heading className={h2}>{covers.headline}</Heading>
         <p className="max-w-[26rem] font-editorial text-[1.25rem] leading-[1.5] text-ink/70 italic">{covers.text}</p>
+      </div>
+      <div className="relative mt-8 aspect-[16/9] overflow-hidden rounded-[2rem] shadow-[var(--shadow-soft)] sm:mt-10 sm:aspect-[21/8] lg:aspect-[3/1]">
+        <Pic src={slot("closeup-quran-tasbih")} alt="A tasbih resting on a Qur’an." sizes="(min-width: 1024px) 90vw, 100vw" className="object-cover object-[50%_45%]" />
       </div>
       <div className="mt-8 sm:mt-10">
         <CoverGroups groups={covers.groups} wide="lg:grid-cols-4" />

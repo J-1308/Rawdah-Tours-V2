@@ -85,7 +85,7 @@ export function TripRow({ j }: { j: Journey; tone?: "canvas" | "ink" }) {
         ) : (
           <div>
             <p className="text-[0.8rem] text-ink/65">Prices</p>
-            <p className="display mt-0.5 text-[1.8rem] leading-tight">On Nusuk</p>
+            <p className="display mt-0.5 text-[1.8rem] leading-tight">{j.kind === "hajj" ? "On Nusuk" : "Coming soon"}</p>
             <p className="mt-2 text-[0.84rem] text-ink/68">
               {j.priceNote?.value}
               <Mark s={j.priceNote?.status} />

@@ -25,6 +25,13 @@
 import { getTrip } from "@/lib/trips";
 import { slot, slotFilled } from "@/app/_site/slots";
 
+/**
+ * Ramadan 1448 with GGC: GGC and Rawdah want little given away for now (Jibril, 31 Oct 2026). While false, the
+ * trip shows as "coming soon" everywhere and its page is a teaser with the register form; the full plan (dates,
+ * flights, hotels, packages) stays in this file and src/lib/trips.ts. Set to true to reveal it.
+ */
+export const ramadanReveal = false;
+
 export type Status = "confirmed" | "evidenced" | "draft" | "proposed" | "to confirm" | "sample";
 
 /** A value with its status. */
@@ -56,7 +63,7 @@ export const wa = (text: string) => `https://wa.me/${brand.whatsapp}?text=${enco
 export const say = {
   general: "Salaam Rawdah Tours, I’ve got a question.",
   hajj: "Salaam Rawdah Tours, I’d like to register for Hajj 2027.",
-  nextUmrah: "Salaam Rawdah Tours, I’d like to join the Ramadan Umrah 2027.",
+  nextUmrah: "Salaam Rawdah Tours, I’d like to hear about the Ramadan trip with GGC.",
   private: "Salaam Rawdah Tours, I’m planning a private Umrah.",
   group: "Salaam Rawdah Tours, I’d like to talk about a trip for our group.",
   pay: "Salaam Rawdah Tours, I’ve got a question about paying for a trip.",
@@ -70,7 +77,8 @@ export const routes = {
   trips: "/trips",
   hajj: "/trips/hajj-2027",
   nextUmrah: "/trips/ramadan-umrah-2027",
-  lastTrip: "/trips/path-of-purity-ii",
+  /** The last trip has no page of its own: it lives in the "Our last trip" section on the home page. */
+  lastTrip: "/#last-trip",
   private: "/private-umrah",
   groups: "/groups",
   about: "/about",
@@ -83,9 +91,10 @@ export const anchors = { join: "join", form: "register-interest" } as const;
 
 export const tripLinks = [
   { label: "Hajj 2027", note: "Registration of interest open", href: routes.hajj },
-  { label: "Ramadan Umrah 2027", note: "27 Feb – 13 Mar, with GGC", href: routes.nextUmrah },
-  { label: "Path of Purity II", note: "August 2026, completed", href: routes.lastTrip },
-  { label: "Every trip", note: "Current and past", href: routes.trips },
+  ramadanReveal
+    ? { label: "Ramadan Umrah 2027", note: "27 Feb – 13 Mar, with GGC", href: routes.nextUmrah }
+    : { label: "Ramadan 1448", note: "With GGC, coming soon", href: routes.nextUmrah },
+  { label: "Every trip", note: "Hajj, Umrah and private", href: routes.trips },
 ];
 
 export const nav = [
@@ -102,12 +111,9 @@ export const nav = [
 export const hajjRegister = `${routes.hajj}#${anchors.form}`;
 
 /** The line above the header: the flagship trip. */
-export const strip = {
-  text: "Ramadan Umrah 2027 with GGC: 27 February – 13 March, from £1,899",
-  short: "Ramadan Umrah 2027, from £1,899",
-  cta: "See the trip",
-  href: routes.nextUmrah,
-};
+export const strip = ramadanReveal
+  ? { text: "Ramadan Umrah 2027 with GGC: 27 February – 13 March, from £1,899", short: "Ramadan Umrah 2027, from £1,899", cta: "See the trip", href: routes.nextUmrah }
+  : { text: "Ramadan 1448 with GGC: coming soon", short: "Ramadan 1448: coming soon", cta: "Register interest", href: routes.nextUmrah };
 
 /* ------------------------------------------------------------------------ */
 /* Home                                                                      */
@@ -123,7 +129,7 @@ export const hero = {
   ),
   facts: [
     v("Teachers with every group", "evidenced"), // V1 "Students of knowledge throughout"
-    v("Ramadan Umrah 2027: 27 Feb – 13 Mar", "confirmed"), // GGC × Rawdah itinerary
+    ramadanReveal ? v("Ramadan Umrah 2027: 27 Feb – 13 Mar", "confirmed") : v("Ramadan 1448 with GGC: coming soon", "confirmed"), // GGC × Rawdah
     v("Hajj booked through Nusuk", "confirmed"), // LIVE
   ],
   /** The hero's layered photographs: a tall main photo, one overlapping it, one behind. */
@@ -138,7 +144,7 @@ export const hero = {
 /** "Where would you like to start?" — one way in for each kind of traveller. */
 export const starts = [
   { title: "Hajj 2027", text: "Register your interest now. Packages open on Nusuk.", href: routes.hajj, tag: v("Open now", "confirmed"), photo: { src: slot("hajj-mina"), position: "object-[50%_45%]" } },
-  { title: "Group Umrah", text: "Ramadan 2027: Makkah, then Madinah.", href: routes.nextUmrah, tag: v("27 Feb – 13 Mar", "confirmed"), photo: { src: "/images/group-photos/group-photos-04.jpg", position: "object-[50%_75%]" } },
+  { title: "Group Umrah", text: ramadanReveal ? "Ramadan 2027: Makkah, then Madinah." : "Ramadan 1448, with GGC.", href: routes.nextUmrah, tag: ramadanReveal ? v("27 Feb – 13 Mar", "confirmed") : v("Coming soon", "confirmed"), photo: { src: "/images/group-photos/group-photos-04.jpg", position: "object-[50%_75%]" } },
   { title: "Private & family", text: "Your own dates, planned with us.", href: routes.private, tag: v("Your dates", "draft"), photo: { src: slot("family-haram"), position: "object-[50%_50%]" } },
   { title: "Groups & organisations", text: "A trip for your organisation or community.", href: routes.groups, tag: v("On request", "draft"), photo: { src: "/images/teaching/teaching-01.jpg", position: "object-[50%_30%]" } },
 ];
@@ -387,11 +393,11 @@ export const hajjNusuk = {
 export const paying = {
   headline: "Paying for your place",
   text: "A deposit holds your place. The rest is spread out, and it’s all paid before you fly.",
-  example: { room: "Early bird, Ramadan Umrah 2027", price: 1899, deposit: 399, instalments: 3 },
+  example: ramadanReveal ? { room: "Early bird, Ramadan Umrah 2027", price: 1899, deposit: 399, instalments: 3 } : { room: "Quad room, our last trip", price: 1799, deposit: 500, instalments: 3 },
   stages: [
-    { when: "On booking", what: "£399 deposit", note: "Non-refundable, by bank transfer.", status: "confirmed" as Status },
-    { when: "Nov, Dec, Jan", what: "Three payments", note: "30 November, 31 December, 20 January.", status: "confirmed" as Status },
-    { when: "20 January", what: "Paid in full", note: "Five weeks before you fly.", status: "confirmed" as Status },
+    { when: "On booking", what: "A deposit", note: "Non-refundable, by bank transfer.", status: "confirmed" as Status },
+    { when: "Then", what: "Set payments", note: "On dates we give you when you book.", status: "confirmed" as Status },
+    { when: "Before you fly", what: "Paid in full", note: "Everything settled before departure.", status: "confirmed" as Status },
     { when: "Departure", what: "Fly together", note: "Brother Ayuub meets the group.", status: "draft" as Status },
   ],
   sharing: v("Travelling alone? You share a room with travellers of the same gender.", "confirmed"),
@@ -455,7 +461,7 @@ export const groupsBand = {
 
 /** Private band on the home page. */
 export const privateBand = {
-  photo: { src: slot("family-madinah"), alt: "The umbrellas of Masjid an-Nabawi opening against the sky, a minaret behind." },
+  photo: { src: slot("family-madinah"), alt: "Pilgrims walking beneath the umbrellas of Masjid an-Nabawi." },
   headline: "Private Umrah, planned around you",
   text: v("For families, couples and friends who can’t make a group date. Tell us what you need and we’ll plan it with you.", "draft"),
   points: [
@@ -512,7 +518,7 @@ export const faqs: Faq[] = [
   { topic: "hajj", q: "How do Hajj bookings and payments work?", a: "You choose, book and pay for your Hajj package directly on Nusuk, the official Saudi Hajj platform. Rawdah Tours does not take payment for Hajj packages.", status: "confirmed" },
   { topic: "hajj", q: "Are the Hajj 2027 dates confirmed?", a: "Not yet. The dates and length of the trip are published with the approved packages on Nusuk.", status: "confirmed" },
   { topic: "hajj", q: "How does Rawdah help with Hajj?", a: "We talk through your priorities, help you compare suitable Nusuk packages, prepare you before departure, and our team is on the ground with you throughout. The choice of package is always yours.", status: "confirmed" },
-  { topic: "paying", q: "How do I pay for the trip?", a: "A non-refundable deposit holds your place: £399 on our Ramadan 2027 trip. Book on WhatsApp and pay by bank transfer; we send you the details. Card payments are coming soon. The rest is paid in set instalments; for Ramadan 2027 that’s 30 November, 31 December and 20 January, so it’s all paid well before you fly.", status: "confirmed" },
+  { topic: "paying", q: "How do I pay for the trip?", a: "A non-refundable deposit holds your place. Book on WhatsApp and pay by bank transfer; we send you the details. Card payments are coming soon. The rest is paid on set dates we give you when you book, all before you fly.", status: "confirmed" },
   { topic: "paying", q: "What is your cancellation policy?", a: "Deposits are non-refundable. 60 days or more before departure, everything you’ve paid beyond the deposit is refunded; 40 to 59 days, half of it, and you can change the guest’s name free of charge; under 40 days, no refund, though a name change may be possible for a fee. Find a replacement before the 40-day mark and nothing is lost.", status: "confirmed" },
   { topic: "paying", q: "Is my trip ATOL protected?", a: "Yes. Our Umrah trips are ATOL protected (ATOL 5311), and you’ll get an ATOL certificate when you book. Hajj is different: you book and pay for your package on Nusuk, not with us, so it’s covered by Nusuk’s terms.", status: "confirmed" },
   { topic: "paying", q: "Do I need a visa to travel with you?", a: "Most travellers need a visa for Saudi Arabia. We arrange it and guide you through it, but approval is at the discretion of the authorities.", status: "confirmed" },
@@ -618,64 +624,31 @@ function roomsFromTrips(slug: string): Room[] {
   }));
 }
 
-export const journeys: Journey[] = [
-  {
-    slug: "hajj-2027",
-    kind: "hajj",
-    name: "Hajj 2027",
-    tagline: "A Hajj prepared with knowledge, care and intention.",
-    state: "interest",
-    stateStatus: "confirmed",
-    dates: v("Published on Nusuk with the packages", "confirmed"),
-    route: v([{ place: "Makkah" }, { place: "Mina" }, { place: "Arafah" }, { place: "Muzdalifah" }], "draft"),
-    openTo: v("Brothers and sisters, and children over 12", "confirmed"),
-    teacher: v("Ustadh Abu Abdulaziz Ahmed", "confirmed"),
-    priceNote: v("Packages and prices are published on Nusuk", "confirmed"),
-    intro:
-      "Hajj 2027 is Rawdah’s current Hajj campaign. Register your interest now and we’ll talk through your plans. When approved packages appear on Nusuk, we help you compare them, prepare you for the rites, and stay with the group on the ground from start to finish.",
-    introStatus: "confirmed",
-    highlights: [
-      v("Registering commits you to nothing", "confirmed"),
-      v("Help comparing Nusuk packages", "confirmed"),
-      v("Learning before departure", "confirmed"),
-      v("Our team on the ground throughout", "confirmed"),
-      v("Guided by Ustadh Abu Abdulaziz Ahmed", "confirmed"),
-      v("Led by Brother Ayuub Mohamed Musa", "confirmed"),
-    ],
-    /** The days of Hajj in outline. Uncontested; the guide teaches the detail. */
-    itinerary: v(
-      [
-        { day: "In the UK", title: "Prepare", text: "Learning sessions on the rites, your package confirmed on Nusuk, and your questions answered before you leave." },
-        { day: "8 Dhul Hijjah", title: "Mina", text: "To Mina in ihram, on the day of Tarwiyah." },
-        { day: "9 Dhul Hijjah", title: "Arafah, then Muzdalifah", text: "The Day of Arafah in worship and du‘a until sunset, then the night at Muzdalifah." },
-        { day: "10 Dhul Hijjah", title: "Eid al-Adha", text: "The stoning at Jamarat al-‘Aqabah, the sacrifice, shaving or trimming, and tawaf al-ifadah." },
-        { day: "11–13 Dhul Hijjah", title: "The days of Tashreeq", text: "In Mina, stoning the three Jamarat each day." },
-        { day: "Before you leave", title: "Farewell tawaf", text: "A last tawaf of the Ka‘bah before the journey home." },
-      ],
-      "draft",
-    ),
-    confirmed: [
-      { title: "Hajj 2027", text: "Rawdah’s current Hajj campaign." },
-      { title: "Interest only", text: "Registering starts a conversation. It doesn’t reserve a place or take any payment." },
-      { title: "Group leader", text: "Brother Ayuub Mohamed Musa." },
-      { title: "Hajj guide", text: "Ustadh Abu Abdulaziz Ahmed." },
-      { title: "Booking on Nusuk", text: "You book and pay directly on Nusuk. Rawdah does not collect Hajj package payments." },
-    ],
-    pending: [
-      { title: "Dates and length", text: "The travel window and how long the trip lasts." },
-      { title: "Packages and prices", text: "Published on Nusuk with their terms when approved." },
-      { title: "Accommodation", text: "Hotels, rooms and the accommodation plan." },
-      { title: "Services", text: "Transport, services and the schedule for each package." },
-      { title: "Visa requirements", text: "Set out in the official platform information." },
-    ],
-    photo: { src: slot("hajj-arafah"), width: 2400, height: 1800, alt: "Pilgrims on Mount Arafah on the day of Hajj.", position: "object-[50%_50%]" },
-    more: [
-      { src: "/images/teaching/teaching-06.jpg", alt: "A Rawdah preparation session in the UK.", position: "object-[50%_60%]" },
-      { src: "/images/friends/friends-09.jpg", alt: "Two travellers in ihram at night, the clock tower behind them.", position: "object-[50%_40%]" },
-    ],
-    waText: say.hajj,
-  },
-  {
+/** Ramadan 1448 as shown while GGC and Rawdah keep the details back (see ramadanReveal). */
+const ramadanTeaser: Journey = {
+  slug: "ramadan-umrah-2027",
+  kind: "umrah",
+  name: "Ramadan 1448",
+  partner: "GGC × Rawdah Tours",
+  partnerLogo: { src: "/images/brand/partners/ggc.png", width: 300, height: 100, alt: "Global Guidance Center (GGC)" },
+  tagline: "A Ramadan Umrah with GGC. Coming soon.",
+  state: "interest",
+  stateStatus: "confirmed",
+  dates: v("Coming soon", "confirmed"),
+  route: v([{ place: "Makkah" }, { place: "Madinah" }], "confirmed"),
+  openTo: v("Brothers, sisters and families", "confirmed"),
+  teacher: v("Announced soon", "confirmed"),
+  priceNote: v("Announced with the trip", "confirmed"),
+  intro: "",
+  introStatus: "draft",
+  highlights: [],
+  photo: { src: slot("ramadan-quran"), width: 2400, height: 1600, alt: "A Qur’an and a tasbih on a prayer rug.", position: "object-[50%_50%]" },
+  more: [],
+  waText: say.nextUmrah,
+};
+
+/** The full trip, from Rawdah's itinerary. Shown once ramadanReveal is true. */
+const ramadanFull: Journey = {
     /**
      * The next flagship trip. Source: Rawdah's "GGC × Rawdah Tours Umrah 2027" itinerary and pricing (PDF, 31 Oct
      * 2026). Prices and the payment timetable come from src/lib/trips.ts. The PDF's internal notes (seminar,
@@ -802,7 +775,66 @@ export const journeys: Journey[] = [
       { src: "/images/friends/friends-07.jpg", alt: "Two travellers in ihram, smiling, suitcases behind them.", position: "object-[50%_35%]" },
     ],
     waText: say.nextUmrah,
+  };
+
+export const journeys: Journey[] = [
+  {
+    slug: "hajj-2027",
+    kind: "hajj",
+    name: "Hajj 2027",
+    tagline: "A Hajj prepared with knowledge, care and intention.",
+    state: "interest",
+    stateStatus: "confirmed",
+    dates: v("Published on Nusuk with the packages", "confirmed"),
+    route: v([{ place: "Makkah" }, { place: "Mina" }, { place: "Arafah" }, { place: "Muzdalifah" }], "draft"),
+    openTo: v("Brothers and sisters, and children over 12", "confirmed"),
+    teacher: v("Ustadh Abu Abdulaziz Ahmed", "confirmed"),
+    priceNote: v("Packages and prices are published on Nusuk", "confirmed"),
+    intro:
+      "Hajj 2027 is Rawdah’s current Hajj campaign. Register your interest now and we’ll talk through your plans. When approved packages appear on Nusuk, we help you compare them, prepare you for the rites, and stay with the group on the ground from start to finish.",
+    introStatus: "confirmed",
+    highlights: [
+      v("Registering commits you to nothing", "confirmed"),
+      v("Help comparing Nusuk packages", "confirmed"),
+      v("Learning before departure", "confirmed"),
+      v("Our team on the ground throughout", "confirmed"),
+      v("Guided by Ustadh Abu Abdulaziz Ahmed", "confirmed"),
+      v("Led by Brother Ayuub Mohamed Musa", "confirmed"),
+    ],
+    /** The days of Hajj in outline. Uncontested; the guide teaches the detail. */
+    itinerary: v(
+      [
+        { day: "In the UK", title: "Prepare", text: "Learning sessions on the rites, your package confirmed on Nusuk, and your questions answered before you leave." },
+        { day: "8 Dhul Hijjah", title: "Mina", text: "To Mina in ihram, on the day of Tarwiyah." },
+        { day: "9 Dhul Hijjah", title: "Arafah, then Muzdalifah", text: "The Day of Arafah in worship and du‘a until sunset, then the night at Muzdalifah." },
+        { day: "10 Dhul Hijjah", title: "Eid al-Adha", text: "The stoning at Jamarat al-‘Aqabah, the sacrifice, shaving or trimming, and tawaf al-ifadah." },
+        { day: "11–13 Dhul Hijjah", title: "The days of Tashreeq", text: "In Mina, stoning the three Jamarat each day." },
+        { day: "Before you leave", title: "Farewell tawaf", text: "A last tawaf of the Ka‘bah before the journey home." },
+      ],
+      "draft",
+    ),
+    confirmed: [
+      { title: "Hajj 2027", text: "Rawdah’s current Hajj campaign." },
+      { title: "Interest only", text: "Registering starts a conversation. It doesn’t reserve a place or take any payment." },
+      { title: "Group leader", text: "Brother Ayuub Mohamed Musa." },
+      { title: "Hajj guide", text: "Ustadh Abu Abdulaziz Ahmed." },
+      { title: "Booking on Nusuk", text: "You book and pay directly on Nusuk. Rawdah does not collect Hajj package payments." },
+    ],
+    pending: [
+      { title: "Dates and length", text: "The travel window and how long the trip lasts." },
+      { title: "Packages and prices", text: "Published on Nusuk with their terms when approved." },
+      { title: "Accommodation", text: "Hotels, rooms and the accommodation plan." },
+      { title: "Services", text: "Transport, services and the schedule for each package." },
+      { title: "Visa requirements", text: "Set out in the official platform information." },
+    ],
+    photo: { src: slot("hajj-arafah"), width: 2400, height: 1800, alt: "Pilgrims on Mount Arafah on the day of Hajj.", position: "object-[50%_50%]" },
+    more: [
+      { src: "/images/teaching/teaching-06.jpg", alt: "A Rawdah preparation session in the UK.", position: "object-[50%_60%]" },
+      { src: "/images/friends/friends-09.jpg", alt: "Two travellers in ihram at night, the clock tower behind them.", position: "object-[50%_40%]" },
+    ],
+    waText: say.hajj,
   },
+  ramadanReveal ? ramadanFull : ramadanTeaser,
   {
     slug: "path-of-purity-ii",
     kind: "umrah",
@@ -882,7 +914,7 @@ export const partners = {
       items: [
         {
           name: "Global Guidance Center",
-          what: "Our partner for the Ramadan Umrah 2027: GGC brings guidance from the Qur’an into everyday life.",
+          what: "Our partner for Ramadan 1448: GGC brings guidance from the Qur’an into everyday life.",
           href: "https://ggcenter.org",
           logo: { src: "/images/brand/partners/ggc.png", width: 300, height: 100, alt: "GGC" },
         },
@@ -891,15 +923,19 @@ export const partners = {
     {
       title: "Flights",
       items: [
-        { name: "Saudia", what: "Ramadan Umrah 2027, from Heathrow", href: "https://www.saudia.com" },
+        ...(ramadanReveal ? [{ name: "Saudia", what: "Ramadan Umrah 2027, from Heathrow", href: "https://www.saudia.com" }] : []),
         { name: "Qatar Airways", what: "Path of Purity II, August 2026", href: "https://www.qatarairways.com" },
       ],
     },
     {
       title: "Hotels",
       items: [
-        { name: "Novotel Makkah Thakher City", what: "Makkah, Ramadan 2027", href: "https://all.accor.com/hotel/B3H1/index.en.shtml" },
-        { name: "Al Manakha Rotana", what: "Madinah, Ramadan 2027", href: "https://www.rotana.com/almanakharotana" },
+        ...(ramadanReveal
+          ? [
+              { name: "Novotel Makkah Thakher City", what: "Makkah, Ramadan 2027", href: "https://all.accor.com/hotel/B3H1/index.en.shtml" },
+              { name: "Al Manakha Rotana", what: "Madinah, Ramadan 2027", href: "https://www.rotana.com/almanakharotana" },
+            ]
+          : []),
         { name: "Address Jabal Omar", what: "Makkah, August 2026" },
         { name: "Peninsula Worth Hotel", what: "Madinah, August 2026" },
       ],
@@ -937,7 +973,7 @@ export const privatePage = {
     { title: "Your order, your pace", text: "Madinah or Makkah first, as many nights in each as you like.", status: "proposed" as Status },
     { title: "Visa and transport", text: "We process your visa and arrange your transport on the ground.", status: "confirmed" as Status },
   ],
-  photo: { src: slot("family-haram"), alt: "Masjid al-Haram and the Ka‘bah from above at dusk.", position: "object-[50%_50%]" },
+  photo: { src: slot("family-haram"), alt: "The Ka‘bah and the clock tower under a blue sky.", position: "object-[50%_50%]" },
 };
 
 /* ------------------------------------------------------------------------ */
