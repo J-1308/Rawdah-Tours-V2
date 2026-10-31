@@ -45,8 +45,9 @@ is **not** identified on the site.
   registration needs, our group, guidance, the days of Hajj, updates, a Labbayk close. **Only the structure and
   general Nusuk facts are used.** Their wording, scholars, package dates, prices, provider and partner are theirs
   and appear nowhere. Timeline estimates: Nusuk registration opened 7 Oct 2025 and booking 1 Feb 2026 last
-  cycle (Wego, updated 1 Jul 2026); Hajj 1448 expected around 15–19 May 2027 (same source). Rawdah's own
-  group dates, package, hotels and Nusuk provider are marked To confirm (`hajjNusuk` in `content.ts`).
+  cycle (Wego, updated 1 Jul 2026); Hajj 1448 expected around 15–19 May 2027 (same source). Rawdah's own part
+  (helping compare options on Nusuk, registering reserves nothing and creates no payment, dates and hotels still
+  being confirmed, updates on the channels people choose) follows the LIVE page, re-read 31 Oct 2026.
 - **Next group Umrah**: not announced. The page shows Path of Purity II's shape and prices as a guide, all
   marked Suggested.
 - **Path of Purity II: Summer Edition** (V1, POSTER): 4–15 Aug 2026; 5 nights Peninsula Worth (Madinah), 5 nights

@@ -133,8 +133,8 @@ export const hero = {
 export const starts = [
   { title: "Hajj 2027", text: "Register your interest now. Packages open on Nusuk.", href: routes.hajj, tag: v("Open now", "confirmed"), photo: { src: "/images/groups/group-16.jpg", position: "object-[50%_45%]" } },
   { title: "Group Umrah", text: "Our next trip: Madinah first, then Makkah.", href: routes.nextUmrah, tag: v("Dates soon", "to confirm"), photo: { src: "/images/groups/group-10.jpg", position: "object-[50%_75%]" } },
-  { title: "Private & family", text: "Your own dates, planned with us.", href: routes.private, tag: v("Any time of year", "proposed"), photo: { src: "/images/travellers/traveller-09.jpg", position: "object-[50%_40%]" } },
-  { title: "Groups & organisations", text: "A trip for your organisation or community.", href: routes.groups, tag: v("On request", "proposed"), photo: { src: "/images/groups/group-11.jpg", position: "object-[50%_55%]" } },
+  { title: "Private & family", text: "Your own dates, planned with us.", href: routes.private, tag: v("Your dates", "draft"), photo: { src: "/images/travellers/traveller-09.jpg", position: "object-[50%_40%]" } },
+  { title: "Groups & organisations", text: "A trip for your organisation or community.", href: routes.groups, tag: v("On request", "draft"), photo: { src: "/images/groups/group-11.jpg", position: "object-[50%_55%]" } },
 ];
 
 /** The Hajj band: the talbiyah, and the five steps from registering to Hajj. */
@@ -333,17 +333,17 @@ export const hajjNusuk = {
   timelineNote: "Estimates from last year’s timeline. Nusuk announces the real dates.",
   steps: {
     headline: "Register with us first, then with Nusuk",
-    text: v("Registering with us first means we can help you get your Nusuk details right the first time, and you’re part of the group from the start.", "proposed"),
+    text: v("Registering with us first means we can help you compare the options on Nusuk, prepare you properly, and keep you with the group from the start. It doesn’t reserve a place or commit you to paying anything.", "evidenced"),
     items: [
-      { title: "Register with Rawdah", text: "Tell us who’s travelling. We add you to the group and our Hajj updates, and talk you through what comes next.", status: "proposed" as Status },
+      { title: "Register with Rawdah", text: "Tell us who’s travelling and what matters to you. We keep in touch on the channels you choose, and talk you through what comes next.", status: "evidenced" as Status },
       { title: "Open your Nusuk Hajj account", text: "At hajj.nusuk.sa. It’s separate from the Nusuk app you may have used for Umrah.", status: "evidenced" as Status },
-      { title: "Choose your package", text: "When packages are published, we tell you which one the group is travelling on, and why.", status: "proposed" as Status },
+      { title: "Choose your package", text: "When packages are published on Nusuk, we help you compare the ones that suit you.", status: "evidenced" as Status },
       { title: "Book, then prepare with us", text: "You book and pay on Nusuk when booking opens. Then preparation sessions in the UK before you fly.", status: "confirmed" as Status },
     ],
   },
   needs: {
     headline: "Nusuk registration isn’t a five-minute form",
-    text: v("It asks for exact passport details and a photo that meets its rules, and every account is checked before it’s approved. Mistakes cause delays, so we go through it with you before you submit.", "proposed"),
+    text: v("It asks for exact passport details and a photo that meets its rules, and every account is checked before it’s approved. Mistakes cause delays, so check every detail before you submit, and message us if you’re unsure.", "evidenced"),
     items: [
       "Your passport, valid well beyond your travel dates",
       "A recent passport-style photo that meets Nusuk’s size and background rules",
@@ -355,16 +355,16 @@ export const hajjNusuk = {
   group: {
     headline: "Our Hajj 2027 group",
     items: [
-      { k: "Group dates", v: "Announced with the packages, around December", s: "to confirm" as Status },
-      { k: "Package and hotels", v: "The package the group travels on, chosen when packages go live", s: "to confirm" as Status },
+      { k: "Dates", v: "Not published yet. Nusuk publishes them with the packages.", s: "evidenced" as Status },
+      { k: "Hotels and rooms", v: "Still being confirmed", s: "evidenced" as Status },
       { k: "Prices", v: "Set by the provider on Nusuk. You pay Nusuk, not Rawdah.", s: "confirmed" as Status },
-      { k: "Our Nusuk provider", v: "To be named", s: "to confirm" as Status },
+      { k: "Registering with us", v: "Doesn’t reserve a place or create any payment", s: "evidenced" as Status },
     ],
   },
   updates: {
-    title: "Hajj 2027 updates on WhatsApp",
-    text: "When Nusuk opens, when packages go live, and our preparation sessions: we’ll message you as it happens.",
-    status: "to confirm" as Status,
+    title: "Hajj 2027 updates",
+    text: "When Nusuk opens, when packages go live, and our preparation sessions: we’ll keep you posted on the channels you choose.",
+    status: "evidenced" as Status,
   },
   closing: {
     title: "Labbayk Allahumma labbayk",
@@ -437,7 +437,7 @@ export const people = {
 /** Groups band on the home page. */
 export const groupsBand = {
   headline: "A trip for your organisation or community",
-  text: v("Masjids, societies, charities and workplaces. Your people, your reasons for going: we plan the trip around your group, handle every booking, and travel with you.", "proposed"),
+  text: v("Masjids, societies, charities and workplaces. Your people, your reasons for going: we plan the trip around your group, handle every booking, and travel with you.", "draft"),
   who: ["Masjids", "Islamic societies", "Charities", "Schools and madrasahs", "Workplaces", "Community groups"],
   photo: { src: "/images/groups/group-10.jpg", alt: "A Rawdah group outside Masjid Quba in bright sun, the white minarets above them.", position: "object-[50%_78%]" },
 };
@@ -445,7 +445,7 @@ export const groupsBand = {
 /** Private band on the home page. */
 export const privateBand = {
   headline: "Private Umrah, planned around you",
-  text: v("For families, couples and friends who can’t make a group date. Tell us what you need and we’ll plan it with you.", "proposed"),
+  text: v("For families, couples and friends who can’t make a group date. Tell us what you need and we’ll plan it with you.", "draft"),
   points: [
     v("Any week, including school holidays", "proposed"),
     v("Five-star by the Haram, or a short walk away for less", "proposed"),
@@ -798,8 +798,8 @@ export const about = {
     { text: "Our trips are led by students of knowledge and experienced guides who stay with the group throughout: not just on arrival and departure, but at every step, from the first lesson in Madinah to the final tawaf in Makkah.", status: "evidenced" as Status },
     { text: "We take care of the logistics so you can give your attention to worship. Many operators offer packages; we try to offer a journey. The difference is in the knowledge, the care and the company.", status: "evidenced" as Status },
   ],
-  /** V1: "A teacher's role is not to fill your mind, but to show you the path." Unattributed on V1. */
-  quote: v("A teacher’s role is not to fill your mind, but to show you the path.", "to confirm"),
+  /** V1: the quote on Ustadh Abdulrahman Hassan’s guide card (app/page.tsx GUIDES). */
+  quote: v("A teacher’s role is not to fill your mind, but to show you the path.", "evidenced"),
   values: [
     { title: "Learning at every step", text: "Teachers with the group, and every rite explained.", status: "evidenced" as Status },
     { title: "Travelling as one", text: "One group, from the first message to home.", status: "evidenced" as Status },

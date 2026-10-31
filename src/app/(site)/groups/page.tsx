@@ -28,7 +28,6 @@ export default function GroupsPage() {
       >
         <p className="mt-6 max-w-[34rem] text-[1.04rem] leading-[1.75] text-ink/70">
           {groupsPage.text}
-          <Mark s="to confirm" />
         </p>
         <ul className="mt-7 flex flex-wrap gap-2">
           {groupsPage.who.map((w) => (

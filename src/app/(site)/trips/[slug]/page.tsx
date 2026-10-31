@@ -243,7 +243,7 @@ export default async function TripPage({ params }: { params: Promise<{ slug: str
                     </p>
                     <p className="mt-1.5 max-w-[30rem] text-[0.95rem] leading-[1.6] text-ink/70">{hajjNusuk.updates.text}</p>
                   </div>
-                  <WaTile text={say.hajj} label="Get the updates" tone="solid" className="shrink-0" />
+                  <WaTile text={say.hajj} label="Message us" tone="solid" className="shrink-0" />
                 </div>
               </section>
             ) : null}

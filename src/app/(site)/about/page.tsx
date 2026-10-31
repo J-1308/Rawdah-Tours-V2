@@ -36,8 +36,7 @@ export default function AboutPage() {
             </span>
             <blockquote className="display text-[clamp(1.75rem,3vw,2.8rem)] leading-[1.15]">{about.quote.value}”</blockquote>
             <figcaption className="mt-4 text-[0.86rem] text-ink/68">
-              From Rawdah’s first website
-              <Mark s={about.quote.status} />
+              Ustadh Abdulrahman Hassan
             </figcaption>
           </figure>
           <div className="grid content-start gap-5 lg:col-span-6 lg:col-start-7">
@@ -123,7 +122,6 @@ export default function AboutPage() {
                 <dt className="text-ink/65">Protection</dt>
                 <dd>
                   ATOL 5311 through Polani Travel Ltd, for the 2026 trips
-                  <Mark s="to confirm" />
                 </dd>
               </div>
             </dl>

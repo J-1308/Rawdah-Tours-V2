@@ -22,7 +22,6 @@ export default function PrivatePage() {
         label={
           <>
             {privatePage.label}
-            <Mark s="to confirm" />
           </>
         }
         title={privatePage.headline}
