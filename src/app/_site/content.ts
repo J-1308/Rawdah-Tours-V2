@@ -121,8 +121,8 @@ export const strip = ramadanReveal
 
 export const hero = {
   label: "Guided Umrah and Hajj from the UK",
-  /** Jibril's pick (31 Oct 2026, option four), widened to Hajj. In the spirit of the live site's "prepared with knowledge, care and intention". */
-  headline: "Your Umrah and Hajj, guided by people of knowledge.",
+  /** Jibril's pick (31 Oct 2026). */
+  headline: "Your Umrah and Hajj, guided every step of the way.",
   text: v(
     "Students of knowledge travel with every Rawdah group, and Brother Ayuub looks after you from your first message to the flight home.",
     "evidenced",
