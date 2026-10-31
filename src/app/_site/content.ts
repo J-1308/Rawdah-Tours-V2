@@ -447,7 +447,7 @@ export const groupsBand = {
 
 /** Private band on the home page. */
 export const privateBand = {
-  photo: { src: slot("family-madinah"), alt: "A family at Masjid an-Nabawi." },
+  photo: { src: slot("family-madinah"), alt: "The umbrellas of Masjid an-Nabawi opening against the sky, a minaret behind." },
   headline: "Private Umrah, planned around you",
   text: v("For families, couples and friends who can’t make a group date. Tell us what you need and we’ll plan it with you.", "draft"),
   points: [
@@ -753,7 +753,7 @@ export const privatePage = {
     { title: "Your order, your pace", text: "Madinah or Makkah first, as many nights in each as you like.", status: "proposed" as Status },
     { title: "Visa and transport", text: "We process your visa and arrange your transport on the ground.", status: "confirmed" as Status },
   ],
-  photo: { src: slot("family-haram"), alt: "A parent and child walking together at the Haram.", position: "object-[50%_50%]" },
+  photo: { src: slot("family-haram"), alt: "Masjid al-Haram and the Ka‘bah from above at dusk.", position: "object-[50%_50%]" },
 };
 
 /* ------------------------------------------------------------------------ */

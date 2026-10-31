@@ -27,3 +27,7 @@ and the frame becomes the photo. No code change needed.
 
 | Slot | Source page | Licence |
 | --- | --- | --- |
+| `hajj-arafah` | Downloaded by Jibril, 31 Oct 2026 (Mount Arafah at sunset): source page to record | Check before launch |
+| `hajj-mina` | Downloaded by Jibril (file name suggests Wikimedia Commons: "Haji pilgrimage mina tent") | Check; Commons usually needs a credit |
+| `family-haram` | Downloaded by Jibril (Makkah from above); stands in until a family photo is found | Check before launch |
+| `family-madinah` | Downloaded by Jibril (the Nabawi umbrellas); stands in until a family photo is found | Check before launch |
