@@ -59,7 +59,7 @@ repo root (outside `public/`, so they are not deployed).
 | `team/team-01.jpg` | trips/rawdah-vest-thumbs-up | Rawdah vest, thumbs up, garden at dusk. **Brother Ayuub** |
 | `team/team-02.jpg` | IMG_3231.jpeg | Team member seated in a hotel room, Rawdah vest. **Brother Ayuub** |
 | `team/team-03.jpg` | trips/rawdah-vest-palms | Rawdah vest under date palms. **Brother Ayuub** |
-| `vest-back/vest-back-01.jpg` | IMG_3653 (1).jpeg | Team walking through a hotel lobby. **Ustadh Abdulrahman Hassan (guest sheikh) in the middle** |
+| `vest-back/vest-back-01.jpg` | IMG_3653 (1).jpeg | Team walking through a hotel lobby. **Ustadh Abdulrahman Hassan (guest sheikh, not Rawdah team) in the middle** |
 | `vest-back/vest-back-02.jpg` | trips/rawdah-vest-back | Back of the Rawdah vest with the logo, among palms |
 | `vest-back/vest-back-03.jpg` | IMG_3232.JPG | Rawdah vest from behind, hotel room |
 | `bird-park/bird-park-01.jpg` | trips/parrots-two-teens | Young traveller with macaws, another behind (under 18, consent given) |

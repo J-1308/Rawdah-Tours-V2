@@ -458,7 +458,7 @@ export function GroupsBand() {
         <div className="lg:order-2 lg:col-span-6 lg:col-start-7">
           <PhotoStack
             photos={[
-              { src: groupsBand.photo.src, alt: groupsBand.photo.alt, position: "object-[50%_80%]" },
+              { src: groupsBand.photo.src, alt: groupsBand.photo.alt, position: groupsBand.photo.position },
               { src: "/images/group-photos/group-photos-01.jpg", alt: "A Rawdah group with Ustadh Abdulrahman Hassan in the lobby of Address Jabal Omar, Makkah.", position: "object-[50%_55%]" },
             ]}
             className="rise mx-auto max-w-[32rem]"

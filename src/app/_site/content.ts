@@ -188,7 +188,7 @@ export const lastTrip = {
 /** V1's "Why Choose Rawdah", in its own words where it had them. */
 export const whyRawdah = {
   headline: "Why choose Rawdah",
-  photo: { src: "/images/vest-back/vest-back-01.jpg", alt: "The Rawdah team walking through the hotel lobby, Ustadh Abdulrahman Hassan in the middle.", caption: "The Rawdah team, August 2026" },
+  photo: { src: "/images/vest-back/vest-back-02.jpg", alt: "The back of a Rawdah Tours fleece, the logo among the date palms.", caption: "The Rawdah team, August 2026" },
   reasons: [
     { title: "Daily talks and reminders", text: "Students of knowledge travel with the group from the first day to the last, with a reminder each day and someone to ask.", status: "evidenced" as Status }, // V1
     { title: "A spiritually richer itinerary", text: "The seerah in Madinah first, then each rite of Umrah explained before you perform it in Makkah.", status: "evidenced" as Status }, // V1
@@ -416,10 +416,11 @@ export const teachers = [
     photo: { src: "/images/portraits/issa-uthman.jpg", alt: "Ustadh Issa Uthman", position: "object-[40%_25%]" },
   },
   {
+    /** A guest sheikh, not part of the Rawdah team (Jibril, 31 Oct 2026; V1 badge "Special Guest"). */
     name: "Ustadh Abdulrahman Hassan",
-    role: "Guide and teacher, Path of Purity II",
-    does: "Guides and teaches on Umrah",
-    bio: v("Guided and taught our August 2026 group in Madinah and Makkah.", "draft"),
+    role: "Guest sheikh, Path of Purity II",
+    does: "Guest sheikh",
+    bio: v("Joined our August 2026 group as a guest sheikh, teaching in Madinah and Makkah.", "draft"),
     photo: { src: "/images/portraits/abdulrahman-hassan.jpg", alt: "Ustadh Abdulrahman Hassan", position: "object-[40%_30%]" },
   },
 ];
@@ -446,10 +447,10 @@ export const groupsBand = {
   headline: "A trip for your organisation or community",
   text: v("Masjids, societies, charities and workplaces. Your people, your reasons for going: we plan the trip around your group, handle every booking, and travel with you.", "draft"),
   who: ["Masjids", "Islamic societies", "Charities", "Schools and madrasahs", "Workplaces", "Community groups"],
-  // A real Rawdah lesson until a UK masjid photo is dropped into the groups-masjid slot.
+  // A whole Rawdah group until a UK masjid photo is dropped into the groups-masjid slot.
   photo: slotFilled("groups-masjid")
     ? { src: slot("groups-masjid"), alt: "A community gathered for a talk in a UK masjid.", position: "object-[50%_50%]" }
-    : { src: "/images/teaching/teaching-04.jpg", alt: "A Rawdah lesson in a hotel function room, the group seated and listening.", position: "object-[50%_50%]" },
+    : { src: "/images/group-photos/group-photos-02.jpg", alt: "A Rawdah group together on the hill at Uhud, mountains behind them.", position: "object-[50%_70%]" },
 };
 
 /** Private band on the home page. */
