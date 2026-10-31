@@ -37,6 +37,10 @@ export default function PrivacyPage() {
           <li>Payment: card payments are handled by Stripe. We don’t see or store your card details.</li>
           <li>Anything else you send us by WhatsApp, phone or email.</li>
         </ul>
+        <p>
+          The private Umrah planner and the group trip form don’t send us anything by themselves. They write a message for you, and nothing reaches us
+          until you choose to send it by WhatsApp or email.
+        </p>
         <p>We only collect what we need to organise your trip or reply to you.</p>
       </LegalSection>
 
@@ -53,8 +57,8 @@ export default function PrivacyPage() {
 
       <LegalSection title="Health information">
         <p>
-          If you share health or access needs, we use them only to look after you on the trip. Only our trip leaders can see them, and we keep them only as
-          long as needed for your journey.
+          Health or access needs are optional. If you share them, you’re giving us your explicit consent to use them only to look after you on the trip.
+          Only our trip leaders can see them, and we keep them only as long as needed for your journey. You can withdraw this consent at any time.
         </p>
       </LegalSection>
 
@@ -65,6 +69,10 @@ export default function PrivacyPage() {
           <li>Visa agents and government authorities, where required.</li>
           <li>Our ATOL-approved travel supplier, where applicable.</li>
         </ul>
+        <p>
+          For Hajj, you register and book on Nusuk, the official Saudi platform, yourself. We don’t send your details to Nusuk; their own privacy
+          terms apply there.
+        </p>
         <p>And to run this website, we use these service providers, who process data on our behalf:</p>
         <ul>
           <li>Vercel (hosting, and visit counts that don’t use cookies)</li>

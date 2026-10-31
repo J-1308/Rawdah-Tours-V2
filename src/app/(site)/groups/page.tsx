@@ -7,12 +7,12 @@ import { Mark } from "@/app/_site/marks";
 import { Chapter, Emblem, Heading, Label, PageLead, gutter, onInk } from "@/app/_site/shell";
 
 export const metadata: Metadata = {
-  title: "Masjids & groups",
-  description: "Umrah trips arranged by Rawdah Tours for masjids, study circles, youth groups and Islamic societies.",
+  title: "Groups & organisations",
+  description: "Umrah trips arranged by Rawdah Tours for masjids, Islamic societies, charities, schools, workplaces and community groups.",
 };
 
 
-/** Masjids & groups: who it's for, what they get, the steps, an example trip page and the first message. */
+/** Groups & organisations: who it's for, what they get, the steps, an example trip page and the first message. */
 export default function GroupsPage() {
   return (
     <>
@@ -91,8 +91,8 @@ export default function GroupsPage() {
                   <Image src="/images/trips/group-quba-mosque.jpg" alt="" fill sizes="(min-width: 1024px) 45vw, 100vw" className="object-cover object-[50%_80%]" />
                 </div>
                 <div className="p-6">
-                  <p className="display text-[2rem]">Your Masjid’s Umrah, spring 2027</p>
-                  <p className="mt-2 font-editorial text-[1.1rem] text-ink/70 italic">“Salaam everyone, we’d love you to join us. Our imam will teach each evening in Madinah and Makkah.”</p>
+                  <p className="display text-[2rem]">Your organisation’s Umrah, spring 2027</p>
+                  <p className="mt-2 font-editorial text-[1.1rem] text-ink/70 italic">“Salaam everyone, we’d love you to join us. Our teacher will lead a lesson each evening in Madinah and Makkah.”</p>
                   <div className="mt-5 flex flex-wrap items-center justify-between gap-4 border-t border-ink/8 pt-4">
                     <p className="text-[0.86rem] text-ink/68">
                       10 nights, from {gbp(1799)} per person, {gbp(500)} deposit

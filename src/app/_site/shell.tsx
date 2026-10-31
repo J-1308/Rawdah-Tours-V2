@@ -202,29 +202,14 @@ export function Framed({
 }
 
 /**
- * Two or three photos layered: a tall main photo, a second overlapping its
- * lower corner with a cream ring, and an optional third tucked behind.
+ * One photograph, cleanly framed: no layered photos (Jibril, 31 Oct). Extra
+ * photos passed in are ignored here; they appear in galleries further down.
  */
-export function PhotoStack({ photos, priority = false, flip = false, className = "" }: { photos: Photo[]; priority?: boolean; flip?: boolean; className?: string }) {
-  const [a, b, c] = photos;
+export function PhotoStack({ photos, priority = false, className = "", aspect = "aspect-[4/5]" }: { photos: Photo[]; priority?: boolean; flip?: boolean; className?: string; aspect?: string }) {
+  const [a] = photos;
   return (
-    <div className={`relative ${className}`}>
-      {c ? (
-        <div className={`settle absolute top-[6%] hidden aspect-[3/4] w-[34%] overflow-hidden rounded-[1.5rem] bg-beige opacity-90 shadow-[var(--shadow-lift)] sm:block ${flip ? "right-0" : "left-0"}`} style={{ animationDelay: "240ms" }}>
-          <Image src={c.src} alt={c.alt} fill sizes="20vw" className={`object-cover ${c.position ?? ""}`} />
-        </div>
-      ) : null}
-      <div className={`settle relative aspect-[4/5] w-[78%] overflow-hidden rounded-[2rem] bg-beige shadow-[var(--shadow-soft)] sm:w-[70%] ${flip ? "mr-auto" : "ml-auto"}`}>
-        <Image src={a.src} alt={a.alt} fill priority={priority} sizes="(min-width: 1024px) 34vw, 78vw" className={`object-cover ${a.position ?? ""}`} />
-      </div>
-      {b ? (
-        <div
-          className={`settle absolute bottom-[-6%] aspect-[4/3] w-[52%] overflow-hidden rounded-[1.5rem] bg-beige shadow-[var(--shadow-float)] ring-[6px] ring-canvas sm:w-[48%] ${flip ? "right-0" : "left-0"}`}
-          style={{ animationDelay: "160ms" }}
-        >
-          <Image src={b.src} alt={b.alt} fill sizes="(min-width: 1024px) 24vw, 52vw" className={`object-cover ${b.position ?? ""}`} />
-        </div>
-      ) : null}
+    <div className={`settle relative overflow-hidden rounded-[2rem] bg-beige shadow-[var(--shadow-soft)] ${aspect} ${className}`}>
+      <Image src={a.src} alt={a.alt} fill priority={priority} sizes="(min-width: 1024px) 45vw, 100vw" quality={85} className={`object-cover ${a.position ?? ""}`} />
     </div>
   );
 }
@@ -269,7 +254,7 @@ export function PageLead({
       ) : null}
       <div className="relative grid grid-cols-1 gap-x-16 gap-y-14 lg:grid-cols-12 lg:items-center">
         <div className="lg:order-2 lg:col-span-6">
-          <PhotoStack photos={photos} priority />
+          <PhotoStack photos={photos} priority aspect="aspect-[4/3] lg:aspect-[4/5]" className="lg:ml-auto lg:max-w-[34rem]" />
         </div>
         <div className="lg:order-1 lg:col-span-6">
           {label ? <Label>{label}</Label> : null}
@@ -324,7 +309,7 @@ export function SiteFooter() {
       title: "Rawdah",
       links: [
         { label: "Private & family Umrah", href: routes.private },
-        { label: "Masjids & groups", href: routes.groups },
+        { label: "Groups & organisations", href: routes.groups },
         { label: "About us", href: routes.about },
         { label: "Common questions", href: routes.questions },
       ],

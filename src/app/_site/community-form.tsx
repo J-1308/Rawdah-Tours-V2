@@ -9,7 +9,7 @@ const sizes = ["Around 10", "10 to 20", "20 to 40", "40 to 60", "More than 60"];
 const times = ["Not sure yet", "Spring 2027", "Summer 2027", "Autumn 2027", "Winter 2027–28"];
 
 /**
- * A group organiser's first message: a few questions a masjid committee can
+ * A group organiser's first message: a few questions an organiser can
  * answer in a minute, written into WhatsApp (or email) for them to send.
  */
 export function CommunityForm() {
@@ -48,10 +48,10 @@ export function CommunityForm() {
   return (
     <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
       <label className="flex flex-col gap-2 text-[0.9rem] font-medium sm:col-span-2">
-        Name of your masjid, circle or society
+        Name of your organisation or group
         <input value={org} onChange={(e) => setOrg(e.target.value)} className="field font-normal" />
       </label>
-      {sel("You are the", role, setRole, ["Imam or teacher", "Committee member", "Organiser", "Society president", "Something else"])}
+      {sel("You are the", role, setRole, ["Organiser", "Imam or teacher", "Committee member or trustee", "Manager or HR", "Society president", "Something else"])}
       {sel("How many might come", size, setSize, sizes)}
       {sel("When", when, setWhen, times)}
       {sel("Who’s travelling", kind, setKind, ["Brothers and sisters", "Brothers", "Sisters", "Families", "Young people"])}

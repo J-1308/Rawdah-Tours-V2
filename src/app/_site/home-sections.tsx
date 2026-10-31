@@ -51,12 +51,12 @@ function Dot() {
 /* ------------------------------------------------------------------------ */
 
 export function Hero() {
-  const [a, , c] = hero.mosaic;
+  const [a] = hero.mosaic;
   return (
     <section className="wash-hero relative isolate overflow-hidden">
       {/* The main photograph, dissolving into the night: on top on phones, the right side on desktop. */}
       <div className="settle relative h-[min(17.5rem,64vw)] w-full sm:h-[min(30rem,70vw)] lg:absolute lg:inset-y-0 lg:right-0 lg:h-auto lg:w-[62%]">
-        <Image src={a.src} alt={a.alt} fill priority sizes="(min-width: 1024px) 62vw, 100vw" className="night-photo object-cover object-[50%_68%] sm:object-[50%_55%]" />
+        <Image src={a.src} alt={a.alt} fill priority quality={85} sizes="(min-width: 1024px) 62vw, 100vw" className="night-photo object-cover object-[50%_68%] sm:object-[50%_55%]" />
       </div>
       <Emblem className="pointer-events-none absolute top-[18%] left-[-14%] -z-10 h-[90%] watermark lg:top-[-6%] lg:left-[-4%] lg:h-[115%]" />
       <div className={`relative grid grid-cols-1 lg:min-h-[calc(100svh-7.5rem)] lg:grid-cols-12 lg:items-center ${gutter}`}>
@@ -81,19 +81,6 @@ export function Hero() {
               </li>
             ))}
           </ul>
-        </div>
-        {/* Desktop: a second photograph and the Hajj note float over the dissolving edge. */}
-        <div className="relative hidden h-full lg:col-span-6 lg:block xl:col-span-7">
-          <div className="settle absolute bottom-[8%] left-[2%] aspect-[3/4] w-[27%] overflow-hidden rounded-[1.5rem] shadow-[var(--shadow-float)] ring-1 ring-white/10" style={{ animationDelay: "200ms" }}>
-            <Image src={c.src} alt={c.alt} fill sizes="20vw" className={`object-cover ${c.position}`} />
-          </div>
-          <Link href={strip.href} className="settle absolute top-[16%] right-[4%] rounded-[1.1rem] border border-(--edge) bg-canvas/90 px-4 py-3 text-[0.84rem] shadow-[var(--shadow-float)] transition-transform hover:-translate-y-0.5" style={{ animationDelay: "420ms" }}>
-            <span className="flex items-center gap-2 font-medium">
-              <span aria-hidden className="size-2 rounded-full bg-[#7fb488] shadow-[0_0_0_4px_rgb(127_180_136/0.2)]" />
-              Hajj 2027
-            </span>
-            <span className="mt-0.5 block text-ink/68">Registration of interest is open</span>
-          </Link>
         </div>
       </div>
     </section>
@@ -485,7 +472,7 @@ export function People({ link = true }: { link?: boolean }) {
 }
 
 /* ------------------------------------------------------------------------ */
-/* Masjids & groups, and private Umrah.                                      */
+/* Groups & organisations, and private Umrah.                                */
 /* ------------------------------------------------------------------------ */
 
 export function GroupsBand() {
@@ -502,7 +489,7 @@ export function GroupsBand() {
           />
         </div>
         <div className="lg:order-1 lg:col-span-5">
-          <Label>Masjids & groups</Label>
+          <Label>Groups & organisations</Label>
           <Heading className="mt-4 text-[clamp(2.4rem,4vw,4rem)]">{groupsBand.headline}</Heading>
           <p className="mt-5 text-[1rem] leading-[1.7] text-ink/72">
             {groupsBand.text.value}

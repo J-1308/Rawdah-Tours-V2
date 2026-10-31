@@ -24,6 +24,9 @@ export const metadata: Metadata = {
   title: { absolute: "Rawdah Tours — guided Umrah and Hajj from the UK" },
 };
 
+/** Off until real, permitted quotes replace V1’s placeholders. */
+const showReviews = false;
+
 const site = process.env.VERCEL_PROJECT_PRODUCTION_URL ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}` : "https://www.rawdahtours.co.uk";
 
 const organisation = {
@@ -77,7 +80,8 @@ export default function Home() {
       </Chapter>
       <Chapter tone="night">
         <People />
-        <Reviews />
+        {/* Travellers’ words come back when Rawdah has real quotes with permission (the V1 three were placeholders). */}
+        {showReviews ? <Reviews /> : null}
       </Chapter>
       <Chapter tone="day">
         <GroupsBand />

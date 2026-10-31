@@ -39,7 +39,7 @@ export default function TripsPage() {
         <div className="glass mt-10 grid grid-cols-1 gap-6 rounded-[2rem] p-6 sm:p-9 lg:grid-cols-12 lg:items-center">
           <div className="lg:col-span-7">
             <p className="display text-[2rem]">Can’t make these dates?</p>
-            <p className="mt-2 max-w-[36rem] text-[0.98rem] text-ink/70">Plan a private Umrah on your own dates, or bring your masjid or circle on a trip of its own.</p>
+            <p className="mt-2 max-w-[36rem] text-[0.98rem] text-ink/70">Plan a private Umrah on your own dates, or bring your organisation or community on a trip of its own.</p>
           </div>
           <Actions primary={{ label: "Plan a private Umrah", href: routes.private }} waText={say.private} tone="canvas" className="lg:col-span-5 lg:justify-end" />
         </div>

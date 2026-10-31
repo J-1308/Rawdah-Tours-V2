@@ -91,7 +91,7 @@ export const nav = [
   { label: "Hajj 2027", href: routes.hajj },
   { label: "Umrah trips", href: routes.trips, children: tripLinks.slice(1) },
   { label: "Private & family", href: routes.private },
-  { label: "Masjids & groups", href: routes.groups },
+  { label: "Groups & organisations", href: routes.groups },
   { label: "About", href: routes.about },
   { label: "Contact", href: routes.contact },
 ] as const;
@@ -134,7 +134,7 @@ export const starts = [
   { title: "Hajj 2027", text: "Register your interest now. Packages open on Nusuk.", href: routes.hajj, tag: v("Open now", "confirmed"), photo: { src: "/images/trips/three-after-umrah-haram.jpg", position: "object-[50%_45%]" } },
   { title: "Group Umrah", text: "Our next trip: Madinah first, then Makkah.", href: routes.nextUmrah, tag: v("Dates soon", "to confirm"), photo: { src: "/images/trips/group-quba-mosque-bright.jpg", position: "object-[50%_75%]" } },
   { title: "Private & family", text: "Your own dates, planned with us.", href: routes.private, tag: v("Any time of year", "proposed"), photo: { src: "/images/trips/two-at-islamic-university.jpg", position: "object-[50%_40%]" } },
-  { title: "Masjids & groups", text: "A trip for your masjid, circle or society.", href: routes.groups, tag: v("On request", "proposed"), photo: { src: "/images/trips/five-at-islamic-university.jpg", position: "object-[50%_55%]" } },
+  { title: "Groups & organisations", text: "A trip for your organisation or community.", href: routes.groups, tag: v("On request", "proposed"), photo: { src: "/images/trips/five-at-islamic-university.jpg", position: "object-[50%_55%]" } },
 ];
 
 /** The Hajj band: the talbiyah, and the five steps from registering to Hajj. */
@@ -436,9 +436,9 @@ export const people = {
 
 /** Groups band on the home page. */
 export const groupsBand = {
-  headline: "A trip for your masjid, circle or society",
-  text: v("Your community, your teacher, your reasons for going. We plan the trip around your group, handle every booking, and travel with you.", "proposed"),
-  who: ["Masjids", "Study circles", "Sisters’ circles", "Youth groups", "University Islamic societies", "Madrasahs"],
+  headline: "A trip for your organisation or community",
+  text: v("Masjids, societies, charities and workplaces. Your people, your reasons for going: we plan the trip around your group, handle every booking, and travel with you.", "proposed"),
+  who: ["Masjids", "Islamic societies", "Charities", "Schools and madrasahs", "Workplaces", "Community groups"],
   photo: { src: "/images/trips/group-quba-mosque-bright.jpg", alt: "A Rawdah group outside Masjid Quba in bright sun, the white minarets above them.", position: "object-[50%_78%]" },
 };
 
@@ -753,17 +753,17 @@ export const privatePage = {
 };
 
 /* ------------------------------------------------------------------------ */
-/* Masjids & groups                                                          */
+/* Groups & organisations                                                    */
 /* ------------------------------------------------------------------------ */
 
 export const groupsPage = {
-  label: "Masjids & groups",
-  headline: "A trip for your masjid, circle or society.",
-  text: "Your community, your teacher, your reasons for going. We plan the trip around your group, handle every booking, and travel with you.",
+  label: "Groups & organisations",
+  headline: "Umrah for your organisation, planned around your people.",
+  text: "Masjids, societies, charities and workplaces. Your people, your reasons for going: we plan the trip around your group, handle every booking, and travel with you.",
   who: groupsBand.who,
   offers: [
     { title: "Planned around you", text: "Dates, length and pace agreed with you, with lessons built around what your group is studying.", status: "proposed" as Status },
-    { title: "A page for your trip", text: "Your group’s name and the booking details on one page, ready to share in the masjid and on WhatsApp.", status: "proposed" as Status },
+    { title: "A page for your trip", text: "Your group’s name and the booking details on one page, ready to share with your members and on WhatsApp.", status: "proposed" as Status },
     { title: "Everyone pays us directly", text: "Each traveller books and pays in instalments, so nobody in your group handles the money.", status: "to confirm" as Status },
     { title: "Bring your teacher", text: "Your imam or teacher leads the lessons, or one of ours travels with you.", status: "proposed" as Status },
     { title: "Our team on the ground", text: "We travel with your group and look after it in both cities.", status: "evidenced" as Status },
@@ -780,7 +780,7 @@ export const groupsPage = {
     { q: "Do I have to collect anyone’s money?", a: "No. Each person books and pays us directly, with instalments.", status: "to confirm" as Status },
     { q: "Can our own teacher lead the lessons?", a: "Yes, and we plan the days around them. If you don’t have one, one of ours can come.", status: "proposed" as Status },
     { q: "What size of group works?", a: "From around ten people upwards. Hotels and transport are set around your numbers.", status: "proposed" as Status },
-    { q: "How early should we get in touch?", a: "Four to six months ahead gives your community time to save and sign up.", status: "proposed" as Status },
+    { q: "How early should we get in touch?", a: "Four to six months ahead gives your people time to save and sign up.", status: "proposed" as Status },
   ],
   photo: { src: "/images/trips/group-uhud-hill.jpg", alt: "A Rawdah group standing together on the hill at Uhud, mountains behind them.", position: "object-[50%_72%]" },
 };
