@@ -75,7 +75,7 @@ One folder per kind of shot (`group-photos/`, `friends/`, `candid/`, `teaching/`
 the hotels' media kits (Address Jabal Omar, and Peninsula Worth or Hilton in Madinah). Never copy them from
 another operator's site (e.g. The Sunnah Experience): they belong to the hotels or that operator.
 
-Photos marked "check age" in the README wait for a parent's consent before use.
+Photos of under-18s: parents' permission confirmed by Jibril (31 Oct 2026); marked "under 18" in the README.
 
 ## Still missing
 

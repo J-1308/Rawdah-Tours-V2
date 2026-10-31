@@ -174,7 +174,7 @@ export const lastTrip = {
     { src: "/images/group-photos/group-photos-04.jpg", caption: "Masjid Quba", alt: "The group outside Masjid Quba, its white minarets behind them.", position: "object-[50%_75%]" },
     { src: "/images/teaching/teaching-01.jpg", caption: "A reminder from Ustadh Abdulrahman Hassan", alt: "Ustadh Abdulrahman Hassan giving the group a reminder outdoors.", position: "object-[50%_30%]" },
     { src: "/images/group-photos/group-photos-03.jpg", caption: "In ihram, ready for Umrah", alt: "The group in ihram at night, lit arcades and a minaret behind them.", position: "object-[50%_60%]" },
-    { src: "/images/bird-park/bird-park-02.jpg", caption: "Between lessons", alt: "A traveller holding two macaws on his arms.", position: "object-[50%_40%]" },
+    { src: "/images/bird-park/bird-park-01.jpg", caption: "Between lessons", alt: "A young traveller holding two macaws, a friend beside him.", position: "object-[50%_40%]" },
     { src: "/images/friends/friends-05.jpg", caption: "Umrah complete", alt: "Three travellers in ihram outside Masjid al-Haram at dusk, the minarets lit behind them.", position: "object-[50%_50%]" },
   ],
 };

@@ -22,8 +22,8 @@ All photos are from Rawdah's own trips (Path of Purity II, August 2026), supplie
 long edge 2400–3000px, JPEG, location data removed. Hotel and train photos still to come from Rawdah or the hotels'
 media kits; never from another operator's site.
 
-**Check before use:** "check age" means the photo may show under-18s and needs a parent's consent. candid-02 shows
-sisters: check they are happy to be on the site. Photos Jibril chose not to use are in `photos-not-used/` at the
+**Under-18s:** Jibril confirmed on 31 October 2026 that parents have given permission for every photo of children;
+those photos are marked "under 18, consent given". candid-02 shows sisters: check they are happy to be on the site. Photos Jibril chose not to use are in `photos-not-used/` at the
 repo root (outside `public/`, so they are not deployed).
 
 ## What each file shows (ranked 31 October 2026; names in bold are Jibril's notes)
@@ -39,9 +39,9 @@ repo root (outside `public/`, so they are not deployed).
 | `friends/friends-01.jpg` | trips/five-at-islamic-university | Five at the Islamic University gate. **Ustadh Issa Uthman is in it** |
 | `friends/friends-02.jpg` | trips/two-at-islamic-university | Two at the Islamic University. **Ustadh Issa Uthman is in it** |
 | `friends/friends-03.jpg` | trips/six-after-umrah | Six travellers after Umrah, outside the hotel |
-| `friends/friends-04.jpg` | IMG_3493.jpeg | Two in ihram at night (check age) |
+| `friends/friends-04.jpg` | IMG_3493.jpeg | Two in ihram at night (under 18, consent given) |
 | `friends/friends-05.jpg` | trips/three-after-umrah-haram | Three in ihram after Umrah, the Haram at dusk |
-| `friends/friends-06.jpg` | 5bdb79d7….JPG | Two in a hotel lobby, "I love Makkah" bag (check age, right) |
+| `friends/friends-06.jpg` | 5bdb79d7….JPG | Two in a hotel lobby, "I love Makkah" bag (under 18, right, consent given) |
 | `friends/friends-07.jpg` | trips/two-in-ihram-arrival | Two in ihram outside the hotel on arrival |
 | `friends/friends-08.jpg` | trips/two-at-nabawi-night | Two at Masjid an-Nabawi at night |
 | `friends/friends-09.jpg` | trips/two-ihram-clock-tower | Two in ihram at night, the clock tower behind (portrait) |
@@ -62,8 +62,8 @@ repo root (outside `public/`, so they are not deployed).
 | `vest-back/vest-back-01.jpg` | IMG_3653 (1).jpeg | Team walking through a hotel lobby. **Ustadh Abdulrahman Hassan (guest sheikh) in the middle** |
 | `vest-back/vest-back-02.jpg` | trips/rawdah-vest-back | Back of the Rawdah vest with the logo, among palms |
 | `vest-back/vest-back-03.jpg` | IMG_3232.JPG | Rawdah vest from behind, hotel room |
-| `bird-park/bird-park-01.jpg` | trips/parrots-two-teens | Young traveller with macaws, another behind (check age) |
+| `bird-park/bird-park-01.jpg` | trips/parrots-two-teens | Young traveller with macaws, another behind (under 18, consent given) |
 | `bird-park/bird-park-02.jpg` | trips/parrots-young-man | Traveller holding two macaws |
-| `bird-park/bird-park-03.jpg` | trips/rawdah-vest-parrot | Rawdah vest, holding a macaw (check age) |
+| `bird-park/bird-park-03.jpg` | trips/rawdah-vest-parrot | Rawdah vest, holding a macaw (under 18, consent given) |
 | `places/places-01.jpg` | trips/makkah/makkah-01 | The Ka‘bah at night, the clock tower behind |
 | `video/video-01.mp4` | IMG_3290.mov | Video, 720×1280 portrait (too small for a full-width hero) |
