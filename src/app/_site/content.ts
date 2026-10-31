@@ -23,6 +23,7 @@
  */
 
 import { getTrip } from "@/lib/trips";
+import { slot } from "@/app/_site/slots";
 
 export type Status = "confirmed" | "evidenced" | "draft" | "proposed" | "to confirm" | "sample";
 
@@ -132,10 +133,10 @@ export const hero = {
 
 /** "Where would you like to start?" — one way in for each kind of traveller. */
 export const starts = [
-  { title: "Hajj 2027", text: "Register your interest now. Packages open on Nusuk.", href: routes.hajj, tag: v("Open now", "confirmed"), photo: { src: "/images/friends/friends-05.jpg", position: "object-[50%_45%]" } },
+  { title: "Hajj 2027", text: "Register your interest now. Packages open on Nusuk.", href: routes.hajj, tag: v("Open now", "confirmed"), photo: { src: slot("hajj-mina"), position: "object-[50%_45%]" } },
   { title: "Group Umrah", text: "Our next trip: Madinah first, then Makkah.", href: routes.nextUmrah, tag: v("Dates soon", "to confirm"), photo: { src: "/images/group-photos/group-photos-04.jpg", position: "object-[50%_75%]" } },
-  { title: "Private & family", text: "Your own dates, planned with us.", href: routes.private, tag: v("Your dates", "draft"), photo: { src: "/images/friends/friends-02.jpg", position: "object-[50%_40%]" } },
-  { title: "Groups & organisations", text: "A trip for your organisation or community.", href: routes.groups, tag: v("On request", "draft"), photo: { src: "/images/friends/friends-01.jpg", position: "object-[50%_55%]" } },
+  { title: "Private & family", text: "Your own dates, planned with us.", href: routes.private, tag: v("Your dates", "draft"), photo: { src: slot("family-haram"), position: "object-[50%_50%]" } },
+  { title: "Groups & organisations", text: "A trip for your organisation or community.", href: routes.groups, tag: v("On request", "draft"), photo: { src: "/images/teaching/teaching-01.jpg", position: "object-[50%_30%]" } },
 ];
 
 /** The Hajj band: the talbiyah, and the five steps from registering to Hajj. */
@@ -441,11 +442,12 @@ export const groupsBand = {
   headline: "A trip for your organisation or community",
   text: v("Masjids, societies, charities and workplaces. Your people, your reasons for going: we plan the trip around your group, handle every booking, and travel with you.", "draft"),
   who: ["Masjids", "Islamic societies", "Charities", "Schools and madrasahs", "Workplaces", "Community groups"],
-  photo: { src: "/images/group-photos/group-photos-04.jpg", alt: "A Rawdah group outside Masjid Quba in bright sun, the white minarets above them.", position: "object-[50%_78%]" },
+  photo: { src: slot("groups-masjid"), alt: "A community gathered for a talk in a UK masjid.", position: "object-[50%_50%]" },
 };
 
 /** Private band on the home page. */
 export const privateBand = {
+  photo: { src: slot("family-madinah"), alt: "A family at Masjid an-Nabawi." },
   headline: "Private Umrah, planned around you",
   text: v("For families, couples and friends who can’t make a group date. Tell us what you need and we’ll plan it with you.", "draft"),
   points: [
@@ -618,7 +620,7 @@ export const journeys: Journey[] = [
       { title: "Services", text: "Transport, services and the schedule for each package." },
       { title: "Visa requirements", text: "Set out in the official platform information." },
     ],
-    photo: { src: "/images/friends/friends-05.jpg", width: 2400, height: 1800, alt: "Three Rawdah travellers in ihram outside Masjid al-Haram at dusk, the minarets lit behind them.", position: "object-[50%_55%]" },
+    photo: { src: slot("hajj-arafah"), width: 2400, height: 1800, alt: "Pilgrims on Mount Arafah on the day of Hajj.", position: "object-[50%_50%]" },
     more: [
       { src: "/images/teaching/teaching-06.jpg", alt: "A Rawdah preparation session in the UK.", position: "object-[50%_60%]" },
       { src: "/images/friends/friends-09.jpg", alt: "Two travellers in ihram at night, the clock tower behind them.", position: "object-[50%_40%]" },
@@ -657,7 +659,7 @@ export const journeys: Journey[] = [
       { title: "Hotels and flights", text: "Confirmed when the trip is announced." },
       { title: "Teachers", text: "Named when the trip is announced." },
     ],
-    photo: { src: "/images/group-photos/group-photos-04.jpg", width: 2400, height: 1600, alt: "A Rawdah group outside Masjid Quba in Madinah, its white minarets behind them.", position: "object-[50%_70%]" },
+    photo: { src: "/images/places/places-01.jpg", width: 2400, height: 1600, alt: "The Ka‘bah at night, the clock tower behind it.", position: "object-[50%_55%]" },
     more: [
       { src: "/images/group-photos/group-photos-05.jpg", alt: "The group on the roof of Masjid an-Nabawi.", position: "object-[50%_62%]" },
       { src: "/images/friends/friends-07.jpg", alt: "Two travellers in ihram, smiling, suitcases behind them.", position: "object-[50%_35%]" },
@@ -751,7 +753,7 @@ export const privatePage = {
     { title: "Your order, your pace", text: "Madinah or Makkah first, as many nights in each as you like.", status: "proposed" as Status },
     { title: "Guided by our team", text: "Your Umrah guided on arrival, and ziyarah in both cities.", status: "proposed" as Status },
   ],
-  photo: { src: "/images/friends/friends-02.jpg", alt: "Ustadh Issa Uthman with a traveller at the Islamic University of Madinah.", position: "object-[50%_45%]" },
+  photo: { src: slot("family-haram"), alt: "A parent and child walking together at the Haram.", position: "object-[50%_50%]" },
 };
 
 /* ------------------------------------------------------------------------ */
@@ -784,7 +786,7 @@ export const groupsPage = {
     { q: "What size of group works?", a: "From around ten people upwards. Hotels and transport are set around your numbers.", status: "proposed" as Status },
     { q: "How early should we get in touch?", a: "Four to six months ahead gives your people time to save and sign up.", status: "proposed" as Status },
   ],
-  photo: { src: "/images/group-photos/group-photos-02.jpg", alt: "A Rawdah group standing together on the hill at Uhud, mountains behind them.", position: "object-[50%_72%]" },
+  photo: { src: "/images/teaching/teaching-01.jpg", alt: "Ustadh Abdulrahman Hassan giving the group a reminder outdoors.", position: "object-[50%_30%]" },
 };
 
 /* ------------------------------------------------------------------------ */

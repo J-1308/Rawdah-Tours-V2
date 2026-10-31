@@ -71,6 +71,10 @@ path" and the Path of Purity trips. **No copy is taken from The Umrah Company si
 One folder per kind of shot (`group-photos/`, `friends/`, `candid/`, `teaching/`, `team/`, `vest-back/`,
 `bird-park/`, `places/`, `portraits/`), numbered by rank: 01 is the best. The README says what each file shows and what it was called before (31 October 2026).
 
+**Photo slots** (`public/images/slots/`, see its README): named "Photo to come" frames for photos from outside
+Rawdah's trips (Hajj at Arafah and Mina, families at the Haram, a UK masjid talk). Drop in a file with the slot's
+name and it replaces the frame. Stock photos never stand in for Rawdah's travellers.
+
 **Hotel and train photographs:** frames marked "Photo to come" wait for official photographs from Rawdah or
 the hotels' media kits (Address Jabal Omar, and Peninsula Worth or Hilton in Madinah). Never copy them from
 another operator's site (e.g. The Sunnah Experience): they belong to the hotels or that operator.

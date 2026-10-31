@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { isEmptySlot, slotBriefs } from "@/app/_site/slots";
 import Link from "next/link";
 import type { CSSProperties, ReactNode } from "react";
 
@@ -205,11 +206,27 @@ export function Framed({
  * One photograph, cleanly framed: no layered photos (Jibril, 31 Oct). Extra
  * photos passed in are ignored here; they appear in galleries further down.
  */
+/** A photo that fills its frame, or, for an empty slot, a placeholder saying what photo goes there. */
+export function Pic({ src, alt, sizes, className = "", priority = false, quality }: { src: string; alt: string; sizes: string; className?: string; priority?: boolean; quality?: number }) {
+  if (!isEmptySlot(src)) return <Image src={src} alt={alt} fill priority={priority} sizes={sizes} quality={quality} className={className} />;
+  const name = (src.split("/").pop() ?? "").replace(/\.[^.]+$/, "");
+  return (
+    <div className="absolute inset-0 grid place-items-center border-2 border-dashed border-bronze/45 bg-(--raise) p-5 text-center">
+      <Emblem className="pointer-events-none absolute inset-0 m-auto h-[70%] text-bronze/[0.07]" />
+      <div className="relative max-w-[17rem]">
+        <p className="font-display text-[0.7rem] font-medium tracking-[0.14em] text-bronze uppercase">Photo to come</p>
+        <p className="mt-2 font-editorial text-[1.05rem] leading-snug text-ink/80 italic">{slotBriefs[name] ?? alt}</p>
+        <p className="mt-2 font-mono text-[0.68rem] text-ink/55">images/slots/{name}.jpg</p>
+      </div>
+    </div>
+  );
+}
+
 export function PhotoStack({ photos, priority = false, className = "", aspect = "aspect-[4/5]" }: { photos: Photo[]; priority?: boolean; flip?: boolean; className?: string; aspect?: string }) {
   const [a] = photos;
   return (
     <div className={`settle relative overflow-hidden rounded-[2rem] bg-beige shadow-[var(--shadow-soft)] ${aspect} ${className}`}>
-      <Image src={a.src} alt={a.alt} fill priority={priority} sizes="(min-width: 1024px) 45vw, 100vw" quality={85} className={`object-cover ${a.position ?? ""}`} />
+      <Pic src={a.src} alt={a.alt} priority={priority} sizes="(min-width: 1024px) 45vw, 100vw" quality={85} className={`object-cover ${a.position ?? ""}`} />
     </div>
   );
 }

@@ -1,6 +1,18 @@
+import { readdirSync } from 'node:fs'
+
 import type { NextConfig } from 'next'
 
+/** Photos dropped into public/images/slots/, read once at build time (see src/app/_site/slots.ts). */
+const slotFiles = (() => {
+  try {
+    return readdirSync('public/images/slots').filter((f) => /\.(jpe?g|png|webp)$/i.test(f)).join(',')
+  } catch {
+    return ''
+  }
+})()
+
 const nextConfig: NextConfig = {
+  env: { SLOT_FILES: slotFiles },
   images: {
     // Next 16 only allows quality 75 unless listed here.
     qualities: [75, 85],

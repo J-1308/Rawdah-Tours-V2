@@ -1,8 +1,8 @@
-import Image from "next/image";
 import Link from "next/link";
 
 import { anchors, fromPrice, gbp, monthly, routeText, stateLabel, wa, type Journey } from "@/app/_site/content";
 import { Mark } from "@/app/_site/marks";
+import { Pic } from "@/app/_site/shell";
 import { Chevron, WaGlyph } from "@/app/_site/whatsapp";
 
 export const tripHref = (j: Journey) => `/trips/${j.slug}`;
@@ -41,7 +41,7 @@ export function TripRow({ j }: { j: Journey; tone?: "canvas" | "ink" }) {
   return (
     <article className="rise glass grid grid-cols-1 gap-4 rounded-[1.75rem] p-2.5 sm:gap-5 sm:rounded-[2rem] sm:p-4 lg:grid-cols-[19rem_1fr_18rem] lg:gap-8">
       <Link href={href} tabIndex={-1} aria-hidden className="relative block aspect-[16/9] overflow-hidden rounded-[1.35rem] bg-beige sm:aspect-[16/10] sm:rounded-[1.5rem] lg:aspect-auto lg:min-h-[15rem]">
-        <Image src={j.photo.src} alt="" fill sizes="(min-width: 1024px) 19rem, 100vw" className={`object-cover transition-transform duration-[1.2s] hover:scale-[1.04] ${j.photo.position ?? ""}`} />
+        <Pic src={j.photo.src} alt="" sizes="(min-width: 1024px) 19rem, 100vw" className={`object-cover transition-transform duration-[1.2s] hover:scale-[1.04] ${j.photo.position ?? ""}`} />
         <StateTag j={j} className="absolute top-3 left-3" />
       </Link>
 

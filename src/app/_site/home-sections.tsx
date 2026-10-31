@@ -29,7 +29,7 @@ import {
   type Status,
 } from "@/app/_site/content";
 import { Mark } from "@/app/_site/marks";
-import { Actions, Emblem, gutter, Heading, Label, onInk, PhotoStack, Tick, TileLink, WaSquare, WaTile } from "@/app/_site/shell";
+import { Actions, Emblem, gutter, Heading, Label, onInk, PhotoStack, Pic, Tick, TileLink, WaSquare, WaTile } from "@/app/_site/shell";
 
 export { Tick } from "@/app/_site/shell";
 import { TripRow } from "@/app/_site/trip-row";
@@ -100,7 +100,7 @@ export function Starts() {
           <li key={s.title} className="w-[74%] shrink-0 snap-start sm:w-[42%] lg:w-auto">
             <Link href={s.href} className="group block">
               <div className="relative aspect-[4/5] overflow-hidden rounded-[1.75rem] bg-beige shadow-[var(--shadow-lift)]">
-                <Image src={s.photo.src} alt="" fill sizes="(min-width: 1024px) 23vw, (min-width: 640px) 42vw, 74vw" className={`object-cover transition-transform duration-[1.2s] group-hover:scale-[1.04] ${s.photo.position}`} />
+                <Pic src={s.photo.src} alt="" sizes="(min-width: 1024px) 23vw, (min-width: 640px) 42vw, 74vw" className={`object-cover transition-transform duration-[1.2s] group-hover:scale-[1.04] ${s.photo.position}`} />
                 <div aria-hidden className="absolute inset-0 bg-[linear-gradient(to_top,rgb(42_31_26/0.85)_0%,rgb(42_31_26/0.25)_45%,transparent_70%)]" />
                 <span className="absolute top-3 left-3 rounded-full bg-black/60 px-3 py-1 text-[0.78rem] font-medium text-cream [&_.site-mark]:border-sand/60 [&_.site-mark]:text-sand">
                   {s.tag.value}
@@ -515,7 +515,7 @@ export function PrivateBand() {
       <div className="grid grid-cols-1 gap-x-16 gap-y-12 lg:grid-cols-12 lg:items-center">
         <div className="lg:col-span-5">
           <div className="rise relative mx-auto aspect-[4/5] max-w-[26rem] overflow-hidden rounded-[2rem] bg-beige shadow-[var(--shadow-soft)]">
-            <Image src="/images/friends/friends-08.jpg" alt="Two travellers at Masjid an-Nabawi at night." fill sizes="(min-width: 1024px) 30vw, 90vw" className="object-cover object-[50%_45%]" />
+            <Pic src={privateBand.photo.src} alt={privateBand.photo.alt} sizes="(min-width: 1024px) 30vw, 90vw" className="object-cover object-[50%_45%]" />
           </div>
         </div>
         <div className="lg:col-span-6 lg:col-start-7">
