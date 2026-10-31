@@ -9,13 +9,11 @@ Things only Rawdah (or Jibril) can answer. Each one is marked on the page where 
    do we have permission to use them? If not, remove them until real ones are collected.
 3. **ATOL:** settled. Jibril confirmed Rawdah's Umrah trips are ATOL protected (ATOL 5311). The site doesn't name the
    ATOL provider (Jibril's instruction, 31 Oct 2026). Hajj is booked on Nusuk, so ATOL doesn't apply to it.
-4. **Ramadan Umrah 2027 (GGC × Rawdah Tours):** on the site from Rawdah's itinerary. Still open:
-   - The deposit: the itinerary says £399, the terms (6.1) say £299. Which should the terms say?
-   - Who it's open to (brothers, sisters, families?) and which teachers travel.
-   - How people pay the deposit: on the site by card (needs Stripe set up), bank transfer, or arranged on WhatsApp.
-     The itinerary says "bookings open this weekend"; the site takes registrations until this is decided.
-   - Whether visas are included, and GGC's full name and whether to show its logo.
-   - Hotel photos for Novotel Thakher City Makkah and Al Manakha Rotana (slots on the trip page).
+4. **Ramadan Umrah 2027 (GGC × Rawdah Tours):** settled with Jibril (31 Oct 2026): the £399 deposit is right (terms
+   6.1 updated from £299), visas are included, open to brothers, sisters and families, booking on WhatsApp with
+   deposits by bank transfer (card payments with Stripe later), GGC is the Global Guidance Center and its logo is
+   shown. Still open: the teachers (Jibril to say when announced) and hotel photos for Novotel Makkah Thakher City
+   and Al Manakha Rotana.
 5. **Hajj 2027 "open to":** settled. Brothers and sisters, and children over 12 (Rawdah, 31 Oct 2026).
 5a. **Hajj 2027 group:** settled from the live Hajj page (31 Oct 2026): no provider is named, dates and hotels
     are "still being confirmed", Rawdah helps compare the options on Nusuk, registering reserves nothing, and

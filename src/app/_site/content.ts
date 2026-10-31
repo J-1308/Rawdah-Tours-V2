@@ -389,7 +389,7 @@ export const paying = {
   text: "A deposit holds your place. The rest is spread out, and it’s all paid before you fly.",
   example: { room: "Early bird, Ramadan Umrah 2027", price: 1899, deposit: 399, instalments: 3 },
   stages: [
-    { when: "On booking", what: "£399 deposit", note: "Non-refundable. By card or bank transfer.", status: "confirmed" as Status },
+    { when: "On booking", what: "£399 deposit", note: "Non-refundable, by bank transfer.", status: "confirmed" as Status },
     { when: "Nov, Dec, Jan", what: "Three payments", note: "30 November, 31 December, 20 January.", status: "confirmed" as Status },
     { when: "20 January", what: "Paid in full", note: "Five weeks before you fly.", status: "confirmed" as Status },
     { when: "Departure", what: "Fly together", note: "Brother Ayuub meets the group.", status: "draft" as Status },
@@ -511,7 +511,7 @@ export const faqs: Faq[] = [
   { topic: "hajj", q: "How do Hajj bookings and payments work?", a: "You choose, book and pay for your Hajj package directly on Nusuk, the official Saudi Hajj platform. Rawdah Tours does not take payment for Hajj packages.", status: "confirmed" },
   { topic: "hajj", q: "Are the Hajj 2027 dates confirmed?", a: "Not yet. The dates and length of the trip are published with the approved packages on Nusuk.", status: "confirmed" },
   { topic: "hajj", q: "How does Rawdah help with Hajj?", a: "We talk through your priorities, help you compare suitable Nusuk packages, prepare you before departure, and our team is on the ground with you throughout. The choice of package is always yours.", status: "confirmed" },
-  { topic: "paying", q: "How do I pay for the trip?", a: "A non-refundable deposit holds your place: £399 on our Ramadan 2027 trip, by card or bank transfer. The rest is paid in set instalments; for Ramadan 2027 that’s 30 November, 31 December and 20 January, so it’s all paid well before you fly.", status: "confirmed" },
+  { topic: "paying", q: "How do I pay for the trip?", a: "A non-refundable deposit holds your place: £399 on our Ramadan 2027 trip. Book on WhatsApp and pay by bank transfer; we send you the details. Card payments are coming soon. The rest is paid in set instalments; for Ramadan 2027 that’s 30 November, 31 December and 20 January, so it’s all paid well before you fly.", status: "confirmed" },
   { topic: "paying", q: "What is your cancellation policy?", a: "Deposits are non-refundable. 60 days or more before departure, everything you’ve paid beyond the deposit is refunded; 40 to 59 days, half of it, and you can change the guest’s name free of charge; under 40 days, no refund, though a name change may be possible for a fee. Find a replacement before the 40-day mark and nothing is lost.", status: "confirmed" },
   { topic: "paying", q: "Is my trip ATOL protected?", a: "Yes. Our Umrah trips are ATOL protected (ATOL 5311), and you’ll get an ATOL certificate when you book. Hajj is different: you book and pay for your package on Nusuk, not with us, so it’s covered by Nusuk’s terms.", status: "confirmed" },
   { topic: "paying", q: "Do I need a visa to travel with you?", a: "Most travellers need a visa for Saudi Arabia. We arrange it and guide you through it, but approval is at the discretion of the authorities.", status: "confirmed" },
@@ -581,8 +581,9 @@ export type Journey = {
   hotels?: { madinah?: V; makkah?: V };
   /** Matches a trip in src/lib/trips.ts, whose server-side prices the card checkout uses. */
   bookingSlug?: string;
-  /** Joint trips: the partner, shown with the name ("GGC × Rawdah Tours"). */
+  /** Joint trips: the partner, shown with the name ("GGC × Rawdah Tours"), and its logo. */
   partner?: string;
+  partnerLogo?: { src: string; width: number; height: number; alt: string };
   plan?: TripPlan;
   intro: string;
   introStatus: Status;
@@ -683,12 +684,14 @@ export const journeys: Journey[] = [
     kind: "umrah",
     name: "Ramadan Umrah 2027",
     partner: "GGC × Rawdah Tours",
+    partnerLogo: { src: "/images/brand/partners/ggc.png", width: 300, height: 100, alt: "Global Guidance Center (GGC)" },
     tagline: "The last ten days of Ramadan in Makkah, then four nights in Madinah.",
-    state: "interest",
+    /** Booking open on WhatsApp, deposits by bank transfer; card payments later (Jibril, 31 Oct 2026). */
+    state: "open",
     stateStatus: "confirmed",
     dates: v("Sat 27 Feb – Sat 13 Mar 2027", "confirmed"),
     route: v([{ place: "Makkah", nights: 9 }, { place: "Madinah", nights: 4 }], "confirmed"),
-    openTo: v("Brothers, sisters and families", "to confirm"),
+    openTo: v("Brothers, sisters and families", "confirmed"),
     teacher: v("Named when the trip is announced", "to confirm"),
     rooms: v(roomsFromTrips("ramadan-umrah-2027"), "confirmed"),
     deposit: v(399, "confirmed"),
@@ -786,6 +789,7 @@ export const journeys: Journey[] = [
         v("9 nights at Novotel Thakher City Makkah, 4★", "confirmed"),
         v("4 nights at Al Manakha Rotana, Madinah, 4★", "confirmed"),
         v("Transfers on the ground, straight to Makkah when you land", "confirmed"),
+        v("Your Umrah visa", "confirmed"),
         v("Ground only: the hotels and transfers, with your own flights", "confirmed"),
         v("Students of knowledge and our group leader with the group", "proposed"),
       ],
@@ -866,6 +870,48 @@ export function routeText(j: Journey) {
   const names = legs.map((l) => l.place);
   return names.length > 1 ? `${names.slice(0, -1).join(", ")} and ${names.at(-1)}` : names[0];
 }
+
+/** Who we work with (Jibril, 31 Oct 2026): partners, airlines, hotels, travel and Hajj. Links are each one's own site. */
+export const partners = {
+  label: "Who we work with",
+  headline: "The partners, airlines and hotels behind our trips",
+  groups: [
+    {
+      title: "Partners",
+      items: [
+        {
+          name: "Global Guidance Center",
+          what: "Our partner for the Ramadan Umrah 2027: GGC brings guidance from the Qur’an into everyday life.",
+          href: "https://ggcenter.org",
+          logo: { src: "/images/brand/partners/ggc.png", width: 300, height: 100, alt: "GGC" },
+        },
+      ],
+    },
+    {
+      title: "Flights",
+      items: [
+        { name: "Saudia", what: "Ramadan Umrah 2027, from Heathrow", href: "https://www.saudia.com" },
+        { name: "Qatar Airways", what: "Path of Purity II, August 2026", href: "https://www.qatarairways.com" },
+      ],
+    },
+    {
+      title: "Hotels",
+      items: [
+        { name: "Novotel Makkah Thakher City", what: "Makkah, Ramadan 2027", href: "https://all.accor.com/hotel/B3H1/index.en.shtml" },
+        { name: "Al Manakha Rotana", what: "Madinah, Ramadan 2027", href: "https://www.rotana.com/almanakharotana" },
+        { name: "Address Jabal Omar", what: "Makkah, August 2026" },
+        { name: "Peninsula Worth Hotel", what: "Madinah, August 2026" },
+      ],
+    },
+    {
+      title: "Travel and Hajj",
+      items: [
+        { name: "Haramain High Speed Railway", what: "The train between Makkah, Jeddah and Madinah", href: "https://sar.com.sa" },
+        { name: "Nusuk Hajj", what: "Where Hajj packages are booked", href: "https://hajj.nusuk.sa/?language=en" },
+      ],
+    },
+  ] as { title: string; items: { name: string; what: string; href?: string; logo?: { src: string; width: number; height: number; alt: string } }[] }[],
+};
 
 /* ------------------------------------------------------------------------ */
 /* Private Umrah                                                             */

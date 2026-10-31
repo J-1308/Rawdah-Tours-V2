@@ -2,9 +2,9 @@ import Image from "next/image";
 import Link from "next/link";
 import type { CSSProperties } from "react";
 
-import { anchors, closing, covers, type Faq, faqs, faqTopics, gbp, groupsBand, hajjBand, hajjRegister, hero, journeys, lastTrip, meaning, paying, people, privateBand, reviews, routes, say, starts, type Status, stay, whyRawdah } from "@/app/_site/content";
+import { anchors, closing, covers, type Faq, faqs, faqTopics, gbp, groupsBand, hajjBand, hajjRegister, hero, journeys, lastTrip, meaning, partners, paying, people, privateBand, reviews, routes, say, starts, type Status, stay, whyRawdah } from "@/app/_site/content";
 import { Mark } from "@/app/_site/marks";
-import { Actions, Emblem, gutter, Heading, Label, onInk, PhotoStack, Pic, Tick, TileLink, WaSquare, WaTile } from "@/app/_site/shell";
+import { Actions, Emblem, gutter, Heading, Label, onInk, PartnerLogo, PhotoStack, Pic, Tick, TileLink, WaSquare, WaTile } from "@/app/_site/shell";
 
 export { Tick } from "@/app/_site/shell";
 import { TripRow } from "@/app/_site/trip-row";
@@ -551,6 +551,55 @@ export function Reviews() {
         {reviews.note}
         <Mark s="to confirm" />
       </p>
+    </section>
+  );
+}
+
+/* ------------------------------------------------------------------------ */
+/* Who we work with: partners, airlines, hotels, travel and Hajj, linked.    */
+/* ------------------------------------------------------------------------ */
+
+export function Partners() {
+  return (
+    <section className={`${pad} ${gutter}`}>
+      <Label>{partners.label}</Label>
+      <Heading className={`mt-4 max-w-[46rem] ${h2}`}>{partners.headline}</Heading>
+      <div className="mt-9 grid grid-cols-1 gap-x-10 gap-y-9 sm:mt-12 md:grid-cols-2 lg:grid-cols-4">
+        {partners.groups.map((g) => (
+          <div key={g.title} className="min-w-0">
+            <p className="text-[0.72rem] font-medium tracking-[0.2em] text-bronze uppercase">{g.title}</p>
+            <ul className="mt-3 grid gap-2">
+              {g.items.map((it) => {
+                const inner = (
+                  <>
+                    {it.logo ? <PartnerLogo logo={it.logo} className="mb-3 h-9 text-ink/85" /> : null}
+                    <span className="flex items-start justify-between gap-3">
+                      <span className="display text-[1.35rem] leading-tight">{it.name}</span>
+                      {it.href ? (
+                        <svg aria-hidden viewBox="0 0 12 12" className="mt-1.5 size-3 shrink-0 text-ink/45">
+                          <path d="M3.5 2.5h6v6M9.5 2.5 2.5 9.5" fill="none" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" />
+                        </svg>
+                      ) : null}
+                    </span>
+                    <span className="mt-1 block text-[0.86rem] leading-snug text-ink/65">{it.what}</span>
+                  </>
+                );
+                return (
+                  <li key={it.name}>
+                    {it.href ? (
+                      <a href={it.href} target="_blank" rel="noopener noreferrer" className="glass block rounded-[1.25rem] p-4 transition-colors [--glass-shadow:none] hover:border-ink/30">
+                        {inner}
+                      </a>
+                    ) : (
+                      <div className="glass rounded-[1.25rem] p-4 [--glass-shadow:none]">{inner}</div>
+                    )}
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        ))}
+      </div>
     </section>
   );
 }

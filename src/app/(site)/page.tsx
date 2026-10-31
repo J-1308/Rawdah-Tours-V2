@@ -11,6 +11,7 @@ import {
   Meaning,
   Paying,
   People,
+  Partners,
   PrivateBand,
   Questions,
   Reviews,
@@ -86,6 +87,7 @@ export default function Home() {
       <Chapter tone="day">
         <GroupsBand />
         <PrivateBand />
+        <Partners />
         <Questions />
       </Chapter>
       <Chapter tone="night">

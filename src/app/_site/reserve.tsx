@@ -252,8 +252,10 @@ export function ReservePanel({ j, bookable = false }: { j: Journey; bookable?: b
           </a>
         ) : null}
         <p className="mt-4 text-[0.78rem] leading-relaxed text-ink/68">
-          {open
+          {open && bookable
             ? "Pay the deposit online by card (a small card fee applies) or by bank transfer with no fee. Prefer to talk first? WhatsApp us."
+            : open
+              ? "Book on WhatsApp, then pay the deposit by bank transfer: we send you the details. Deposits are non-refundable. Card payments are coming soon."
             : confirmedPrices
               ? "No payment now. Register and we’ll be in touch to book your place. Deposits are non-refundable."
               : "No payment now. Prices are a guide from our last trip; we’ll message you when the dates and prices are confirmed."}

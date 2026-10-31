@@ -7,7 +7,7 @@ import { CoverGroups, FaqList, PaymentPlan, Tick } from "@/app/_site/home-sectio
 import { Mark } from "@/app/_site/marks";
 import { RegisterForm } from "@/app/_site/register-form";
 import { ReservePanel } from "@/app/_site/reserve";
-import { Chapter, ConfirmedPending, gutter, Heading, Label, PageLead, WaTile } from "@/app/_site/shell";
+import { Chapter, ConfirmedPending, gutter, Heading, Label, PageLead, PartnerLogo, WaTile } from "@/app/_site/shell";
 import { HajjOnNusuk, leaderMember, MomentStrip, TeamLine, TeamList, teacherMembers, TripIncludes, TripJourney, TripPackages, WhereYouStay, type Member } from "@/app/_site/trip-parts";
 import { StateTag } from "@/app/_site/trip-row";
 import { Chevron } from "@/app/_site/whatsapp";
@@ -104,7 +104,21 @@ export default async function TripPage({ params }: { params: Promise<{ slug: str
         title={j.name}
         photos={[{ src: j.photo.src, alt: j.photo.alt, position: j.photo.position }, ...j.more]}
       >
-        {j.partner ? <p className="mt-3 text-[0.74rem] font-medium tracking-[0.2em] text-bronze uppercase">{j.partner} · Joint pilgrimage</p> : null}
+        {j.partner ? (
+          <div className="mt-4 flex items-center gap-3.5">
+            {j.partnerLogo ? (
+              <>
+                <PartnerLogo logo={j.partnerLogo} className="h-7 text-ink/85 sm:h-8" />
+                <span aria-hidden className="h-7 w-px bg-ink/20" />
+              </>
+            ) : null}
+            <p className="text-[0.72rem] leading-snug font-medium tracking-[0.2em] text-bronze uppercase">
+              {j.partner}
+              <br />
+              Joint pilgrimage
+            </p>
+          </div>
+        ) : null}
         <div className="mt-4">
           <StateTag j={j} onPhoto={false} />
         </div>

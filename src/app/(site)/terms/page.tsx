@@ -71,8 +71,8 @@ export default function TermsPage() {
       </LegalSection>
       <LegalSection title="6. Package Separation">
         <p>6.1 For packages that include flights, the flights and the remaining travel package are sold separately.</p>
-        <p>The £299 deposit covers the flight deposit for participants purchasing a package that includes flights. The remaining payments cover the hotels, visas, transport and other services provided by Rawdah Tours.</p>
-        <p>6.2 For participants purchasing a ground-only package, the £299 deposit is used towards the hotels, visas, transport and other services provided by Rawdah Tours.</p>
+        <p>The £399 deposit covers the flight deposit for participants purchasing a package that includes flights. The remaining payments cover the hotels, visas, transport and other services provided by Rawdah Tours.</p>
+        <p>6.2 For participants purchasing a ground-only package, the £399 deposit is used towards the hotels, visas, transport and other services provided by Rawdah Tours.</p>
       </LegalSection>
       <LegalSection title="7. Health and Medical Conditions">
         <p>7.1 Participants should ensure that they are in suitable health and are physically capable of undertaking the trip and its planned activities. Participants are encouraged to consult a healthcare professional before travelling if necessary.</p>

@@ -93,3 +93,10 @@ See `docs/project/open-questions.md`.
 `/terms` is Rawdah's own Cancellation Policy and Terms and Conditions (October 2026), word for word, sent by Jibril on
 31 Oct 2026; "About us", ATOL and Hajj sections are ours. Their privacy section's points on children and outside links
 are added to `/privacy`, which otherwise describes how this website handles data.
+
+## Who we work with
+
+Home page section (`partners` in `content.ts`), asked for by Jibril on 31 Oct 2026: GGC (Global Guidance Center,
+ggcenter.org; logo from GGC's own artwork as on the Ramadan itinerary), Saudia and Qatar Airways, the Ramadan and
+August 2026 hotels, the Haramain railway (sar.com.sa) and Nusuk Hajj. Links go to each one's own site. Airline and
+hotel logos are not shown: using them usually needs the brand's permission, so they appear as names.

@@ -222,6 +222,12 @@ export function Pic({ src, alt, sizes, className = "", priority = false, quality
   );
 }
 
+/** A partner's logo drawn in the text colour (cream on night, cocoa on day), from its own artwork. */
+export function PartnerLogo({ logo, className = "h-8" }: { logo: { src: string; width: number; height: number; alt: string }; className?: string }) {
+  const mask = `url(${logo.src}) left center / contain no-repeat`;
+  return <span role="img" aria-label={logo.alt} className={`inline-block shrink-0 bg-current ${className}`} style={{ aspectRatio: `${logo.width} / ${logo.height}`, WebkitMask: mask, mask }} />;
+}
+
 export function PhotoStack({ photos, priority = false, className = "", aspect = "aspect-[4/5]" }: { photos: Photo[]; priority?: boolean; flip?: boolean; className?: string; aspect?: string }) {
   const [a] = photos;
   return (
