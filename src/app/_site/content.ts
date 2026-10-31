@@ -121,8 +121,8 @@ export const strip = ramadanReveal
 
 export const hero = {
   label: "Guided Umrah and Hajj from the UK",
-  /** DRAFT (31 Oct 2026, replacing "Walk the path with people who know it."): the teachers are what sets Rawdah apart. */
-  headline: "Travel to the Haramain with teachers beside you.",
+  /** Jibril's pick (31 Oct 2026, option four), widened to Hajj. In the spirit of the live site's "prepared with knowledge, care and intention". */
+  headline: "Your Umrah and Hajj, guided by people of knowledge.",
   text: v(
     "Students of knowledge travel with every Rawdah group, and Brother Ayuub looks after you from your first message to the flight home.",
     "evidenced",
@@ -909,8 +909,8 @@ export function routeText(j: Journey) {
 
 /** Who we work with (Jibril, 31 Oct 2026): partners, airlines, hotels, travel and Hajj. Links are each one's own site. */
 export const partners = {
-  label: "Who we work with",
-  headline: "The partners behind our trips",
+  label: "Who we travel with",
+  headline: "Partners and providers",
   groups: [
     {
       title: "Partners",
@@ -957,7 +957,7 @@ export const partners = {
 /* Private Umrah                                                             */
 /* ------------------------------------------------------------------------ */
 
-/** PROPOSED pricing model for the planner's estimate. Our guesses for Rawdah to correct; the page says it's an estimate. */
+/** The planner's hotel choices (the keys). The numbers were our guesses and are no longer shown (31 Oct 2026). */
 export const privatePricing = {
   status: "proposed" as Status,
   perNight: { "4★": 70, "5★ by the Haram": 125 } as Record<string, number>,
@@ -969,7 +969,7 @@ export const privatePricing = {
 export const privatePage = {
   label: "Private & family Umrah",
   headline: "Private Umrah, planned around you.",
-  text: "For families, couples and friends who can’t make a group date. Plan it below to see a rough cost, then send it to us on WhatsApp and we’ll come back with real options.",
+  text: "For families, couples and friends who can’t make a group date. Plan it below, send it to us on WhatsApp, and we’ll come back with real options.",
   points: [
     { title: "Any week you choose", text: "Any week of the year, school holidays included.", status: "confirmed" as Status },
     { title: "Hotels to suit you", text: "Any of the five-star hotels by the Haramain in Makkah and Madinah, or affordable, economical hotels.", status: "confirmed" as Status },
@@ -990,7 +990,6 @@ export const groupsPage = {
   who: groupsBand.who,
   offers: [
     { title: "Planned around you", text: "Dates, length and pace agreed with you, with lessons built around what your group is studying.", status: "proposed" as Status },
-    { title: "A page for your trip", text: "Your group’s name and the booking details on one page, ready to share with your members and on WhatsApp.", status: "proposed" as Status },
     { title: "Payment that suits you", text: "We agree the payment method and amounts with your organisation.", status: "confirmed" as Status },
     { title: "Bring your teacher", text: "Your imam or teacher leads the lessons, or one of ours travels with you.", status: "confirmed" as Status },
     { title: "Our team on the ground", text: "We travel with your group and look after it in both cities.", status: "evidenced" as Status },
@@ -1000,7 +999,7 @@ export const groupsPage = {
     { title: "Get in touch", text: "Your group, rough numbers and when you’re thinking of going." },
     { title: "We meet", text: "In person or on a call, to understand your group." },
     { title: "We plan it with you", text: "Dates, hotels, lessons and the price, agreed together." },
-    { title: "Your people sign up", text: "Your trip page goes live and each person books their own place." },
+    { title: "Your people sign up", text: "Everyone books their place with us, and payment is arranged as agreed." },
     { title: "We go together", text: "We meet the group at the airport and look after it until you land home." },
   ],
   questions: [

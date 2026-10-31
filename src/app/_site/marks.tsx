@@ -1,68 +1,21 @@
-"use client";
-
-import { useState, type ReactNode } from "react";
+import type { ReactNode } from "react";
 
 import type { Status } from "@/app/_site/content";
 
 /**
- * Review marks. Anything that is our suggestion, a fact still to confirm, or
- * sample text carries a small square-cornered tag, so the client sees at a
- * glance what is real. A switch hides the tags to judge the look. Both go
- * before launch; the iPhone overflow fix below must then move to the (site)
- * layout.
+ * Review marks are off for launch (31 Oct 2026): nothing renders. The statuses stay in content.ts as a record of
+ * where each line came from (confirmed, evidenced, draft, suggested, to confirm). To review again, restore the
+ * dashed tags and the Review pill from git history (commit b4af737).
  */
-
-const labels: Partial<Record<Status, string>> = {
-  proposed: "Suggested",
-  "to confirm": "To confirm",
-  sample: "Sample",
-};
-
-export function Mark({ s, className = "" }: { s: Status | undefined; className?: string }) {
-  const label = s ? labels[s] : undefined;
-  if (!label) return null;
-  return (
-    <span
-      className={`site-mark ml-1.5 inline-block translate-y-[-0.12em] rounded-full border border-dashed border-bronze/55 px-1.5 py-px align-middle font-display text-[0.6rem] leading-[1.35] font-medium tracking-normal whitespace-nowrap text-bronze not-italic ${className}`}
-    >
-      {label}
-    </span>
-  );
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export function Mark(_props: { s: Status | undefined; className?: string }) {
+  return null;
 }
 
-const tab = "fixed left-0 z-[60] hidden items-center gap-1.5 rounded-r-lg border border-l-0 border-dashed border-bronze/60 bg-canvas/90 px-1.5 py-3 text-[0.62rem] font-medium text-bronze backdrop-blur [writing-mode:vertical-rl] lg:flex";
-
 /**
- * The review tool: hide or show the review marks. Desktop: a tab on the left
- * edge. Phones: one small "Review" pill, so nothing covers the page.
+ * overflow-x: clip stops a wide element widening the page on iPhone (Safari zooms out) without creating a scroll
+ * box, so the sticky header keeps sticking.
  */
 export function MarksFrame({ children }: { children: ReactNode }) {
-  const [on, setOn] = useState(true);
-  const [open, setOpen] = useState(false);
-  const row = "flex w-full items-center justify-between gap-3 rounded-[0.7rem] px-3 py-2.5 text-left hover:bg-(--raise)";
-  return (
-    // overflow-x: clip stops a wide element widening the page on iPhone
-    // (Safari zooms out) without creating a scroll box, so the sticky header
-    // keeps sticking. Keep this on the layout when the marks are removed.
-    <div data-marks={on ? "on" : "off"} className="overflow-x-clip [&[data-marks=off]_.site-mark]:hidden">
-      {children}
-      <button type="button" onClick={() => setOn((x) => !x)} aria-pressed={on} className={`${tab} top-1/2 -translate-y-1/2`}>
-        {on ? "Review marks on" : "Review marks off"}
-      </button>
-
-      <div className="fixed bottom-[calc(5.4rem+env(safe-area-inset-bottom))] left-2.5 z-[60] lg:hidden">
-        {open ? (
-          <div className="mb-2 w-[13rem] rounded-[1rem] border border-dashed border-bronze/60 bg-canvas/95 p-1.5 text-[0.84rem] text-ink shadow-[var(--shadow-float)] backdrop-blur">
-            <button type="button" onClick={() => setOn((x) => !x)} aria-pressed={on} className={row}>
-              <span>Review marks</span>
-              <span className="font-medium text-bronze">{on ? "On" : "Off"}</span>
-            </button>
-          </div>
-        ) : null}
-        <button type="button" onClick={() => setOpen((x) => !x)} aria-expanded={open} className="rounded-full border border-dashed border-bronze/60 bg-canvas/90 px-2.5 py-1 text-[0.62rem] font-medium text-bronze shadow-[var(--shadow-lift)] backdrop-blur">
-          {open ? "Close" : "Review"}
-        </button>
-      </div>
-    </div>
-  );
+  return <div className="overflow-x-clip">{children}</div>;
 }

@@ -34,12 +34,12 @@ export default function PrivacyPage() {
           <li>When you register interest: your name, email, phone number, how many people are travelling, where you’d travel from, and anything you tell us.</li>
           <li>When you book: the above, plus your gender, age, citizenship, emergency contact, and any health or access needs you choose to share.</li>
           <li>Where needed for visas or flights: passport details and date of birth.</li>
-          <li>Payment: card payments are handled by Stripe. We don’t see or store your card details.</li>
+          <li>Payment: deposits and instalments are paid by bank transfer. This website doesn’t take card details.</li>
           <li>Anything else you send us by WhatsApp, phone or email.</li>
         </ul>
         <p>
-          The private Umrah planner and the group trip form don’t send us anything by themselves. They write a message for you, and nothing reaches us
-          until you choose to send it by WhatsApp or email.
+          At the moment our forms (register interest, the private Umrah planner and the group trip form) don’t send us anything by themselves. They
+          write a message for you, and nothing reaches us until you choose to send it by WhatsApp or email.
         </p>
         <p>We only collect what we need to organise your trip or reply to you.</p>
       </LegalSection>
@@ -76,10 +76,10 @@ export default function PrivacyPage() {
         <p>And to run this website, we use these service providers, who process data on our behalf:</p>
         <ul>
           <li>Vercel (hosting, and visit counts that don’t use cookies)</li>
-          <li>Supabase (storing enquiries and bookings)</li>
-          <li>Stripe (card payments)</li>
-          <li>Resend (sending emails)</li>
+          <li>WhatsApp (Meta), when you message us there</li>
+          <li>Google (Gmail), when you email us</li>
         </ul>
+        <p>If we start saving forms on our own systems or taking card payments on this website, we’ll update this notice first.</p>
       </LegalSection>
 
       <LegalSection title="How long we keep it">

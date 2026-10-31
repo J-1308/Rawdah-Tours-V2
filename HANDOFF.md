@@ -76,3 +76,12 @@ WhatsApp and `/admin` is off.
 Branch per task, PR into `main`; `npm run build` before pushing; no secrets in the repo or chat (Jibril sets env
 vars in Vercel); never invent people, testimonials, dates or prices; check every change at 390px wide; ask before
 creating Vercel projects or other outside resources.
+
+## Launch state (31 October 2026)
+
+- Branch `feat/v2-mix` is the site to launch. Dark top fixed; review marks and the top switch removed.
+- Ramadan 1448 with GGC shows as "coming soon" (`ramadanReveal = false` in `src/app/_site/content.ts`).
+- No online payments yet: booking on WhatsApp, deposits by bank transfer. Forms write a WhatsApp message until
+  Supabase is set up (the privacy notice says so).
+- Path of Purity II has no page; it lives in "Our last trip" on the home page.
+- Search engines open by themselves once the site is served from rawdahtours.co.uk in production (`IS_LIVE`).

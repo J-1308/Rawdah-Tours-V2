@@ -9,7 +9,7 @@ import { Chapter, Heading, PageLead, Square, gutter } from "@/app/_site/shell";
 
 export const metadata: Metadata = {
   title: "Private & family Umrah",
-  description: "Plan a private or family Umrah on your own dates with Rawdah Tours and see a rough cost straight away.",
+  description: "Plan a private or family Umrah on your own dates with Rawdah Tours, and we come back with real options.",
 };
 
 /** Private Umrah: a short opening, the planner, then what happens next and questions. */

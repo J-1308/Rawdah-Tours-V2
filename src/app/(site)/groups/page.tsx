@@ -1,10 +1,9 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 
-import { gbp, groupsPage } from "@/app/_site/content";
+import { groupsPage } from "@/app/_site/content";
 import { CommunityForm } from "@/app/_site/community-form";
 import { Mark } from "@/app/_site/marks";
-import { Chapter, Emblem, Heading, Label, PageLead, gutter, onInk } from "@/app/_site/shell";
+import { Chapter, Emblem, Heading, Label, PageLead, PhotoStack, gutter, onInk } from "@/app/_site/shell";
 
 export const metadata: Metadata = {
   title: "Groups & organisations",
@@ -81,25 +80,7 @@ export default function GroupsPage() {
               </ol>
             </div>
             <div className="lg:col-span-6 lg:col-start-7">
-              <p className="font-editorial text-[1.15rem] text-sand italic">
-                An example of your group’s trip page
-                <Mark s="sample" />
-              </p>
-              <div className="day mt-5 overflow-hidden rounded-[1.75rem] bg-canvas text-ink shadow-[var(--shadow-float)]">
-                <div className="relative aspect-[16/8] bg-beige">
-                  <Image src="/images/group-photos/group-photos-04.jpg" alt="" fill sizes="(min-width: 1024px) 45vw, 100vw" className="object-cover object-[50%_80%]" />
-                </div>
-                <div className="p-6">
-                  <p className="display text-[2rem]">Your organisation’s Umrah, spring 2027</p>
-                  <p className="mt-2 font-editorial text-[1.1rem] text-ink/70 italic">“Salaam everyone, we’d love you to join us. Our teacher will lead a lesson each evening in Madinah and Makkah.”</p>
-                  <div className="mt-5 flex flex-wrap items-center justify-between gap-4 border-t border-ink/8 pt-4">
-                    <p className="text-[0.86rem] text-ink/68">
-                      10 nights, from {gbp(1799)} per person, {gbp(500)} deposit
-                    </p>
-                    <span className="btn-ink rounded-[0.85rem] px-4 py-2.5 text-[0.86rem] font-medium">Book your place</span>
-                  </div>
-                </div>
-              </div>
+              <PhotoStack photos={[{ src: "/images/group-photos/group-photos-03.jpg", alt: "A Rawdah group in ihram at night, lit arcades and a minaret behind them.", position: "object-[50%_60%]" }]} aspect="aspect-[4/3]" />
             </div>
           </div>
         </div>

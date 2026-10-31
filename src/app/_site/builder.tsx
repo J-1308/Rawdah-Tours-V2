@@ -1,17 +1,15 @@
 "use client";
 
 import { useSearchParams } from "next/navigation";
-import { useMemo, useState, type ReactNode } from "react";
+import { useState, type ReactNode } from "react";
 
-import { brand, gbp, privatePricing, wa } from "@/app/_site/content";
-import { Mark } from "@/app/_site/marks";
+import { brand, privatePricing, wa } from "@/app/_site/content";
 import { WaGlyph } from "@/app/_site/whatsapp";
 
 /**
  * The private Umrah planner: one sheet of rows, a label on the left and the
- * choice on the right, with the plan and a rough cost on date brown beside
- * it. "Send" writes the whole plan into a WhatsApp message. The estimate uses
- * a suggested pricing model, marked as such.
+ * choice on the right, with the plan on date brown beside it. "Send" writes
+ * the whole plan into a WhatsApp message. No prices: Rawdah replies with them.
  */
 
 const airports = ["London Heathrow", "London Gatwick", "Birmingham", "Manchester", "No flights, land only"];
@@ -94,18 +92,8 @@ export function Builder() {
   const [visa, setVisa] = useState<"Arrange it for me" | "I have one">("Arrange it for me");
   const [name, setName] = useState("");
 
-  const est = useMemo(() => {
-    const people = adults + children;
-    const perRoom = Math.max(1, Math.min(4, Math.ceil(people / rooms)));
-    const factor = privatePricing.sharingDiscount[perRoom] ?? 0.75;
-    const nights = mk + md;
-    const stay = privatePricing.perNight[hotel] * nights * factor;
-    const flights = from.startsWith("No flights") ? 0 : privatePricing.flights;
-    const extras = privatePricing.visaAndTransport + (transport === "Private car" ? 90 : 0) + (ziyarah === "Yes, guided" ? 40 : 0) - (visa === "I have one" ? 110 : 0);
-    const adult = Math.round((stay + flights + extras) / 5) * 5;
-    const child = Math.round((adult * 0.7) / 5) * 5;
-    return { adult, child, total: adult * adults + child * children, nights, perRoom };
-  }, [adults, children, rooms, mk, md, hotel, from, transport, ziyarah, visa]);
+  // No price is shown: Rawdah replies with real options and prices for the dates (Jibril, 31 Oct 2026).
+  const est = { nights: mk + md, perRoom: Math.max(1, Math.min(4, Math.ceil((adults + children) / rooms))) };
 
   const route = first === "Madinah first" ? `Madinah ${md} nights, then Makkah ${mk} nights` : `Makkah ${mk} nights, then Madinah ${md} nights`;
   const who = `${adults} adult${adults === 1 ? "" : "s"}${children ? `, ${children} child${children === 1 ? "" : "ren"}` : ""}`;
@@ -117,7 +105,6 @@ export function Builder() {
     `Travelling: ${who}, ${rooms} room${rooms === 1 ? "" : "s"}`,
     `Hotels: ${hotel}`,
     `Transport: ${transport}. Ziyarah: ${ziyarah}. Visa: ${visa}.`,
-    `Rough cost on your site: ${gbp(est.adult)} per adult`,
     `Name: ${name}`,
   ].join("\n");
 
@@ -212,14 +199,8 @@ export function Builder() {
             ))}
           </dl>
           <div className="mt-2 rounded-[1.25rem] bg-(--raise) p-5 ring-1 ring-white/10">
-            <p className="text-[0.8rem] text-cream/70">
-              Rough cost per adult
-              <Mark s={privatePricing.status} />
-            </p>
-            <p className="display mt-1 text-[3rem] leading-none">{gbp(est.adult)}</p>
-            <p className="mt-2 text-[0.84rem] text-cream/70">
-              About {gbp(est.total)} in total{children ? `, children ${gbp(est.child)} each` : ""}. A guide, not a quote: we come back with real prices.
-            </p>
+            <p className="display text-[1.6rem] leading-tight">We’ll come back with real options.</p>
+            <p className="mt-2 text-[0.86rem] text-cream/70">Hotels, flights and a price for your dates. Nothing is booked until you say so.</p>
           </div>
           <label className="mt-5 flex flex-col gap-2 text-[0.86rem] text-cream/80">
             Your name
@@ -233,8 +214,7 @@ export function Builder() {
             Or email it to us
           </a>
           <p className="mt-4 text-[0.78rem] leading-relaxed text-cream/60">
-            Nothing is booked and nothing is paid. We reply with real options.
-            <Mark s="proposed" />
+            Nothing is booked and nothing is paid.
           </p>
         </div>
       </aside>
