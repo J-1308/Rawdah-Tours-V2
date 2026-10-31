@@ -21,9 +21,11 @@ const nextConfig: NextConfig = {
   async redirects() {
     return [
       { source: '/hajj', destination: '/trips/hajj-2027', permanent: true },
-      { source: '/umrah', destination: '/trips/next-umrah', permanent: true },
-      { source: '/book', destination: '/trips/next-umrah', permanent: false },
-      { source: '/book/:path*', destination: '/trips/next-umrah', permanent: false },
+      { source: '/umrah', destination: '/trips/ramadan-umrah-2027', permanent: false },
+      { source: '/book', destination: '/trips/ramadan-umrah-2027', permanent: false },
+      { source: '/book/:path*', destination: '/trips/ramadan-umrah-2027', permanent: false },
+      // The next trip's page before it had dates (shared in October 2026).
+      { source: '/trips/next-umrah', destination: '/trips/ramadan-umrah-2027', permanent: false },
       { source: '/family-booking', destination: '/private-umrah', permanent: true },
       { source: '/family-booking/:path*', destination: '/private-umrah', permanent: true },
       { source: '/contact', destination: '/about#contact', permanent: true },

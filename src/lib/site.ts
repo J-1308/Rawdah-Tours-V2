@@ -44,7 +44,7 @@ export function whatsappLink(message?: string) {
 export const WHATSAPP_MESSAGES = {
   general: 'Assalamu alaykum, I have a question about travelling with Rawdah Tours.',
   hajj: 'Assalamu alaykum, I have a question about Hajj 2027 with Rawdah Tours.',
-  umrah: 'Assalamu alaykum, I have a question about the next Umrah with Rawdah Tours.',
+  umrah: 'Assalamu alaykum, I have a question about the Ramadan Umrah 2027 with Rawdah Tours.',
   booking: 'Assalamu alaykum, I need help with my booking.',
 } as const
 

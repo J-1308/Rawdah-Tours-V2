@@ -2,32 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import type { CSSProperties } from "react";
 
-import {
-  anchors,
-  closing,
-  covers,
-  faqs,
-  faqTopics,
-  gbp,
-  groupsBand,
-  hajjBand,
-  hero,
-  journeys,
-  lastTrip,
-  meaning,
-  paying,
-  people,
-  privateBand,
-  reviews,
-  routes,
-  say,
-  starts,
-  stay,
-  strip,
-  whyRawdah,
-  type Faq,
-  type Status,
-} from "@/app/_site/content";
+import { anchors, closing, covers, type Faq, faqs, faqTopics, gbp, groupsBand, hajjBand, hajjRegister, hero, journeys, lastTrip, meaning, paying, people, privateBand, reviews, routes, say, starts, type Status, stay, whyRawdah } from "@/app/_site/content";
 import { Mark } from "@/app/_site/marks";
 import { Actions, Emblem, gutter, Heading, Label, onInk, PhotoStack, Pic, Tick, TileLink, WaSquare, WaTile } from "@/app/_site/shell";
 
@@ -54,23 +29,25 @@ export function Hero() {
   const [a] = hero.mosaic;
   return (
     <section className="wash-hero relative isolate overflow-hidden">
-      {/* The main photograph, dissolving into the night: on top on phones, the right side on desktop. */}
-      <div className="settle relative h-[min(17.5rem,64vw)] w-full sm:h-[min(30rem,70vw)] lg:absolute lg:inset-y-0 lg:right-0 lg:h-auto lg:w-[62%]">
-        <Image src={a.src} alt={a.alt} fill priority quality={85} sizes="(min-width: 1024px) 62vw, 100vw" className="night-photo object-cover object-[50%_68%] sm:object-[50%_55%]" />
+      {/* The photograph across the full width, dissolving into the ground; the words beneath it, the mark embossed behind them. */}
+      <div className="settle relative h-[min(17.5rem,64vw)] w-full sm:h-[min(30rem,70vw)] lg:h-[min(60svh,42vw)]">
+        <Image src={a.src} alt={a.alt} fill priority quality={85} sizes="100vw" className="night-photo object-cover object-[50%_68%] sm:object-[50%_55%] lg:object-[50%_50%]" />
       </div>
-      <Emblem className="pointer-events-none absolute top-[18%] left-[-14%] -z-10 h-[90%] watermark lg:top-[-6%] lg:left-[-4%] lg:h-[115%]" />
-      <div className={`relative grid grid-cols-1 lg:min-h-[calc(100svh-7.5rem)] lg:grid-cols-12 lg:items-center ${gutter}`}>
-        <div className="-mt-8 pb-[clamp(3.5rem,9vw,7rem)] sm:-mt-12 lg:col-span-6 lg:mt-0 lg:py-24 xl:col-span-5">
+      <Emblem className="pointer-events-none absolute top-[18%] left-[-14%] -z-10 h-[90%] watermark lg:top-auto lg:bottom-[-22%] lg:left-[-5%] lg:h-[85%]" />
+      <div className={`relative grid grid-cols-1 lg:-mt-[clamp(5rem,7vw,7.5rem)] lg:grid-cols-12 lg:items-end lg:gap-x-12 ${gutter}`}>
+        <div className="-mt-8 sm:-mt-12 lg:col-span-7 lg:mt-0">
           <Label>{hero.label}</Label>
           <Heading as="h1" className="mt-4 text-[clamp(2.9rem,5.8vw,6rem)] text-ink sm:mt-5">
             {hero.headline}
           </Heading>
-          <p className="mt-5 max-w-[33rem] text-[1.02rem] leading-[1.7] text-ink/70 sm:mt-6 sm:text-[1.04rem] sm:leading-[1.75]">
+        </div>
+        <div className="pb-[clamp(3.5rem,9vw,7rem)] lg:col-span-5 lg:pb-[clamp(4.5rem,6vw,6.5rem)]">
+          <p className="mt-5 max-w-[33rem] text-[1.02rem] leading-[1.7] text-ink/70 sm:mt-6 sm:text-[1.04rem] sm:leading-[1.75] lg:mt-0">
             {hero.text.value}
             <Mark s={hero.text.status} />
           </p>
-          <Actions primary={{ label: "Register for Hajj 2027", href: strip.href }} waText={say.general} className="mt-7 sm:mt-9" />
-          <ul className="mt-7 flex flex-wrap gap-x-7 gap-y-2 sm:mt-10 sm:gap-y-2.5 text-[0.86rem] text-ink/65">
+          <Actions primary={{ label: "Register for Hajj 2027", href: hajjRegister }} waText={say.general} className="mt-7 sm:mt-9 lg:mt-7" />
+          <ul className="mt-7 flex flex-wrap gap-x-7 gap-y-2 text-[0.86rem] text-ink/65 sm:mt-10 sm:gap-y-2.5 lg:mt-8">
             {hero.facts.map((f) => (
               <li key={f.value} className="flex items-start gap-2.5">
                 <Dot />
@@ -166,7 +143,7 @@ export function HajjBand() {
               {hajjBand.text.value}
               <Mark s={hajjBand.text.status} />
             </p>
-            <Actions primary={{ label: "Register for Hajj 2027", href: strip.href }} waText={say.hajj} tone="ink" className="mt-9" />
+            <Actions primary={{ label: "Register for Hajj 2027", href: hajjRegister }} waText={say.hajj} tone="ink" className="mt-9" />
           </div>
           <div className="lg:col-span-6 lg:col-start-7">
             <ol className="grid gap-2">
@@ -397,7 +374,6 @@ export function PaymentPlan({ tone = "ink" }: { tone?: "ink" | "canvas" }) {
       {dark ? <Emblem className="pointer-events-none absolute right-[-4%] bottom-[-30%] h-[150%] text-cream/[0.04]" /> : null}
       <p className={`relative font-editorial text-[1.15rem] italic ${dark ? "text-sand" : "text-bronze"}`}>
         A worked example: {room}, {gbp(price)} per person
-        <Mark s="proposed" />
       </p>
       <div aria-hidden className="relative mt-6 flex h-2.5 gap-1.5">
         {parts.map((p, i) => (
@@ -432,7 +408,7 @@ export function Paying() {
             {paying.sharing.value}
             <Mark s={paying.sharing.status} />
           </p>
-          <Actions primary={{ label: "Hear about the next Umrah", href: `${routes.nextUmrah}#${anchors.form}` }} waText={say.pay} className="mt-8" />
+          <Actions primary={{ label: "See the Ramadan 2027 trip", href: routes.nextUmrah }} waText={say.pay} className="mt-8" />
         </div>
         <div className="lg:col-span-8">
           <PaymentPlan />
@@ -638,12 +614,12 @@ export function Closing() {
             <Heading className="mt-6 text-[clamp(2.6rem,5vw,4.8rem)] text-cream">{closing.headline}</Heading>
             <p className="mt-5 max-w-[32rem] text-[1.02rem] leading-[1.7] text-cream/75">{closing.text}</p>
             <div className="mt-8 flex flex-col gap-2 sm:mt-9 sm:flex-row sm:flex-wrap sm:gap-2.5">
-              <TileLink href={strip.href} tone="gold">
+              <TileLink href={hajjRegister} tone="gold">
                 Register for Hajj 2027
               </TileLink>
               <div className="flex gap-2 sm:contents">
                 <TileLink href={`${routes.nextUmrah}#${anchors.form}`} tone="line-canvas" pad="gap-2 px-4 sm:gap-3 sm:px-6" className="min-w-0 flex-1 sm:flex-none">
-                  Hear about the next Umrah
+                  Ramadan Umrah 2027
                 </TileLink>
                 <WaSquare text={say.general} tone="line-canvas" className="sm:hidden" />
                 <span className="hidden sm:contents">

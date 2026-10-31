@@ -31,4 +31,6 @@ export const slotBriefs: Record<string, string> = {
   "family-haram": "A parent and child walking together at the Haram, seen from behind",
   "family-madinah": "A family at Masjid an-Nabawi under the umbrellas, from behind or far off",
   "groups-masjid": "A UK masjid or community talk: people seated, listening, from behind",
+  "hotel-novotel-thakher": "Novotel Thakher City Makkah: the hotel or a room, from the hotel’s own site",
+  "hotel-al-manakha-rotana": "Al Manakha Rotana, Madinah: the hotel or a room, from the hotel’s own site",
 };

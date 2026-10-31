@@ -8,7 +8,7 @@ import { Mark } from "@/app/_site/marks";
 import { RegisterForm } from "@/app/_site/register-form";
 import { ReservePanel } from "@/app/_site/reserve";
 import { Chapter, ConfirmedPending, gutter, Heading, Label, PageLead, WaTile } from "@/app/_site/shell";
-import { HajjOnNusuk, leaderMember, MomentStrip, TeamLine, TeamList, teacherMembers, WhereYouStay, type Member } from "@/app/_site/trip-parts";
+import { HajjOnNusuk, leaderMember, MomentStrip, TeamLine, TeamList, teacherMembers, TripIncludes, TripJourney, TripPackages, WhereYouStay, type Member } from "@/app/_site/trip-parts";
 import { StateTag } from "@/app/_site/trip-row";
 import { Chevron } from "@/app/_site/whatsapp";
 import { getTrip, isBookable, isDemoBooking } from "@/lib/trips";
@@ -84,7 +84,9 @@ export default async function TripPage({ params }: { params: Promise<{ slug: str
       ? theirTeachers
       : [{ name: j.teacher.value, does: "Students of knowledge", line: "Students of knowledge travel with every group. They’ll be named here when the trip is announced.", status: j.teacher.status }]),
   ];
-  const qs = faqs.filter((f) => (j.kind === "hajj" ? f.topic === "hajj" : f.topic !== "hajj"));
+  /** On a trip with its plan set out above, the general answers about last year's itinerary, inclusions and meals would contradict it. */
+  const shownAbove = ["What is included in the trip cost?", "What is the trip itinerary like?", "What about meal arrangements?"];
+  const qs = faqs.filter((f) => (j.kind === "hajj" ? f.topic === "hajj" : f.topic !== "hajj") && !(j.plan && shownAbove.includes(f.q)));
   const joinLabel = j.state === "open" ? "Book your place" : j.state === "past" ? "Hear about the next trip" : "Register interest";
 
   const facts = [
@@ -102,6 +104,7 @@ export default async function TripPage({ params }: { params: Promise<{ slug: str
         title={j.name}
         photos={[{ src: j.photo.src, alt: j.photo.alt, position: j.photo.position }, ...j.more]}
       >
+        {j.partner ? <p className="mt-3 text-[0.74rem] font-medium tracking-[0.2em] text-bronze uppercase">{j.partner} · Joint pilgrimage</p> : null}
         <div className="mt-4">
           <StateTag j={j} onPhoto={false} />
         </div>
@@ -177,7 +180,11 @@ export default async function TripPage({ params }: { params: Promise<{ slug: str
       {/* Night: the journey itself */}
       <Chapter tone="night">
         {j.kind === "umrah" ? (
-          <WhereYouStay j={j} />
+          j.plan ? (
+            <TripJourney j={j} />
+          ) : (
+            <WhereYouStay j={j} />
+          )
         ) : (
           <section className={`py-[clamp(3.75rem,9vw,8rem)] ${gutter}`}>
             <Label>Hajj 2027</Label>
@@ -204,7 +211,23 @@ export default async function TripPage({ params }: { params: Promise<{ slug: str
       <Chapter tone="day">
         <div className={`py-[clamp(3.75rem,9vw,8rem)] ${gutter}`}>
           <div className="max-w-[60rem]">
-            {j.kind === "umrah" ? (
+            {j.kind === "umrah" && j.plan ? (
+              <>
+                <section>
+                  <Heading className={h2}>What’s included</Heading>
+                  <TripIncludes plan={j.plan} />
+                </section>
+                <section className="mt-12 sm:mt-16">
+                  <Heading className={h2}>Packages and payments</Heading>
+                  <TripPackages j={j} />
+                </section>
+                <section className="mt-12 sm:mt-16">
+                  <Heading className={h2}>The people who will walk with you</Heading>
+                  <TeamList members={members} cols="lg:grid-cols-3" className="mt-8" />
+                  <TeamLine />
+                </section>
+              </>
+            ) : j.kind === "umrah" ? (
               <>
                 <section>
                   <Heading className={h2}>{covers.headline}</Heading>
@@ -259,7 +282,7 @@ export default async function TripPage({ params }: { params: Promise<{ slug: str
                     {hajjBand.talbiyah}
                   </p>
                 ) : null}
-                <Heading className="text-[clamp(2.4rem,4vw,3.6rem)]">{j.kind === "hajj" ? hajjNusuk.closing.title : "Hear first when the dates are out"}</Heading>
+                <Heading className="text-[clamp(2.4rem,4vw,3.6rem)]">{j.kind === "hajj" ? hajjNusuk.closing.title : j.plan ? `Register for ${j.name}` : "Hear first when the dates are out"}</Heading>
                 <p className="mt-5 max-w-[24rem] text-[1rem] leading-[1.65] text-ink/72">
                   {j.kind === "hajj" ? `${hajjNusuk.closing.text} ` : ""}Two minutes, and someone from Rawdah will be in touch. Registering doesn’t reserve a place or commit you to anything.
                 </p>

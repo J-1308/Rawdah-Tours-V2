@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-import { anchors, routes, say, strip, wa } from "@/app/_site/content";
+import { anchors, hajjRegister, routes, say, wa } from "@/app/_site/content";
 
 /** The WhatsApp glyph, for links that open a WhatsApp chat. */
 export function WaGlyph({ className = "size-5" }: { className?: string }) {
@@ -41,7 +41,7 @@ export function MobileBar() {
       ? { label: "Plan a group trip", href: "#start" }
       : onTrip
         ? { label: path.includes("path-of-purity") ? "Hear about the next" : "Register interest", href: `#${anchors.join}` }
-        : { label: strip.cta, href: strip.href };
+        : { label: "Register interest", href: hajjRegister };
   return (
     <div className="top-zone fixed inset-x-0 bottom-0 z-50 px-2.5 pb-[calc(0.5rem+env(safe-area-inset-bottom))] lg:hidden">
       <div className="grid grid-cols-[auto_1fr] gap-1.5 rounded-[1.15rem] border border-(--edge) bg-canvas/85 p-1.5 shadow-[var(--shadow-float)] backdrop-blur-md">

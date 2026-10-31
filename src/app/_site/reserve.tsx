@@ -48,7 +48,7 @@ export function ReservePanel({ j, bookable = false }: { j: Journey; bookable?: b
             <span>Tell me about the next trip</span>
           </a>
           <Link href={`${routes.nextUmrah}#${anchors.form}`} className="mt-3 block text-center text-[0.86rem] text-ink/70 underline decoration-ink/25 underline-offset-4">
-            Or register for the next Umrah
+            Or register for Ramadan 2027
           </Link>
         </div>
       </div>
@@ -91,20 +91,24 @@ export function ReservePanel({ j, bookable = false }: { j: Journey; bookable?: b
   }
 
   const chosen = rooms.find((r) => r.type === room) ?? rooms[0];
+  /** Packages with a set payment timetable (the Ramadan trip): one price per person, no child rate. */
+  const packages = rooms.some((r) => r.schedule);
+  const kids = packages ? 0 : children;
   const landGap = j.landOnly ? rooms[0].price - j.landOnly.value : 0;
   const each = flights ? chosen.price : chosen.price - landGap;
   const childEach = Math.round(each * 0.85);
-  const total = each * adults + childEach * children;
-  const deposit = (j.deposit?.value ?? 0) * (adults + children);
+  const total = each * adults + childEach * kids;
+  const deposit = (j.deposit?.value ?? 0) * (adults + kids);
   const open = j.state === "open";
+  const confirmedPrices = j.rooms?.status === "confirmed";
 
   const message = [
     `Salaam Rawdah Tours, I’d like to ${open ? "book" : "register interest in"} ${j.name} (${j.dates.value}).`,
-    `Room: ${chosen.type} (${chosen.sharing} sharing)`,
-    `Flights: ${flights ? "with flights from London" : "land only"}`,
-    `Travelling: ${adults} adult${adults === 1 ? "" : "s"}${children ? `, ${children} child${children === 1 ? "" : "ren"}` : ""}`,
+    packages ? `Package: ${chosen.type} (${chosen.note ?? chosen.sub})` : `Room: ${chosen.type} (${chosen.sharing} sharing)`,
+    ...(j.landOnly ? [`Flights: ${flights ? "with flights from London" : "land only"}`] : []),
+    packages ? `Travellers: ${adults}` : `Travelling: ${adults} adult${adults === 1 ? "" : "s"}${kids ? `, ${kids} child${kids === 1 ? "" : "ren"}` : ""}`,
     `Sharing with: ${share}`,
-    `Estimated total: ${gbp(total)}${deposit ? `, deposit ${gbp(deposit)}` : ""}${j.months && deposit ? `, then ${j.months.value} × ${gbp(monthly(total, deposit, j.months.value))}` : ""}`,
+    `${packages ? "Total" : "Estimated total"}: ${gbp(total)}${deposit ? `, deposit ${gbp(deposit)}` : ""}${!packages && j.months && deposit ? `, then ${j.months.value} × ${gbp(monthly(total, deposit, j.months.value))}` : ""}`,
     "Name:",
   ].join("\n");
 
@@ -141,7 +145,7 @@ export function ReservePanel({ j, bookable = false }: { j: Journey; bookable?: b
       </div>
       <div className="p-5">
         <p className={label}>
-          Room, per person
+          {packages ? "Package, per person" : "Room, per person"}
           <Mark s={j.rooms?.status} />
         </p>
         <div className="mt-2 grid grid-cols-3 gap-1.5">
@@ -154,7 +158,7 @@ export function ReservePanel({ j, bookable = false }: { j: Journey; bookable?: b
               className={`rounded-[1rem] border px-3 py-3 text-left transition-colors ${room === r.type ? "border-ink bg-ink text-canvas shadow-[var(--shadow-lift)]" : "border-ink/10 bg-(--raise) hover:border-ink/35"}`}
             >
               <span className="block text-[0.84rem] font-medium">{r.type}</span>
-              <span className={`block text-[0.74rem] ${room === r.type ? "text-canvas/70" : "text-ink/65"}`}>{r.sharing} sharing</span>
+              <span className={`block text-[0.74rem] ${room === r.type ? "text-canvas/70" : "text-ink/65"}`}>{r.sub ?? `${r.sharing} sharing`}</span>
               <span className="display mt-1.5 block text-[1.4rem] leading-none">{gbp(flights ? r.price : r.price - landGap)}</span>
             </button>
           ))}
@@ -171,8 +175,8 @@ export function ReservePanel({ j, bookable = false }: { j: Journey; bookable?: b
         ) : null}
 
         <div className="mt-3 divide-y divide-ink/10 border-y border-ink/10">
-          {counter("Adults", "12 and over", adults, setAdults, 1)}
-          {counter("Children", "Under 12, sharing a room", children, setChildren, 0)}
+          {packages ? counter("Travellers", chosen.note ?? "Per person", adults, setAdults, 1) : counter("Adults", "12 and over", adults, setAdults, 1)}
+          {packages ? null : counter("Children", "Under 12, sharing a room", children, setChildren, 0)}
         </div>
 
         <p className={`mt-4 ${label}`}>Sharing a room with</p>
@@ -187,11 +191,11 @@ export function ReservePanel({ j, bookable = false }: { j: Journey; bookable?: b
         <dl className="mt-5 grid grid-cols-1 gap-1.5 rounded-[1.1rem] bg-canvas-warm/80 p-4 text-[0.9rem]">
           <div className="flex justify-between">
             <dt className="text-ink/70">
-              {adults} adult{adults === 1 ? "" : "s"}, {chosen.type.toLowerCase()}
+              {adults} {packages ? `traveller${adults === 1 ? "" : "s"}` : `adult${adults === 1 ? "" : "s"}`}, {chosen.type.toLowerCase()}
             </dt>
             <dd>{gbp(each * adults)}</dd>
           </div>
-          {children ? (
+          {kids ? (
             <div className="flex justify-between">
               <dt className="text-ink/70">
                 {children} child{children === 1 ? "" : "ren"}
@@ -213,15 +217,22 @@ export function ReservePanel({ j, bookable = false }: { j: Journey; bookable?: b
               <dd>{gbp(deposit)}</dd>
             </div>
           ) : null}
-          {j.months && deposit ? (
-            <div className="flex justify-between">
-              <dt className="text-ink/70">
-                Then {j.months.value} instalments of
-                <Mark s={j.months.status} />
-              </dt>
-              <dd>{gbp(monthly(total, deposit, j.months.value))}</dd>
-            </div>
-          ) : null}
+          {chosen.schedule
+            ? chosen.schedule.slice(1).map((s) => (
+                <div key={s.due} className="flex justify-between">
+                  <dt className="text-ink/70">{s.due}</dt>
+                  <dd>{gbp(s.amount * adults)}</dd>
+                </div>
+              ))
+            : j.months && deposit ? (
+                <div className="flex justify-between">
+                  <dt className="text-ink/70">
+                    Then {j.months.value} instalments of
+                    <Mark s={j.months.status} />
+                  </dt>
+                  <dd>{gbp(monthly(total, deposit, j.months.value))}</dd>
+                </div>
+              ) : null}
         </dl>
 
         {bookable ? (
@@ -243,7 +254,9 @@ export function ReservePanel({ j, bookable = false }: { j: Journey; bookable?: b
         <p className="mt-4 text-[0.78rem] leading-relaxed text-ink/68">
           {open
             ? "Pay the deposit online by card (a small card fee applies) or by bank transfer with no fee. Prefer to talk first? WhatsApp us."
-            : "No payment now. Prices are a guide from our last trip; we’ll message you when the dates and prices are confirmed."}
+            : confirmedPrices
+              ? "No payment now. Register and we’ll be in touch to book your place. Deposits are non-refundable."
+              : "No payment now. Prices are a guide from our last trip; we’ll message you when the dates and prices are confirmed."}
         </p>
       </div>
     </div>

@@ -1,8 +1,10 @@
 import Image from "next/image";
+import { Fragment } from "react";
 
-import { hajjNusuk, journeyStay, leader, people, teachers, type Journey, type Status, type StayPhoto } from "@/app/_site/content";
+import { gbp, hajjNusuk, journeyStay, leader, people, teachers, type Journey, type Room, type Status, type StayPhoto, type TripPlan } from "@/app/_site/content";
 import { Mark } from "@/app/_site/marks";
-import { Emblem, gutter, Heading, Label, Tick } from "@/app/_site/shell";
+import { Emblem, gutter, Heading, Label, Pic, Tick } from "@/app/_site/shell";
+import { slot } from "@/app/_site/slots";
 
 /* ------------------------------------------------------------------------ */
 /* The team, straightforward: a portrait, what they do, the name, one line.  */
@@ -300,5 +302,267 @@ export function MomentStrip({ photos, caption }: { photos: StayPhoto[]; caption:
       </ul>
       <p className="mt-3 font-editorial text-[1rem] text-ink/65 italic">{caption}</p>
     </div>
+  );
+}
+
+/* ------------------------------------------------------------------------ */
+/* A trip with its plan settled (the Ramadan 2027 trip): the line of the     */
+/* trip, flights, hotels, what's included, packages and the payment          */
+/* timetable. After Rawdah's own itinerary sheets, in the site's colours.    */
+/* ------------------------------------------------------------------------ */
+
+const eyebrow = "text-[0.72rem] font-medium tracking-[0.2em] text-bronze uppercase";
+const pill = "rounded-full border border-ink/12 bg-(--raise) px-3 py-1 text-[0.78rem] whitespace-nowrap";
+
+function Glyph({ d, className = "size-4" }: { d: string; className?: string }) {
+  return (
+    <svg aria-hidden viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" className={className}>
+      <path d={d} />
+    </svg>
+  );
+}
+const plane = "M10.5 13.5 3 11l1.5-1.5 8 1 4-4.5a2 2 0 0 1 3 3l-4.5 4 1 8L15.5 22 13 14.5l-3 3V20l-1.5 1.5L7 18l-3.5-1.5L5 15h2.5z";
+const building = "M4 21V5l8-2v18M12 21h8V9l-8-2M8 8h.01M8 12h.01M8 16h.01M16 12h.01M16 16h.01";
+const moon = "M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z";
+const alert = "M12 4 2.5 20h19L12 4zM12 10v4.5M12 17.5h.01";
+
+/** Four, five: gold dots for the stars, as on the itinerary. */
+function StarDots({ n }: { n: number }) {
+  return (
+    <span aria-label={`${n}-star hotel`} className="inline-flex items-center gap-2">
+      <span aria-hidden className="flex gap-1">
+        {Array.from({ length: 5 }, (_, i) => (
+          <span key={i} className={`size-2 rounded-full ${i < n ? "bg-gold" : "border border-gold/70"}`} />
+        ))}
+      </span>
+      <span className="text-[0.84rem] text-ink/65">{n}-star hotel</span>
+    </span>
+  );
+}
+
+function Rows({ rows }: { rows: { k: string; v: string }[] }) {
+  return (
+    <dl className="mt-4 divide-y divide-ink/10 border-t border-ink/10 text-[0.93rem]">
+      {rows.map((r) => (
+        <div key={r.k} className="flex items-baseline justify-between gap-4 py-2.5">
+          <dt className="text-ink/65">{r.k}</dt>
+          <dd className="text-right tabular-nums">{r.v}</dd>
+        </div>
+      ))}
+    </dl>
+  );
+}
+
+/** Fly, the cities, fly: one line, widths by nights. On phones, a short list. */
+export function TripLine({ plan }: { plan: TripPlan }) {
+  const seg = (stay: boolean) =>
+    `flex items-center justify-between gap-3 rounded-[1rem] px-4 py-3 sm:grid sm:place-items-center sm:gap-0 sm:rounded-full sm:py-3 sm:text-center ${stay ? "bg-(--raise) sm:basis-0" : "bg-sand/25 sm:shrink-0 sm:px-5"}`;
+  return (
+    <div>
+      <ol className="glass grid gap-1.5 rounded-[1.4rem] p-1.5 [--glass-shadow:none] sm:flex sm:rounded-full">
+        {plan.timeline.map((s, i) => (
+          <Fragment key={s.label}>
+            <li className={seg(Boolean(s.nights))} style={s.nights ? { flexGrow: s.nights } : undefined}>
+              <span className="block text-[0.98rem] font-medium">{s.label}</span>
+              <span className="block text-[0.8rem] text-ink/62 tabular-nums">{s.sub}</span>
+            </li>
+            {plan.marker && plan.marker.after === i ? <li className={`${eyebrow} px-4 py-1 text-[0.66rem] sm:hidden`}>↓ {plan.marker.text}</li> : null}
+          </Fragment>
+        ))}
+      </ol>
+      {plan.marker ? (
+        // Same widths as the line above, so the note sits under the change of city.
+        <div aria-hidden className="mt-2 hidden gap-1.5 px-1.5 sm:flex">
+          {plan.timeline.map((s, i) => (
+            <div key={s.label} className={`invisible relative h-5 ${s.nights ? "basis-0 px-4" : "shrink-0 px-5"}`} style={s.nights ? { flexGrow: s.nights } : undefined}>
+              <span className="block h-0 overflow-hidden text-[0.98rem] font-medium">{s.label}</span>
+              <span className="block h-0 overflow-hidden text-[0.8rem]">{s.sub}</span>
+              {plan.marker && plan.marker.after + 1 === i ? (
+                <span className={`visible absolute top-0 -left-1 whitespace-nowrap ${eyebrow} text-[0.66rem]`}>↑ {plan.marker.text}</span>
+              ) : null}
+            </div>
+          ))}
+        </div>
+      ) : null}
+    </div>
+  );
+}
+
+/** The night chapter of a planned trip: the line, the flights, the hotels and the Eid notes. */
+export function TripJourney({ j }: { j: Journey }) {
+  const plan = j.plan!;
+  return (
+    <section className={`py-[clamp(3.75rem,9vw,8rem)] ${gutter}`}>
+      <Label>The journey</Label>
+      <Heading className="mt-4 max-w-[48rem] text-[clamp(2.3rem,4.2vw,4rem)]">
+        Flights and hotels
+        <Mark s={plan.status} />
+      </Heading>
+      <p className="mt-4 max-w-[36rem] text-[1rem] leading-[1.65] text-ink/72">From Heathrow and back: thirteen nights, nine in Makkah and four in Madinah.</p>
+
+      <div className="mt-9 sm:mt-12">
+        <TripLine plan={plan} />
+      </div>
+
+      <div className="mt-8 grid grid-cols-1 gap-3 lg:grid-cols-2 lg:gap-4">
+        {plan.flights.map((f) => (
+          <article key={f.dir} className="glass rounded-[1.75rem] p-5 sm:p-7">
+            <div className="flex items-center justify-between gap-3">
+              <p className={`flex items-center gap-2.5 ${eyebrow}`}>
+                <span className="grid size-8 place-items-center rounded-full border border-ink/15 text-ink/75">
+                  <Glyph d={plane} className="size-3.5" />
+                </span>
+                {f.dir}
+              </p>
+              <span className={pill}>{f.airline}</span>
+            </div>
+            <p className="display mt-4 text-[clamp(2rem,3vw,2.6rem)] leading-tight">{f.date}</p>
+            <div className="mt-1 flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 text-[0.95rem]">
+              <span>{f.route}</span>
+              <span className="text-[0.72rem] tracking-[0.16em] text-ink/60">{f.code}</span>
+            </div>
+            <Rows rows={f.rows} />
+            {f.note ? <p className="mt-3 text-[0.84rem] text-ink/62">{f.note}</p> : null}
+          </article>
+        ))}
+
+        {plan.hotels.map((h) => (
+          <article key={h.city} className="glass overflow-hidden rounded-[1.75rem]">
+            <div className="relative aspect-[16/8] overflow-hidden bg-(--raise)">
+              <Pic src={slot(h.slot)} alt={`${h.name}, ${h.city}.`} sizes="(min-width: 1024px) 45vw, 95vw" className="object-cover" />
+            </div>
+            <div className="p-5 sm:p-7">
+              <div className="flex items-center justify-between gap-3">
+                <p className={`flex items-center gap-2.5 ${eyebrow}`}>
+                  <span className="grid size-8 place-items-center rounded-full border border-ink/15 text-ink/75">
+                    <Glyph d={building} className="size-3.5" />
+                  </span>
+                  {h.city}
+                </p>
+                <span className={pill}>{h.nights} nights</span>
+              </div>
+              <h3 className="display mt-4 text-[clamp(1.9rem,2.8vw,2.5rem)] leading-tight">{h.name}</h3>
+              <p className="mt-2">
+                <StarDots n={h.stars} />
+              </p>
+              <Rows rows={h.rows} />
+              {h.note ? <p className="mt-3 text-[0.84rem] text-ink/62">{h.note}</p> : null}
+            </div>
+          </article>
+        ))}
+      </div>
+
+      <ul className="mt-3 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:mt-4 lg:gap-4">
+        {plan.notes.map((n) => (
+          <li key={n.text} className={`flex items-center gap-3 rounded-[1.25rem] border px-4 py-3.5 text-[0.95rem] ${n.tone === "alert" ? "border-dashed border-bronze/45" : "border-gold/35 bg-sand/10"}`}>
+            <span className="grid size-8 shrink-0 place-items-center rounded-full border border-ink/15 text-bronze">
+              <Glyph d={n.tone === "moon" ? moon : alert} className="size-3.5" />
+            </span>
+            {n.text}
+          </li>
+        ))}
+      </ul>
+    </section>
+  );
+}
+
+/** What a planned trip includes, as a list of ticks. */
+export function TripIncludes({ plan }: { plan: TripPlan }) {
+  return (
+    <ul className="glass-phone mt-6 grid grid-cols-1 rounded-[1.25rem] px-4 py-1 [--glass-shadow:none] sm:grid-cols-2 sm:gap-1.5 sm:p-0">
+      {plan.includes.map((h, i) => (
+        <li key={h.value} className={`glass-wide flex items-start gap-3 py-3 text-[0.95rem] sm:rounded-[1.1rem] sm:px-4 sm:py-3.5 ${i ? "border-t border-ink/8" : ""}`}>
+          <Tick className="mt-[0.2em]" />
+          <span>
+            {h.value}
+            <Mark s={h.status} />
+          </span>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+function Timetable({ title, cols }: { title: string; cols: Room[] }) {
+  const dues = cols[0]?.schedule?.map((s) => s.due) ?? [];
+  return (
+    <div className="glass min-w-0 rounded-[1.75rem] p-5 sm:p-6">
+      <table className="w-full text-[0.9rem] tabular-nums">
+        <thead>
+          <tr>
+            <th scope="col" className="pb-3 text-left align-bottom font-display text-[1.25rem] font-normal">
+              {title}
+            </th>
+            {cols.map((c, i) => (
+              <th key={c.type} scope="col" className="pb-3 pl-2 text-right align-bottom">
+                <span className={`inline-block rounded-full px-2.5 py-1 text-[0.62rem] font-medium tracking-[0.14em] whitespace-nowrap uppercase ${i === 0 ? "bg-ink text-canvas" : "bg-(--raise) text-ink/80 ring-1 ring-ink/12"}`}>{c.type}</span>
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {dues.map((d, k) => (
+            <tr key={d} className="border-t border-ink/10">
+              <th scope="row" className="py-2.5 pr-2 text-left font-normal text-ink/70">
+                {d}
+              </th>
+              {cols.map((c) => (
+                <td key={c.type} className="py-2.5 pl-2 text-right">
+                  {gbp(c.schedule?.[k]?.amount ?? 0)}
+                </td>
+              ))}
+            </tr>
+          ))}
+          <tr className="border-t border-ink/35">
+            <th scope="row" className="pt-2.5 text-left font-medium">
+              Total
+            </th>
+            {cols.map((c) => (
+              <td key={c.type} className="pt-2.5 pl-2 text-right font-medium">
+                {gbp(c.price)}
+              </td>
+            ))}
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
+/** The packages as cards, then each one's payment timetable. Prices from src/lib/trips.ts. */
+export function TripPackages({ j }: { j: Journey }) {
+  const rooms = j.rooms?.value ?? [];
+  const withFlights = rooms.filter((r) => r.flights !== false);
+  const ground = rooms.filter((r) => r.flights === false);
+  return (
+    <>
+      <ul className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-3">
+        {rooms.map((r, i) => (
+          <li key={r.type} className={`relative overflow-hidden rounded-[1.75rem] p-5 sm:p-6 ${i === 0 ? `panel-dark text-cream` : "glass"}`}>
+            {i === 0 ? <Emblem className="pointer-events-none absolute right-[-10%] bottom-[-25%] h-[120%] text-cream/[0.05]" /> : null}
+            <span className={`relative inline-block rounded-full px-3 py-1 text-[0.66rem] font-medium tracking-[0.18em] uppercase ${i === 0 ? "border border-cream/40 text-cream/90" : "bg-(--raise) text-ink/80 ring-1 ring-ink/12"}`}>{r.type}</span>
+            <p className="display relative mt-4 text-[clamp(2.8rem,4.4vw,3.6rem)] leading-none">{gbp(r.price)}</p>
+            <p className={`relative mt-2.5 text-[0.68rem] tracking-[0.18em] uppercase ${i === 0 ? "text-cream/70" : "text-ink/60"}`}>
+              Per person{r.flights !== false ? " · quad sharing" : ""}
+            </p>
+            <p className={`relative mt-4 border-t pt-3 text-[0.92rem] ${i === 0 ? "border-cream/20 text-cream/85" : "border-ink/10 text-ink/72"}`}>{r.flights !== false ? "Flights and ground" : "Hotels and transfers, your own flights"}</p>
+          </li>
+        ))}
+      </ul>
+      <div className="mt-3 grid grid-cols-1 gap-3 lg:grid-cols-[1.35fr_1fr]">
+        {withFlights.length ? <Timetable title="With flights" cols={withFlights} /> : null}
+        {ground.length ? <Timetable title="Ground only" cols={ground} /> : null}
+      </div>
+      <p className="mt-3 text-[0.86rem] text-ink/68">
+        All deposits are non-refundable.
+        {j.plan?.places ? (
+          <>
+            {" "}
+            {j.plan.places.value}.
+            <Mark s={j.plan.places.status} />
+          </>
+        ) : null}
+      </p>
+    </>
   );
 }

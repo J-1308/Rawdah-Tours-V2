@@ -10,7 +10,7 @@ const cx = (...c: Array<string | false | null | undefined>) => c.filter(Boolean)
 
 const JOURNEY_OPTIONS: Array<{ value: Journey; label: string; hint: string }> = [
   { value: 'hajj-2027', label: 'Hajj 2027', hint: 'Registering interest now' },
-  { value: 'umrah', label: 'Umrah', hint: 'Dates coming soon' },
+  { value: 'umrah', label: 'Umrah', hint: 'Ramadan 2027: 27 Feb – 13 Mar' },
   { value: 'not-sure', label: 'Not sure yet', hint: 'We’ll talk it through' },
 ]
 

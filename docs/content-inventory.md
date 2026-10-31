@@ -48,8 +48,11 @@ is **not** identified on the site.
   cycle (Wego, updated 1 Jul 2026); Hajj 1448 expected around 15–19 May 2027 (same source). Rawdah's own part
   (helping compare options on Nusuk, registering reserves nothing and creates no payment, dates and hotels still
   being confirmed, updates on the channels people choose) follows the LIVE page, re-read 31 Oct 2026.
-- **Next group Umrah**: not announced. The page shows Path of Purity II's shape and prices as a guide, all
-  marked Suggested.
+- **Ramadan Umrah 2027** (`/trips/ramadan-umrah-2027`, the next flagship trip): from Rawdah's "GGC × Rawdah Tours
+  Umrah 2027" itinerary and pricing PDF (sent by Jibril, 31 Oct 2026). Used: dates, route, Saudia flight times and
+  baggage, the two 4★ hotels and check-in dates, Eid note, the three packages, the payment timetable and group size.
+  Prices and the timetable live in `src/lib/trips.ts`. **Left out on purpose:** the PDF's internal notes (pre-trip
+  seminar, its speaker and date, Eid presents, videography), marked "not for publication" and "internal".
 - **Path of Purity II: Summer Edition** (V1, POSTER): 4–15 Aug 2026; 5 nights Peninsula Worth (Madinah), 5 nights
   Address Jabal Omar (Makkah), breakfast; Qatar Airways from Heathrow; quad £1,799, triple £1,835, double £2,025
   per person; land only from £1,040 (V1 terms; the poster's £1,099 is superseded); £500 deposit; balance cleared

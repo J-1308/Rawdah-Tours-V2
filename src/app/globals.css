@@ -430,11 +430,10 @@ details > summary::-webkit-details-marker { display: none; }
     mask-image: linear-gradient(to bottom, #000 45%, transparent 100%);
   }
 }
+/* Desktop: the photo runs the full width, so it only dissolves at the bottom, where the words begin. */
 @media (min-width: 64rem) {
   .night-photo {
-    -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 42%), linear-gradient(to top, transparent 0%, #000 30%);
-    -webkit-mask-composite: source-in;
-    mask-image: linear-gradient(to right, transparent 0%, #000 42%), linear-gradient(to top, transparent 0%, #000 30%);
-    mask-composite: intersect;
+    -webkit-mask-image: linear-gradient(to bottom, #000 38%, transparent 96%);
+    mask-image: linear-gradient(to bottom, #000 38%, transparent 96%);
   }
 }

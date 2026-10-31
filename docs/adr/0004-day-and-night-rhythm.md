@@ -63,6 +63,11 @@ appears only where day meets night, `.settle` uses `backwards` so finished photo
 and on phones the paper grain and the scroll-linked rise are off. Blur stays only on things that float over
 moving content: the header, its menu, the phone bar, the WhatsApp button and the review tools.
 
+**Home hero on desktop (31 October, Jibril):** the photograph runs the full width on every screen, as on phones.
+On desktop the words sit beneath it (headline left, the rest right) with the mark embossed behind them; the photo
+only dissolves at the bottom. Trips with a settled plan (`plan` in `content.ts`) show it as a timeline, flight
+and hotel cards, packages and a payment timetable, after Rawdah's own itinerary sheets in the site's colours.
+
 ## Consequences
 
 - Before launch, pick a top: set `data-top` on `<html>` in `src/app/layout.tsx`, then delete the inline script

@@ -13,6 +13,12 @@ export type RoomOption = {
   occupancy: number
   /** Per person, in pence */
   pricePence: number
+  /** A package rather than a room: what it covers, e.g. "Flights and ground, quad sharing". */
+  note?: string
+  /** False for a ground-only package (own flights). Default true. */
+  flights?: boolean
+  /** The payment timetable per person, deposit first. Must add up to pricePence. */
+  schedule?: Array<{ due: string; pence: number }>
 }
 
 export type TripStatus =
@@ -46,6 +52,70 @@ export type Trip = {
 }
 
 export const TRIPS: Trip[] = [
+  {
+    // Source: "GGC × Rawdah Tours Umrah 2027" itinerary and pricing (PDF from Rawdah, 31 Oct 2026). Its internal
+    // notes (seminar, speaker, Eid presents, videography) are not for publication and are left out on purpose.
+    slug: 'ramadan-umrah-2027',
+    kind: 'umrah',
+    name: 'GGC × Rawdah Tours: Ramadan Umrah 2027',
+    status: 'interest',
+    startDate: '2027-02-27',
+    endDate: '2027-03-13',
+    summary: 'Thirteen nights in Ramadan with GGC: nine in Makkah, then four in Madinah, flying with Saudia from London Heathrow.',
+    stays: [
+      { city: 'Makkah', nights: 9, hotel: 'Novotel Thakher City Makkah', note: '4-star' },
+      { city: 'Madinah', nights: 4, hotel: 'Al Manakha Rotana', note: '4-star' },
+    ],
+    flights: 'Return flights with Saudia: London Heathrow to Jeddah, and Madinah to London Heathrow via Jeddah',
+    pricing: {
+      rooms: [
+        {
+          id: 'early-bird',
+          label: 'Early bird',
+          occupancy: 4,
+          pricePence: 189900,
+          note: 'Flights and ground, quad sharing',
+          schedule: [
+            { due: 'Deposit on booking', pence: 39900 },
+            { due: '30 November', pence: 50000 },
+            { due: '31 December', pence: 50000 },
+            { due: '20 January, final', pence: 50000 },
+          ],
+        },
+        {
+          id: 'standard',
+          label: 'Standard',
+          occupancy: 4,
+          pricePence: 199900,
+          note: 'Flights and ground, quad sharing',
+          schedule: [
+            { due: 'Deposit on booking', pence: 39900 },
+            { due: '30 November', pence: 60000 },
+            { due: '31 December', pence: 50000 },
+            { due: '20 January, final', pence: 50000 },
+          ],
+        },
+        {
+          id: 'ground-only',
+          label: 'Ground only',
+          occupancy: 4,
+          pricePence: 129900,
+          note: 'Hotels and transfers, own flights',
+          flights: false,
+          schedule: [
+            { due: 'Deposit on booking', pence: 39900 },
+            { due: 'Balance, agreed after booking', pence: 90000 },
+          ],
+        },
+      ],
+      depositPence: 39900,
+      // As on the last trip; confirm before card payments open for this trip.
+      cardFeePence: 800,
+      balancePlan:
+        'With flights: £399 on booking, then payments on 30 November, 31 December and 20 January, paid in full by 20 January 2027. Ground only: £399 on booking, then the £900 balance on a date agreed after booking. Deposits are non-refundable.',
+    },
+    capacity: 60,
+  },
   {
     slug: 'hajj-2027',
     kind: 'hajj',

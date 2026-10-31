@@ -56,7 +56,7 @@ export const wa = (text: string) => `https://wa.me/${brand.whatsapp}?text=${enco
 export const say = {
   general: "Salaam Rawdah Tours, I’ve got a question.",
   hajj: "Salaam Rawdah Tours, I’d like to register for Hajj 2027.",
-  nextUmrah: "Salaam Rawdah Tours, please let me know when the next Umrah trip is out.",
+  nextUmrah: "Salaam Rawdah Tours, I’d like to join the Ramadan Umrah 2027.",
   private: "Salaam Rawdah Tours, I’m planning a private Umrah.",
   group: "Salaam Rawdah Tours, I’d like to talk about a trip for our group.",
   pay: "Salaam Rawdah Tours, I’ve got a question about paying for a trip.",
@@ -69,7 +69,7 @@ export const say = {
 export const routes = {
   trips: "/trips",
   hajj: "/trips/hajj-2027",
-  nextUmrah: "/trips/next-umrah",
+  nextUmrah: "/trips/ramadan-umrah-2027",
   lastTrip: "/trips/path-of-purity-ii",
   private: "/private-umrah",
   groups: "/groups",
@@ -83,7 +83,7 @@ export const anchors = { join: "join", form: "register-interest" } as const;
 
 export const tripLinks = [
   { label: "Hajj 2027", note: "Registration of interest open", href: routes.hajj },
-  { label: "Next group Umrah", note: "Dates coming soon", href: routes.nextUmrah },
+  { label: "Ramadan Umrah 2027", note: "27 Feb – 13 Mar, with GGC", href: routes.nextUmrah },
   { label: "Path of Purity II", note: "August 2026, completed", href: routes.lastTrip },
   { label: "Every trip", note: "Current and past", href: routes.trips },
 ];
@@ -98,11 +98,15 @@ export const nav = [
 ] as const;
 
 /** The sand-gold line above the header. */
+/** Hajj 2027 registration: the main "Register interest" buttons across the site. */
+export const hajjRegister = `${routes.hajj}#${anchors.form}`;
+
+/** The line above the header: the flagship trip. */
 export const strip = {
-  text: "Hajj 2027 registration of interest is open",
-  short: "Hajj 2027 registration is open",
-  cta: "Register interest",
-  href: `${routes.hajj}#${anchors.form}`,
+  text: "Ramadan Umrah 2027 with GGC: 27 February – 13 March, from £1,899",
+  short: "Ramadan Umrah 2027, from £1,899",
+  cta: "See the trip",
+  href: routes.nextUmrah,
 };
 
 /* ------------------------------------------------------------------------ */
@@ -114,12 +118,12 @@ export const hero = {
   /** DRAFT. Echoes V1's "show you the path" and the Path of Purity trips. */
   headline: "Walk the path with people who know it.",
   text: v(
-    "Students of knowledge travel with every Rawdah group. Brother Ayuub looks after you from your first message to the flight home, and you stay a minute or two from the Haram.",
+    "Students of knowledge travel with every Rawdah group, and Brother Ayuub looks after you from your first message to the flight home.",
     "evidenced",
   ),
   facts: [
     v("Teachers with every group", "evidenced"), // V1 "Students of knowledge throughout"
-    v("5★ hotels, 1–2 minutes from the Haram", "evidenced"), // POSTER
+    v("Ramadan Umrah 2027: 27 Feb – 13 Mar", "confirmed"), // GGC × Rawdah itinerary
     v("Hajj booked through Nusuk", "confirmed"), // LIVE
   ],
   /** The hero's layered photographs: a tall main photo, one overlapping it, one behind. */
@@ -134,7 +138,7 @@ export const hero = {
 /** "Where would you like to start?" — one way in for each kind of traveller. */
 export const starts = [
   { title: "Hajj 2027", text: "Register your interest now. Packages open on Nusuk.", href: routes.hajj, tag: v("Open now", "confirmed"), photo: { src: slot("hajj-mina"), position: "object-[50%_45%]" } },
-  { title: "Group Umrah", text: "Our next trip: Madinah first, then Makkah.", href: routes.nextUmrah, tag: v("Dates soon", "to confirm"), photo: { src: "/images/group-photos/group-photos-04.jpg", position: "object-[50%_75%]" } },
+  { title: "Group Umrah", text: "Ramadan 2027: Makkah, then Madinah.", href: routes.nextUmrah, tag: v("27 Feb – 13 Mar", "confirmed"), photo: { src: "/images/group-photos/group-photos-04.jpg", position: "object-[50%_75%]" } },
   { title: "Private & family", text: "Your own dates, planned with us.", href: routes.private, tag: v("Your dates", "draft"), photo: { src: slot("family-haram"), position: "object-[50%_50%]" } },
   { title: "Groups & organisations", text: "A trip for your organisation or community.", href: routes.groups, tag: v("On request", "draft"), photo: { src: "/images/teaching/teaching-01.jpg", position: "object-[50%_30%]" } },
 ];
@@ -383,11 +387,11 @@ export const hajjNusuk = {
 export const paying = {
   headline: "Paying for your place",
   text: "A deposit holds your place. The rest is spread out, and it’s all paid before you fly.",
-  example: { room: "Quad room, our last trip", price: 1799, deposit: 500, instalments: 3 },
+  example: { room: "Early bird, Ramadan Umrah 2027", price: 1899, deposit: 399, instalments: 3 },
   stages: [
-    { when: "Today", what: "£299 deposit", note: "By card (a small fee) or bank transfer (no fee).", status: "confirmed" as Status },
-    { when: "Monthly", what: "Instalments", note: "We send you the schedule.", status: "proposed" as Status },
-    { when: "40 days before", what: "Paid in full", note: "The whole balance is cleared.", status: "confirmed" as Status },
+    { when: "On booking", what: "£399 deposit", note: "Non-refundable. By card or bank transfer.", status: "confirmed" as Status },
+    { when: "Nov, Dec, Jan", what: "Three payments", note: "30 November, 31 December, 20 January.", status: "confirmed" as Status },
+    { when: "20 January", what: "Paid in full", note: "Five weeks before you fly.", status: "confirmed" as Status },
     { when: "Departure", what: "Fly together", note: "Brother Ayuub meets the group.", status: "draft" as Status },
   ],
   sharing: v("Travelling alone? You share a room with travellers of the same gender.", "confirmed"),
@@ -507,7 +511,7 @@ export const faqs: Faq[] = [
   { topic: "hajj", q: "How do Hajj bookings and payments work?", a: "You choose, book and pay for your Hajj package directly on Nusuk, the official Saudi Hajj platform. Rawdah Tours does not take payment for Hajj packages.", status: "confirmed" },
   { topic: "hajj", q: "Are the Hajj 2027 dates confirmed?", a: "Not yet. The dates and length of the trip are published with the approved packages on Nusuk.", status: "confirmed" },
   { topic: "hajj", q: "How does Rawdah help with Hajj?", a: "We talk through your priorities, help you compare suitable Nusuk packages, prepare you before departure, and our team is on the ground with you throughout. The choice of package is always yours.", status: "confirmed" },
-  { topic: "paying", q: "How do I pay for the trip?", a: "A £299 deposit holds your place, by card online (a small card fee applies) or by bank transfer with no fee. Deposits are non-refundable. The balance is paid in instalments and cleared 40 days before departure.", status: "confirmed" },
+  { topic: "paying", q: "How do I pay for the trip?", a: "A non-refundable deposit holds your place: £399 on our Ramadan 2027 trip, by card or bank transfer. The rest is paid in set instalments; for Ramadan 2027 that’s 30 November, 31 December and 20 January, so it’s all paid well before you fly.", status: "confirmed" },
   { topic: "paying", q: "What is your cancellation policy?", a: "Deposits are non-refundable. 60 days or more before departure, everything you’ve paid beyond the deposit is refunded; 40 to 59 days, half of it, and you can change the guest’s name free of charge; under 40 days, no refund, though a name change may be possible for a fee. Find a replacement before the 40-day mark and nothing is lost.", status: "confirmed" },
   { topic: "paying", q: "Is my trip ATOL protected?", a: "Yes. Our Umrah trips are ATOL protected (ATOL 5311), and you’ll get an ATOL certificate when you book. Hajj is different: you book and pay for your package on Nusuk, not with us, so it’s covered by Nusuk’s terms.", status: "confirmed" },
   { topic: "paying", q: "Do I need a visa to travel with you?", a: "Most travellers need a visa for Saudi Arabia. We arrange it and guide you through it, but approval is at the discretion of the authorities.", status: "confirmed" },
@@ -515,14 +519,44 @@ export const faqs: Faq[] = [
 
 export const closing = {
   headline: "Make the intention. We’ll plan the journey.",
-  text: "Register for Hajj 2027, ask about the next Umrah, or just send us a message. Registering is free and commits you to nothing.",
+  text: "Register for Hajj 2027 or the Ramadan Umrah, or just send us a message. Registering is free and commits you to nothing.",
 };
 
 /* ------------------------------------------------------------------------ */
 /* Trips                                                                     */
 /* ------------------------------------------------------------------------ */
 
-export type Room = { type: string; sharing: number; price: number };
+export type Room = {
+  type: string;
+  sharing: number;
+  price: number;
+  /** For a package: a short line under the name in the join panel, e.g. "Flights, 4 sharing". */
+  sub?: string;
+  /** For a package: what it covers. */
+  note?: string;
+  /** False for ground only (own flights). */
+  flights?: boolean;
+  /** Payment timetable per person, deposit first (from src/lib/trips.ts). */
+  schedule?: { due: string; amount: number }[];
+};
+
+/**
+ * A trip with its plan settled (dates, flights, hotels, packages): drawn on the
+ * trip page as a timeline, flight and hotel cards, and packages with their
+ * payment timetable. Styled after Rawdah's own itinerary for the trip.
+ */
+export type TripPlan = {
+  /** The line across the top: fly, the cities, fly. Nights set the widths. */
+  timeline: { label: string; sub: string; nights?: number }[];
+  /** A note under the line, between two segments (index of the segment it follows). */
+  marker?: { after: number; text: string };
+  flights: { dir: "Outbound" | "Return"; date: string; airline: string; route: string; code: string; rows: { k: string; v: string }[]; note?: string }[];
+  hotels: { city: string; nights: number; name: string; stars: number; slot: string; rows: { k: string; v: string }[]; note?: string }[];
+  notes: { tone: "moon" | "alert"; text: string }[];
+  includes: V[];
+  places?: V;
+  status: Status;
+};
 export type Leg = { place: string; nights?: number };
 export type Day = { day: string; title: string; text: string };
 
@@ -547,6 +581,9 @@ export type Journey = {
   hotels?: { madinah?: V; makkah?: V };
   /** Matches a trip in src/lib/trips.ts, whose server-side prices the card checkout uses. */
   bookingSlug?: string;
+  /** Joint trips: the partner, shown with the name ("GGC × Rawdah Tours"). */
+  partner?: string;
+  plan?: TripPlan;
   intro: string;
   introStatus: Status;
   highlights: V[];
@@ -570,7 +607,13 @@ export const stateLabel: Record<Journey["state"], string> = {
 /** Rooms for a trip that books online come from the server's single price list. */
 function roomsFromTrips(slug: string): Room[] {
   const t = getTrip(slug);
-  return (t?.pricing?.rooms ?? []).map((r) => ({ type: r.label.replace(" room", ""), sharing: r.occupancy, price: r.pricePence / 100 }));
+  return (t?.pricing?.rooms ?? []).map((r) => ({
+    type: r.label.replace(" room", ""),
+    sharing: r.occupancy,
+    price: r.pricePence / 100,
+    ...(r.note ? { note: r.note, sub: r.flights === false ? "Own flights" : `Flights, ${r.occupancy} sharing`, flights: r.flights !== false } : {}),
+    ...(r.schedule ? { schedule: r.schedule.map((s) => ({ due: s.due, amount: s.pence / 100 })) } : {}),
+  }));
 }
 
 export const journeys: Journey[] = [
@@ -631,37 +674,123 @@ export const journeys: Journey[] = [
     waText: say.hajj,
   },
   {
-    slug: "next-umrah",
+    /**
+     * The next flagship trip. Source: Rawdah's "GGC × Rawdah Tours Umrah 2027" itinerary and pricing (PDF, 31 Oct
+     * 2026). Prices and the payment timetable come from src/lib/trips.ts. The PDF's internal notes (seminar,
+     * speaker, Eid presents, videography) are not for publication and stay off the site.
+     */
+    slug: "ramadan-umrah-2027",
     kind: "umrah",
-    name: "Next group Umrah",
-    tagline: "Madinah first, then Makkah, with teachers beside you.",
+    name: "Ramadan Umrah 2027",
+    partner: "GGC × Rawdah Tours",
+    tagline: "The last ten days of Ramadan in Makkah, then four nights in Madinah.",
     state: "interest",
-    stateStatus: "to confirm",
-    dates: v("Coming soon", "to confirm"),
-    route: v([{ place: "Madinah", nights: 5 }, { place: "Makkah", nights: 5 }], "proposed"),
+    stateStatus: "confirmed",
+    dates: v("Sat 27 Feb – Sat 13 Mar 2027", "confirmed"),
+    route: v([{ place: "Makkah", nights: 9 }, { place: "Madinah", nights: 4 }], "confirmed"),
     openTo: v("Brothers, sisters and families", "to confirm"),
     teacher: v("Named when the trip is announced", "to confirm"),
-    /** PROPOSED: Path of Purity II's prices, as a guide until the next trip is priced. */
-    rooms: v(roomsFromTrips("path-of-purity-ii"), "proposed"),
-    deposit: v(299, "evidenced"),
-    months: v(3, "proposed"),
-    flights: v("Qatar Airways from London Heathrow", "proposed"),
-    hotels: { madinah: v("Peninsula Worth Hotel ★★★★★", "proposed"), makkah: v("Address Jabal Omar ★★★★★", "proposed") },
+    rooms: v(roomsFromTrips("ramadan-umrah-2027"), "confirmed"),
+    deposit: v(399, "confirmed"),
+    /** Three payments after the deposit on the flight packages (30 Nov, 31 Dec, 20 Jan). */
+    months: v(3, "confirmed"),
+    flights: v("Saudia from London Heathrow", "confirmed"),
+    hotels: { makkah: v("Novotel Thakher City Makkah ★★★★", "confirmed"), madinah: v("Al Manakha Rotana ★★★★", "confirmed") },
+    bookingSlug: "ramadan-umrah-2027",
     intro:
-      "Our next group Umrah follows the shape of Path of Purity II: five nights near the Prophet’s Mosque with lessons on the seerah, then Makkah and your Umrah, guided step by step. Register your interest and you’ll hear first when the dates are out.",
-    introStatus: "proposed",
+      "A joint Ramadan pilgrimage with GGC. Fly from Heathrow on the night of 27 February and go straight to Makkah for the last ten days of Ramadan. Nine nights there, then on to Madinah around Eid for four nights, and home on 13 March.",
+    introStatus: "draft",
     highlights: [
-      v("Madinah first, then Makkah", "proposed"),
-      v("Five-star hotels a minute or two from each Haram", "proposed"),
-      v("Students of knowledge with the group throughout", "evidenced"),
-      v("A £299 deposit, then instalments", "evidenced"),
+      v("Nine nights in Makkah, then four in Madinah", "confirmed"),
+      v("Saudia from Heathrow, 2 × 23kg bags each", "confirmed"),
+      v("4★ hotels: Novotel Thakher City and Al Manakha Rotana", "confirmed"),
+      v("From £1,899, with a £399 deposit", "confirmed"),
+    ],
+    confirmed: [
+      { title: "Dates and flights", text: "27 February to 13 March 2027, with Saudia." },
+      { title: "Hotels", text: "Novotel Thakher City Makkah and Al Manakha Rotana, both 4★." },
+      { title: "Packages", text: "Early bird £1,899, Standard £1,999, Ground only £1,299." },
     ],
     pending: [
-      { title: "Dates", text: "Coming soon." },
-      { title: "Prices", text: "Shown here as a guide from our last trip until confirmed." },
-      { title: "Hotels and flights", text: "Confirmed when the trip is announced." },
       { title: "Teachers", text: "Named when the trip is announced." },
+      { title: "Eid", text: "Tuesday 9 or Wednesday 10 March, so we may spend it travelling." },
     ],
+    plan: {
+      status: "confirmed",
+      timeline: [
+        { label: "27 Feb", sub: "Fly" },
+        { label: "Makkah", sub: "28 Feb – 9 Mar · 9 nights", nights: 9 },
+        { label: "Madinah", sub: "9 – 13 Mar · 4 nights", nights: 4 },
+        { label: "13 Mar", sub: "Fly home" },
+      ],
+      marker: { after: 1, text: "Eid, Tue 9 or Wed 10 March" },
+      flights: [
+        {
+          dir: "Outbound",
+          date: "Sat 27 February",
+          airline: "Saudia",
+          route: "London Heathrow → Jeddah",
+          code: "LHR – JED",
+          rows: [
+            { k: "Departs", v: "22:05" },
+            { k: "Arrives", v: "07:10, Sun 28 Feb" },
+            { k: "Baggage", v: "2 × 23kg checked, 7kg hand" },
+          ],
+          note: "An overnight flight, then straight to Makkah on arrival.",
+        },
+        {
+          dir: "Return",
+          date: "Sat 13 March",
+          airline: "Saudia",
+          route: "Madinah → Jeddah → London",
+          code: "MED – LHR",
+          rows: [
+            { k: "Madinah → Jeddah", v: "03:35 – 04:50" },
+            { k: "Jeddah layover", v: "3 hrs 40 mins" },
+            { k: "Jeddah → Heathrow", v: "08:30 – 12:15" },
+            { k: "Baggage", v: "2 × 23kg checked, 7kg hand" },
+          ],
+        },
+      ],
+      hotels: [
+        {
+          city: "Makkah",
+          nights: 9,
+          name: "Novotel Thakher City Makkah",
+          stars: 4,
+          slot: "hotel-novotel-thakher",
+          rows: [
+            { k: "Check in", v: "Sun 28 Feb, 21 Ramadan" },
+            { k: "Check out", v: "Tue 9 Mar" },
+          ],
+        },
+        {
+          city: "Madinah",
+          nights: 4,
+          name: "Al Manakha Rotana",
+          stars: 4,
+          slot: "hotel-al-manakha-rotana",
+          rows: [
+            { k: "Check in", v: "Tue 9 Mar" },
+            { k: "Check out", v: "Sat 13 Mar" },
+          ],
+          note: "We check out in the early hours for the 03:35 flight.",
+        },
+      ],
+      notes: [
+        { tone: "moon", text: "Eid al-Fitr falls on Tuesday 9 or Wednesday 10 March." },
+        { tone: "alert", text: "We may spend Eid travelling." },
+      ],
+      includes: [
+        v("Return flights with Saudia from Heathrow, 2 × 23kg checked and 7kg hand luggage", "confirmed"),
+        v("9 nights at Novotel Thakher City Makkah, 4★", "confirmed"),
+        v("4 nights at Al Manakha Rotana, Madinah, 4★", "confirmed"),
+        v("Transfers on the ground, straight to Makkah when you land", "confirmed"),
+        v("Ground only: the hotels and transfers, with your own flights", "confirmed"),
+        v("Students of knowledge and our group leader with the group", "proposed"),
+      ],
+      places: v("Up to 60 places: around 30 with flights and 30 ground only", "confirmed"),
+    },
     photo: { src: "/images/places/places-01.jpg", width: 2400, height: 1600, alt: "The Ka‘bah at night, the clock tower behind it.", position: "object-[50%_55%]" },
     more: [
       { src: "/images/group-photos/group-photos-05.jpg", alt: "The group on the roof of Masjid an-Nabawi.", position: "object-[50%_62%]" },
@@ -716,7 +845,12 @@ export const journeys: Journey[] = [
 
 export const journey = (slug: string) => journeys.find((j) => j.slug === slug);
 
-export const fromPrice = (j: Journey) => (j.rooms?.value.length ? Math.min(...j.rooms.value.map((r) => r.price)) : null);
+export const fromPrice = (j: Journey) => {
+  const all = j.rooms?.value ?? [];
+  const withFlights = all.filter((r) => r.flights !== false);
+  const list = withFlights.length ? withFlights : all;
+  return list.length ? Math.min(...list.map((r) => r.price)) : null;
+};
 
 export const gbp = (n: number) => `£${n.toLocaleString("en-GB")}`;
 

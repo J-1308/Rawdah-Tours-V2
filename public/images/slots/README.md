@@ -11,6 +11,8 @@ and the frame becomes the photo. No code change needed.
 | `family-haram` | Home, "Where would you like to start": the Private & family card; the top of the Private & family page | A parent and child walking together at the Haram, seen from behind | "father son Masjid al-Haram", "family Kaaba back view" |
 | `family-madinah` | Home, the "Private Umrah" section | A family at Masjid an-Nabawi under the umbrellas, from behind or far off | "family Masjid Nabawi umbrellas", "Madinah family mosque" |
 | `groups-masjid` | Home, the "Groups & organisations" section | A UK masjid or community talk: people seated, listening, from behind | "UK mosque lecture", "halaqa study circle mosque" |
+| `hotel-novotel-thakher` | Ramadan Umrah 2027 page: the Makkah hotel card | Novotel Thakher City Makkah, the hotel or a room | The hotel's official site (Accor / Novotel) |
+| `hotel-al-manakha-rotana` | Ramadan Umrah 2027 page: the Madinah hotel card | Al Manakha Rotana, the hotel or a room | The hotel's official site (Rotana) |
 
 ## Rules for outside photos
 
