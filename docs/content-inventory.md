@@ -68,8 +68,8 @@ path" and the Path of Purity trips. **No copy is taken from The Umrah Company si
 
 ## Photos (`public/images/`, see its README)
 
-One folder per kind (`groups/`, `travellers/`, `team/`, `places/`, `portraits/`), numbered by rank: 01 is the
-best. The README says what each file shows and what it was called before (31 October 2026).
+One folder per kind of shot (`group-photos/`, `friends/`, `candid/`, `teaching/`, `team/`, `vest-back/`,
+`bird-park/`, `places/`, `portraits/`), numbered by rank: 01 is the best. The README says what each file shows and what it was called before (31 October 2026).
 
 **Hotel and train photographs:** frames marked "Photo to come" wait for official photographs from Rawdah or
 the hotels' media kits (Address Jabal Omar, and Peninsula Worth or Hilton in Madinah). Never copy them from

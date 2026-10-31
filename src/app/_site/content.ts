@@ -123,18 +123,18 @@ export const hero = {
   ],
   /** The hero's layered photographs: a tall main photo, one overlapping it, one behind. */
   mosaic: [
-    { src: "/images/groups/group-14.jpg", alt: "A Rawdah group on the roof of Masjid an-Nabawi at golden hour, a minaret behind them.", position: "object-[50%_58%]" },
-    { src: "/images/groups/group-08.jpg", alt: "The group together on the hill at Uhud, mountains behind them.", position: "object-[50%_70%]" },
-    { src: "/images/travellers/traveller-13.jpg", alt: "Two travellers in ihram at night in Makkah, the clock tower lit green behind them.", position: "object-[50%_40%]" },
+    { src: "/images/group-photos/group-photos-06.jpg", alt: "A Rawdah group on the roof of Masjid an-Nabawi at golden hour, a minaret behind them.", position: "object-[50%_58%]" },
+    { src: "/images/group-photos/group-photos-02.jpg", alt: "The group together on the hill at Uhud, mountains behind them.", position: "object-[50%_70%]" },
+    { src: "/images/friends/friends-10.jpg", alt: "Two travellers in ihram at night in Makkah, the clock tower lit green behind them.", position: "object-[50%_40%]" },
   ],
 };
 
 /** "Where would you like to start?" — one way in for each kind of traveller. */
 export const starts = [
-  { title: "Hajj 2027", text: "Register your interest now. Packages open on Nusuk.", href: routes.hajj, tag: v("Open now", "confirmed"), photo: { src: "/images/groups/group-16.jpg", position: "object-[50%_45%]" } },
-  { title: "Group Umrah", text: "Our next trip: Madinah first, then Makkah.", href: routes.nextUmrah, tag: v("Dates soon", "to confirm"), photo: { src: "/images/groups/group-10.jpg", position: "object-[50%_75%]" } },
-  { title: "Private & family", text: "Your own dates, planned with us.", href: routes.private, tag: v("Your dates", "draft"), photo: { src: "/images/travellers/traveller-09.jpg", position: "object-[50%_40%]" } },
-  { title: "Groups & organisations", text: "A trip for your organisation or community.", href: routes.groups, tag: v("On request", "draft"), photo: { src: "/images/groups/group-11.jpg", position: "object-[50%_55%]" } },
+  { title: "Hajj 2027", text: "Register your interest now. Packages open on Nusuk.", href: routes.hajj, tag: v("Open now", "confirmed"), photo: { src: "/images/friends/friends-03.jpg", position: "object-[50%_45%]" } },
+  { title: "Group Umrah", text: "Our next trip: Madinah first, then Makkah.", href: routes.nextUmrah, tag: v("Dates soon", "to confirm"), photo: { src: "/images/group-photos/group-photos-04.jpg", position: "object-[50%_75%]" } },
+  { title: "Private & family", text: "Your own dates, planned with us.", href: routes.private, tag: v("Your dates", "draft"), photo: { src: "/images/friends/friends-08.jpg", position: "object-[50%_40%]" } },
+  { title: "Groups & organisations", text: "A trip for your organisation or community.", href: routes.groups, tag: v("On request", "draft"), photo: { src: "/images/friends/friends-01.jpg", position: "object-[50%_55%]" } },
 ];
 
 /** The Hajj band: the talbiyah, and the five steps from registering to Hajj. */
@@ -153,7 +153,7 @@ export const hajjBand = {
     { title: "Learn before you leave", text: "Preparation sessions on the rites, so you arrive knowing what to do.", status: "confirmed" as Status },
     { title: "Hajj with the group", text: "Ustadh Abu Abdulaziz Ahmed guides, and our team is with you on the ground.", status: "confirmed" as Status },
   ],
-  photo: { src: "/images/groups/group-17.jpg", alt: "Rawdah travellers listening at a preparation session, the Rawdah Tours logo on the screen.", caption: "A Rawdah preparation session in the UK" },
+  photo: { src: "/images/teaching/teaching-03.jpg", alt: "Rawdah travellers listening at a preparation session, the Rawdah Tours logo on the screen.", caption: "A Rawdah preparation session in the UK" },
 };
 
 /** V1's "Our Last Trip". */
@@ -169,19 +169,19 @@ export const lastTrip = {
   ],
   status: "confirmed" as Status, // V1 and POSTER
   photos: [
-    { src: "/images/groups/group-14.jpg", caption: "On the roof of Masjid an-Nabawi", alt: "The group on the roof of Masjid an-Nabawi at golden hour, a minaret behind them.", position: "object-[50%_62%]" },
-    { src: "/images/groups/group-09.jpg", caption: "Masjid Quba", alt: "The group outside Masjid Quba, its white minarets behind them.", position: "object-[50%_75%]" },
-    { src: "/images/travellers/traveller-14.jpg", caption: "Madinah at night", alt: "Two travellers at Masjid an-Nabawi at night.", position: "object-[50%_45%]" },
-    { src: "/images/groups/group-15.jpg", caption: "Masjid al-Haram", alt: "The group outside Masjid al-Haram at night.", position: "object-[50%_55%]" },
-    { src: "/images/travellers/traveller-10.jpg", caption: "Between lessons", alt: "A traveller holding two macaws on his arms.", position: "object-[50%_40%]" },
-    { src: "/images/groups/group-16.jpg", caption: "Umrah complete", alt: "Three travellers in ihram outside Masjid al-Haram at dusk, the minarets lit behind them.", position: "object-[50%_50%]" },
+    { src: "/images/group-photos/group-photos-06.jpg", caption: "On the roof of Masjid an-Nabawi", alt: "The group on the roof of Masjid an-Nabawi at golden hour, a minaret behind them.", position: "object-[50%_62%]" },
+    { src: "/images/group-photos/group-photos-03.jpg", caption: "Masjid Quba", alt: "The group outside Masjid Quba, its white minarets behind them.", position: "object-[50%_75%]" },
+    { src: "/images/friends/friends-11.jpg", caption: "Madinah at night", alt: "Two travellers at Masjid an-Nabawi at night.", position: "object-[50%_45%]" },
+    { src: "/images/group-photos/group-photos-07.jpg", caption: "Masjid al-Haram", alt: "The group outside Masjid al-Haram at night.", position: "object-[50%_55%]" },
+    { src: "/images/bird-park/bird-park-04.jpg", caption: "Between lessons", alt: "A traveller holding two macaws on his arms.", position: "object-[50%_40%]" },
+    { src: "/images/friends/friends-03.jpg", caption: "Umrah complete", alt: "Three travellers in ihram outside Masjid al-Haram at dusk, the minarets lit behind them.", position: "object-[50%_50%]" },
   ],
 };
 
 /** V1's "Why Choose Rawdah", in its own words where it had them. */
 export const whyRawdah = {
   headline: "Why choose Rawdah",
-  photo: { src: "/images/team/team-13.jpg", alt: "The back of a Rawdah Tours vest, worn by the team among the date palms.", caption: "The Rawdah team, August 2026" },
+  photo: { src: "/images/vest-back/vest-back-04.jpg", alt: "The back of a Rawdah Tours vest, worn by the team among the date palms.", caption: "The Rawdah team, August 2026" },
   reasons: [
     { title: "Daily talks and reminders", text: "Students of knowledge travel with the group from the first day to the last, with a reminder each day and someone to ask.", status: "evidenced" as Status }, // V1
     { title: "A spiritually richer itinerary", text: "The seerah in Madinah first, then each rite of Umrah explained before you perform it in Makkah.", status: "evidenced" as Status }, // V1
@@ -282,7 +282,7 @@ export const journeyStay = {
       text: "A five-star hotel in the Jabal Omar development beside Masjid al-Haram, with breakfast each day.",
       status: "evidenced" as Status,
       photos: [
-        { src: "/images/groups/group-12.jpg", alt: "The Path of Purity II group together in the lobby of Address Jabal Omar.", position: "object-[50%_55%]", caption: "Our group in the lobby, August 2026" },
+        { src: "/images/group-photos/group-photos-05.jpg", alt: "The Path of Purity II group together in the lobby of Address Jabal Omar.", position: "object-[50%_55%]", caption: "Our group in the lobby, August 2026" },
         { slot: "A room" },
         { slot: "The view" },
         { slot: "Breakfast" },
@@ -304,8 +304,8 @@ export const journeyStay = {
     text: "Visits to the places of the seerah, with the story told where it happened.",
     status: "evidenced" as Status,
     places: [
-      { name: "Masjid Quba", city: "Madinah", photo: { src: "/images/groups/group-09.jpg", alt: "The group outside Masjid Quba.", position: "object-[50%_75%]" } as StayPhoto },
-      { name: "Mount Uhud", city: "Madinah", photo: { src: "/images/groups/group-08.jpg", alt: "The group at Uhud, the mountains behind them.", position: "object-[50%_70%]" } as StayPhoto },
+      { name: "Masjid Quba", city: "Madinah", photo: { src: "/images/group-photos/group-photos-03.jpg", alt: "The group outside Masjid Quba.", position: "object-[50%_75%]" } as StayPhoto },
+      { name: "Mount Uhud", city: "Madinah", photo: { src: "/images/group-photos/group-photos-02.jpg", alt: "The group at Uhud, the mountains behind them.", position: "object-[50%_70%]" } as StayPhoto },
       { name: "The sites around Makkah", city: "Makkah", photo: { slot: "Ziyarah in Makkah" } as StayPhoto },
     ],
   },
@@ -439,7 +439,7 @@ export const groupsBand = {
   headline: "A trip for your organisation or community",
   text: v("Masjids, societies, charities and workplaces. Your people, your reasons for going: we plan the trip around your group, handle every booking, and travel with you.", "draft"),
   who: ["Masjids", "Islamic societies", "Charities", "Schools and madrasahs", "Workplaces", "Community groups"],
-  photo: { src: "/images/groups/group-10.jpg", alt: "A Rawdah group outside Masjid Quba in bright sun, the white minarets above them.", position: "object-[50%_78%]" },
+  photo: { src: "/images/group-photos/group-photos-04.jpg", alt: "A Rawdah group outside Masjid Quba in bright sun, the white minarets above them.", position: "object-[50%_78%]" },
 };
 
 /** Private band on the home page. */
@@ -616,10 +616,10 @@ export const journeys: Journey[] = [
       { title: "Services", text: "Transport, services and the schedule for each package." },
       { title: "Visa requirements", text: "Set out in the official platform information." },
     ],
-    photo: { src: "/images/groups/group-16.jpg", width: 2400, height: 1800, alt: "Three Rawdah travellers in ihram outside Masjid al-Haram at dusk, the minarets lit behind them.", position: "object-[50%_55%]" },
+    photo: { src: "/images/friends/friends-03.jpg", width: 2400, height: 1800, alt: "Three Rawdah travellers in ihram outside Masjid al-Haram at dusk, the minarets lit behind them.", position: "object-[50%_55%]" },
     more: [
-      { src: "/images/groups/group-17.jpg", alt: "A Rawdah preparation session in the UK.", position: "object-[50%_60%]" },
-      { src: "/images/travellers/traveller-13.jpg", alt: "Two travellers in ihram at night, the clock tower behind them.", position: "object-[50%_40%]" },
+      { src: "/images/teaching/teaching-03.jpg", alt: "A Rawdah preparation session in the UK.", position: "object-[50%_60%]" },
+      { src: "/images/friends/friends-10.jpg", alt: "Two travellers in ihram at night, the clock tower behind them.", position: "object-[50%_40%]" },
     ],
     waText: say.hajj,
   },
@@ -655,10 +655,10 @@ export const journeys: Journey[] = [
       { title: "Hotels and flights", text: "Confirmed when the trip is announced." },
       { title: "Teachers", text: "Named when the trip is announced." },
     ],
-    photo: { src: "/images/groups/group-10.jpg", width: 2400, height: 1600, alt: "A Rawdah group outside Masjid Quba in Madinah, its white minarets behind them.", position: "object-[50%_70%]" },
+    photo: { src: "/images/group-photos/group-photos-04.jpg", width: 2400, height: 1600, alt: "A Rawdah group outside Masjid Quba in Madinah, its white minarets behind them.", position: "object-[50%_70%]" },
     more: [
-      { src: "/images/groups/group-14.jpg", alt: "The group on the roof of Masjid an-Nabawi.", position: "object-[50%_62%]" },
-      { src: "/images/travellers/traveller-12.jpg", alt: "Two travellers in ihram, smiling, suitcases behind them.", position: "object-[50%_35%]" },
+      { src: "/images/group-photos/group-photos-06.jpg", alt: "The group on the roof of Masjid an-Nabawi.", position: "object-[50%_62%]" },
+      { src: "/images/friends/friends-09.jpg", alt: "Two travellers in ihram, smiling, suitcases behind them.", position: "object-[50%_35%]" },
     ],
     waText: say.nextUmrah,
   },
@@ -698,10 +698,10 @@ export const journeys: Journey[] = [
       ],
       "evidenced",
     ),
-    photo: { src: "/images/groups/group-12.jpg", width: 2400, height: 1600, alt: "The Path of Purity II group in the lobby of Address Jabal Omar, Makkah.", position: "object-[50%_55%]" },
+    photo: { src: "/images/group-photos/group-photos-05.jpg", width: 2400, height: 1600, alt: "The Path of Purity II group in the lobby of Address Jabal Omar, Makkah.", position: "object-[50%_55%]" },
     more: [
-      { src: "/images/groups/group-08.jpg", alt: "The group at Uhud.", position: "object-[50%_70%]" },
-      { src: "/images/groups/group-13.jpg", alt: "Six travellers arm in arm after Umrah.", position: "object-[30%_40%]" },
+      { src: "/images/group-photos/group-photos-02.jpg", alt: "The group at Uhud.", position: "object-[50%_70%]" },
+      { src: "/images/friends/friends-02.jpg", alt: "Six travellers arm in arm after Umrah.", position: "object-[30%_40%]" },
     ],
     waText: say.nextUmrah,
   },
@@ -749,7 +749,7 @@ export const privatePage = {
     { title: "Your order, your pace", text: "Madinah or Makkah first, as many nights in each as you like.", status: "proposed" as Status },
     { title: "Guided by our team", text: "Your Umrah guided on arrival, and ziyarah in both cities.", status: "proposed" as Status },
   ],
-  photo: { src: "/images/travellers/traveller-09.jpg", alt: "Two Rawdah travellers at the Islamic University of Madinah.", position: "object-[50%_45%]" },
+  photo: { src: "/images/friends/friends-08.jpg", alt: "Two Rawdah travellers at the Islamic University of Madinah.", position: "object-[50%_45%]" },
 };
 
 /* ------------------------------------------------------------------------ */
@@ -782,7 +782,7 @@ export const groupsPage = {
     { q: "What size of group works?", a: "From around ten people upwards. Hotels and transport are set around your numbers.", status: "proposed" as Status },
     { q: "How early should we get in touch?", a: "Four to six months ahead gives your people time to save and sign up.", status: "proposed" as Status },
   ],
-  photo: { src: "/images/groups/group-08.jpg", alt: "A Rawdah group standing together on the hill at Uhud, mountains behind them.", position: "object-[50%_72%]" },
+  photo: { src: "/images/group-photos/group-photos-02.jpg", alt: "A Rawdah group standing together on the hill at Uhud, mountains behind them.", position: "object-[50%_72%]" },
 };
 
 /* ------------------------------------------------------------------------ */

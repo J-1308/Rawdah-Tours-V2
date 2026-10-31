@@ -25,7 +25,7 @@ export default function PrivatePage() {
           </>
         }
         title={privatePage.headline}
-        photos={[privatePage.photo, { src: "/images/travellers/traveller-14.jpg", alt: "Two travellers at Masjid an-Nabawi at night.", position: "object-[50%_45%]" }, { src: "/images/team/team-12.jpg", alt: "A member of the Rawdah team among date palms.", position: "object-[30%_50%]" }]}
+        photos={[privatePage.photo, { src: "/images/friends/friends-11.jpg", alt: "Two travellers at Masjid an-Nabawi at night.", position: "object-[50%_45%]" }, { src: "/images/team/team-03.jpg", alt: "A member of the Rawdah team among date palms.", position: "object-[30%_50%]" }]}
       >
         <p className="mt-5 max-w-[36rem] text-[1.04rem] leading-[1.75] text-ink/70">{privatePage.text}</p>
       </PageLead>
