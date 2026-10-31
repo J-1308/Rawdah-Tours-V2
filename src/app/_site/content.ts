@@ -910,7 +910,7 @@ export function routeText(j: Journey) {
 /** Who we work with (Jibril, 31 Oct 2026): partners, airlines, hotels, travel and Hajj. Links are each one's own site. */
 export const partners = {
   label: "Who we work with",
-  headline: "The partners, airlines and hotels behind our trips",
+  headline: "The partners behind our trips",
   groups: [
     {
       title: "Partners",

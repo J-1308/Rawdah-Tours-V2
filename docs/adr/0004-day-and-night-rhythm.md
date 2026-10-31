@@ -68,6 +68,9 @@ On desktop the words sit beneath it (headline left, the rest right) with the mar
 only dissolves at the bottom. Trips with a settled plan (`plan` in `content.ts`) show it as a timeline, flight
 and hotel cards, packages and a payment timetable, after Rawdah's own itinerary sheets in the site's colours.
 
+**The top is dark (31 October, Jibril):** `data-top="night"` is fixed on `<html>`; the inline script and the switch
+are gone. The light-top rules stay in the CSS, unused.
+
 ## Consequences
 
 - Before launch, pick a top: set `data-top` on `<html>` in `src/app/layout.tsx`, then delete the inline script

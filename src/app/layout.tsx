@@ -25,18 +25,12 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = { themeColor: "#1b1410", viewportFit: "cover" };
 
-const topScript = `(function(){try{var d=document.documentElement,q=new URLSearchParams(location.search).get("top"),t=q==="light"||q==="dark"?q:localStorage.getItem("rawdah-top");if(q==="light"||q==="dark")localStorage.setItem("rawdah-top",q);d.dataset.top=t==="light"?"day":"night";var m=document.querySelector('meta[name="theme-color"]');if(m)m.content=t==="light"?"#f8f3eb":"#1b1410"}catch(e){}})()`;
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   preload("/fonts/cormorant-garamond-latin-wght-normal.woff2", { as: "font", type: "font/woff2", crossOrigin: "anonymous" });
   preload("/fonts/dm-sans-latin-wght-normal.woff2", { as: "font", type: "font/woff2", crossOrigin: "anonymous" });
   return (
-    <html lang="en-GB" data-top="night" className="h-full antialiased" suppressHydrationWarning>
-      <head>
-        {/* Review only: which top to show (dark with the beige logo, or light with the brown logo).
-            ?top=light or ?top=dark picks one and is remembered; set before paint so nothing flashes. */}
-        <script dangerouslySetInnerHTML={{ __html: topScript }} />
-      </head>
+    <html lang="en-GB" data-top="night" className="h-full antialiased" /* the top is dark, beige-gold logo (Jibril, 31 Oct 2026; ADR 0004) */>
       <body className="min-h-full">
         {children}
         <Analytics />

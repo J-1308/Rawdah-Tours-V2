@@ -563,46 +563,36 @@ export function Reviews() {
 /* ------------------------------------------------------------------------ */
 
 export function Partners() {
+  const items = partners.groups.flatMap((g) => g.items);
   return (
     <section className={`${pad} ${gutter}`}>
-      <Label>{partners.label}</Label>
-      <Heading className={`mt-4 max-w-[46rem] ${h2}`}>{partners.headline}</Heading>
-      <div className="mt-9 grid grid-cols-1 gap-x-10 gap-y-9 sm:mt-12 md:grid-cols-2 lg:grid-cols-4">
-        {partners.groups.map((g) => (
-          <div key={g.title} className="min-w-0">
-            <p className="text-[0.72rem] font-medium tracking-[0.2em] text-bronze uppercase">{g.title}</p>
-            <ul className="mt-3 grid gap-2">
-              {g.items.map((it) => {
-                const inner = (
-                  <>
-                    {it.logo ? <PartnerLogo logo={it.logo} className="mb-3 h-9 text-ink/85" /> : null}
-                    <span className="flex items-start justify-between gap-3">
-                      <span className="display text-[1.35rem] leading-tight">{it.name}</span>
-                      {it.href ? (
-                        <svg aria-hidden viewBox="0 0 12 12" className="mt-1.5 size-3 shrink-0 text-ink/45">
-                          <path d="M3.5 2.5h6v6M9.5 2.5 2.5 9.5" fill="none" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" />
-                        </svg>
-                      ) : null}
-                    </span>
-                    <span className="mt-1 block text-[0.86rem] leading-snug text-ink/65">{it.what}</span>
-                  </>
-                );
-                return (
-                  <li key={it.name}>
-                    {it.href ? (
-                      <a href={it.href} target="_blank" rel="noopener noreferrer" className="glass block rounded-[1.25rem] p-4 transition-colors [--glass-shadow:none] hover:border-ink/30">
-                        {inner}
-                      </a>
-                    ) : (
-                      <div className="glass rounded-[1.25rem] p-4 [--glass-shadow:none]">{inner}</div>
-                    )}
-                  </li>
-                );
-              })}
-            </ul>
-          </div>
-        ))}
+      <div className="flex flex-col items-center text-center">
+        <Label>{partners.label}</Label>
+        <Heading className={`mx-auto mt-4 max-w-[40rem] text-[clamp(2.1rem,3.6vw,3.2rem)]`}>{partners.headline}</Heading>
       </div>
+      {/* Logo after logo. Logos are drawn in the text colour so they sit together; a name stands in until a logo file arrives. */}
+      <ul className="mx-auto mt-10 flex max-w-[64rem] flex-wrap items-center justify-center gap-x-12 gap-y-9 border-y border-ink/10 py-10 sm:mt-12 sm:gap-x-16 sm:py-12">
+        {items.map((it) => {
+          const mark = it.logo ? (
+            <PartnerLogo logo={it.logo} className="h-10 text-ink/80 transition-colors group-hover:text-ink sm:h-12" />
+          ) : (
+            <span className="font-display text-[1.25rem] leading-tight whitespace-nowrap text-ink/70 transition-colors group-hover:text-ink sm:text-[1.4rem]">{it.name}</span>
+          );
+          return (
+            <li key={it.name}>
+              {it.href ? (
+                <a href={it.href} target="_blank" rel="noopener noreferrer" title={`${it.name}: ${it.what}`} className="group block">
+                  {mark}
+                </a>
+              ) : (
+                <span title={`${it.name}: ${it.what}`} className="group block">
+                  {mark}
+                </span>
+              )}
+            </li>
+          );
+        })}
+      </ul>
     </section>
   );
 }
