@@ -29,7 +29,7 @@ Things only Rawdah (or Jibril) can answer. Each one is marked on the page where 
 
 ## Content and permissions
 
-10. **Photos of younger travellers** (`parrots-two-teens`, `rawdah-vest-parrot`): consent from parents before use.
+10. **Photos of younger travellers** (marked "check age" in `public/images/README.md`): consent from parents before use.
 11. **Photos of sisters and families:** none yet. The site says trips are open to families; photos would help.
 12. **Teacher bios** for Ustadh Issa Uthman and Ustadh Abdulrahman Hassan: Rawdah to supply or approve.
 13. **The V1 quote** "A teacher's role is not to fill your mind, but to show you the path.": who said it?

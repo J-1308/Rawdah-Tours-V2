@@ -191,9 +191,9 @@ export default async function TripPage({ params }: { params: Promise<{ slug: str
             ) : null}
             <MomentStrip
               photos={[
-                { src: "/images/trips/hajj-preparation-session.jpg", alt: "A Rawdah preparation session in the UK.", position: "object-[50%_60%]" },
-                { src: "/images/trips/three-after-umrah-haram.jpg", alt: "Three travellers in ihram outside Masjid al-Haram at dusk.", position: "object-[50%_50%]" },
-                { src: "/images/trips/two-ihram-clock-tower.jpg", alt: "Two travellers in ihram at night, the clock tower behind them.", position: "object-[50%_40%]" },
+                { src: "/images/groups/group-17.jpg", alt: "A Rawdah preparation session in the UK.", position: "object-[50%_60%]" },
+                { src: "/images/groups/group-16.jpg", alt: "Three travellers in ihram outside Masjid al-Haram at dusk.", position: "object-[50%_50%]" },
+                { src: "/images/travellers/traveller-13.jpg", alt: "Two travellers in ihram at night, the clock tower behind them.", position: "object-[50%_40%]" },
               ]}
               caption="From our preparation sessions and Umrah trips. Our Hajj group’s photos will follow."
             />

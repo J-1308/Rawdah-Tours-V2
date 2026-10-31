@@ -19,9 +19,9 @@ export default function AboutPage() {
         label={about.label}
         title={about.headline}
         photos={[
-          { src: "/images/trips/five-at-islamic-university.jpg", alt: "Five Rawdah travellers at the gate of the Islamic University of Madinah at sunset.", position: "object-[50%_55%]" },
-          { src: "/images/trips/group-nabawi-roof.jpg", alt: "The group on the roof of Masjid an-Nabawi at golden hour.", position: "object-[50%_62%]" },
-          { src: "/images/trips/two-in-ihram-arrival.jpg", alt: "Two travellers in ihram, smiling, suitcases behind them.", position: "object-[50%_35%]" },
+          { src: "/images/groups/group-11.jpg", alt: "Five Rawdah travellers at the gate of the Islamic University of Madinah at sunset.", position: "object-[50%_55%]" },
+          { src: "/images/groups/group-14.jpg", alt: "The group on the roof of Masjid an-Nabawi at golden hour.", position: "object-[50%_62%]" },
+          { src: "/images/travellers/traveller-12.jpg", alt: "Two travellers in ihram, smiling, suitcases behind them.", position: "object-[50%_35%]" },
         ]}
       />
 

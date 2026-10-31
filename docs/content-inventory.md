@@ -28,10 +28,10 @@ This file says where the facts came from and what is still missing. Last updated
 
 | Name | Role | Source | Photo |
 | --- | --- | --- | --- |
-| Brother Ayuub Mohamed Musa | Group leader | V1, LIVE | `people/ayuub-mohamed-musa.jpg` (V1) |
-| Ustadh Abu Abdulaziz Ahmed | Hajj guide, Hajj 2027; King Saud University graduate, student of Shaykh Dr. Sa‘d al-Shithri | LIVE | `people/abu-abdulaziz-ahmed.jpg` (LIVE) |
-| Ustadh Issa Uthman | Guide and teacher, Path of Purity II | V1, POSTER | `people/issa-uthman.jpg` (V1) |
-| Ustadh Abdulrahman Hassan | Guide and teacher, Path of Purity II | V1, POSTER | `people/abdulrahman-hassan.jpg` (V1) |
+| Brother Ayuub Mohamed Musa | Group leader | V1, LIVE | `portraits/ayuub-mohamed-musa.jpg` (V1) |
+| Ustadh Abu Abdulaziz Ahmed | Hajj guide, Hajj 2027; King Saud University graduate, student of Shaykh Dr. Sa‘d al-Shithri | LIVE | `portraits/abu-abdulaziz-ahmed.jpg` (LIVE) |
+| Ustadh Issa Uthman | Guide and teacher, Path of Purity II | V1, POSTER | `portraits/issa-uthman.jpg` (V1) |
+| Ustadh Abdulrahman Hassan | Guide and teacher, Path of Purity II | V1, POSTER | `portraits/abdulrahman-hassan.jpg` (V1) |
 
 The bios for Issa and Abdulrahman are our wording of their role (draft). The person in the Rawdah vest photos
 is **not** identified on the site.
@@ -65,19 +65,16 @@ last trip", "Accommodation & travel", "Common questions". FAQs use V1's question
 questions. The hero line ("Walk the path with people who know it.") is ours (draft), after V1's "show you the
 path" and the Path of Purity trips. **No copy is taken from The Umrah Company site.**
 
-## Photos (`public/images/trips/`, see its README)
+## Photos (`public/images/`, see its README)
 
-Used: group-uhud-hill, group-quba-mosque, group-quba-mosque-bright, group-nabawi-roof, group-haram-night,
-group-address-jabal-omar, three-after-umrah-haram, two-ihram-clock-tower, two-at-nabawi-night,
-two-in-ihram-arrival, two-at-islamic-university, five-at-islamic-university, six-after-umrah, parrots-young-man,
-rawdah-vest-back, rawdah-vest-thumbs-up, rawdah-vest-palms, hajj-preparation-session (LIVE).
+One folder per kind (`groups/`, `travellers/`, `team/`, `places/`, `portraits/`), numbered by rank: 01 is the
+best. The README says what each file shows and what it was called before (31 October 2026).
 
 **Hotel and train photographs:** frames marked "Photo to come" wait for official photographs from Rawdah or
 the hotels' media kits (Address Jabal Omar, and Peninsula Worth or Hilton in Madinah). Never copy them from
 another operator's site (e.g. The Sunnah Experience): they belong to the hotels or that operator.
 
-Not used yet: parrots-two-teens, rawdah-vest-parrot (both show younger travellers; held until Rawdah confirms
-consent).
+Photos marked "check age" in the README wait for a parent's consent before use.
 
 ## Still missing
 

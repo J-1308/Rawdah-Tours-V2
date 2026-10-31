@@ -254,7 +254,7 @@ export function WhyRawdah() {
             flip
             photos={[
               { src: whyRawdah.photo.src, alt: whyRawdah.photo.alt, position: "object-[50%_35%]" },
-              { src: "/images/trips/rawdah-vest-palms.jpg", alt: "A member of the Rawdah team among the date palms in the evening.", position: "object-[30%_50%]" },
+              { src: "/images/team/team-12.jpg", alt: "A member of the Rawdah team among the date palms in the evening.", position: "object-[30%_50%]" },
             ]}
             className="rise mx-auto max-w-[30rem]"
           />
@@ -483,7 +483,7 @@ export function GroupsBand() {
           <PhotoStack
             photos={[
               { src: groupsBand.photo.src, alt: groupsBand.photo.alt, position: "object-[50%_80%]" },
-              { src: "/images/trips/group-address-jabal-omar.jpg", alt: "A Rawdah group together in the lobby of Address Jabal Omar, Makkah.", position: "object-[50%_55%]" },
+              { src: "/images/groups/group-12.jpg", alt: "A Rawdah group together in the lobby of Address Jabal Omar, Makkah.", position: "object-[50%_55%]" },
             ]}
             className="rise mx-auto max-w-[32rem]"
           />
@@ -515,7 +515,7 @@ export function PrivateBand() {
       <div className="grid grid-cols-1 gap-x-16 gap-y-12 lg:grid-cols-12 lg:items-center">
         <div className="lg:col-span-5">
           <div className="rise relative mx-auto aspect-[4/5] max-w-[26rem] overflow-hidden rounded-[2rem] bg-beige shadow-[var(--shadow-soft)]">
-            <Image src="/images/trips/two-at-nabawi-night.jpg" alt="Two travellers at Masjid an-Nabawi at night." fill sizes="(min-width: 1024px) 30vw, 90vw" className="object-cover object-[50%_45%]" />
+            <Image src="/images/travellers/traveller-14.jpg" alt="Two travellers at Masjid an-Nabawi at night." fill sizes="(min-width: 1024px) 30vw, 90vw" className="object-cover object-[50%_45%]" />
           </div>
         </div>
         <div className="lg:col-span-6 lg:col-start-7">
@@ -654,7 +654,7 @@ export function Closing() {
           </div>
           <div className="lg:col-span-5 lg:col-start-8">
             <div className="rise relative mx-auto aspect-[4/5] max-w-[26rem] overflow-hidden rounded-[2rem] shadow-[var(--shadow-float)] ring-1 ring-white/10">
-              <Image src="/images/trips/six-after-umrah.jpg" alt="Six Rawdah travellers arm in arm and smiling after completing Umrah." fill sizes="(min-width: 1024px) 30vw, 90vw" className="object-cover object-[35%_40%]" />
+              <Image src="/images/groups/group-13.jpg" alt="Six Rawdah travellers arm in arm and smiling after completing Umrah." fill sizes="(min-width: 1024px) 30vw, 90vw" className="object-cover object-[35%_40%]" />
             </div>
           </div>
         </div>
