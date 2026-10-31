@@ -22,8 +22,8 @@ export default function GroupsPage() {
         title={groupsPage.headline}
         photos={[
           groupsPage.photo,
-          { src: "/images/group-photos/group-photos-03.jpg", alt: "A Rawdah group outside Masjid Quba.", position: "object-[50%_80%]" },
-          { src: "/images/friends/friends-01.jpg", alt: "Five Rawdah travellers at the Islamic University of Madinah.", position: "object-[50%_55%]" },
+          { src: "/images/group-photos/group-photos-04.jpg", alt: "A Rawdah group outside Masjid Quba.", position: "object-[50%_80%]" },
+          { src: "/images/friends/friends-01.jpg", alt: "Ustadh Issa Uthman with Rawdah travellers at the Islamic University of Madinah.", position: "object-[50%_55%]" },
         ]}
       >
         <p className="mt-6 max-w-[34rem] text-[1.04rem] leading-[1.75] text-ink/70">
@@ -87,7 +87,7 @@ export default function GroupsPage() {
               </p>
               <div className="day mt-5 overflow-hidden rounded-[1.75rem] bg-canvas text-ink shadow-[var(--shadow-float)]">
                 <div className="relative aspect-[16/8] bg-beige">
-                  <Image src="/images/group-photos/group-photos-03.jpg" alt="" fill sizes="(min-width: 1024px) 45vw, 100vw" className="object-cover object-[50%_80%]" />
+                  <Image src="/images/group-photos/group-photos-04.jpg" alt="" fill sizes="(min-width: 1024px) 45vw, 100vw" className="object-cover object-[50%_80%]" />
                 </div>
                 <div className="p-6">
                   <p className="display text-[2rem]">Your organisation’s Umrah, spring 2027</p>
