@@ -9,7 +9,7 @@ import { Actions, Emblem, gutter, Heading, Label, onInk, PartnerLogo, PhotoStack
 export { Tick } from "@/app/_site/shell";
 import { slot } from "@/app/_site/slots";
 import { TripRow } from "@/app/_site/trip-row";
-import { allMembers, TeamLine, TeamList } from "@/app/_site/trip-parts";
+import { allMembers, TeamLine, TeamList, type Member } from "@/app/_site/trip-parts";
 import { Chevron } from "@/app/_site/whatsapp";
 
 const pad = "py-[clamp(3.25rem,9vw,8rem)]";
@@ -430,7 +430,7 @@ export function Paying() {
  * The people, straightforward: what each person does, their name, one line.
  * The leader in the same format as the teachers.
  */
-export function People({ link = true }: { link?: boolean }) {
+export function People({ link = true, members = allMembers }: { link?: boolean; members?: Member[] }) {
   return (
     <section id={link ? "people" : "team"} className={`wash-linen scroll-mt-24 py-[clamp(3.75rem,10vw,9rem)] ${gutter}`}>
       <div className="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
@@ -444,7 +444,7 @@ export function People({ link = true }: { link?: boolean }) {
           </TileLink>
         ) : null}
       </div>
-      <TeamList members={allMembers} className="mt-10 sm:mt-12" />
+      <TeamList members={members} className="mt-10 sm:mt-12" />
       <TeamLine />
     </section>
   );

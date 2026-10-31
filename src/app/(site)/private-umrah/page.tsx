@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 
 /** Private Umrah: a short opening, the planner, then what happens next and questions. */
 export default function PrivatePage() {
-  const qs = faqs.filter((f) => ["Are your trips suitable for families with children?", "Do I need a visa to travel with you?", "Is my trip ATOL protected?"].includes(f.q));
+  const qs = faqs.filter((f) => ["Are your trips suitable for families with children?", "Do I need a visa to travel with you?"].includes(f.q));
   return (
     <>
       <Chapter tone="top">

@@ -4,6 +4,7 @@ import { about, brand, routes, say } from "@/app/_site/content";
 import { Meaning, People } from "@/app/_site/home-sections";
 import { Mark } from "@/app/_site/marks";
 import { Actions, Chapter, Emblem, Heading, Label, PageLead, gutter } from "@/app/_site/shell";
+import { allMembers } from "@/app/_site/trip-parts";
 
 export const metadata: Metadata = {
   title: "About us",
@@ -35,9 +36,7 @@ export default function AboutPage() {
               “
             </span>
             <blockquote className="display text-[clamp(1.75rem,3vw,2.8rem)] leading-[1.15]">{about.quote.value}”</blockquote>
-            <figcaption className="mt-4 text-[0.86rem] text-ink/68">
-              Ustadh Abdulrahman Hassan
-            </figcaption>
+            <figcaption className="mt-4 text-[0.86rem] text-ink/68">From Rawdah’s first website</figcaption>
           </figure>
           <div className="grid content-start gap-5 lg:col-span-6 lg:col-start-7">
             {about.story.map((p) => (
@@ -73,7 +72,8 @@ export default function AboutPage() {
       </Chapter>
 
       <Chapter tone="night">
-        <People link={false} />
+        {/* Only Brother Ayuub and Ustadh Issa here for now (Jibril, 31 Oct 2026). */}
+        <People link={false} members={allMembers.filter((m) => m.name === "Brother Ayuub Mohamed Musa" || m.name === "Ustadh Issa Uthman")} />
       </Chapter>
 
       <Chapter tone="day">
@@ -116,12 +116,6 @@ export default function AboutPage() {
                 <dd>
                   {brand.companyNumber.value}
                   <Mark s={brand.companyNumber.status} />
-                </dd>
-              </div>
-              <div className="grid grid-cols-[7.5rem_1fr] gap-3 border-t border-ink/8 py-3 first:border-0 sm:grid-cols-[9rem_1fr] sm:gap-4">
-                <dt className="text-ink/65">Protection</dt>
-                <dd>
-                  Umrah trips ATOL protected (ATOL 5311)
                 </dd>
               </div>
             </dl>

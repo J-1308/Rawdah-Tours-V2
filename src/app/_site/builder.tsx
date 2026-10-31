@@ -200,7 +200,7 @@ export function Builder() {
           </dl>
           <div className="mt-2 rounded-[1.25rem] bg-(--raise) p-5 ring-1 ring-white/10">
             <p className="display text-[1.6rem] leading-tight">We’ll come back with real options.</p>
-            <p className="mt-2 text-[0.86rem] text-cream/70">Hotels, flights and a price for your dates. Nothing is booked until you say so.</p>
+            <p className="mt-2 text-[0.86rem] text-cream/70">Send it to us and we’ll reply with hotels, flights and a price for your dates.</p>
           </div>
           <label className="mt-5 flex flex-col gap-2 text-[0.86rem] text-cream/80">
             Your name
@@ -214,7 +214,7 @@ export function Builder() {
             Or email it to us
           </a>
           <p className="mt-4 text-[0.78rem] leading-relaxed text-cream/60">
-            Nothing is booked and nothing is paid.
+            No payment needed to send it.
           </p>
         </div>
       </aside>

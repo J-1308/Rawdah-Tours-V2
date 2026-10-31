@@ -53,3 +53,7 @@ Things only Rawdah (or Jibril) can answer. Each one is marked on the page where 
 
 **Last trip (31 Oct 2026, Jibril):** Path of Purity II no longer has its own page or a "Completed" list; it lives in
 the "Our last trip" section on the home and Trips pages. `/trips/path-of-purity-ii` redirects there.
+
+**31 Oct 2026, Jibril:** ATOL (5311) appears only in the terms. The About page shows only Brother Ayuub and Ustadh
+Issa for now. No Supabase on this site: card payments will use Stripe, and emails Resend, when they're set up
+(update the privacy notice then). Partner logos to come from Jibril for the "Who we travel with" row.
