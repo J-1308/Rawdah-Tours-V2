@@ -90,7 +90,8 @@ commit them while this repo is public.
 
 ## Sign-ups without a database (31 Oct 2026)
 
-No Supabase on this site (Jibril). Register-interest sign-ups are emailed through Resend (`RESEND_API_KEY`,
+No Supabase on this site (Jibril). Every register-interest sign-up is saved as a private JSON file in the Vercel Blob
+store `rawdah-signups` (London; `BLOB_READ_WRITE_TOKEN`, added by Vercel when the store was connected). They are also emailed through Resend (`RESEND_API_KEY`,
 `EMAIL_FROM`, `EMAIL_OWNER_TO`) and can be added to a Google Sheet (`SIGNUPS_SHEET_URL`, `SIGNUPS_SHEET_SECRET`; see
 `docs/signups-sheet.md`). With neither set, the form hands the person a ready-written WhatsApp message instead.
 Card payments will use Stripe later. The privacy notice follows what's switched on.

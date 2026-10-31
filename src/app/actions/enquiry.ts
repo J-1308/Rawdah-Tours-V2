@@ -3,6 +3,7 @@
 import { getSupabase } from '@/lib/server/supabase'
 import { sendEnquiryAcknowledgement, sendEnquiryToOwner } from '@/lib/server/email'
 import { addToSheet } from '@/lib/server/sheet'
+import { keepSignup } from '@/lib/server/signups-store'
 import { whatsappLink } from '@/lib/site'
 import { JOURNEY_LABELS, type EnquiryState, type EnquiryValues, type Journey } from '@/lib/enquiry'
 
@@ -78,8 +79,8 @@ export async function submitEnquiry(prev: EnquiryState, formData: FormData): Pro
     else delivered = true
   }
 
-  // The running list of sign-ups (Google Sheet), when it's set up.
-  const sheet = await addToSheet({
+  // Every sign-up is kept: in Rawdah's private Vercel store, and in the Google Sheet once it's set up.
+  const row = {
     receivedAt: new Date().toISOString(),
     journey: journeyLabel,
     name: values.fullName,
@@ -90,8 +91,9 @@ export async function submitEnquiry(prev: EnquiryState, formData: FormData): Pro
     message: values.message,
     marketingConsent: values.marketingConsent,
     page: String(formData.get('page') ?? '').slice(0, 200),
-  })
-  if (sheet.ok) delivered = true
+  }
+  const [kept, sheet] = await Promise.all([keepSignup(row), addToSheet(row)])
+  if (kept.ok || sheet.ok) delivered = true
 
   const emailData = { ...values, travellers, journeyLabel }
   const owner = await sendEnquiryToOwner(emailData)

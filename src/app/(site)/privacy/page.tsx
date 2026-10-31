@@ -15,7 +15,8 @@ export default function PrivacyPage() {
   // What's switched on decides what this notice says (set in Vercel; read when the site is built).
   const emailOn = Boolean(process.env.RESEND_API_KEY);
   const sheetOn = Boolean(process.env.SIGNUPS_SHEET_URL);
-  const formsSave = emailOn || sheetOn;
+  const storeOn = Boolean(process.env.BLOB_READ_WRITE_TOKEN);
+  const formsSave = emailOn || sheetOn || storeOn;
   return (
     <LegalPage
       title="Privacy policy"
@@ -43,8 +44,7 @@ export default function PrivacyPage() {
         </ul>
         {formsSave ? (
           <p>
-            When you register your interest, your details are emailed to us{sheetOn ? " and added to our list of sign-ups" : ""}, and we email you a
-            confirmation. The private Umrah planner and the group trip form don’t send us anything by themselves: they write a message for you, and
+            When you register your interest, we keep your details in our private list of sign-ups{emailOn ? ", email them to us, and email you a confirmation" : ""}. The private Umrah planner and the group trip form don’t send us anything by themselves: they write a message for you, and
             nothing reaches us until you send it by WhatsApp or email.
           </p>
         ) : (
@@ -87,7 +87,7 @@ export default function PrivacyPage() {
         </p>
         <p>And to run this website, we use these service providers, who process data on our behalf:</p>
         <ul>
-          <li>Vercel (hosting, and visit counts that don’t use cookies)</li>
+          <li>Vercel (hosting, visit counts that don’t use cookies{storeOn ? ", and storing our list of sign-ups in London" : ""})</li>
           <li>WhatsApp (Meta), when you message us there</li>
           <li>Google (Gmail{sheetOn ? ", and Google Sheets for our list of sign-ups" : ""}), when you email us{sheetOn ? " or register your interest" : ""}</li>
           {emailOn ? <li>Resend (sending your registration to us and your confirmation email)</li> : null}
