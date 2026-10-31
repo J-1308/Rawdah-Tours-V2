@@ -5,6 +5,8 @@ import type { Metadata, Viewport } from "next";
 import { preload } from "react-dom";
 import { Analytics } from "@vercel/analytics/next";
 
+import { IS_LIVE } from "@/lib/site";
+
 const description =
   "Guided Umrah and Hajj from the UK with Rawdah Tours: students of knowledge beside you, five-star hotels by the Haram, and a group that travels as one. Register your interest for Hajj 2027.";
 
@@ -17,12 +19,8 @@ export const metadata: Metadata = {
   description,
   openGraph: { type: "website", siteName: "Rawdah Tours", title: "Rawdah Tours — guided Umrah and Hajj from the UK", description, locale: "en_GB" },
   twitter: { card: "summary_large_image" },
-  /**
-   * Site-wide noindex until launch: the copy carries review marks and the
-   * client has not yet signed off wording or photographs (pre-launch checklist
-   * in HANDOFF.md). Lift this, and add the real robots rules, at launch.
-   */
-  robots: { index: false, follow: false },
+  /** Indexed only on rawdahtours.co.uk in production (IS_LIVE); previews stay hidden. */
+  robots: IS_LIVE ? { index: true, follow: true } : { index: false, follow: false },
 };
 
 export const viewport: Viewport = { themeColor: "#1b1410", viewportFit: "cover" };

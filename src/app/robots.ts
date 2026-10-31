@@ -1,7 +1,12 @@
 import type { MetadataRoute } from 'next'
 
-// Nothing is indexed until launch (the root layout is noindex too). At launch,
-// allow everything except /admin, /booking and the checkout pages, and add the sitemap.
+import { IS_LIVE, SITE_URL } from '@/lib/site'
+
+// Closed everywhere except the live domain (see IS_LIVE). Booking, checkout and admin pages are never indexed.
 export default function robots(): MetadataRoute.Robots {
-  return { rules: { userAgent: '*', disallow: '/' } }
+  if (!IS_LIVE) return { rules: { userAgent: '*', disallow: '/' } }
+  return {
+    rules: { userAgent: '*', allow: '/', disallow: ['/admin', '/booking', '/trips/*/book', '/api'] },
+    sitemap: `${SITE_URL}/sitemap.xml`,
+  }
 }

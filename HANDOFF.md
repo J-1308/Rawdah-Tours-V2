@@ -43,7 +43,7 @@ The page shows review marks: **Suggested** (our proposal), **To confirm** (only 
 (illustrative). A switch on the left edge hides them to judge the look. Everything marked must be resolved, and
 the marks and switch removed, before the site goes on rawdahtours.co.uk. The list: `docs/project/open-questions.md`.
 
-The site is `noindex` and `robots.txt` disallows everything until launch.
+Search engines are shut out everywhere except the production build on rawdahtours.co.uk (`IS_LIVE` in `src/lib/site.ts`): attach the domain, redeploy, and `robots.txt`, the sitemap and indexing open by themselves.
 
 ## Brand
 

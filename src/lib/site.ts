@@ -6,6 +6,15 @@ export const SITE_NAME = 'Rawdah Tours'
 
 export const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || 'https://www.rawdahtours.co.uk').replace(/\/$/, '')
 
+/**
+ * True only for the production build served on rawdahtours.co.uk. Vercel sets
+ * VERCEL_PROJECT_PRODUCTION_URL to the project's shortest custom domain, so
+ * search engines are let in by themselves once the domain is attached and the
+ * site redeployed; previews and the .vercel.app address stay noindex.
+ */
+export const IS_LIVE =
+  process.env.VERCEL_ENV === 'production' && /(^|\.)rawdahtours\.co\.uk$/.test(process.env.VERCEL_PROJECT_PRODUCTION_URL ?? '')
+
 export const CONTACT = {
   whatsappNumber: '447809281429',
   phoneDisplay: '+44 7809 281429',
