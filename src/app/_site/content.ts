@@ -44,9 +44,9 @@ export const brand = {
   email: "rawdahtours@gmail.com",
   /** POSTER: @rawdahtours. */
   instagram: { handle: "@rawdahtours", href: "https://www.instagram.com/rawdahtours/" },
-  /** V1 terms and privacy notice (April 2026). Company number not yet given. */
+  /** V1 terms and privacy notice (April 2026). Company number from Rawdah (31 Oct 2026). */
   address: "5 Sir Denis Drive, Birmingham, England, B9 5DU",
-  companyNumber: v("To be added", "to confirm"),
+  companyNumber: v("16527917", "confirmed"),
   nusuk: "https://hajj.nusuk.sa/?language=en",
 } as const;
 
@@ -377,7 +377,7 @@ export const hajjNusuk = {
 
 /**
  * Paying for your place, as a timeline with a worked example. V1 terms
- * (April 2026): £500 deposit, balance cleared 40 days before departure.
+ * (October 2026): £299 non-refundable deposit, balance cleared 40 days before departure.
  * The number of instalments is our suggestion.
  */
 export const paying = {
@@ -385,7 +385,7 @@ export const paying = {
   text: "A deposit holds your place. The rest is spread out, and it’s all paid before you fly.",
   example: { room: "Quad room, our last trip", price: 1799, deposit: 500, instalments: 3 },
   stages: [
-    { when: "Today", what: "£500 deposit", note: "By card (a small fee) or bank transfer (no fee).", status: "confirmed" as Status },
+    { when: "Today", what: "£299 deposit", note: "By card (a small fee) or bank transfer (no fee).", status: "confirmed" as Status },
     { when: "Monthly", what: "Instalments", note: "We send you the schedule.", status: "proposed" as Status },
     { when: "40 days before", what: "Paid in full", note: "The whole balance is cleared.", status: "confirmed" as Status },
     { when: "Departure", what: "Fly together", note: "Brother Ayuub meets the group.", status: "draft" as Status },
@@ -451,9 +451,9 @@ export const privateBand = {
   headline: "Private Umrah, planned around you",
   text: v("For families, couples and friends who can’t make a group date. Tell us what you need and we’ll plan it with you.", "draft"),
   points: [
-    v("Any week, including school holidays", "proposed"),
-    v("Five-star by the Haram, or a short walk away for less", "proposed"),
-    v("Guided Umrah and ziyarah with our team", "proposed"),
+    v("Any week of the year", "confirmed"),
+    v("Any five-star hotel by the Haramain, or affordable hotels for less", "confirmed"),
+    v("Visa processing and ground transport", "confirmed"),
   ],
 };
 
@@ -504,8 +504,8 @@ export const faqs: Faq[] = [
   { topic: "hajj", q: "How do Hajj bookings and payments work?", a: "You choose, book and pay for your Hajj package directly on Nusuk, the official Saudi Hajj platform. Rawdah Tours does not take payment for Hajj packages.", status: "confirmed" },
   { topic: "hajj", q: "Are the Hajj 2027 dates confirmed?", a: "Not yet. The dates and length of the trip are published with the approved packages on Nusuk.", status: "confirmed" },
   { topic: "hajj", q: "How does Rawdah help with Hajj?", a: "We talk through your priorities, help you compare suitable Nusuk packages, prepare you before departure, and our team is on the ground with you throughout. The choice of package is always yours.", status: "confirmed" },
-  { topic: "paying", q: "How do I pay for the trip?", a: "A deposit holds your place: £500 on our last trip, by card online (a small card fee applies) or by bank transfer with no fee. The balance is paid in instalments and cleared 40 days before departure.", status: "confirmed" },
-  { topic: "paying", q: "What is your cancellation policy?", a: "Cancel in writing. 60 or more days before departure, up to 100% of what you’ve paid beyond the deposit is refunded; 40 to 59 days, up to 50%; under 40 days, no refund. Refunds depend on what we recover from suppliers, and visa fees are never refundable.", status: "confirmed" },
+  { topic: "paying", q: "How do I pay for the trip?", a: "A £299 deposit holds your place, by card online (a small card fee applies) or by bank transfer with no fee. Deposits are non-refundable. The balance is paid in instalments and cleared 40 days before departure.", status: "confirmed" },
+  { topic: "paying", q: "What is your cancellation policy?", a: "Deposits are non-refundable. 60 days or more before departure, everything you’ve paid beyond the deposit is refunded; 40 to 59 days, half of it, and you can change the guest’s name free of charge; under 40 days, no refund, though a name change may be possible for a fee. Find a replacement before the 40-day mark and nothing is lost.", status: "confirmed" },
   { topic: "paying", q: "Is my trip ATOL protected?", a: "Yes. Our Umrah trips are ATOL protected (ATOL 5311), and you’ll get an ATOL certificate when you book. Hajj is different: you book and pay for your package on Nusuk, not with us, so it’s covered by Nusuk’s terms.", status: "confirmed" },
   { topic: "paying", q: "Do I need a visa to travel with you?", a: "Most travellers need a visa for Saudi Arabia. We arrange it and guide you through it, but approval is at the discretion of the authorities.", status: "confirmed" },
 ];
@@ -580,7 +580,7 @@ export const journeys: Journey[] = [
     stateStatus: "confirmed",
     dates: v("Published on Nusuk with the packages", "confirmed"),
     route: v([{ place: "Makkah" }, { place: "Mina" }, { place: "Arafah" }, { place: "Muzdalifah" }], "draft"),
-    openTo: v("Brothers, sisters and families", "to confirm"),
+    openTo: v("Brothers and sisters, and children over 12", "confirmed"),
     teacher: v("Ustadh Abu Abdulaziz Ahmed", "confirmed"),
     priceNote: v("Packages and prices are published on Nusuk", "confirmed"),
     intro:
@@ -640,7 +640,7 @@ export const journeys: Journey[] = [
     teacher: v("Named when the trip is announced", "to confirm"),
     /** PROPOSED: Path of Purity II's prices, as a guide until the next trip is priced. */
     rooms: v(roomsFromTrips("path-of-purity-ii"), "proposed"),
-    deposit: v(500, "proposed"),
+    deposit: v(299, "evidenced"),
     months: v(3, "proposed"),
     flights: v("Qatar Airways from London Heathrow", "proposed"),
     hotels: { madinah: v("Peninsula Worth Hotel ★★★★★", "proposed"), makkah: v("Address Jabal Omar ★★★★★", "proposed") },
@@ -651,7 +651,7 @@ export const journeys: Journey[] = [
       v("Madinah first, then Makkah", "proposed"),
       v("Five-star hotels a minute or two from each Haram", "proposed"),
       v("Students of knowledge with the group throughout", "evidenced"),
-      v("A £500 deposit, then instalments", "proposed"),
+      v("A £299 deposit, then instalments", "evidenced"),
     ],
     pending: [
       { title: "Dates", text: "Coming soon." },
@@ -748,10 +748,10 @@ export const privatePage = {
   headline: "Private Umrah, planned around you.",
   text: "For families, couples and friends who can’t make a group date. Plan it below to see a rough cost, then send it to us on WhatsApp and we’ll come back with real options.",
   points: [
-    { title: "Any week you choose", text: "Including the school holidays.", status: "proposed" as Status },
-    { title: "Hotels to suit you", text: "Five-star by the Haram, or a short walk away for less.", status: "proposed" as Status },
+    { title: "Any week you choose", text: "Any week of the year, school holidays included.", status: "confirmed" as Status },
+    { title: "Hotels to suit you", text: "Any of the five-star hotels by the Haramain in Makkah and Madinah, or affordable, economical hotels.", status: "confirmed" as Status },
     { title: "Your order, your pace", text: "Madinah or Makkah first, as many nights in each as you like.", status: "proposed" as Status },
-    { title: "Guided by our team", text: "Your Umrah guided on arrival, and ziyarah in both cities.", status: "proposed" as Status },
+    { title: "Visa and transport", text: "We process your visa and arrange your transport on the ground.", status: "confirmed" as Status },
   ],
   photo: { src: slot("family-haram"), alt: "A parent and child walking together at the Haram.", position: "object-[50%_50%]" },
 };
@@ -768,8 +768,8 @@ export const groupsPage = {
   offers: [
     { title: "Planned around you", text: "Dates, length and pace agreed with you, with lessons built around what your group is studying.", status: "proposed" as Status },
     { title: "A page for your trip", text: "Your group’s name and the booking details on one page, ready to share with your members and on WhatsApp.", status: "proposed" as Status },
-    { title: "Everyone pays us directly", text: "Each traveller books and pays in instalments, so nobody in your group handles the money.", status: "to confirm" as Status },
-    { title: "Bring your teacher", text: "Your imam or teacher leads the lessons, or one of ours travels with you.", status: "proposed" as Status },
+    { title: "Payment that suits you", text: "We agree the payment method and amounts with your organisation.", status: "confirmed" as Status },
+    { title: "Bring your teacher", text: "Your imam or teacher leads the lessons, or one of ours travels with you.", status: "confirmed" as Status },
     { title: "Our team on the ground", text: "We travel with your group and look after it in both cities.", status: "evidenced" as Status },
     { title: "A session before you fly", text: "A preparation session for your group in the UK.", status: "evidenced" as Status },
   ],
@@ -781,10 +781,10 @@ export const groupsPage = {
     { title: "We go together", text: "We meet the group at the airport and look after it until you land home." },
   ],
   questions: [
-    { q: "Do I have to collect anyone’s money?", a: "No. Each person books and pays us directly, with instalments.", status: "to confirm" as Status },
-    { q: "Can our own teacher lead the lessons?", a: "Yes, and we plan the days around them. If you don’t have one, one of ours can come.", status: "proposed" as Status },
-    { q: "What size of group works?", a: "From around ten people upwards. Hotels and transport are set around your numbers.", status: "proposed" as Status },
-    { q: "How early should we get in touch?", a: "Four to six months ahead gives your people time to save and sign up.", status: "proposed" as Status },
+    { q: "How does payment work?", a: "We agree the payment method and amounts with you when we plan the trip.", status: "confirmed" as Status },
+    { q: "Can our own teacher lead the lessons?", a: "Yes, and we plan the days around them. If you don’t have one, one of ours can come.", status: "confirmed" as Status },
+    { q: "What size of group works?", a: "Any size. Hotels and transport are set around your numbers.", status: "confirmed" as Status },
+    { q: "How early should we get in touch?", a: "At least two months before you’d like to travel.", status: "confirmed" as Status },
   ],
   photo: { src: "/images/teaching/teaching-01.jpg", alt: "Ustadh Abdulrahman Hassan giving the group a reminder outdoors.", position: "object-[50%_30%]" },
 };

@@ -84,3 +84,9 @@ Photos of under-18s: parents' permission confirmed by Jibril (31 Oct 2026); mark
 ## Still missing
 
 See `docs/project/open-questions.md`.
+
+## Legal text
+
+`/terms` is Rawdah's own Cancellation Policy and Terms and Conditions (October 2026), word for word, sent by Jibril on
+31 Oct 2026; "About us", ATOL and Hajj sections are ours. Their privacy section's points on children and outside links
+are added to `/privacy`, which otherwise describes how this website handles data.

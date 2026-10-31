@@ -4,14 +4,14 @@ Things only Rawdah (or Jibril) can answer. Each one is marked on the page where 
 
 ## Before launch (blocking)
 
-1. **Company number** for Rawdah Tours Ltd (footer, about page).
+1. **Company number:** settled, 16527917 (Rawdah, 31 Oct 2026).
 2. **Testimonials.** The three quotes from V1 ("Brother Abdullah / Yusuf / Hamza"): are they real travellers, and
    do we have permission to use them? If not, remove them until real ones are collected.
 3. **ATOL:** settled. Jibril confirmed Rawdah's Umrah trips are ATOL protected (ATOL 5311). The site doesn't name the
    ATOL provider (Jibril's instruction, 31 Oct 2026). Hajj is booked on Nusuk, so ATOL doesn't apply to it.
 4. **Next group Umrah:** name, dates, hotels, flights, prices, deposit, number of instalments, teachers. Until
    then the page shows Path of Purity II as a guide, marked Suggested.
-5. **Hajj 2027 "open to":** brothers, sisters and families? (marked To confirm)
+5. **Hajj 2027 "open to":** settled. Brothers and sisters, and children over 12 (Rawdah, 31 Oct 2026).
 5a. **Hajj 2027 group:** settled from the live Hajj page (31 Oct 2026): no provider is named, dates and hotels
     are "still being confirmed", Rawdah helps compare the options on Nusuk, registering reserves nothing, and
     updates go out on the channels people choose (no WhatsApp group). Still open: who Hajj 2027 is open to.
@@ -21,11 +21,13 @@ Things only Rawdah (or Jibril) can answer. Each one is marked on the page where 
 
 ## Offers we've suggested (Rawdah to accept, change or remove)
 
-6. **Private & family Umrah:** offered (Jibril, 31 Oct 2026). Still our guess: the planner's rough-cost model
-   (`privatePricing` in `content.ts`), "any week", the hotel choices, and guiding on arrival.
-7. **Groups & organisations:** offered (Jibril, 31 Oct 2026). Can each traveller pay Rawdah directly with
-   instalments? Minimum group size?
-8. **Instalments:** how many after the deposit? (we show 3)
+6. **Private & family Umrah:** settled (Rawdah, 31 Oct 2026): any week of the year, any five-star hotel by the
+   Haramain or affordable hotels, visa processing and ground transport. Still our guess: the planner's rough-cost
+   model (`privatePricing` in `content.ts`) and "your order, your pace".
+7. **Groups & organisations:** settled (Rawdah, 31 Oct 2026): payment method and amounts agreed with each
+   organisation, their own teacher welcome, any group size, get in touch at least two months ahead.
+8. **Instalments:** how many after the deposit? (we show 3). The deposit is £299 and non-refundable, with the
+   balance cleared 40 days before departure (Rawdah's terms, October 2026).
 9. **Children's price** in the join panel (we show 85% of the adult price).
 
 ## Content and permissions

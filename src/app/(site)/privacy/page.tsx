@@ -90,6 +90,21 @@ export default function PrivacyPage() {
         </p>
       </LegalSection>
 
+      <LegalSection title="Children">
+        <p>
+          Our services are not specifically directed towards individuals under the age of 16. We do not knowingly collect personal information from
+          children without appropriate authorisation. If a parent or legal guardian believes that a child’s personal information has been provided
+          without appropriate consent, they should contact us so that the matter can be reviewed.
+        </p>
+      </LegalSection>
+
+      <LegalSection title="Links to other websites">
+        <p>
+          Our website may contain links to other websites, such as Nusuk. We have no control over their content, privacy policies or practices, so
+          please review their privacy policies before giving them personal information.
+        </p>
+      </LegalSection>
+
       <LegalSection title="Your rights">
         <p>You can ask to see the data we hold about you, correct it, delete it, or object to how we use it. Email {CONTACT.email}.</p>
         <p>If you’re unhappy with how we’ve handled your data, you can complain to the Information Commissioner’s Office (ico.org.uk).</p>
