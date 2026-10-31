@@ -925,8 +925,8 @@ export const partners = {
     {
       title: "Flights",
       items: [
-        ...(ramadanReveal ? [{ name: "Saudia", what: "Ramadan Umrah 2027, from Heathrow", href: "https://www.saudia.com" }] : []),
-        { name: "Qatar Airways", what: "Path of Purity II, August 2026", href: "https://www.qatarairways.com" },
+        ...(ramadanReveal ? [{ name: "Saudia", what: "Ramadan Umrah 2027, from Heathrow", href: "https://www.saudia.com", logo: { src: "/images/brand/partners/saudia.png", width: 246, height: 311, alt: "Saudia", tall: true } }] : []),
+        { name: "Qatar Airways", what: "Path of Purity II, August 2026", href: "https://www.qatarairways.com", logo: { src: "/images/brand/partners/qatar-airways.png", width: 846, height: 240, alt: "Qatar Airways" } },
       ],
     },
     {
@@ -934,22 +934,21 @@ export const partners = {
       items: [
         ...(ramadanReveal
           ? [
-              { name: "Novotel Makkah Thakher City", what: "Makkah, Ramadan 2027", href: "https://all.accor.com/hotel/B3H1/index.en.shtml" },
-              { name: "Al Manakha Rotana", what: "Madinah, Ramadan 2027", href: "https://www.rotana.com/almanakharotana" },
+              { name: "Novotel Makkah Thakher City", what: "Makkah, Ramadan 2027 (Accor)", href: "https://all.accor.com/hotel/B3H1/index.en.shtml", logo: { src: "/images/brand/partners/accor.png", width: 380, height: 317, alt: "Accor", tall: true } },
+              { name: "Al Manakha Rotana", what: "Madinah, Ramadan 2027", href: "https://www.rotana.com/almanakharotana", logo: { src: "/images/brand/partners/rotana.png", width: 682, height: 240, alt: "Rotana" } },
             ]
           : []),
-        { name: "Address Jabal Omar", what: "Makkah, August 2026" },
-        { name: "Peninsula Worth Hotel", what: "Madinah, August 2026" },
+        { name: "Address Jabal Omar", what: "Makkah, August 2026", href: "https://www.addresshotels.com", logo: { src: "/images/brand/partners/address.png", width: 400, height: 334, alt: "Address Jabal Omar Makkah", tall: true } },
       ],
     },
     {
       title: "Travel and Hajj",
       items: [
-        { name: "Haramain High Speed Railway", what: "The train between Makkah, Jeddah and Madinah", href: "https://sar.com.sa" },
-        { name: "Nusuk Hajj", what: "Where Hajj packages are booked", href: "https://hajj.nusuk.sa/?language=en" },
+        { name: "Haramain High Speed Railway", what: "The train between Makkah, Jeddah and Madinah", href: "https://sar.com.sa", logo: { src: "/images/brand/partners/haramain.png", width: 1024, height: 400, alt: "Haramain High Speed Railway", tall: true } },
+        { name: "Nusuk Hajj", what: "Where Hajj packages are booked", href: "https://hajj.nusuk.sa/?language=en", logo: { src: "/images/brand/partners/nusuk.png", width: 777, height: 240, alt: "Nusuk Hajj" } },
       ],
     },
-  ] as { title: string; items: { name: string; what: string; href?: string; logo?: { src: string; width: number; height: number; alt: string } }[] }[],
+  ] as { title: string; items: { name: string; what: string; href?: string; logo?: { src: string; width: number; height: number; alt: string; tall?: boolean } }[] }[],
 };
 
 /* ------------------------------------------------------------------------ */

@@ -12,6 +12,10 @@ export const metadata: Metadata = {
 // register-interest form and service providers added.
 
 export default function PrivacyPage() {
+  // What's switched on decides what this notice says (set in Vercel; read when the site is built).
+  const emailOn = Boolean(process.env.RESEND_API_KEY);
+  const sheetOn = Boolean(process.env.SIGNUPS_SHEET_URL);
+  const formsSave = emailOn || sheetOn;
   return (
     <LegalPage
       title="Privacy policy"
@@ -37,10 +41,18 @@ export default function PrivacyPage() {
           <li>Payment: deposits and instalments are paid by bank transfer. This website doesn’t take card details.</li>
           <li>Anything else you send us by WhatsApp, phone or email.</li>
         </ul>
-        <p>
-          At the moment our forms (register interest, the private Umrah planner and the group trip form) don’t send us anything by themselves. They
-          write a message for you, and nothing reaches us until you choose to send it by WhatsApp or email.
-        </p>
+        {formsSave ? (
+          <p>
+            When you register your interest, your details are emailed to us{sheetOn ? " and added to our list of sign-ups" : ""}, and we email you a
+            confirmation. The private Umrah planner and the group trip form don’t send us anything by themselves: they write a message for you, and
+            nothing reaches us until you send it by WhatsApp or email.
+          </p>
+        ) : (
+          <p>
+            At the moment our forms (register interest, the private Umrah planner and the group trip form) don’t send us anything by themselves. They
+            write a message for you, and nothing reaches us until you choose to send it by WhatsApp or email.
+          </p>
+        )}
         <p>We only collect what we need to organise your trip or reply to you.</p>
       </LegalSection>
 
@@ -77,9 +89,10 @@ export default function PrivacyPage() {
         <ul>
           <li>Vercel (hosting, and visit counts that don’t use cookies)</li>
           <li>WhatsApp (Meta), when you message us there</li>
-          <li>Google (Gmail), when you email us</li>
+          <li>Google (Gmail{sheetOn ? ", and Google Sheets for our list of sign-ups" : ""}), when you email us{sheetOn ? " or register your interest" : ""}</li>
+          {emailOn ? <li>Resend (sending your registration to us and your confirmation email)</li> : null}
         </ul>
-        <p>If we start saving forms on our own systems or taking card payments on this website, we’ll update this notice first.</p>
+        <p>If we start taking card payments on this website, we’ll update this notice first.</p>
       </LegalSection>
 
       <LegalSection title="How long we keep it">

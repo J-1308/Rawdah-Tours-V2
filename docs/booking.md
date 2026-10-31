@@ -87,3 +87,10 @@ balance in instalments to 40 days before departure.
 
 Bank account details for transfers live in V1 `lib/constants.ts`. **Move them to env vars in V2**, and don't
 commit them while this repo is public.
+
+## Sign-ups without a database (31 Oct 2026)
+
+No Supabase on this site (Jibril). Register-interest sign-ups are emailed through Resend (`RESEND_API_KEY`,
+`EMAIL_FROM`, `EMAIL_OWNER_TO`) and can be added to a Google Sheet (`SIGNUPS_SHEET_URL`, `SIGNUPS_SHEET_SECRET`; see
+`docs/signups-sheet.md`). With neither set, the form hands the person a ready-written WhatsApp message instead.
+Card payments will use Stripe later. The privacy notice follows what's switched on.

@@ -574,7 +574,7 @@ export function Partners() {
       <ul className="mx-auto mt-10 flex max-w-[64rem] flex-wrap items-center justify-center gap-x-12 gap-y-9 border-y border-ink/10 py-10 sm:mt-12 sm:gap-x-16 sm:py-12">
         {items.map((it) => {
           const mark = it.logo ? (
-            <PartnerLogo logo={it.logo} className="h-10 text-ink/80 transition-colors group-hover:text-ink sm:h-12" />
+            <PartnerLogo logo={it.logo} className={`${it.logo.tall ? "h-14 sm:h-16" : "h-9 sm:h-11"} text-ink/80 transition-colors group-hover:text-ink`} />
           ) : (
             <span className="font-display text-[1.25rem] leading-tight whitespace-nowrap text-ink/70 transition-colors group-hover:text-ink sm:text-[1.4rem]">{it.name}</span>
           );

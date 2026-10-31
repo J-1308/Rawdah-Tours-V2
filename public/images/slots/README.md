@@ -35,3 +35,4 @@ and the frame becomes the photo. No code change needed.
 | `family-madinah` | Unsplash, Rumman Amin (Nabawi umbrellas), downloaded by Jibril 31 Oct 2026 | Unsplash licence |
 | `ramadan-quran` | Unsplash, Amirhadi Manavi Moghadam (Qur’an and tasbih on a rug): the Ramadan teaser | Unsplash licence |
 | `closeup-quran-tasbih` | Unsplash, Towfiqu Barbhuiya (tasbih on a Qur’an): home, What the trip cost includes | Unsplash licence |
+| `haramain-train.jpg` | Wikimedia Commons (file "قطار الحرمين الشريفين"), downloaded by Jibril 31 Oct 2026; not shown yet | Commons licence: needs a photo credit if used |

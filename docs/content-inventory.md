@@ -98,5 +98,6 @@ are added to `/privacy`, which otherwise describes how this website handles data
 
 Home page section (`partners` in `content.ts`), asked for by Jibril on 31 Oct 2026: GGC (Global Guidance Center,
 ggcenter.org; logo from GGC's own artwork as on the Ramadan itinerary), Saudia and Qatar Airways, the Ramadan and
-August 2026 hotels, the Haramain railway (sar.com.sa) and Nusuk Hajj. Links go to each one's own site. Airline and
-hotel logos are not shown: using them usually needs the brand's permission, so they appear as names.
+August 2026 hotels, the Haramain railway (sar.com.sa) and Nusuk Hajj. Links go to each one's own site. Logos (31 Oct 2026, downloaded by
+Jibril from Wikipedia and the brands' sites) are one-colour cut-outs in `public/images/brand/partners/`. Brands
+usually expect permission for logo use; Jibril chose to show them.

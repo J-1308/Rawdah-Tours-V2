@@ -2,6 +2,7 @@
 
 import { getSupabase } from '@/lib/server/supabase'
 import { sendEnquiryAcknowledgement, sendEnquiryToOwner } from '@/lib/server/email'
+import { addToSheet } from '@/lib/server/sheet'
 import { whatsappLink } from '@/lib/site'
 import { JOURNEY_LABELS, type EnquiryState, type EnquiryValues, type Journey } from '@/lib/enquiry'
 
@@ -76,6 +77,21 @@ export async function submitEnquiry(prev: EnquiryState, formData: FormData): Pro
     if (error) console.error('[enquiry] insert failed:', error.message)
     else delivered = true
   }
+
+  // The running list of sign-ups (Google Sheet), when it's set up.
+  const sheet = await addToSheet({
+    receivedAt: new Date().toISOString(),
+    journey: journeyLabel,
+    name: values.fullName,
+    email: values.email,
+    phone: values.phone,
+    travellers,
+    travellingFrom: values.travellingFrom,
+    message: values.message,
+    marketingConsent: values.marketingConsent,
+    page: String(formData.get('page') ?? '').slice(0, 200),
+  })
+  if (sheet.ok) delivered = true
 
   const emailData = { ...values, travellers, journeyLabel }
   const owner = await sendEnquiryToOwner(emailData)
