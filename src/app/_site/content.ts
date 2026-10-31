@@ -121,8 +121,8 @@ export const strip = ramadanReveal
 
 export const hero = {
   label: "Guided Umrah and Hajj from the UK",
-  /** DRAFT. Echoes V1's "show you the path" and the Path of Purity trips. */
-  headline: "Walk the path with people who know it.",
+  /** DRAFT (31 Oct 2026, replacing "Walk the path with people who know it."): the teachers are what sets Rawdah apart. */
+  headline: "Travel to the Haramain with teachers beside you.",
   text: v(
     "Students of knowledge travel with every Rawdah group, and Brother Ayuub looks after you from your first message to the flight home.",
     "evidenced",
