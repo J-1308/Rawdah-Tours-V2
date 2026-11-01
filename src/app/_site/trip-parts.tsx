@@ -296,7 +296,7 @@ export function MomentStrip({ photos, caption }: { photos: StayPhoto[]; caption:
       <ul className="grid grid-cols-3 gap-2 sm:gap-3">
         {photos.map((p) => (
           <li key={p.src}>
-            <StayFrame photo={p} className="aspect-[3/4]" sizes="(min-width: 1024px) 25vw, 32vw" />
+            <StayFrame photo={p} className="aspect-square sm:aspect-[3/4]" sizes="(min-width: 1024px) 25vw, 32vw" />
           </li>
         ))}
       </ul>

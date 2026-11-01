@@ -6,7 +6,7 @@ and the frame becomes the photo. No code change needed.
 
 | Slot (file name) | Where it shows | What to find | Search for |
 | --- | --- | --- | --- |
-| `hajj-arafah` | Hajj 2027: the trip card on the home page and Trips page, and the top of the Hajj page | Mount Arafah on the day of Hajj, pilgrims in white, wide shot | "Mount Arafat Hajj", "Jabal al-Rahmah pilgrims" |
+| `hajj-cover` | Hajj 2027: the trip card on the home page and Trips page, and the top of the Hajj page | The Haram or Arafah on the day of Hajj, wide shot | "Kaaba aerial", "Mount Arafat Hajj" |
 | `hajj-mina` | Home, "Where would you like to start": the Hajj card | The white tents of Mina stretching into the distance | "Mina tents", "Mina tent city Hajj" |
 | `family-haram` | Home, "Where would you like to start": the Private & family card; the top of the Private & family page | A parent and child walking together at the Haram, seen from behind | "father son Masjid al-Haram", "family Kaaba back view" |
 | `family-madinah` | Home, the "Private Umrah" section | A family at Masjid an-Nabawi under the umbrellas, from behind or far off | "family Masjid Nabawi umbrellas", "Madinah family mosque" |
@@ -29,7 +29,7 @@ and the frame becomes the photo. No code change needed.
 
 | Slot | Source page | Licence |
 | --- | --- | --- |
-| `hajj-arafah` | Unsplash, Ekrem Osmanoglu (Mount Arafah, pilgrims on the hill), downloaded by Jibril 31 Oct 2026 | Unsplash licence |
+| `hajj-cover` | Jibril's download "Kabaa-areial" (the Ka‘bah at night from above), chosen 1 Nov 2026; only 740px wide. Source page to record | Check: source not recorded |
 | `hajj-mina` | Downloaded by Jibril (file name suggests Wikimedia Commons: "Haji pilgrimage mina tent") | Check; Commons usually needs a credit |
 | `family-haram` | Unsplash, Danish Habib (Ka‘bah and clock tower), downloaded by Jibril 31 Oct 2026 | Unsplash licence: free, credit appreciated |
 | `family-madinah` | Unsplash, Rumman Amin (Nabawi umbrellas), downloaded by Jibril 31 Oct 2026 | Unsplash licence |
