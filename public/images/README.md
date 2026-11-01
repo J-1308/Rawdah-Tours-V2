@@ -66,4 +66,5 @@ repo root (outside `public/`, so they are not deployed).
 | `bird-park/bird-park-02.jpg` | trips/parrots-young-man | Traveller holding two macaws |
 | `bird-park/bird-park-03.jpg` | trips/rawdah-vest-parrot | Rawdah vest, holding a macaw (under 18, consent given) |
 | `places/places-01.jpg` | trips/makkah/makkah-01 | The Ka‘bah at night, the clock tower behind |
+| `portraits/ayuub-mohamed-musa.jpg` | team/team-02.jpg, cropped | **Brother Ayuub's portrait, his favourite** (Jibril, 1 Nov 2026): cropped from team-02 to face and vest logo. The old portrait is in `photos-not-used/` |
 | `video/video-01.mp4` | IMG_3290.mov | Video, 720×1280 portrait (too small for a full-width hero) |
