@@ -358,7 +358,7 @@ export function SiteFooter() {
           <Link href="/" aria-label="Rawdah Tours, home" className="inline-block text-cream">
             <Logo className="logo-gold h-16 sm:h-24" />
           </Link>
-          <p className="mt-6 max-w-[24rem] font-editorial text-[1.35rem] leading-snug text-cream/85 sm:mt-7 sm:text-[1.5rem]">Guided Umrah and Hajj from the UK, with teachers beside you.</p>
+          <p className="mt-6 max-w-[24rem] font-editorial text-[1.35rem] leading-snug text-cream/85 sm:mt-7 sm:text-[1.5rem]">Guided Umrah and Hajj from the UK, from your first message to the flight home.</p>
           <div className="mt-7 grid grid-cols-2 gap-2 sm:mt-8 sm:flex sm:flex-wrap sm:gap-2.5">
             <WaTile text={say.general} label="WhatsApp" tone="line-canvas" className="px-3! sm:px-6!" />
             <a href={brand.phone.href} className={`${btnBase} px-3 sm:px-6 ${btnTone["line-canvas"]}`}>
