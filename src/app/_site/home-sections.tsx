@@ -73,7 +73,25 @@ export function Starts() {
   return (
     <section className={`pt-[clamp(2.25rem,6vw,5rem)] ${gutter}`}>
       <Heading className="text-[clamp(2.2rem,3.6vw,3.4rem)]">Where would you like to start?</Heading>
-      <ul className="no-scrollbar mt-8 flex snap-x snap-mandatory gap-4 overflow-x-auto pb-8 lg:mx-0! lg:grid lg:grid-cols-4 lg:overflow-visible lg:px-0!" style={bleed}>
+      {/* Phones: every way in at a glance, one row each, nothing hidden off the side. */}
+      <ul className="mt-6 grid gap-2.5 pb-8 sm:hidden">
+        {starts.map((s) => (
+          <li key={s.title}>
+            <Link href={s.href} className="glass group flex items-center gap-4 rounded-[1.4rem] p-2 pr-4 active:scale-[0.99]">
+              <span className="relative block aspect-[4/3] w-[6.75rem] shrink-0 overflow-hidden rounded-[1rem] bg-beige">
+                <Pic src={s.photo.src} alt="" sizes="7rem" className={`object-cover ${s.photo.position}`} />
+              </span>
+              <span className="min-w-0 flex-1 py-1">
+                <span className="block text-[0.74rem] font-medium tracking-[0.02em] text-bronze">{s.tag.value}</span>
+                <span className="display mt-0.5 block text-[1.45rem] leading-[1.1]">{s.title}</span>
+                <span className="mt-1 block text-[0.84rem] leading-[1.4] text-ink/65">{s.text}</span>
+              </span>
+              <Chevron className="size-3 shrink-0 text-ink/45 transition-transform group-hover:translate-x-0.5" />
+            </Link>
+          </li>
+        ))}
+      </ul>
+      <ul className="no-scrollbar mt-8 hidden snap-x snap-mandatory gap-4 overflow-x-auto pb-8 sm:flex lg:mx-0! lg:grid lg:grid-cols-4 lg:overflow-visible lg:px-0!" style={bleed}>
         {starts.map((s) => (
           <li key={s.title} className="w-[84%] shrink-0 snap-start sm:w-[46%] lg:w-auto">
             <Link href={s.href} className="group block">
@@ -141,7 +159,7 @@ export function HajjBand() {
               {hajjBand.talbiyah}
             </p>
             <p className="font-editorial text-[1.1rem] text-cream/55 italic">{hajjBand.talbiyahEn}</p>
-            <Heading className="mt-8 text-[clamp(4.2rem,8.6vw,8.2rem)] leading-[0.92] text-cream">{hajjBand.headline}</Heading>
+            <Heading className="mt-6 text-[clamp(3.5rem,8.6vw,8.2rem)] leading-[0.92] text-cream sm:mt-8">{hajjBand.headline}</Heading>
             <p className="mt-6 max-w-[30rem] text-[1.02rem] leading-[1.75] text-cream/72">
               {hajjBand.text.value}
               <Mark s={hajjBand.text.status} />
@@ -149,10 +167,11 @@ export function HajjBand() {
             <Actions primary={{ label: "Register for Hajj 2027", href: hajjRegister }} waText={say.hajj} tone="ink" className="mt-9" />
           </div>
           <div className="lg:col-span-6 lg:col-start-7">
-            <ol className="grid gap-2">
+            {/* Phones: a light numbered list with hairlines. Wider: a soft card per step. */}
+            <ol className="grid sm:gap-2">
               {hajjBand.steps.map((s, i) => (
-                <li key={s.title} className="flex gap-4 rounded-[1.3rem] bg-white/[0.045] p-4 ring-1 ring-white/[0.06] sm:gap-5 sm:p-5">
-                  <span className="display grid size-10 shrink-0 place-items-center rounded-full bg-sand/15 text-[1.35rem] text-sand sm:size-11 sm:text-[1.45rem]">{i + 1}</span>
+                <li key={s.title} className={`flex gap-4 py-4 sm:gap-5 sm:rounded-[1.3rem] sm:border-0 sm:bg-white/[0.045] sm:p-5 sm:ring-1 sm:ring-white/[0.06] ${i ? "border-t border-white/[0.08]" : "pt-1"}`}>
+                  <span className="display grid size-9 shrink-0 place-items-center rounded-full bg-sand/15 text-[1.25rem] text-sand sm:size-11 sm:text-[1.45rem]">{i + 1}</span>
                   <span>
                     <span className="block text-[1.02rem] font-medium text-cream">
                       {s.title}
@@ -307,13 +326,13 @@ export function StayTable() {
  * What the trip cost includes, by group. Phones: one card with the groups
  * stacked inside it. Wider: a card per group.
  */
-export function CoverGroups({ groups, wide = "", status }: { groups: typeof covers.groups; wide?: string; status?: (s: Status | undefined) => Status | undefined }) {
+export function CoverGroups({ groups, wide = "", status, brief = false }: { groups: typeof covers.groups; wide?: string; status?: (s: Status | undefined) => Status | undefined; brief?: boolean }) {
   return (
     <div className={`glass-phone grid grid-cols-1 rounded-[1.5rem] px-5 py-1 sm:grid-cols-2 sm:gap-4 sm:p-0 ${wide}`}>
       {groups.map((g, i) => (
         <div key={g.title} className={`glass-wide py-5 sm:rounded-[1.5rem] sm:border-t-0 sm:p-6 ${i ? "border-t border-ink/8" : ""}`}>
           <p className="font-editorial text-[1.2rem] text-bronze italic sm:text-[1.25rem]">{g.title}</p>
-          <ul className="mt-3 grid gap-3 sm:mt-4 sm:gap-4">
+          <ul className={`mt-3 grid sm:mt-4 sm:gap-4 ${brief ? "gap-2.5" : "gap-3"}`}>
             {g.items.map((it) => (
               <li key={it.title} className="flex gap-3 sm:block">
                 <Tick className="mt-[0.3em] sm:hidden" />
@@ -322,7 +341,7 @@ export function CoverGroups({ groups, wide = "", status }: { groups: typeof cove
                     {it.title}
                     <Mark s={status ? status(it.status) : it.status} />
                   </span>
-                  <span className="mt-0.5 block text-[0.87rem] leading-[1.55] text-ink/68 sm:text-[0.88rem]">{it.text}</span>
+                  <span className={`mt-0.5 text-[0.87rem] leading-[1.55] text-ink/68 sm:block sm:text-[0.88rem] ${brief ? "hidden" : "block"}`}>{it.text}</span>
                 </span>
               </li>
             ))}
@@ -344,7 +363,7 @@ export function Covers() {
         <Pic src={slot("closeup-quran-tasbih")} alt="A tasbih resting on a Qur’an." sizes="(min-width: 1024px) 90vw, 100vw" className="object-cover object-[50%_45%]" />
       </div>
       <div className="mt-8 sm:mt-10">
-        <CoverGroups groups={covers.groups} wide="lg:grid-cols-4" />
+        <CoverGroups groups={covers.groups} wide="lg:grid-cols-4" brief />
       </div>
       <div className="mt-12 grid grid-cols-1 gap-x-14 gap-y-6 sm:mt-16 lg:grid-cols-12 lg:items-center">
         <div className="lg:col-span-3">

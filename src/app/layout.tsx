@@ -8,7 +8,7 @@ import { Analytics } from "@vercel/analytics/next";
 import { IS_LIVE } from "@/lib/site";
 
 const description =
-  "Guided Umrah and Hajj from the UK with Rawdah Tours: students of knowledge beside you, five-star hotels by the Haram, and a group that travels as one. Register your interest for Hajj 2027.";
+  "Guided Umrah and Hajj from the UK with Rawdah Tours. Students of knowledge travel with every group, and we look after you from your first message to the flight home. Register your interest for Hajj 2027.";
 
 /** Link previews resolve against the production address Vercel sets; the fallback is the client's domain. */
 const siteUrl = process.env.VERCEL_PROJECT_PRODUCTION_URL ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}` : "https://www.rawdahtours.co.uk";
