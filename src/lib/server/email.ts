@@ -57,7 +57,8 @@ function table(rows: Array<[string, string | number | null | undefined]>) {
 async function send(to: string, subject: string, html: string, replyTo?: string) {
   const client = getResend()
   if (!client) return { ok: false as const, reason: 'not-configured' as const }
-  const { error } = await client.emails.send({ from: FROM(), to, subject, html, replyTo })
+  // Travellers' emails come from a no-reply address, so their replies go to Rawdah's inbox instead.
+  const { error } = await client.emails.send({ from: FROM(), to, subject, html, replyTo: replyTo ?? OWNER() })
   if (error) {
     console.error('[email] send failed:', subject, error.message)
     return { ok: false as const, reason: 'failed' as const }
