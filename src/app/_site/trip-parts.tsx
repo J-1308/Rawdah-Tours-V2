@@ -10,10 +10,10 @@ import { slot } from "@/app/_site/slots";
 /* The team, straightforward: a portrait, what they do, the name, one line.  */
 /* ------------------------------------------------------------------------ */
 
-export type Member = { name: string; does: string; line: string; status?: Status; guest?: boolean; photo?: { src: string; alt: string; position?: string } };
+export type Member = { name: string; does: string; line: string; status?: Status; guest?: boolean; short?: string; more?: string[]; photo?: { src: string; alt: string; position?: string } };
 
-export const leaderMember: Member = { name: leader.name, does: leader.does, line: leader.line, status: "confirmed", photo: leader.photo };
-export const teacherMembers: Member[] = teachers.map((t) => ({ name: t.name, does: t.does, line: t.bio.value, status: t.bio.status, guest: t.guest, photo: t.photo }));
+export const leaderMember: Member = { name: leader.name, does: leader.does, line: leader.line, status: "confirmed", short: leader.short, more: leader.more, photo: leader.photo };
+export const teacherMembers: Member[] = teachers.map((t) => ({ name: t.name, does: t.does, line: t.bio.value, status: t.bio.status, guest: t.guest, short: "short" in t ? t.short : undefined, more: "more" in t ? t.more : undefined, photo: t.photo }));
 export const allMembers: Member[] = [leaderMember, ...teacherMembers];
 /** The Rawdah team (Ayuub and Issa), and the guest sheikhs who join trips to teach: shown apart (Jibril, 1 Nov 2026). */
 export const teamMembers: Member[] = allMembers.filter((m) => !m.guest);
@@ -38,6 +38,21 @@ export function TeamList({ members, className = "", cols = "lg:grid-cols-4" }: {
               {m.line}
               <Mark s={m.status} />
             </p>
+            {m.more ? (
+              <details className="group mt-2.5">
+                <summary className="inline-flex min-h-10 cursor-pointer list-none items-center gap-1.5 text-[0.9rem] font-medium text-bronze [&::-webkit-details-marker]:hidden">
+                  More about {m.short ?? m.name}
+                  <svg aria-hidden viewBox="0 0 12 12" className="size-3 transition-transform group-open:rotate-180">
+                    <path d="M2.5 4.5 6 8l3.5-3.5" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </summary>
+                <div className="mt-1 grid gap-2.5 text-[0.92rem] leading-[1.6] text-ink/70">
+                  {m.more.map((p) => (
+                    <p key={p}>{p}</p>
+                  ))}
+                </div>
+              </details>
+            ) : null}
           </div>
         </li>
       ))}

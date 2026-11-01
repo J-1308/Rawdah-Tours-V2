@@ -428,6 +428,12 @@ export const teachers = [
     guest: false,
     /** V1 and POSTER: role only. */
     bio: v("Guided and taught our August 2026 group in Madinah and Makkah.", "draft"),
+    /** "More about": from V1's guide profile (Rawdah's own words), lightly edited. */
+    short: "Ustadh Issa",
+    more: [
+      "Ustadh Issa began seeking Islamic knowledge in his early teens at his local masjid, studying the foundational Islamic sciences under local teachers.",
+      "At eighteen he was accepted into the Islamic University of Madinah, where he spent close to ten years in full-time study, completing the requirements for a bachelor’s degree.",
+    ],
     photo: { src: "/images/portraits/issa-uthman.jpg", alt: "Ustadh Issa Uthman", position: "object-[40%_25%]" },
   },
   {
@@ -448,6 +454,13 @@ export const leader = {
   does: "Leads every trip",
   line: "Your point of care from the first message to the flight home, on every Rawdah trip.",
   bio: v("Over ten years of da‘wah in the local community, serving others and supporting their growth in faith.", "evidenced"), // V1
+  /** "More about": from V1's guide profile (Rawdah's own words), lightly edited. */
+  short: "Brother Ayuub",
+  more: [
+    "With over ten years of active involvement in da‘wah in the local community, Brother Ayuub has dedicated his time to serving others, nurturing faith and supporting spiritual growth.",
+    "Alongside this, he is pursuing Islamic studies, continuing to deepen his knowledge and understanding of the deen.",
+    "He leads operations on the ground once the group arrives, committed to a smooth and supported experience for you and your family.",
+  ],
   photo: { src: "/images/portraits/ayuub-mohamed-musa.jpg", alt: "Brother Ayuub Mohamed Musa, Rawdah Tours group leader" },
 };
 
