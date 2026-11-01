@@ -149,10 +149,8 @@ export const starts = [
   { title: "Groups & organisations", text: "A trip for your organisation or community.", href: routes.groups, tag: v("On request", "draft"), photo: { src: "/images/teaching/teaching-01.jpg", position: "object-[50%_30%]" } },
 ];
 
-/** The Hajj band: the talbiyah, and the five steps from registering to Hajj. */
+/** The Hajj band: the headline, and the five steps from registering to Hajj. (The talbiyah was removed, Jibril, 1 Nov 2026.) */
 export const hajjBand = {
-  talbiyah: "لَبَّيْكَ اللَّهُمَّ لَبَّيْكَ",
-  talbiyahEn: "Here I am, O Allah, here I am.",
   headline: "Hajj 2027",
   text: v(
     "Register your interest and we’ll talk through your plans. When the approved packages are published on Nusuk, we help you compare them, prepare you for the rites, and stay with the group on the ground.",

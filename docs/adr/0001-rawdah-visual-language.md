@@ -33,7 +33,7 @@ Replace everything visible with a language built from Rawdah's own material:
 | Portraits | arches | squares with an offset gold tile |
 | Hero | headline over a full-bleed group photo, finder card below | headline on date brown beside a photo mosaic; four start tiles below |
 | Journeys | big photo cards with route chips | trip rows: square photo, facts, price block |
-| Hajj | dark band with countdown | sand-gold band with the talbiyah and the five steps to Hajj |
+| Hajj | dark band with countdown | sand-gold band with the five steps to Hajj (talbiyah removed 1 Nov 2026) |
 | Why us | accordion beside a photo | five plain reasons beside a framed photo |
 | Included | stage stepper with photos | "What the trip cost includes" in four columns, hotels as a table |
 | Booking | five numbered columns | a payment timeline with a worked example |

@@ -145,7 +145,7 @@ export function Trips() {
 }
 
 /* ------------------------------------------------------------------------ */
-/* Hajj 2027: a rounded cocoa panel with the talbiyah and the steps.         */
+/* Hajj 2027: a cocoa band with the headline and the steps.                 */
 /* ------------------------------------------------------------------------ */
 
 export function HajjBand() {
@@ -155,11 +155,7 @@ export function HajjBand() {
         <Emblem className="watermark pointer-events-none absolute top-[5%] right-[-10%] h-[95%]" />
         <div className="relative grid grid-cols-1 gap-x-16 gap-y-12 lg:grid-cols-12">
           <div className="lg:col-span-5">
-            <p lang="ar" className="ar text-left text-[clamp(1.8rem,3vw,2.6rem)] leading-[1.7] text-sand">
-              {hajjBand.talbiyah}
-            </p>
-            <p className="font-editorial text-[1.1rem] text-cream/55 italic">{hajjBand.talbiyahEn}</p>
-            <Heading className="mt-6 text-[clamp(3.5rem,8.6vw,8.2rem)] leading-[0.92] text-cream sm:mt-8">{hajjBand.headline}</Heading>
+            <Heading className="text-[clamp(3.5rem,8.6vw,8.2rem)] leading-[0.92] text-cream">{hajjBand.headline}</Heading>
             <p className="mt-6 max-w-[30rem] text-[1.02rem] leading-[1.75] text-cream/72">
               {hajjBand.text.value}
               <Mark s={hajjBand.text.status} />

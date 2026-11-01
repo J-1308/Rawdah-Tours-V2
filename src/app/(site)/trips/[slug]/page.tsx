@@ -3,7 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import { ComingSoonTrip } from "@/app/_site/coming-soon";
-import { anchors, covers, faqs, fromPrice, gbp, hajjBand, hajjNusuk, journey, journeys, nightsOf, ramadanReveal, routes, routeText, say, type Journey } from "@/app/_site/content";
+import { anchors, covers, faqs, fromPrice, gbp, hajjNusuk, journey, journeys, nightsOf, ramadanReveal, routes, routeText, say, type Journey } from "@/app/_site/content";
 import { CoverGroups, FaqList, PaymentPlan, Tick } from "@/app/_site/home-sections";
 import { Mark } from "@/app/_site/marks";
 import { RegisterForm } from "@/app/_site/register-form";
@@ -293,11 +293,6 @@ export default async function TripPage({ params }: { params: Promise<{ slug: str
         <section id={anchors.form} className={`wash-linen scroll-mt-28 py-[clamp(3.75rem,10vw,9rem)] ${gutter}`}>
           <div className="grid grid-cols-1 gap-x-14 gap-y-10 lg:grid-cols-12">
             <div className="lg:col-span-4">
-              {j.kind === "hajj" ? (
-                <p lang="ar" className="ar mb-2 text-left text-[clamp(1.6rem,2.6vw,2.2rem)] leading-[1.7] text-bronze">
-                  {hajjBand.talbiyah}
-                </p>
-              ) : null}
               <Heading className="text-[clamp(2.4rem,4vw,3.6rem)]">{j.kind === "hajj" ? hajjNusuk.closing.title : j.plan ? `Register for ${j.name}` : "Hear first when the dates are out"}</Heading>
               <p className="mt-5 max-w-[24rem] text-[1rem] leading-[1.65] text-ink/72">
                 {j.kind === "hajj" ? `${hajjNusuk.closing.text} ` : ""}Two minutes, and someone from Rawdah will be in touch. Registering doesn’t reserve a place or commit you to anything.
