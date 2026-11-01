@@ -143,7 +143,7 @@ export const hero = {
 
 /** "Where would you like to start?" — one way in for each kind of traveller. */
 export const starts = [
-  { title: "Hajj 2027", text: "Register your interest now. Packages open on Nusuk.", href: routes.hajj, tag: v("Open now", "confirmed"), photo: { src: slot("hajj-mina"), position: "object-[50%_45%]" } },
+  { title: "Hajj 2027", text: "Register your interest now. Packages open on Nusuk.", href: routes.hajj, tag: v("Open now", "confirmed"), photo: { src: slot("hajj-arafah"), position: "object-[45%_40%]" } },
   { title: "Group Umrah", text: ramadanReveal ? "Ramadan 2027: Makkah, then Madinah." : "Ramadan 1448, with GGC.", href: routes.nextUmrah, tag: ramadanReveal ? v("27 Feb – 13 Mar", "confirmed") : v("Coming soon", "confirmed"), photo: { src: "/images/group-photos/group-photos-04.jpg", position: "object-[50%_75%]" } },
   { title: "Private & family", text: "Your own dates, planned with us.", href: routes.private, tag: v("Your dates", "draft"), photo: { src: slot("family-haram"), position: "object-[50%_50%]" } },
   { title: "Groups & organisations", text: "A trip for your organisation or community.", href: routes.groups, tag: v("On request", "draft"), photo: { src: "/images/teaching/teaching-01.jpg", position: "object-[50%_30%]" } },
@@ -602,6 +602,8 @@ export type Journey = {
   /** Short line in place of a price (Hajj). */
   priceNote?: V;
   photo: { src: string; width: number; height: number; alt: string; position?: string };
+  /** The trip card's photo, when it should differ from the trip page's (Jibril, 1 Nov 2026: Hajj). */
+  cardPhoto?: { src: string; position?: string };
   /** Two more photographs for the trip page's mosaic. */
   more: { src: string; alt: string; position?: string }[];
   waText: string;
@@ -829,7 +831,8 @@ export const journeys: Journey[] = [
       { title: "Services", text: "Transport, services and the schedule for each package." },
       { title: "Visa requirements", text: "Set out in the official platform information." },
     ],
-    photo: { src: slot("hajj-cover"), width: 740, height: 415, alt: "The Ka‘bah at night from above, Masjid al-Haram full of pilgrims.", position: "object-[50%_50%]" },
+    photo: { src: slot("hajj-arafah"), width: 1280, height: 853, alt: "Pilgrims in ihram making du‘a on the Day of Arafah, the mountains behind them.", position: "object-[50%_40%]" },
+    cardPhoto: { src: slot("hajj-makkah"), position: "object-[50%_60%]" },
     more: [
       { src: "/images/teaching/teaching-06.jpg", alt: "A Rawdah preparation session in the UK.", position: "object-[50%_60%]" },
       { src: "/images/friends/friends-09.jpg", alt: "Two travellers in ihram at night, the clock tower behind them.", position: "object-[50%_40%]" },

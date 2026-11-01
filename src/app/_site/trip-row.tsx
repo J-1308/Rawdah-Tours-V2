@@ -45,7 +45,7 @@ export function TripRow({ j }: { j: Journey; tone?: "canvas" | "ink" }) {
         {j.poster ? (
           <RamadanLockup j={j} compact />
         ) : (
-          <Pic src={j.photo.src} alt="" sizes="(min-width: 1024px) 19rem, 100vw" className={`object-cover transition-transform duration-[1.2s] hover:scale-[1.04] ${j.photo.position ?? ""}`} />
+          <Pic src={(j.cardPhoto ?? j.photo).src} alt="" sizes="(min-width: 1024px) 19rem, 100vw" className={`object-cover transition-transform duration-[1.2s] hover:scale-[1.04] ${(j.cardPhoto ?? j.photo).position ?? ""}`} />
         )}
         <StateTag j={j} className="absolute top-3 left-3" />
       </Link>

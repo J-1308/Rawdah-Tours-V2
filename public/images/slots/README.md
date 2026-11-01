@@ -6,8 +6,9 @@ and the frame becomes the photo. No code change needed.
 
 | Slot (file name) | Where it shows | What to find | Search for |
 | --- | --- | --- | --- |
-| `hajj-cover` | Hajj 2027: the trip card on the home page and Trips page, and the top of the Hajj page | The Haram or Arafah on the day of Hajj, wide shot | "Kaaba aerial", "Mount Arafat Hajj" |
-| `hajj-mina` | Home, "Where would you like to start": the Hajj card | The white tents of Mina stretching into the distance | "Mina tents", "Mina tent city Hajj" |
+| `hajj-arafah` | Hajj 2027: the top of the Hajj page, and the Hajj row in "Where would you like to start" | Pilgrims on the Day of Arafah | "Mount Arafat Hajj" |
+| `hajj-makkah` | Hajj 2027: the trip card on the home page and Trips page | Masjid al-Haram from above | "Makkah aerial" |
+| `hajj-mina` | Not shown at the moment (the Hajj start row uses `hajj-arafah` since 1 Nov 2026) | The white tents of Mina stretching into the distance | "Mina tents", "Mina tent city Hajj" |
 | `family-haram` | Home, "Where would you like to start": the Private & family card; the top of the Private & family page | A parent and child walking together at the Haram, seen from behind | "father son Masjid al-Haram", "family Kaaba back view" |
 | `family-madinah` | Home, the "Private Umrah" section | A family at Masjid an-Nabawi under the umbrellas, from behind or far off | "family Masjid Nabawi umbrellas", "Madinah family mosque" |
 | `groups-masjid` | Home, the "Groups & organisations" section | A UK masjid or community talk: people seated, listening, from behind | "UK mosque lecture", "halaqa study circle mosque" |
@@ -29,7 +30,8 @@ and the frame becomes the photo. No code change needed.
 
 | Slot | Source page | Licence |
 | --- | --- | --- |
-| `hajj-cover` | Jibril's download "Kabaa-areial" (the Ka‘bah at night from above), chosen 1 Nov 2026; only 740px wide. Source page to record | Check: source not recorded |
+| `hajj-arafah` | Jibril's download "mount arafah_1" (pilgrims making du‘a at Arafah), chosen 1 Nov 2026; 1280px. Looks like a news-agency photo: source page to record | **Check before keeping: news photos are not free to use, and the faces are recognisable** |
+| `hajj-makkah` | Jibril's download "makkah-aerial" (the Haram from above at dusk), chosen 1 Nov 2026; 736px wide (Pinterest's size, so likely someone else's photo). Source page to record | Check: source not recorded |
 | `hajj-mina` | Downloaded by Jibril (file name suggests Wikimedia Commons: "Haji pilgrimage mina tent") | Check; Commons usually needs a credit |
 | `family-haram` | Unsplash, Danish Habib (Ka‘bah and clock tower), downloaded by Jibril 31 Oct 2026 | Unsplash licence: free, credit appreciated |
 | `family-madinah` | Unsplash, Rumman Amin (Nabawi umbrellas), downloaded by Jibril 31 Oct 2026 | Unsplash licence |
