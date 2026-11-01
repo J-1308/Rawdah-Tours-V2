@@ -7,7 +7,7 @@ import { Mark } from "@/app/_site/marks";
 import { Actions, Emblem, gutter, Heading, Label, onInk, PartnerLogo, PhotoStack, Pic, Tick, TileLink, WaSquare, WaTile } from "@/app/_site/shell";
 
 export { Tick } from "@/app/_site/shell";
-import { slot } from "@/app/_site/slots";
+import { fitFrame, slot } from "@/app/_site/slots";
 import { TripRow } from "@/app/_site/trip-row";
 import { allMembers, TeamLine, TeamList, type Member } from "@/app/_site/trip-parts";
 import { Chevron } from "@/app/_site/whatsapp";
@@ -75,10 +75,10 @@ export function Starts() {
       <Heading className="text-[clamp(2.2rem,3.6vw,3.4rem)]">Where would you like to start?</Heading>
       <ul className="no-scrollbar mt-8 flex snap-x snap-mandatory gap-4 overflow-x-auto pb-8 lg:mx-0! lg:grid lg:grid-cols-4 lg:overflow-visible lg:px-0!" style={bleed}>
         {starts.map((s) => (
-          <li key={s.title} className="w-[74%] shrink-0 snap-start sm:w-[42%] lg:w-auto">
+          <li key={s.title} className="w-[84%] shrink-0 snap-start sm:w-[46%] lg:w-auto">
             <Link href={s.href} className="group block">
-              <div className="relative aspect-[4/5] overflow-hidden rounded-[1.75rem] bg-beige shadow-[var(--shadow-lift)]">
-                <Pic src={s.photo.src} alt="" sizes="(min-width: 1024px) 23vw, (min-width: 640px) 42vw, 74vw" className={`object-cover transition-transform duration-[1.2s] group-hover:scale-[1.04] ${s.photo.position}`} />
+              <div className="relative aspect-[4/3] overflow-hidden rounded-[1.75rem] bg-beige shadow-[var(--shadow-lift)] lg:aspect-[5/4]">
+                <Pic src={s.photo.src} alt="" sizes="(min-width: 1024px) 23vw, (min-width: 640px) 46vw, 84vw" className={`object-cover transition-transform duration-[1.2s] group-hover:scale-[1.04] ${s.photo.position}`} />
                 <div aria-hidden className="absolute inset-0 bg-[linear-gradient(to_top,rgb(42_31_26/0.85)_0%,rgb(42_31_26/0.25)_45%,transparent_70%)]" />
                 <span className="absolute top-3 left-3 rounded-full bg-black/60 px-3 py-1 text-[0.78rem] font-medium text-cream [&_.site-mark]:border-sand/60 [&_.site-mark]:text-sand">
                   {s.tag.value}
@@ -185,8 +185,6 @@ export function HajjBand() {
 /* Our last trip: the facts, and the trip in photographs.                    */
 /* ------------------------------------------------------------------------ */
 
-const shapes = ["aspect-[3/4]", "aspect-[4/3]", "aspect-[4/5]", "aspect-[3/4]", "aspect-square", "aspect-[4/5]"];
-
 export function LastTrip() {
   return (
     <section id="last-trip" className={`wash-linen scroll-mt-24 py-[clamp(3.75rem,10vw,9rem)] ${gutter}`}>
@@ -204,9 +202,9 @@ export function LastTrip() {
           </dl>
         </div>
         <div className="columns-2 gap-3 sm:gap-4 lg:col-span-8 lg:columns-3">
-          {lastTrip.photos.map((p, i) => (
+          {lastTrip.photos.map((p) => (
             <figure key={p.src} className="rise mb-3 break-inside-avoid sm:mb-4">
-              <div className={`relative overflow-hidden rounded-[1.5rem] bg-beige shadow-[var(--shadow-lift)] ${shapes[i % shapes.length]}`}>
+              <div style={fitFrame(p.src, { min: 0.75, max: 1.5 })} className="relative aspect-(--r) overflow-hidden rounded-[1.5rem] bg-beige shadow-[var(--shadow-lift)]">
                 <Image src={p.src} alt={p.alt} fill sizes="(min-width: 1024px) 21vw, 50vw" className={`object-cover ${p.position}`} />
               </div>
               <figcaption className="mt-2 px-1 font-editorial text-[1rem] text-ink/65 italic">{p.caption}</figcaption>
@@ -493,7 +491,7 @@ export function PrivateBand() {
     <section className={`wash-beige py-[clamp(3.75rem,10vw,9rem)] ${gutter}`}>
       <div className="grid grid-cols-1 gap-x-16 gap-y-12 lg:grid-cols-12 lg:items-center">
         <div className="lg:col-span-5">
-          <div className="rise relative mx-auto aspect-[4/5] max-w-[26rem] overflow-hidden rounded-[2rem] bg-beige shadow-[var(--shadow-soft)]">
+          <div style={fitFrame(privateBand.photo.src)} className="rise relative mx-auto aspect-(--r) max-w-[30rem] overflow-hidden rounded-[2rem] bg-beige shadow-[var(--shadow-soft)]">
             <Pic src={privateBand.photo.src} alt={privateBand.photo.alt} sizes="(min-width: 1024px) 30vw, 90vw" className="object-cover object-[50%_45%]" />
           </div>
         </div>
@@ -671,7 +669,7 @@ export function Closing() {
             </div>
           </div>
           <div className="lg:col-span-5 lg:col-start-8">
-            <div className="rise relative mx-auto aspect-[4/5] max-w-[26rem] overflow-hidden rounded-[2rem] shadow-[var(--shadow-float)] ring-1 ring-white/10">
+            <div style={fitFrame("/images/friends/friends-03.jpg")} className="rise relative mx-auto aspect-(--r) max-w-[34rem] overflow-hidden rounded-[2rem] shadow-[var(--shadow-float)] ring-1 ring-white/10">
               <Image src="/images/friends/friends-03.jpg" alt="Six Rawdah travellers arm in arm and smiling after completing Umrah." fill sizes="(min-width: 1024px) 30vw, 90vw" className="object-cover object-[35%_40%]" />
             </div>
           </div>

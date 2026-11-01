@@ -121,8 +121,8 @@ export const strip = ramadanReveal
 
 export const hero = {
   label: "Guided Umrah and Hajj from the UK",
-  /** Jibril's pick (31 Oct 2026, option four), widened to Hajj. In the spirit of the live site's "prepared with knowledge, care and intention". */
-  headline: "Your Umrah and Hajj, guided by people of knowledge.",
+  /** Jibril's pick (31 Oct 2026). */
+  headline: "Your Umrah and Hajj, guided every step of the way.",
   text: v(
     "Students of knowledge travel with every Rawdah group, and Brother Ayuub looks after you from your first message to the flight home.",
     "evidenced",
@@ -829,7 +829,7 @@ export const journeys: Journey[] = [
       { title: "Services", text: "Transport, services and the schedule for each package." },
       { title: "Visa requirements", text: "Set out in the official platform information." },
     ],
-    photo: { src: slot("hajj-arafah"), width: 2400, height: 1800, alt: "Pilgrims on Mount Arafah on the day of Hajj.", position: "object-[50%_50%]" },
+    photo: { src: slot("hajj-cover"), width: 740, height: 415, alt: "The Ka‘bah at night from above, Masjid al-Haram full of pilgrims.", position: "object-[50%_50%]" },
     more: [
       { src: "/images/teaching/teaching-06.jpg", alt: "A Rawdah preparation session in the UK.", position: "object-[50%_60%]" },
       { src: "/images/friends/friends-09.jpg", alt: "Two travellers in ihram at night, the clock tower behind them.", position: "object-[50%_40%]" },

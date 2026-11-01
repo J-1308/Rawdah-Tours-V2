@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { isEmptySlot, slotBriefs } from "@/app/_site/slots";
+import { fitFrame, isEmptySlot, slotBriefs } from "@/app/_site/slots";
 import Link from "next/link";
 import type { CSSProperties, ReactNode } from "react";
 
@@ -228,10 +228,14 @@ export function PartnerLogo({ logo, className = "h-8" }: { logo: { src: string; 
   return <span role="img" aria-label={logo.alt} className={`inline-block shrink-0 bg-current ${className}`} style={{ aspectRatio: `${logo.width} / ${logo.height}`, WebkitMask: mask, mask }} />;
 }
 
-export function PhotoStack({ photos, priority = false, className = "", aspect = "aspect-[4/5]" }: { photos: Photo[]; priority?: boolean; flip?: boolean; className?: string; aspect?: string }) {
+/**
+ * One soft framed photo. By default the frame takes the photo's own shape (within limits), so a wide group photo
+ * shows whole on the phone; pass `aspect` to fix the shape instead.
+ */
+export function PhotoStack({ photos, priority = false, className = "", aspect = "aspect-(--r) lg:aspect-(--rl)", fit }: { photos: Photo[]; priority?: boolean; flip?: boolean; className?: string; aspect?: string; fit?: Parameters<typeof fitFrame>[1] }) {
   const [a] = photos;
   return (
-    <div className={`settle relative overflow-hidden rounded-[2rem] bg-beige shadow-[var(--shadow-soft)] ${aspect} ${className}`}>
+    <div style={fitFrame(a.src, fit)} className={`settle relative overflow-hidden rounded-[2rem] bg-beige shadow-[var(--shadow-soft)] ${aspect} ${className}`}>
       <Pic src={a.src} alt={a.alt} priority={priority} sizes="(min-width: 1024px) 45vw, 100vw" quality={85} className={`object-cover ${a.position ?? ""}`} />
     </div>
   );
@@ -277,7 +281,7 @@ export function PageLead({
       ) : null}
       <div className="relative grid grid-cols-1 gap-x-16 gap-y-14 lg:grid-cols-12 lg:items-center">
         <div className="lg:order-2 lg:col-span-6">
-          <PhotoStack photos={photos} priority aspect="aspect-[4/3] lg:aspect-[4/5]" className="lg:ml-auto lg:max-w-[34rem]" />
+          <PhotoStack photos={photos} priority className="lg:ml-auto lg:max-w-[34rem]" />
         </div>
         <div className="lg:order-1 lg:col-span-6">
           {label ? <Label>{label}</Label> : null}
@@ -354,7 +358,7 @@ export function SiteFooter() {
           <Link href="/" aria-label="Rawdah Tours, home" className="inline-block text-cream">
             <Logo className="logo-gold h-16 sm:h-24" />
           </Link>
-          <p className="mt-6 max-w-[24rem] font-editorial text-[1.35rem] leading-snug text-cream/85 sm:mt-7 sm:text-[1.5rem]">Guided Umrah and Hajj from the UK, with teachers beside you.</p>
+          <p className="mt-6 max-w-[24rem] font-editorial text-[1.35rem] leading-snug text-cream/85 sm:mt-7 sm:text-[1.5rem]">Guided Umrah and Hajj from the UK, from your first message to the flight home.</p>
           <div className="mt-7 grid grid-cols-2 gap-2 sm:mt-8 sm:flex sm:flex-wrap sm:gap-2.5">
             <WaTile text={say.general} label="WhatsApp" tone="line-canvas" className="px-3! sm:px-6!" />
             <a href={brand.phone.href} className={`${btnBase} px-3 sm:px-6 ${btnTone["line-canvas"]}`}>

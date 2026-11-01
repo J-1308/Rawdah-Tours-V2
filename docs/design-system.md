@@ -66,7 +66,7 @@ cards (translucent cream, white edge; no backdrop blur, see ADR 0004). No hard b
 | `Heading`, `Label` | Headline; italic label with the tiny mark. |
 | `TileLink` | The main button (`ink` cocoa, `gold` sand on dark, `line-ink`, `line-canvas`). |
 | `WaTile`, `WaSquare`, `Actions` | WhatsApp button; WhatsApp as a square glyph; a section's pair of actions (on phones the main button fills the row with `WaSquare` beside it). |
-| `PhotoStack` | Two or three layered photos: tall main, an overlapping second with a cream ring, an optional third behind. |
+| `PhotoStack` | One soft framed photo. The frame takes the photo's own shape (see Photography), unless `aspect` fixes it. |
 | `Framed` | One soft rounded photo. |
 | `PageLead` | Inner-page head: words beside a PhotoStack on `.wash-hero` with the mark embossed. |
 | `TripRow` | A trip as a glass card: photo with state, facts, price panel and actions. |
@@ -109,6 +109,14 @@ very slightly on hover. Both are off under reduced motion. Nothing else moves.
 
 Only Rawdah's own trip photos and portraits; true captions; never words over a face. More photos and video are
 coming from Rawdah; a hero video can replace the main photo in the hero's PhotoStack.
+
+**Frames follow the photo (phone first).** A wide group photo in a tall frame shows only its middle on a phone, with
+people cut off at the sides. So single photos and the last-trip gallery use frames shaped like the photo itself:
+`fitFrame(src)` in `slots.ts` gives the CSS variables, and the frame uses `aspect-(--r)` (`lg:aspect-(--rl)` for
+large screens). The shape is clamped between 4:5 and 3:2, so nothing is ever shown much below three-quarters of its
+width or height. `next.config.ts` reads every photo's size at build time, so a new or swapped photo gets the right
+frame with no code change. Fixed-shape frames are only for rows that must line up (the start cards, team portraits,
+small three-up strips); there, keep landscape photos in landscape frames on phones.
 
 ## 9. Never (The Umrah Company's signatures)
 

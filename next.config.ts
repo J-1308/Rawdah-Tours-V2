@@ -1,4 +1,5 @@
 import { readdirSync } from 'node:fs'
+import { join, relative } from 'node:path'
 
 import type { NextConfig } from 'next'
 
@@ -11,8 +12,34 @@ const slotFiles = (() => {
   }
 })()
 
-const nextConfig: NextConfig = {
-  env: { SLOT_FILES: slotFiles },
+/**
+ * Every photo's shape (width / height), read once at build time, so frames on the phone can follow the photo
+ * instead of cutting a wide group photo down to its middle (see photoRatio in src/app/_site/slots.ts).
+ */
+async function photoRatios() {
+  // sharp ships with Next for image optimisation; if it's ever missing, frames fall back to their default shape.
+  const sharp = (await import('sharp').catch(() => null))?.default
+  if (!sharp) return ''
+  const root = 'public/images'
+  const out: string[] = []
+  const walk = (dir: string): string[] =>
+    readdirSync(dir, { withFileTypes: true }).flatMap((e) => (e.isDirectory() ? walk(join(dir, e.name)) : /\.(jpe?g|png|webp)$/i.test(e.name) ? [join(dir, e.name)] : []))
+  for (const f of walk(root)) {
+    try {
+      const m = await sharp(f).metadata()
+      const turned = (m.orientation ?? 1) >= 5
+      const w = turned ? m.height : m.width
+      const h = turned ? m.width : m.height
+      if (w && h) out.push(`${relative(root, f)}:${(w / h).toFixed(3)}`)
+    } catch {
+      // Not a photo sharp can read: it just keeps the frame's default shape.
+    }
+  }
+  return out.join(';')
+}
+
+const nextConfig = async (): Promise<NextConfig> => ({
+  env: { SLOT_FILES: slotFiles, PHOTO_RATIOS: await photoRatios() },
   images: {
     // Next 16 only allows quality 75 unless listed here.
     qualities: [75, 85],
@@ -49,6 +76,6 @@ const nextConfig: NextConfig = {
       },
     ]
   },
-}
+})
 
 export default nextConfig
