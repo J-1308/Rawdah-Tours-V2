@@ -78,7 +78,7 @@ cards (translucent cream, white edge; no backdrop blur, see ADR 0004). No hard b
 | `Builder` | The private Umrah planner; summary on a cocoa panel. |
 | `Mark`, `MarksFrame` | Review marks (dashed bronze tags) and the switch. Remove before launch. |
 
-Homepage sections (`home-sections.tsx`): `Hero`, `Starts` (photo cards; a swipeable row on phones), `Trips`,
+Homepage sections (`home-sections.tsx`): `Hero`, `Starts` (photo cards; on phones a list of rows, every way in at a glance), `Trips`,
 `HajjBand`, `LastTrip` (masonry), `WhyRawdah`, `Meaning`, `Covers` + `StayTable`, `Paying`, `People`,
 `GroupsBand`, `PrivateBand`, `Reviews`, `Questions`, `Closing`.
 
