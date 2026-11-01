@@ -9,7 +9,7 @@ import { Actions, Emblem, gutter, Heading, Label, onInk, PartnerLogo, PhotoStack
 export { Tick } from "@/app/_site/shell";
 import { fitFrame, slot } from "@/app/_site/slots";
 import { TripRow } from "@/app/_site/trip-row";
-import { allMembers, TeamLine, TeamList, type Member } from "@/app/_site/trip-parts";
+import { allMembers, guestMembers, TeamLine, TeamList, teamMembers, type Member } from "@/app/_site/trip-parts";
 import { Chevron } from "@/app/_site/whatsapp";
 
 const pad = "py-[clamp(3.25rem,9vw,8rem)]";
@@ -219,6 +219,25 @@ export function LastTrip() {
               </div>
             ))}
           </dl>
+          <div className="glass mt-4 rounded-[1.5rem] px-5 py-4">
+            <p className="text-[0.92rem] text-ink/62">The team on this trip</p>
+            <ul className="mt-3 grid gap-3">
+              {lastTrip.team.map((t) => {
+                const photo = allMembers.find((m) => m.name === t.name)?.photo;
+                return (
+                  <li key={t.name} className="flex items-center gap-3">
+                    <span className="relative size-11 shrink-0 overflow-hidden rounded-full bg-beige">
+                      {photo ? <Image src={photo.src} alt="" fill sizes="2.75rem" className={`object-cover ${photo.position ?? "object-[50%_25%]"}`} /> : null}
+                    </span>
+                    <span className="text-[0.92rem] leading-tight">
+                      <span className="block">{t.name}</span>
+                      <span className="text-[0.82rem] text-ink/62">{t.role}</span>
+                    </span>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
         </div>
         <div className="columns-2 gap-3 sm:gap-4 lg:col-span-8 lg:columns-3">
           {lastTrip.photos.map((p) => (
@@ -447,7 +466,7 @@ export function Paying() {
  * The people, straightforward: what each person does, their name, one line.
  * The leader in the same format as the teachers.
  */
-export function People({ link = true, members = allMembers }: { link?: boolean; members?: Member[] }) {
+export function People({ link = true, members = teamMembers, guests = guestMembers }: { link?: boolean; members?: Member[]; guests?: Member[] }) {
   return (
     <section id={link ? "people" : "team"} className={`wash-linen scroll-mt-24 py-[clamp(3.75rem,10vw,9rem)] ${gutter}`}>
       <div className="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
@@ -462,6 +481,13 @@ export function People({ link = true, members = allMembers }: { link?: boolean; 
         ) : null}
       </div>
       <TeamList members={members} className="mt-10 sm:mt-12" />
+      {guests.length ? (
+        <div className="mt-12 border-t border-ink/10 pt-10 sm:mt-16 sm:pt-12">
+          <p className="font-editorial text-[1.35rem] text-bronze italic">Guest sheikhs</p>
+          <p className="mt-1.5 max-w-[30rem] text-[0.95rem] leading-[1.6] text-ink/68">Students of knowledge who join our trips to teach.</p>
+          <TeamList members={guests} className="mt-7 sm:mt-8" />
+        </div>
+      ) : null}
       <TeamLine />
     </section>
   );

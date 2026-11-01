@@ -10,11 +10,14 @@ import { slot } from "@/app/_site/slots";
 /* The team, straightforward: a portrait, what they do, the name, one line.  */
 /* ------------------------------------------------------------------------ */
 
-export type Member = { name: string; does: string; line: string; status?: Status; photo?: { src: string; alt: string; position?: string } };
+export type Member = { name: string; does: string; line: string; status?: Status; guest?: boolean; photo?: { src: string; alt: string; position?: string } };
 
 export const leaderMember: Member = { name: leader.name, does: leader.does, line: leader.line, status: "confirmed", photo: leader.photo };
-export const teacherMembers: Member[] = teachers.map((t) => ({ name: t.name, does: t.does, line: t.bio.value, status: t.bio.status, photo: t.photo }));
+export const teacherMembers: Member[] = teachers.map((t) => ({ name: t.name, does: t.does, line: t.bio.value, status: t.bio.status, guest: t.guest, photo: t.photo }));
 export const allMembers: Member[] = [leaderMember, ...teacherMembers];
+/** The Rawdah team (Ayuub and Issa), and the guest sheikhs who join trips to teach: shown apart (Jibril, 1 Nov 2026). */
+export const teamMembers: Member[] = allMembers.filter((m) => !m.guest);
+export const guestMembers: Member[] = allMembers.filter((m) => m.guest);
 
 export function TeamList({ members, className = "", cols = "lg:grid-cols-4" }: { members: Member[]; className?: string; cols?: string }) {
   return (

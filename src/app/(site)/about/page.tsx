@@ -4,7 +4,7 @@ import { about, brand, routes, say } from "@/app/_site/content";
 import { Meaning, People } from "@/app/_site/home-sections";
 import { Mark } from "@/app/_site/marks";
 import { Actions, Chapter, Emblem, Heading, Label, PageLead, gutter } from "@/app/_site/shell";
-import { allMembers } from "@/app/_site/trip-parts";
+import { teamMembers } from "@/app/_site/trip-parts";
 
 export const metadata: Metadata = {
   title: "About us",
@@ -73,7 +73,7 @@ export default function AboutPage() {
 
       <Chapter tone="night">
         {/* Only Brother Ayuub and Ustadh Issa here for now (Jibril, 31 Oct 2026). */}
-        <People link={false} members={allMembers.filter((m) => m.name === "Brother Ayuub Mohamed Musa" || m.name === "Ustadh Issa Uthman")} />
+        <People link={false} members={teamMembers} guests={[]} />
       </Chapter>
 
       <Chapter tone="day">

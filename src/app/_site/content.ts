@@ -177,7 +177,12 @@ export const lastTrip = {
     { k: "Madinah", v: "5 nights, Peninsula Worth Hotel ★★★★★" },
     { k: "Makkah", v: "5 nights, Address Jabal Omar ★★★★★" },
     { k: "Flights", v: "Qatar Airways from London Heathrow" },
-    { k: "Teachers", v: "Ustadh Issa Uthman and Ustadh Abdulrahman Hassan" },
+  ],
+  /** Who travelled with this group: on a past trip, guests count as that trip's team (Jibril, 1 Nov 2026). */
+  team: [
+    { name: "Brother Ayuub Mohamed Musa", role: "Group leader" },
+    { name: "Ustadh Issa Uthman", role: "Guide and teacher" },
+    { name: "Ustadh Abdulrahman Hassan", role: "Guest sheikh" },
   ],
   status: "confirmed" as Status, // V1 and POSTER
   photos: [
@@ -406,17 +411,21 @@ export const paying = {
 /** Teachers: only facts Rawdah has published. Bios to be read by the client before launch. */
 export const teachers = [
   {
+    /** A guest sheikh, not part of the Rawdah team (Jibril, 1 Nov 2026). */
     name: "Ustadh Abu Abdulaziz Ahmed",
-    role: "Hajj guide, Hajj 2027",
-    does: "Guides the Hajj group",
+    role: "Guest sheikh, Hajj guide for Hajj 2027",
+    does: "Guest sheikh · guides the Hajj group",
+    guest: true,
     /** LIVE team profile. */
     bio: v("A graduate of King Saud University and a student of Shaykh Dr. Sa‘d al-Shithri.", "confirmed"),
     photo: { src: "/images/portraits/abu-abdulaziz-ahmed.jpg", alt: "Ustadh Abu Abdulaziz Ahmed", position: "object-[50%_15%]" },
   },
   {
+    /** Rawdah team (Jibril, 1 Nov 2026: the team is Issa and Ayuub). */
     name: "Ustadh Issa Uthman",
     role: "Guide and teacher, Path of Purity II",
     does: "Guides and teaches on Umrah",
+    guest: false,
     /** V1 and POSTER: role only. */
     bio: v("Guided and taught our August 2026 group in Madinah and Makkah.", "draft"),
     photo: { src: "/images/portraits/issa-uthman.jpg", alt: "Ustadh Issa Uthman", position: "object-[40%_25%]" },
@@ -426,6 +435,7 @@ export const teachers = [
     name: "Ustadh Abdulrahman Hassan",
     role: "Guest sheikh, Path of Purity II",
     does: "Guest sheikh",
+    guest: true,
     bio: v("Joined our August 2026 group as a guest sheikh, teaching in Madinah and Makkah.", "draft"),
     photo: { src: "/images/portraits/abdulrahman-hassan.jpg", alt: "Ustadh Abdulrahman Hassan", position: "object-[40%_30%]" },
   },
