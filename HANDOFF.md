@@ -85,3 +85,11 @@ creating Vercel projects or other outside resources.
   Supabase is set up (the privacy notice says so).
 - Path of Purity II has no page; it lives in "Our last trip" on the home page.
 - Search engines open by themselves once the site is served from rawdahtours.co.uk in production (`IS_LIVE`).
+
+## Site password (1 November 2026)
+
+The whole site can sit behind a password while it's kept private. It's on only when `SITE_PASSWORD` is set in Vercel
+(Production); visitors see a Rawdah "Private for now" page (`/gate`), type it once, and a cookie keeps them in for
+30 days. While it's on, robots.txt tells search engines to stay out. To open the site again, delete `SITE_PASSWORD`
+in Vercel and redeploy. Code: `src/proxy.ts`, `src/lib/server/site-gate.ts`, `src/app/gate/page.tsx`. Stripe
+webhooks and `/admin` (its own login) are not behind it.
