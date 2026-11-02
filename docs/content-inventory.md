@@ -28,10 +28,20 @@ This file says where the facts came from and what is still missing. Last updated
 
 | Name | Role | Source | Photo |
 | --- | --- | --- | --- |
-| Brother Ayuub Mohamed Musa | Group leader | V1, LIVE | `portraits/ayuub-mohamed-musa.jpg` (V1) |
-| Ustadh Abu Abdulaziz Ahmed | Hajj guide, Hajj 2027; King Saud University graduate, student of Shaykh Dr. Sa‘d al-Shithri | LIVE | `portraits/abu-abdulaziz-ahmed.jpg` (LIVE) |
-| Ustadh Issa Uthman | Guide and teacher, Path of Purity II | V1, POSTER | `portraits/issa-uthman.jpg` (V1) |
-| Ustadh Abdulrahman Hassan | Guide and teacher, Path of Purity II | V1, POSTER | `portraits/abdulrahman-hassan.jpg` (V1) |
+| Brother Ayuub Mohamed Musa | **Co-founder**, Rawdah team | V1, LIVE | `portraits/ayuub-mohamed-musa.jpg` (cropped from `team/team-02.jpg`, his favourite, 1 Nov 2026) |
+| Ustadh Issa Uthman | **Co-founder**, guide and teacher. Rawdah team | V1, POSTER | `portraits/issa-uthman.jpg` (V1) |
+| Ustadh Abu Abdulaziz Ahmed | **Hidden for now** (Ayuub, 2 Nov 2026; back later). Guest sheikh: Hajj guide, Hajj 2027; King Saud University graduate, student of Shaykh Dr. Sa‘d al-Shithri | LIVE | `portraits/abu-abdulaziz-ahmed.jpg` (LIVE) |
+| Ustadh Abdulrahman Hassan | **Guest sheikh**, Path of Purity II | V1, POSTER | `portraits/abdulrahman-hassan.jpg` (V1) |
+
+**Team and guests (Jibril, 1 November 2026).** The Rawdah team is Ayuub and Issa only. The other two are guest
+sheikhs and are shown apart, under "Guest sheikhs" on the home page; the About page shows the team only. On a past
+trip, everyone who travelled counts as that trip's team (`lastTrip.team` in content.ts: Ayuub, Issa, Abdulrahman).
+
+**2 November 2026 (Ayuub):** Ayuub and Issa are co-founders. The site speaks of "the Rawdah Tours team", never Ayuub
+alone as the first point of contact. Hajj 2027's guide is "the Rawdah Tours team". Registered office: 66 Paul Street,
+London, EC2A 4NA. The Ramadan teaser shows GGC's green poster as it is (`brand/ramadan-1448-poster.jpg`). The Hajj
+page follows the wording of the Nusuk-group site the client pointed to: Rawdah registers you, guides your Nusuk
+application, and tells you which package to choose from the authorised provider it works with.
 
 The bios for Issa and Abdulrahman are our wording of their role (draft). The person in the Rawdah vest photos
 is **not** identified on the site.

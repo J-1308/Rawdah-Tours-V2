@@ -167,7 +167,7 @@ export function BookingForm({
             />
           </Field>
         </div>
-        <Field id="bk-medicalInfo" label="Health or access needs" hint="Anything the group leaders should know. Only they see this." optional>
+        <Field id="bk-medicalInfo" label="Health or access needs" hint="Anything the Rawdah Tours team should know. Only they see this." optional>
           <textarea id="bk-medicalInfo" name="medicalInfo" rows={3} defaultValue={v.medicalInfo} className="field resize-y" />
         </Field>
       </Group>

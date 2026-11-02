@@ -9,7 +9,7 @@ import { Mark } from "@/app/_site/marks";
 import { RegisterForm } from "@/app/_site/register-form";
 import { ReservePanel } from "@/app/_site/reserve";
 import { Chapter, ConfirmedPending, gutter, Heading, Label, PageLead, PartnerLogo, WaTile } from "@/app/_site/shell";
-import { HajjOnNusuk, leaderMember, MomentStrip, TeamLine, TeamList, teacherMembers, TripIncludes, TripJourney, TripPackages, WhereYouStay, type Member } from "@/app/_site/trip-parts";
+import { HajjOnNusuk, leaderMember, MomentStrip, TeamLine, TeamList, teacherMembers, teamMembers, TripIncludes, TripJourney, TripPackages, WhereYouStay, type Member } from "@/app/_site/trip-parts";
 import { StateTag } from "@/app/_site/trip-row";
 import { Chevron } from "@/app/_site/whatsapp";
 import { getTrip, isBookable, isDemoBooking } from "@/lib/trips";
@@ -81,12 +81,12 @@ export default async function TripPage({ params }: { params: Promise<{ slug: str
   const price = fromPrice(j);
   const nights = nightsOf(j);
   const theirTeachers = teacherMembers.filter((t) => j.teacher.value.includes(t.name.replace(/^Ustadh /, "")));
-  const members: Member[] = [
-    leaderMember,
-    ...(theirTeachers.length
-      ? theirTeachers
-      : [{ name: j.teacher.value, does: "Students of knowledge", line: "Students of knowledge travel with every group. They’ll be named here when the trip is announced.", status: j.teacher.status }]),
-  ];
+  /** Named teachers when the trip has them; "the Rawdah Tours team" shows Ayuub and Issa; otherwise a "to be named" slot. */
+  const members: Member[] = theirTeachers.length
+    ? [leaderMember, ...theirTeachers]
+    : /Rawdah Tours team/.test(j.teacher.value)
+      ? teamMembers
+      : [leaderMember, { name: j.teacher.value, does: "Students of knowledge", line: "Students of knowledge travel with every group. They’ll be named here when the trip is announced.", status: j.teacher.status }];
   /** On a trip with its plan set out above, the general answers about last year's itinerary, inclusions and meals would contradict it. */
   const shownAbove = ["What is included in the trip cost?", "What is the trip itinerary like?", "What about meal arrangements?"];
   const qs = faqs.filter((f) => (j.kind === "hajj" ? f.topic === "hajj" : f.topic !== "hajj") && !(j.plan && shownAbove.includes(f.q)));

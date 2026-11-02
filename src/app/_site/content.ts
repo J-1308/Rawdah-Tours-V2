@@ -52,7 +52,8 @@ export const brand = {
   /** POSTER: @rawdahtours. */
   instagram: { handle: "@rawdahtours", href: "https://www.instagram.com/rawdahtours/" },
   /** V1 terms and privacy notice (April 2026). Company number from Rawdah (31 Oct 2026). */
-  address: "5 Sir Denis Drive, Birmingham, England, B9 5DU",
+  /** Registered office (Ayuub, 2 Nov 2026). */
+  address: "66 Paul Street, London, England, EC2A 4NA",
   companyNumber: v("16527917", "confirmed"),
   nusuk: "https://hajj.nusuk.sa/?language=en",
 } as const;
@@ -124,7 +125,7 @@ export const hero = {
   /** Jibril's pick (31 Oct 2026). */
   headline: "Your Umrah and Hajj, guided every step of the way.",
   text: v(
-    "Students of knowledge travel with every Rawdah group, and Brother Ayuub looks after you from your first message to the flight home.",
+    "Students of knowledge travel with every Rawdah group, and the Rawdah Tours team looks after you from your first message to the flight home.",
     "evidenced",
   ),
   facts: [
@@ -153,15 +154,15 @@ export const starts = [
 export const hajjBand = {
   headline: "Hajj 2027",
   text: v(
-    "Register your interest and we’ll talk through your plans. When the approved packages are published on Nusuk, we help you compare them, prepare you for the rites, and stay with the group on the ground.",
+    "Register with us and we guide you through the Nusuk application step by step. When the packages are published, we tell you which package to choose from the authorised provider we work with, prepare you for the rites, and stay with the group on the ground.",
     "confirmed",
   ), // LIVE
   steps: [
     { title: "Register your interest", text: "Tell us who’s travelling. It’s free and commits you to nothing.", status: "confirmed" as Status },
     { title: "Packages open on Nusuk", text: "Approved packages and prices are published on the official platform.", status: "confirmed" as Status },
-    { title: "Choose and pay on Nusuk", text: "We help you compare. You book and pay on Nusuk; Rawdah takes no Hajj payments.", status: "confirmed" as Status },
+    { title: "Choose and pay on Nusuk", text: "We tell you which package to choose. You book and pay on Nusuk; Rawdah takes no Hajj payments.", status: "confirmed" as Status },
     { title: "Learn before you leave", text: "Preparation sessions on the rites, so you arrive knowing what to do.", status: "confirmed" as Status },
-    { title: "Hajj with the group", text: "Ustadh Abu Abdulaziz Ahmed guides, and our team is with you on the ground.", status: "confirmed" as Status },
+    { title: "Hajj with the group", text: "The Rawdah Tours team is with you on the ground.", status: "confirmed" as Status },
   ],
   photo: { src: "/images/teaching/teaching-06.jpg", alt: "Rawdah travellers listening at a preparation session, the Rawdah Tours logo on the screen.", caption: "A Rawdah preparation session in the UK" },
 };
@@ -175,7 +176,12 @@ export const lastTrip = {
     { k: "Madinah", v: "5 nights, Peninsula Worth Hotel ★★★★★" },
     { k: "Makkah", v: "5 nights, Address Jabal Omar ★★★★★" },
     { k: "Flights", v: "Qatar Airways from London Heathrow" },
-    { k: "Teachers", v: "Ustadh Issa Uthman and Ustadh Abdulrahman Hassan" },
+  ],
+  /** Who travelled with this group: on a past trip, guests count as that trip's team (Jibril, 1 Nov 2026). */
+  team: [
+    { name: "Brother Ayuub Mohamed Musa", role: "Group leader" },
+    { name: "Ustadh Issa Uthman", role: "Guide and teacher" },
+    { name: "Ustadh Abdulrahman Hassan", role: "Guest sheikh" },
   ],
   status: "confirmed" as Status, // V1 and POSTER
   photos: [
@@ -197,7 +203,7 @@ export const whyRawdah = {
     { title: "Daily talks and reminders", text: "Students of knowledge travel with the group from the first day to the last, with a reminder each day and someone to ask.", status: "evidenced" as Status }, // V1
     { title: "A spiritually richer itinerary", text: "The seerah in Madinah first, then each rite of Umrah explained before you perform it in Makkah.", status: "evidenced" as Status }, // V1
     { title: "A true brotherhood", text: "Past travellers say the company was one of the most moving parts of the trip. Nobody walks it as a stranger.", status: "evidenced" as Status }, // V1
-    { title: "Brother Ayuub, start to finish", text: "Our group leader is your point of care from the first message to the flight home.", status: "confirmed" as Status }, // LIVE
+    { title: "The Rawdah Tours team, start to finish", text: "Our team is with you from the first message to the flight home.", status: "confirmed" as Status }, // the team, not one person (Ayuub, 2 Nov 2026)
     { title: "Learning before you leave", text: "Preparation sessions in the UK, so you reach each rite with clarity instead of worry.", status: "evidenced" as Status }, // LIVE, PHOTOS
   ],
 };
@@ -246,7 +252,7 @@ export const covers = {
       items: [
         { title: "Umrah, step by step", text: "Ihram, tawaf, sa‘i and tahallul, with du‘a at each stage.", status: "evidenced" as Status },
         { title: "Daily lessons", text: "From the students of knowledge with the group.", status: "evidenced" as Status },
-        { title: "A group leader", text: "Brother Ayuub, the whole way.", status: "confirmed" as Status },
+        { title: "The Rawdah Tours team", text: "With you the whole way.", status: "confirmed" as Status },
       ],
     },
   ],
@@ -328,33 +334,37 @@ export const journeyStay = {
  * wording is ours and none of their facts are used. Nusuk dates are estimates
  * from last year's cycle (Wego, 1 July 2026; Islam Channel, 2023).
  */
+/**
+ * The Hajj page: how Hajj works on Nusuk, and how Rawdah takes you through it. Wording follows the Nusuk-group site
+ * the client pointed us to (2 Nov 2026), adapted to Rawdah: they register you, guide your Nusuk application, and tell
+ * you which package to choose from the authorised provider they work with.
+ */
 export const hajjNusuk = {
-  headline: "Hajj is now booked directly on Nusuk",
+  headline: "Hajj is now booked directly through Nusuk",
   text: v(
-    "Since 2023, pilgrims from the UK book their Hajj package on Nusuk Hajj, the official platform of the Saudi Ministry of Hajj and Umrah, from providers it has approved. Groups like ours no longer sell Hajj packages. Our part is everything around the booking: getting you registered, helping you choose, preparing you, and travelling with you.",
-    "evidenced",
+    "In 2023, the Saudi Ministry of Hajj and Umrah abolished private groups for over 50 countries. Pilgrims from these countries now have to buy a Hajj package within Nusuk. We are a Hajj group operating under the Nusuk system, and we work with one of the authorised Nusuk Hajj providers. The process works as follows.",
+    "confirmed",
   ),
   timeline: [
-    { when: "Autumn 2026", title: "Open your Nusuk account", text: "Register and verify your account on hajj.nusuk.sa. Last year registration opened in October." },
-    { when: "Around December 2026", title: "Packages are published", text: "Approved providers publish their packages, dates and prices on Nusuk." },
-    { when: "December to January", title: "Choose, and get ready", text: "We go through the packages with you, and you choose yours and get your payment ready." },
-    { when: "Early 2027", title: "Booking opens", text: "You book and pay for your package on Nusuk. Last year booking opened on 1 February." },
-    { when: "Mid-May 2027", title: "Hajj 1448", text: "The days of Hajj are expected in mid-May. The exact days follow the moon." },
+    { when: "Approx. October 2026", title: "Register in Nusuk", text: "Pilgrims create and verify their Nusuk account at hajj.nusuk.sa." },
+    { when: "Approx. 10 December 2026", title: "Packages go live", text: "Authorised providers publish their Hajj packages on the Nusuk platform." },
+    { when: "Approx. Dec 2026 – Jan 2027", title: "Configure and prepare", text: "Packages are configured, flights selected and wallets topped up ahead of the sale opening." },
+    { when: "Approx. 24 January 2027", title: "Sale opens", text: "The booking phase opens and pilgrims purchase their chosen package." },
   ],
-  timelineNote: "Estimates from last year’s timeline. Nusuk announces the real dates.",
+  timelineNote: "Please treat these dates as estimates. They are based on last year’s Nusuk timeline with the relevant adjustment for the Hijri dates, and the Ministry may change them.",
   steps: {
-    headline: "Register with us first, then with Nusuk",
-    text: v("Registering with us first means we can help you compare the options on Nusuk, prepare you properly, and keep you with the group from the start. It doesn’t reserve a place or commit you to paying anything.", "evidenced"),
+    headline: "Register with us & Nusuk",
+    text: v("Register with Rawdah Tours before you register on Nusuk. We guide you through the Nusuk registration step by step, check your details before you submit, and make sure you are assigned to our group. Registering with us doesn’t reserve a place or commit you to paying anything.", "confirmed"),
     items: [
-      { title: "Register with Rawdah", text: "Tell us who’s travelling and what matters to you. We keep in touch on the channels you choose, and talk you through what comes next.", status: "evidenced" as Status },
-      { title: "Open your Nusuk Hajj account", text: "At hajj.nusuk.sa. It’s separate from the Nusuk app you may have used for Umrah.", status: "evidenced" as Status },
-      { title: "Choose your package", text: "When packages are published on Nusuk, we help you compare the ones that suit you.", status: "evidenced" as Status },
-      { title: "Book, then prepare with us", text: "You book and pay on Nusuk when booking opens. Then preparation sessions in the UK before you fly.", status: "confirmed" as Status },
+      { title: "Register with Rawdah Tours", text: "So that you are allocated as one of our pilgrims and assigned to our group, you need to register all your details with us. You will then be allocated to our group. Please only register if you are a citizen of, or have residency in, the UK.", status: "confirmed" as Status },
+      { title: "Register with Nusuk", text: "All Hajj packages must be booked on Nusuk, so you need to create an account and register with Nusuk at hajj.nusuk.sa. This is different to the Nusuk Umrah app and portal.", status: "confirmed" as Status },
+      { title: "Select your package and top up your wallet", text: "The packages are expected to launch on Nusuk on or around 1st Rajab 1448 (approximately 10th December 2026). We will tell you which package to register on, and you can top up your wallet and be ready to buy it when the booking phase opens.", status: "confirmed" as Status },
+      { title: "Buy your package and prepare for Hajj", text: "Phase 1 of the Hajj bookings is expected to open on or around 15th Sha‘ban 1448 (approximately 24th January 2027). You can then buy your package, book your flights and start preparing for your Hajj with us. These dates are estimates and may change.", status: "confirmed" as Status },
     ],
   },
   needs: {
-    headline: "Nusuk registration isn’t a five-minute form",
-    text: v("It asks for exact passport details and a photo that meets its rules, and every account is checked before it’s approved. Mistakes cause delays, so check every detail before you submit, and message us if you’re unsure.", "evidenced"),
+    headline: "Nusuk registration is not a five-minute form",
+    text: v("Every pilgrim must be registered in Nusuk to be able to buy a package. It requires full passport information and photographs that are precisely presented and sized to Nusuk’s specification. Applications must then be verified by the Nusuk system, which can take time. Register with us first, and we will guide you through it step by step.", "confirmed"),
     items: [
       "Your passport, valid well beyond your travel dates",
       "A recent passport-style photo that meets Nusuk’s size and background rules",
@@ -367,7 +377,7 @@ export const hajjNusuk = {
     headline: "Our Hajj 2027 group",
     items: [
       { k: "Dates", v: "Not published yet. Nusuk publishes them with the packages.", s: "evidenced" as Status },
-      { k: "Hotels and rooms", v: "Still being confirmed", s: "evidenced" as Status },
+      { k: "Package", v: "From the authorised provider we work with. We tell you which one to choose.", s: "confirmed" as Status },
       { k: "Prices", v: "Set by the provider on Nusuk. You pay Nusuk, not Rawdah.", s: "confirmed" as Status },
       { k: "Registering with us", v: "Doesn’t reserve a place or create any payment", s: "evidenced" as Status },
     ],
@@ -378,8 +388,8 @@ export const hajjNusuk = {
     status: "evidenced" as Status,
   },
   closing: {
-    title: "Labbayk Allahumma labbayk",
-    text: "Register now, so you’re ready, verified and in the group when the packages open.",
+    title: "Register for Hajj 2027",
+    text: "Register with us now so that when the packages open on Nusuk, you are ready, verified and part of our group.",
   },
 };
 
@@ -396,7 +406,7 @@ export const paying = {
     { when: "On booking", what: "A deposit", note: "Non-refundable, by bank transfer.", status: "confirmed" as Status },
     { when: "Then", what: "Set payments", note: "On dates we give you when you book.", status: "confirmed" as Status },
     { when: "Before you fly", what: "Paid in full", note: "Everything settled before departure.", status: "confirmed" as Status },
-    { when: "Departure", what: "Fly together", note: "Brother Ayuub meets the group.", status: "draft" as Status },
+    { when: "Departure", what: "Fly together", note: "The Rawdah Tours team meets the group.", status: "draft" as Status },
   ],
   sharing: v("Travelling alone? You share a room with travellers of the same gender.", "confirmed"),
 };
@@ -404,19 +414,30 @@ export const paying = {
 /** Teachers: only facts Rawdah has published. Bios to be read by the client before launch. */
 export const teachers = [
   {
+    /** A guest sheikh, not part of the Rawdah team (Jibril, 1 Nov 2026). Hidden for now; he'll come back later (Ayuub, 2 Nov 2026). */
+    hidden: true,
     name: "Ustadh Abu Abdulaziz Ahmed",
-    role: "Hajj guide, Hajj 2027",
-    does: "Guides the Hajj group",
+    role: "Guest sheikh, Hajj guide for Hajj 2027",
+    does: "Guest sheikh · guides the Hajj group",
+    guest: true,
     /** LIVE team profile. */
     bio: v("A graduate of King Saud University and a student of Shaykh Dr. Sa‘d al-Shithri.", "confirmed"),
     photo: { src: "/images/portraits/abu-abdulaziz-ahmed.jpg", alt: "Ustadh Abu Abdulaziz Ahmed", position: "object-[50%_15%]" },
   },
   {
+    /** Rawdah team (Jibril, 1 Nov 2026: the team is Issa and Ayuub). */
     name: "Ustadh Issa Uthman",
-    role: "Guide and teacher, Path of Purity II",
-    does: "Guides and teaches on Umrah",
-    /** V1 and POSTER: role only. */
-    bio: v("Guided and taught our August 2026 group in Madinah and Makkah.", "draft"),
+    role: "Co-founder; guide and teacher",
+    does: "Co-founder · guides and teaches",
+    guest: false,
+    /** Fuller bios (2 Nov 2026): only facts from V1 and Rawdah; more to come from Ayuub and Issa. */
+    bio: v("Co-founder of Rawdah Tours. Close to ten years of full-time study at the Islamic University of Madinah, and a guide and teacher on our trips.", "evidenced"),
+    short: "Ustadh Issa",
+    more: [
+      "Ustadh Issa began seeking knowledge in his early teens at his local masjid, studying the foundational Islamic sciences under local teachers.",
+      "At eighteen he was accepted into the Islamic University of Madinah, where he spent close to ten years in full-time study and completed the requirements for a bachelor’s degree.",
+      "He co-founded Rawdah Tours with Brother Ayuub. On our trips he guides and teaches, explaining each rite of Umrah before you perform it. He guided and taught our August 2026 group in Madinah and Makkah.",
+    ],
     photo: { src: "/images/portraits/issa-uthman.jpg", alt: "Ustadh Issa Uthman", position: "object-[40%_25%]" },
   },
   {
@@ -424,6 +445,7 @@ export const teachers = [
     name: "Ustadh Abdulrahman Hassan",
     role: "Guest sheikh, Path of Purity II",
     does: "Guest sheikh",
+    guest: true,
     bio: v("Joined our August 2026 group as a guest sheikh, teaching in Madinah and Makkah.", "draft"),
     photo: { src: "/images/portraits/abdulrahman-hassan.jpg", alt: "Ustadh Abdulrahman Hassan", position: "object-[40%_30%]" },
   },
@@ -432,16 +454,24 @@ export const teachers = [
 /** The group leader. V1 about page and LIVE team profile. */
 export const leader = {
   name: "Brother Ayuub Mohamed Musa",
-  role: "Group leader",
-  does: "Leads every trip",
-  line: "Your point of care from the first message to the flight home, on every Rawdah trip.",
+  /** Co-founder with Ustadh Issa; not presented as everyone's first contact (Ayuub, 2 Nov 2026). */
+  role: "Co-founder",
+  does: "Co-founder",
+  line: "Co-founder of Rawdah Tours. Over ten years of da‘wah in his local community, and on the ground with the group.",
   bio: v("Over ten years of da‘wah in the local community, serving others and supporting their growth in faith.", "evidenced"), // V1
-  photo: { src: "/images/portraits/ayuub-mohamed-musa.jpg", alt: "Brother Ayuub Mohamed Musa, Rawdah Tours group leader" },
+  /** "More about": from V1's guide profile (Rawdah's own words), lightly edited. */
+  short: "Brother Ayuub",
+  more: [
+    "Brother Ayuub co-founded Rawdah Tours with Ustadh Issa. For over ten years he has been active in da‘wah in his local community, giving his time to serving others, nurturing faith and supporting people’s spiritual growth.",
+    "Alongside this, he is pursuing Islamic studies, continuing to deepen his knowledge and understanding of the deen.",
+    "On a trip he runs things on the ground with the rest of the Rawdah team, so the group is looked after and you and your family can give your time to worship.",
+  ],
+  photo: { src: "/images/portraits/ayuub-mohamed-musa.jpg", alt: "Brother Ayuub Mohamed Musa, co-founder of Rawdah Tours" },
 };
 
 export const people = {
   headline: "The people who will walk with you", // V1
-  text: "Every trip travels with students of knowledge and our group leader.",
+  text: "Rawdah Tours was founded by Brother Ayuub and Ustadh Issa. Every trip travels with students of knowledge and the Rawdah Tours team.",
   /** The team behind them, in one line (DRAFT: Rawdah to confirm who travels besides the teachers). */
   team: v("Behind them, the Rawdah team: from your first message to the airport, and on the ground in Madinah and Makkah.", "draft"),
 };
@@ -511,11 +541,11 @@ export const faqs: Faq[] = [
   { topic: "umrah", q: "What are the arrangements if I wish to come alone?", a: "You share a room with travellers of the same gender, and you’re part of the group from the first day.", status: "confirmed" },
   { topic: "umrah", q: "Are your trips suitable for families with children?", a: "Yes. Families are welcome and we arrange suitable rooms. Message us with the number of travellers and we’ll plan it with you.", status: "confirmed" },
   { topic: "umrah", q: "What about meal arrangements?", a: "Breakfast is included daily at both hotels. For other meals the group eats together where possible, and your guides will point you to good places nearby.", status: "confirmed" },
-  { topic: "umrah", q: "What happens if there is an emergency during the trip?", a: "Your guides and group leader are with you throughout and will coordinate any support you need. We strongly recommend travel insurance that covers medical emergencies and repatriation.", status: "confirmed" },
+  { topic: "umrah", q: "What happens if there is an emergency during the trip?", a: "Your guides and the Rawdah Tours team are with you throughout and will coordinate any support you need. We strongly recommend travel insurance that covers medical emergencies and repatriation.", status: "confirmed" },
   { topic: "hajj", q: "Is registering interest in Hajj a booking?", a: "No. It tells us you’re interested so we can contact you. It doesn’t reserve a place or commit you to anything.", status: "confirmed" },
   { topic: "hajj", q: "How do Hajj bookings and payments work?", a: "You choose, book and pay for your Hajj package directly on Nusuk, the official Saudi Hajj platform. Rawdah Tours does not take payment for Hajj packages.", status: "confirmed" },
   { topic: "hajj", q: "Are the Hajj 2027 dates confirmed?", a: "Not yet. The dates and length of the trip are published with the approved packages on Nusuk.", status: "confirmed" },
-  { topic: "hajj", q: "How does Rawdah help with Hajj?", a: "We talk through your priorities, help you compare suitable Nusuk packages, prepare you before departure, and our team is on the ground with you throughout. The choice of package is always yours.", status: "confirmed" },
+  { topic: "hajj", q: "How does Rawdah help with Hajj?", a: "We register you with our group, guide you through the Nusuk application step by step, and tell you which package to choose from the authorised provider we work with. We prepare you before departure, and our team is on the ground with you throughout.", status: "confirmed" },
   { topic: "paying", q: "How do I pay for the trip?", a: "A non-refundable deposit holds your place. Book on WhatsApp and pay by bank transfer; we send you the details. Card payments are coming soon. The rest is paid on set dates we give you when you book, all before you fly.", status: "confirmed" },
   { topic: "paying", q: "What is your cancellation policy?", a: "Deposits are non-refundable. 60 days or more before departure, everything you’ve paid beyond the deposit is refunded; 40 to 59 days, half of it, and you can change the guest’s name free of charge; under 40 days, no refund, though a name change may be possible for a fee. Find a replacement before the 40-day mark and nothing is lost.", status: "confirmed" },
   { topic: "paying", q: "Do I need a visa to travel with you?", a: "Most travellers need a visa for Saudi Arabia. We arrange it and guide you through it, but approval is at the discretion of the authorities.", status: "confirmed" },
@@ -767,7 +797,7 @@ const ramadanFull: Journey = {
         v("Transfers on the ground, straight to Makkah when you land", "confirmed"),
         v("Your Umrah visa", "confirmed"),
         v("Ground only: the hotels and transfers, with your own flights", "confirmed"),
-        v("Students of knowledge and our group leader with the group", "proposed"),
+        v("Students of knowledge and the Rawdah Tours team with the group", "proposed"),
       ],
       places: v("Up to 60 places: around 30 with flights and 30 ground only", "confirmed"),
     },
@@ -790,18 +820,17 @@ export const journeys: Journey[] = [
     dates: v("Published on Nusuk with the packages", "confirmed"),
     route: v([{ place: "Makkah" }, { place: "Mina" }, { place: "Arafah" }, { place: "Muzdalifah" }], "draft"),
     openTo: v("Brothers and sisters, and children over 12", "confirmed"),
-    teacher: v("Ustadh Abu Abdulaziz Ahmed", "confirmed"),
+    teacher: v("The Rawdah Tours team", "confirmed"), // Abu Abdulaziz removed for now (Ayuub, 2 Nov 2026)
     priceNote: v("Packages and prices are published on Nusuk", "confirmed"),
     intro:
-      "Hajj 2027 is Rawdah’s current Hajj campaign. Register your interest now and we’ll talk through your plans. When approved packages appear on Nusuk, we help you compare them, prepare you for the rites, and stay with the group on the ground from start to finish.",
+      "Hajj 2027 is Rawdah’s current Hajj campaign. Register with us now and we guide you through the Nusuk application step by step. When the packages appear on Nusuk, we tell you which package to choose from the authorised provider we work with, prepare you for the rites, and stay with the group on the ground from start to finish.",
     introStatus: "confirmed",
     highlights: [
       v("Registering commits you to nothing", "confirmed"),
-      v("Help comparing Nusuk packages", "confirmed"),
+      v("Help with your Nusuk application", "confirmed"),
       v("Learning before departure", "confirmed"),
       v("Our team on the ground throughout", "confirmed"),
-      v("Guided by Ustadh Abu Abdulaziz Ahmed", "confirmed"),
-      v("Led by Brother Ayuub Mohamed Musa", "confirmed"),
+      v("Led by the Rawdah Tours team", "confirmed"),
     ],
     /** The days of Hajj in outline. Uncontested; the guide teaches the detail. */
     itinerary: v(
@@ -818,8 +847,7 @@ export const journeys: Journey[] = [
     confirmed: [
       { title: "Hajj 2027", text: "Rawdah’s current Hajj campaign." },
       { title: "Interest only", text: "Registering starts a conversation. It doesn’t reserve a place or take any payment." },
-      { title: "Group leader", text: "Brother Ayuub Mohamed Musa." },
-      { title: "Hajj guide", text: "Ustadh Abu Abdulaziz Ahmed." },
+      { title: "The team", text: "The Rawdah Tours team, with you throughout." },
       { title: "Booking on Nusuk", text: "You book and pay directly on Nusuk. Rawdah does not collect Hajj package payments." },
     ],
     pending: [
@@ -863,7 +891,7 @@ export const journeys: Journey[] = [
       v("5 nights in Madinah, then 5 in Makkah", "confirmed"),
       v("Peninsula Worth and Address Jabal Omar, both 5★", "confirmed"),
       v("Qatar Airways from Heathrow", "confirmed"),
-      v("Two guides and teachers, and our group leader", "confirmed"),
+      v("Two guides and teachers, and the Rawdah Tours team", "confirmed"),
     ],
     itinerary: v(
       [
@@ -1029,6 +1057,6 @@ export const about = {
     { title: "Learning at every step", text: "Teachers with the group, and every rite explained.", status: "evidenced" as Status },
     { title: "Travelling as one", text: "One group, from the first message to home.", status: "evidenced" as Status },
     { title: "Plain answers", text: "What’s confirmed and what isn’t yet, said clearly.", status: "evidenced" as Status },
-    { title: "Looked after", text: "A group leader with you the whole way.", status: "confirmed" as Status },
+    { title: "Looked after", text: "The Rawdah Tours team with you the whole way.", status: "confirmed" as Status },
   ],
 };
