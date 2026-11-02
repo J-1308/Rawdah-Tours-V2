@@ -1,37 +1,29 @@
+import Image from "next/image";
 import Link from "next/link";
 
 import { anchors, say, type Journey } from "@/app/_site/content";
 import { RegisterForm } from "@/app/_site/register-form";
-import { Actions, Chapter, Emblem, gutter, Heading, PartnerLogo } from "@/app/_site/shell";
+import { Actions, Chapter, gutter, Heading } from "@/app/_site/shell";
 
 /**
- * "1448 · Ramadan · Coming soon", after the poster Rawdah and GGC shared, in Rawdah's colours: sand lettering on
- * cocoa, the Rawdah mark above and GGC's below. Josefin Sans (.font-poster) stands in for the poster's face.
+ * "1448 · Ramadan · Coming soon": the poster Rawdah and GGC shared, shown as it is, in its own green
+ * (Ayuub, 2 Nov 2026: post it as is, not redrawn). public/images/brand/ramadan-1448-poster.jpg, 1080 × 700.
  */
-export function RamadanLockup({ j, className = "", compact = false }: { j: Journey; className?: string; compact?: boolean }) {
+const POSTER = "/images/brand/ramadan-1448-poster.jpg";
+const posterAlt = "Rawdah Tours and GGC: Ramadan 1448, coming soon.";
+
+export function RamadanLockup({ className = "", compact = false }: { j?: Journey; className?: string; compact?: boolean }) {
   if (compact) {
-    // The same poster, small, filling a photo frame (the trip cards).
+    // Fills a photo frame (the trip cards): the whole poster, on its own green so nothing is cut off.
     return (
-      <div className={`panel-dark absolute inset-0 isolate grid place-items-center overflow-hidden text-center text-sand ${className}`}>
-        <Emblem className="pointer-events-none absolute top-1/2 left-1/2 -z-10 h-[150%] -translate-x-1/2 -translate-y-1/2 text-cream/[0.04]" />
-        <div>
-          <Emblem className="mx-auto h-8" />
-          <p className="font-poster mt-3 text-[0.8rem] font-light tracking-[0.16em]">1448</p>
-          <p className="font-poster text-[2rem] leading-none font-semibold tracking-[0.06em] uppercase">Ramadan</p>
-          <p className="font-poster mt-1.5 text-[0.62rem] font-light tracking-[0.42em] uppercase">Coming soon</p>
-          {j.partnerLogo ? <PartnerLogo logo={j.partnerLogo} className="mx-auto mt-4 h-5" /> : null}
-        </div>
+      <div className={`absolute inset-0 bg-[#323932] ${className}`}>
+        <Image src={POSTER} alt={posterAlt} fill sizes="(min-width: 1024px) 19rem, 100vw" className="object-contain" />
       </div>
     );
   }
   return (
-    <div className={`panel-dark relative isolate overflow-hidden rounded-[2rem] px-6 py-12 text-center text-sand sm:py-16 ${className}`}>
-      <Emblem className="pointer-events-none absolute top-1/2 left-1/2 -z-10 h-[140%] -translate-x-1/2 -translate-y-1/2 text-cream/[0.04]" />
-      <Emblem className="mx-auto h-14 text-sand sm:h-16" />
-      <p className="font-poster mt-8 text-[clamp(1.3rem,3vw,1.9rem)] font-light tracking-[0.16em] sm:mt-10">1448</p>
-      <p className="font-poster mt-1 text-[clamp(3rem,11vw,6.6rem)] leading-[1.05] font-semibold tracking-[0.06em] uppercase">Ramadan</p>
-      <p className="font-poster mt-2 text-[clamp(0.95rem,2.6vw,1.7rem)] font-light tracking-[0.42em] uppercase sm:mt-3">Coming soon</p>
-      {j.partnerLogo ? <PartnerLogo logo={j.partnerLogo} className="mx-auto mt-9 h-8 text-sand sm:mt-11 sm:h-10" /> : null}
+    <div className={`relative aspect-[1080/700] overflow-hidden rounded-[2rem] bg-[#323932] shadow-[var(--shadow-soft)] ${className}`}>
+      <Image src={POSTER} alt={posterAlt} fill priority sizes="(min-width: 1024px) 55vw, 100vw" className="object-cover" />
     </div>
   );
 }

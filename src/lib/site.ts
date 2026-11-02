@@ -27,7 +27,7 @@ export const CONTACT = {
 export const COMPANY = {
   legalName: 'Rawdah Tours Ltd',
   registeredIn: 'England and Wales',
-  address: '5 Sir Denis Drive, Birmingham, England, B9 5DU',
+  address: '66 Paul Street, London, England, EC2A 4NA',
 } as const
 
 export const NUSUK_HAJJ_URL = 'https://hajj.nusuk.sa/?language=en'

@@ -41,7 +41,7 @@ const organisation = {
   description: "Guided Umrah and Hajj from the UK. Students of knowledge travel with every group, and Rawdah looks after you from your first message to the flight home.",
   email: brand.email,
   telephone: brand.phone.href.replace("tel:", ""),
-  address: { "@type": "PostalAddress", streetAddress: "5 Sir Denis Drive", addressLocality: "Birmingham", postalCode: "B9 5DU", addressCountry: "GB" },
+  address: { "@type": "PostalAddress", streetAddress: "66 Paul Street", addressLocality: "London", postalCode: "EC2A 4NA", addressCountry: "GB" },
   sameAs: [brand.instagram.href],
 };
 

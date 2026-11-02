@@ -263,7 +263,7 @@ export function WhyRawdah() {
             flip
             photos={[
               { src: whyRawdah.photo.src, alt: whyRawdah.photo.alt, position: "object-[50%_35%]" },
-              { src: "/images/team/team-01.jpg", alt: "Brother Ayuub, our group leader, in the garden at dusk.", position: "object-[30%_50%]" },
+              { src: "/images/team/team-01.jpg", alt: "Brother Ayuub, co-founder of Rawdah Tours, in the garden at dusk.", position: "object-[30%_50%]" },
             ]}
             className="rise mx-auto max-w-[30rem]"
           />
@@ -479,7 +479,7 @@ export function People({ link = true, members = teamMembers, guests = guestMembe
       <TeamList members={members} className="mt-10 sm:mt-12" />
       {guests.length ? (
         <div className="mt-12 border-t border-ink/10 pt-10 sm:mt-16 sm:pt-12">
-          <p className="font-editorial text-[1.35rem] text-bronze italic">Guest sheikhs</p>
+          <p className="font-editorial text-[1.35rem] text-bronze italic">{guests.length > 1 ? "Guest sheikhs" : "Guest sheikh"}</p>
           <p className="mt-1.5 max-w-[30rem] text-[0.95rem] leading-[1.6] text-ink/68">Students of knowledge who join our trips to teach.</p>
           <TeamList members={guests} className="mt-7 sm:mt-8" />
         </div>

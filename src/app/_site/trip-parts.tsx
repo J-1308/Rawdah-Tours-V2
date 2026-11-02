@@ -13,7 +13,7 @@ import { slot } from "@/app/_site/slots";
 export type Member = { name: string; does: string; line: string; status?: Status; guest?: boolean; short?: string; more?: string[]; photo?: { src: string; alt: string; position?: string } };
 
 export const leaderMember: Member = { name: leader.name, does: leader.does, line: leader.line, status: "confirmed", short: leader.short, more: leader.more, photo: leader.photo };
-export const teacherMembers: Member[] = teachers.map((t) => ({ name: t.name, does: t.does, line: t.bio.value, status: t.bio.status, guest: t.guest, short: "short" in t ? t.short : undefined, more: "more" in t ? t.more : undefined, photo: t.photo }));
+export const teacherMembers: Member[] = teachers.filter((t) => !("hidden" in t && t.hidden)).map((t) => ({ name: t.name, does: t.does, line: t.bio.value, status: t.bio.status, guest: t.guest, short: "short" in t ? t.short : undefined, more: "more" in t ? t.more : undefined, photo: t.photo }));
 export const allMembers: Member[] = [leaderMember, ...teacherMembers];
 /** The Rawdah team (Ayuub and Issa), and the guest sheikhs who join trips to teach: shown apart (Jibril, 1 Nov 2026). */
 export const teamMembers: Member[] = allMembers.filter((m) => !m.guest);

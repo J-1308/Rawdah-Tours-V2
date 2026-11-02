@@ -22,7 +22,7 @@ export default function TripsPage() {
           Hajj and Umrah, guided from the UK.
         </Heading>
         <p className="mt-6 max-w-[40rem] text-[1.05rem] leading-[1.7] text-ink/75">
-          Teachers with every group, and a group leader from your first message to the flight home. Or your own dates, planned with us.
+          Teachers with every group, and the Rawdah Tours team from your first message to the flight home. Or your own dates, planned with us.
         </p>
       </section>
       </Chapter>

@@ -147,8 +147,9 @@ export default function TermsPage() {
           cancellation and change terms of a Hajj package are set by Nusuk and its authorised providers, and their terms apply to your Hajj booking.
         </p>
         <p>
-          Registering your interest with us is not a booking and does not reserve a place or commit you to anything. Our role is to help you compare the
-          options, prepare you before you travel, and support the group during Hajj.
+          Registering your interest with us is not a booking and does not reserve a place or commit you to anything. Our role is to register you with our group,
+          guide you through the Nusuk application, tell you which package to choose from the authorised provider we work with, prepare you before you
+          travel, and support the group during Hajj.
         </p>
       </LegalSection>
 
