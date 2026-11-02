@@ -430,13 +430,13 @@ export const teachers = [
     role: "Co-founder; guide and teacher",
     does: "Co-founder · guides and teaches",
     guest: false,
-    /** V1 and POSTER: role only. */
-    bio: v("Guided and taught our August 2026 group in Madinah and Makkah.", "draft"),
-    /** "More about": from V1's guide profile (Rawdah's own words), lightly edited. */
+    /** Fuller bios (2 Nov 2026): only facts from V1 and Rawdah; more to come from Ayuub and Issa. */
+    bio: v("Co-founder of Rawdah Tours. Close to ten years of full-time study at the Islamic University of Madinah, and a guide and teacher on our trips.", "evidenced"),
     short: "Ustadh Issa",
     more: [
-      "Ustadh Issa began seeking Islamic knowledge in his early teens at his local masjid, studying the foundational Islamic sciences under local teachers.",
-      "At eighteen he was accepted into the Islamic University of Madinah, where he spent close to ten years in full-time study, completing the requirements for a bachelor’s degree.",
+      "Ustadh Issa began seeking knowledge in his early teens at his local masjid, studying the foundational Islamic sciences under local teachers.",
+      "At eighteen he was accepted into the Islamic University of Madinah, where he spent close to ten years in full-time study and completed the requirements for a bachelor’s degree.",
+      "He co-founded Rawdah Tours with Brother Ayuub. On our trips he guides and teaches, explaining each rite of Umrah before you perform it. He guided and taught our August 2026 group in Madinah and Makkah.",
     ],
     photo: { src: "/images/portraits/issa-uthman.jpg", alt: "Ustadh Issa Uthman", position: "object-[40%_25%]" },
   },
@@ -457,14 +457,14 @@ export const leader = {
   /** Co-founder with Ustadh Issa; not presented as everyone's first contact (Ayuub, 2 Nov 2026). */
   role: "Co-founder",
   does: "Co-founder",
-  line: "Co-founded Rawdah Tours, and travels with the group.",
+  line: "Co-founder of Rawdah Tours. Over ten years of da‘wah in his local community, and on the ground with the group.",
   bio: v("Over ten years of da‘wah in the local community, serving others and supporting their growth in faith.", "evidenced"), // V1
   /** "More about": from V1's guide profile (Rawdah's own words), lightly edited. */
   short: "Brother Ayuub",
   more: [
-    "With over ten years of active involvement in da‘wah in the local community, Brother Ayuub has dedicated his time to serving others, nurturing faith and supporting spiritual growth.",
+    "Brother Ayuub co-founded Rawdah Tours with Ustadh Issa. For over ten years he has been active in da‘wah in his local community, giving his time to serving others, nurturing faith and supporting people’s spiritual growth.",
     "Alongside this, he is pursuing Islamic studies, continuing to deepen his knowledge and understanding of the deen.",
-    "He leads operations on the ground once the group arrives, committed to a smooth and supported experience for you and your family.",
+    "On a trip he runs things on the ground with the rest of the Rawdah team, so the group is looked after and you and your family can give your time to worship.",
   ],
   photo: { src: "/images/portraits/ayuub-mohamed-musa.jpg", alt: "Brother Ayuub Mohamed Musa, co-founder of Rawdah Tours" },
 };
