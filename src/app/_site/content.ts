@@ -457,12 +457,13 @@ export const leader = {
   /** Co-founder with Ustadh Issa; not presented as everyone's first contact (Ayuub, 2 Nov 2026). */
   role: "Co-founder",
   does: "Co-founder",
-  line: "Co-founder of Rawdah Tours. Over ten years of da‘wah in his local community, and on the ground with the group.",
-  bio: v("Over ten years of da‘wah in the local community, serving others and supporting their growth in faith.", "evidenced"), // V1
+  line: "Co-founder of Rawdah Tours. Over ten years as an active member of the West London community and his local masjid.",
+  /** No "da‘wah"; West London and his masjid (Jibril, 5 Nov 2026). */
+  bio: v("Over ten years as an active member of the West London community and his local masjid.", "confirmed"),
   /** "More about": from V1's guide profile (Rawdah's own words), lightly edited. */
   short: "Brother Ayuub",
   more: [
-    "Brother Ayuub co-founded Rawdah Tours with Ustadh Issa. For over ten years he has been active in da‘wah in his local community, giving his time to serving others, nurturing faith and supporting people’s spiritual growth.",
+    "Brother Ayuub co-founded Rawdah Tours with Ustadh Issa. For over ten years he has been an active member of the West London community and his local masjid, giving his time to serving others, nurturing faith and supporting people’s spiritual growth.",
     "Alongside this, he is pursuing Islamic studies, continuing to deepen his knowledge and understanding of the deen.",
     "On a trip he runs things on the ground with the rest of the Rawdah team, so the group is looked after and you and your family can give your time to worship.",
   ],
