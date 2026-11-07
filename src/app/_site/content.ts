@@ -906,7 +906,7 @@ export const journeys: Journey[] = [
     photo: { src: "/images/group-photos/group-photos-03.jpg", width: 3000, height: 2250, alt: "The Path of Purity II group in ihram at night, ready for Umrah.", position: "object-[50%_55%]" },
     more: [
       { src: "/images/group-photos/group-photos-02.jpg", alt: "The group at Uhud.", position: "object-[50%_70%]" },
-      { src: "/images/friends/friends-03.jpg", alt: "Six travellers arm in arm after Umrah.", position: "object-[30%_40%]" },
+      { src: "/images/friends/friends-08.jpg", alt: "Two travellers at Masjid an-Nabawi in the evening.", position: "object-[40%_35%]" },
     ],
     waText: say.nextUmrah,
   },
