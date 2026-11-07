@@ -710,8 +710,8 @@ export function Closing() {
             </div>
           </div>
           <div className="lg:col-span-5 lg:col-start-8">
-            <div style={fitFrame("/images/friends/friends-08.jpg")} className="rise relative mx-auto aspect-(--r) max-w-[34rem] overflow-hidden rounded-[2rem] shadow-[var(--shadow-float)] ring-1 ring-white/10">
-              <Image src="/images/friends/friends-08.jpg" alt="Two Rawdah travellers at Masjid an-Nabawi in the evening." fill sizes="(min-width: 1024px) 30vw, 90vw" className="object-cover object-[40%_35%]" />
+            <div style={fitFrame("/images/friends/friends-09.jpg")} className="rise relative mx-auto aspect-(--r) max-w-[34rem] overflow-hidden rounded-[2rem] shadow-[var(--shadow-float)] ring-1 ring-white/10">
+              <Image src="/images/friends/friends-09.jpg" alt="Two Rawdah travellers in ihram at night, the clock tower behind them." fill sizes="(min-width: 1024px) 30vw, 90vw" className="object-cover object-[50%_60%]" />
             </div>
           </div>
         </div>
