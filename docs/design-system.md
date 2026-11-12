@@ -101,9 +101,17 @@ desktop; prices always with deposit and instalments; honest settled/not-yet list
 
 ## 7. Motion
 
-The hero's photos settle in on load (`.settle`). Section photographs and trip cards rise gently into place as
-they scroll into view (`.rise`, a CSS scroll-driven animation: browsers without it just show them). Photos zoom
-very slightly on hover. Both are off under reduced motion. Nothing else moves.
+Premium, but never in the way (client's request, 12 Nov 2026). Everything needs `html.motion`, which the head
+script in `app/layout.tsx` sets before first paint unless the visitor prefers reduced motion.
+
+- **Opening** (`Intro`, `src/app/_site/motion.tsx`): logo fades in on cocoa, a sand line draws, the curtain lifts.
+  Once per visit (`sessionStorage`), about 1.9 s, pure CSS so it always ends. `--intro` delays the hero until it lifts.
+- **Hero:** the photo settles (`.settle`), then label, headline word by word (`.hero-word`), text, buttons and facts
+  arrive in turn (`.hero-step` with `--d`). Header (`.motion-drop`) and phone bar (`.motion-lift`) slide in.
+- **Scroll reveals** (`Reveals`): headings, the paragraph after them, grid items (staggered), questions, tables and
+  framed photos (`.rise`, with the photo easing out of a slight zoom) rise into view, on phones too. Only elements
+  still below the screen at load are hidden, so nothing in view blinks; add `data-reveal` to opt anything else in.
+- **Buttons:** a light sweep across `.btn-sand` on hover. Photos zoom very slightly on hover.
 
 ## 8. Photography
 

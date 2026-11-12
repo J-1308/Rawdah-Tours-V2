@@ -8,7 +8,7 @@ import { teamMembers } from "@/app/_site/trip-parts";
 
 export const metadata: Metadata = {
   title: "About us",
-  description: "Rawdah Tours: guided Umrah from the UK with students of knowledge, and a group preparing for Hajj 2027.",
+  description: "Rawdah Tours: guided Umrah from the UK with certified ustadhs, and a group preparing for Hajj 2027.",
 };
 
 /** About: the story, what Rawdah means, what we hold to, the people, and the company and how to reach us. */

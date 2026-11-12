@@ -38,7 +38,7 @@ const organisation = {
   url: site,
   logo: `${site}/icon.png`,
   image: `${site}/opengraph-image.jpg`,
-  description: "Guided Umrah and Hajj from the UK. Students of knowledge travel with every group, and Rawdah looks after you from your first message to the flight home.",
+  description: "Guided Umrah and Hajj from the UK. Every trip is guided by certified ustadhs, and the Rawdah Tours team looks after you from your first message to the flight home.",
   email: brand.email,
   telephone: brand.phone.href.replace("tel:", ""),
   address: { "@type": "PostalAddress", streetAddress: "66 Paul Street", addressLocality: "London", postalCode: "EC2A 4NA", addressCountry: "GB" },

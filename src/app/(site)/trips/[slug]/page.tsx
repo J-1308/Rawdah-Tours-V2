@@ -86,7 +86,7 @@ export default async function TripPage({ params }: { params: Promise<{ slug: str
     ? [leaderMember, ...theirTeachers]
     : /Rawdah Tours team/.test(j.teacher.value)
       ? teamMembers
-      : [leaderMember, { name: j.teacher.value, does: "Students of knowledge", line: "Students of knowledge travel with every group. They’ll be named here when the trip is announced.", status: j.teacher.status }];
+      : [leaderMember, { name: j.teacher.value, does: "Certified ustadhs", line: "Every trip is guided by certified ustadhs. They’ll be named here when the trip is announced.", status: j.teacher.status }];
   /** On a trip with its plan set out above, the general answers about last year's itinerary, inclusions and meals would contradict it. */
   const shownAbove = ["What is included in the trip cost?", "What is the trip itinerary like?", "What about meal arrangements?"];
   const qs = faqs.filter((f) => (j.kind === "hajj" ? f.topic === "hajj" : f.topic !== "hajj") && !(j.plan && shownAbove.includes(f.q)));

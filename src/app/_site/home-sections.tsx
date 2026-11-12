@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import type { CSSProperties } from "react";
+import { Fragment, type CSSProperties } from "react";
 
 import { anchors, closing, covers, type Faq, faqs, faqTopics, gbp, groupsBand, hajjBand, hajjRegister, hero, journeys, lastTrip, meaning, partners, paying, people, privateBand, reviews, routes, say, starts, type Status, stay, whyRawdah } from "@/app/_site/content";
 import { Mark } from "@/app/_site/marks";
@@ -37,18 +37,27 @@ export function Hero() {
       <Emblem className="pointer-events-none absolute top-[18%] left-[-14%] -z-10 h-[90%] watermark lg:top-auto lg:bottom-[-22%] lg:left-[-5%] lg:h-[85%]" />
       <div className={`relative grid grid-cols-1 lg:-mt-[clamp(5rem,7vw,7.5rem)] lg:grid-cols-12 lg:items-end lg:gap-x-12 ${gutter}`}>
         <div className="-mt-8 sm:-mt-12 lg:col-span-7 lg:mt-0">
-          <Label>{hero.label}</Label>
+          <Label className="hero-step">{hero.label}</Label>
           <Heading as="h1" className="mt-4 text-[clamp(2.9rem,5.8vw,6rem)] text-ink sm:mt-5">
-            {hero.headline}
+            {/* Word by word on arrival (globals.css, "motion"). */}
+            {hero.headline.split(" ").map((w, i) => (
+              <Fragment key={i}>
+                <span className="hero-word" style={{ "--w": i } as CSSProperties}>
+                  {w}
+                </span>{" "}
+              </Fragment>
+            ))}
           </Heading>
         </div>
         <div className="pb-[clamp(3.5rem,9vw,7rem)] lg:col-span-5 lg:pb-[clamp(4.5rem,6vw,6.5rem)]">
-          <p className="mt-5 max-w-[33rem] text-[1.02rem] leading-[1.7] text-ink/70 sm:mt-6 sm:text-[1.04rem] sm:leading-[1.75] lg:mt-0">
+          <p className="hero-step mt-5 max-w-[33rem] text-[1.02rem] leading-[1.7] text-ink/70 sm:mt-6 sm:text-[1.04rem] sm:leading-[1.75] lg:mt-0" style={{ "--d": "650ms" } as CSSProperties}>
             {hero.text.value}
             <Mark s={hero.text.status} />
           </p>
-          <Actions primary={{ label: "Register for Hajj 2027", href: hajjRegister }} waText={say.general} className="mt-7 sm:mt-9 lg:mt-7" />
-          <ul className="mt-7 flex flex-wrap gap-x-7 gap-y-2 text-[0.86rem] text-ink/65 sm:mt-10 sm:gap-y-2.5 lg:mt-8">
+          <div className="hero-step" style={{ "--d": "800ms" } as CSSProperties}>
+            <Actions primary={{ label: "Register for Hajj 2027", href: hajjRegister }} waText={say.general} className="mt-7 sm:mt-9 lg:mt-7" />
+          </div>
+          <ul style={{ "--d": "950ms" } as CSSProperties} className="hero-step mt-7 flex flex-wrap gap-x-7 gap-y-2 text-[0.86rem] text-ink/65 sm:mt-10 sm:gap-y-2.5 lg:mt-8">
             {hero.facts.map((f) => (
               <li key={f.value} className="flex items-start gap-2.5">
                 <Dot />
@@ -480,7 +489,7 @@ export function People({ link = true, members = teamMembers, guests = guestMembe
       {guests.length ? (
         <div className="mt-12 border-t border-ink/10 pt-10 sm:mt-16 sm:pt-12">
           <p className="font-editorial text-[1.35rem] text-bronze italic">{guests.length > 1 ? "Guest sheikhs" : "Guest sheikh"}</p>
-          <p className="mt-1.5 max-w-[30rem] text-[0.95rem] leading-[1.6] text-ink/68">Students of knowledge who join our trips to teach.</p>
+          <p className="mt-1.5 max-w-[30rem] text-[0.95rem] leading-[1.6] text-ink/68">Certified ustadhs who join our trips to teach.</p>
           <TeamList members={guests} className="mt-7 sm:mt-8" />
         </div>
       ) : null}
