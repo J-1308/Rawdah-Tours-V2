@@ -43,7 +43,7 @@ export function MobileBar() {
         ? { label: path.includes("path-of-purity") ? "Hear about the next" : path.startsWith(routes.nextUmrah) && ramadanReveal ? "Book your place" : "Register interest", href: `#${anchors.join}` }
         : { label: "Register interest", href: hajjRegister };
   return (
-    <div className="top-zone fixed inset-x-0 bottom-0 z-50 px-2.5 pb-[calc(0.5rem+env(safe-area-inset-bottom))] lg:hidden">
+    <div className="top-zone fixed inset-x-0 bottom-0 z-50 px-2.5 pb-[calc(0.5rem+env(safe-area-inset-bottom))] lg:hidden motion-lift">
       <div className="grid grid-cols-[auto_1fr] gap-1.5 rounded-[1.15rem] border border-(--edge) bg-canvas/85 p-1.5 shadow-[var(--shadow-float)] backdrop-blur-md">
         <a href={wa(say.general)} target="_blank" rel="noopener noreferrer" className="flex h-12 items-center gap-2 rounded-[0.85rem] bg-(--raise) px-4 text-[0.92rem] font-medium text-ink">
           <WaGlyph className="size-5 text-wa" />

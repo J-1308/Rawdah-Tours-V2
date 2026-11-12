@@ -59,7 +59,7 @@ export function SiteHeader() {
 
   return (
     <header
-      className={`top-zone sticky top-0 ${open ? "z-[80]" : "z-40"} transition-[box-shadow,border-color] duration-300 ${open ? "" : "backdrop-blur-md"} ${
+      className={`top-zone motion-drop sticky top-0 ${open ? "z-[80]" : "z-40"} transition-[box-shadow,border-color] duration-300 ${open ? "" : "backdrop-blur-md"} ${
         scrolled ? "border-b border-ink/6 bg-canvas/85 shadow-[0_10px_40px_-28px_rgb(58_43_36/0.5)]" : "border-b border-transparent bg-canvas/60"
       }`}
     >

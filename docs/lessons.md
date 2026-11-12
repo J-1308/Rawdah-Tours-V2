@@ -30,9 +30,12 @@ file fills it with no code change. **Frames follow the photo:** `next.config.ts`
 build (`PHOTO_RATIOS`), `fitFrame(src)` returns `--r`/`--rl`, frames use `aspect-(--r)`. That one change fixed
 every "people cut off at the sides" complaint on phones.
 
-**Motion.** Two things only: the hero settles in (`.settle`, `backwards` fill so it stops being a layer) and
-section photos rise on scroll (`.rise`, CSS `animation-timeline: view()`, off on phones and under reduced
-motion). Photos zoom slightly on hover. No backdrop blur on cards; blur only on things floating over content.
+**Motion.** (12 Nov 2026: the client asked for much more.) An opening once per visit: the logo fades in on cocoa,
+a sand line draws, the curtain lifts (`Intro` in `src/app/_site/motion.tsx`, pure CSS so it can never get stuck). The
+hero then settles and the headline arrives word by word; header and phone bar slide in. Below the fold, headings,
+grid items, questions and photos rise into view on every device (`Reveals`: an IntersectionObserver that only hides
+what is still off-screen, so nothing blinks). Gold buttons get a light sweep on hover. All of it hangs off
+`html.motion`, set before first paint and never under reduced motion; without it the page simply shows.
 
 ## 2. Page structure
 

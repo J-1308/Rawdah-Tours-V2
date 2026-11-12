@@ -125,7 +125,7 @@ export const hero = {
   /** Jibril's pick (31 Oct 2026). */
   headline: "Your Umrah and Hajj, guided every step of the way.",
   text: v(
-    "Students of knowledge travel with every Rawdah group, and the Rawdah Tours team looks after you from your first message to the flight home.",
+    "Certified ustadhs guide every Rawdah trip, and the Rawdah Tours team looks after you from your first message to the flight home.",
     "evidenced",
   ),
   facts: [
@@ -200,7 +200,7 @@ export const whyRawdah = {
   headline: "Why choose Rawdah",
   photo: { src: "/images/vest-back/vest-back-02.jpg", alt: "The back of a Rawdah Tours fleece, the logo among the date palms.", caption: "The Rawdah team, August 2026" },
   reasons: [
-    { title: "Daily talks and reminders", text: "Students of knowledge travel with the group from the first day to the last, with a reminder each day and someone to ask.", status: "evidenced" as Status }, // V1
+    { title: "Daily talks and reminders", text: "Certified ustadhs are with the group from the first day to the last, with a reminder each day and someone to ask.", status: "evidenced" as Status }, // V1
     { title: "A spiritually richer itinerary", text: "The seerah in Madinah first, then each rite of Umrah explained before you perform it in Makkah.", status: "evidenced" as Status }, // V1
     { title: "A true brotherhood", text: "Past travellers say the company was one of the most moving parts of the trip. Nobody walks it as a stranger.", status: "evidenced" as Status }, // V1
     { title: "The Rawdah Tours team, start to finish", text: "Our team is with you from the first message to the flight home.", status: "confirmed" as Status }, // the team, not one person (Ayuub, 2 Nov 2026)
@@ -251,7 +251,7 @@ export const covers = {
       title: "Guidance",
       items: [
         { title: "Umrah, step by step", text: "Ihram, tawaf, sa‘i and tahallul, with du‘a at each stage.", status: "evidenced" as Status },
-        { title: "Daily lessons", text: "From the students of knowledge with the group.", status: "evidenced" as Status },
+        { title: "Daily lessons", text: "From certified ustadhs, every day.", status: "evidenced" as Status },
         { title: "The Rawdah Tours team", text: "With you the whole way.", status: "confirmed" as Status },
       ],
     },
@@ -472,7 +472,7 @@ export const leader = {
 
 export const people = {
   headline: "The people who will walk with you", // V1
-  text: "Rawdah Tours was founded by Brother Ayuub and Ustadh Issa. Every trip travels with students of knowledge and the Rawdah Tours team.",
+  text: "Rawdah Tours was founded by Brother Ayuub and Ustadh Issa. Every trip is guided by certified ustadhs and looked after by the Rawdah Tours team.",
   /** The team behind them, in one line (DRAFT: Rawdah to confirm who travels besides the teachers). */
   team: v("Behind them, the Rawdah team: from your first message to the airport, and on the ground in Madinah and Makkah.", "draft"),
 };
@@ -798,7 +798,7 @@ const ramadanFull: Journey = {
         v("Transfers on the ground, straight to Makkah when you land", "confirmed"),
         v("Your Umrah visa", "confirmed"),
         v("Ground only: the hotels and transfers, with your own flights", "confirmed"),
-        v("Students of knowledge and the Rawdah Tours team with the group", "proposed"),
+        v("Certified ustadhs and the Rawdah Tours team with the group", "proposed"),
       ],
       places: v("Up to 60 places: around 30 with flights and 30 ground only", "confirmed"),
     },
@@ -1049,7 +1049,7 @@ export const about = {
   /** V1 about page, lightly edited. */
   story: [
     { text: "Rawdah Tours is a UK company running guided Umrah trips rooted in worship, knowledge and real community, and preparing a group for Hajj 2027.", status: "evidenced" as Status },
-    { text: "Our trips are led by students of knowledge and experienced guides who stay with the group throughout: not just on arrival and departure, but at every step, from the first lesson in Madinah to the final tawaf in Makkah.", status: "evidenced" as Status },
+    { text: "Our trips are led by certified ustadhs and experienced guides who stay with the group throughout: not just on arrival and departure, but at every step, from the first lesson in Madinah to the final tawaf in Makkah.", status: "evidenced" as Status },
     { text: "We take care of the logistics so you can give your attention to worship. Many operators offer packages; we try to offer a journey. The difference is in the knowledge, the care and the company.", status: "evidenced" as Status },
   ],
   /** V1: the quote on Ustadh Abdulrahman Hassan’s guide card (app/page.tsx GUIDES). */

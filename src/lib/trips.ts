@@ -134,7 +134,7 @@ export const TRIPS: Trip[] = [
     status: 'completed',
     startDate: '2026-08-04',
     endDate: '2026-08-15',
-    summary: 'Five nights in Madinah and five in Makkah with students of knowledge, flying from London Heathrow.',
+    summary: 'Five nights in Madinah and five in Makkah with certified ustadhs, flying from London Heathrow.',
     stays: [
       { city: 'Madinah', nights: 5, hotel: 'Peninsula Worth Hotel', note: 'A few minutes’ walk from Masjid an-Nabawi, breakfast included' },
       { city: 'Makkah', nights: 5, hotel: 'Address Jabal Omar', note: 'A few minutes’ walk from Masjid al-Haram, breakfast included' },
@@ -147,7 +147,7 @@ export const TRIPS: Trip[] = [
       'VIP coach transfers between the cities',
       'Guided ziyarah in Madinah and Makkah',
       'Umrah guided step by step, with ihram and a handbook provided',
-      'Daily lessons and reminders from students of knowledge',
+      'Daily lessons and reminders from certified ustadhs',
     ],
     pricing: {
       rooms: [

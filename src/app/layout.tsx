@@ -8,7 +8,7 @@ import { Analytics } from "@vercel/analytics/next";
 import { IS_LIVE } from "@/lib/site";
 
 const description =
-  "Guided Umrah and Hajj from the UK with Rawdah Tours. Students of knowledge travel with every group, and we look after you from your first message to the flight home. Register your interest for Hajj 2027.";
+  "Guided Umrah and Hajj from the UK with Rawdah Tours. Every trip is guided by certified ustadhs, and we look after you from your first message to the flight home. Register your interest for Hajj 2027.";
 
 /** Link previews resolve against the production address Vercel sets; the fallback is the client's domain. */
 const siteUrl = process.env.VERCEL_PROJECT_PRODUCTION_URL ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}` : "https://www.rawdahtours.co.uk";
@@ -30,7 +30,17 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   preload("/fonts/cormorant-garamond-latin-wght-normal.woff2", { as: "font", type: "font/woff2", crossOrigin: "anonymous" });
   preload("/fonts/dm-sans-latin-wght-normal.woff2", { as: "font", type: "font/woff2", crossOrigin: "anonymous" });
   return (
-    <html lang="en-GB" data-top="night" className="h-full antialiased" /* the top is dark, beige-gold logo (Jibril, 31 Oct 2026; ADR 0004) */>
+    <html lang="en-GB" data-top="night" className="h-full antialiased" suppressHydrationWarning /* the top is dark, beige-gold logo (Jibril, 31 Oct 2026; ADR 0004) */>
+      <head>
+        {/* Before first paint: "js" + "motion" (unless reduced motion), and whether the intro already played this visit.
+            Everything animated is visible without these, so no script = no animation, never hidden content. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              "try{var d=document.documentElement;d.classList.add('js');if(!matchMedia('(prefers-reduced-motion: reduce)').matches)d.classList.add('motion');if(sessionStorage.getItem('rawdah-intro'))d.setAttribute('data-intro','seen');else sessionStorage.setItem('rawdah-intro','1')}catch(e){}",
+          }}
+        />
+      </head>
       <body className="min-h-full">
         {children}
         <Analytics />

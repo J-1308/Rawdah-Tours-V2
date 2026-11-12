@@ -2,6 +2,7 @@ import type { ReactNode } from "react";
 
 import { SiteHeader } from "@/app/_site/header";
 import { MarksFrame } from "@/app/_site/marks";
+import { Intro, Reveals } from "@/app/_site/motion";
 import { AnnouncementStrip, SiteFooter } from "@/app/_site/shell";
 import { MobileBar, WhatsAppFloat } from "@/app/_site/whatsapp";
 
@@ -13,6 +14,8 @@ import { MobileBar, WhatsAppFloat } from "@/app/_site/whatsapp";
 export default function SiteLayout({ children }: { children: ReactNode }) {
   return (
     <MarksFrame>
+      <Intro />
+      <Reveals />
       <AnnouncementStrip />
       <SiteHeader />
       <main id="main">{children}</main>
