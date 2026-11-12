@@ -681,7 +681,7 @@ const ramadanTeaser: Journey = {
 };
 
 /** The full trip, from Rawdah's itinerary. Shown once ramadanReveal is true. */
-const ramadanFull: Journey = {
+export const ramadanFull: Journey = {
     /**
      * The next flagship trip. Source: Rawdah's "GGC × Rawdah Tours Umrah 2027" itinerary and pricing (PDF, 31 Oct
      * 2026). Prices and the payment timetable come from src/lib/trips.ts. The PDF's internal notes (seminar,

@@ -74,6 +74,11 @@ export default async function TripPage({ params }: { params: Promise<{ slug: str
   const j = journey(slug);
   if (!j || j.state === "past") notFound();
   if (j.slug === "ramadan-umrah-2027" && !ramadanReveal) return <ComingSoonTrip j={j} />;
+  return <TripView j={j} />;
+}
+
+/** The full trip page. Also used by the private Ramadan preview (preview/page.tsx). */
+export function TripView({ j }: { j: Journey }) {
 
   const trip = j.bookingSlug ? getTrip(j.bookingSlug) : undefined;
   const bookable = Boolean(trip && isBookable(trip) && j.state === "open");
