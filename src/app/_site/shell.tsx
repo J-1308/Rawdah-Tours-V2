@@ -195,7 +195,7 @@ export function Framed({
   return (
     <figure>
       <div className={`relative overflow-hidden rounded-[1.75rem] bg-beige shadow-[var(--shadow-soft)] ${className}`}>
-        <Image src={src} alt={alt} fill sizes={sizes} priority={priority} className={`object-cover ${position}`} />
+        <Image src={src} alt={alt} fill quality={85} sizes={sizes} priority={priority} className={`object-cover ${position}`} />
       </div>
       {caption ? <figcaption className={`mt-3 font-editorial text-[1rem] italic ${captionTone === "canvas" ? "text-cream/60" : "text-ink/65"}`}>{caption}</figcaption> : null}
     </figure>
@@ -208,7 +208,7 @@ export function Framed({
  */
 /** A photo that fills its frame, or, for an empty slot, a placeholder saying what photo goes there. */
 export function Pic({ src, alt, sizes, className = "", priority = false, quality }: { src: string; alt: string; sizes: string; className?: string; priority?: boolean; quality?: number }) {
-  if (!isEmptySlot(src)) return <Image src={src} alt={alt} fill priority={priority} sizes={sizes} quality={quality} className={className} />;
+  if (!isEmptySlot(src)) return <Image src={src} alt={alt} fill priority={priority} sizes={sizes} quality={quality ?? 85} className={className} />;
   const name = (src.split("/").pop() ?? "").replace(/\.[^.]+$/, "");
   return (
     <div className="absolute inset-0 grid place-items-center border-2 border-dashed border-bronze/45 bg-(--raise) p-5 text-center">

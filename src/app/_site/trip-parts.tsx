@@ -26,7 +26,7 @@ export function TeamList({ members, className = "", cols = "lg:grid-cols-4" }: {
         <li key={m.name} className="grid grid-cols-[5.5rem_1fr] items-start gap-4 sm:block">
           <div className="relative aspect-[4/5] overflow-hidden rounded-[1.1rem] bg-beige shadow-[var(--shadow-lift)] sm:rounded-[1.5rem]">
             {m.photo ? (
-              <Image src={m.photo.src} alt={m.photo.alt} fill sizes="(min-width: 1024px) 22vw, (min-width: 640px) 45vw, 6rem" className={`object-cover ${m.photo.position ?? "object-[50%_25%]"}`} />
+              <Image src={m.photo.src} alt={m.photo.alt} fill quality={85} sizes="(min-width: 1024px) 28vw, (min-width: 640px) 55vw, 8rem" className={`object-cover ${m.photo.position ?? "object-[50%_25%]"}`} />
             ) : (
               <span className="absolute inset-0 grid place-items-center border border-dashed border-ink/20 p-2 text-center text-[0.72rem] text-ink/62 sm:rounded-[1.5rem]">To be named</span>
             )}
@@ -90,7 +90,7 @@ export function StayFrame({ photo, className = "", sizes = "(min-width: 1024px) 
       // The figure is the frame itself (no inner box sized by percentage), so
       // its aspect ratio alone sets the height in every browser.
       <figure className={`relative overflow-hidden rounded-[1.25rem] bg-beige shadow-[var(--shadow-lift)] sm:rounded-[1.5rem] ${className}`}>
-        <Image src={photo.src} alt={photo.alt ?? ""} fill sizes={sizes} priority={priority} className={`object-cover ${photo.position ?? ""}`} />
+        <Image src={photo.src} alt={photo.alt ?? ""} fill quality={85} sizes={sizes} priority={priority} className={`object-cover ${photo.position ?? ""}`} />
         {photo.caption ? <figcaption className="absolute inset-x-0 bottom-0 bg-[linear-gradient(to_top,rgb(26_18_14/0.75),transparent)] px-4 pt-8 pb-3 font-editorial text-[0.98rem] text-cream italic">{photo.caption}</figcaption> : null}
       </figure>
     );
@@ -314,7 +314,7 @@ export function MomentStrip({ photos, caption }: { photos: StayPhoto[]; caption:
       <ul className="grid grid-cols-3 gap-2 sm:gap-3">
         {photos.map((p) => (
           <li key={p.src}>
-            <StayFrame photo={p} className="aspect-square sm:aspect-[3/4]" sizes="(min-width: 1024px) 25vw, 32vw" />
+            <StayFrame photo={p} className="aspect-square sm:aspect-[3/4]" sizes="(min-width: 1024px) 40vw, 50vw" />
           </li>
         ))}
       </ul>

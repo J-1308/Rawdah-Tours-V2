@@ -17,13 +17,13 @@ export function RamadanLockup({ className = "", compact = false }: { j?: Journey
     // Fills a photo frame (the trip cards): the whole poster, on its own green so nothing is cut off.
     return (
       <div className={`absolute inset-0 bg-[#323932] ${className}`}>
-        <Image src={POSTER} alt={posterAlt} fill sizes="(min-width: 1024px) 19rem, 100vw" className="object-contain" />
+        <Image src={POSTER} alt={posterAlt} fill quality={85} sizes="(min-width: 1024px) 19rem, 100vw" className="object-contain" />
       </div>
     );
   }
   return (
     <div className={`relative aspect-[1080/700] overflow-hidden rounded-[2rem] bg-[#323932] shadow-[var(--shadow-soft)] ${className}`}>
-      <Image src={POSTER} alt={posterAlt} fill priority sizes="(min-width: 1024px) 55vw, 100vw" className="object-cover" />
+      <Image src={POSTER} alt={posterAlt} fill priority quality={85} sizes="(min-width: 1024px) 55vw, 100vw" className="object-cover" />
     </div>
   );
 }
