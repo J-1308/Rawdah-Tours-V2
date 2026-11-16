@@ -1,9 +1,10 @@
 import Image from "next/image";
+import { HotelGallery } from "./hotel-gallery";
 import { Fragment } from "react";
 
 import { gbp, hajjNusuk, journeyStay, leader, people, teachers, type Journey, type Room, type Status, type StayPhoto, type TripPlan } from "@/app/_site/content";
 import { Mark } from "@/app/_site/marks";
-import { Emblem, gutter, Heading, Label, Pic, Tick } from "@/app/_site/shell";
+import { Emblem, gutter, Heading, Label, Tick } from "@/app/_site/shell";
 import { slot, slotFilled } from "@/app/_site/slots";
 
 /* ------------------------------------------------------------------------ */
@@ -431,12 +432,8 @@ export function TripJourney({ j }: { j: Journey }) {
 
         {plan.hotels.map((h) => (
           <article key={h.city} className="glass overflow-hidden rounded-[1.75rem]">
-            {/* The hotel's photo once Rawdah supplies one; no empty frame before that (design pass, 16 Nov 2026). */}
-            {slotFilled(h.slot) ? (
-              <div className="relative aspect-[16/8] overflow-hidden bg-(--raise)">
-                <Pic src={slot(h.slot)} alt={`${h.name}, ${h.city}.`} sizes="(min-width: 1024px) 45vw, 95vw" className="object-cover" />
-              </div>
-            ) : null}
+            {/* The hotel's photos once supplied, swipeable; no empty frame before that (design pass, 16 Nov 2026). */}
+            {slotFilled(h.slot) ? <HotelGallery name={h.name} photos={[{ src: slot(h.slot), alt: `${h.name}, ${h.city}.` }, ...(h.more ?? [])]} /> : null}
             <div className="p-5 sm:p-7">
               <div className="flex items-center justify-between gap-3">
                 <p className={`flex items-center gap-2.5 ${eyebrow}`}>

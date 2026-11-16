@@ -593,7 +593,7 @@ export type TripPlan = {
   /** A note under the line, between two segments (index of the segment it follows). */
   marker?: { after: number; text: string };
   flights: { dir: "Outbound" | "Return"; date: string; airline: string; route: string; code: string; rows: { k: string; v: string }[]; note?: string }[];
-  hotels: { city: string; nights: number; name: string; stars: number; slot: string; rows: { k: string; v: string }[]; note?: string }[];
+  hotels: { city: string; nights: number; name: string; stars: number; slot: string; more?: { src: string; alt: string }[]; rows: { k: string; v: string }[]; note?: string }[];
   notes: { tone: "moon" | "alert"; text: string }[];
   includes: V[];
   places?: V;
@@ -776,6 +776,12 @@ export const ramadanFull: Journey = {
           name: "Novotel Thakher City Makkah",
           stars: 4,
           slot: "hotel-novotel-thakher",
+          /* The hotel's own photos (Accor), sent by Jibril 16 Nov 2026. The first is the slot photo. */
+          more: [
+            { src: "/images/hotels/novotel-thakher-room.jpg", alt: "A room at Novotel Thakher City Makkah." },
+            { src: "/images/hotels/novotel-thakher-prayer-hall.jpg", alt: "The hotel’s prayer hall." },
+            { src: "/images/hotels/novotel-thakher-restaurant.jpg", alt: "The hotel restaurant." },
+          ],
           rows: [
             { k: "Check in", v: "Sun 28 Feb, 21 Ramadan" },
             { k: "Check out", v: "Tue 9 Mar" },
@@ -787,6 +793,12 @@ export const ramadanFull: Journey = {
           name: "Al Manakha Rotana",
           stars: 4,
           slot: "hotel-al-manakha-rotana",
+          /* The hotel's own photos (from its Hotels.com listing), sent by Jibril 16 Nov 2026. The first is the slot photo. */
+          more: [
+            { src: "/images/hotels/al-manakha-rotana-room-view.jpg", alt: "A room at Al Manakha Rotana, with the minarets of Masjid an-Nabawi outside." },
+            { src: "/images/hotels/al-manakha-rotana-room.jpg", alt: "A room at Al Manakha Rotana." },
+            { src: "/images/hotels/al-manakha-rotana-restaurant.jpg", alt: "The hotel restaurant." },
+          ],
           rows: [
             { k: "Check in", v: "Tue 9 Mar" },
             { k: "Check out", v: "Sat 13 Mar" },

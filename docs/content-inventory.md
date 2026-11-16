@@ -64,6 +64,10 @@ is **not** identified on the site.
   baggage, the two 4★ hotels and check-in dates, Eid note, the three packages, the payment timetable and group size.
   Prices and the timetable live in `src/lib/trips.ts`. **Left out on purpose:** the PDF's internal notes (pre-trip
   seminar, its speaker and date, Eid presents, videography), marked "not for publication" and "internal".
+  Hotel photos (sent by Jibril, 16 Nov 2026): four per hotel in a swipeable frame (`HotelGallery`). Novotel Thakher
+  City from Accor's own photos (exterior, room, prayer hall, restaurant); Al Manakha Rotana from its Hotels.com
+  listing (exterior, room with the Haram minarets, room, restaurant). The first of each is the slot photo
+  (`public/images/slots/`), the rest are in `public/images/hotels/`.
 - **Path of Purity II: Summer Edition** (V1, POSTER): 4–15 Aug 2026; 5 nights Peninsula Worth (Madinah), 5 nights
   Address Jabal Omar (Makkah), breakfast; Qatar Airways from Heathrow; quad £1,799, triple £1,835, double £2,025
   per person; land only from £1,040 (V1 terms; the poster's £1,099 is superseded); £500 deposit; balance cleared
