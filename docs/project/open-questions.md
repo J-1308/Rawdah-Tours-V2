@@ -1,5 +1,7 @@
 # Open questions
 
+**16 Nov 2026:** the questions still open are now one questionnaire for the client at `/questionnaire` (questions in `src/app/_site/questionnaire.ts`, each with where its answer goes). Answers arrive in Vercel → Storage → rawdah-signups → `answers/`, and by email once Resend is on.
+
 Things only Rawdah (or Jibril) can answer. Each one is marked on the page where it shows. Updated 25 October 2026.
 
 ## Before launch (blocking)
