@@ -201,3 +201,23 @@ export function sendBookingToOwner(d: BookingEmail, kind: 'deposit-paid' | 'awai
   const subject = kind === 'deposit-paid' ? `Booking confirmed — ${d.fullName}` : `Awaiting bank transfer — ${d.fullName}`
   return send(OWNER(), subject, layout('New booking', body), d.email)
 }
+
+/** An alert for a step-by-step form lead (src/app/actions/lead.ts): started at step 1, completed at the end. */
+export function sendLeadToOwner(subject: string, intro: string, rows: Array<[string, string]>, phone: string, replyTo?: string) {
+  const reply = travellerWhatsApp(phone)
+  const body =
+    p(escapeHtml(intro)) +
+    table(rows) +
+    (reply ? p(`<a href="${reply}" style="color:${C.palm};">Reply on WhatsApp</a>`) : '')
+  return send(OWNER(), subject, layout(subject, body), replyTo)
+}
+
+/** The traveller's copy when they finish a form and gave an email. */
+export function sendLeadAcknowledgement(to: string, name: string, line: string) {
+  const body =
+    p('Assalamu alaykum ' + escapeHtml(name) + ',') +
+    p(escapeHtml(line)) +
+    p(`If you'd like to talk sooner, message us on <a href="${whatsappLink()}" style="color:${C.palm};">WhatsApp</a>.`) +
+    p('The Rawdah Tours team')
+  return send(to, 'Thank you, we have your details', layout('Thank you', body))
+}

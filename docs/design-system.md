@@ -41,7 +41,7 @@ on phones outdoors.
 | --- | --- | --- |
 | Headlines | Cormorant Garamond 460 | `.display`, upright, one colour, `text-wrap: balance`. |
 | Labels, captions, sub-titles | Cormorant Garamond italic | Bronze on cream, sand on cocoa, with the tiny mark (`<Label>`). |
-| Body and UI | DM Sans 400/500 | 0.92–1.05rem, line-height 1.6–1.75, ink at 60–75%. |
+| Body and UI | DM Sans 400/500 | 0.92–1.05rem, line-height 1.6–1.75, ink at 60–75%. Nothing below 0.875rem (14px), ink no lighter than 62% (design pass, Nov 2026). |
 | Arabic | Amiri | روضة. |
 
 ## 3. Shape and depth
@@ -49,6 +49,8 @@ on phones outdoors.
 Buttons `rounded-[0.95rem]`; cards `rounded-[1.5rem]`; photos `rounded-[1.75rem–2rem]`; dark panels
 `rounded-[2.5rem]`. Depth from soft shadows (`--shadow-soft`, `--shadow-lift`, `--shadow-float`) and `.glass`
 cards (translucent cream, white edge; no backdrop blur, see ADR 0004). No hard borders, no pills, no arches.
+Choice chips and tags are `rounded-[0.9–0.95rem]`, at least 44px high. Phone bars are opaque (`bg-canvas`); on trip
+pages the trip bar replaces the floating WhatsApp button.
 
 ## 4. The logo
 
@@ -68,7 +70,7 @@ cards (translucent cream, white edge; no backdrop blur, see ADR 0004). No hard b
 | `WaTile`, `WaSquare`, `Actions` | WhatsApp button; WhatsApp as a square glyph; a section's pair of actions (on phones the main button fills the row with `WaSquare` beside it). |
 | `PhotoStack` | One soft framed photo. The frame takes the photo's own shape (see Photography), unless `aspect` fixes it. |
 | `Framed` | One soft rounded photo. |
-| `PageLead` | Inner-page head: words beside a PhotoStack on `.wash-hero` with the mark embossed. |
+| `PageLead` | Inner-page head: words beside a PhotoStack on `.wash-hero` with the mark embossed. On phones and tablets the title and status come first and the photo (4:3) follows; mark the first child that belongs below the photo `lead-after`. |
 | `TripRow` | A trip as a glass card: photo with state, facts, price panel and actions. |
 | `ReservePanel` | The join panel: rooms, travellers, live total, deposit, instalments. |
 | `PaymentPlan` | The worked deposit example with a proportional bar. |

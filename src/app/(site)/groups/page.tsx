@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 import { groupsPage } from "@/app/_site/content";
-import { CommunityForm } from "@/app/_site/community-form";
+import { StepForm } from "@/app/_site/step-form";
 import { Mark } from "@/app/_site/marks";
 import { Chapter, Emblem, Heading, Label, PageLead, PhotoStack, gutter, onInk } from "@/app/_site/shell";
 
@@ -30,7 +30,7 @@ export default function GroupsPage() {
         </p>
         <ul className="mt-7 flex flex-wrap gap-2">
           {groupsPage.who.map((w) => (
-            <li key={w} className="rounded-full border border-ink/10 bg-(--raise) px-3.5 py-1.5 text-[0.84rem] text-ink/75">
+            <li key={w} className="flex min-h-11 items-center rounded-[0.95rem] border border-ink/10 bg-(--raise) px-3.5 text-[0.875rem] text-ink/75">
               {w}
             </li>
           ))}
@@ -113,7 +113,7 @@ export default function GroupsPage() {
             </div>
           </div>
           <div className="glass rounded-[1.75rem] p-5 sm:p-8 lg:col-span-6 lg:col-start-7">
-            <CommunityForm />
+            <StepForm path="community" />
           </div>
         </div>
       </section>

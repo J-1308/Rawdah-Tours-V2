@@ -1,10 +1,12 @@
 import Image from "next/image";
+import { HotelGallery } from "./hotel-gallery";
 import { Fragment } from "react";
 
-import { gbp, hajjNusuk, journeyStay, leader, people, teachers, type Journey, type Room, type Status, type StayPhoto, type TripPlan } from "@/app/_site/content";
+import { anchors, gbp, hajjNusuk, journeyStay, leader, people, say, teachers, trust, wa, type Journey, type Room, type Status, type StayPhoto, type TripPlan } from "@/app/_site/content";
 import { Mark } from "@/app/_site/marks";
-import { Emblem, gutter, Heading, Label, Pic, Tick } from "@/app/_site/shell";
-import { slot } from "@/app/_site/slots";
+import { Emblem, gutter, Heading, Label, Tick } from "@/app/_site/shell";
+import { slot, slotFilled } from "@/app/_site/slots";
+import { ItineraryLink } from "@/app/_site/step-form";
 
 /* ------------------------------------------------------------------------ */
 /* The team, straightforward: a portrait, what they do, the name, one line.  */
@@ -21,18 +23,16 @@ export const guestMembers: Member[] = allMembers.filter((m) => m.guest);
 
 export function TeamList({ members, className = "", cols = "lg:grid-cols-4" }: { members: Member[]; className?: string; cols?: string }) {
   return (
-    <ul className={`grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2 sm:gap-y-10 ${cols} ${className}`}>
+    <ul className={`grid grid-cols-1 gap-x-8 gap-y-6 sm:gap-y-10 ${members.length <= 2 ? "lg:grid-cols-2" : `sm:grid-cols-2 ${cols}`} ${className}`}>
       {members.map((m) => (
-        <li key={m.name} className="grid grid-cols-[5.5rem_1fr] items-start gap-4 sm:block">
-          <div className="relative aspect-[4/5] overflow-hidden rounded-[1.1rem] bg-beige shadow-[var(--shadow-lift)] sm:rounded-[1.5rem]">
-            {m.photo ? (
+        <li key={m.name} className={m.photo ? (members.length <= 2 ? "grid grid-cols-[5.5rem_1fr] items-start gap-4 sm:grid-cols-[13rem_1fr] sm:gap-7" : "grid grid-cols-[5.5rem_1fr] items-start gap-4 sm:block") : "self-center"}>
+          {m.photo ? (
+            <div className="relative aspect-[4/5] overflow-hidden rounded-[1.1rem] bg-beige shadow-[var(--shadow-lift)] sm:rounded-[1.5rem]">
               <Image src={m.photo.src} alt={m.photo.alt} fill quality={85} sizes="(min-width: 1024px) 28vw, (min-width: 640px) 55vw, 8rem" className={`object-cover ${m.photo.position ?? "object-[50%_25%]"}`} />
-            ) : (
-              <span className="absolute inset-0 grid place-items-center border border-dashed border-ink/20 p-2 text-center text-[0.72rem] text-ink/62 sm:rounded-[1.5rem]">To be named</span>
-            )}
-          </div>
+            </div>
+          ) : null}
           <div className="pt-0.5 sm:mt-4 sm:pt-0">
-            <p className="text-[0.82rem] font-medium text-bronze">{m.does}</p>
+            <p className="text-[0.875rem] font-medium text-bronze">{m.does}</p>
             <p className="display mt-1 text-[1.45rem] leading-[1.1] sm:text-[1.6rem]">{m.name}</p>
             <p className="mt-1.5 text-[0.92rem] leading-[1.55] text-ink/70">
               {m.line}
@@ -101,7 +101,7 @@ export function StayFrame({ photo, className = "", sizes = "(min-width: 1024px) 
       <div className="relative px-3 text-center">
         <CameraGlyph className="mx-auto size-5 text-bronze" />
         <p className="mt-1.5 font-editorial text-[1.02rem] leading-tight text-ink/80 italic">{photo.slot}</p>
-        <p className="mt-0.5 text-[0.72rem] text-ink/62">Photo to come</p>
+        <p className="mt-0.5 text-[0.875rem] text-ink/62">Photo to come</p>
       </div>
     </div>
   );
@@ -206,7 +206,7 @@ export function WhereYouStay({ j }: { j: Journey }) {
             <li key={z.name} className={k === 2 ? "col-span-2 sm:col-span-1" : ""}>
               <StayFrame photo={z.photo} className={k === 2 ? "aspect-[2/1] sm:aspect-[4/5]" : "aspect-[4/5]"} sizes="(min-width: 640px) 30vw, 48vw" />
               <p className="mt-2.5 px-1 font-editorial text-[1.1rem] leading-tight">{z.name}</p>
-              <p className="px-1 text-[0.82rem] text-ink/65">{z.city}</p>
+              <p className="px-1 text-[0.875rem] text-ink/65">{z.city}</p>
             </li>
           ))}
         </ul>
@@ -235,7 +235,7 @@ export function HajjOnNusuk() {
           {n.timeline.map((t, i) => (
             <li key={t.title} className="glass grid grid-cols-[2.5rem_1fr] gap-x-4 rounded-[1.25rem] p-4 [--glass-shadow:none] sm:grid-cols-[2.75rem_10rem_1fr] sm:items-baseline sm:p-5">
               <span className="display grid size-10 place-items-center rounded-full bg-sand/25 text-[1.3rem] text-bronze sm:size-11 sm:self-center">{i + 1}</span>
-              <span className="text-[0.84rem] font-medium text-bronze sm:text-[0.9rem]">{t.when}</span>
+              <span className="text-[0.875rem] font-medium text-bronze sm:text-[0.9rem]">{t.when}</span>
               <span className="col-start-2 sm:col-start-3">
                 <span className="block text-[1rem] font-medium">{t.title}</span>
                 <span className="mt-0.5 block text-[0.9rem] leading-[1.6] text-ink/70">{t.text}</span>
@@ -243,7 +243,7 @@ export function HajjOnNusuk() {
             </li>
           ))}
         </ol>
-        <p className="mt-3 text-[0.84rem] text-ink/65">
+        <p className="mt-3 text-[0.875rem] text-ink/65">
           {n.timelineNote}
           <Mark s="evidenced" />
         </p>
@@ -294,7 +294,7 @@ export function HajjOnNusuk() {
         <dl className="glass-phone mt-6 grid grid-cols-1 rounded-[1.25rem] px-4 py-1 sm:grid-cols-2 sm:gap-2.5 sm:p-0">
           {n.group.items.map((g, i) => (
             <div key={g.k} className={`glass-wide py-3.5 sm:rounded-[1.1rem] sm:p-4 ${i ? "border-t border-ink/8" : ""}`}>
-              <dt className="text-[0.8rem] text-ink/62">{g.k}</dt>
+              <dt className="text-[0.875rem] text-ink/62">{g.k}</dt>
               <dd className="mt-1 text-[0.98rem] leading-snug">
                 {g.v}
                 <Mark s={g.s} />
@@ -329,8 +329,8 @@ export function MomentStrip({ photos, caption }: { photos: StayPhoto[]; caption:
 /* timetable. After Rawdah's own itinerary sheets, in the site's colours.    */
 /* ------------------------------------------------------------------------ */
 
-const eyebrow = "text-[0.72rem] font-medium tracking-[0.2em] text-bronze uppercase";
-const pill = "rounded-full border border-ink/12 bg-(--raise) px-3 py-1 text-[0.78rem] whitespace-nowrap";
+const eyebrow = "font-editorial text-[1.12rem] italic text-bronze";
+const pill = "rounded-full border border-ink/12 bg-(--raise) px-3 py-1 text-[0.875rem] whitespace-nowrap";
 
 function Glyph({ d, className = "size-4" }: { d: string; className?: string }) {
   return (
@@ -344,19 +344,6 @@ const building = "M4 21V5l8-2v18M12 21h8V9l-8-2M8 8h.01M8 12h.01M8 16h.01M16 12h
 const moon = "M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z";
 const alert = "M12 4 2.5 20h19L12 4zM12 10v4.5M12 17.5h.01";
 
-/** Four, five: gold dots for the stars, as on the itinerary. */
-function StarDots({ n }: { n: number }) {
-  return (
-    <span aria-label={`${n}-star hotel`} className="inline-flex items-center gap-2">
-      <span aria-hidden className="flex gap-1">
-        {Array.from({ length: 5 }, (_, i) => (
-          <span key={i} className={`size-2 rounded-full ${i < n ? "bg-gold" : "border border-gold/70"}`} />
-        ))}
-      </span>
-      <span className="text-[0.84rem] text-ink/65">{n}-star hotel</span>
-    </span>
-  );
-}
 
 function Rows({ rows }: { rows: { k: string; v: string }[] }) {
   return (
@@ -382,9 +369,9 @@ export function TripLine({ plan }: { plan: TripPlan }) {
           <Fragment key={s.label}>
             <li className={seg(Boolean(s.nights))} style={s.nights ? { flexGrow: s.nights } : undefined}>
               <span className="block text-[0.98rem] font-medium">{s.label}</span>
-              <span className="block text-[0.8rem] text-ink/62 tabular-nums">{s.sub}</span>
+              <span className="block text-[0.875rem] text-ink/62 tabular-nums">{s.sub}</span>
             </li>
-            {plan.marker && plan.marker.after === i ? <li className={`${eyebrow} px-4 py-1 text-[0.66rem] sm:hidden`}>↓ {plan.marker.text}</li> : null}
+            {plan.marker && plan.marker.after === i ? <li className={`${eyebrow} px-4 py-1 text-[0.875rem] sm:hidden`}>↓ {plan.marker.text}</li> : null}
           </Fragment>
         ))}
       </ol>
@@ -394,9 +381,9 @@ export function TripLine({ plan }: { plan: TripPlan }) {
           {plan.timeline.map((s, i) => (
             <div key={s.label} className={`invisible relative h-5 ${s.nights ? "basis-0 px-4" : "shrink-0 px-5"}`} style={s.nights ? { flexGrow: s.nights } : undefined}>
               <span className="block h-0 overflow-hidden text-[0.98rem] font-medium">{s.label}</span>
-              <span className="block h-0 overflow-hidden text-[0.8rem]">{s.sub}</span>
+              <span className="block h-0 overflow-hidden text-[0.875rem]">{s.sub}</span>
               {plan.marker && plan.marker.after + 1 === i ? (
-                <span className={`visible absolute top-0 -left-1 whitespace-nowrap ${eyebrow} text-[0.66rem]`}>↑ {plan.marker.text}</span>
+                <span className={`visible absolute top-0 -left-1 whitespace-nowrap ${eyebrow} text-[0.875rem]`}>↑ {plan.marker.text}</span>
               ) : null}
             </div>
           ))}
@@ -437,18 +424,17 @@ export function TripJourney({ j }: { j: Journey }) {
             <p className="display mt-4 text-[clamp(2rem,3vw,2.6rem)] leading-tight">{f.date}</p>
             <div className="mt-1 flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 text-[0.95rem]">
               <span>{f.route}</span>
-              <span className="text-[0.72rem] tracking-[0.16em] text-ink/60">{f.code}</span>
+              <span className="text-[0.875rem] tracking-[0.16em] text-ink/60">{f.code}</span>
             </div>
             <Rows rows={f.rows} />
-            {f.note ? <p className="mt-3 text-[0.84rem] text-ink/62">{f.note}</p> : null}
+            {f.note ? <p className="mt-3 text-[0.875rem] text-ink/62">{f.note}</p> : null}
           </article>
         ))}
 
         {plan.hotels.map((h) => (
           <article key={h.city} className="glass overflow-hidden rounded-[1.75rem]">
-            <div className="relative aspect-[16/8] overflow-hidden bg-(--raise)">
-              <Pic src={slot(h.slot)} alt={`${h.name}, ${h.city}.`} sizes="(min-width: 1024px) 45vw, 95vw" className="object-cover" />
-            </div>
+            {/* The hotel's photos once supplied, swipeable; no empty frame before that (design pass, 16 Nov 2026). */}
+            {slotFilled(h.slot) ? <HotelGallery name={h.name} photos={[{ src: slot(h.slot), alt: `${h.name}, ${h.city}.` }, ...(h.more ?? [])]} /> : null}
             <div className="p-5 sm:p-7">
               <div className="flex items-center justify-between gap-3">
                 <p className={`flex items-center gap-2.5 ${eyebrow}`}>
@@ -461,10 +447,10 @@ export function TripJourney({ j }: { j: Journey }) {
               </div>
               <h3 className="display mt-4 text-[clamp(1.9rem,2.8vw,2.5rem)] leading-tight">{h.name}</h3>
               <p className="mt-2">
-                <StarDots n={h.stars} />
+                <span className="text-[1.05rem] tracking-[0.1em] text-gold" aria-label={`${h.stars} stars`}>{"★".repeat(h.stars)}</span>
               </p>
               <Rows rows={h.rows} />
-              {h.note ? <p className="mt-3 text-[0.84rem] text-ink/62">{h.note}</p> : null}
+              {h.note ? <p className="mt-3 text-[0.875rem] text-ink/62">{h.note}</p> : null}
             </div>
           </article>
         ))}
@@ -513,7 +499,7 @@ function Timetable({ title, cols }: { title: string; cols: Room[] }) {
             </th>
             {cols.map((c, i) => (
               <th key={c.type} scope="col" className="pb-3 pl-2 text-right align-bottom">
-                <span className={`inline-block rounded-full px-2.5 py-1 text-[0.62rem] font-medium tracking-[0.14em] whitespace-nowrap uppercase ${i === 0 ? "bg-ink text-canvas" : "bg-(--raise) text-ink/80 ring-1 ring-ink/12"}`}>{c.type}</span>
+                <span className={`inline-block rounded-[0.6rem] px-2.5 py-1 text-[0.875rem] font-medium whitespace-nowrap ${i === 0 ? "bg-ink text-canvas" : "bg-(--raise) text-ink/80 ring-1 ring-ink/12"}`}>{c.type}</span>
               </th>
             ))}
           </tr>
@@ -558,9 +544,9 @@ export function TripPackages({ j }: { j: Journey }) {
         {rooms.map((r, i) => (
           <li key={r.type} className={`relative overflow-hidden rounded-[1.75rem] p-5 sm:p-6 ${i === 0 ? `panel-dark text-cream` : "glass"}`}>
             {i === 0 ? <Emblem className="pointer-events-none absolute right-[-10%] bottom-[-25%] h-[120%] text-cream/[0.05]" /> : null}
-            <span className={`relative inline-block rounded-full px-3 py-1 text-[0.66rem] font-medium tracking-[0.18em] uppercase ${i === 0 ? "border border-cream/40 text-cream/90" : "bg-(--raise) text-ink/80 ring-1 ring-ink/12"}`}>{r.type}</span>
+            <span className={`relative font-editorial text-[1.25rem] italic ${i === 0 ? "text-sand" : "text-bronze"}`}>{r.type}</span>
             <p className="display relative mt-4 text-[clamp(2.8rem,4.4vw,3.6rem)] leading-none">{gbp(r.price)}</p>
-            <p className={`relative mt-2.5 text-[0.68rem] tracking-[0.18em] uppercase ${i === 0 ? "text-cream/70" : "text-ink/60"}`}>
+            <p className={`relative mt-2.5 text-[0.9rem] ${i === 0 ? "text-cream/75" : "text-ink/65"}`}>
               Per person{r.flights !== false ? " · quad sharing" : ""}
             </p>
             <p className={`relative mt-4 border-t pt-3 text-[0.92rem] ${i === 0 ? "border-cream/20 text-cream/85" : "border-ink/10 text-ink/72"}`}>{r.flights !== false ? "Flights and ground" : "Hotels and transfers, your own flights"}</p>
@@ -571,7 +557,7 @@ export function TripPackages({ j }: { j: Journey }) {
         {withFlights.length ? <Timetable title="With flights" cols={withFlights} /> : null}
         {ground.length ? <Timetable title="Ground only" cols={ground} /> : null}
       </div>
-      <p className="mt-3 text-[0.86rem] text-ink/68">
+      <p className="mt-3 text-[0.875rem] text-ink/68">
         All deposits are non-refundable.
         {j.plan?.places ? (
           <>
@@ -584,3 +570,75 @@ export function TripPackages({ j }: { j: Journey }) {
     </>
   );
 }
+
+/* ------------------------------------------------------------------------ */
+/* The trust box: who travels with you, real numbers once confirmed, then   */
+/* the two next steps (brief step 6).                                        */
+/* ------------------------------------------------------------------------ */
+
+/**
+ * `book` adds the main button (phones, where the box closes the trip's story); beside the join panel on desktop
+ * the box carries only the softer option, so the page never shows two "Book your place" buttons side by side.
+ */
+export function TrustBox({ j, members, book, bookHref, bookLabel, className = "" }: { j: Journey; members: Member[]; book: boolean; bookHref: string; bookLabel: string; className?: string }) {
+  if (!trust.show) return null;
+  /** Real people only: not the "named when the trip is announced" placeholder. */
+  const named = members.filter((m) => m.name !== j.teacher.value);
+  const soft =
+    j.plan ? (
+      <ItineraryLink href={`#${anchors.form}`} className={outline}>
+        Get the full itinerary
+      </ItineraryLink>
+    ) : (
+      <a href={wa(j.kind === "hajj" ? say.hajj : j.waText, j.name)} target="_blank" rel="noopener noreferrer" data-placement="trust box" className={outline}>
+        Ask us on WhatsApp
+      </a>
+    );
+  return (
+    <div className={`glass rounded-[1.5rem] p-5 sm:p-6 ${className}`}>
+      <p className="font-editorial text-[1.15rem] italic text-bronze">{trust.title}</p>
+      {trust.stats.length ? (
+        <dl className="mt-4 grid grid-cols-3 gap-2 border-b border-ink/8 pb-4">
+          {trust.stats.map((s) => (
+            <div key={s.label}>
+              <dt className="sr-only">{s.label}</dt>
+              <dd className="display text-[1.9rem] leading-none">{s.value}</dd>
+              <dd className="mt-1 text-[0.875rem] leading-snug text-ink/65">{s.label}</dd>
+            </div>
+          ))}
+        </dl>
+      ) : null}
+      <p className="mt-4 text-[0.875rem] text-ink/65">{trust.people}</p>
+      <ul className="mt-3 space-y-3">
+        {named.map((m) => (
+          <li key={m.name} className="flex items-center gap-3">
+            <span className="relative size-11 shrink-0 overflow-hidden rounded-full bg-beige">
+              {m.photo ? (
+                <Image src={m.photo.src} alt="" fill sizes="44px" className={`object-cover ${m.photo.position ?? ""}`} />
+              ) : (
+                <span aria-hidden className="grid size-full place-items-center font-editorial text-[1.1rem] text-bronze">
+                  {m.name.replace(/^(Ustadh|Brother|Sheikh|Shaykh) /, "").charAt(0)}
+                </span>
+              )}
+            </span>
+            <span className="min-w-0">
+              <span className="block text-[0.95rem] leading-snug">{m.name}</span>
+              <span className="block text-[0.875rem] leading-snug text-ink/65">{m.does}</span>
+            </span>
+          </li>
+        ))}
+      </ul>
+      <div className="mt-5 grid gap-2">
+        {book ? (
+          <a href={bookHref} className="btn-ink flex min-h-[3.25rem] items-center justify-center rounded-[0.95rem] text-[0.95rem] font-medium lg:hidden">
+            {bookLabel}
+          </a>
+        ) : null}
+        {soft}
+      </div>
+    </div>
+  );
+}
+
+const outline = "flex min-h-[3.25rem] items-center justify-center rounded-[0.95rem] border border-ink/15 bg-(--raise) text-[0.95rem] font-medium hover:border-ink/40";
+

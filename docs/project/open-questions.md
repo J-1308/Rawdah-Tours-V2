@@ -1,5 +1,7 @@
 # Open questions
 
+**16 Nov 2026:** the questions still open are now one questionnaire for the client at `/questionnaire` (questions in `src/app/_site/questionnaire.ts`, each with where its answer goes). Answers arrive in Vercel → Storage → rawdah-signups → `answers/`, and by email once Resend is on.
+
 Things only Rawdah (or Jibril) can answer. Each one is marked on the page where it shows. Updated 25 October 2026.
 
 ## Before launch (blocking)
@@ -13,8 +15,8 @@ Things only Rawdah (or Jibril) can answer. Each one is marked on the page where 
    Rawdah's request (`ramadanReveal = false` in `content.ts`; set to true to show the full plan). Settled with Jibril (31 Oct 2026): the £399 deposit is right (terms
    6.1 updated from £299), visas are included, open to brothers, sisters and families, booking on WhatsApp with
    deposits by bank transfer (card payments with Stripe later), GGC is the Global Guidance Center and its logo is
-   shown. Still open: the teachers (Jibril to say when announced) and hotel photos for Novotel Makkah Thakher City
-   and Al Manakha Rotana.
+   shown. Still open: the teachers (Jibril to say when announced). Hotel photos: settled (Jibril, 16 Nov 2026),
+   four per hotel from the hotels' own listings.
 5. **Hajj 2027 "open to":** settled. Brothers and sisters, and children over 12 (Rawdah, 31 Oct 2026).
 5a. **Hajj 2027 group:** settled from the live Hajj page (31 Oct 2026): no provider is named, dates and hotels
     are "still being confirmed", Rawdah helps compare the options on Nusuk, registering reserves nothing, and
@@ -57,3 +59,7 @@ the "Our last trip" section on the home and Trips pages. `/trips/path-of-purity-
 **31 Oct 2026, Jibril:** ATOL (5311) appears only in the terms. The About page shows only Brother Ayuub and Ustadh
 Issa for now. No Supabase on this site: card payments will use Stripe, and emails Resend, when they're set up
 (update the privacy notice then). Partner logos to come from Jibril for the "Who we travel with" row.
+
+**16 Nov 2026, Jibril:** Rawdah is based in West London (the About page said Birmingham). Open trips keep both ways
+to book: on WhatsApp with the deposit by bank transfer, and by card with Stripe once it is set up. Trip pages say
+"Book your place" for both.

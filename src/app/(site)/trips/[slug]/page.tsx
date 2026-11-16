@@ -3,13 +3,14 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import { ComingSoonTrip } from "@/app/_site/coming-soon";
+import { TripPhoneBar } from "@/app/_site/trip-bar";
 import { anchors, covers, faqs, fromPrice, gbp, hajjNusuk, journey, journeys, nightsOf, ramadanReveal, routes, routeText, say, type Journey } from "@/app/_site/content";
 import { CoverGroups, FaqList, PaymentPlan, Tick } from "@/app/_site/home-sections";
 import { Mark } from "@/app/_site/marks";
-import { RegisterForm } from "@/app/_site/register-form";
+import { StepForm } from "@/app/_site/step-form";
 import { ReservePanel } from "@/app/_site/reserve";
 import { Chapter, ConfirmedPending, gutter, Heading, Label, PageLead, PartnerLogo, WaTile } from "@/app/_site/shell";
-import { HajjOnNusuk, leaderMember, MomentStrip, TeamLine, TeamList, teacherMembers, teamMembers, TripIncludes, TripJourney, TripPackages, WhereYouStay, type Member } from "@/app/_site/trip-parts";
+import { HajjOnNusuk, leaderMember, MomentStrip, TeamLine, TeamList, teacherMembers, teamMembers, TripIncludes, TrustBox, TripJourney, TripPackages, WhereYouStay, type Member } from "@/app/_site/trip-parts";
 import { StateTag } from "@/app/_site/trip-row";
 import { Chevron } from "@/app/_site/whatsapp";
 import { getTrip, isBookable, isDemoBooking } from "@/lib/trips";
@@ -46,7 +47,7 @@ function Itinerary({ j }: { j: Journey }) {
               {i < all.length - 1 ? <span className="mt-2 w-px flex-1 bg-gradient-to-b from-gold/50 to-gold/10" /> : null}
             </span>
             <div className="pb-8">
-              <p className="text-[0.82rem] font-medium text-bronze">{d.day}</p>
+              <p className="text-[0.875rem] font-medium text-bronze">{d.day}</p>
               <p className="display mt-1 text-[1.65rem] leading-tight">{d.title}</p>
               <p className="mt-1.5 max-w-[38rem] text-[0.96rem] leading-[1.65] text-ink/75">{d.text}</p>
             </div>
@@ -96,6 +97,8 @@ export function TripView({ j }: { j: Journey }) {
   const shownAbove = ["What is included in the trip cost?", "What is the trip itinerary like?", "What about meal arrangements?"];
   const qs = faqs.filter((f) => (j.kind === "hajj" ? f.topic === "hajj" : f.topic !== "hajj") && !(j.plan && shownAbove.includes(f.q)));
   const joinLabel = j.state === "open" ? "Book your place" : "Register interest";
+  /** The packages to choose from in the form, with their price per person (from src/lib/trips.ts). */
+  const packages = j.kind === "hajj" ? [] : (trip?.pricing?.rooms ?? []).map((r) => `${r.label}, ${gbp(r.pricePence / 100)} per person`);
 
   const facts = [
     { k: "Dates", v: j.dates.value, s: j.dates.status },
@@ -106,6 +109,7 @@ export function TripView({ j }: { j: Journey }) {
 
   return (
     <>
+      <TripPhoneBar j={j} price={price} deposit={trip?.pricing ? trip.pricing.depositPence / 100 : null} bookable={bookable} />
       <Chapter tone="top">
       <PageLead
         crumbs={[{ label: "Home", href: "/" }, { label: "Trips", href: routes.trips }, { label: j.name }]}
@@ -120,7 +124,7 @@ export function TripView({ j }: { j: Journey }) {
                 <span aria-hidden className="h-7 w-px bg-ink/20" />
               </>
             ) : null}
-            <p className="text-[0.72rem] leading-snug font-medium tracking-[0.2em] text-bronze uppercase">
+            <p className="font-editorial text-[1.05rem] leading-snug italic text-bronze">
               {j.partner}
               <br />
               Joint pilgrimage
@@ -130,11 +134,11 @@ export function TripView({ j }: { j: Journey }) {
         <div className="mt-4">
           <StateTag j={j} onPhoto={false} />
         </div>
-        <p className="mt-4 max-w-[34rem] font-editorial text-[clamp(1.4rem,2vw,1.8rem)] leading-snug text-ink/70 italic">{j.tagline}</p>
+        <p className="lead-after mt-4 max-w-[34rem] font-editorial text-[clamp(1.4rem,2vw,1.8rem)] leading-snug text-ink/70 italic">{j.tagline}</p>
         <dl className="mt-6 grid max-w-[36rem] grid-cols-2 gap-2 text-[0.9rem] sm:mt-7 sm:gap-2.5 sm:text-[0.92rem]">
           {[...facts, { k: j.kind === "hajj" ? "The rites" : "Route", v: routeText(j), s: j.route.status }].map((f, i, all) => (
             <div key={f.k} className={`glass rounded-[1.1rem] p-3.5 [--glass-shadow:none] ${i === all.length - 1 ? "col-span-2" : ""}`}>
-              <dt className="text-[0.78rem] text-ink/62">{f.k}</dt>
+              <dt className="text-[0.875rem] text-ink/62">{f.k}</dt>
               <dd className="mt-1 leading-snug">
                 {f.v}
                 <Mark s={f.s} />
@@ -154,8 +158,11 @@ export function TripView({ j }: { j: Journey }) {
         <aside id={anchors.join} className="scroll-mt-28 lg:order-2 lg:col-span-4">
           <div className="lg:sticky lg:top-28">
             <ReservePanel j={j} bookable={bookable} />
+            {/* Desktop, when the join panel is short (no packages): the trust box under it, softer option only.
+                With packages the panel is tall, so the box sits in the story column instead (below). */}
+            {j.rooms?.value.length ? null : <TrustBox j={j} members={members} book={false} bookHref="" bookLabel={joinLabel} className="mt-4 hidden lg:block" />}
             {demo ? (
-              <p className="mt-5 rounded-[1rem] border border-dashed border-bronze/50 p-3 text-center text-[0.82rem] text-ink/70">
+              <p className="mt-5 rounded-[1rem] border border-dashed border-bronze/50 p-3 text-center text-[0.875rem] text-ink/70">
                 Preview only:{" "}
                 <Link href={`/trips/${j.slug}/book`} className="underline underline-offset-4">
                   try the card and bank-transfer booking flow
@@ -173,7 +180,7 @@ export function TripView({ j }: { j: Journey }) {
               {j.intro}
               <Mark s={j.introStatus} />
             </p>
-            <ul className="glass-phone mt-6 grid grid-cols-1 rounded-[1.25rem] px-4 py-1 [--glass-shadow:none] sm:mt-7 sm:grid-cols-2 sm:gap-1.5 sm:p-0">
+            {j.plan ? null : <ul className="glass-phone mt-6 grid grid-cols-1 rounded-[1.25rem] px-4 py-1 [--glass-shadow:none] sm:mt-7 sm:grid-cols-2 sm:gap-1.5 sm:p-0">
               {j.highlights.map((h, i) => (
                 <li key={h.value} className={`glass-wide flex items-start gap-3 py-3 text-[0.95rem] sm:rounded-[1.1rem] sm:px-4 sm:py-3.5 ${i ? "border-t border-ink/8" : ""}`}>
                   <Tick className="mt-[0.2em]" />
@@ -183,7 +190,7 @@ export function TripView({ j }: { j: Journey }) {
                   </span>
                 </li>
               ))}
-            </ul>
+            </ul>}
           </section>
 
           {j.kind === "hajj" ? <HajjOnNusuk /> : null}
@@ -191,10 +198,21 @@ export function TripView({ j }: { j: Journey }) {
           {j.kind === "umrah" && j.itinerary ? <Itinerary j={j} /> : null}
 
           {j.confirmed || j.pending ? (
-            <section className="mt-12 grid grid-cols-1 gap-2 sm:mt-16 sm:grid-cols-2 sm:gap-1.5">
+            <section className="mt-12 sm:mt-16">
               <ConfirmedPending confirmed={j.confirmed} pending={j.pending} />
             </section>
           ) : null}
+
+          {/* Phones (and desktop when the trip has packages): the trust box closes the trip's story. Its main button
+              shows on phones only; on desktop the join panel beside it is the main button. */}
+          <TrustBox
+            j={j}
+            members={members}
+            book
+            bookHref={bookable ? `/trips/${j.slug}/book` : j.state === "open" ? `#${anchors.join}` : `#${anchors.form}`}
+            bookLabel={joinLabel}
+            className={`mt-12 ${j.rooms?.value.length ? "lg:max-w-[30rem]" : "lg:hidden"}`}
+          />
         </div>
       </div>
       </Chapter>
@@ -298,13 +316,23 @@ export function TripView({ j }: { j: Journey }) {
         <section id={anchors.form} className={`wash-linen scroll-mt-28 py-[clamp(3.75rem,10vw,9rem)] ${gutter}`}>
           <div className="grid grid-cols-1 gap-x-14 gap-y-10 lg:grid-cols-12">
             <div className="lg:col-span-4">
-              <Heading className="text-[clamp(2.4rem,4vw,3.6rem)]">{j.kind === "hajj" ? hajjNusuk.closing.title : j.plan ? `Register for ${j.name}` : "Hear first when the dates are out"}</Heading>
+              <Heading className="text-[clamp(2.4rem,4vw,3.6rem)]">{j.kind === "hajj" ? hajjNusuk.closing.title : packages.length ? joinLabel : "Hear first when the dates are out"}</Heading>
               <p className="mt-5 max-w-[24rem] text-[1rem] leading-[1.65] text-ink/72">
-                {j.kind === "hajj" ? `${hajjNusuk.closing.text} ` : ""}Two minutes, and someone from Rawdah will be in touch. Registering doesn’t reserve a place or commit you to anything.
+                {j.kind === "hajj"
+                  ? `${hajjNusuk.closing.text} Registering doesn’t reserve a place or commit you to anything.`
+                  : packages.length
+                    ? "About a minute. The Rawdah Tours team confirms your place and how to pay the deposit."
+                    : "About a minute, and the Rawdah Tours team will be in touch. Registering doesn’t reserve a place or commit you to anything."}
               </p>
             </div>
             <div className="glass rounded-[1.75rem] p-5 sm:p-8 lg:col-span-7 lg:col-start-6">
-              <RegisterForm defaultJourney={j.kind === "hajj" ? "hajj-2027" : "umrah"} page={`/trips/${j.slug}`} />
+              {j.kind === "hajj" ? (
+                <StepForm path="hajj" />
+              ) : packages.length ? (
+                <StepForm path="group" trip={j.name} sub={j.dates.value} packages={packages} deposit={trip?.pricing ? gbp(trip.pricing.depositPence / 100) : undefined} bookHref={bookable ? `/trips/${j.slug}/book` : undefined} />
+              ) : (
+                <StepForm path="interest" trip={j.name} />
+              )}
             </div>
           </div>
         </section>

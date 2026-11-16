@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
-import { Suspense } from "react";
 
 import { faqs, privatePage } from "@/app/_site/content";
-import { Builder } from "@/app/_site/builder";
+import { StepForm } from "@/app/_site/step-form";
 import { FaqList, Tick } from "@/app/_site/home-sections";
 import { Mark } from "@/app/_site/marks";
 import { Chapter, Heading, PageLead, Square, gutter } from "@/app/_site/shell";
@@ -53,11 +52,18 @@ export default function PrivatePage() {
         </ul>
       </section>
 
-      <section id="planner" className={`scroll-mt-28 bg-canvas py-[clamp(3rem,6vw,5rem)] ${gutter}`}>
-        <Heading className="mb-6 text-[clamp(2.3rem,4vw,3.8rem)] sm:mb-8">Plan your Umrah</Heading>
-        <Suspense fallback={<p className="text-ink/68">Loading the planner…</p>}>
-          <Builder />
-        </Suspense>
+      <section id="planner" className={`scroll-mt-28 bg-canvas py-[clamp(3.75rem,8vw,7rem)] ${gutter}`}>
+        <div className="grid grid-cols-1 gap-x-14 gap-y-10 lg:grid-cols-12">
+          <div className="lg:col-span-4">
+            <Heading className="text-[clamp(2.3rem,4vw,3.8rem)]">Plan your Umrah</Heading>
+            <p className="mt-5 max-w-[24rem] text-[1rem] leading-[1.65] text-ink/72">
+              Tell us a little about who’s travelling and what matters to you. The Rawdah Tours team comes back with real options and prices.
+            </p>
+          </div>
+          <div className="glass rounded-[1.75rem] p-5 sm:p-8 lg:col-span-7 lg:col-start-6">
+            <StepForm path="private" />
+          </div>
+        </div>
       </section>
 
       <section className={`wash-linen py-[clamp(3.75rem,10vw,9rem)] ${gutter}`}>

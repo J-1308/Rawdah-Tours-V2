@@ -1,24 +1,7 @@
 import type { Metadata } from "next";
 
 import { brand } from "@/app/_site/content";
-import {
-  Closing,
-  Covers,
-  GroupsBand,
-  HajjBand,
-  Hero,
-  LastTrip,
-  Meaning,
-  Paying,
-  People,
-  Partners,
-  PrivateBand,
-  Questions,
-  Reviews,
-  Starts,
-  Trips,
-  WhyRawdah,
-} from "@/app/_site/home-sections";
+import { Closing, Covers, GroupsBand, HajjBand, Hero, LastTrip, People, Partners, PrivateBand, Questions, Reviews, Starts, Trips, WhyRawdah } from "@/app/_site/home-sections";
 import { Chapter } from "@/app/_site/shell";
 
 export const metadata: Metadata = {
@@ -75,9 +58,7 @@ export default function Home() {
       </Chapter>
       <Chapter tone="day">
         <WhyRawdah />
-        <Meaning />
         <Covers />
-        <Paying />
       </Chapter>
       <Chapter tone="night">
         <People />

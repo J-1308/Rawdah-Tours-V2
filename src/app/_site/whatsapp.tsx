@@ -24,6 +24,7 @@ export function WaGlyph({ className = "size-5" }: { className?: string }) {
 /** Desktop: a soft round WhatsApp button fixed to the bottom right of every page. */
 export function WhatsAppFloat() {
   const path = usePathname();
+  if (/^\/trips\/[^/]+/.test(path)) return null;
   return (
     <a
       href={pageWa(path)}
@@ -42,7 +43,9 @@ export function WhatsAppFloat() {
 /** Phones: a soft cream bar pinned to the bottom, WhatsApp and the page's main action. */
 export function MobileBar() {
   const path = usePathname();
-  if (path.includes("/book")) return null;
+  if (path.includes("/book") || path.startsWith("/questionnaire")) return null;
+  // Trip pages have their own bar, with the trip's price and deposit (trip-bar.tsx).
+  if (/^\/trips\/[^/]+(\/preview)?$/.test(path)) return null;
   const onTrip = path.startsWith("/trips/") && path.split("/").length === 3;
   const cta = path.startsWith(routes.private)
     ? { label: "Plan my Umrah", href: "#planner" }
@@ -53,7 +56,7 @@ export function MobileBar() {
         : { label: "Register interest", href: hajjRegister };
   return (
     <div data-placement="phone bar" className="top-zone fixed inset-x-0 bottom-0 z-50 px-2.5 pb-[calc(0.5rem+env(safe-area-inset-bottom))] lg:hidden motion-lift">
-      <div className="grid grid-cols-[auto_1fr] gap-1.5 rounded-[1.15rem] border border-(--edge) bg-canvas/85 p-1.5 shadow-[var(--shadow-float)] backdrop-blur-md">
+      <div className="grid grid-cols-[auto_1fr] gap-1.5 rounded-[1.15rem] border border-(--edge) bg-canvas p-1.5 shadow-[var(--shadow-float)] backdrop-blur-md">
         <a href={pageWa(path)} target="_blank" rel="noopener noreferrer" className="flex h-12 items-center gap-2 rounded-[0.85rem] bg-(--raise) px-4 text-[0.92rem] font-medium text-ink">
           <WaGlyph className="size-5 text-wa" />
           WhatsApp

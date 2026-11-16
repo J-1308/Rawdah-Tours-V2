@@ -12,7 +12,7 @@ export const tripHref = (j: Journey) => `/trips/${j.slug}`;
 export function StateTag({ j, className = "", onPhoto = true }: { j: Journey; className?: string; onPhoto?: boolean }) {
   return (
     <span
-      className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-[0.78rem] font-medium ${
+      className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-[0.875rem] font-medium ${
         onPhoto ? `[&_.site-mark]:border-sand/60 [&_.site-mark]:text-sand ${j.state === "past" ? "bg-black/60 text-cream/80" : "bg-black/60 text-cream"}` : "border border-ink/10 bg-(--raise) text-ink"
       } ${className}`}
     >
@@ -73,14 +73,14 @@ export function TripRow({ j }: { j: Journey; tone?: "canvas" | "ink" }) {
       <div className="flex flex-col justify-between gap-4 rounded-[1.35rem] bg-canvas-warm/80 p-4 sm:gap-5 sm:rounded-[1.5rem] sm:p-5">
         {price ? (
           <div>
-            <p className="text-[0.8rem] text-ink/65">{j.state === "past" ? "Was from" : "From"}</p>
+            <p className="text-[0.875rem] text-ink/65">{j.state === "past" ? "Was from" : "From"}</p>
             <p className="mt-0.5 flex flex-wrap items-baseline gap-x-2">
               <span className="display text-[2.3rem] leading-none sm:text-[2.6rem]">{gbp(price)}</span>
-              <span className="text-[0.84rem] text-ink/65">per person</span>
+              <span className="text-[0.875rem] text-ink/65">per person</span>
               <Mark s={j.rooms?.status} />
             </p>
             {j.deposit ? (
-              <p className="mt-2 text-[0.84rem] text-ink/68">
+              <p className="mt-2 text-[0.875rem] text-ink/68">
                 {gbp(j.deposit.value)} deposit
                 {j.months ? `, then ${j.months.value} × ${gbp(monthly(price, j.deposit.value, j.months.value))}` : ""}
                 <Mark s={j.months?.status ?? j.deposit.status} />
@@ -89,9 +89,9 @@ export function TripRow({ j }: { j: Journey; tone?: "canvas" | "ink" }) {
           </div>
         ) : (
           <div>
-            <p className="text-[0.8rem] text-ink/65">Prices</p>
+            <p className="text-[0.875rem] text-ink/65">Prices</p>
             <p className="display mt-0.5 text-[1.8rem] leading-tight">{j.kind === "hajj" ? "On Nusuk" : "Coming soon"}</p>
-            <p className="mt-2 text-[0.84rem] text-ink/68">
+            <p className="mt-2 text-[0.875rem] text-ink/68">
               {j.priceNote?.value}
               <Mark s={j.priceNote?.status} />
             </p>

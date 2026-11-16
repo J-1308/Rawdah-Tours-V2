@@ -20,7 +20,8 @@ This file says where the facts came from and what is still missing. Last updated
 ## Contact and company
 
 - WhatsApp / phone: +44 7809 281429 · email rawdahtours@gmail.com · Instagram @rawdahtours
-- Registered office: 5 Sir Denis Drive, Birmingham, England, B9 5DU (V1 terms)
+- Registered office: 66 Paul Street, London, England, EC2A 4NA (client, 2 Nov 2026; V1 had a Birmingham address)
+- Based in: West London (Jibril, 16 Nov 2026), shown on the About page
 - Company number: **missing**
 - ATOL: 5311 via Polani Travel Ltd for the 2026 trips (V1 terms). **Future trips to confirm.**
 
@@ -63,6 +64,13 @@ is **not** identified on the site.
   baggage, the two 4★ hotels and check-in dates, Eid note, the three packages, the payment timetable and group size.
   Prices and the timetable live in `src/lib/trips.ts`. **Left out on purpose:** the PDF's internal notes (pre-trip
   seminar, its speaker and date, Eid presents, videography), marked "not for publication" and "internal".
+  Hotel photos (sent by Jibril, 16 Nov 2026): four per hotel in a swipeable frame (`HotelGallery`). Novotel Thakher
+  City from Accor's own photos (exterior, room, prayer hall, restaurant); Al Manakha Rotana from its Hotels.com
+  listing (exterior, room with the Haram minarets, room, restaurant). The first of each is the slot photo
+  (`public/images/slots/`), the rest are in `public/images/hotels/`.
+- **Trust box** (trip pages, `trust` in `content.ts`): shows only the people on the trip and two buttons. Its
+  numbers (years running, pilgrims taken, review rating and count) stay empty until Rawdah answers the
+  questionnaire; never estimate them.
 - **Path of Purity II: Summer Edition** (V1, POSTER): 4–15 Aug 2026; 5 nights Peninsula Worth (Madinah), 5 nights
   Address Jabal Omar (Makkah), breakfast; Qatar Airways from Heathrow; quad £1,799, triple £1,835, double £2,025
   per person; land only from £1,040 (V1 terms; the poster's £1,099 is superseded); £500 deposit; balance cleared

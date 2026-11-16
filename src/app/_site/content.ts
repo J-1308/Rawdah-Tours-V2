@@ -48,6 +48,8 @@ export const brand = {
   /** V1 lib/constants.ts and LIVE footer. */
   whatsapp: "447809281429",
   phone: { display: "+44 7809 281429", href: "tel:+447809281429" },
+  /** "Book a call" in the forms (Cal.com or Calendly). Hidden until NEXT_PUBLIC_CALL_URL is set in Vercel. */
+  callUrl: process.env.NEXT_PUBLIC_CALL_URL ?? "",
   email: "rawdahtours@gmail.com",
   /** POSTER: @rawdahtours. */
   instagram: { handle: "@rawdahtours", href: "https://www.instagram.com/rawdahtours/" },
@@ -475,6 +477,19 @@ export const leader = {
   photo: { src: "/images/portraits/ayuub-mohamed-musa.jpg", alt: "Brother Ayuub Mohamed Musa, co-founder of Rawdah Tours" },
 };
 
+/**
+ * The trust box beside each trip (brief step 6; Audley's "years trading, rating, then two buttons"). The people
+ * on the trip show from the start. Numbers show only once Rawdah confirms them (questionnaire: years running,
+ * pilgrims taken, review rating and count): add them to `stats`, e.g. { value: "4", label: "years of trips" }.
+ * Never estimate them. `show: false` hides the whole box.
+ */
+export const trust = {
+  show: true,
+  title: "Travelling with Rawdah",
+  stats: [] as { value: string; label: string }[],
+  people: "With you on this trip",
+};
+
 export const people = {
   headline: "The people who will walk with you", // V1
   text: "Rawdah Tours was founded by Brother Ayuub and Ustadh Issa. Every trip is guided by certified ustadhs and looked after by the Rawdah Tours team.",
@@ -591,7 +606,7 @@ export type TripPlan = {
   /** A note under the line, between two segments (index of the segment it follows). */
   marker?: { after: number; text: string };
   flights: { dir: "Outbound" | "Return"; date: string; airline: string; route: string; code: string; rows: { k: string; v: string }[]; note?: string }[];
-  hotels: { city: string; nights: number; name: string; stars: number; slot: string; rows: { k: string; v: string }[]; note?: string }[];
+  hotels: { city: string; nights: number; name: string; stars: number; slot: string; more?: { src: string; alt: string }[]; rows: { k: string; v: string }[]; note?: string }[];
   notes: { tone: "moon" | "alert"; text: string }[];
   includes: V[];
   places?: V;
@@ -774,6 +789,12 @@ export const ramadanFull: Journey = {
           name: "Novotel Thakher City Makkah",
           stars: 4,
           slot: "hotel-novotel-thakher",
+          /* The hotel's own photos (Accor), sent by Jibril 16 Nov 2026. The first is the slot photo. */
+          more: [
+            { src: "/images/hotels/novotel-thakher-room.jpg", alt: "A room at Novotel Thakher City Makkah." },
+            { src: "/images/hotels/novotel-thakher-prayer-hall.jpg", alt: "The hotel’s prayer hall." },
+            { src: "/images/hotels/novotel-thakher-restaurant.jpg", alt: "The hotel restaurant." },
+          ],
           rows: [
             { k: "Check in", v: "Sun 28 Feb, 21 Ramadan" },
             { k: "Check out", v: "Tue 9 Mar" },
@@ -785,6 +806,12 @@ export const ramadanFull: Journey = {
           name: "Al Manakha Rotana",
           stars: 4,
           slot: "hotel-al-manakha-rotana",
+          /* The hotel's own photos (from its Hotels.com listing), sent by Jibril 16 Nov 2026. The first is the slot photo. */
+          more: [
+            { src: "/images/hotels/al-manakha-rotana-room-view.jpg", alt: "A room at Al Manakha Rotana, with the minarets of Masjid an-Nabawi outside." },
+            { src: "/images/hotels/al-manakha-rotana-room.jpg", alt: "A room at Al Manakha Rotana." },
+            { src: "/images/hotels/al-manakha-rotana-restaurant.jpg", alt: "The hotel restaurant." },
+          ],
           rows: [
             { k: "Check in", v: "Tue 9 Mar" },
             { k: "Check out", v: "Sat 13 Mar" },

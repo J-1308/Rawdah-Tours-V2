@@ -57,7 +57,7 @@ export function Hero() {
           <div className="hero-step" style={{ "--d": "800ms" } as CSSProperties}>
             <Actions primary={{ label: "Register for Hajj 2027", href: hajjRegister }} waText={say.general} className="mt-7 sm:mt-9 lg:mt-7" />
           </div>
-          <ul style={{ "--d": "950ms" } as CSSProperties} className="hero-step mt-7 flex flex-wrap gap-x-7 gap-y-2 text-[0.86rem] text-ink/65 sm:mt-10 sm:gap-y-2.5 lg:mt-8">
+          <ul style={{ "--d": "950ms" } as CSSProperties} className="hero-step mt-7 flex flex-wrap gap-x-7 gap-y-2 text-[0.875rem] text-ink/65 sm:mt-10 sm:gap-y-2.5 lg:mt-8">
             {hero.facts.map((f) => (
               <li key={f.value} className="flex items-start gap-2.5">
                 <Dot />
@@ -87,13 +87,13 @@ export function Starts() {
         {starts.map((s) => (
           <li key={s.title}>
             <Link href={s.href} className="glass group flex items-center gap-4 rounded-[1.4rem] p-2 pr-4 active:scale-[0.99]">
-              <span className="relative block aspect-[4/3] w-[6.75rem] shrink-0 overflow-hidden rounded-[1rem] bg-beige">
-                <Pic src={s.photo.src} alt="" sizes="7rem" className={`object-cover ${s.photo.position}`} />
+              <span className="relative block aspect-[4/3] w-[5rem] shrink-0 overflow-hidden rounded-[1rem] bg-beige">
+                <Pic src={s.photo.src} alt="" sizes="5rem" className={`object-cover ${s.photo.position}`} />
               </span>
               <span className="min-w-0 flex-1 py-1">
-                <span className="block text-[0.74rem] font-medium tracking-[0.02em] text-bronze">{s.tag.value}</span>
+                <span className="block text-[0.875rem] font-medium tracking-[0.02em] text-bronze">{s.tag.value}</span>
                 <span className="display mt-0.5 block text-[1.45rem] leading-[1.1]">{s.title}</span>
-                <span className="mt-1 block text-[0.84rem] leading-[1.4] text-ink/65">{s.text}</span>
+                <span className="mt-1 block text-[0.875rem] leading-[1.4] text-ink/65">{s.text}</span>
               </span>
               <Chevron className="size-3 shrink-0 text-ink/45 transition-transform group-hover:translate-x-0.5" />
             </Link>
@@ -107,7 +107,7 @@ export function Starts() {
               <div className="relative aspect-[4/3] overflow-hidden rounded-[1.75rem] bg-beige shadow-[var(--shadow-lift)] lg:aspect-[5/4]">
                 <Pic src={s.photo.src} alt="" sizes="(min-width: 1024px) 23vw, (min-width: 640px) 46vw, 84vw" className={`object-cover transition-transform duration-[1.2s] group-hover:scale-[1.04] ${s.photo.position}`} />
                 <div aria-hidden className="absolute inset-0 bg-[linear-gradient(to_top,rgb(42_31_26/0.85)_0%,rgb(42_31_26/0.25)_45%,transparent_70%)]" />
-                <span className="absolute top-3 left-3 rounded-full bg-black/60 px-3 py-1 text-[0.78rem] font-medium text-cream [&_.site-mark]:border-sand/60 [&_.site-mark]:text-sand">
+                <span className="absolute top-3 left-3 rounded-full bg-black/60 px-3 py-1 text-[0.875rem] font-medium text-cream [&_.site-mark]:border-sand/60 [&_.site-mark]:text-sand">
                   {s.tag.value}
                   <Mark s={s.tag.status} />
                 </span>
@@ -236,7 +236,7 @@ export function LastTrip() {
                     </span>
                     <span className="text-[0.92rem] leading-tight">
                       <span className="block">{t.name}</span>
-                      <span className="text-[0.82rem] text-ink/62">{t.role}</span>
+                      <span className="text-[0.875rem] text-ink/62">{t.role}</span>
                     </span>
                   </li>
                 );
@@ -311,7 +311,7 @@ export function Meaning() {
       </p>
       <Heading className="mt-2 text-[clamp(2.3rem,3.8vw,3.6rem)]">{meaning.title}</Heading>
       <p className="mx-auto mt-4 max-w-[40rem] font-editorial text-[clamp(1.35rem,2vw,1.7rem)] leading-[1.5] text-ink/80">{meaning.text}</p>
-      <p className="mt-4 text-[0.84rem] text-ink/62">{meaning.source}</p>
+      <p className="mt-4 text-[0.875rem] text-ink/62">{meaning.source}</p>
     </section>
   );
 }
@@ -378,7 +378,8 @@ export function CoverGroups({ groups, wide = "", status, brief = false }: { grou
 
 export function Covers() {
   return (
-    <section className={`${pad} ${gutter}`}>
+    /* Phones: it follows "Why Rawdah" in the same chapter, so one section's spacing is enough between them. */
+    <section className={`${pad} max-sm:pt-2 ${gutter}`}>
       <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
         <Heading className={h2}>{covers.headline}</Heading>
         <p className="max-w-[26rem] font-editorial text-[1.25rem] leading-[1.5] text-ink/70 italic">{covers.text}</p>
@@ -388,15 +389,6 @@ export function Covers() {
       </div>
       <div className="mt-8 sm:mt-10">
         <CoverGroups groups={covers.groups} wide="lg:grid-cols-4" brief />
-      </div>
-      <div className="mt-12 grid grid-cols-1 gap-x-14 gap-y-6 sm:mt-16 lg:grid-cols-12 lg:items-center">
-        <div className="lg:col-span-3">
-          <h3 className="display text-[clamp(2rem,2.8vw,2.7rem)]">{stay.headline}</h3>
-          <p className="mt-2 text-[0.94rem] leading-[1.6] text-ink/68">{stay.text}</p>
-        </div>
-        <div className="lg:col-span-9">
-          <StayTable />
-        </div>
       </div>
     </section>
   );
@@ -427,10 +419,10 @@ export function PaymentPlan({ tone = "ink" }: { tone?: "ink" | "canvas" }) {
       <ol className="relative mt-7 grid grid-cols-2 gap-x-5 gap-y-6 sm:grid-cols-4 sm:gap-x-6">
         {paying.stages.map((s, i) => (
           <li key={s.when}>
-            <p className={`text-[0.8rem] ${dark ? "text-sand" : "text-bronze"}`}>{s.when}</p>
+            <p className={`text-[0.875rem] ${dark ? "text-sand" : "text-bronze"}`}>{s.when}</p>
             <p className={`display mt-1 text-[1.55rem] leading-tight sm:text-[1.8rem] ${dark ? "text-cream" : ""}`}>{amounts[i]}</p>
             <p className="mt-0.5 text-[0.9rem] font-medium">{s.what}</p>
-            <p className={`mt-1 text-[0.84rem] leading-[1.5] sm:text-[0.86rem] sm:leading-[1.55] ${dark ? "text-cream/62" : "text-ink/68"}`}>
+            <p className={`mt-1 text-[0.875rem] leading-[1.5] sm:text-[0.875rem] sm:leading-[1.55] ${dark ? "text-cream/62" : "text-ink/68"}`}>
               {s.note}
               <Mark s={s.status} />
             </p>
@@ -485,7 +477,8 @@ export function People({ link = true, members = teamMembers, guests = guestMembe
           </TileLink>
         ) : null}
       </div>
-      <TeamList members={members} className="mt-10 sm:mt-12" />
+      {/* lg:pr-16 keeps the round WhatsApp button clear of the last lines of a bio. */}
+      <TeamList members={members} className="mt-10 sm:mt-12 lg:pr-16" />
       {guests.length ? (
         <div className="mt-12 border-t border-ink/10 pt-10 sm:mt-16 sm:pt-12">
           <p className="font-editorial text-[1.35rem] text-bronze italic">{guests.length > 1 ? "Guest sheikhs" : "Guest sheikh"}</p>
@@ -524,7 +517,7 @@ export function GroupsBand() {
           </p>
           <ul className="mt-6 flex flex-wrap gap-2">
             {groupsBand.who.map((w) => (
-              <li key={w} className="rounded-full border border-ink/10 bg-(--raise) px-3.5 py-1.5 text-[0.84rem] text-ink/75">
+              <li key={w} className="flex min-h-11 items-center rounded-[0.95rem] border border-ink/10 bg-(--raise) px-3.5 text-[0.875rem] text-ink/75">
                 {w}
               </li>
             ))}
@@ -591,14 +584,14 @@ export function Reviews() {
         {rest.map((r) => (
           <figure key={r.who} className="glass rounded-[1.75rem] p-6 sm:p-7">
             <blockquote className="font-editorial text-[1.2rem] leading-[1.45] sm:text-[1.35rem]">“{r.quote}”</blockquote>
-            <figcaption className="mt-4 text-[0.86rem] text-ink/65">
+            <figcaption className="mt-4 text-[0.875rem] text-ink/65">
               {r.who}, a previous trip
               <Mark s={r.status} />
             </figcaption>
           </figure>
         ))}
       </div>
-      <p className="mt-8 text-center text-[0.8rem] text-ink/60">
+      <p className="mt-8 text-center text-[0.875rem] text-ink/60">
         {reviews.note}
         <Mark s="to confirm" />
       </p>
@@ -659,7 +652,7 @@ export function FaqList({ items }: { items: Faq[] }) {
               {f.q}
               <Mark s={f.status} />
             </span>
-            <span aria-hidden className="mt-0.5 grid size-6 shrink-0 place-items-center rounded-full bg-(--raise) text-[0.9rem] leading-none text-ink/70 shadow-[0_4px_12px_-6px_rgb(58_43_36/0.4)] transition-transform group-open:rotate-45">
+            <span aria-hidden className="-my-2 grid size-11 shrink-0 place-items-center rounded-full bg-(--raise) text-[1.1rem] leading-none text-ink/70 shadow-[0_4px_12px_-6px_rgb(58_43_36/0.4)] transition-transform group-open:rotate-45">
               +
             </span>
           </summary>
