@@ -41,7 +41,7 @@ on phones outdoors.
 | --- | --- | --- |
 | Headlines | Cormorant Garamond 460 | `.display`, upright, one colour, `text-wrap: balance`. |
 | Labels, captions, sub-titles | Cormorant Garamond italic | Bronze on cream, sand on cocoa, with the tiny mark (`<Label>`). |
-| Body and UI | DM Sans 400/500 | 0.92–1.05rem, line-height 1.6–1.75, ink at 60–75%. |
+| Body and UI | DM Sans 400/500 | 0.92–1.05rem, line-height 1.6–1.75, ink at 60–75%. Nothing below 0.875rem (14px), ink no lighter than 62% (design pass, Nov 2026). |
 | Arabic | Amiri | روضة. |
 
 ## 3. Shape and depth
@@ -49,6 +49,8 @@ on phones outdoors.
 Buttons `rounded-[0.95rem]`; cards `rounded-[1.5rem]`; photos `rounded-[1.75rem–2rem]`; dark panels
 `rounded-[2.5rem]`. Depth from soft shadows (`--shadow-soft`, `--shadow-lift`, `--shadow-float`) and `.glass`
 cards (translucent cream, white edge; no backdrop blur, see ADR 0004). No hard borders, no pills, no arches.
+Choice chips and tags are `rounded-[0.9–0.95rem]`, at least 44px high. Phone bars are opaque (`bg-canvas`); on trip
+pages the trip bar replaces the floating WhatsApp button.
 
 ## 4. The logo
 
