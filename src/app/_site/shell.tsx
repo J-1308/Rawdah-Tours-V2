@@ -281,11 +281,14 @@ export function PageLead({
           ))}
         </nav>
       ) : null}
-      <div className="relative grid grid-cols-1 gap-x-16 gap-y-14 lg:grid-cols-12 lg:items-center">
-        <div className="lg:order-2 lg:col-span-6">
+      {/* Phones and tablets, two layouts on trial (16 Nov 2026): the photo first (default), or with `?lead=title` the
+          title and status first and the photo capped at 4:3 (Fable's design review). Children marked `lead-after`,
+          and everything after them, go below the photo. CSS in globals.css under "Page head trial". */}
+      <div className="lead-grid relative grid grid-cols-1 gap-x-16 gap-y-14 lg:grid-cols-12 lg:items-center">
+        <div className="lead-photo lg:order-2 lg:col-span-6">
           <PhotoStack photos={photos} priority className="lg:ml-auto lg:max-w-[34rem]" />
         </div>
-        <div className="lg:order-1 lg:col-span-6">
+        <div className="lead-text lg:order-1 lg:col-span-6">
           {label ? <Label>{label}</Label> : null}
           <Heading as="h1" className="mt-4 text-[clamp(2.8rem,5.4vw,5.4rem)]">
             {title}
