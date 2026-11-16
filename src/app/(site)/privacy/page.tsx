@@ -16,7 +16,6 @@ export default function PrivacyPage() {
   const emailOn = Boolean(process.env.RESEND_API_KEY);
   const sheetOn = Boolean(process.env.SIGNUPS_SHEET_URL);
   const storeOn = Boolean(process.env.BLOB_READ_WRITE_TOKEN);
-  const formsSave = emailOn || sheetOn || storeOn;
   return (
     <LegalPage
       title="Privacy policy"
@@ -47,17 +46,11 @@ export default function PrivacyPage() {
           </li>
           <li>Visit counts and which buttons are used (for example how many people tap WhatsApp), counted without cookies and without identifying you.</li>
         </ul>
-        {formsSave ? (
-          <p>
-            When you register your interest, we keep your details in our private list of sign-ups{emailOn ? ", email them to us, and email you a confirmation" : ""}. The private Umrah planner and the group trip form don’t send us anything by themselves: they write a message for you, and
-            nothing reaches us until you send it by WhatsApp or email.
-          </p>
-        ) : (
-          <p>
-            At the moment our forms (register interest, the private Umrah planner and the group trip form) don’t send us anything by themselves. They
-            write a message for you, and nothing reaches us until you choose to send it by WhatsApp or email.
-          </p>
-        )}
+        <p>
+          Our forms save as you go: once you’ve given your first name and a WhatsApp number or email, we keep what you’ve told us, even if you
+          stop before the end, so the Rawdah Tours team can reply. It’s kept in our private list of sign-ups{emailOn ? " and emailed to us" : ""}
+          {sheetOn ? ", and added to our private spreadsheet" : ""}. If you ask us not to send a reminder about your enquiry, we won’t.
+        </p>
         <p>We only collect what we need to organise your trip or reply to you.</p>
       </LegalSection>
 

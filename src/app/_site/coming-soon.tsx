@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { anchors, say, type Journey } from "@/app/_site/content";
-import { RegisterForm } from "@/app/_site/register-form";
+import { StepForm } from "@/app/_site/step-form";
 import { TripPhoneBar } from "@/app/_site/trip-bar";
 import { Actions, Chapter, gutter, Heading } from "@/app/_site/shell";
 
@@ -73,7 +73,7 @@ export function ComingSoonTrip({ j }: { j: Journey }) {
               </p>
             </div>
             <div className="glass rounded-[1.75rem] p-5 sm:p-8 lg:col-span-7 lg:col-start-6">
-              <RegisterForm defaultJourney="umrah" page={`/trips/${j.slug}`} />
+              <StepForm path="interest" trip={j.name} sub="With GGC. The details are coming soon." />
             </div>
           </div>
         </section>

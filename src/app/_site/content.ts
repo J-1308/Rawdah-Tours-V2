@@ -48,6 +48,8 @@ export const brand = {
   /** V1 lib/constants.ts and LIVE footer. */
   whatsapp: "447809281429",
   phone: { display: "+44 7809 281429", href: "tel:+447809281429" },
+  /** "Book a call" in the forms (Cal.com or Calendly). Hidden until NEXT_PUBLIC_CALL_URL is set in Vercel. */
+  callUrl: process.env.NEXT_PUBLIC_CALL_URL ?? "",
   email: "rawdahtours@gmail.com",
   /** POSTER: @rawdahtours. */
   instagram: { handle: "@rawdahtours", href: "https://www.instagram.com/rawdahtours/" },

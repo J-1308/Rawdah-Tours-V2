@@ -7,7 +7,7 @@ import { TripPhoneBar } from "@/app/_site/trip-bar";
 import { anchors, covers, faqs, fromPrice, gbp, hajjNusuk, journey, journeys, nightsOf, ramadanReveal, routes, routeText, say, type Journey } from "@/app/_site/content";
 import { CoverGroups, FaqList, PaymentPlan, Tick } from "@/app/_site/home-sections";
 import { Mark } from "@/app/_site/marks";
-import { RegisterForm } from "@/app/_site/register-form";
+import { StepForm } from "@/app/_site/step-form";
 import { ReservePanel } from "@/app/_site/reserve";
 import { Chapter, ConfirmedPending, gutter, Heading, Label, PageLead, PartnerLogo, WaTile } from "@/app/_site/shell";
 import { HajjOnNusuk, leaderMember, MomentStrip, TeamLine, TeamList, teacherMembers, teamMembers, TripIncludes, TripJourney, TripPackages, WhereYouStay, type Member } from "@/app/_site/trip-parts";
@@ -97,6 +97,8 @@ export function TripView({ j }: { j: Journey }) {
   const shownAbove = ["What is included in the trip cost?", "What is the trip itinerary like?", "What about meal arrangements?"];
   const qs = faqs.filter((f) => (j.kind === "hajj" ? f.topic === "hajj" : f.topic !== "hajj") && !(j.plan && shownAbove.includes(f.q)));
   const joinLabel = j.state === "open" ? "Book your place" : "Register interest";
+  /** The packages to choose from in the form, with their price per person (from src/lib/trips.ts). */
+  const packages = j.kind === "hajj" ? [] : (trip?.pricing?.rooms ?? []).map((r) => `${r.label}, ${gbp(r.pricePence / 100)} per person`);
 
   const facts = [
     { k: "Dates", v: j.dates.value, s: j.dates.status },
@@ -300,13 +302,23 @@ export function TripView({ j }: { j: Journey }) {
         <section id={anchors.form} className={`wash-linen scroll-mt-28 py-[clamp(3.75rem,10vw,9rem)] ${gutter}`}>
           <div className="grid grid-cols-1 gap-x-14 gap-y-10 lg:grid-cols-12">
             <div className="lg:col-span-4">
-              <Heading className="text-[clamp(2.4rem,4vw,3.6rem)]">{j.kind === "hajj" ? hajjNusuk.closing.title : j.plan ? `Register for ${j.name}` : "Hear first when the dates are out"}</Heading>
+              <Heading className="text-[clamp(2.4rem,4vw,3.6rem)]">{j.kind === "hajj" ? hajjNusuk.closing.title : packages.length ? "Reserve your place" : "Hear first when the dates are out"}</Heading>
               <p className="mt-5 max-w-[24rem] text-[1rem] leading-[1.65] text-ink/72">
-                {j.kind === "hajj" ? `${hajjNusuk.closing.text} ` : ""}Two minutes, and someone from Rawdah will be in touch. Registering doesn’t reserve a place or commit you to anything.
+                {j.kind === "hajj"
+                  ? `${hajjNusuk.closing.text} Registering doesn’t reserve a place or commit you to anything.`
+                  : packages.length
+                    ? "About a minute. The Rawdah Tours team confirms your place and how to pay the deposit."
+                    : "About a minute, and the Rawdah Tours team will be in touch. Registering doesn’t reserve a place or commit you to anything."}
               </p>
             </div>
             <div className="glass rounded-[1.75rem] p-5 sm:p-8 lg:col-span-7 lg:col-start-6">
-              <RegisterForm defaultJourney={j.kind === "hajj" ? "hajj-2027" : "umrah"} page={`/trips/${j.slug}`} />
+              {j.kind === "hajj" ? (
+                <StepForm path="hajj" />
+              ) : packages.length ? (
+                <StepForm path="group" trip={j.name} sub={j.dates.value} packages={packages} deposit={trip?.pricing ? gbp(trip.pricing.depositPence / 100) : undefined} bookHref={bookable ? `/trips/${j.slug}/book` : undefined} />
+              ) : (
+                <StepForm path="interest" trip={j.name} />
+              )}
             </div>
           </div>
         </section>
