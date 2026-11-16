@@ -477,6 +477,19 @@ export const leader = {
   photo: { src: "/images/portraits/ayuub-mohamed-musa.jpg", alt: "Brother Ayuub Mohamed Musa, co-founder of Rawdah Tours" },
 };
 
+/**
+ * The trust box beside each trip (brief step 6; Audley's "years trading, rating, then two buttons"). The people
+ * on the trip show from the start. Numbers show only once Rawdah confirms them (questionnaire: years running,
+ * pilgrims taken, review rating and count): add them to `stats`, e.g. { value: "4", label: "years of trips" }.
+ * Never estimate them. `show: false` hides the whole box.
+ */
+export const trust = {
+  show: true,
+  title: "Travelling with Rawdah",
+  stats: [] as { value: string; label: string }[],
+  people: "With you on this trip",
+};
+
 export const people = {
   headline: "The people who will walk with you", // V1
   text: "Rawdah Tours was founded by Brother Ayuub and Ustadh Issa. Every trip is guided by certified ustadhs and looked after by the Rawdah Tours team.",

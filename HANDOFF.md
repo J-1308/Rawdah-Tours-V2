@@ -1,95 +1,97 @@
 # Rawdah Tours V2 — handoff
 
 A self-contained briefing for whoever (or whatever tool) picks this up next. Keep it current.
-Last updated 25 October 2026.
+Last updated 16 November 2026.
+
+## Start here (next session)
+
+1. Read this file, then `CLAUDE.md` (rules), `docs/design-system.md`, `docs/lessons.md` and
+   `docs/project/open-questions.md`.
+2. **Merge first if Jibril hasn't:** branch `photos/ramadan-hotels` holds all of 16 Nov's work in one chain
+   (`contact/trip-bar` → `forms/steps` → `questionnaire/client` → `design/pass` → `photos/ramadan-hotels` →
+   trust box). One merge brings it all: https://github.com/J-1308/Rawdah-Tours-V2/compare/main...photos/ramadan-hotels
+   Base new work on that branch (or on `main` once merged).
+3. Then carry on with **What's next** below.
 
 ## The business
 
-Rawdah Tours Ltd, Birmingham. Guided Umrah from the UK with students of knowledge travelling with every group,
-and a group preparing for **Hajj 2027** (registration of interest; packages are booked and paid on Nusuk, never
-through Rawdah). Group leader: Brother Ayuub Mohamed Musa. Last trip: *Path of Purity II: Summer Edition*,
-4–15 August 2026. Audience: individuals and families, mostly arriving from Instagram, WhatsApp and word of mouth.
+Rawdah Tours Ltd, based in West London (registered office 66 Paul Street, London EC2A 4NA). Guided Umrah from the
+UK with certified ustadhs, and a group preparing for **Hajj 2027** (registration of interest; packages are booked
+and paid on Nusuk, never through Rawdah). Co-founders: Brother Ayuub Mohamed Musa and Ustadh Issa Uthman; guest
+sheikhs join trips to teach. Next flagship: **Ramadan Umrah 2027 with GGC** (27 Feb – 13 Mar 2027), shown publicly
+as "Ramadan 1448: coming soon" until GGC and Rawdah say go. Audience mostly from Instagram, WhatsApp and word of
+mouth. Phone +44 7809 281429, rawdahtours@gmail.com, @rawdahtours.
 
 ## The repos
 
-- `J-1308/Rawdah-Tours-V2` — **this repo, the only one we develop in.**
-- `J-1308/Rawdahtoursw-website` — V1, read-only. Source of Rawdah's facts, copy, photos and the booking flow V2 rebuilt.
-- `J-1308/The_Umrah_Experience` — The Umrah Company, **a different client** selling similar trips. Read-only.
-  V2 shares its *conversion method* only. Its look, layout, copy, photos, people and facts must never appear here
-  (see `docs/adr/0001-rawdah-visual-language.md`). Jibril rejected an earlier V2 for looking like it.
+- `J-1308/Rawdah-Tours-V2`: **this repo, the only one we develop in.**
+- `J-1308/Rawdahtoursw-website`: V1, read-only. Rawdah's facts, copy and photos.
+- `J-1308/The_Umrah_Experience`: The Umrah Company, **a different client**. Read-only. Share the conversion method
+  only; never its look, layout, copy, photos, people or facts (ADR 0001).
 
-## What is built (branch `feat/v2-rebuild`)
+## Where it runs
 
-Next.js 16 App Router, React 19, TypeScript, Tailwind v4. Public pages in `src/app/(site)/`:
+Live on **www.rawdahtours.co.uk** (Vercel project `rawdah-tours-v2`, team `j-1308s-projects`), currently behind
+`SITE_PASSWORD` (whole site, `/gate`). Jibril plans to relaunch on 16 Nov 2026 by deleting `SITE_PASSWORD` in
+Vercel and redeploying. Every branch gets a preview at
+`rawdah-tours-v2-git-<branch-with-dashes>-j-1308s-projects.vercel.app` (behind Vercel login).
 
-| Route | Page |
-| --- | --- |
-| `/` | Home |
-| `/trips` | Every trip |
-| `/trips/hajj-2027` · `/trips/next-umrah` · `/trips/path-of-purity-ii` | Trip pages, each with a join panel and (unless past) a register-interest form |
-| `/trips/[slug]/book` | Deposit booking (card via Stripe, or bank transfer) — only for trips with status `open` |
-| `/private-umrah` | Private & family Umrah with a planner that writes a WhatsApp message |
-| `/groups` | Masjids & groups, with an organiser's message form |
-| `/about` | Story, meaning of Rawdah, values, team, contact and company details |
-| `/terms` · `/privacy` · `/cookies` | Legal (from V1, April 2026) |
-| `/booking/*` · `/admin` · `/api/stripe/webhook` | Booking returns, bookings list, Stripe webhook |
+Env vars set in Vercel (16 Nov): `SITE_PASSWORD`, `BLOB_READ_WRITE_TOKEN` (private Blob store). **Not set:**
+`RESEND_API_KEY` (no emails go out yet; Jibril has the steps), Stripe keys, `NEXT_PUBLIC_CALL_URL` (Cal.com link).
+Jibril adds env vars himself; secrets never go in chat or the repo.
 
-Content: `src/app/_site/content.ts` (every word, with a status). Prices: `src/lib/trips.ts` (one source, server-side).
-Design: `docs/design-system.md`. Booking: `docs/booking.md`. Facts and sources: `docs/content-inventory.md`.
+## What is built
 
-## Real vs not yet
+Next.js 16 App Router, React 19, TypeScript, Tailwind v4. Copy lives in `src/app/_site/content.ts`; prices only in
+`src/lib/trips.ts` (server side). Pages: home, `/trips`, trip pages (`/trips/hajj-2027`, the Ramadan teaser
+`/trips/ramadan-umrah-2027` with a private full preview at `.../preview`), `/private-umrah`, `/groups`, `/about`,
+legal pages, and `/questionnaire` (noindex, Rawdah's questions).
 
-The page shows review marks: **Suggested** (our proposal), **To confirm** (only Rawdah can say), **Sample**
-(illustrative). A switch on the left edge hides them to judge the look. Everything marked must be resolved, and
-the marks and switch removed, before the site goes on rawdahtours.co.uk. The list: `docs/project/open-questions.md`.
+Added on 16 Nov (the conversion brief, `prompt-rawdah-tours.md` in Jibril's Downloads):
+- **Tracking** (merged): Vercel Web Analytics custom events and UTM capture. `docs/tracking.md`.
+- **Trip phone bar**: price, deposit and the main button on trip pages (`trip-bar.tsx`).
+- **Step-by-step forms** (`step-form.tsx`, spec by Fable): step 1 saves a partial lead to Blob
+  (`lib/server/leads.ts`, `actions/lead.ts`); paths for group, private, community, Hajj and interest; endings for
+  WhatsApp, a call (when `NEXT_PUBLIC_CALL_URL` is set) and the deposit (when bookable).
+- **Questionnaire** for Rawdah (`/questionnaire`): 43 questions; answers go to Blob and email.
+- **Design pass** led by Fable: 14px minimum text, no pills, quieter home, opaque phone bars, shorter phone footer;
+  on phones the page head shows the title and status above a 4:3 photo (Jibril's pick).
+- **Ramadan hotel photos**: four each in a swipeable frame (`hotel-gallery.tsx`).
+- **Trust box** (`TrustBox` in `trip-parts.tsx`, switch and numbers in `trust` in `content.ts`): the people on the
+  trip, then "Book your place" and "Get the full itinerary" (or WhatsApp). Years, pilgrims and rating stay empty
+  until Rawdah confirms them.
 
-Search engines are shut out everywhere except the production build on rawdahtours.co.uk (`IS_LIVE` in `src/lib/site.ts`): attach the domain, redeploy, and `robots.txt`, the sitemap and indexing open by themselves.
+## Decisions to keep
 
-## Brand
+- Booking: WhatsApp with the deposit by bank transfer now; card payments with Stripe later, **both** offered. No
+  Supabase: bookings will be stored in Blob. Open trips say "Book your place" everywhere.
+- ATOL 5311 only in the terms and footer. Don't name the ATOL provider.
+- Cookieless: no Meta Pixel or Google Ads tags. No fake urgency or countdowns.
+- Fable (the `fable` model via the Agent tool) only for judgement calls: plan reviews, design passes, specs for new
+  pieces, the final review before each release. Jibril wants its usage kept for those.
 
-The logo is the cocoa-on-cream Rawdah lockup (V1 `preview_logo`), traced to SVG
-(`public/images/brand/rawdah-logo.svg`, `rawdah-mark.svg`) so it renders crisply in any colour: cocoa on cream
-in the header, cream on cocoa in the footer, and the kufic mark as a faint watermark. Palette and fonts are
-Rawdah's own, softened: cream, linen, beige, sand and cocoa; Cormorant Garamond and DM Sans. The look is soft,
-blended and premium (ADR 0002); it must never resemble The Umrah Company's site (ADR 0001).
+## What's next
 
-## Versions
+1. **Fable's final review** of the 16 Nov work (phone and desktop screenshots of home, a trip, Hajj, Ramadan
+   preview, private, groups, about), then fix and merge.
+2. **Resend**: once Jibril adds `RESEND_API_KEY`, send a test sign-up and check both emails arrive.
+3. **Card deposits**: rebuild the booking store on Blob (no Supabase), then Stripe once Jibril adds the keys.
+   `docs/booking.md` describes the current (Supabase) code.
+4. **"How it all began"** section on About, built with slots for the questionnaire answers, behind a switch.
+5. **Chat proposal**: a short note (scripted vs AI), no build.
+6. Deferred: reminder emails (need Resend), Makkah/Madinah guides (need client-verified text). Cut: wishlist.
 
-Two looks are on the table (25 October 2026):
-- `feat/v2-rebuild`: the soft cream site with the cocoa-on-cream logo (ADR 0002). Jibril likes it; keep as is.
-- `feat/v2-dark`: the same site at night with the logo in the sand-gold of the main button and a new hero (ADR 0003).
-- `feat/v2-mix`: day and night in chapters (ADR 0004), with a review switch for the top: dark with the beige-gold
-  logo, or light with the brown logo (`?top=light` / `?top=dark`). Jibril asked for this on 25 October 2026.
-Phone fixes are made on `feat/v2-rebuild` and merged into `feat/v2-dark`, so both stay equally phone friendly.
-Each branch has its own Vercel preview. Pick one, then merge it into `main`.
-
-## Hosting
-
-Vercel project `rawdah-tours-v2` (account `j-1308s-projects`), linked to this repo on 25 October 2026. Every push
-deploys: `main` to production (`rawdah-tours-v2-j-1308s-projects.vercel.app`), any other branch to a preview.
-Deployments sit behind Vercel's login (the team default), so only signed-in team members can open them.
-rawdahtours.co.uk is not attached yet. Env vars: see `docs/booking.md`; none are set yet, so forms fall back to
-WhatsApp and `/admin` is off.
+Waiting on Rawdah: questionnaire answers (story, years, pilgrim numbers), Cal.com link, Ramadan go-ahead and its
+teachers, Sheikh Yahya Rabi's photo from GGC, photo licences (Arafah and Makkah aerial). Full list in
+`docs/project/open-questions.md`.
 
 ## Rules
 
-Branch per task, PR into `main`; `npm run build` before pushing; no secrets in the repo or chat (Jibril sets env
-vars in Vercel); never invent people, testimonials, dates or prices; check every change at 390px wide; ask before
-creating Vercel projects or other outside resources.
+Branch per task, PR into `main`; `npm run build` before pushing; check every change at 390px; never invent people,
+testimonials, dates or prices; ask before creating outside resources; update the docs a change touches.
 
-## Launch state (31 October 2026)
+## Site password
 
-- Branch `feat/v2-mix` is the site to launch. Dark top fixed; review marks and the top switch removed.
-- Ramadan 1448 with GGC shows as "coming soon" (`ramadanReveal = false` in `src/app/_site/content.ts`).
-- No online payments yet: booking on WhatsApp, deposits by bank transfer. Forms write a WhatsApp message until
-  Supabase is set up (the privacy notice says so).
-- Path of Purity II has no page; it lives in "Our last trip" on the home page.
-- Search engines open by themselves once the site is served from rawdahtours.co.uk in production (`IS_LIVE`).
-
-## Site password (1 November 2026)
-
-The whole site can sit behind a password while it's kept private. It's on only when `SITE_PASSWORD` is set in Vercel
-(Production); visitors see a Rawdah "Private for now" page (`/gate`), type it once, and a cookie keeps them in for
-30 days. While it's on, robots.txt tells search engines to stay out. To open the site again, delete `SITE_PASSWORD`
-in Vercel and redeploy. Code: `src/proxy.ts`, `src/lib/server/site-gate.ts`, `src/app/gate/page.tsx`. Stripe
-webhooks and `/admin` (its own login) are not behind it.
+On only while `SITE_PASSWORD` is set (Production). Visitors type it once at `/gate`; a cookie keeps them in for 30
+days; robots.txt shuts search engines out meanwhile. To open the site, delete it in Vercel and redeploy. Code:
+`src/proxy.ts`, `src/lib/server/site-gate.ts`, `src/app/gate/page.tsx`.

@@ -10,7 +10,7 @@ import { Mark } from "@/app/_site/marks";
 import { StepForm } from "@/app/_site/step-form";
 import { ReservePanel } from "@/app/_site/reserve";
 import { Chapter, ConfirmedPending, gutter, Heading, Label, PageLead, PartnerLogo, WaTile } from "@/app/_site/shell";
-import { HajjOnNusuk, leaderMember, MomentStrip, TeamLine, TeamList, teacherMembers, teamMembers, TripIncludes, TripJourney, TripPackages, WhereYouStay, type Member } from "@/app/_site/trip-parts";
+import { HajjOnNusuk, leaderMember, MomentStrip, TeamLine, TeamList, teacherMembers, teamMembers, TripIncludes, TrustBox, TripJourney, TripPackages, WhereYouStay, type Member } from "@/app/_site/trip-parts";
 import { StateTag } from "@/app/_site/trip-row";
 import { Chevron } from "@/app/_site/whatsapp";
 import { getTrip, isBookable, isDemoBooking } from "@/lib/trips";
@@ -158,6 +158,9 @@ export function TripView({ j }: { j: Journey }) {
         <aside id={anchors.join} className="scroll-mt-28 lg:order-2 lg:col-span-4">
           <div className="lg:sticky lg:top-28">
             <ReservePanel j={j} bookable={bookable} />
+            {/* Desktop, when the join panel is short (no packages): the trust box under it, softer option only.
+                With packages the panel is tall, so the box sits in the story column instead (below). */}
+            {j.rooms?.value.length ? null : <TrustBox j={j} members={members} book={false} bookHref="" bookLabel={joinLabel} className="mt-4 hidden lg:block" />}
             {demo ? (
               <p className="mt-5 rounded-[1rem] border border-dashed border-bronze/50 p-3 text-center text-[0.875rem] text-ink/70">
                 Preview only:{" "}
@@ -199,6 +202,17 @@ export function TripView({ j }: { j: Journey }) {
               <ConfirmedPending confirmed={j.confirmed} pending={j.pending} />
             </section>
           ) : null}
+
+          {/* Phones (and desktop when the trip has packages): the trust box closes the trip's story. Its main button
+              shows on phones only; on desktop the join panel beside it is the main button. */}
+          <TrustBox
+            j={j}
+            members={members}
+            book
+            bookHref={bookable ? `/trips/${j.slug}/book` : j.state === "open" ? `#${anchors.join}` : `#${anchors.form}`}
+            bookLabel={joinLabel}
+            className={`mt-12 ${j.rooms?.value.length ? "lg:max-w-[30rem]" : "lg:hidden"}`}
+          />
         </div>
       </div>
       </Chapter>

@@ -177,6 +177,13 @@ export function StepForm(props: StepFormProps) {
     id.current = crypto.randomUUID?.() ?? `${Date.now()}-${Math.random().toString(36).slice(2)}`;
   }, []);
 
+  /* "Get the full itinerary" elsewhere on the page (the trust box) ticks the itinerary box here. */
+  useEffect(() => {
+    const tick = () => setItinerary(true);
+    window.addEventListener(ITINERARY_EVENT, tick);
+    return () => window.removeEventListener(ITINERARY_EVENT, tick);
+  }, []);
+
   const f = (k: string) => `${uid}-${k}`;
   const set = (k: string, v: string) => setAnswers((a) => ({ ...a, [k]: v }));
 
@@ -434,3 +441,15 @@ function Ending({ props, name, waText, trip }: { props: StepFormProps; name: str
     </div>
   );
 }
+
+const ITINERARY_EVENT = "rawdah:itinerary";
+
+/** A link down to the trip's form that also ticks "Send me the full itinerary" there. */
+export function ItineraryLink({ href, className, children }: { href: string; className?: string; children: React.ReactNode }) {
+  return (
+    <a href={href} className={className} onClick={() => window.dispatchEvent(new Event(ITINERARY_EVENT))} data-placement="trust box">
+      {children}
+    </a>
+  );
+}
+

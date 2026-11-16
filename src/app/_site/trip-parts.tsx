@@ -2,10 +2,11 @@ import Image from "next/image";
 import { HotelGallery } from "./hotel-gallery";
 import { Fragment } from "react";
 
-import { gbp, hajjNusuk, journeyStay, leader, people, teachers, type Journey, type Room, type Status, type StayPhoto, type TripPlan } from "@/app/_site/content";
+import { anchors, gbp, hajjNusuk, journeyStay, leader, people, say, teachers, trust, wa, type Journey, type Room, type Status, type StayPhoto, type TripPlan } from "@/app/_site/content";
 import { Mark } from "@/app/_site/marks";
 import { Emblem, gutter, Heading, Label, Tick } from "@/app/_site/shell";
 import { slot, slotFilled } from "@/app/_site/slots";
+import { ItineraryLink } from "@/app/_site/step-form";
 
 /* ------------------------------------------------------------------------ */
 /* The team, straightforward: a portrait, what they do, the name, one line.  */
@@ -569,3 +570,75 @@ export function TripPackages({ j }: { j: Journey }) {
     </>
   );
 }
+
+/* ------------------------------------------------------------------------ */
+/* The trust box: who travels with you, real numbers once confirmed, then   */
+/* the two next steps (brief step 6).                                        */
+/* ------------------------------------------------------------------------ */
+
+/**
+ * `book` adds the main button (phones, where the box closes the trip's story); beside the join panel on desktop
+ * the box carries only the softer option, so the page never shows two "Book your place" buttons side by side.
+ */
+export function TrustBox({ j, members, book, bookHref, bookLabel, className = "" }: { j: Journey; members: Member[]; book: boolean; bookHref: string; bookLabel: string; className?: string }) {
+  if (!trust.show) return null;
+  /** Real people only: not the "named when the trip is announced" placeholder. */
+  const named = members.filter((m) => m.name !== j.teacher.value);
+  const soft =
+    j.plan ? (
+      <ItineraryLink href={`#${anchors.form}`} className={outline}>
+        Get the full itinerary
+      </ItineraryLink>
+    ) : (
+      <a href={wa(j.kind === "hajj" ? say.hajj : j.waText, j.name)} target="_blank" rel="noopener noreferrer" data-placement="trust box" className={outline}>
+        Ask us on WhatsApp
+      </a>
+    );
+  return (
+    <div className={`glass rounded-[1.5rem] p-5 sm:p-6 ${className}`}>
+      <p className="font-editorial text-[1.15rem] italic text-bronze">{trust.title}</p>
+      {trust.stats.length ? (
+        <dl className="mt-4 grid grid-cols-3 gap-2 border-b border-ink/8 pb-4">
+          {trust.stats.map((s) => (
+            <div key={s.label}>
+              <dt className="sr-only">{s.label}</dt>
+              <dd className="display text-[1.9rem] leading-none">{s.value}</dd>
+              <dd className="mt-1 text-[0.875rem] leading-snug text-ink/65">{s.label}</dd>
+            </div>
+          ))}
+        </dl>
+      ) : null}
+      <p className="mt-4 text-[0.875rem] text-ink/65">{trust.people}</p>
+      <ul className="mt-3 space-y-3">
+        {named.map((m) => (
+          <li key={m.name} className="flex items-center gap-3">
+            <span className="relative size-11 shrink-0 overflow-hidden rounded-full bg-beige">
+              {m.photo ? (
+                <Image src={m.photo.src} alt="" fill sizes="44px" className={`object-cover ${m.photo.position ?? ""}`} />
+              ) : (
+                <span aria-hidden className="grid size-full place-items-center font-editorial text-[1.1rem] text-bronze">
+                  {m.name.replace(/^(Ustadh|Brother|Sheikh|Shaykh) /, "").charAt(0)}
+                </span>
+              )}
+            </span>
+            <span className="min-w-0">
+              <span className="block text-[0.95rem] leading-snug">{m.name}</span>
+              <span className="block text-[0.875rem] leading-snug text-ink/65">{m.does}</span>
+            </span>
+          </li>
+        ))}
+      </ul>
+      <div className="mt-5 grid gap-2">
+        {book ? (
+          <a href={bookHref} className="btn-ink flex min-h-[3.25rem] items-center justify-center rounded-[0.95rem] text-[0.95rem] font-medium lg:hidden">
+            {bookLabel}
+          </a>
+        ) : null}
+        {soft}
+      </div>
+    </div>
+  );
+}
+
+const outline = "flex min-h-[3.25rem] items-center justify-center rounded-[0.95rem] border border-ink/15 bg-(--raise) text-[0.95rem] font-medium hover:border-ink/40";
+
