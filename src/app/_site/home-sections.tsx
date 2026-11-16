@@ -248,7 +248,7 @@ export function LastTrip() {
           {lastTrip.photos.map((p) => (
             <figure key={p.src} className="rise mb-3 break-inside-avoid sm:mb-4">
               <div style={fitFrame(p.src, { min: 0.75, max: 1.5 })} className="relative aspect-(--r) overflow-hidden rounded-[1.5rem] bg-beige shadow-[var(--shadow-lift)]">
-                <Image src={p.src} alt={p.alt} fill sizes="(min-width: 1024px) 21vw, 50vw" className={`object-cover ${p.position}`} />
+                <Image src={p.src} alt={p.alt} fill quality={85} sizes="(min-width: 1024px) 28vw, 60vw" className={`object-cover ${p.position}`} />
               </div>
               <figcaption className="mt-2 px-1 font-editorial text-[1rem] text-ink/65 italic">{p.caption}</figcaption>
             </figure>
@@ -720,7 +720,7 @@ export function Closing() {
           </div>
           <div className="lg:col-span-5 lg:col-start-8">
             <div style={fitFrame("/images/friends/friends-02.jpg")} className="rise relative mx-auto aspect-(--r) max-w-[34rem] overflow-hidden rounded-[2rem] shadow-[var(--shadow-float)] ring-1 ring-white/10">
-              <Image src="/images/friends/friends-02.jpg" alt="Ustadh Issa Uthman with a traveller outside the Islamic University of Madinah." fill sizes="(min-width: 1024px) 30vw, 90vw" className="object-cover object-[45%_40%]" />
+              <Image src="/images/friends/friends-02.jpg" alt="Ustadh Issa Uthman with a traveller outside the Islamic University of Madinah." fill quality={85} sizes="(min-width: 1024px) 30vw, 90vw" className="object-cover object-[45%_40%]" />
             </div>
           </div>
         </div>
