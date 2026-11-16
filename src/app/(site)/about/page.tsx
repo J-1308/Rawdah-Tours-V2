@@ -89,7 +89,7 @@ export default function AboutPage() {
                 ["Phone and WhatsApp", <a key="p" href={brand.phone.href} className="underline decoration-ink/25 underline-offset-4">{brand.phone.display}</a>],
                 ["Email", <a key="e" href={`mailto:${brand.email}`} className="break-all underline decoration-ink/25 underline-offset-4">{brand.email}</a>],
                 ["Instagram", <a key="i" href={brand.instagram.href} target="_blank" rel="noopener noreferrer" className="underline decoration-ink/25 underline-offset-4">{brand.instagram.handle}</a>],
-                ["Based in", "Birmingham"],
+                ["Based in", "West London"],
               ].map(([k, val], i) => (
                 <div key={String(k)} className={`glass-wide flex items-baseline justify-between gap-4 py-3.5 sm:block sm:rounded-[1.25rem] sm:p-4 ${i ? "border-t border-ink/8" : ""}`}>
                   <dt className="shrink-0 text-[0.875rem] text-ink/65">{k}</dt>

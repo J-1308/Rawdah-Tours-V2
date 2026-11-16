@@ -25,7 +25,7 @@ export const questionnaire: { title: string; intro: string; items: QItem[] }[] =
       { id: "story-moment", q: "One moment from a trip that sums up what Rawdah is about.", type: "long", goes: "About: How it all began" },
       { id: "years", q: "How many years have you been taking groups?", type: "short", goes: "Trust box" },
       { id: "pilgrims", q: "Roughly how many pilgrims have travelled with you in total?", type: "short", goes: "Trust box (only shown if you give a number)" },
-      { id: "based", q: "Where is Rawdah run from day to day?", known: "Registered office: 66 Paul Street, London. The About page says “Based in Birmingham”.", type: "short", goes: "About page" },
+      { id: "based", q: "Where is Rawdah run from day to day?", known: "Registered office: 66 Paul Street, London. The About page says “Based in West London” (Jibril, 16 Nov 2026).", type: "short", goes: "About page" },
     ],
   },
   {

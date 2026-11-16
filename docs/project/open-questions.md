@@ -59,3 +59,7 @@ the "Our last trip" section on the home and Trips pages. `/trips/path-of-purity-
 **31 Oct 2026, Jibril:** ATOL (5311) appears only in the terms. The About page shows only Brother Ayuub and Ustadh
 Issa for now. No Supabase on this site: card payments will use Stripe, and emails Resend, when they're set up
 (update the privacy notice then). Partner logos to come from Jibril for the "Who we travel with" row.
+
+**16 Nov 2026, Jibril:** Rawdah is based in West London (the About page said Birmingham). Open trips keep both ways
+to book: on WhatsApp with the deposit by bank transfer, and by card with Stripe once it is set up. Trip pages say
+"Book your place" for both.
