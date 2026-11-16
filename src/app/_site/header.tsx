@@ -98,7 +98,7 @@ export function SiteHeader() {
                           <li key={c.href}>
                             <Link href={c.href} className="flex items-baseline justify-between gap-4 rounded-[0.9rem] px-4 py-3 transition-colors hover:bg-(--raise-hi)">
                               <span className="font-editorial text-[1.2rem]">{c.label}</span>
-                              <span className="text-[0.76rem] text-ink/62">{c.note}</span>
+                              <span className="text-[0.875rem] text-ink/62">{c.note}</span>
                             </Link>
                           </li>
                         ))}
@@ -164,7 +164,7 @@ export function SiteHeader() {
                   <Link href={item.href} onClick={() => setOpen(false)} className="group flex items-center justify-between gap-4 py-3.5">
                     <span>
                       <span className="display block text-[1.9rem] leading-[1.1]">{item.label}</span>
-                      {"note" in item ? <span className="mt-1 block text-[0.8rem] text-ink/62">{item.note}</span> : null}
+                      {"note" in item ? <span className="mt-1 block text-[0.875rem] text-ink/62">{item.note}</span> : null}
                     </span>
                     <Chevron className="size-3 shrink-0 text-ink/35" />
                   </Link>

@@ -161,7 +161,7 @@ export function Chapter({ tone, children, className = "", id }: { tone: "top" | 
 export function AnnouncementStrip() {
   return (
     <div className="top-zone bg-beige/70 text-ink">
-      <Link href={strip.href} className={`flex min-h-10 items-center justify-center gap-3 py-2 text-[0.8rem] ${gutter}`}>
+      <Link href={strip.href} className={`flex min-h-10 items-center justify-center gap-3 py-2 text-[0.875rem] ${gutter}`}>
         <Emblem className="h-3.5 text-bronze" />
         <span className="sm:hidden">{strip.short}</span>
         <span className="hidden sm:inline">{strip.text}</span>
@@ -217,9 +217,8 @@ export function Pic({ src, alt, sizes, className = "", priority = false, quality
     <div className="absolute inset-0 grid place-items-center border-2 border-dashed border-bronze/45 bg-(--raise) p-5 text-center">
       <Emblem className="pointer-events-none absolute inset-0 m-auto h-[70%] text-bronze/[0.07]" />
       <div className="relative max-w-[17rem]">
-        <p className="font-display text-[0.7rem] font-medium tracking-[0.14em] text-bronze uppercase">Photo to come</p>
-        <p className="mt-2 font-editorial text-[1.05rem] leading-snug text-ink/80 italic">{slotBriefs[name] ?? alt}</p>
-        <p className="mt-2 font-mono text-[0.68rem] text-ink/55">images/slots/{name}.jpg</p>
+        <p className="font-editorial text-[1.05rem] text-bronze italic">Photo to come</p>
+        <p className="mt-1 text-[0.9rem] leading-snug text-ink/70">{slotBriefs[name] ?? alt}</p>
       </div>
     </div>
   );
@@ -267,7 +266,7 @@ export function PageLead({
     <section className={`wash-hero relative overflow-hidden pt-5 pb-[clamp(3rem,8vw,7rem)] ${gutter}`}>
       <Emblem className="pointer-events-none absolute top-[-8%] right-[-6%] h-[115%] watermark" />
       {crumbs ? (
-        <nav aria-label="Breadcrumb" className="relative mb-4 flex flex-wrap items-center gap-x-2 text-[0.82rem] text-ink/65 sm:mb-6">
+        <nav aria-label="Breadcrumb" className="relative mb-4 flex flex-wrap items-center gap-x-2 text-[0.875rem] text-ink/65 sm:mb-6">
           {crumbs.map((c, i) => (
             <span key={c.label} className="flex items-center gap-2">
               {i ? <span aria-hidden className="text-ink/30">/</span> : null}
@@ -308,12 +307,12 @@ export function ConfirmedPending({
   tone?: "canvas" | "ink";
 }) {
   const list = (title: string, items: { title: string; text: string }[], settled: boolean) => (
-    <div className="glass rounded-[1.5rem] p-6">
+    <div className="wash-linen rounded-[1.5rem] border border-ink/8 p-6">
       <p className="flex items-center gap-2.5 font-editorial text-[1.45rem]">
         <span aria-hidden className={`size-2.5 rounded-full ${settled ? "bg-[#6f9a74]" : "border-[1.5px] border-gold"}`} />
         {title}
       </p>
-      <ul className="mt-3">
+      <ul className="mt-3 sm:grid sm:grid-cols-2 sm:gap-x-8">
         {items.map((c) => (
           <li key={c.title} className="border-t border-ink/8 py-3">
             <span className="block text-[0.95rem] font-medium">{c.title}</span>
@@ -325,7 +324,7 @@ export function ConfirmedPending({
   );
   return (
     <>
-      {confirmed ? list("Settled", confirmed, true) : null}
+      {/* "Settled" is left out: those facts already show above it (design pass, 16 Nov 2026). */}
       {pending ? list("Still being arranged", pending, false) : null}
     </>
   );
@@ -354,14 +353,14 @@ export function SiteFooter() {
     },
   ];
   return (
-    <footer className={`chapter-foot panel-dark relative overflow-hidden pt-[clamp(3.25rem,8vw,6.5rem)] pb-[calc(6rem+env(safe-area-inset-bottom))] lg:pb-10 ${gutter} ${onInk}`}>
+    <footer className={`chapter-foot panel-dark relative overflow-hidden pt-[clamp(2rem,8vw,6.5rem)] pb-[calc(6rem+env(safe-area-inset-bottom))] lg:pb-10 ${gutter} ${onInk}`}>
       <Emblem className="pointer-events-none absolute right-[-4%] bottom-[-10%] h-[85%] text-cream/[0.05]" />
       <div className="relative grid grid-cols-1 gap-x-14 gap-y-11 lg:grid-cols-12">
         <div className="lg:col-span-5">
           <Link href="/" aria-label="Rawdah Tours, home" className="inline-block text-cream">
             <Logo className="logo-gold h-16 sm:h-24" />
           </Link>
-          <p className="mt-6 max-w-[24rem] font-editorial text-[1.35rem] leading-snug text-cream/85 sm:mt-7 sm:text-[1.5rem]">Guided Umrah and Hajj from the UK, from your first message to the flight home.</p>
+          <p className="mt-7 hidden max-w-[24rem] font-editorial text-[1.5rem] leading-snug text-cream/85 sm:block">Guided Umrah and Hajj from the UK, from your first message to the flight home.</p>
           <div className="mt-7 grid grid-cols-2 gap-2 sm:mt-8 sm:flex sm:flex-wrap sm:gap-2.5">
             <WaTile text={say.general} label="WhatsApp" tone="line-canvas" className="px-3! sm:px-6!" />
             <a href={brand.phone.href} className={`${btnBase} px-3 sm:px-6 ${btnTone["line-canvas"]}`}>
@@ -371,13 +370,22 @@ export function SiteFooter() {
               </span>
             </a>
           </div>
+          {/* Phones: the rest of "Get in touch" on one line under the two buttons. */}
+          <p className="mt-4 flex flex-wrap gap-x-4 gap-y-1 text-[0.94rem] sm:hidden">
+            <a href={`mailto:${brand.email}`} className={`break-all ${link}`}>
+              {brand.email}
+            </a>
+            <a href={brand.instagram.href} target="_blank" rel="noopener noreferrer" className={link}>
+              Instagram
+            </a>
+          </p>
         </div>
-        {/* Phones: two link columns, the policies on one line, then how to reach us. */}
+        {/* Phones: two link columns; the policies sit on the legal line and "Get in touch" under the buttons. */}
         <div className="grid grid-cols-2 gap-x-6 gap-y-9 sm:grid-cols-3 sm:gap-10 lg:col-span-7">
           {cols.map((c) => {
             const policies = c.title === "Policies";
             return (
-              <nav key={c.title} aria-label={c.title} className={policies ? "col-span-2 sm:col-span-1" : ""}>
+              <nav key={c.title} aria-label={c.title} className={policies ? "hidden sm:block" : ""}>
                 <p className="font-editorial text-[1.15rem] text-sand italic">{c.title}</p>
                 <ul className={`mt-3 text-[0.94rem] sm:mt-4 sm:grid sm:grid-cols-1 sm:gap-2.5 ${policies ? "flex flex-wrap gap-x-5 gap-y-2" : "grid grid-cols-1 gap-2"}`}>
                   {c.links.map((l) => (
@@ -391,7 +399,7 @@ export function SiteFooter() {
               </nav>
             );
           })}
-          <div className="col-span-2 sm:col-span-3">
+          <div className="hidden sm:col-span-3 sm:block">
             <p className="font-editorial text-[1.15rem] text-sand italic">Get in touch</p>
             <p className="mt-3 flex flex-col gap-2 text-[0.94rem] sm:mt-4 sm:flex-row sm:flex-wrap sm:gap-x-6">
               <a href={brand.phone.href} className={link}>
@@ -407,7 +415,7 @@ export function SiteFooter() {
           </div>
         </div>
       </div>
-      <div className="relative mt-11 grid grid-cols-1 gap-2 border-t border-cream/12 pt-6 sm:mt-14 text-[0.78rem] leading-relaxed text-cream/50">
+      <div className="relative mt-11 grid grid-cols-1 gap-2 border-t border-cream/12 pt-6 sm:mt-14 text-[0.875rem] leading-relaxed text-cream/50">
         <p>
           Hajj packages are booked and paid on the official{" "}
           <a href={brand.nusuk} target="_blank" rel="noopener noreferrer" className="underline underline-offset-4 hover:text-cream">
@@ -418,6 +426,13 @@ export function SiteFooter() {
         <p>
           © {new Date().getFullYear()} {brand.legalName}, registered in England and Wales. Company number {brand.companyNumber.value}
           <Mark s={brand.companyNumber.status} />. Registered office: {brand.address}.
+        </p>
+        <p className="flex flex-wrap gap-x-4 gap-y-1 sm:hidden">
+          {cols[2].links.map((l) => (
+            <Link key={l.href} href={l.href} className="py-1 underline underline-offset-4 hover:text-cream">
+              {l.label}
+            </Link>
+          ))}
         </p>
       </div>
     </footer>

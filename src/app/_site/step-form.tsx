@@ -226,7 +226,7 @@ export function StepForm(props: StepFormProps) {
   const current = path.steps[step - 2];
   return (
     <div ref={top} className="scroll-mt-28">
-      <div className="flex items-center justify-between gap-4 text-[0.84rem] text-ink/62">
+      <div className="flex items-center justify-between gap-4 text-[0.875rem] text-ink/62">
         {step > 1 ? (
           <button type="button" onClick={() => setStep(step - 1)} className="-ml-2 inline-flex min-h-10 items-center gap-1 rounded-lg px-2 hover:text-ink">
             <Chevron className="size-3 rotate-180" /> Back
@@ -264,12 +264,12 @@ export function StepForm(props: StepFormProps) {
                 {errors.contact}
               </p>
             ) : (
-              <p className="text-[0.85rem] text-ink/62">A WhatsApp number or an email: one is enough.</p>
+              <p className="text-[0.875rem] text-ink/62">A WhatsApp number or an email: one is enough.</p>
             )}
             <div className="space-y-3 border-t border-ink/10 pt-4 text-[0.88rem] text-ink/72">
               <Tick checked={reminderOptOut} onChange={setReminderOptOut} label="Don’t send me a reminder about this enquiry." />
               {email.trim() ? <Tick checked={marketing} onChange={setMarketing} label="Send me trip updates by email." /> : null}
-              <p className="text-[0.82rem] text-ink/62">
+              <p className="text-[0.875rem] text-ink/62">
                 We’ll use your details only to answer this enquiry.{" "}
                 <a href="/privacy" className="underline underline-offset-2">
                   Privacy policy
@@ -374,7 +374,7 @@ function Question({ q, id, value, set, error }: { q: Q; id: string; value: strin
       <p id={id} className="text-[0.95rem] font-medium">
         {q.label}
       </p>
-      {"help" in q && q.help ? <p className="mt-1 text-[0.85rem] text-ink/62">{q.help}</p> : null}
+      {"help" in q && q.help ? <p className="mt-1 text-[0.875rem] text-ink/62">{q.help}</p> : null}
       <div className={`mt-3 grid gap-2 ${q.options.some((o) => o.length > 22) ? "sm:grid-cols-2" : "grid-cols-2"}`}>
         {q.options.map((o) => {
           const on = picked.includes(o);

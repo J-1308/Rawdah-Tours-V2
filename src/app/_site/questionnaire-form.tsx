@@ -118,7 +118,7 @@ export function QuestionnaireForm() {
         </button>
       </div>
       {state === "failed" ? <p role="alert" className="mt-3 text-[0.9rem] text-error">That didn’t go through. Your answers are still saved here: use “Copy answers for WhatsApp” instead.</p> : null}
-      <p className="mt-4 text-[0.85rem] text-ink/62">You can come back and add more later on this phone; send again when you do.</p>
+      <p className="mt-4 text-[0.875rem] text-ink/62">You can come back and add more later on this phone; send again when you do.</p>
     </div>
   );
 }

@@ -36,7 +36,7 @@ export default function AboutPage() {
               “
             </span>
             <blockquote className="display text-[clamp(1.75rem,3vw,2.8rem)] leading-[1.15]">{about.quote.value}”</blockquote>
-            <figcaption className="mt-4 text-[0.86rem] text-ink/68">From Rawdah’s first website</figcaption>
+            <figcaption className="mt-4 text-[0.875rem] text-ink/68">From Rawdah’s first website</figcaption>
           </figure>
           <div className="grid content-start gap-5 lg:col-span-6 lg:col-start-7">
             {about.story.map((p) => (
@@ -92,7 +92,7 @@ export default function AboutPage() {
                 ["Based in", "Birmingham"],
               ].map(([k, val], i) => (
                 <div key={String(k)} className={`glass-wide flex items-baseline justify-between gap-4 py-3.5 sm:block sm:rounded-[1.25rem] sm:p-4 ${i ? "border-t border-ink/8" : ""}`}>
-                  <dt className="shrink-0 text-[0.8rem] text-ink/65">{k}</dt>
+                  <dt className="shrink-0 text-[0.875rem] text-ink/65">{k}</dt>
                   <dd className="min-w-0 text-right text-[0.95rem] sm:mt-1 sm:text-left sm:text-[0.98rem]">{val}</dd>
                 </div>
               ))}

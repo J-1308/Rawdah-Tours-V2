@@ -30,7 +30,7 @@ export default function GroupsPage() {
         </p>
         <ul className="mt-7 flex flex-wrap gap-2">
           {groupsPage.who.map((w) => (
-            <li key={w} className="rounded-full border border-ink/10 bg-(--raise) px-3.5 py-1.5 text-[0.84rem] text-ink/75">
+            <li key={w} className="flex min-h-11 items-center rounded-[0.95rem] border border-ink/10 bg-(--raise) px-3.5 text-[0.875rem] text-ink/75">
               {w}
             </li>
           ))}

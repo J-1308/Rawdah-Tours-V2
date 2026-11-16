@@ -24,6 +24,7 @@ export function WaGlyph({ className = "size-5" }: { className?: string }) {
 /** Desktop: a soft round WhatsApp button fixed to the bottom right of every page. */
 export function WhatsAppFloat() {
   const path = usePathname();
+  if (/^\/trips\/[^/]+/.test(path)) return null;
   return (
     <a
       href={pageWa(path)}
@@ -55,7 +56,7 @@ export function MobileBar() {
         : { label: "Register interest", href: hajjRegister };
   return (
     <div data-placement="phone bar" className="top-zone fixed inset-x-0 bottom-0 z-50 px-2.5 pb-[calc(0.5rem+env(safe-area-inset-bottom))] lg:hidden motion-lift">
-      <div className="grid grid-cols-[auto_1fr] gap-1.5 rounded-[1.15rem] border border-(--edge) bg-canvas/85 p-1.5 shadow-[var(--shadow-float)] backdrop-blur-md">
+      <div className="grid grid-cols-[auto_1fr] gap-1.5 rounded-[1.15rem] border border-(--edge) bg-canvas p-1.5 shadow-[var(--shadow-float)] backdrop-blur-md">
         <a href={pageWa(path)} target="_blank" rel="noopener noreferrer" className="flex h-12 items-center gap-2 rounded-[0.85rem] bg-(--raise) px-4 text-[0.92rem] font-medium text-ink">
           <WaGlyph className="size-5 text-wa" />
           WhatsApp

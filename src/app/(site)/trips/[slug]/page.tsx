@@ -47,7 +47,7 @@ function Itinerary({ j }: { j: Journey }) {
               {i < all.length - 1 ? <span className="mt-2 w-px flex-1 bg-gradient-to-b from-gold/50 to-gold/10" /> : null}
             </span>
             <div className="pb-8">
-              <p className="text-[0.82rem] font-medium text-bronze">{d.day}</p>
+              <p className="text-[0.875rem] font-medium text-bronze">{d.day}</p>
               <p className="display mt-1 text-[1.65rem] leading-tight">{d.title}</p>
               <p className="mt-1.5 max-w-[38rem] text-[0.96rem] leading-[1.65] text-ink/75">{d.text}</p>
             </div>
@@ -124,7 +124,7 @@ export function TripView({ j }: { j: Journey }) {
                 <span aria-hidden className="h-7 w-px bg-ink/20" />
               </>
             ) : null}
-            <p className="text-[0.72rem] leading-snug font-medium tracking-[0.2em] text-bronze uppercase">
+            <p className="font-editorial text-[1.05rem] leading-snug italic text-bronze">
               {j.partner}
               <br />
               Joint pilgrimage
@@ -138,7 +138,7 @@ export function TripView({ j }: { j: Journey }) {
         <dl className="mt-6 grid max-w-[36rem] grid-cols-2 gap-2 text-[0.9rem] sm:mt-7 sm:gap-2.5 sm:text-[0.92rem]">
           {[...facts, { k: j.kind === "hajj" ? "The rites" : "Route", v: routeText(j), s: j.route.status }].map((f, i, all) => (
             <div key={f.k} className={`glass rounded-[1.1rem] p-3.5 [--glass-shadow:none] ${i === all.length - 1 ? "col-span-2" : ""}`}>
-              <dt className="text-[0.78rem] text-ink/62">{f.k}</dt>
+              <dt className="text-[0.875rem] text-ink/62">{f.k}</dt>
               <dd className="mt-1 leading-snug">
                 {f.v}
                 <Mark s={f.s} />
@@ -159,7 +159,7 @@ export function TripView({ j }: { j: Journey }) {
           <div className="lg:sticky lg:top-28">
             <ReservePanel j={j} bookable={bookable} />
             {demo ? (
-              <p className="mt-5 rounded-[1rem] border border-dashed border-bronze/50 p-3 text-center text-[0.82rem] text-ink/70">
+              <p className="mt-5 rounded-[1rem] border border-dashed border-bronze/50 p-3 text-center text-[0.875rem] text-ink/70">
                 Preview only:{" "}
                 <Link href={`/trips/${j.slug}/book`} className="underline underline-offset-4">
                   try the card and bank-transfer booking flow
@@ -177,7 +177,7 @@ export function TripView({ j }: { j: Journey }) {
               {j.intro}
               <Mark s={j.introStatus} />
             </p>
-            <ul className="glass-phone mt-6 grid grid-cols-1 rounded-[1.25rem] px-4 py-1 [--glass-shadow:none] sm:mt-7 sm:grid-cols-2 sm:gap-1.5 sm:p-0">
+            {j.plan ? null : <ul className="glass-phone mt-6 grid grid-cols-1 rounded-[1.25rem] px-4 py-1 [--glass-shadow:none] sm:mt-7 sm:grid-cols-2 sm:gap-1.5 sm:p-0">
               {j.highlights.map((h, i) => (
                 <li key={h.value} className={`glass-wide flex items-start gap-3 py-3 text-[0.95rem] sm:rounded-[1.1rem] sm:px-4 sm:py-3.5 ${i ? "border-t border-ink/8" : ""}`}>
                   <Tick className="mt-[0.2em]" />
@@ -187,7 +187,7 @@ export function TripView({ j }: { j: Journey }) {
                   </span>
                 </li>
               ))}
-            </ul>
+            </ul>}
           </section>
 
           {j.kind === "hajj" ? <HajjOnNusuk /> : null}
@@ -195,7 +195,7 @@ export function TripView({ j }: { j: Journey }) {
           {j.kind === "umrah" && j.itinerary ? <Itinerary j={j} /> : null}
 
           {j.confirmed || j.pending ? (
-            <section className="mt-12 grid grid-cols-1 gap-2 sm:mt-16 sm:grid-cols-2 sm:gap-1.5">
+            <section className="mt-12 sm:mt-16">
               <ConfirmedPending confirmed={j.confirmed} pending={j.pending} />
             </section>
           ) : null}
@@ -302,7 +302,7 @@ export function TripView({ j }: { j: Journey }) {
         <section id={anchors.form} className={`wash-linen scroll-mt-28 py-[clamp(3.75rem,10vw,9rem)] ${gutter}`}>
           <div className="grid grid-cols-1 gap-x-14 gap-y-10 lg:grid-cols-12">
             <div className="lg:col-span-4">
-              <Heading className="text-[clamp(2.4rem,4vw,3.6rem)]">{j.kind === "hajj" ? hajjNusuk.closing.title : packages.length ? "Reserve your place" : "Hear first when the dates are out"}</Heading>
+              <Heading className="text-[clamp(2.4rem,4vw,3.6rem)]">{j.kind === "hajj" ? hajjNusuk.closing.title : packages.length ? joinLabel : "Hear first when the dates are out"}</Heading>
               <p className="mt-5 max-w-[24rem] text-[1rem] leading-[1.65] text-ink/72">
                 {j.kind === "hajj"
                   ? `${hajjNusuk.closing.text} Registering doesn’t reserve a place or commit you to anything.`

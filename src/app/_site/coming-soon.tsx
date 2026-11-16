@@ -36,7 +36,7 @@ export function ComingSoonTrip({ j }: { j: Journey }) {
       <TripPhoneBar j={j} bookable={false} />
       <Chapter tone="top">
         <section className={`wash-hero pt-[clamp(1.5rem,4vw,3rem)] pb-[clamp(3.5rem,8vw,6rem)] ${gutter}`}>
-          <nav aria-label="Breadcrumb" className="text-[0.86rem] text-ink/62">
+          <nav aria-label="Breadcrumb" className="text-[0.875rem] text-ink/62">
             <Link href="/" className="hover:text-ink">
               Home
             </Link>
