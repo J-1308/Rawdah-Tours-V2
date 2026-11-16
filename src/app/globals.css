@@ -499,14 +499,14 @@ details > summary::-webkit-details-marker { display: none; }
   font-family: "Josefin Sans", "DM Sans", system-ui, sans-serif;
 }
 
-/* Page head trial (16 Nov 2026): `?lead=title` puts the title and status above the photo on phones and tablets,
-   with the photo capped at 4:3. The default keeps the photo first. Remove whichever layout loses. */
+/* Page head (PageLead), phones and tablets: the title and status above the photo, the photo capped at 4:3
+   (Jibril, 16 Nov 2026). */
 @media (max-width: 63.98rem) {
-  html[data-lead="title"] .lead-grid { row-gap: 0; }
-  html[data-lead="title"] .lead-text { display: contents; }
-  html[data-lead="title"] .lead-photo { order: 1; margin-top: 1.5rem; }
-  html[data-lead="title"] .lead-photo > div { aspect-ratio: 4 / 3 !important; }
-  html[data-lead="title"] .lead-text > .lead-after,
-  html[data-lead="title"] .lead-text > .lead-after ~ * { order: 2; }
-  html[data-lead="title"] .lead-text > .lead-after { margin-top: 1.5rem; }
+  .lead-grid { row-gap: 0; }
+  .lead-text { display: contents; }
+  .lead-photo { order: 1; margin-top: 1.5rem; }
+  .lead-photo > div { aspect-ratio: 4 / 3 !important; }
+  .lead-text > .lead-after,
+  .lead-text > .lead-after ~ * { order: 2; }
+  .lead-text > .lead-after { margin-top: 1.5rem; }
 }

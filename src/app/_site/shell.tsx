@@ -281,9 +281,9 @@ export function PageLead({
           ))}
         </nav>
       ) : null}
-      {/* Phones and tablets, two layouts on trial (16 Nov 2026): the photo first (default), or with `?lead=title` the
-          title and status first and the photo capped at 4:3 (Fable's design review). Children marked `lead-after`,
-          and everything after them, go below the photo. CSS in globals.css under "Page head trial". */}
+      {/* Phones and tablets: the title and status first, then the photo capped at 4:3 (Fable's review; Jibril chose
+          it over photo-first, 16 Nov 2026). Children marked `lead-after`, and everything after them, go below the
+          photo. CSS in globals.css under "Page head". */}
       <div className="lead-grid relative grid grid-cols-1 gap-x-16 gap-y-14 lg:grid-cols-12 lg:items-center">
         <div className="lead-photo lg:order-2 lg:col-span-6">
           <PhotoStack photos={photos} priority className="lg:ml-auto lg:max-w-[34rem]" />

@@ -70,7 +70,7 @@ pages the trip bar replaces the floating WhatsApp button.
 | `WaTile`, `WaSquare`, `Actions` | WhatsApp button; WhatsApp as a square glyph; a section's pair of actions (on phones the main button fills the row with `WaSquare` beside it). |
 | `PhotoStack` | One soft framed photo. The frame takes the photo's own shape (see Photography), unless `aspect` fixes it. |
 | `Framed` | One soft rounded photo. |
-| `PageLead` | Inner-page head: words beside a PhotoStack on `.wash-hero` with the mark embossed. |
+| `PageLead` | Inner-page head: words beside a PhotoStack on `.wash-hero` with the mark embossed. On phones and tablets the title and status come first and the photo (4:3) follows; mark the first child that belongs below the photo `lead-after`. |
 | `TripRow` | A trip as a glass card: photo with state, facts, price panel and actions. |
 | `ReservePanel` | The join panel: rooms, travellers, live total, deposit, instalments. |
 | `PaymentPlan` | The worked deposit example with a proportional bar. |

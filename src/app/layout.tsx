@@ -33,12 +33,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en-GB" data-top="night" className="h-full antialiased" suppressHydrationWarning /* the top is dark, beige-gold logo (Jibril, 31 Oct 2026; ADR 0004) */>
       <head>
         {/* Before first paint: "js" + "motion" (unless reduced motion), and whether the intro already played this visit.
-            Everything animated is visible without these, so no script = no animation, never hidden content.
-            `?lead=title` / `?lead=photo` tries the two page-head layouts on phones for this visit (see PageLead). */}
+            Everything animated is visible without these, so no script = no animation, never hidden content. */}
         <script
           dangerouslySetInnerHTML={{
             __html:
-              "try{var d=document.documentElement;d.classList.add('js');if(!matchMedia('(prefers-reduced-motion: reduce)').matches)d.classList.add('motion');if(sessionStorage.getItem('rawdah-intro'))d.setAttribute('data-intro','seen');else sessionStorage.setItem('rawdah-intro','1');var l=new URLSearchParams(location.search).get('lead');if(l==='title'||l==='photo')sessionStorage.setItem('rawdah-lead',l);if(sessionStorage.getItem('rawdah-lead')==='title')d.setAttribute('data-lead','title')}catch(e){}",
+              "try{var d=document.documentElement;d.classList.add('js');if(!matchMedia('(prefers-reduced-motion: reduce)').matches)d.classList.add('motion');if(sessionStorage.getItem('rawdah-intro'))d.setAttribute('data-intro','seen');else sessionStorage.setItem('rawdah-intro','1')}catch(e){}",
           }}
         />
       </head>
