@@ -3,6 +3,7 @@ import Link from "next/link";
 
 import { anchors, say, type Journey } from "@/app/_site/content";
 import { RegisterForm } from "@/app/_site/register-form";
+import { TripPhoneBar } from "@/app/_site/trip-bar";
 import { Actions, Chapter, gutter, Heading } from "@/app/_site/shell";
 
 /**
@@ -32,6 +33,7 @@ export function RamadanLockup({ className = "", compact = false }: { j?: Journey
 export function ComingSoonTrip({ j }: { j: Journey }) {
   return (
     <>
+      <TripPhoneBar j={j} bookable={false} />
       <Chapter tone="top">
         <section className={`wash-hero pt-[clamp(1.5rem,4vw,3rem)] pb-[clamp(3.5rem,8vw,6rem)] ${gutter}`}>
           <nav aria-label="Breadcrumb" className="text-[0.86rem] text-ink/62">

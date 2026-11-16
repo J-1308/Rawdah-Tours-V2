@@ -43,6 +43,8 @@ export function WhatsAppFloat() {
 export function MobileBar() {
   const path = usePathname();
   if (path.includes("/book")) return null;
+  // Trip pages have their own bar, with the trip's price and deposit (trip-bar.tsx).
+  if (/^\/trips\/[^/]+(\/preview)?$/.test(path)) return null;
   const onTrip = path.startsWith("/trips/") && path.split("/").length === 3;
   const cta = path.startsWith(routes.private)
     ? { label: "Plan my Umrah", href: "#planner" }
