@@ -41,7 +41,7 @@ export function ReservePanel({ j, bookable = false }: { j: Journey; bookable?: b
         <div className="p-5">
           <p className="display text-[1.9rem]">This trip is complete.</p>
           <p className="mt-2 text-[0.93rem] text-ink/70">Be the first to hear when the next one is out.</p>
-          <a href={wa(j.waText)} target="_blank" rel="noopener noreferrer" className={`mt-5 ${waBtn}`}>
+          <a href={wa(j.waText, j.name)} target="_blank" rel="noopener noreferrer" className={`mt-5 ${waBtn}`}>
             <span aria-hidden className={waCell}>
               <WaGlyph className="size-5" />
             </span>

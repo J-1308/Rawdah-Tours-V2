@@ -80,10 +80,10 @@ export function TileLink({ href, children, tone = "ink", className = "", pad = "
 }
 
 /** WhatsApp as a soft button with the glyph. */
-export function WaTile({ text, label = "WhatsApp us", tone = "line-ink", className = "" }: { text: string; label?: string; tone?: "solid" | "line-ink" | "line-canvas"; className?: string }) {
+export function WaTile({ text, trip, label = "WhatsApp us", tone = "line-ink", className = "" }: { text: string; trip?: string; label?: string; tone?: "solid" | "line-ink" | "line-canvas"; className?: string }) {
   const look = tone === "solid" ? "bg-wa text-white shadow-[0_14px_30px_-16px_rgb(31_168_85/0.7)] hover:brightness-95" : btnTone[tone];
   return (
-    <a href={wa(text)} target="_blank" rel="noopener noreferrer" className={`${btnBase} gap-3 px-6 ${look} ${className}`}>
+    <a href={wa(text, trip)} target="_blank" rel="noopener noreferrer" className={`${btnBase} gap-3 px-6 ${look} ${className}`}>
       <WaGlyph className={`size-5 ${tone === "solid" ? "" : "text-wa"}`} />
       {label}
     </a>
@@ -91,9 +91,9 @@ export function WaTile({ text, label = "WhatsApp us", tone = "line-ink", classNa
 }
 
 /** WhatsApp as a square glyph button: beside the main button on phones, where the bottom bar already names WhatsApp. */
-export function WaSquare({ text, tone = "line-ink", className = "" }: { text: string; tone?: "line-ink" | "line-canvas"; className?: string }) {
+export function WaSquare({ text, trip, tone = "line-ink", className = "" }: { text: string; trip?: string; tone?: "line-ink" | "line-canvas"; className?: string }) {
   return (
-    <a href={wa(text)} target="_blank" rel="noopener noreferrer" aria-label="WhatsApp us" className={`grid size-[3.25rem] shrink-0 place-items-center rounded-[0.95rem] text-wa transition-colors ${btnTone[tone]} ${className}`}>
+    <a href={wa(text, trip)} target="_blank" rel="noopener noreferrer" aria-label="WhatsApp us" className={`grid size-[3.25rem] shrink-0 place-items-center rounded-[0.95rem] text-wa transition-colors ${btnTone[tone]} ${className}`}>
       <WaGlyph className="size-[1.35rem]" />
     </a>
   );
@@ -107,12 +107,15 @@ export function WaSquare({ text, tone = "line-ink", className = "" }: { text: st
 export function Actions({
   primary,
   waText,
+  waTrip,
   waLabel,
   tone = "canvas",
   className = "",
 }: {
   primary?: { label: string; href: string };
   waText: string;
+  /** The trip, when on one: added to the WhatsApp message (docs/tracking.md). */
+  waTrip?: string;
   waLabel?: string;
   /** The ground the buttons sit on. */
   tone?: "ink" | "canvas" | "gold";
@@ -123,7 +126,7 @@ export function Actions({
   if (!primary) {
     return (
       <div className={`flex flex-col gap-2.5 sm:flex-row sm:flex-wrap ${className}`}>
-        <WaTile text={waText} label={waLabel} tone={line} />
+        <WaTile text={waText} trip={waTrip} label={waLabel} tone={line} />
       </div>
     );
   }
@@ -132,9 +135,9 @@ export function Actions({
       <TileLink href={primary.href} tone={main} pad="gap-2 px-4 sm:gap-3 sm:px-6" className="min-w-0 flex-1 sm:flex-none">
         {primary.label}
       </TileLink>
-      <WaSquare text={waText} tone={line} className="sm:hidden" />
+      <WaSquare text={waText} trip={waTrip} tone={line} className="sm:hidden" />
       <span className="hidden sm:contents">
-        <WaTile text={waText} label={waLabel} tone={line} />
+        <WaTile text={waText} trip={waTrip} label={waLabel} tone={line} />
       </span>
     </div>
   );

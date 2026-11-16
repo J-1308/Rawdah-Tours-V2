@@ -1,4 +1,5 @@
 import type Stripe from 'stripe'
+import { trackServer } from '@/lib/server/track'
 import { configured } from '@/lib/server/config'
 import { getStripe } from '@/lib/server/stripe'
 import { getSupabase } from '@/lib/server/supabase'
@@ -104,5 +105,6 @@ export async function POST(req: Request) {
   }
   await Promise.allSettled([sendDepositConfirmation(data), sendBookingToOwner(data, 'deposit-paid')])
 
+  await trackServer('deposit_paid', { trip: session.metadata?.tripSlug ?? '', method: 'card' })
   return Response.json({ received: true })
 }

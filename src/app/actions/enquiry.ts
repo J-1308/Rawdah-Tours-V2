@@ -1,6 +1,7 @@
 'use server'
 
 import { getSupabase } from '@/lib/server/supabase'
+import { sourceFrom, trackServer } from '@/lib/server/track'
 import { sendEnquiryAcknowledgement, sendEnquiryToOwner } from '@/lib/server/email'
 import { addToSheet } from '@/lib/server/sheet'
 import { keepSignup } from '@/lib/server/signups-store'
@@ -91,16 +92,20 @@ export async function submitEnquiry(prev: EnquiryState, formData: FormData): Pro
     message: values.message,
     marketingConsent: values.marketingConsent,
     page: String(formData.get('page') ?? '').slice(0, 200),
+    // Where the lead came from (docs/tracking.md).
+    ...sourceFrom(formData),
   }
   const [kept, sheet] = await Promise.all([keepSignup(row), addToSheet(row)])
   if (kept.ok || sheet.ok) delivered = true
 
-  const emailData = { ...values, travellers, journeyLabel }
+  const emailData = { ...values, travellers, journeyLabel, source: sourceFrom(formData) }
   const owner = await sendEnquiryToOwner(emailData)
   if (owner.ok) {
     delivered = true
     await sendEnquiryAcknowledgement(emailData)
   }
+
+  await trackServer('interest_registered', { trip: journeyLabel })
 
   if (!delivered) {
     return { status: 'unavailable', key, values, whatsapp: whatsappFallback(values) }

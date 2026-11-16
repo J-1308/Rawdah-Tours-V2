@@ -55,7 +55,7 @@ export function ComingSoonTrip({ j }: { j: Journey }) {
                 Rawdah Tours and the Global Guidance Center are taking a group for Ramadan 1448, open to brothers, sisters and families. The details are coming
                 soon. Register now and you’ll hear first.
               </p>
-              <Actions primary={{ label: "Register interest", href: `#${anchors.form}` }} waText={say.nextUmrah} className="mt-7" />
+              <Actions primary={{ label: "Register interest", href: `#${anchors.form}` }} waText={say.nextUmrah} waTrip={j.name} className="mt-7" />
             </div>
           </div>
         </section>

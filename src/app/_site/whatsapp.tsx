@@ -3,7 +3,14 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-import { anchors, hajjRegister, ramadanReveal, routes, say, wa } from "@/app/_site/content";
+import { anchors, hajjRegister, journey, ramadanReveal, routes, say, wa } from "@/app/_site/content";
+
+/** The WhatsApp link for wherever the visitor is: on a trip page it names that trip. */
+export function pageWa(path: string) {
+  const m = path.match(/^\/trips\/([^/]+)/);
+  const j = m ? journey(m[1]) : undefined;
+  return j ? wa(j.waText, j.name) : wa(say.general);
+}
 
 /** The WhatsApp glyph, for links that open a WhatsApp chat. */
 export function WaGlyph({ className = "size-5" }: { className?: string }) {
@@ -16,9 +23,11 @@ export function WaGlyph({ className = "size-5" }: { className?: string }) {
 
 /** Desktop: a soft round WhatsApp button fixed to the bottom right of every page. */
 export function WhatsAppFloat() {
+  const path = usePathname();
   return (
     <a
-      href={wa(say.general)}
+      href={pageWa(path)}
+      data-placement="floating button"
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Message Rawdah Tours on WhatsApp"
@@ -43,9 +52,9 @@ export function MobileBar() {
         ? { label: path.includes("path-of-purity") ? "Hear about the next" : path.startsWith(routes.nextUmrah) && ramadanReveal ? "Book your place" : "Register interest", href: `#${anchors.join}` }
         : { label: "Register interest", href: hajjRegister };
   return (
-    <div className="top-zone fixed inset-x-0 bottom-0 z-50 px-2.5 pb-[calc(0.5rem+env(safe-area-inset-bottom))] lg:hidden motion-lift">
+    <div data-placement="phone bar" className="top-zone fixed inset-x-0 bottom-0 z-50 px-2.5 pb-[calc(0.5rem+env(safe-area-inset-bottom))] lg:hidden motion-lift">
       <div className="grid grid-cols-[auto_1fr] gap-1.5 rounded-[1.15rem] border border-(--edge) bg-canvas/85 p-1.5 shadow-[var(--shadow-float)] backdrop-blur-md">
-        <a href={wa(say.general)} target="_blank" rel="noopener noreferrer" className="flex h-12 items-center gap-2 rounded-[0.85rem] bg-(--raise) px-4 text-[0.92rem] font-medium text-ink">
+        <a href={pageWa(path)} target="_blank" rel="noopener noreferrer" className="flex h-12 items-center gap-2 rounded-[0.85rem] bg-(--raise) px-4 text-[0.92rem] font-medium text-ink">
           <WaGlyph className="size-5 text-wa" />
           WhatsApp
         </a>
