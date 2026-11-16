@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import { useActionState, useEffect, useId, useRef } from 'react'
 import { submitEnquiry } from '@/app/actions/enquiry'
+import { SourceFields } from '@/app/_site/tracking'
 import type { EnquiryState, EnquiryValues, Journey } from '@/lib/enquiry'
 import { WaGlyph } from '@/app/_site/whatsapp'
 
@@ -86,6 +87,7 @@ export function RegisterForm({ defaultJourney = 'not-sure', page }: { defaultJou
 
   return (
     <form action={action} noValidate className="space-y-7" key={state.key}>
+      <SourceFields />
       <div ref={summaryRef} tabIndex={-1} className="outline-none">
         {state.status === 'invalid' ? (
           <div role="alert" className="rounded-[0.95rem] border border-error/40 bg-canvas p-4">

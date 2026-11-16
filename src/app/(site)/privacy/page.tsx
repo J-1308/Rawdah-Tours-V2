@@ -41,6 +41,11 @@ export default function PrivacyPage() {
           <li>Where needed for visas or flights: passport details and date of birth.</li>
           <li>Payment: deposits and instalments are paid by bank transfer. This website doesn’t take card details.</li>
           <li>Anything else you send us by WhatsApp, phone or email.</li>
+          <li>
+            How you found us: with a sign-up or booking we note the first page you visited, the site or link that brought you (for example our
+            Instagram), and any campaign tag in that link. Your browser holds this only until you close the tab; no cookies are used.
+          </li>
+          <li>Visit counts and which buttons are used (for example how many people tap WhatsApp), counted without cookies and without identifying you.</li>
         </ul>
         {formsSave ? (
           <p>

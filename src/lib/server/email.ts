@@ -77,9 +77,21 @@ export type EnquiryEmail = {
   travellingFrom: string
   message: string
   marketingConsent: boolean
+  /** Where the lead came from (docs/tracking.md). */
+  source?: { utmSource: string; utmMedium: string; utmCampaign: string; landingPage: string; referrer: string }
+}
+
+/** A wa.me link to the traveller's own number, so Rawdah can reply in one tap (UK 07… becomes 447…). */
+function travellerWhatsApp(phone: string) {
+  let n = phone.replace(/[^\d+]/g, '').replace(/^\+/, '').replace(/^00/, '')
+  if (n.startsWith('0')) n = '44' + n.slice(1)
+  return n.length >= 10 ? `https://wa.me/${n}` : ''
 }
 
 export function sendEnquiryToOwner(d: EnquiryEmail) {
+  const s = d.source
+  const from = s ? [s.utmSource, s.utmMedium, s.utmCampaign].filter(Boolean).join(' / ') || (s.referrer ? `Link from ${s.referrer}` : 'Direct or unknown') : ''
+  const reply = travellerWhatsApp(d.phone)
   const body =
     p(`New interest registered for <strong>${escapeHtml(d.journeyLabel)}</strong>.`) +
     table([
@@ -89,9 +101,10 @@ export function sendEnquiryToOwner(d: EnquiryEmail) {
       ['Travellers', d.travellers],
       ['Travelling from', d.travellingFrom],
       ['Updates by email', d.marketingConsent ? 'Yes' : 'No'],
+      ...(s ? ([['Came from', from], ['First page', s.landingPage]] as [string, string][]) : []),
     ]) +
     (d.message ? p(`<strong>Message</strong><br>${escapeHtml(d.message).replace(/\n/g, '<br>')}`) : '') +
-    p(`<a href="${whatsappLink()}" style="color:${C.palm};">Open WhatsApp</a>`)
+    (reply ? p(`<a href="${reply}" style="color:${C.palm};">Reply to ${escapeHtml(d.fullName.split(/\s+/)[0] ?? '')} on WhatsApp</a>`) : '')
   return send(OWNER(), `Interest: ${d.journeyLabel} — ${d.fullName}`, layout('New interest', body), d.email)
 }
 

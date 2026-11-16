@@ -38,7 +38,8 @@ export const ONBOARDING_APP_URL = process.env.NEXT_PUBLIC_ONBOARDING_APP_URL || 
 /** wa.me link, optionally with a pre-filled first message. */
 export function whatsappLink(message?: string) {
   const base = `https://wa.me/${CONTACT.whatsappNumber}`
-  return message ? `${base}?text=${encodeURIComponent(message)}` : base
+  // "(from the website)" so Rawdah can count chats from the site (docs/tracking.md).
+  return `${base}?text=${encodeURIComponent(`${message ?? 'Assalamu alaykum.'}\n\n(from the website)`)}`
 }
 
 export const WHATSAPP_MESSAGES = {

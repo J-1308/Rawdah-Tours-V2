@@ -1,6 +1,7 @@
 'use server'
 
 import { redirect } from 'next/navigation'
+import { trackServer } from '@/lib/server/track'
 import type { BookingErrors, BookingState, BookingValues } from '@/lib/booking'
 import { bankDetails, configured, siteOrigin } from '@/lib/server/config'
 import { getSupabase } from '@/lib/server/supabase'
@@ -165,6 +166,7 @@ export async function createBooking(tripSlug: string, prev: BookingState, formDa
   }
 
   if (values.paymentMethod === 'bank_transfer') {
+    await trackServer('deposit_paid', { trip: trip.slug, method: 'bank_transfer' })
     await Promise.allSettled([sendBankTransferInstructions(emailData, bankDetails()!), sendBookingToOwner(emailData, 'awaiting-transfer')])
     redirect(`/booking/bank-transfer?ref=${booking.id}`)
   }

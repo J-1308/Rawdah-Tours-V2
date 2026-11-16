@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 
 import { brand, hajjRegister, nav, say, tripLinks, wa } from "@/app/_site/content";
 import { Emblem, Logo } from "@/app/_site/shell";
-import { Chevron, WaGlyph } from "@/app/_site/whatsapp";
+import { Chevron, pageWa, WaGlyph } from "@/app/_site/whatsapp";
 
 /**
  * The header: soft glass in the top zone (night with the beige-gold logo, or
@@ -137,7 +137,7 @@ export function SiteHeader() {
           <Link href={hajjRegister} className="btn-ink hidden h-11 items-center rounded-[0.85rem] px-5 text-[0.88rem] font-medium lg:inline-flex">
             Register interest
           </Link>
-          <a href={wa(say.general)} target="_blank" rel="noopener noreferrer" aria-label="WhatsApp us" className="-mr-1 grid size-11 place-items-center rounded-full bg-(--raise) text-wa shadow-[0_6px_18px_-10px_rgb(58_43_36/0.4)] lg:hidden">
+          <a href={pageWa(pathname)} target="_blank" rel="noopener noreferrer" aria-label="WhatsApp us" className="-mr-1 grid size-11 place-items-center rounded-full bg-(--raise) text-wa shadow-[0_6px_18px_-10px_rgb(58_43_36/0.4)] lg:hidden">
             <WaGlyph className="size-5" />
           </a>
         </div>
@@ -175,7 +175,7 @@ export function SiteHeader() {
               <Link href={hajjRegister} onClick={() => setOpen(false)} className="btn-ink flex h-[3.25rem] items-center justify-center gap-2 rounded-[0.95rem] text-[0.95rem] font-medium">
                 Register for Hajj 2027 <Chevron className="size-3 opacity-70" />
               </Link>
-              <a href={wa(say.general)} target="_blank" rel="noopener noreferrer" className="flex h-[3.25rem] items-center justify-center gap-2.5 rounded-[0.95rem] border border-ink/15 bg-(--raise) text-[0.95rem] font-medium">
+              <a href={pageWa(pathname)} target="_blank" rel="noopener noreferrer" className="flex h-[3.25rem] items-center justify-center gap-2.5 rounded-[0.95rem] border border-ink/15 bg-(--raise) text-[0.95rem] font-medium">
                 <WaGlyph className="size-5 text-wa" /> WhatsApp us
               </a>
             </div>

@@ -58,7 +58,12 @@ export const brand = {
   nusuk: "https://hajj.nusuk.sa/?language=en",
 } as const;
 
-export const wa = (text: string) => `https://wa.me/${brand.whatsapp}?text=${encodeURIComponent(text)}`;
+/**
+ * A WhatsApp chat with a pre-written first message. Every message ends "(from the website)", plus the trip when
+ * there is one, so Rawdah can count chats that came from the site (docs/tracking.md).
+ */
+export const wa = (text: string, trip?: string) =>
+  `https://wa.me/${brand.whatsapp}?text=${encodeURIComponent(`${text}\n\n(from the website${trip ? `: ${trip}` : ""})`)}`;
 
 /** WhatsApp openers, in Rawdah's voice. */
 export const say = {

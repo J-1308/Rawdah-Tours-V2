@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { useActionState, useEffect, useRef, useState } from 'react'
 import type { BookingState, BookingValues } from '@/lib/booking'
 import { WaGlyph } from '@/app/_site/whatsapp'
+import { SourceFields, TrackOnMount, tripOf } from '@/app/_site/tracking'
 import { cx } from '@/components/ui'
 import { WHATSAPP_MESSAGES, whatsappLink } from '@/lib/site'
 
@@ -70,6 +71,8 @@ export function BookingForm({
 
   return (
     <form action={formAction} noValidate key={state.key} className="space-y-10">
+      <SourceFields />
+      <TrackOnMount name="booking_started" props={{ trip: typeof window === "undefined" ? "" : tripOf() }} />
       <div ref={summaryRef} tabIndex={-1} className="outline-none">
         {state.status === 'invalid' ? (
           <div role="alert" className="rounded-[0.95rem] border border-error/40 bg-canvas p-4 font-medium text-error">

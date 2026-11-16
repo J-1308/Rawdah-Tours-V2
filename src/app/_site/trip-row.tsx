@@ -102,7 +102,7 @@ export function TripRow({ j }: { j: Journey; tone?: "canvas" | "ink" }) {
             {cta}
             <Chevron className="size-3 opacity-70 transition-transform group-hover:translate-x-0.5" />
           </Link>
-          <a href={wa(j.waText)} target="_blank" rel="noopener noreferrer" aria-label={`Ask about ${j.name} on WhatsApp`} className="grid size-12 place-items-center rounded-[0.9rem] border border-ink/12 bg-(--raise) text-wa">
+          <a href={wa(j.waText, j.name)} target="_blank" rel="noopener noreferrer" aria-label={`Ask about ${j.name} on WhatsApp`} className="grid size-12 place-items-center rounded-[0.9rem] border border-ink/12 bg-(--raise) text-wa">
             <WaGlyph className="size-5" />
           </a>
         </div>
