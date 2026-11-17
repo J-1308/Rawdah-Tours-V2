@@ -30,7 +30,7 @@ import { slot, slotFilled } from "@/app/_site/slots";
  * trip shows as "coming soon" everywhere and its page is a teaser with the register form; the full plan (dates,
  * flights, hotels, packages) stays in this file and src/lib/trips.ts. Set to true to reveal it.
  */
-export const ramadanReveal = false;
+export const ramadanReveal = true;
 
 export type Status = "confirmed" | "evidenced" | "draft" | "proposed" | "to confirm" | "sample";
 
@@ -609,6 +609,8 @@ export type TripPlan = {
   hotels: { city: string; nights: number; name: string; stars: number; slot: string; more?: { src: string; alt: string }[]; rows: { k: string; v: string }[]; note?: string }[];
   notes: { tone: "moon" | "alert"; text: string }[];
   includes: V[];
+  /** One line under the list, e.g. what the ground-only package leaves out. */
+  includesNote?: string;
   places?: V;
   status: Status;
 };
@@ -822,22 +824,20 @@ export const ramadanFull: Journey = {
           note: "We check out in the early hours for the 03:35 flight.",
         },
       ],
-      notes: [
-        { tone: "moon", text: "Eid al-Fitr falls on Tuesday 9 or Wednesday 10 March." },
-        { tone: "alert", text: "We may spend Eid travelling." },
-      ],
+      notes: [{ tone: "moon", text: "Eid al-Fitr falls on Tuesday 9 or Wednesday 10 March, so we may spend it travelling." }],
       includes: [
         v("Return flights with Saudia from Heathrow, 2 × 23kg checked and 7kg hand luggage", "confirmed"),
         v("9 nights at Novotel Thakher City Makkah, 4★", "confirmed"),
         v("4 nights at Al Manakha Rotana, Madinah, 4★", "confirmed"),
         v("Transfers on the ground, straight to Makkah when you land", "confirmed"),
         v("Your Umrah visa", "confirmed"),
-        v("Ground only: the hotels and transfers, with your own flights", "confirmed"),
         v("Certified ustadhs and the Rawdah Tours team with the group", "proposed"),
       ],
+      includesNote: "Ground only covers the hotels and transfers. You book your own flights.",
       places: v("Up to 60 places: around 30 with flights and 30 ground only", "confirmed"),
     },
-    photo: { src: "/images/places/places-01.jpg", width: 2400, height: 1600, alt: "The Ka‘bah at night, the clock tower behind it.", position: "object-[50%_55%]" },
+    /* A Rawdah group for now; an Umrah poster from Rawdah will replace it (Jibril, 17 Nov 2026). */
+    photo: { src: "/images/group-photos/group-photos-03.jpg", width: 3000, height: 2250, alt: "A Rawdah group in ihram at night, the lit arcades of Masjid al-Haram behind them.", position: "object-[50%_60%]" },
     more: [
       { src: "/images/group-photos/group-photos-05.jpg", alt: "The group on the roof of Masjid an-Nabawi.", position: "object-[50%_62%]" },
       { src: "/images/friends/friends-07.jpg", alt: "Two travellers in ihram, smiling, suitcases behind them.", position: "object-[50%_35%]" },

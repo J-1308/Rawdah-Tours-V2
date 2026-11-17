@@ -197,7 +197,8 @@ export function TripView({ j }: { j: Journey }) {
 
           {j.kind === "umrah" && j.itinerary ? <Itinerary j={j} /> : null}
 
-          {j.confirmed || j.pending ? (
+          {/* A trip with its full plan shows what's settled in the plan itself (Ramadan rework, 17 Nov 2026). */}
+          {!j.plan && (j.confirmed || j.pending) ? (
             <section className="mt-12 sm:mt-16">
               <ConfirmedPending confirmed={j.confirmed} pending={j.pending} />
             </section>
@@ -205,14 +206,15 @@ export function TripView({ j }: { j: Journey }) {
 
           {/* Phones (and desktop when the trip has packages): the trust box closes the trip's story. Its main button
               shows on phones only; on desktop the join panel beside it is the main button. */}
-          <TrustBox
+          {/* The trust box repeats the team section on a trip with its full plan, so it shows only on the others. */}
+          {j.plan ? null : <TrustBox
             j={j}
             members={members}
             book
             bookHref={bookable ? `/trips/${j.slug}/book` : j.state === "open" ? `#${anchors.join}` : `#${anchors.form}`}
             bookLabel={joinLabel}
             className={`mt-12 ${j.rooms?.value.length ? "lg:max-w-[30rem]" : "lg:hidden"}`}
-          />
+          />}
         </div>
       </div>
       </Chapter>

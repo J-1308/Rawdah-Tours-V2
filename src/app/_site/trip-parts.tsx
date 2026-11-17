@@ -2,7 +2,7 @@ import Image from "next/image";
 import { HotelGallery } from "./hotel-gallery";
 import { Fragment } from "react";
 
-import { anchors, gbp, hajjNusuk, journeyStay, leader, people, say, teachers, trust, wa, type Journey, type Room, type Status, type StayPhoto, type TripPlan } from "@/app/_site/content";
+import { anchors, gbp, hajjNusuk, journeyStay, leader, people, say, teachers, trust, wa, type Journey, type Status, type StayPhoto, type TripPlan } from "@/app/_site/content";
 import { Mark } from "@/app/_site/marks";
 import { Emblem, gutter, Heading, Label, Tick } from "@/app/_site/shell";
 import { slot, slotFilled } from "@/app/_site/slots";
@@ -473,6 +473,7 @@ export function TripJourney({ j }: { j: Journey }) {
 /** What a planned trip includes, as a list of ticks. */
 export function TripIncludes({ plan }: { plan: TripPlan }) {
   return (
+    <>
     <ul className="glass-phone mt-6 grid grid-cols-1 rounded-[1.25rem] px-4 py-1 [--glass-shadow:none] sm:grid-cols-2 sm:gap-1.5 sm:p-0">
       {plan.includes.map((h, i) => (
         <li key={h.value} className={`glass-wide flex items-start gap-3 py-3 text-[0.95rem] sm:rounded-[1.1rem] sm:px-4 sm:py-3.5 ${i ? "border-t border-ink/8" : ""}`}>
@@ -484,81 +485,64 @@ export function TripIncludes({ plan }: { plan: TripPlan }) {
         </li>
       ))}
     </ul>
+    {plan.includesNote ? <p className="mt-3 text-[0.9rem] text-ink/68">{plan.includesNote}</p> : null}
+    </>
   );
 }
 
-function Timetable({ title, cols }: { title: string; cols: Room[] }) {
-  const dues = cols[0]?.schedule?.map((s) => s.due) ?? [];
-  return (
-    <div className="glass min-w-0 rounded-[1.75rem] p-5 sm:p-6">
-      <table className="w-full text-[0.9rem] tabular-nums">
-        <thead>
-          <tr>
-            <th scope="col" className="pb-3 text-left align-bottom font-display text-[1.25rem] font-normal">
-              {title}
-            </th>
-            {cols.map((c, i) => (
-              <th key={c.type} scope="col" className="pb-3 pl-2 text-right align-bottom">
-                <span className={`inline-block rounded-[0.6rem] px-2.5 py-1 text-[0.875rem] font-medium whitespace-nowrap ${i === 0 ? "bg-ink text-canvas" : "bg-(--raise) text-ink/80 ring-1 ring-ink/12"}`}>{c.type}</span>
-              </th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {dues.map((d, k) => (
-            <tr key={d} className="border-t border-ink/10">
-              <th scope="row" className="py-2.5 pr-2 text-left font-normal text-ink/70">
-                {d}
-              </th>
-              {cols.map((c) => (
-                <td key={c.type} className="py-2.5 pl-2 text-right">
-                  {gbp(c.schedule?.[k]?.amount ?? 0)}
-                </td>
-              ))}
-            </tr>
-          ))}
-          <tr className="border-t border-ink/35">
-            <th scope="row" className="pt-2.5 text-left font-medium">
-              Total
-            </th>
-            {cols.map((c) => (
-              <td key={c.type} className="pt-2.5 pl-2 text-right font-medium">
-                {gbp(c.price)}
-              </td>
-            ))}
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  );
-}
-
-/** The packages as cards, then each one's payment timetable. Prices from src/lib/trips.ts. */
+/**
+ * The packages side by side in one table: what each costs, then when each payment falls due. Prices and dates from
+ * src/lib/trips.ts. The column heads are plain text (they used to look like toggles; Fable's review, 17 Nov 2026).
+ */
 export function TripPackages({ j }: { j: Journey }) {
   const rooms = j.rooms?.value ?? [];
-  const withFlights = rooms.filter((r) => r.flights !== false);
-  const ground = rooms.filter((r) => r.flights === false);
+  // Every payment row any package has, in order of first appearance; a package without that row shows a dash.
+  const dues: string[] = [];
+  for (const r of rooms) for (const p of r.schedule ?? []) if (!dues.includes(p.due)) dues.push(p.due);
+  const cell = "py-2.5 pl-2 text-right whitespace-nowrap sm:pl-3";
+  /** Short row labels so the table fits a phone: "20 January, final" → "20 Jan". */
+  const short = (d: string) =>
+    /^deposit/i.test(d) ? "Deposit" : /^balance/i.test(d) ? "Balance" : d.replace(/, final$/i, "").replace(/(January|February|March|April|May|June|July|August|September|October|November|December)/, (m) => m.slice(0, 3));
+  const agreed = dues.some((d) => /agreed after booking/i.test(d));
   return (
     <>
-      <ul className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-3">
-        {rooms.map((r, i) => (
-          <li key={r.type} className={`relative overflow-hidden rounded-[1.75rem] p-5 sm:p-6 ${i === 0 ? `panel-dark text-cream` : "glass"}`}>
-            {i === 0 ? <Emblem className="pointer-events-none absolute right-[-10%] bottom-[-25%] h-[120%] text-cream/[0.05]" /> : null}
-            <span className={`relative font-editorial text-[1.25rem] italic ${i === 0 ? "text-sand" : "text-bronze"}`}>{r.type}</span>
-            <p className="display relative mt-4 text-[clamp(2.8rem,4.4vw,3.6rem)] leading-none">{gbp(r.price)}</p>
-            <p className={`relative mt-2.5 text-[0.9rem] ${i === 0 ? "text-cream/75" : "text-ink/65"}`}>
-              Per person{r.flights !== false ? " · quad sharing" : ""}
-            </p>
-            <p className={`relative mt-4 border-t pt-3 text-[0.92rem] ${i === 0 ? "border-cream/20 text-cream/85" : "border-ink/10 text-ink/72"}`}>{r.flights !== false ? "Flights and ground" : "Hotels and transfers, your own flights"}</p>
-          </li>
-        ))}
-      </ul>
-      <div className="mt-3 grid grid-cols-1 gap-3 lg:grid-cols-[1.35fr_1fr]">
-        {withFlights.length ? <Timetable title="With flights" cols={withFlights} /> : null}
-        {ground.length ? <Timetable title="Ground only" cols={ground} /> : null}
+      <div className="glass mt-6 overflow-x-auto rounded-[1.5rem] p-5 sm:p-7">
+        <table className="w-full text-[0.9rem] tabular-nums sm:text-[0.95rem]">
+          <caption className="sr-only">Packages and payment dates, per person</caption>
+          <thead>
+            <tr>
+              <td />
+              {rooms.map((r) => (
+                <th key={r.type} scope="col" className="pb-4 pl-2 text-right align-bottom font-normal sm:pl-3">
+                  <span className="block font-editorial text-[1.1rem] leading-tight text-bronze italic sm:text-[1.25rem]">{r.type}</span>
+                  <span className="display mt-1 block text-[clamp(1.5rem,4.6vw,2.4rem)] leading-none text-ink">{gbp(r.price)}</span>
+                  <span className="mt-1.5 block text-[0.875rem] leading-snug text-ink/62">{r.flights === false ? "Own flights" : "With flights"}</span>
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {dues.map((d) => (
+              <tr key={d} className="border-t border-ink/10">
+                <th scope="row" className="py-2.5 pr-2 text-left font-normal whitespace-nowrap text-ink/70">
+                  {short(d)}
+                </th>
+                {rooms.map((r) => {
+                  const p = r.schedule?.find((x) => x.due === d);
+                  return (
+                    <td key={r.type} className={`${cell} ${p ? "" : "text-ink/35"}`}>
+                      {p ? gbp(p.amount) : <span aria-label="None">–</span>}
+                    </td>
+                  );
+                })}
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
       <p className="mt-3 text-[0.875rem] text-ink/68">
-        All deposits are non-refundable.
+        Per person, four sharing a room.{agreed ? " Ground only: the balance is due on a date we agree after booking." : ""} All deposits are
+        non-refundable.
         {j.plan?.places ? (
           <>
             {" "}
