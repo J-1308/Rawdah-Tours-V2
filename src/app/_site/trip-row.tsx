@@ -17,7 +17,7 @@ export function StateTag({ j, className = "", onPhoto = true }: { j: Journey; cl
       } ${className}`}
     >
       <span aria-hidden className={`size-1.5 rounded-full ${j.state === "past" ? "bg-ink/30" : "bg-[#6f9a74]"}`} />
-      {stateLabel[j.state]}
+      {j.stateText ?? stateLabel[j.state]}
       <Mark s={j.stateStatus} />
     </span>
   );
