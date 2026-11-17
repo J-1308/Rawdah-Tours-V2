@@ -12,7 +12,7 @@ export const tripHref = (j: Journey) => `/trips/${j.slug}`;
 export function StateTag({ j, className = "", onPhoto = true }: { j: Journey; className?: string; onPhoto?: boolean }) {
   return (
     <span
-      className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-[0.875rem] font-medium ${
+      className={`inline-flex items-center gap-1.5 rounded-[0.7rem] px-3 py-1 text-[0.875rem] font-medium ${
         onPhoto ? `[&_.site-mark]:border-sand/60 [&_.site-mark]:text-sand ${j.state === "past" ? "bg-black/60 text-cream/80" : "bg-black/60 text-cream"}` : "border border-ink/10 bg-(--raise) text-ink"
       } ${className}`}
     >

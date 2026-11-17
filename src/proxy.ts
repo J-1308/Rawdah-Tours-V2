@@ -1,6 +1,6 @@
 import { NextResponse, type NextRequest } from 'next/server'
 import { isAdminRequest } from '@/lib/server/admin-auth'
-import { GATE_COOKIE, gateOn, gatePasses } from '@/lib/server/site-gate'
+import { GATE_COOKIE, gateOn, gatePassword, gatePasses, isPrivatePath } from '@/lib/server/site-gate'
 
 export function proxy(request: NextRequest) {
   const { pathname, search } = request.nextUrl
@@ -15,8 +15,21 @@ export function proxy(request: NextRequest) {
     })
   }
 
-  // The site password (src/lib/server/site-gate.ts). Off unless SITE_PASSWORD is set.
-  if (!gateOn()) return NextResponse.next()
+  // Private pages once the site is open (src/lib/server/site-gate.ts): PRIVATE_PASSWORD, or 404 without it.
+  if (!gateOn()) {
+    if (!isPrivatePath(pathname)) return NextResponse.next()
+    if (!gatePassword()) return new NextResponse('Not found', { status: 404 })
+    if (gatePasses(request.cookies.get(GATE_COOKIE)?.value)) {
+      const res = NextResponse.next()
+      res.headers.set('X-Robots-Tag', 'noindex, nofollow')
+      return res
+    }
+    const to = new URL('/gate', request.url)
+    to.searchParams.set('next', pathname + search)
+    return NextResponse.redirect(to)
+  }
+
+  // The site password. Off unless SITE_PASSWORD is set.
   if (pathname === '/robots.txt') {
     return new NextResponse('User-agent: *\nDisallow: /\n', { headers: { 'Content-Type': 'text/plain' } })
   }

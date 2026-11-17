@@ -83,7 +83,7 @@ All copy lives in `src/app/_site/content.ts`, each claim wrapped in `v(text, sta
 | `Actions`, `WaTile`, `WaSquare` | `shell.tsx` | The action-plus-WhatsApp pair everywhere. |
 | `RegisterForm` + `submitEnquiry` | `register-form.tsx`, `actions/enquiry.ts` | Store, sheet, email, WhatsApp fallback. |
 | `ReservePanel`, `PaymentPlan` | `reserve.tsx`, `home-sections.tsx` | Deposit maths people trust. |
-| Site password | `src/proxy.ts`, `lib/server/site-gate.ts`, `app/gate/page.tsx` | Free "private for now" lock via `SITE_PASSWORD`. |
+| Site password | `src/proxy.ts`, `lib/server/site-gate.ts`, `app/gate/page.tsx` | Free "private for now" lock via `SITE_PASSWORD`; `PRIVATE_PASSWORD` keeps chosen pages private after launch (404 without it). |
 | `IS_LIVE` | `src/lib/site.ts` | Robots and sitemap open only on the real production domain. |
 
 ## 5. Tried and rejected

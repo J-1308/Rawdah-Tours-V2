@@ -660,7 +660,7 @@ export type Journey = {
 
 export const stateLabel: Record<Journey["state"], string> = {
   open: "Booking open",
-  interest: "Register interest",
+  interest: "Registration open",
   past: "Completed",
 };
 
@@ -971,7 +971,7 @@ export function routeText(j: Journey) {
 /** Who we work with (Jibril, 31 Oct 2026): partners, airlines, hotels, travel and Hajj. Links are each one's own site. */
 export const partners = {
   label: "Who we travel with",
-  headline: "Partners and providers",
+  headline: "Airlines, hotels and platforms we travel with",
   groups: [
     {
       title: "Partners",
@@ -1029,7 +1029,7 @@ export const privatePricing = {
 export const privatePage = {
   label: "Private & family Umrah",
   headline: "Private Umrah, planned around you.",
-  text: "For families, couples and friends who can’t make a group date. Plan it below, send it to us on WhatsApp, and we’ll come back with real options.",
+  text: "For families, couples and friends who can’t make a group date. Tell us what you need below and we’ll come back with real options.",
   points: [
     { title: "Any week you choose", text: "Any week of the year, school holidays included.", status: "confirmed" as Status },
     { title: "Hotels to suit you", text: "Any of the five-star hotels by the Haramain in Makkah and Madinah, or affordable, economical hotels.", status: "confirmed" as Status },

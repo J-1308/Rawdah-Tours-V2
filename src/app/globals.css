@@ -61,6 +61,7 @@
   --edge: rgb(255 255 255 / 0.7);
   --field-bg: rgb(255 253 249 / 0.85);
   --field-ring: rgb(216 195 161 / 0.35);
+  --focus: var(--color-bronze);
   --btn-bg: linear-gradient(180deg, #4b392f 0%, #3a2b24 100%);
   --btn-bg-hover: linear-gradient(180deg, #554035 0%, #3f2f27 100%);
   --btn-fg: #f8f3eb;
@@ -97,6 +98,7 @@
   --edge: rgb(255 255 255 / 0.7);
   --field-bg: rgb(255 253 249 / 0.85);
   --field-ring: rgb(216 195 161 / 0.35);
+  --focus: var(--color-bronze);
   --btn-bg: linear-gradient(180deg, #4b392f 0%, #3a2b24 100%);
   --btn-bg-hover: linear-gradient(180deg, #554035 0%, #3f2f27 100%);
   --btn-fg: #f8f3eb;
@@ -133,6 +135,7 @@
   --edge: rgb(255 245 230 / 0.1);
   --field-bg: rgb(255 248 238 / 0.05);
   --field-ring: rgb(216 195 161 / 0.16);
+  --focus: var(--color-gold);
   --btn-bg: linear-gradient(180deg, #e9d8bb 0%, #cdb48b 100%);
   --btn-bg-hover: linear-gradient(180deg, #f0e2c9 0%, #d8c19a 100%);
   --btn-fg: #1a120e;
@@ -200,7 +203,7 @@ p, li, blockquote, figcaption, dd {
 }
 
 :focus-visible {
-  outline: 2px solid var(--color-gold);
+  outline: 2px solid var(--focus, var(--color-gold));
   outline-offset: 3px;
 }
 
@@ -434,7 +437,7 @@ html.motion .rv-photo.in img { transform: none; }
 
 .field {
   width: 100%;
-  border: 1px solid color-mix(in oklab, var(--color-ink) 16%, transparent);
+  border: 1px solid color-mix(in oklab, var(--color-ink) 45%, transparent);
   background: var(--field-bg);
   border-radius: 0.8rem;
   padding: 0.85rem 1rem;
@@ -445,7 +448,7 @@ html.motion .rv-photo.in img { transform: none; }
   transition: border-color 150ms ease, box-shadow 150ms ease;
 }
 .field::placeholder { color: color-mix(in oklab, var(--color-muted) 70%, transparent); }
-.field:focus { outline: none; border-color: var(--color-gold); box-shadow: 0 0 0 4px var(--field-ring); }
+.field:focus { outline: none; border-color: var(--focus, var(--color-gold)); box-shadow: 0 0 0 4px var(--field-ring); }
 .field option { background: var(--color-canvas-warm); color: var(--color-ink); }
 .field[aria-invalid="true"] { border-color: var(--color-error); }
 /* A field inside a cocoa panel: a soft lit well, not a pale box. */

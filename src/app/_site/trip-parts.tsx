@@ -137,7 +137,7 @@ export function WhereYouStay({ j }: { j: Journey }) {
                 <p className="mt-2 text-[1.05rem] tracking-[0.1em] text-gold" aria-label={`${h.stars} stars`}>
                   {"★".repeat(h.stars)}
                 </p>
-                <p className="mt-4 inline-flex items-center gap-2 rounded-full bg-sand/15 px-3.5 py-1.5 text-[0.88rem] font-medium text-sand">
+                <p className="mt-4 inline-flex items-center gap-2 rounded-[0.7rem] bg-sand/15 px-3.5 py-1.5 text-[0.88rem] font-medium text-sand">
                   <Emblem className="h-3.5 text-sand/80" />
                   {h.walk}
                 </p>
@@ -330,7 +330,7 @@ export function MomentStrip({ photos, caption }: { photos: StayPhoto[]; caption:
 /* ------------------------------------------------------------------------ */
 
 const eyebrow = "font-editorial text-[1.12rem] italic text-bronze";
-const pill = "rounded-full border border-ink/12 bg-(--raise) px-3 py-1 text-[0.875rem] whitespace-nowrap";
+const pill = "rounded-[0.7rem] border border-ink/12 bg-(--raise) px-3 py-1 text-[0.875rem] whitespace-nowrap";
 
 function Glyph({ d, className = "size-4" }: { d: string; className?: string }) {
   return (
@@ -361,10 +361,10 @@ function Rows({ rows }: { rows: { k: string; v: string }[] }) {
 /** Fly, the cities, fly: one line, widths by nights. On phones, a short list. */
 export function TripLine({ plan }: { plan: TripPlan }) {
   const seg = (stay: boolean) =>
-    `flex items-center justify-between gap-3 rounded-[1rem] px-4 py-3 sm:grid sm:place-items-center sm:gap-0 sm:rounded-full sm:py-3 sm:text-center ${stay ? "bg-(--raise) sm:basis-0" : "bg-sand/25 sm:shrink-0 sm:px-5"}`;
+    `flex items-center justify-between gap-3 rounded-[1rem] px-4 py-3 sm:grid sm:place-items-center sm:gap-0 sm:rounded-[0.95rem] sm:py-3 sm:text-center ${stay ? "bg-(--raise) sm:basis-0" : "bg-sand/25 sm:shrink-0 sm:px-5"}`;
   return (
     <div>
-      <ol className="glass grid gap-1.5 rounded-[1.4rem] p-1.5 [--glass-shadow:none] sm:flex sm:rounded-full">
+      <ol className="glass grid gap-1.5 rounded-[1.4rem] p-1.5 [--glass-shadow:none] sm:flex sm:rounded-[1.2rem]">
         {plan.timeline.map((s, i) => (
           <Fragment key={s.label}>
             <li className={seg(Boolean(s.nights))} style={s.nights ? { flexGrow: s.nights } : undefined}>

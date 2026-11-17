@@ -94,7 +94,7 @@ export default function GroupsPage() {
           <div className="lg:col-span-5">
             <Label>Start here</Label>
             <Heading className="mt-4 text-[clamp(2.4rem,4vw,3.8rem)]">Your group, in a few lines</Heading>
-            <p className="mt-5 max-w-[26rem] text-[1rem] leading-[1.7] text-ink/72">A minute of questions, sent to us on WhatsApp. We’ll get back to you to talk it through, with no obligation.</p>
+            <p className="mt-5 max-w-[26rem] text-[1rem] leading-[1.7] text-ink/72">A minute of questions. We’ll get back to you to talk it through, with no obligation.</p>
             <div className="glass mt-8 rounded-[1.5rem] px-5 py-1">
               {groupsPage.questions.map((f, i) => (
                 <details key={f.q} className={`group ${i ? "border-t border-ink/8" : ""}`}>
