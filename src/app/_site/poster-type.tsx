@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import type { CSSProperties, ReactNode } from "react";
 
 /**
  * The M from the GGC × Rawdah Ramadan poster: two sharp Λ shapes overlapping, flat cut at the top and bottom.
@@ -27,14 +27,23 @@ export function PosterM() {
  * A title in the poster lettering: the text as written for screen readers, and on screen in capitals with every M
  * drawn as the poster's M. Use inside a heading with the `poster-title` class.
  */
-export function PosterText({ text }: { text: string }) {
+export function PosterText({ text, rise = false }: { text: string; rise?: boolean }) {
+  let n = 0; // letter index across the title, for the rise
+  const letter = (node: ReactNode, key: number) =>
+    rise ? (
+      <span key={key} className="pl" style={{ "--i": n++ } as CSSProperties}>
+        {node}
+      </span>
+    ) : (
+      node
+    );
   // Each word kept whole: the drawn M would otherwise let a line break inside a word ("U / MRAH").
   const shown: ReactNode[] = text.split(/(\s+)/).map((word, w) =>
     /^\s+$/.test(word) ? (
       word
     ) : (
       <span key={w} className="whitespace-nowrap">
-        {word.split(/(m)/i).map((p, i) => (/^m$/i.test(p) ? <PosterM key={i} /> : p))}
+        {word.split(/(m)/i).flatMap((p, i) => (/^m$/i.test(p) ? [letter(<PosterM key={i * 100} />, i * 100)] : rise ? [...p].map((c, k) => letter(c, i * 100 + k + 1)) : [p]))}
       </span>
     ),
   );

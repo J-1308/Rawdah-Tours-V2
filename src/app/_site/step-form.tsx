@@ -266,7 +266,7 @@ export function StepForm(props: StepFormProps) {
       >
         <input ref={hp} name="website" tabIndex={-1} autoComplete="off" aria-hidden className="absolute -left-[9999px] h-0 w-0 opacity-0" />
         {step === 1 ? (
-          <fieldset className="space-y-5">
+          <fieldset key="step-1" className="step-in space-y-5">
             <legend className="display text-[clamp(1.7rem,4.5vw,2.2rem)] leading-tight">{path.title}</legend>
             {path.sub ? <p className="-mt-2 text-[0.95rem] text-ink/68">{path.sub}</p> : null}
             {path.form === "group" && answers.Package ? (
@@ -299,7 +299,7 @@ export function StepForm(props: StepFormProps) {
             </div>
           </fieldset>
         ) : current ? (
-          <fieldset className="space-y-7">
+          <fieldset key={`step-${step}`} className="step-in space-y-7">
             <legend className="display text-[clamp(1.7rem,4.5vw,2.2rem)] leading-tight">{current.heading}</legend>
             {current.questions.map((q) => (
               <Question key={q.key} q={q} id={f(q.key)} value={answers[q.key] ?? ""} set={(v) => set(q.key, v)} error={errors[q.key]} />

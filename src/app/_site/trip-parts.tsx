@@ -2,6 +2,8 @@ import Image from "next/image";
 import { HotelGallery } from "./hotel-gallery";
 import { Fragment } from "react";
 
+import { CountUp } from "@/app/_site/count-up";
+import { NightSky } from "@/app/_site/night-sky";
 import { PosterText } from "@/app/_site/poster-type";
 import { anchors, gbp, hajjNusuk, journeyStay, leader, people, say, teachers, trust, wa, type Journey, type Status, type StayPhoto, type TripPlan } from "@/app/_site/content";
 import { Mark } from "@/app/_site/marks";
@@ -360,12 +362,13 @@ function Rows({ rows }: { rows: { k: string; v: string }[] }) {
 }
 
 /** Fly, the cities, fly: one line, widths by nights. On phones, a short list. */
-export function TripLine({ plan }: { plan: TripPlan }) {
+export function TripLine({ plan, draw = false }: { plan: TripPlan; draw?: boolean }) {
+  // With draw, the wrapper is what scrolls into view; the line inside it is unmasked (globals.css, "journey line").
   const seg = (stay: boolean) =>
     `flex items-center justify-between gap-3 rounded-[1rem] px-4 py-3 sm:grid sm:place-items-center sm:gap-0 sm:rounded-[0.95rem] sm:py-3 sm:text-center ${stay ? "bg-(--raise) sm:basis-0" : "bg-sand/25 sm:shrink-0 sm:px-5"}`;
   return (
-    <div>
-      <ol className="glass grid gap-1.5 rounded-[1.4rem] p-1.5 [--glass-shadow:none] sm:flex sm:rounded-[1.2rem]">
+    <div data-reveal={draw ? "" : undefined} className={draw ? "line-draw" : undefined}>
+      <ol data-rv-skip={draw ? "" : undefined} className={`glass grid gap-1.5 rounded-[1.4rem] p-1.5 [--glass-shadow:none] sm:flex sm:rounded-[1.2rem]`}>
         {plan.timeline.map((s, i) => (
           <Fragment key={s.label}>
             <li className={seg(Boolean(s.nights))} style={s.nights ? { flexGrow: s.nights } : undefined}>
@@ -378,7 +381,7 @@ export function TripLine({ plan }: { plan: TripPlan }) {
       </ol>
       {plan.marker ? (
         // Same widths as the line above, so the note sits under the change of city.
-        <div aria-hidden className="mt-2 hidden gap-1.5 px-1.5 sm:flex">
+        <div aria-hidden data-reveal={draw ? "" : undefined} data-rv={draw ? "12" : undefined} className="mt-2 hidden gap-1.5 px-1.5 sm:flex">
           {plan.timeline.map((s, i) => (
             <div key={s.label} className={`invisible relative h-5 ${s.nights ? "basis-0 px-4" : "shrink-0 px-5"}`} style={s.nights ? { flexGrow: s.nights } : undefined}>
               <span className="block h-0 overflow-hidden text-[0.98rem] font-medium">{s.label}</span>
@@ -398,7 +401,8 @@ export function TripLine({ plan }: { plan: TripPlan }) {
 export function TripJourney({ j }: { j: Journey }) {
   const plan = j.plan!;
   return (
-    <section className={`py-[clamp(3.75rem,9vw,8rem)] ${gutter}`}>
+    <section className={`relative overflow-hidden py-[clamp(3.75rem,9vw,8rem)] ${gutter}`}>
+      {j.posterType ? <NightSky count={46} seed={27} className="[mask-image:linear-gradient(to_bottom,#000,transparent_45%)]" /> : null}
       <Label>The journey</Label>
       <Heading className={`mt-4 max-w-[48rem] ${j.posterType ? "poster-title text-[clamp(1.6rem,3.4vw,2.8rem)] [--track:0.05em]" : "text-[clamp(2.3rem,4.2vw,4rem)]"}`}>
         {j.posterType ? <PosterText text="Flights and hotels" /> : "Flights and hotels"}
@@ -407,12 +411,12 @@ export function TripJourney({ j }: { j: Journey }) {
       <p className="mt-4 max-w-[36rem] text-[1rem] leading-[1.65] text-ink/72">From Heathrow and back: thirteen nights, nine in Makkah and four in Madinah.</p>
 
       <div className="mt-9 sm:mt-12">
-        <TripLine plan={plan} />
+        <TripLine plan={plan} draw={j.posterType} />
       </div>
 
       <div className="mt-8 grid grid-cols-1 gap-3 lg:grid-cols-2 lg:gap-4">
-        {plan.flights.map((f) => (
-          <article key={f.dir} className="glass rounded-[1.75rem] p-5 sm:p-7">
+        {plan.flights.map((f, i) => (
+          <article key={f.dir} data-reveal={j.posterType ? "" : undefined} data-rv={j.posterType ? String(i) : undefined} className="glass relative rounded-[1.75rem] p-5 sm:p-7">
             <div className="flex items-center justify-between gap-3">
               <p className={`flex items-center gap-2.5 ${eyebrow}`}>
                 <span className="grid size-8 place-items-center rounded-full border border-ink/15 text-ink/75">
@@ -427,13 +431,18 @@ export function TripJourney({ j }: { j: Journey }) {
               <span>{f.route}</span>
               <span className="text-[0.875rem] tracking-[0.16em] text-ink/60">{f.code}</span>
             </div>
+            {j.posterType ? (
+              <div aria-hidden className="plane-track">
+                <Glyph d={plane} className="plane rotate-45" />
+              </div>
+            ) : null}
             <Rows rows={f.rows} />
             {f.note ? <p className="mt-3 text-[0.875rem] text-ink/62">{f.note}</p> : null}
           </article>
         ))}
 
-        {plan.hotels.map((h) => (
-          <article key={h.city} className="glass overflow-hidden rounded-[1.75rem]">
+        {plan.hotels.map((h, i) => (
+          <article key={h.city} data-reveal={j.posterType ? "" : undefined} data-rv={j.posterType ? String(i) : undefined} className="glass overflow-hidden rounded-[1.75rem]">
             {/* The hotel's photos once supplied, swipeable; no empty frame before that (design pass, 16 Nov 2026). */}
             {slotFilled(h.slot) ? <HotelGallery name={h.name} photos={[{ src: slot(h.slot), alt: `${h.name}, ${h.city}.` }, ...(h.more ?? [])]} /> : null}
             <div className="p-5 sm:p-7">
@@ -516,7 +525,7 @@ export function TripPackages({ j }: { j: Journey }) {
               {rooms.map((r) => (
                 <th key={r.type} scope="col" className="pb-4 pl-2 text-right align-bottom font-normal sm:pl-3">
                   <span className="block font-editorial text-[1.1rem] leading-tight text-bronze italic sm:text-[1.25rem]">{r.type}</span>
-                  <span className="display mt-1 block text-[clamp(1.5rem,4.6vw,2.4rem)] leading-none text-ink">{gbp(r.price)}</span>
+                  <CountUp value={r.price} className="display mt-1 block text-[clamp(1.5rem,4.6vw,2.4rem)] leading-none text-ink" />
                   <span className="mt-1.5 block text-[0.875rem] leading-snug text-ink/62">{r.flights === false ? "Own flights" : "With flights"}</span>
                 </th>
               ))}

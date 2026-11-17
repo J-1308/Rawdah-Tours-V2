@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import type { CSSProperties } from "react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
@@ -7,6 +8,7 @@ import { TripPhoneBar } from "@/app/_site/trip-bar";
 import { anchors, covers, faqs, fromPrice, gbp, hajjNusuk, journey, journeys, nightsOf, ramadanReveal, routes, routeText, say, type Journey } from "@/app/_site/content";
 import { CoverGroups, FaqList, PaymentPlan, Tick } from "@/app/_site/home-sections";
 import { Mark } from "@/app/_site/marks";
+import { NightSky } from "@/app/_site/night-sky";
 import { PosterText } from "@/app/_site/poster-type";
 import { StepForm } from "@/app/_site/step-form";
 import { ReservePanel } from "@/app/_site/reserve";
@@ -118,8 +120,9 @@ export function TripView({ j }: { j: Journey }) {
       <Chapter tone="top">
       <PageLead
         crumbs={[{ label: "Home", href: "/" }, { label: "Trips", href: routes.trips }, { label: j.name }]}
-        title={T(j.name)}
-        titleClassName={j.posterType ? "poster-title text-[clamp(2.35rem,10.5vw,4.9rem)] lg:text-[clamp(2.35rem,5.2vw,4.9rem)] [--track:0.07em]" : undefined}
+        title={j.posterType ? <PosterText text={j.name} rise /> : j.name}
+        backdrop={j.posterType ? <NightSky moon /> : undefined}
+        titleClassName={j.posterType ? "poster-title poster-rise text-[clamp(2.35rem,10.5vw,4.9rem)] lg:text-[clamp(2.35rem,5.2vw,4.9rem)] [--track:0.07em]" : undefined}
         photos={[{ src: j.photo.src, alt: j.photo.alt, position: j.photo.position }, ...j.more]}
       >
         {j.partner ? (
@@ -141,7 +144,7 @@ export function TripView({ j }: { j: Journey }) {
           <StateTag j={j} onPhoto={false} />
         </div>
         <p className="lead-after mt-4 max-w-[34rem] font-editorial text-[clamp(1.4rem,2vw,1.8rem)] leading-snug text-ink/70 italic">{j.tagline}</p>
-        <dl className="mt-6 grid max-w-[36rem] grid-cols-2 gap-2 text-[0.9rem] sm:mt-7 sm:gap-2.5 sm:text-[0.92rem]">
+        <dl style={j.posterType ? ({ "--d": "900ms" } as CSSProperties) : undefined} className={`${j.posterType ? "follow " : ""}mt-6 grid max-w-[36rem] grid-cols-2 gap-2 text-[0.9rem] sm:mt-7 sm:gap-2.5 sm:text-[0.92rem]`}>
           {[...facts, { k: j.kind === "hajj" ? "The rites" : "Route", v: routeText(j), s: j.route.status }].map((f, i, all) => (
             <div key={f.k} className={`glass rounded-[1.1rem] p-3.5 [--glass-shadow:none] ${i === all.length - 1 ? "col-span-2" : ""}`}>
               <dt className="text-[0.875rem] text-ink/62">{f.k}</dt>
@@ -152,7 +155,7 @@ export function TripView({ j }: { j: Journey }) {
             </div>
           ))}
         </dl>
-        <a href={j.state === "interest" ? `#${anchors.form}` : `#${anchors.join}`} className="btn-ink mt-6 flex min-h-[3.25rem] items-center justify-center gap-2 rounded-[0.95rem] text-[0.95rem] font-medium lg:hidden">
+        <a href={j.state === "interest" ? `#${anchors.form}` : `#${anchors.join}`} style={j.posterType ? ({ "--d": "1050ms" } as CSSProperties) : undefined} className={`${j.posterType ? "follow " : ""}btn-ink mt-6 flex min-h-[3.25rem] items-center justify-center gap-2 rounded-[0.95rem] text-[0.95rem] font-medium lg:hidden`}>
           {joinLabel} <Chevron dir="down" className="size-3 opacity-70" />
         </a>
       </PageLead>
