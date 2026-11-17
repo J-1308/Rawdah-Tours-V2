@@ -73,7 +73,7 @@ function pathFor(p: StepFormProps): Path {
     case "group":
       return {
         form: "group",
-        title: `Reserve your place: ${p.trip}`,
+        title: `Book your place: ${p.trip}`,
         sub: p.sub,
         steps: [
           {
@@ -146,7 +146,7 @@ function pathFor(p: StepFormProps): Path {
 }
 
 const chip = "min-h-12 rounded-[0.9rem] border px-4 py-2.5 text-left text-[0.95rem] leading-snug transition-colors focus-visible:outline-2 focus-visible:outline-offset-2";
-const chipOff = "border-(--edge) bg-(--raise) text-ink hover:border-ink/30";
+const chipOff = "border-ink/25 bg-(--raise) text-ink hover:border-ink/45";
 const chipOn = "border-ink bg-ink text-canvas";
 
 export function StepForm(props: StepFormProps) {
@@ -163,7 +163,6 @@ export function StepForm(props: StepFormProps) {
   const [name, setName] = useState("");
   const [whatsapp, setWhatsapp] = useState("");
   const [email, setEmail] = useState("");
-  const [reminderOptOut, setReminderOptOut] = useState(false);
   const [marketing, setMarketing] = useState(false);
   const [itinerary, setItinerary] = useState(false);
   const [answers, setAnswers] = useState<Record<string, string>>(() => {
@@ -191,7 +190,7 @@ export function StepForm(props: StepFormProps) {
     setSaving(true);
     const res = await saveLead({
       id: id.current, form: path.form, trip, step, steps: total, done: finished,
-      name, whatsapp, email, answers: keep, itinerary, reminderOptOut, marketing,
+      name, whatsapp, email, answers: keep, itinerary, reminderOptOut: false, marketing,
       page: location.pathname, source: readSource() as Record<string, string>, website: hp.current?.value,
     }).catch(() => ({ ok: false, errors: { network: "We couldn’t save that. Check your connection and try again. Your answers are still here." } }));
     setSaving(false);
@@ -262,7 +261,7 @@ export function StepForm(props: StepFormProps) {
           <fieldset className="space-y-5">
             <legend className="display text-[clamp(1.7rem,4.5vw,2.2rem)] leading-tight">{path.title}</legend>
             {path.sub ? <p className="-mt-2 text-[0.95rem] text-ink/68">{path.sub}</p> : null}
-            <p className="text-[0.95rem] text-ink/70">That’s all we need to begin. The rest is optional and takes about a minute.</p>
+            <p className="text-[0.95rem] text-ink/70">Just your name and one way to reach you. The rest is optional and takes about a minute.</p>
             <Text id={f("name")} label="First name" value={name} onChange={setName} error={errors.name} autoComplete="given-name" />
             <Text id={f("wa")} label="WhatsApp number" value={whatsapp} onChange={setWhatsapp} error={errors.whatsapp} type="tel" autoComplete="tel" inputMode="tel" />
             <Text id={f("email")} label="Email" value={email} onChange={setEmail} error={errors.email} type="email" autoComplete="email" inputMode="email" />
@@ -274,7 +273,6 @@ export function StepForm(props: StepFormProps) {
               <p className="text-[0.875rem] text-ink/62">A WhatsApp number or an email: one is enough.</p>
             )}
             <div className="space-y-3 border-t border-ink/10 pt-4 text-[0.88rem] text-ink/72">
-              <Tick checked={reminderOptOut} onChange={setReminderOptOut} label="Don’t send me a reminder about this enquiry." />
               {email.trim() ? <Tick checked={marketing} onChange={setMarketing} label="Send me trip updates by email." /> : null}
               <p className="text-[0.875rem] text-ink/62">
                 We’ll use your details only to answer this enquiry.{" "}
@@ -301,9 +299,18 @@ export function StepForm(props: StepFormProps) {
         ) : null}
 
         {errors.network ? (
-          <p role="alert" className="mt-5 text-[0.9rem] text-error">
-            {errors.network}
-          </p>
+          <div role="alert" className="mt-5 grid gap-3">
+            <p className="text-[0.9rem] text-error">{errors.network}</p>
+            <a
+              href={wa(`Salaam Rawdah Tours, the form on your website didn’t go through. My name is ${name.trim() || "…"}.`, trip || undefined)}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex min-h-11 items-center justify-center gap-2 rounded-[0.95rem] border border-ink/25 px-4 text-[0.95rem] font-medium"
+            >
+              <WaGlyph className="size-4" />
+              Message us on WhatsApp
+            </a>
+          </div>
         ) : null}
         <div className="mt-8 flex items-center gap-3">
           <button type="submit" disabled={saving} className="btn-sand flex min-h-[3.25rem] flex-1 items-center justify-center gap-2 rounded-[0.95rem] px-5 text-[0.98rem] font-medium disabled:opacity-60">
@@ -411,7 +418,7 @@ function Ending({ props, name, waText, trip }: { props: StepFormProps; name: str
   }[props.path];
 
   const callBtn = call ? { label: "Book a call", href: call, kind: "call" as const } : null;
-  const waBtn = { label: props.path === "group" && !depositsOn ? "Reserve on WhatsApp" : "Continue on WhatsApp", href: waHref, kind: "wa" as const };
+  const waBtn = { label: props.path === "group" && !depositsOn ? "Book on WhatsApp" : "Continue on WhatsApp", href: waHref, kind: "wa" as const };
   const payBtn = depositsOn && props.path === "group" && props.bookHref ? { label: "Pay your deposit", href: props.bookHref, kind: "pay" as const } : null;
   const order =
     props.path === "private" || props.path === "community" ? [callBtn, waBtn] : props.path === "group" ? [payBtn, waBtn, callBtn] : [waBtn, callBtn];

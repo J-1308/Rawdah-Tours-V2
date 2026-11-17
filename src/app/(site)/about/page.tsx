@@ -36,7 +36,7 @@ export default function AboutPage() {
               “
             </span>
             <blockquote className="display text-[clamp(1.75rem,3vw,2.8rem)] leading-[1.15]">{about.quote.value}”</blockquote>
-            <figcaption className="mt-4 text-[0.875rem] text-ink/68">From Rawdah’s first website</figcaption>
+            <figcaption className="mt-4 text-[0.875rem] text-ink/68">Ustadh Abdulrahman Hassan</figcaption>
           </figure>
           <div className="grid content-start gap-5 lg:col-span-6 lg:col-start-7">
             {about.story.map((p) => (

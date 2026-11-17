@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Fragment, type CSSProperties } from "react";
 
-import { anchors, closing, covers, type Faq, faqs, faqTopics, gbp, groupsBand, hajjBand, hajjRegister, hero, journeys, lastTrip, meaning, partners, paying, people, privateBand, reviews, routes, say, starts, type Status, stay, whyRawdah } from "@/app/_site/content";
+import { anchors, closing, covers, type Faq, faqs, faqTopics, gbp, groupsBand, hajjBand, hajjRegister, hero, journeys, lastTrip, meaning, partners, paying, people, privateBand, ramadanReveal, reviews, routes, say, starts, type Status, stay, whyRawdah } from "@/app/_site/content";
 import { Mark } from "@/app/_site/marks";
 import { Actions, Emblem, gutter, Heading, Label, onInk, PartnerLogo, PhotoStack, Pic, Tick, TileLink, WaSquare, WaTile } from "@/app/_site/shell";
 
@@ -100,14 +100,14 @@ export function Starts() {
           </li>
         ))}
       </ul>
-      <ul className="no-scrollbar mt-8 hidden snap-x snap-mandatory gap-4 overflow-x-auto pb-8 sm:flex lg:mx-0! lg:grid lg:grid-cols-4 lg:overflow-visible lg:px-0!" style={bleed}>
+      <ul className="no-scrollbar mt-8 hidden snap-x snap-mandatory gap-4 overflow-x-auto pb-8 sm:flex lg:mx-0! lg:grid lg:pb-[calc(var(--sheet)+2rem)] lg:grid-cols-4 lg:overflow-visible lg:px-0!" style={bleed}>
         {starts.map((s) => (
           <li key={s.title} className="w-[84%] shrink-0 snap-start sm:w-[46%] lg:w-auto">
             <Link href={s.href} className="group block">
               <div className="relative aspect-[4/3] overflow-hidden rounded-[1.75rem] bg-beige shadow-[var(--shadow-lift)] lg:aspect-[5/4]">
                 <Pic src={s.photo.src} alt="" sizes="(min-width: 1024px) 23vw, (min-width: 640px) 46vw, 84vw" className={`object-cover transition-transform duration-[1.2s] group-hover:scale-[1.04] ${s.photo.position}`} />
                 <div aria-hidden className="absolute inset-0 bg-[linear-gradient(to_top,rgb(42_31_26/0.85)_0%,rgb(42_31_26/0.25)_45%,transparent_70%)]" />
-                <span className="absolute top-3 left-3 rounded-full bg-black/60 px-3 py-1 text-[0.875rem] font-medium text-cream [&_.site-mark]:border-sand/60 [&_.site-mark]:text-sand">
+                <span className="absolute top-3 left-3 rounded-[0.7rem] bg-black/60 px-3 py-1 text-[0.875rem] font-medium text-cream [&_.site-mark]:border-sand/60 [&_.site-mark]:text-sand">
                   {s.tag.value}
                   <Mark s={s.tag.status} />
                 </span>
@@ -702,7 +702,7 @@ export function Closing() {
               </TileLink>
               <div className="flex gap-2 sm:contents">
                 <TileLink href={`${routes.nextUmrah}#${anchors.form}`} tone="line-canvas" pad="gap-2 px-4 sm:gap-3 sm:px-6" className="min-w-0 flex-1 sm:flex-none">
-                  Ramadan Umrah 2027
+                  {ramadanReveal ? "Ramadan Umrah 2027" : "Ramadan 1448: hear first"}
                 </TileLink>
                 <WaSquare text={say.general} tone="line-canvas" className="sm:hidden" />
                 <span className="hidden sm:contents">

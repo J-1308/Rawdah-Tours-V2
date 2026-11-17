@@ -27,6 +27,9 @@ export type LeadInput = {
 
 export type LeadResult = { ok: boolean; errors?: Record<string, string> }
 
+/** Shown when a lead reached nowhere (no Blob, no sheet, no email), so the visitor isn't told it was received. */
+const NOT_SENT = 'We couldn’t send that just now. Please message us on WhatsApp and we’ll take it from there.'
+
 const FORM_LABEL: Record<LeadInput['form'], string> = {
   group: 'Group trip',
   private: 'Private Umrah',
@@ -82,21 +85,30 @@ export async function saveLead(raw: LeadInput): Promise<LeadResult> {
   ]
 
   // Step 1: the lead exists, so Rawdah hears straight away. The end: the full answers.
+  // At those two points the lead must reach Rawdah somewhere (Blob, sheet or email), or the visitor is told so.
+  let reached = kept.ok
+  const landed = (r: PromiseSettledResult<unknown>[]) =>
+    r.some((x) => x.status === 'fulfilled' && Boolean((x.value as { ok?: boolean } | undefined)?.ok))
   if (step === 1 && !raw.done) {
     await trackServer('lead_started', { form, trip })
-    await Promise.allSettled([
+    const r = await Promise.allSettled([
       addToSheet(sheetRow),
       sendLeadToOwner(`Started: ${FORM_LABEL[form]}${trip ? `, ${trip}` : ''}, ${name}`, `${name} has started the ${FORM_LABEL[form].toLowerCase()} form. They may finish it; if not, they're worth a message.`, rows, whatsapp, email || undefined),
     ])
+    reached ||= landed(r)
+    if (!reached) return { ok: false, errors: { network: NOT_SENT } }
   }
   if (raw.done) {
     await trackServer(form === 'hajj' || form === 'interest' ? 'interest_registered' : 'enquiry_sent', { form, trip })
     if (lead.itinerary) await trackServer('itinerary_requested', { trip })
-    await Promise.allSettled([
+    const r = await Promise.allSettled([
       addToSheet(sheetRow),
       sendLeadToOwner(`Completed: ${FORM_LABEL[form]}${trip ? `, ${trip}` : ''}, ${name}`, `${name} finished the ${FORM_LABEL[form].toLowerCase()} form.${lead.itinerary ? ' They asked for the full itinerary.' : ''}`, rows, whatsapp, email || undefined),
       email ? sendLeadAcknowledgement(email, name, lead.itinerary ? 'Thank you. The Rawdah Tours team has your details and will send you the full itinerary shortly.' : 'Thank you. The Rawdah Tours team has your details and will be in touch soon.') : Promise.resolve(),
     ])
+    reached ||= landed(r.slice(0, 2))
+    if (!reached) return { ok: false, errors: { network: NOT_SENT } }
   }
-  return { ok: kept.ok || true }
+  // Middle steps only update the saved lead; a failed update there shouldn't stop the visitor.
+  return { ok: true }
 }

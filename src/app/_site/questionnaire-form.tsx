@@ -16,6 +16,8 @@ export function QuestionnaireForm() {
   useEffect(() => {
     try {
       const saved = JSON.parse(localStorage.getItem(KEY) ?? "{}");
+      // Restoring a draft saved on this device; it can only be read after hydration.
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setA(saved.a ?? {});
       setName(saved.name ?? "");
     } catch {}

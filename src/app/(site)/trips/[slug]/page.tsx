@@ -146,7 +146,7 @@ export function TripView({ j }: { j: Journey }) {
             </div>
           ))}
         </dl>
-        <a href={`#${anchors.join}`} className="btn-ink mt-6 flex min-h-[3.25rem] items-center justify-center gap-2 rounded-[0.95rem] text-[0.95rem] font-medium lg:hidden">
+        <a href={j.state === "interest" ? `#${anchors.form}` : `#${anchors.join}`} className="btn-ink mt-6 flex min-h-[3.25rem] items-center justify-center gap-2 rounded-[0.95rem] text-[0.95rem] font-medium lg:hidden">
           {joinLabel} <Chevron dir="down" className="size-3 opacity-70" />
         </a>
       </PageLead>
@@ -228,7 +228,7 @@ export function TripView({ j }: { j: Journey }) {
         ) : (
           <section className={`py-[clamp(3.75rem,9vw,8rem)] ${gutter}`}>
             <Label>Hajj 2027</Label>
-            <Heading className="mt-4 max-w-[44rem] text-[clamp(2.3rem,4.2vw,4rem)]">Experienced guidance, walking with you</Heading>
+            <Heading className="mt-4 max-w-[44rem] text-[clamp(2.3rem,4.2vw,4rem)]">Guidance that walks with you</Heading>
             <p className="mt-4 max-w-[36rem] text-[1rem] leading-[1.65] text-ink/72">From your first question in the UK to the last tawaf, the same people with you the whole way.</p>
             <TeamList members={members} cols="lg:grid-cols-3" className="mt-10" />
             {j.itinerary ? (

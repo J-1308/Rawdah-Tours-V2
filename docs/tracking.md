@@ -16,7 +16,8 @@ Google Ads tags (those would need one).
    - **Resend (15 minutes, branded emails):** add `RESEND_API_KEY` in Vercel after verifying rawdahtours.co.uk in
      Resend. Also sends the traveller a confirmation.
 4. **Use the tagged links below on Instagram** so every lead shows where it came from.
-5. **Before the relaunch:** delete `SITE_PASSWORD` in Vercel and redeploy.
+5. **Before the relaunch:** add `RESEND_API_KEY` (or the sheet) and send a test lead, add `PRIVATE_PASSWORD` (keeps
+   the Ramadan preview and `/questionnaire` private), then delete `SITE_PASSWORD` and redeploy.
 
 ## Instagram links (UTM-tagged)
 
