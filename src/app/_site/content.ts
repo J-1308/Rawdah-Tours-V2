@@ -625,6 +625,8 @@ export type Journey = {
   /** open: takes deposits; interest: register interest; past: completed. */
   state: "open" | "interest" | "past";
   stateStatus: Status;
+  /** Titles in the GGC poster lettering (Ramadan Umrah 2027). */
+  posterType?: boolean;
   /** Overrides the usual state label, e.g. "Coming soon" on the Ramadan teaser. */
   stateText?: string;
   dates: V;
@@ -715,6 +717,7 @@ export const ramadanFull: Journey = {
     slug: "ramadan-umrah-2027",
     kind: "umrah",
     name: "Ramadan Umrah 2027",
+    posterType: true,
     partner: "GGC × Rawdah Tours",
     partnerLogo: { src: "/images/brand/partners/ggc.png", width: 300, height: 100, alt: "Global Guidance Center (GGC)" },
     tagline: "The last ten days of Ramadan in Makkah, then four nights in Madinah.",
@@ -837,7 +840,7 @@ export const ramadanFull: Journey = {
       places: v("Up to 60 places: around 30 with flights and 30 ground only", "confirmed"),
     },
     /* A Rawdah group for now; an Umrah poster from Rawdah will replace it (Jibril, 17 Nov 2026). */
-    photo: { src: "/images/group-photos/group-photos-03.jpg", width: 3000, height: 2250, alt: "A Rawdah group in ihram at night, the lit arcades of Masjid al-Haram behind them.", position: "object-[50%_60%]" },
+    photo: { src: "/images/group-photos/group-photos-02.jpg", width: 2400, height: 1600, alt: "A Rawdah group together on the hill at Uhud, the mountains behind them.", position: "object-[50%_70%]" },
     more: [
       { src: "/images/group-photos/group-photos-05.jpg", alt: "The group on the roof of Masjid an-Nabawi.", position: "object-[50%_62%]" },
       { src: "/images/friends/friends-07.jpg", alt: "Two travellers in ihram, smiling, suitcases behind them.", position: "object-[50%_35%]" },

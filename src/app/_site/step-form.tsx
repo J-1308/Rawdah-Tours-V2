@@ -81,6 +81,7 @@ function pathFor(p: StepFormProps): Path {
             questions: [
               { kind: "chips", key: "Travellers", label: "How many of you?", options: ["1", "2", "3", "4", "5 or more"] },
               { kind: "chips", key: "Package", label: "Which package?", options: [...p.packages, "Not sure yet"] },
+              { kind: "chips", key: "Sharing", label: "Sharing a room with", options: SHARING },
             ],
             itinerary: true,
           },
@@ -176,6 +177,13 @@ export function StepForm(props: StepFormProps) {
     id.current = crypto.randomUUID?.() ?? `${Date.now()}-${Math.random().toString(36).slice(2)}`;
   }, []);
 
+  /* The join panel's "Book your place" carries its choices here (package, travellers, sharing). */
+  useEffect(() => {
+    const fill = (e: Event) => setAnswers((a) => ({ ...a, ...((e as CustomEvent<Record<string, string>>).detail ?? {}) }));
+    window.addEventListener(PREFILL_EVENT, fill);
+    return () => window.removeEventListener(PREFILL_EVENT, fill);
+  }, []);
+
   /* "Get the full itinerary" elsewhere on the page (the trust box) ticks the itinerary box here. */
   useEffect(() => {
     const tick = () => setItinerary(true);
@@ -261,6 +269,13 @@ export function StepForm(props: StepFormProps) {
           <fieldset className="space-y-5">
             <legend className="display text-[clamp(1.7rem,4.5vw,2.2rem)] leading-tight">{path.title}</legend>
             {path.sub ? <p className="-mt-2 text-[0.95rem] text-ink/68">{path.sub}</p> : null}
+            {path.form === "group" && answers.Package ? (
+              <p className="rounded-[0.9rem] bg-(--raise) px-4 py-3 text-[0.95rem] ring-1 ring-ink/10">
+                <span className="text-ink/62">Your choice: </span>
+                {[answers.Package.replace(/,.*/, ""), answers.Travellers ? `${answers.Travellers} ${answers.Travellers === "1" ? "traveller" : "travellers"}` : "", answers.Sharing ? `sharing with ${answers.Sharing.toLowerCase()}` : ""].filter(Boolean).join(", ")}
+                <span className="text-ink/62">. You can change it on the next step.</span>
+              </p>
+            ) : null}
             <p className="text-[0.95rem] text-ink/70">Just your name and one way to reach you. The rest is optional and takes about a minute.</p>
             <Text id={f("name")} label="First name" value={name} onChange={setName} error={errors.name} autoComplete="given-name" />
             <Text id={f("wa")} label="WhatsApp number" value={whatsapp} onChange={setWhatsapp} error={errors.whatsapp} type="tel" autoComplete="tel" inputMode="tel" />
@@ -450,6 +465,14 @@ function Ending({ props, name, waText, trip }: { props: StepFormProps; name: str
 }
 
 const ITINERARY_EVENT = "rawdah:itinerary";
+const PREFILL_EVENT = "rawdah:prefill";
+/** Who a traveller shares a room with: the same four options as the join panel. */
+export const SHARING = ["Anyone", "Brothers only", "Sisters only", "My family"];
+
+/** Sends the join panel's choices to the booking form on the same page (answer keys as in the form). */
+export function prefillForm(detail: Record<string, string>) {
+  window.dispatchEvent(new CustomEvent(PREFILL_EVENT, { detail }));
+}
 
 /** A link down to the trip's form that also ticks "Send me the full itinerary" there. */
 export function ItineraryLink({ href, className, children }: { href: string; className?: string; children: React.ReactNode }) {

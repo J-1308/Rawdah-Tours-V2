@@ -255,12 +255,15 @@ export function PageLead({
   photos,
   crumbs,
   children,
+  titleClassName = "text-[clamp(2.8rem,5.4vw,5.4rem)]",
 }: {
   label?: ReactNode;
   title: ReactNode;
   photos: Photo[];
   crumbs?: { label: string; href?: string }[];
   children?: ReactNode;
+  /** Replaces the title's size and type, e.g. the poster lettering on Ramadan Umrah 2027. */
+  titleClassName?: string;
 }) {
   return (
     <section className={`wash-hero relative overflow-hidden pt-5 pb-[clamp(3rem,8vw,7rem)] ${gutter}`}>
@@ -290,7 +293,7 @@ export function PageLead({
         </div>
         <div className="lead-text lg:order-1 lg:col-span-6">
           {label ? <Label>{label}</Label> : null}
-          <Heading as="h1" className="mt-4 text-[clamp(2.8rem,5.4vw,5.4rem)]">
+          <Heading as="h1" className={`mt-4 ${titleClassName}`}>
             {title}
           </Heading>
           {children}

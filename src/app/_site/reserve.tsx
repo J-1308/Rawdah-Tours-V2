@@ -5,6 +5,7 @@ import { useState } from "react";
 
 import { anchors, brand, gbp, monthly, routes, wa, type Journey } from "@/app/_site/content";
 import { Mark } from "@/app/_site/marks";
+import { prefillForm, SHARING } from "@/app/_site/step-form";
 import { Chevron, WaGlyph } from "@/app/_site/whatsapp";
 
 /**
@@ -28,7 +29,7 @@ export function ReservePanel({ j, bookable = false }: { j: Journey; bookable?: b
   const [flights, setFlights] = useState(true);
   const [adults, setAdults] = useState(1);
   const [children, setChildren] = useState(0);
-  const shareOptions = ["Anyone", "Brothers only", "Sisters only", "My family"];
+  const shareOptions = SHARING;
   const [share, setShare] = useState(shareOptions[0]);
 
   if (j.state === "past") {
@@ -240,12 +241,35 @@ export function ReservePanel({ j, bookable = false }: { j: Journey; bookable?: b
             Pay the deposit <Chevron className="size-3 opacity-70" />
           </Link>
         ) : null}
-        <a href={wa(message)} target="_blank" rel="noopener noreferrer" className={`${bookable ? "mt-1.5" : "mt-4"} ${waBtn}`}>
+        {open && !bookable ? (
+          // One way to book (Ramadan rework, 17 Nov 2026): the step form below, with these choices carried across, so
+          // the details are saved from its first step. WhatsApp stays beside it.
+          <a
+            href={`#${anchors.form}`}
+            onClick={() => {
+              const n = adults + children;
+              // The form lists packages as "Early bird, £1,899 per person" (see the trip page).
+              prefillForm({ Package: `${chosen.type}, ${gbp(chosen.price)} per person`, Travellers: n >= 5 ? "5 or more" : String(n), Sharing: share });
+            }}
+            className="btn-ink mt-4 flex min-h-[3.25rem] items-center justify-center gap-2 rounded-[0.95rem] text-[0.95rem] font-medium"
+          >
+            Book your place <Chevron dir="down" className="size-3 opacity-70" />
+          </a>
+        ) : null}
+        <a href={wa(message)} target="_blank" rel="noopener noreferrer" className={`${bookable || open ? "mt-2" : "mt-4"} ${waBtn}`}>
           <span aria-hidden className={waCell}>
             <WaGlyph className="size-5" />
           </span>
-          <span>{open ? `Book ${adults + children} place${adults + children === 1 ? "" : "s"} on WhatsApp` : "Register interest on WhatsApp"}</span>
+          <span>{open ? "Book on WhatsApp" : "Register interest on WhatsApp"}</span>
         </a>
+        {open ? (
+          <p className="mt-3 text-center text-[0.9rem] text-ink/70">
+            Prefer to talk?{" "}
+            <a href={brand.phone.href} className="font-medium text-ink underline decoration-ink/25 underline-offset-4">
+              Call {brand.phone.display}
+            </a>
+          </p>
+        ) : null}
         {!open ? (
           <a href={`#${anchors.form}`} className="mt-3 block text-center text-[0.875rem] text-ink/70 underline decoration-ink/25 underline-offset-4">
             Or use the form
@@ -255,7 +279,7 @@ export function ReservePanel({ j, bookable = false }: { j: Journey; bookable?: b
           {open && bookable
             ? "Pay the deposit online by card (a small card fee applies) or by bank transfer with no fee. Prefer to talk first? WhatsApp us."
             : open
-              ? "Book on WhatsApp, then pay the deposit by bank transfer: we send you the details. Deposits are non-refundable. Card payments are coming soon."
+              ? "Pay the deposit by bank transfer: we send you the details once your place is confirmed. Deposits are non-refundable. Card payments are coming soon."
             : confirmedPrices
               ? "No payment now. Register and we’ll be in touch to book your place. Deposits are non-refundable."
               : "No payment now. Prices are a guide from our last trip; we’ll message you when the dates and prices are confirmed."}

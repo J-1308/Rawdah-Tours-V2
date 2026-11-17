@@ -502,6 +502,25 @@ details > summary::-webkit-details-marker { display: none; }
   font-family: "Josefin Sans", "DM Sans", system-ui, sans-serif;
 }
 
+/* Poster titles (Ramadan Umrah 2027): wide flat-cut capitals, with the poster's own M (poster-type.tsx).
+   Sharp and rectangular like the Rawdah mark (Jibril, 17 Nov 2026). */
+.display.poster-title {
+  font-family: "Montserrat", "DM Sans", system-ui, sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: var(--track, 0.06em);
+  line-height: 1.04;
+  font-feature-settings: "kern";
+}
+.poster-m {
+  display: inline-block;
+  height: 0.7em; /* Montserrat's cap height */
+  width: auto;
+  margin-right: var(--track, 0.06em);
+  vertical-align: baseline;
+  fill: currentColor;
+}
+
 /* Page head (PageLead), phones and tablets: the title and status above the photo, the photo capped at 4:3
    (Jibril, 16 Nov 2026). */
 @media (max-width: 63.98rem) {
