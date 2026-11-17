@@ -29,9 +29,10 @@ mouth. Phone +44 7809 281429, rawdahtours@gmail.com, @rawdahtours.
 
 ## Where it runs
 
-Live on **www.rawdahtours.co.uk** (Vercel project `rawdah-tours-v2`, team `j-1308s-projects`), currently behind
-`SITE_PASSWORD` (whole site, `/gate`). Relaunch was planned for 16 Nov 2026 but is **held until the checklist in
-Before launch is done**. Every branch gets a preview at
+Runs on **https://rawdah-tours-v2.vercel.app** (Vercel project `rawdah-tours-v2`, team `j-1308s-projects`), behind
+`SITE_PASSWORD` (whole site, `/gate`). **Not on rawdahtours.co.uk yet:** that domain still shows a temporary
+placeholder. `rawdahtours.co.uk` and `www.rawdahtours.co.uk` are added to the Vercel project but unverified (checked
+17 Nov 2026); going live there means pointing the domain's DNS at Vercel, which Jibril does when he's ready. Every branch gets a preview at
 `rawdah-tours-v2-git-<branch-with-dashes>-j-1308s-projects.vercel.app` (behind Vercel login).
 
 Env vars set in Vercel (16 Nov): `SITE_PASSWORD`, `BLOB_READ_WRITE_TOKEN` (private Blob store). **Not set:**
@@ -81,6 +82,7 @@ Code fixes are on `review/launch-fixes`. Jibril still has to:
    `hajj-makkah` (Hajj trip card). Drop a licensed file into the slot; no code change.
 4. Decide on the Nusuk Hajj logo in the brands row (a Saudi government mark; drop it unless Rawdah has permission).
 5. Then delete `SITE_PASSWORD` and redeploy.
+6. When ready, point rawdahtours.co.uk's DNS at Vercel (Vercel → project → Domains shows the records).
 
 Review items left for later: focus moves between form steps, the Private page's thin FAQ and empty desktop column,
 desktop hero buttons on Private and Groups, Ramadan package-table heads that look like toggles, "Ground only" in the
