@@ -42,7 +42,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 }
 
 const h2 = "text-[clamp(2.1rem,3.4vw,3.1rem)]";
-const posterH2 = "text-[clamp(1.45rem,3vw,2.3rem)] [--track:0.05em]";
+const posterH2 = "text-[clamp(1.9rem,4vw,3rem)] [--track:0.06em]";
 
 /** How the trip runs (Umrah) or the days of Hajj, as a quiet timeline. */
 function Itinerary({ j }: { j: Journey }) {
@@ -117,8 +117,6 @@ export function TripView({ j }: { j: Journey }) {
     preload("/fonts/cormorant-garamond-latin-wght-italic.woff2", { as: "font", type: "font/woff2", crossOrigin: "anonymous" });
   }
   /** Titles in the poster lettering on a poster trip (Ramadan Umrah 2027), the site's own otherwise. */
-  const T = (text: string) => (j.posterType ? <PosterText text={text} /> : text);
-  const H2 = j.posterType ? `poster-title ${posterH2}` : h2;
   /** The packages to choose from in the form, with their price per person (from src/lib/trips.ts). */
   const packages = j.kind === "hajj" ? [] : (trip?.pricing?.rooms ?? []).map((r) => `${r.label}, ${gbp(r.pricePence / 100)} per person`);
 
@@ -137,9 +135,16 @@ export function TripView({ j }: { j: Journey }) {
         crumbs={[{ label: "Home", href: "/" }, { label: "Trips", href: routes.trips }, { label: j.name }]}
         title={j.posterType ? <PosterText text={j.name} rise /> : j.name}
         backdrop={j.posterType ? <NightSky moon /> : undefined}
+        crumbsClassName={j.posterType ? "max-sm:hidden" : undefined}
         titleClassName={j.posterType ? "poster-title poster-rise text-[clamp(2.35rem,10.5vw,4.9rem)] lg:text-[clamp(2.35rem,5.2vw,4.9rem)] [--track:0.07em]" : undefined}
         photos={[{ src: j.photo.src, alt: j.photo.alt, position: j.photo.position }, ...j.more]}
       >
+        {/* Phones, on the Instagram landing page: the dates straight under the title (Jibril, 18 Nov 2026). */}
+        {j.posterType ? (
+          <p style={{ "--d": "800ms" } as CSSProperties} className="follow mt-3 text-[1.05rem] font-medium text-ink/85 tabular-nums lg:hidden">
+            {j.dates.value}
+          </p>
+        ) : null}
         {j.partner ? (
           <div className="mt-4 flex items-center gap-3.5">
             {j.partnerLogo ? (
@@ -199,7 +204,7 @@ export function TripView({ j }: { j: Journey }) {
 
         <div className="min-w-0 lg:order-1 lg:col-span-8">
           <section>
-            <Heading className={H2}>{T("About this trip")}</Heading>
+            <Heading className={h2}>About this trip</Heading>
             <p className="mt-4 max-w-[44rem] font-editorial text-[clamp(1.25rem,2vw,1.8rem)] leading-[1.5] sm:leading-[1.45]">
               {j.intro}
               <Mark s={j.introStatus} />
@@ -280,15 +285,15 @@ export function TripView({ j }: { j: Journey }) {
             {j.kind === "umrah" && j.plan ? (
               <>
                 <section>
-                  <Heading className={H2}>{T("What’s included")}</Heading>
+                  <Heading className={h2}>What’s included</Heading>
                   <TripIncludes plan={j.plan} />
                 </section>
                 <section className="mt-12 sm:mt-16">
-                  <Heading className={H2}>{T("Packages and payments")}</Heading>
+                  <Heading className={h2}>Packages and payments</Heading>
                   <TripPackages j={j} />
                 </section>
                 <section className="mt-12 sm:mt-16">
-                  <Heading className={H2}>{T("The people who will walk with you")}</Heading>
+                  <Heading className={h2}>The people who will walk with you</Heading>
                   <TeamList members={members} cols="lg:grid-cols-3" className="mt-8" />
                   <TeamLine />
                 </section>
@@ -316,7 +321,7 @@ export function TripView({ j }: { j: Journey }) {
             ) : null}
 
             <section className={j.kind === "umrah" ? "mt-12 sm:mt-16" : ""}>
-              <Heading className={H2}>{T("Common questions")}</Heading>
+              <Heading className={h2}>Common questions</Heading>
               <div className="glass mt-6 rounded-[1.5rem] px-5 py-1">
                 <FaqList items={qs} />
               </div>
@@ -342,7 +347,8 @@ export function TripView({ j }: { j: Journey }) {
         <section id={anchors.form} className={`wash-linen scroll-mt-28 py-[clamp(3.75rem,10vw,9rem)] ${gutter}`}>
           <div className="grid grid-cols-1 gap-x-14 gap-y-10 lg:grid-cols-12">
             <div className="lg:col-span-4">
-              <Heading className={j.posterType ? `poster-title ${posterH2}` : "text-[clamp(2.4rem,4vw,3.6rem)]"}>{j.kind === "hajj" ? hajjNusuk.closing.title : packages.length ? T(joinLabel) : "Hear first when the dates are out"}</Heading>
+              {/* Poster lettering on the title and this closing heading only; section headings stay in the serif (Jibril, 18 Nov 2026). */}
+              <Heading className={j.posterType ? `poster-title ${posterH2}` : "text-[clamp(2.4rem,4vw,3.6rem)]"}>{j.kind === "hajj" ? hajjNusuk.closing.title : packages.length ? (j.posterType ? <PosterText text={joinLabel} /> : joinLabel) : "Hear first when the dates are out"}</Heading>
               <p className="mt-5 max-w-[24rem] text-[1rem] leading-[1.65] text-ink/72">
                 {j.kind === "hajj"
                   ? `${hajjNusuk.closing.text} Registering doesn’t reserve a place or commit you to anything.`

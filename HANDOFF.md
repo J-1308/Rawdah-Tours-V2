@@ -104,8 +104,9 @@ Opus review (18 Nov, Fable had no credits), fixed: share cards now name the trip
 card); no count-up (wrong prices mid-count); stars twinkle in three groups and pause off screen (they kept slow
 phones' main thread busy); poster headings keep their real text (the drawn M is a mask over a real "M"); fonts
 preloaded; the phone bar steps aside over the panel and form; the form follows the panel as it changes; a review-marked
-note for bookings after 30 November; no top strip on this page; print shows everything. Still for Jibril: whether the
-poster lettering stays on section headings or the title only, and the first-screen ideas (see the PR). Note: share
+note for bookings after 30 November; no top strip on this page; print shows everything. Jibril then chose (18 Nov):
+poster lettering on the title and the closing "Book your place" only; keep the plane and the cards lifting in turn; no
+stars above the flights; on phones, the dates straight under the title and no breadcrumb on this page. Note: share
 images use the site's base URL (www.rawdahtours.co.uk), so they show only once the domain points at Vercel.
 
 ## What's next

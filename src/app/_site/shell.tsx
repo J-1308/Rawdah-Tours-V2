@@ -257,6 +257,7 @@ export function PageLead({
   children,
   titleClassName = "text-[clamp(2.8rem,5.4vw,5.4rem)]",
   backdrop,
+  crumbsClassName = "",
 }: {
   label?: ReactNode;
   title: ReactNode;
@@ -267,13 +268,15 @@ export function PageLead({
   titleClassName?: string;
   /** Drawn behind everything in the head, e.g. the night sky on Ramadan Umrah 2027. */
   backdrop?: ReactNode;
+  /** Extra classes for the breadcrumb, e.g. hidden on phones on the Instagram landing page. */
+  crumbsClassName?: string;
 }) {
   return (
     <section className={`wash-hero relative overflow-hidden pt-5 pb-[clamp(3rem,8vw,7rem)] ${gutter}`}>
       <Emblem className="pointer-events-none absolute top-[-8%] right-[-6%] h-[115%] watermark" />
       {backdrop}
       {crumbs ? (
-        <nav aria-label="Breadcrumb" className="relative mb-4 flex flex-wrap items-center gap-x-2 text-[0.875rem] text-ink/65 sm:mb-6">
+        <nav aria-label="Breadcrumb" className={`relative mb-4 flex flex-wrap items-center gap-x-2 text-[0.875rem] text-ink/65 sm:mb-6 ${crumbsClassName}`}>
           {crumbs.map((c, i) => (
             <span key={c.label} className="flex items-center gap-2">
               {i ? <span aria-hidden className="text-ink/30">/</span> : null}

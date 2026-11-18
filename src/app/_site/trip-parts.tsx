@@ -2,8 +2,6 @@ import Image from "next/image";
 import { HotelGallery } from "./hotel-gallery";
 import { Fragment } from "react";
 
-import { NightSky } from "@/app/_site/night-sky";
-import { PosterText } from "@/app/_site/poster-type";
 import { anchors, gbp, hajjNusuk, journeyStay, leader, people, say, teachers, trust, wa, type Journey, type Status, type StayPhoto, type TripPlan } from "@/app/_site/content";
 import { Mark } from "@/app/_site/marks";
 import { Emblem, gutter, Heading, Label, Tick } from "@/app/_site/shell";
@@ -400,11 +398,10 @@ export function TripLine({ plan, draw = false }: { plan: TripPlan; draw?: boolea
 export function TripJourney({ j }: { j: Journey }) {
   const plan = j.plan!;
   return (
-    <section className={`relative overflow-hidden py-[clamp(3.75rem,9vw,8rem)] ${gutter}`}>
-      {j.posterType ? <NightSky count={22} seed={27} className="[mask-image:linear-gradient(to_bottom,#000,transparent_20%)] [-webkit-mask-image:linear-gradient(to_bottom,#000,transparent_20%)]" /> : null}
+    <section className={`py-[clamp(3.75rem,9vw,8rem)] ${gutter}`}>
       <Label>The journey</Label>
-      <Heading className={`mt-4 max-w-[48rem] ${j.posterType ? "poster-title text-[clamp(1.6rem,3.4vw,2.8rem)] [--track:0.05em]" : "text-[clamp(2.3rem,4.2vw,4rem)]"}`}>
-        {j.posterType ? <PosterText text="Flights and hotels" /> : "Flights and hotels"}
+      <Heading className="mt-4 max-w-[48rem] text-[clamp(2.3rem,4.2vw,4rem)]">
+        Flights and hotels
         <Mark s={plan.status} />
       </Heading>
       <p className="mt-4 max-w-[36rem] text-[1rem] leading-[1.65] text-ink/72">From Heathrow and back: thirteen nights, nine in Makkah and four in Madinah.</p>
