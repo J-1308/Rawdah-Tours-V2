@@ -39,7 +39,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <script
           dangerouslySetInnerHTML={{
             __html:
-              "try{var d=document.documentElement;d.classList.add('js');if(!matchMedia('(prefers-reduced-motion: reduce)').matches)d.classList.add('motion');if(sessionStorage.getItem('rawdah-intro')||/^\\/trips\\/ramadan-umrah-2027/.test(location.pathname))d.setAttribute('data-intro','seen');sessionStorage.setItem('rawdah-intro','1')}catch(e){}",
+              "try{var d=document.documentElement;d.classList.add('js');if(!matchMedia('(prefers-reduced-motion: reduce)').matches)d.classList.add('motion');if(/^\\/trips\\/ramadan-umrah-2027/.test(location.pathname)||sessionStorage.getItem('rawdah-intro'))d.setAttribute('data-intro','seen');sessionStorage.setItem('rawdah-intro','1')}catch(e){}",
           }}
         />
       </head>

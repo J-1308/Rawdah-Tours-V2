@@ -433,7 +433,7 @@ function Ending({ props, name, waText, trip }: { props: StepFormProps; name: str
   }[props.path];
 
   const callBtn = call ? { label: "Book a call", href: call, kind: "call" as const } : null;
-  const waBtn = { label: props.path === "group" && !depositsOn ? "Book on WhatsApp" : "Continue on WhatsApp", href: waHref, kind: "wa" as const };
+  const waBtn = { label: "Continue on WhatsApp", href: waHref, kind: "wa" as const };
   const payBtn = depositsOn && props.path === "group" && props.bookHref ? { label: "Pay your deposit", href: props.bookHref, kind: "pay" as const } : null;
   const order =
     props.path === "private" || props.path === "community" ? [callBtn, waBtn] : props.path === "group" ? [payBtn, waBtn, callBtn] : [waBtn, callBtn];

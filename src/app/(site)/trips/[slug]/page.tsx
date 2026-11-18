@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import type { CSSProperties } from "react";
+import { preload } from "react-dom";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
@@ -28,7 +29,16 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   if (!j || j.state === "past") return {};
   if (j.slug === "ramadan-umrah-2027" && !ramadanReveal) return { title: "Ramadan 1448 with GGC, coming soon", description: "A Ramadan Umrah with Rawdah Tours and the Global Guidance Center. Register your interest to hear first." };
   const price = fromPrice(j);
-  return { title: price ? `${j.name}, from ${gbp(price)} per person` : j.name, description: j.tagline };
+  const title = price ? `${j.name}, from ${gbp(price)} per person` : j.name;
+  // The trip's own share card: without these, a shared link shows the site-wide (Hajj) one (Opus review).
+  const share = { title: j.partner ? `${j.name} with ${j.partner.replace(/ × Rawdah Tours$/, "")}, from ${price ? gbp(price) : ""}`.replace(/, from $/, "") : title, description: `${j.dates.value}. ${j.tagline}` };
+  const image = j.photo ? [{ url: j.photo.src, width: j.photo.width, height: j.photo.height, alt: j.photo.alt }] : undefined;
+  return {
+    title,
+    description: j.tagline,
+    openGraph: { ...share, type: "website", url: `/trips/${j.slug}`, images: image },
+    twitter: { card: "summary_large_image", ...share, images: image?.map((i) => i.url) },
+  };
 }
 
 const h2 = "text-[clamp(2.1rem,3.4vw,3.1rem)]";
@@ -101,6 +111,11 @@ export function TripView({ j }: { j: Journey }) {
   const shownAbove = ["What is included in the trip cost?", "What is the trip itinerary like?", "What about meal arrangements?"];
   const qs = faqs.filter((f) => (j.kind === "hajj" ? f.topic === "hajj" : f.topic !== "hajj") && !(j.plan && shownAbove.includes(f.q)));
   const joinLabel = j.state === "open" ? "Book your place" : "Register interest";
+  if (j.posterType) {
+    // The title's face and the italic under it, fetched with the page, so the title doesn't rise in a fallback font.
+    preload("/fonts/montserrat-latin-wght-normal.woff2", { as: "font", type: "font/woff2", crossOrigin: "anonymous" });
+    preload("/fonts/cormorant-garamond-latin-wght-italic.woff2", { as: "font", type: "font/woff2", crossOrigin: "anonymous" });
+  }
   /** Titles in the poster lettering on a poster trip (Ramadan Umrah 2027), the site's own otherwise. */
   const T = (text: string) => (j.posterType ? <PosterText text={text} /> : text);
   const H2 = j.posterType ? `poster-title ${posterH2}` : h2;

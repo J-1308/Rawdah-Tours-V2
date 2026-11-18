@@ -16,7 +16,7 @@ export function HotelGallery({ photos, name }: { photos: { src: string; alt: str
     const el = track.current;
     if (!el) return;
     const to = Math.max(0, Math.min(photos.length - 1, i));
-    el.scrollTo({ left: to * el.clientWidth, behavior: "smooth" });
+    el.scrollTo({ left: to * el.clientWidth, behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
   };
   const go = (d: number) => show(at + d);
   const arrow = "absolute top-1/2 hidden size-11 -translate-y-1/2 place-items-center rounded-full bg-white/90 text-[#2a211b] shadow-[var(--shadow-soft)] transition-opacity disabled:opacity-0 sm:grid";

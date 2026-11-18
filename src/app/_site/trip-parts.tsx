@@ -2,7 +2,6 @@ import Image from "next/image";
 import { HotelGallery } from "./hotel-gallery";
 import { Fragment } from "react";
 
-import { CountUp } from "@/app/_site/count-up";
 import { NightSky } from "@/app/_site/night-sky";
 import { PosterText } from "@/app/_site/poster-type";
 import { anchors, gbp, hajjNusuk, journeyStay, leader, people, say, teachers, trust, wa, type Journey, type Status, type StayPhoto, type TripPlan } from "@/app/_site/content";
@@ -402,7 +401,7 @@ export function TripJourney({ j }: { j: Journey }) {
   const plan = j.plan!;
   return (
     <section className={`relative overflow-hidden py-[clamp(3.75rem,9vw,8rem)] ${gutter}`}>
-      {j.posterType ? <NightSky count={46} seed={27} className="[mask-image:linear-gradient(to_bottom,#000,transparent_45%)]" /> : null}
+      {j.posterType ? <NightSky count={22} seed={27} className="[mask-image:linear-gradient(to_bottom,#000,transparent_20%)] [-webkit-mask-image:linear-gradient(to_bottom,#000,transparent_20%)]" /> : null}
       <Label>The journey</Label>
       <Heading className={`mt-4 max-w-[48rem] ${j.posterType ? "poster-title text-[clamp(1.6rem,3.4vw,2.8rem)] [--track:0.05em]" : "text-[clamp(2.3rem,4.2vw,4rem)]"}`}>
         {j.posterType ? <PosterText text="Flights and hotels" /> : "Flights and hotels"}
@@ -433,7 +432,9 @@ export function TripJourney({ j }: { j: Journey }) {
             </div>
             {j.posterType ? (
               <div aria-hidden className="plane-track">
-                <Glyph d={plane} className="plane rotate-45" />
+                <span className="plane-run">
+                  <Glyph d={plane} className="plane rotate-45" />
+                </span>
               </div>
             ) : null}
             <Rows rows={f.rows} />
@@ -525,7 +526,7 @@ export function TripPackages({ j }: { j: Journey }) {
               {rooms.map((r) => (
                 <th key={r.type} scope="col" className="pb-4 pl-2 text-right align-bottom font-normal sm:pl-3">
                   <span className="block font-editorial text-[1.1rem] leading-tight text-bronze italic sm:text-[1.25rem]">{r.type}</span>
-                  <CountUp value={r.price} className="display mt-1 block text-[clamp(1.5rem,4.6vw,2.4rem)] leading-none text-ink" />
+                  <span className="display mt-1 block text-[clamp(1.5rem,4.6vw,2.4rem)] leading-none text-ink tabular-nums">{gbp(r.price)}</span>
                   <span className="mt-1.5 block text-[0.875rem] leading-snug text-ink/62">{r.flights === false ? "Own flights" : "With flights"}</span>
                 </th>
               ))}
@@ -540,8 +541,15 @@ export function TripPackages({ j }: { j: Journey }) {
                 {rooms.map((r) => {
                   const p = r.schedule?.find((x) => x.due === d);
                   return (
-                    <td key={r.type} className={`${cell} ${p ? "" : "text-ink/35"}`}>
-                      {p ? gbp(p.amount) : <span aria-label="None">–</span>}
+                    <td key={r.type} className={`${cell} ${p ? "" : "text-ink/55"}`}>
+                      {p ? (
+                        gbp(p.amount)
+                      ) : (
+                        <>
+                          <span aria-hidden>–</span>
+                          <span className="sr-only">None</span>
+                        </>
+                      )}
                     </td>
                   );
                 })}
@@ -551,7 +559,12 @@ export function TripPackages({ j }: { j: Journey }) {
         </table>
       </div>
       <p className="mt-3 text-[0.875rem] text-ink/68">
-        Per person, four sharing a room.{agreed ? " Ground only: the balance is due on a date we agree after booking." : ""} All deposits are
+        Per person, four sharing a room.{dues.some((d) => /30 November/.test(d)) ? (
+          <>
+            {" "}Booking after 30 November? We’ll tell you what’s due when we confirm your place.
+            <Mark s="to confirm" />
+          </>
+        ) : null}{agreed ? " Ground only: the balance is due on a date we agree after booking." : ""} All deposits are
         non-refundable.
         {j.plan?.places ? (
           <>

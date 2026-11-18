@@ -428,14 +428,16 @@ html.motion .rv-photo.in img { transform: none; }
   -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 40%, transparent 88%);
   mask-image: linear-gradient(to bottom, #000 0%, #000 40%, transparent 88%);
 }
-.star { position: absolute; border-radius: 1px; background: #f3e6c8; opacity: var(--o); }
+.star { position: absolute; border-radius: 1px; background: #f3e6c8; }
 .star.glow { border-radius: 50%; box-shadow: 0 0 7px 1px rgb(243 230 200 / 0.5); }
-.moon { position: absolute; top: 4%; right: 6%; width: clamp(5.5rem, 16vw, 11rem); height: auto; }
-@keyframes twinkle { to { opacity: calc(var(--o) * 0.2); } }
-@keyframes sky-drift { to { transform: translate3d(-14px, 10px, 0); } }
+.moon { position: absolute; top: 4%; right: 4%; width: clamp(4.25rem, 16vw, 11rem); height: auto; }
+@keyframes twinkle { to { opacity: 0.3; } }
 @keyframes moon-in { from { opacity: 0; transform: translate3d(0, 16px, 0) rotate(-10deg); } }
-html.motion .star { animation: twinkle var(--t) ease-in-out var(--dl) infinite alternate; }
-html.motion .sky-drift { animation: sky-drift 38s ease-in-out infinite alternate; }
+html.motion .sky-group { animation: twinkle 3.2s ease-in-out infinite alternate; will-change: opacity; }
+html.motion .sky-g1 { animation-duration: 4.4s; animation-delay: -1.7s; }
+html.motion .sky-g2 { animation-duration: 5.6s; animation-delay: -3.1s; }
+/* Off screen, the sky pauses (page-watch.tsx). */
+.sky[data-off] .sky-group, .sky[data-off] .sky-par { animation-play-state: paused; }
 html.motion .moon { animation: moon-in 2.4s var(--ease-out) calc(var(--intro) + 350ms) backwards; }
 /* Where the browser can tie it to scrolling, the sky sinks a little slower than the page (a gentle depth). */
 @supports (animation-timeline: scroll()) {
@@ -457,9 +459,21 @@ html.motion .line-draw.rv.in > ol { clip-path: inset(0 0 0 0 round 1.2rem); }
 
 /* motion: a small plane crosses each flight card as it comes into view. */
 .plane-track { position: relative; height: 1rem; margin-top: 0.9rem; background: radial-gradient(circle, rgb(243 230 200 / 0.35) 1px, transparent 1.5px) 0 50% / 9px 9px repeat-x; }
-.plane-track .plane { position: absolute; top: 50%; right: 0; width: 1rem; height: 1rem; transform: translateY(-50%); color: var(--color-sand); }
-html.motion .rv .plane-track .plane { right: calc(100% - 1rem); transition: right 1.8s var(--ease-out) 0.45s; }
-html.motion .rv.in .plane-track .plane { right: 0; }
+/* The runner spans the track with the plane at its right end; it slides in by transform, so nothing re-lays out. */
+.plane-run { position: absolute; inset: 0; }
+.plane-track .plane { position: absolute; top: 50%; right: 0; width: 1rem; height: 1rem; margin-top: -0.5rem; color: var(--color-sand); }
+html.motion .rv .plane-run { transform: translate3d(calc(-100% + 1rem), 0, 0); transition: transform 1.8s var(--ease-out) 0.45s; }
+html.motion .rv.in .plane-run { transform: none; }
+
+/* The trip phone bar steps aside over the join panel and the booking form (page-watch.tsx). */
+[data-placement="phone bar"] { transition: transform 0.35s var(--ease-out), opacity 0.35s; }
+[data-placement="phone bar"][data-away] { transform: translateY(130%); opacity: 0; pointer-events: none; }
+
+/* Printing shows everything at rest. */
+@media print {
+  .rv { opacity: 1 !important; transform: none !important; }
+  .line-draw > ol { clip-path: none !important; }
+}
 
 /* motion: each form step slides in from the side. */
 @keyframes step-in { from { opacity: 0; transform: translate3d(18px, 0, 0); } }
@@ -558,13 +572,20 @@ details > summary::-webkit-details-marker { display: none; }
   line-height: 1.04;
   font-feature-settings: "kern";
 }
-.poster-m {
-  display: inline-block;
-  height: 0.7em; /* Montserrat's cap height */
-  width: auto;
-  margin-right: var(--track, 0.06em);
-  vertical-align: baseline;
-  fill: currentColor;
+/* The poster's M over a real, invisible "M" (poster-type.tsx). Montserrat's content box is 0.968em above the
+   baseline and 0.251em below, so the cap height (0.7em) starts 0.268em down. */
+.poster-m { position: relative; -webkit-text-fill-color: transparent; }
+.poster-m::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 0.924em;
+  transform: translateX(-50%);
+  background-color: currentColor;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 132 100'%3E%3Cpath d='M0 100L25 100L56.5 0L31.5 0ZM63 100L88 100L56.5 0L31.5 0ZM44 100L69 100L100.5 0L75.5 0ZM107 100L132 100L100.5 0L75.5 0Z'/%3E%3C/svg%3E") no-repeat 50% 0.268em / auto 0.7em;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 132 100'%3E%3Cpath d='M0 100L25 100L56.5 0L31.5 0ZM63 100L88 100L56.5 0L31.5 0ZM44 100L69 100L100.5 0L75.5 0ZM107 100L132 100L100.5 0L75.5 0Z'/%3E%3C/svg%3E") no-repeat 50% 0.268em / auto 0.7em;
 }
 
 /* Page head (PageLead), phones and tablets: the title and status above the photo, the photo capped at 4:3

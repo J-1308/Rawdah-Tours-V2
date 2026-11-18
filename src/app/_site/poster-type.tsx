@@ -1,56 +1,39 @@
 import type { CSSProperties, ReactNode } from "react";
 
 /**
- * The M from the GGC × Rawdah Ramadan poster: two sharp Λ shapes overlapping, flat cut at the top and bottom.
- * Drawn at cap height (100 units); each leg is a parallelogram, so the corners stay sharp like the Rawdah mark.
- */
-const W = 88; // one Λ
-const S = 25; // a leg's width, measured across (matches Montserrat 700's diagonals)
-const leg = (x0: number) => [
-  `M${x0} 100 L${x0 + S} 100 L${x0 + W / 2 + S / 2} 0 L${x0 + W / 2 - S / 2} 0 Z`,
-  `M${x0 + W - S} 100 L${x0 + W} 100 L${x0 + W / 2 + S / 2} 0 L${x0 + W / 2 - S / 2} 0 Z`,
-];
-const OFFSET = 44;
-const PATHS = [...leg(0), ...leg(OFFSET)];
-
-export function PosterM() {
-  return (
-    <svg className="poster-m" viewBox={`0 0 ${W + OFFSET} 100`} aria-hidden focusable="false">
-      {PATHS.map((d) => (
-        <path key={d} d={d} />
-      ))}
-    </svg>
-  );
-}
-
-/**
- * A title in the poster lettering: the text as written for screen readers, and on screen in capitals with every M
- * drawn as the poster's M. Use inside a heading with the `poster-title` class.
+ * Titles in the poster lettering (Ramadan Umrah 2027): capitals in Montserrat, with every M shown as the GGC × Rawdah
+ * poster's M (two sharp Λ shapes overlapping, flat cut; it echoes the rectangular Rawdah mark). The M stays a real
+ * letter "M": it is made invisible and the drawn shape is laid over it (`.poster-m` in globals.css), so copy-paste,
+ * search, Reader and screen readers all get the words exactly as written. Use inside a heading with `poster-title`.
+ * With `rise`, each letter rises in turn (`.poster-rise .pl`).
  */
 export function PosterText({ text, rise = false }: { text: string; rise?: boolean }) {
-  let n = 0; // letter index across the title, for the rise
-  const letter = (node: ReactNode, key: number) =>
-    rise ? (
-      <span key={key} className="pl" style={{ "--i": n++ } as CSSProperties}>
-        {node}
+  let n = 0;
+  const glyph = (c: string, key: number): ReactNode => {
+    const m = /m/i.test(c) ? (
+      <span key={rise ? undefined : key} className="poster-m">
+        {c}
       </span>
     ) : (
-      node
+      c
     );
-  // Each word kept whole: the drawn M would otherwise let a line break inside a word ("U / MRAH").
-  const shown: ReactNode[] = text.split(/(\s+)/).map((word, w) =>
+    return rise ? (
+      <span key={key} className="pl" style={{ "--i": n++ } as CSSProperties}>
+        {m}
+      </span>
+    ) : (
+      m
+    );
+  };
+  if (!rise && !/m/i.test(text)) return text;
+  // Each word kept whole, so a line never breaks inside one.
+  return text.split(/(\s+)/).map((word, w) =>
     /^\s+$/.test(word) ? (
       word
     ) : (
       <span key={w} className="whitespace-nowrap">
-        {word.split(/(m)/i).flatMap((p, i) => (/^m$/i.test(p) ? [letter(<PosterM key={i * 100} />, i * 100)] : rise ? [...p].map((c, k) => letter(c, i * 100 + k + 1)) : [p]))}
+        {rise ? [...word].map((c, k) => glyph(c, w * 100 + k)) : word.split(/(m)/i).map((p, k) => (/^m$/i.test(p) ? glyph(p, w * 100 + k) : p))}
       </span>
     ),
-  );
-  return (
-    <>
-      <span className="sr-only">{text}</span>
-      <span aria-hidden>{shown}</span>
-    </>
   );
 }

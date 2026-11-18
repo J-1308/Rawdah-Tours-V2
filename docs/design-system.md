@@ -43,7 +43,7 @@ on phones outdoors.
 | Labels, captions, sub-titles | Cormorant Garamond italic | Bronze on cream, sand on cocoa, with the tiny mark (`<Label>`). |
 | Body and UI | DM Sans 400/500 | 0.92–1.05rem, line-height 1.6–1.75, ink at 60–75%. Nothing below 0.875rem (14px), ink no lighter than 62% (design pass, Nov 2026). |
 | Arabic | Amiri | روضة. |
-| Poster titles (Ramadan Umrah 2027 only) | Montserrat 700 capitals | `.poster-title` with `<PosterText>` (`poster-type.tsx`): the GGC × Rawdah poster's lettering, every M drawn as two overlapping Λ to match the sharp, rectangular Rawdah mark. On by `posterType` on a trip (Jibril, 17 Nov 2026). |
+| Poster titles (Ramadan Umrah 2027 only) | Montserrat 700 capitals | `.poster-title` with `<PosterText>` (`poster-type.tsx`): the GGC × Rawdah poster's lettering. Every M is a real, invisible letter with the poster's M (two overlapping Λ, like the sharp, rectangular Rawdah mark) laid over it as a mask, so copied, searched and spoken text stay exact. On by `posterType` on a trip (Jibril, 17 Nov 2026). |
 
 ## 3. Shape and depth
 
@@ -116,12 +116,13 @@ script in `app/layout.tsx` sets before first paint unless the visitor prefers re
   still below the screen at load are hidden, so nothing in view blinks; add `data-reveal` to opt anything else in.
 - **Buttons:** a light sweep across `.btn-sand` on hover. Photos zoom very slightly on hover.
 - **Ramadan Umrah 2027 only** (`posterType`; the page every Instagram link lands on, 17–18 Nov 2026): no opening on
-  this page (the head script marks it played); a night sky with twinkling, drifting stars and a crescent
-  (`night-sky.tsx`, fixed seed) on the head and behind the flights and hotels; the title rises letter by letter
+  this page (the head script marks it played); a night sky with stars twinkling in three groups and a crescent
+  (`night-sky.tsx`, fixed seed; paused off screen by `page-watch.tsx`) on the head, and a few above the flights and
+  hotels; the title rises letter by letter
   (`.poster-rise .pl`), then the facts and button (`.follow`); the journey line draws itself in (`.line-draw`, its
   wrapper is what's revealed, `data-rv-skip` inside); flight and hotel cards lift in turn (`data-rv` sets the order);
-  a small plane crosses each flight card (`.plane-track`); package prices count up (`count-up.tsx`); form steps slide
-  in (`.step-in`). Rawdah's own: none of it from The Umrah Experience (ADR 0001).
+  a small plane crosses each flight card (`.plane-run`, moved by transform); form steps slide in (`.step-in`).
+  Cut after the Opus review (18 Nov 2026): the price count-up (it showed wrong prices mid-count) and the star drift. Rawdah's own: none of it from The Umrah Experience (ADR 0001).
 
 ## 8. Photography
 

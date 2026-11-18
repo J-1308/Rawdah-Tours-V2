@@ -100,6 +100,14 @@ step form with package, travellers and sharing carried across (`prefillForm` in 
 it and a call line; the animations in design-system §7; no opening on this page; Ustadh Issa on the trip team.
 Not claimed: half term (London's is 15–19 Feb 2027; the trip is in term time).
 
+Opus review (18 Nov, Fable had no credits), fixed: share cards now name the trip (they showed the site-wide Hajj
+card); no count-up (wrong prices mid-count); stars twinkle in three groups and pause off screen (they kept slow
+phones' main thread busy); poster headings keep their real text (the drawn M is a mask over a real "M"); fonts
+preloaded; the phone bar steps aside over the panel and form; the form follows the panel as it changes; a review-marked
+note for bookings after 30 November; no top strip on this page; print shows everything. Still for Jibril: whether the
+poster lettering stays on section headings or the title only, and the first-screen ideas (see the PR). Note: share
+images use the site's base URL (www.rawdahtours.co.uk), so they show only once the domain points at Vercel.
+
 ## What's next
 
 1. ~~Fable's final review~~ done 17 Nov; see Before launch.

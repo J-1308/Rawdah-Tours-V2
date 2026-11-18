@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { anchors, brand, gbp, monthly, routes, wa, type Journey } from "@/app/_site/content";
 import { Mark } from "@/app/_site/marks";
@@ -31,6 +31,19 @@ export function ReservePanel({ j, bookable = false }: { j: Journey; bookable?: b
   const [children, setChildren] = useState(0);
   const shareOptions = SHARING;
   const [share, setShare] = useState(shareOptions[0]);
+  // Once someone has changed the panel, the form below follows it (not only on "Book your place").
+  const touched = useRef(false);
+  const picked = rooms.find((r) => r.type === room) ?? rooms[0];
+  const choice = picked ? { Package: `${picked.type}, ${gbp(picked.price)} per person`, Travellers: adults + children >= 5 ? "5 or more" : String(adults + children), Sharing: share } : null;
+  const choiceKey = JSON.stringify(choice);
+  useEffect(() => {
+    if (!touched.current) {
+      touched.current = true;
+      return;
+    }
+    if (choice && j.state === "open") prefillForm(choice);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [choiceKey]);
 
   if (j.state === "past") {
     return (
@@ -249,7 +262,7 @@ export function ReservePanel({ j, bookable = false }: { j: Journey; bookable?: b
             onClick={() => {
               const n = adults + children;
               // The form lists packages as "Early bird, £1,899 per person" (see the trip page).
-              prefillForm({ Package: `${chosen.type}, ${gbp(chosen.price)} per person`, Travellers: n >= 5 ? "5 or more" : String(n), Sharing: share });
+              if (choice) prefillForm(choice);
             }}
             className="btn-ink mt-4 flex min-h-[3.25rem] items-center justify-center gap-2 rounded-[0.95rem] text-[0.95rem] font-medium"
           >
@@ -265,7 +278,7 @@ export function ReservePanel({ j, bookable = false }: { j: Journey; bookable?: b
         {open ? (
           <p className="mt-3 text-center text-[0.9rem] text-ink/70">
             Prefer to talk?{" "}
-            <a href={brand.phone.href} className="font-medium text-ink underline decoration-ink/25 underline-offset-4">
+            <a href={brand.phone.href} className="inline-flex min-h-11 items-center font-medium text-ink underline decoration-ink/25 underline-offset-4">
               Call {brand.phone.display}
             </a>
           </p>
