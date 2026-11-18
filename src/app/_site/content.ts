@@ -727,7 +727,8 @@ export const ramadanFull: Journey = {
     dates: v("Sat 27 Feb – Sat 13 Mar 2027", "confirmed"),
     route: v([{ place: "Makkah", nights: 9 }, { place: "Madinah", nights: 4 }], "confirmed"),
     openTo: v("Brothers, sisters and families", "confirmed"),
-    teacher: v("Named when the trip is announced", "to confirm"),
+    /* Ustadh Issa is on the trip (Jibril, 18 Nov 2026); any other teachers still to be named. */
+    teacher: v("Ustadh Issa Uthman, more to be named", "to confirm"),
     rooms: v(roomsFromTrips("ramadan-umrah-2027"), "confirmed"),
     deposit: v(399, "confirmed"),
     /** Three payments after the deposit on the flight packages (30 Nov, 31 Dec, 20 Jan). */
@@ -750,7 +751,7 @@ export const ramadanFull: Journey = {
       { title: "Packages", text: "Early bird £1,899, Standard £1,999, Ground only £1,299." },
     ],
     pending: [
-      { title: "Teachers", text: "Named when the trip is announced." },
+      { title: "Teachers", text: "Ustadh Issa Uthman, with more to be named." },
       { title: "Eid", text: "Tuesday 9 or Wednesday 10 March, so we may spend it travelling." },
     ],
     plan: {

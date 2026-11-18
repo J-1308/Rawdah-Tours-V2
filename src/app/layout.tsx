@@ -33,11 +33,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en-GB" data-top="night" className="h-full antialiased" suppressHydrationWarning /* the top is dark, beige-gold logo (Jibril, 31 Oct 2026; ADR 0004) */>
       <head>
         {/* Before first paint: "js" + "motion" (unless reduced motion), and whether the intro already played this visit.
-            Everything animated is visible without these, so no script = no animation, never hidden content. */}
+            Everything animated is visible without these, so no script = no animation, never hidden content.
+            No intro on the Ramadan Umrah 2027 page: every Instagram link lands there, and its title animation is the
+            welcome (Jibril, 18 Nov 2026). It counts as played, so it doesn't interrupt later in the visit. */}
         <script
           dangerouslySetInnerHTML={{
             __html:
-              "try{var d=document.documentElement;d.classList.add('js');if(!matchMedia('(prefers-reduced-motion: reduce)').matches)d.classList.add('motion');if(sessionStorage.getItem('rawdah-intro'))d.setAttribute('data-intro','seen');else sessionStorage.setItem('rawdah-intro','1')}catch(e){}",
+              "try{var d=document.documentElement;d.classList.add('js');if(!matchMedia('(prefers-reduced-motion: reduce)').matches)d.classList.add('motion');if(sessionStorage.getItem('rawdah-intro')||/^\\/trips\\/ramadan-umrah-2027/.test(location.pathname))d.setAttribute('data-intro','seen');sessionStorage.setItem('rawdah-intro','1')}catch(e){}",
           }}
         />
       </head>

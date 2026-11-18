@@ -11,11 +11,13 @@ Things only Rawdah (or Jibril) can answer. Each one is marked on the page where 
    do we have permission to use them? If not, remove them until real ones are collected.
 3. **ATOL:** settled. Jibril confirmed Rawdah's Umrah trips are ATOL protected (ATOL 5311). The site doesn't name the
    ATOL provider (Jibril's instruction, 31 Oct 2026). Hajj is booked on Nusuk, so ATOL doesn't apply to it.
-4. **Ramadan Umrah 2027 (GGC × Rawdah Tours):** hidden behind a "Ramadan 1448 · Coming soon" teaser at GGC's and
-   Rawdah's request (`ramadanReveal = false` in `content.ts`; set to true to show the full plan). Settled with Jibril (31 Oct 2026): the £399 deposit is right (terms
+4. **Ramadan Umrah 2027 (GGC × Rawdah Tours):** revealed (`ramadanReveal = true`): GGC and Rawdah confirmed
+   everything (Jibril, 17 Nov 2026). Before that it was hidden behind a "Ramadan 1448 · Coming soon" teaser. Settled with Jibril (31 Oct 2026): the £399 deposit is right (terms
    6.1 updated from £299), visas are included, open to brothers, sisters and families, booking on WhatsApp with
    deposits by bank transfer (card payments with Stripe later), GGC is the Global Guidance Center and its logo is
-   shown. Still open: the teachers (Jibril to say when announced). Hotel photos: settled (Jibril, 16 Nov 2026),
+   shown. Ustadh Issa Uthman is on the trip (Jibril, 18 Nov 2026). Still open: any other teachers; how long the
+   early-bird price lasts (date, places or open); what someone booking after 30 November pays for that instalment;
+   Rawdah's Umrah poster for the page head (a group photo stands in). Hotel photos: settled (Jibril, 16 Nov 2026),
    four per hotel from the hotels' own listings.
 5. **Hajj 2027 "open to":** settled. Brothers and sisters, and children over 12 (Rawdah, 31 Oct 2026).
 5a. **Hajj 2027 group:** settled from the live Hajj page (31 Oct 2026): no provider is named, dates and hotels

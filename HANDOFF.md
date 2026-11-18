@@ -1,7 +1,7 @@
 # Rawdah Tours V2 — handoff
 
 A self-contained briefing for whoever (or whatever tool) picks this up next. Keep it current.
-Last updated 17 November 2026.
+Last updated 18 November 2026.
 
 ## Start here (next session)
 
@@ -16,8 +16,9 @@ Last updated 17 November 2026.
 Rawdah Tours Ltd, based in West London (registered office 66 Paul Street, London EC2A 4NA). Guided Umrah from the
 UK with certified ustadhs, and a group preparing for **Hajj 2027** (registration of interest; packages are booked
 and paid on Nusuk, never through Rawdah). Co-founders: Brother Ayuub Mohamed Musa and Ustadh Issa Uthman; guest
-sheikhs join trips to teach. Next flagship: **Ramadan Umrah 2027 with GGC** (27 Feb – 13 Mar 2027), shown publicly
-as "Ramadan 1448: coming soon" until GGC and Rawdah say go. Audience mostly from Instagram, WhatsApp and word of
+sheikhs join trips to teach. Next flagship: **Ramadan Umrah 2027 with GGC** (27 Feb – 13 Mar 2027). GGC and Rawdah
+confirmed everything (17 Nov 2026); the full page is revealed (`ramadanReveal = true`) from branch `ramadan/rework`,
+and it is **the page every Instagram link lands on**, so it must sell the trip from its first phone screen. Audience mostly from Instagram, WhatsApp and word of
 mouth. Phone +44 7809 281429, rawdahtours@gmail.com, @rawdahtours.
 
 ## The repos
@@ -43,8 +44,8 @@ Jibril adds env vars himself; secrets never go in chat or the repo.
 ## What is built
 
 Next.js 16 App Router, React 19, TypeScript, Tailwind v4. Copy lives in `src/app/_site/content.ts`; prices only in
-`src/lib/trips.ts` (server side). Pages: home, `/trips`, trip pages (`/trips/hajj-2027`, the Ramadan teaser
-`/trips/ramadan-umrah-2027` with a private full preview at `.../preview`), `/private-umrah`, `/groups`, `/about`,
+`src/lib/trips.ts` (server side). Pages: home, `/trips`, trip pages (`/trips/hajj-2027`, `/trips/ramadan-umrah-2027`; its
+`.../preview` copy stays behind `PRIVATE_PASSWORD`), `/private-umrah`, `/groups`, `/about`,
 legal pages, and `/questionnaire` (noindex, Rawdah's questions).
 
 Added on 16 Nov (the conversion brief, `prompt-rawdah-tours.md` in Jibril's Downloads):
@@ -85,9 +86,19 @@ Code fixes are on `review/launch-fixes`. Jibril still has to:
 6. When ready, point rawdahtours.co.uk's DNS at Vercel (Vercel → project → Domains shows the records).
 
 Review items left for later: focus moves between form steps, the Private page's thin FAQ and empty desktop column,
-desktop hero buttons on Private and Groups, Ramadan package-table heads that look like toggles, "Ground only" in the
-included list, Ramadan reveal fixes ("To be announced", the 30 November instalment, an early-bird end), and
+desktop hero buttons on Private and Groups, Ramadan reveal facts (the 30 November instalment for late bookings, an
+early-bird end, any teachers besides Ustadh Issa), and
 "A true brotherhood / Past travellers say" on home (V1 copy; ask Rawdah to keep or reword).
+
+## Ramadan page rework (17–18 Nov 2026, branch `ramadan/rework`)
+
+Jibril approved the plan. Cut: three price cards and two timetables (now one packages table), the trust box and the
+"still being arranged" box on trips with a full plan, three of four Eid notes, "Ground only" as an included item (now
+a note). Added: hotel thumbnails under each photo (others faded, tap to show); the group at Uhud as the head photo
+(Rawdah's Umrah poster will replace it); poster lettering for titles; the join panel's "Book your place" opens the
+step form with package, travellers and sharing carried across (`prefillForm` in `step-form.tsx`), WhatsApp beside
+it and a call line; the animations in design-system §7; no opening on this page; Ustadh Issa on the trip team.
+Not claimed: half term (London's is 15–19 Feb 2027; the trip is in term time).
 
 ## What's next
 
@@ -99,8 +110,8 @@ included list, Ramadan reveal fixes ("To be announced", the 30 November instalme
 5. **Chat proposal**: a short note (scripted vs AI), no build.
 6. Deferred: reminder emails (need Resend), Makkah/Madinah guides (need client-verified text). Cut: wishlist.
 
-Waiting on Rawdah: questionnaire answers (story, years, pilgrim numbers), Cal.com link, Ramadan go-ahead and its
-teachers, Sheikh Yahya Rabi's photo from GGC, photo licences (Arafah and Makkah aerial). Full list in
+Waiting on Rawdah: questionnaire answers (story, years, pilgrim numbers), Cal.com link, Ramadan's other teachers
+(if any), the early-bird end and what late bookers pay for the 30 November instalment, Rawdah's Umrah poster, Sheikh Yahya Rabi's photo from GGC, photo licences (Arafah and Makkah aerial). Full list in
 `docs/project/open-questions.md`.
 
 ## Rules
