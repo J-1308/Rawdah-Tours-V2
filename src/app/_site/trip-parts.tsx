@@ -93,6 +93,7 @@ export function TripPeople({ j, members }: { j: Journey; members: Member[] }) {
               <span>{guest.label}</span> {guest.name}
             </h2>
             <p className="gf-line">{g.line}</p>
+            {g.bio ? <p className="gf-bio">{g.bio}</p> : null}
             <a href={`#${anchors.join}`} className="gf-cta">
               {g.cta}
               <svg aria-hidden viewBox="0 0 12 12" className="size-3">
@@ -453,20 +454,32 @@ export function PastTrips({ p }: { p: NonNullable<Journey["pastTrips"]> }) {
   return (
     <section className="mt-12 sm:mt-16">
       <Heading className="text-[clamp(1.9rem,3.2vw,2.6rem)] leading-tight">{p.title}</Heading>
-      <ul className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-3">
-        {p.trips.map((t) => (
-          <li key={t.name} className="grid content-start">
-            {t.poster ? (
-              <div className="relative aspect-[4/5] overflow-hidden rounded-[1rem] shadow-[var(--shadow-lift)]">
-                <Image src={t.poster.src} alt={t.poster.alt} fill sizes="(min-width: 640px) 16rem, 45vw" className="object-cover" />
+      <div className="past-top mt-6">
+        {p.lead ? (
+          <figure className="past-lead">
+            <div className="past-lead-photo">
+              <Image src={p.lead.src} alt={p.lead.alt} fill sizes="(min-width: 1024px) 46rem, 100vw" className={`object-cover ${p.lead.position ?? ""}`} />
+            </div>
+            <figcaption>{p.lead.caption}</figcaption>
+          </figure>
+        ) : null}
+        <ul className="grid gap-4">
+          {p.trips.map((t) => (
+            <li key={t.name} className="past-trip">
+              {t.poster ? (
+                <div className="relative aspect-[4/5] overflow-hidden rounded-[1rem] shadow-[var(--shadow-lift)]">
+                  <Image src={t.poster.src} alt={t.poster.alt} fill sizes="(min-width: 1024px) 16rem, 42vw" className="object-cover" />
+                </div>
+              ) : null}
+              <div>
+                <p className="font-medium leading-snug lg:mt-3">{t.name}</p>
+                <p className="text-[0.875rem] text-ink/62">{t.dates}</p>
+                <p className="mt-1.5 text-[0.9rem] leading-snug text-ink/72">{t.line}</p>
               </div>
-            ) : null}
-            <p className="mt-3 font-medium leading-snug">{t.name}</p>
-            <p className="text-[0.875rem] text-ink/62">{t.dates}</p>
-            <p className="mt-1.5 text-[0.9rem] leading-snug text-ink/72">{t.line}</p>
-          </li>
-        ))}
-      </ul>
+            </li>
+          ))}
+        </ul>
+      </div>
       <ul className="past-gallery mt-8">
         {p.photos.map((ph) => (
           <li key={ph.src}>
@@ -795,15 +808,13 @@ export function PosterPackages({ j }: { j: Journey }) {
             ))}
           </ul>
           <p className="mt-3 text-center text-[0.9rem] text-ink/62">
-            For the {planned.type.toLowerCase()}, {gbp(planned.price)} per person.
+            For the {planned.type.toLowerCase()}, {gbp(planned.price)} per person. Every package pays on the same dates: each one’s plan is below.
           </p>
         </div>
       ) : null}
       <PackageCards j={j} />
       <div className="mt-5 grid gap-1.5 text-[0.9rem] leading-relaxed text-ink/70">
         {deposit ? <p>A {gbp(deposit)} deposit holds your place on every package. All deposits are non-refundable.</p> : null}
-        {planned ? <p>Every other package: the {gbp(deposit ?? 0)} deposit, then the balance on dates we agree with you after booking.</p> : null}
-        {planned?.schedule?.some((p) => /30 November/.test(p.due)) ? <p>Booking after 30 November? We’ll tell you what’s due when we confirm your place.</p> : null}
         {j.plan?.places ? <p>{j.plan.places.value}.</p> : null}
       </div>
     </>
@@ -870,12 +881,7 @@ export function TripPackages({ j }: { j: Journey }) {
         </table>
       </div>
       <p className="mt-3 text-[0.875rem] text-ink/68">
-        Per person, four sharing a room.{dues.some((d) => /30 November/.test(d)) ? (
-          <>
-            {" "}Booking after 30 November? We’ll tell you what’s due when we confirm your place.
-            <Mark s="to confirm" />
-          </>
-        ) : null}{agreed ? " Ground only: the balance is due on a date we agree after booking." : ""} All deposits are
+        Per person, four sharing a room.{agreed ? " Ground only: the balance is due on a date we agree after booking." : ""} All deposits are
         non-refundable.
         {j.plan?.places ? (
           <>
@@ -958,13 +964,7 @@ function PackageGrid({ j }: { j: Journey }) {
             .
           </p>
         ))}
-        {dated.length ? <p>Every other package: the balance on dates we agree with you after booking.</p> : null}
-        {dated.some((r) => r.schedule!.some((p) => /30 November/.test(p.due))) ? (
-          <p>
-            Booking after 30 November? We’ll tell you what’s due when we confirm your place.
-            <Mark s="to confirm" />
-          </p>
-        ) : null}
+        {dated.length && dated.length < rooms.length ? <p>Every other package: the balance on dates we agree with you after booking.</p> : null}
         {j.plan?.places ? (
           <p>
             {j.plan.places.value}.

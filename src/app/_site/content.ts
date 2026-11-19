@@ -456,7 +456,7 @@ export const teachers = [
     does: "Special guest sheikh",
     guest: true,
     bio: v("Our special guest sheikh for Ramadan 1448.", "confirmed"),
-    photo: { src: "/images/portraits/yahya-raaby.jpg", alt: "Sheikh Yahya Raaby", position: "object-[50%_22%]" },
+    photo: { src: "/images/portraits/yahya-raaby.jpg", alt: "Sheikh Yahya Raaby", position: "object-[50%_30%]" },
   },
   {
     /** A guest sheikh, not part of the Rawdah team (Jibril, 31 Oct 2026; V1 badge "Special Guest"). */
@@ -674,7 +674,7 @@ export type Journey = {
   /** Why Rawdah: the name's meaning, a photo and short reasons (from the About page, Rawdah's own words). */
   why?: { label: string; title: string; ar: string; text: string; source: string; photo: { src: string; alt: string; caption?: string }; reasons: { title: string; text: string }[] };
   /** Poster trips: the special guest's own panel, above the hosts. `toCome` shows until Rawdah sends the bio. */
-  guestFeature?: { kicker: string; line: string; cta: string };
+  guestFeature?: { kicker: string; line: string; bio?: string; cta: string };
   /** Poster trips: the heading over the hosts' cards. */
   hostsTitle?: string;
   /** Ramadan in the Haram: what the nights hold (worship, not a Rawdah service). `slot` = the photo Jibril will source. */
@@ -683,6 +683,8 @@ export type Journey = {
   pastTrips?: {
     title: string;
     trips: { name: string; dates: string; line: string; href?: string; poster?: { src: string; alt: string; width: number; height: number } }[];
+    /** One wide photo of the trip's group: the old home hero's photo (Jibril, 19 Nov 2026). */
+    lead?: { src: string; alt: string; caption: string; position?: string };
     photos: StayPhoto[];
   };
   /** A band at the foot of the page for the other campaign (Ramadan → Hajj 2027). */
@@ -805,6 +807,8 @@ export const ramadanFull: Journey = {
       { q: "Where will we spend Eid?", a: "In the blessed lands. Eid al-Fitr falls on Tuesday 9 or Wednesday 10 March.", status: "confirmed" },
       { q: "What does ground only cover?", a: "The hotels and ground transport. You book your own flights.", status: "confirmed" },
       { q: "How many places are there?", a: "Up to 60: around 30 with flights and 30 ground only.", status: "confirmed" },
+      // Replaces the general answer, which says the dates are set when you book (they're fixed for this trip).
+      { q: "How do I pay for the trip?", a: "By bank transfer. A £399 deposit holds your place, and the bank details are in your confirmation email once you book. The rest is paid on 30 November, 30 December and 30 January; each package’s amounts are under Packages and payments.", status: "confirmed" },
     ],
     groups: [
       { src: "/images/group-photos/group-photos-03.jpg", alt: "A Rawdah group in ihram at night, lit arcades and a minaret behind them." },
@@ -814,6 +818,9 @@ export const ramadanFull: Journey = {
     guestFeature: {
       kicker: "Special guest · Ramadan 1448",
       line: "Our special guest sheikh for Ramadan 1448, travelling with the group.",
+      /* Public facts only (FOSIS speaker page; Badr Academy; his recitations on Muslim Central), 19 Nov 2026. Rawdah to
+         confirm with him. No personal details. */
+      bio: "A Qur’an reciter known for his calm, moving recitation, Sheikh Yahya teaches Arabic and the Islamic sciences at Badr Academy, and gives lectures and Friday khutbahs across the UK and abroad.",
       cta: "Travel with Sheikh Yahya",
     },
     hostsTitle: "Your hosts",
@@ -839,6 +846,12 @@ export const ramadanFull: Journey = {
           poster: { src: "/images/past/path-of-purity-ii-poster.jpg", alt: "The Path of Purity II: Summer Edition poster, 4–15 August 2026.", width: 1080, height: 1350 },
         },
       ],
+      lead: {
+        src: "/images/group-photos/group-photos-01.jpg",
+        alt: "The Path of Purity II group with Ustadh Abdulrahman Hassan in the lobby of Address Jabal Omar, Makkah.",
+        caption: "The Path of Purity II group with Ustadh Abdulrahman Hassan in Makkah, August 2026.",
+        position: "object-[50%_62%]",
+      },
       photos: [
         { src: "/images/group-photos/group-photos-05.jpg", caption: "On the roof of Masjid an-Nabawi", alt: "The group on the roof of Masjid an-Nabawi at golden hour, a minaret behind them.", position: "object-[50%_62%]" },
         { src: "/images/past/masjid-al-haram.jpg", caption: "Masjid al-Haram", alt: "A Rawdah group together at Masjid al-Haram.", position: "object-[50%_60%]" },
@@ -874,7 +887,7 @@ export const ramadanFull: Journey = {
     steps: [
       { title: "Send the form", text: "About a minute: your name, how to reach you and the package you want." },
       { title: "We confirm your place", text: "Your confirmation email has the bank details for the £399 deposit, and the team gets in touch to confirm your place." },
-      { title: "Pay the rest before you fly", text: "On dates set when you book. Up to 60 places, around half with flights." },
+      { title: "Pay the rest in three parts", text: "On 30 November, 30 December and 30 January. Up to 60 places, around half with flights." },
     ],
     partner: "GGC × Rawdah Tours",
     partnerLogo: { src: "/images/brand/partners/ggc.png", width: 300, height: 100, alt: "Global Guidance Center (GGC)" },
@@ -890,13 +903,13 @@ export const ramadanFull: Journey = {
     rooms: v(roomsFromTrips("ramadan-umrah-2027"), "confirmed"),
     endedOffer: endedFromTrips("ramadan-umrah-2027"),
     deposit: v(399, "confirmed"),
-    /** Three payments after the deposit on the quad with flights (30 Nov, 31 Dec, 20 Jan). */
+    /** Three payments after the deposit on every package (30 Nov, 30 Dec, 30 Jan). */
     months: v(3, "confirmed"),
     flights: v("Saudia from London Heathrow", "confirmed"),
     hotels: { makkah: v("Novotel Thakher City Makkah", "confirmed"), madinah: v("Al Manakha Rotana", "confirmed") },
     bookingSlug: "ramadan-umrah-2027",
     intro:
-      "A joint Ramadan pilgrimage with GGC. Fly from Heathrow on the night of 27 February and go straight to Makkah for the last ten days of Ramadan. Nine nights there, then on to Madinah around Eid for four nights, and home on 13 March.",
+      "A joint Ramadan pilgrimage with GGC. Fly from Heathrow on the night of 27 February and go straight to Makkah for the last ten days of Ramadan. Ten nights there, then Eid in the blessed lands and four nights in Madinah, home on 13 March.",
     introStatus: "draft",
     highlights: [
       v("Ten nights in Makkah, then four in Madinah", "confirmed"),
