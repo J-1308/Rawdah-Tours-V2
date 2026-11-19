@@ -87,8 +87,8 @@ Code fixes are on `review/launch-fixes`. Jibril still has to:
 7. Resend (booking emails, `docs/booking.md` "Booking requests by email"): in Resend, add the domain
    rawdahtours.co.uk and copy its DNS records into Cloudflare; create an API key; in Vercel add `RESEND_API_KEY`,
    `EMAIL_FROM` (e.g. `Rawdah Tours <bookings@rawdahtours.co.uk>`) and `EMAIL_OWNER_TO` (the inbox for alerts), for
-   Production and Preview, then redeploy and send a test booking. Optional: `BANK_ACCOUNT_NAME`, `BANK_SORT_CODE`,
-   `BANK_ACCOUNT_NUMBER` put the bank details in the traveller's email.
+   Production and Preview, then redeploy and send a test booking. `BANK_ACCOUNT_NAME`, `BANK_SORT_CODE` and
+   `BANK_ACCOUNT_NUMBER` are set in Vercel (19 Nov 2026), so the traveller's email carries the bank details.
 8. One-page launch (Jibril, 19 Nov 2026): only the Ramadan Umrah 2027 page is live (`src/lib/site-mode.ts`,
    `ONE_PAGE`). The home page and every other page redirect to it (307); privacy, terms, cookies, booking returns,
    the private pages and the API stay. Header and footer show only this page; Hajj interest goes to WhatsApp. No

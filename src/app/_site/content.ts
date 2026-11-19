@@ -874,7 +874,7 @@ export const ramadanFull: Journey = {
     },
     steps: [
       { title: "Send the form", text: "About a minute: your name, how to reach you and the package you want." },
-      { title: "We confirm your place", text: "The Rawdah Tours team confirms it and sends the bank details for the £399 deposit." },
+      { title: "We confirm your place", text: "Your confirmation email has the bank details for the £399 deposit, and the team gets in touch to confirm your place." },
       { title: "Pay the rest before you fly", text: "On dates set when you book. Up to 60 places, around half with flights." },
     ],
     partner: "GGC × Rawdah Tours",

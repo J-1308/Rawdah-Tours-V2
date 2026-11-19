@@ -115,6 +115,9 @@ follows the best trip sites' structure, in Rawdah's own words and look (`src/lib
      Replying goes to Rawdah's inbox.
 3. The form's last screen shows the reference, and says a copy was emailed only when it was.
 
+The three `BANK_*` values are set in Vercel for Production and Preview (19 Nov 2026), as sensitive variables. They
+are never written into this repo.
+
 Each email has a plain-text version and an idempotency key, so a retried submit doesn't send twice. Without
 `RESEND_API_KEY` nothing is emailed; the lead still lands in Blob (and the sheet if set), and if it reaches nowhere
 the person is told to use WhatsApp.
