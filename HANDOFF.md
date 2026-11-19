@@ -93,6 +93,8 @@ Code fixes are on `review/launch-fixes`. Jibril still has to:
    `ONE_PAGE`). The home page and every other page redirect to it (307); privacy, terms, cookies, booking returns,
    the private pages and the API stay. Header and footer show only this page; Hajj interest goes to WhatsApp. No
    placeholders on the page (photo spaces and "to come" notes removed). Payments: bank transfer only, no card link.
+   Live on rawdahtours.co.uk since 19 Nov 2026 (PRs #21, #22; `SITE_PASSWORD` removed). No Hajj band on the page for
+   now; a booking request ends on `/trips/ramadan-umrah-2027/thank-you`.
    Set `ONE_PAGE` to false to bring the full site back.
 
 Review items left for later: focus moves between form steps, the Private page's thin FAQ and empty desktop column,

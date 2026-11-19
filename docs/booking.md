@@ -113,7 +113,10 @@ follows the best trip sites' structure, in Rawdah's own words and look (`src/lib
      `BANK_ACCOUNT_NAME`, `BANK_SORT_CODE` and `BANK_ACCOUNT_NUMBER` set in Vercel, it includes the bank details and
      the reference to use; without them it says the team will send the details when they confirm the place.
      Replying goes to Rawdah's inbox.
-3. The form's last screen shows the reference, and says a copy was emailed only when it was.
+3. On the trip page, a finished booking request goes to the trip's thank-you page
+   (`/trips/<slug>/thank-you?ref=RT-…`, plus `&e=1` when the copy was emailed; never a name or contact detail): the
+   request is in, the reference, what happens next, WhatsApp and a link back. Not indexed. Elsewhere the form's last
+   screen shows the reference.
 
 The three `BANK_*` values are set in Vercel for Production and Preview (19 Nov 2026), as sensitive variables. They
 are never written into this repo.

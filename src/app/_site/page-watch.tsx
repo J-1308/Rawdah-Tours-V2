@@ -6,7 +6,8 @@ import { useEffect, type ReactNode } from "react";
 /** Shows its children everywhere except on the page they link to (the strip on the Ramadan page, 18 Nov 2026). */
 export function NotOn({ href, children }: { href: string; children: ReactNode }) {
   const path = usePathname();
-  return path === href ? null : children;
+  // Also hidden under the page it links to (its thank-you page).
+  return path === href || path.startsWith(`${href}/`) ? null : children;
 }
 
 /**

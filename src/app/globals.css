@@ -865,6 +865,8 @@ html.motion .ticker-track { animation: ticker 48s linear infinite; }
 .pkg-btn { margin-top: 1rem; display: flex; min-height: 3rem; align-items: center; justify-content: center; gap: 0.5rem; border-radius: 0.9rem; border: 1px solid rgb(84 82 52 / 0.25); font-size: 0.95rem; font-weight: 500; }
 .pkg-btn:not(.btn-ink):hover { border-color: rgb(84 82 52 / 0.55); }
 
+.ty-ref { font-family: "Montserrat", "DM Sans", system-ui, sans-serif; font-size: 1.7rem; font-weight: 700; letter-spacing: 0.1em; }
+
 /* The mist: big soft clouds, drifting by transform only. */
 .mist .cloud { position: absolute; border-radius: 50%; background: radial-gradient(closest-side, rgb(255 255 255 / 0.85), rgb(255 255 255 / 0)); }
 .mist .c1 { width: 70vmax; height: 34vmax; left: -18vmax; top: -6vmax; }

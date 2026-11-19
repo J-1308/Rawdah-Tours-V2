@@ -850,14 +850,7 @@ export const ramadanFull: Journey = {
         { src: "/images/friends/friends-05.jpg", caption: "Umrah complete", alt: "Three travellers in ihram outside Masjid al-Haram at dusk, the minarets lit behind them.", position: "object-[50%_50%]" },
       ],
     },
-    otherTrip: {
-      label: "Also from Rawdah",
-      title: "Hajj 2027",
-      text: "Register your interest and we guide you through your Nusuk application step by step. Registering commits you to nothing.",
-      cta: "Register interest on WhatsApp",
-      /* Only the Ramadan page is live (Jibril, 19 Nov 2026): Hajj interest goes to WhatsApp. */
-      href: wa(say.hajj, "Hajj 2027"),
-    },
+    /* No Hajj band for now: on a one-trip page it confused people (Jibril, 19 Nov 2026). */
     /* From the About page and V1, Rawdah's own words (19 Nov 2026: only this page is live, so its best bits come here). */
     forWho: [
       { title: "Brothers, sisters and families", text: "Travel as a family, or join the group on your own." },
