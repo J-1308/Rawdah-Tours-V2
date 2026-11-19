@@ -2,7 +2,9 @@ import Image from "next/image";
 import { HotelGallery } from "./hotel-gallery";
 import { Fragment } from "react";
 
+import { PackageCards } from "@/app/_site/package-cards";
 import { ICONS, PosterPerks } from "@/app/_site/poster-parts";
+import { PosterText } from "@/app/_site/poster-type";
 import { anchors, gbp, hajjNusuk, journeyStay, leader, people, say, teachers, trust, wa, type Journey, type Status, type StayPhoto, type TripPlan } from "@/app/_site/content";
 import { Mark } from "@/app/_site/marks";
 import { Emblem, gutter, Heading, Label, Tick } from "@/app/_site/shell";
@@ -641,7 +643,7 @@ export function TripJourney({ j }: { j: Journey }) {
         Flights and hotels
         <Mark s={plan.status} />
       </Heading>
-      <p className="mt-4 max-w-[36rem] text-[1rem] leading-[1.65] text-ink/72">From Heathrow and back: fourteen nights away, one on the flight out, nine in Makkah and four in Madinah.</p>
+      <p className="mt-4 max-w-[36rem] text-[1rem] leading-[1.65] text-ink/72">From Heathrow and back: fourteen nights away, ten in Makkah and four in Madinah.</p>
 
       <div className="mt-9 sm:mt-12">
         <TripLine plan={plan} draw={j.posterType} />
@@ -691,9 +693,12 @@ export function TripJourney({ j }: { j: Journey }) {
                 <span className={pill}>{h.nights} nights</span>
               </div>
               <h3 className="display mt-4 text-[clamp(1.9rem,2.8vw,2.5rem)] leading-tight">{h.name}</h3>
-              <p className="mt-2">
-                <span className="text-[1.05rem] tracking-[0.1em] text-gold" aria-label={`${h.stars} stars`}>{"★".repeat(h.stars)}</span>
-              </p>
+              {/* No star rating on poster trips (Jibril, 19 Nov 2026: "5-star package", never a hotel rating). */}
+              {h.stars && !j.posterType ? (
+                <p className="mt-2">
+                  <span className="text-[1.05rem] tracking-[0.1em] text-gold" aria-label={`${h.stars} stars`}>{"★".repeat(h.stars)}</span>
+                </p>
+              ) : null}
               {h.walk ? (
                 <p className="hotel-walk">
                   <Glyph d={h.walk.by === "foot" ? walker : bus} className="size-4" />
@@ -737,6 +742,16 @@ export function TripIncludes({ plan }: { plan: TripPlan }) {
   const items = (plan.cards || plan.perks) && plan.perksAlso ? plan.perksAlso : plan.includes;
   return (
     <>
+    {plan.showcase ? (
+      <ul className="showcase mt-6">
+        {plan.showcase.map((s) => (
+          <li key={s.src}>
+            <Image src={s.src} alt={s.alt} width={s.width} height={s.height} sizes="(min-width: 1024px) 28rem, 46vw" quality={85} className="h-full w-full object-cover" />
+            <span className="showcase-label">{s.label}</span>
+          </li>
+        ))}
+      </ul>
+    ) : null}
     {plan.cards ? <IncludedCards cards={plan.cards} /> : plan.perks ? <PosterPerks perks={plan.perks} className="mt-6" /> : null}
     <ul className={`glass-phone ${plan.perks ? "mt-4" : "mt-6"} grid grid-cols-1 rounded-[1.25rem] px-4 py-1 [--glass-shadow:none] sm:grid-cols-2 sm:gap-1.5 sm:p-0`}>
       {items.map((h, i) => (
@@ -750,6 +765,47 @@ export function TripIncludes({ plan }: { plan: TripPlan }) {
       ))}
     </ul>
     {plan.includesNote ? <p className="mt-3 text-[0.9rem] text-ink/68">{plan.includesNote}</p> : null}
+    </>
+  );
+}
+
+/**
+ * Poster trips' packages (Jibril, 19 Nov 2026): the poster's instalment plan as tiles, then the packages as cards with
+ * a with-flights / ground-only switch (after The Sunnah Experience), then the notes. Prices from src/lib/trips.ts.
+ */
+export function PosterPackages({ j }: { j: Journey }) {
+  const rooms = j.rooms?.value ?? [];
+  const planned = rooms.find((r) => (r.schedule ?? []).filter((p) => !/agreed/i.test(p.due)).length > 2);
+  const deposit = rooms[0]?.schedule?.[0]?.amount;
+  return (
+    <>
+      {j.heroNote ? <p className="mt-3 font-editorial text-[1.2rem] text-ink/70 italic">{j.heroNote.replace(" · ", ", for ")}.</p> : null}
+      {planned ? (
+        <div className="plan-block mt-8">
+          <p className="plan-title">
+            <PosterText text="Installment" />
+            <span>Plan available</span>
+          </p>
+          <ul className="plan-tiles">
+            {planned.schedule!.map((p, i) => (
+              <li key={p.due}>
+                <b>{gbp(p.amount)}</b>
+                <span>{i === 0 ? "Deposit due" : p.due.replace(/, final$/i, "")}</span>
+              </li>
+            ))}
+          </ul>
+          <p className="mt-3 text-center text-[0.9rem] text-ink/62">
+            For the {planned.type.toLowerCase()}, {gbp(planned.price)} per person.
+          </p>
+        </div>
+      ) : null}
+      <PackageCards j={j} />
+      <div className="mt-5 grid gap-1.5 text-[0.9rem] leading-relaxed text-ink/70">
+        {deposit ? <p>A {gbp(deposit)} deposit holds your place on every package. All deposits are non-refundable.</p> : null}
+        {planned ? <p>Every other package: the {gbp(deposit ?? 0)} deposit, then the balance on dates we agree with you after booking.</p> : null}
+        {planned?.schedule?.some((p) => /30 November/.test(p.due)) ? <p>Booking after 30 November? We’ll tell you what’s due when we confirm your place.</p> : null}
+        {j.plan?.places ? <p>{j.plan.places.value}.</p> : null}
+      </div>
     </>
   );
 }
@@ -850,7 +906,10 @@ function PackageGrid({ j }: { j: Journey }) {
       <div className="glass mt-6 rounded-[1.5rem] p-5 sm:p-7">
         {j.endedOffer ? (
           <p className="mb-4 text-[0.9rem] text-ink/62">
-            {j.endedOffer.label} prices ({gbp(j.endedOffer.off)} off every package) have ended: they’re crossed out beside today’s prices, per person.
+            <s className="decoration-ink/50">
+              {j.endedOffer.label} {gbp(j.endedOffer.price)}
+            </s>{" "}
+            on the {j.endedOffer.room.toLowerCase()} has ended. Prices per person.
           </p>
         ) : null}
         <table className="w-full text-[0.95rem] tabular-nums">
@@ -877,8 +936,8 @@ function PackageGrid({ j }: { j: Journey }) {
                   const r = at(f, n);
                   return (
                     <td key={String(f)} className="py-3 pl-3 text-right">
-                      {r && j.endedOffer ? <s className="block text-[0.875rem] text-ink/50">{gbp(r.price - j.endedOffer.off)}</s> : null}
                       <span className="display text-[clamp(1.45rem,4.6vw,2rem)] leading-none text-ink">{r ? gbp(r.price) : "–"}</span>
+                      {r && j.endedOffer?.room === r.type ? <s className="block text-[0.875rem] text-ink/50">{gbp(j.endedOffer.price)}</s> : null}
                     </td>
                   );
                 })}

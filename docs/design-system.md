@@ -146,7 +146,10 @@ script in `app/layout.tsx` sets before first paint unless the visitor prefers re
   launch (19 Nov 2026): no photo placeholders; Ramadan in the Haram is words only (`.nights-list`, numbered); what's
   included is icon tiles without photos; who it's for under the trip's two sentences (`ForWho`); Why Rawdah with the
   name's meaning, the team photo and four reasons (`WhyRawdah`); "Our last trip" is Path of Purity II only; how
-  booking works as numbered steps by the form (`steps`, `.booking-steps`). One-page header: call, logo, WhatsApp on
+  booking works as numbered steps by the form (`steps`, `.booking-steps`). Packages on poster trips (`PosterPackages`):
+  the poster's "Installment plan available" lettering and one tile per payment (`.plan-tiles`), then cards with a
+  with-flights / ground-only switch (`PackageCards`, `.pkg-*`), each card's button filling the form with its package;
+  the poster's Saudia and Haramain train photos with white labels over what's included (`.showcase`). One-page header: call, logo, WhatsApp on
   phones; the trip, logo, WhatsApp and "Book your place" on desktop (`src/lib/site-mode.ts`); what's included as photo cards (`IncludedCards`, `plan.cards`, "Photo to come" frames until Jibril
   sends the shots); the trip's own
   questions first (`faqs`); three short lines by the closing form (`closing`). Not taken: the other sites' photos,

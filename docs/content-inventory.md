@@ -77,7 +77,11 @@ is **not** identified on the site.
   from the hotels' own listings: Novotel Thakher City (Accor; trip.com) is out of the centre, about 10 minutes by car
   from the Haram, with a shuttle to and from it, an in-house mosque and three restaurants; Al Manakha Rotana
   (Hotels.com, Expedia) is an 8-minute walk (0.7 km) from the Prophet's Mosque, steps from Masjid al-Ghamamah, with two
-  restaurants and a coffee shop. Early bird: £100 off every package (`endedOffer.offPence` in `src/lib/trips.ts`).
+  restaurants and a coffee shop. Later (Jibril, 19 Nov 2026): the early bird (£1,899) has ended and shows crossed out
+  on the quad with flights only (`endedOffer` in `src/lib/trips.ts`); 10 nights in Makkah (27 Feb – 9 Mar, landing on
+  the 28th) and 4 in Madinah, 14 in all; no star rating on either hotel, "5-star package" is Rawdah's word for the
+  package; the instalment plan is the poster's (£399, £600 on 30 Nov, £500 on 30 Dec, £500 on 30 Jan); the Saudia
+  and Haramain train photos are cropped from Rawdah's poster (`public/images/brand/ramadan-*.jpg`).
 - **Trust box** (trip pages, `trust` in `content.ts`): shows only the people on the trip and two buttons. Its
   numbers (years running, pilgrims taken, review rating and count) stay empty until Rawdah answers the
   questionnaire; never estimate them.

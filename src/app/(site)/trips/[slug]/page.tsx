@@ -16,7 +16,7 @@ import { PosterLockup, PosterText } from "@/app/_site/poster-type";
 import { StepForm } from "@/app/_site/step-form";
 import { ReservePanel } from "@/app/_site/reserve";
 import { Chapter, ConfirmedPending, gutter, Heading, Label, Logo, PageLead, PartnerLogo, WaTile } from "@/app/_site/shell";
-import { ForWho, GroupStrip, HaramNights, WhyRawdah, HajjOnNusuk, OtherTripBand, PastTrips, leaderMember, MomentStrip, TeamLine, TripPeople, TeamList, tripTeacherMembers, teamMembers, TripIncludes, TrustBox, TripJourney, TripPackages, WhereYouStay, type Member } from "@/app/_site/trip-parts";
+import { ForWho, GroupStrip, PosterPackages, HaramNights, WhyRawdah, HajjOnNusuk, OtherTripBand, PastTrips, leaderMember, MomentStrip, TeamLine, TripPeople, TeamList, tripTeacherMembers, teamMembers, TripIncludes, TrustBox, TripJourney, TripPackages, WhereYouStay, type Member } from "@/app/_site/trip-parts";
 import { StateTag } from "@/app/_site/trip-row";
 import { Chevron } from "@/app/_site/whatsapp";
 import { getTrip, isBookable, isDemoBooking } from "@/lib/trips";
@@ -121,7 +121,7 @@ export function TripView({ j }: { j: Journey }) {
   /** The special guest, first on the poster: inside the artwork on phones, on the left of it on desktop. */
   const [guest, ...withGuest] = posterPeople;
   const ground = Math.min(...(j.rooms?.value ?? []).filter((r) => r.flights === false).map((r) => r.price));
-  const offer = price ? <HeroOffer from={gbp(price)} ended={j.endedOffer ? `${j.endedOffer.label} ${gbp(price - j.endedOffer.off)}` : undefined} ground={Number.isFinite(ground) ? gbp(ground) : undefined} groundWas={j.endedOffer && Number.isFinite(ground) ? gbp(ground - j.endedOffer.off) : undefined} phone={brand.phone} /> : null;
+  const offer = price ? <HeroOffer from={gbp(price)} ended={j.endedOffer ? `${j.endedOffer.label} ${gbp(j.endedOffer.price)}` : undefined} ground={Number.isFinite(ground) ? gbp(ground) : undefined} phone={brand.phone} /> : null;
   if (j.posterType) {
     // The title's face and the italic under it, fetched with the page, so the title doesn't rise in a fallback font.
     preload("/fonts/montserrat-latin-wght-normal.woff2", { as: "font", type: "font/woff2", crossOrigin: "anonymous" });
@@ -424,7 +424,7 @@ export function TripView({ j }: { j: Journey }) {
                 </section>
                 <section id="prices" className="trip-anchor mt-12 sm:mt-16">
                   <Heading className={h2}>Packages and payments</Heading>
-                  <TripPackages j={j} />
+                  {j.posterType ? <PosterPackages j={j} /> : <TripPackages j={j} />}
                 </section>
                 {/* Poster trips show the people higher up, after the trip itself. */}
                 {j.posterTeam ? null : (

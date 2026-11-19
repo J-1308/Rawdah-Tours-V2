@@ -21,9 +21,8 @@ export type RoomOption = {
   schedule?: Array<{ due: string; pence: number }>
 }
 
-/** An offer that has ended, shown crossed out beside the current prices. */
-/** An offer that has ended: `offPence` came off every package (Ramadan's early bird, £100 off everything). */
-export type EndedOffer = { label: string; offPence: number }
+/** An offer that has ended on one package, shown crossed out beside its price (Ramadan's early bird, quad with flights). */
+export type EndedOffer = { label: string; roomId: string; pricePence: number }
 
 export type TripStatus =
   | 'interest' // registering interest; no booking
@@ -45,7 +44,7 @@ export type Trip = {
   inclusions?: string[]
   pricing?: {
     rooms: RoomOption[]
-    /** An offer that has ended, shown crossed out (e.g. Ramadan's early bird). */
+    /** An offer that has ended on one package (e.g. Ramadan's early bird), shown crossed out beside its price. */
     endedOffer?: EndedOffer
     depositPence: number
     /** Added to card payments only */
@@ -67,17 +66,19 @@ export const TRIPS: Trip[] = [
     status: 'interest',
     startDate: '2027-02-27',
     endDate: '2027-03-13',
-    summary: 'Fourteen nights in Ramadan with GGC, one on the flight out: nine in Makkah, then four in Madinah, flying with Saudia from London Heathrow.',
+    summary: 'Fourteen nights in Ramadan with GGC: ten in Makkah for the last ten nights, then Eid and four nights in Madinah, flying with Saudia from London Heathrow.',
     stays: [
-      { city: 'Makkah', nights: 9, hotel: 'Novotel Thakher City Makkah', note: '4-star' },
-      { city: 'Madinah', nights: 4, hotel: 'Al Manakha Rotana', note: '4-star' },
+      // Ten in Makkah (Jibril, 19 Nov 2026), four in Madinah: fourteen nights from 27 February to 13 March.
+      { city: 'Makkah', nights: 10, hotel: 'Novotel Thakher City Makkah' },
+      { city: 'Madinah', nights: 4, hotel: 'Al Manakha Rotana' },
     ],
     flights: 'Return flights with Saudia: London Heathrow to Jeddah, and Madinah to London Heathrow via Jeddah',
     pricing: {
       /**
-       * Final prices per person (Jibril, 19 Nov 2026): the early bird (£1,899, quad with flights) is over. Payment
-       * dates are only those Rawdah has given: the quad with flights keeps the timetable it had as "Standard"; the
-       * others are a £399 deposit and a balance on dates agreed after booking.
+       * Prices per person (Jibril, 19 Nov 2026): £1,999 is the price of the quad with flights; the early bird (£1,899)
+       * has ended and shows crossed out beside it, on that package only. The instalment plan is the poster's: £399
+       * deposit, £600 on 30 November, £500 on 30 December, £500 on 30 January (quad with flights). The others are a
+       * £399 deposit and a balance on dates agreed after booking.
        */
       rooms: [
         {
@@ -89,8 +90,8 @@ export const TRIPS: Trip[] = [
           schedule: [
             { due: 'Deposit on booking', pence: 39900 },
             { due: '30 November', pence: 60000 },
-            { due: '31 December', pence: 50000 },
-            { due: '20 January, final', pence: 50000 },
+            { due: '30 December', pence: 50000 },
+            { due: '30 January, final', pence: 50000 },
           ],
         },
         {
@@ -152,13 +153,13 @@ export const TRIPS: Trip[] = [
           ],
         },
       ],
-      /** The early bird that has ended, shown crossed out (Jibril, 19 Nov 2026). */
-      endedOffer: { label: 'Early bird', offPence: 10000 },
+      /** The early bird has ended: £1,899 on the quad with flights, crossed out there only (Jibril, 19 Nov 2026). */
+      endedOffer: { label: 'Early bird', roomId: 'flights-quad', pricePence: 189900 },
       depositPence: 39900,
       // As on the last trip; confirm before card payments open for this trip.
       cardFeePence: 800,
       balancePlan:
-        'Quad with flights: £399 on booking, then £600 on 30 November, £500 on 31 December and £500 on 20 January, paid in full by 20 January 2027. Other rooms and ground only: £399 on booking, then the balance on dates agreed after booking. Deposits are non-refundable.',
+        'Quad with flights: £399 on booking, then £600 on 30 November, £500 on 30 December and £500 on 30 January, paid in full by 30 January 2027. Other rooms and ground only: £399 on booking, then the balance on dates agreed after booking. Deposits are non-refundable.',
     },
     capacity: 60,
   },

@@ -122,8 +122,8 @@ export function ReservePanel({ j, bookable = false }: { j: Journey; bookable?: b
   const matrix = packages && rooms.some((r) => r.flights === false) && new Set(rooms.map((r) => r.sharing)).size > 1;
   const roomName = (n: number) => ({ 4: "Quad", 3: "Triple", 2: "Double" })[n] ?? `${n} sharing`;
   const pick = (f: boolean, n: number) => rooms.find((r) => (r.flights !== false) === f && r.sharing === n);
-  /** An ended offer (Ramadan early bird): its price, crossed out, above each of today's prices. */
-  const off = j.endedOffer?.off ?? 0;
+  /** The ended early bird (Ramadan): crossed out under the price of the one package it was on. */
+  const early = (type: string) => (j.endedOffer && j.endedOffer.room === type ? j.endedOffer : null);
   const ground = chosen.flights === false;
   const verb = matrix && ground ? "enquire about" : open ? "book" : "register interest in";
 
@@ -175,7 +175,10 @@ export function ReservePanel({ j, bookable = false }: { j: Journey; bookable?: b
         </p>
         {j.endedOffer ? (
           <p className="mt-1.5 text-[0.875rem] text-ink/62">
-            {j.endedOffer.label} prices ({gbp(j.endedOffer.off)} off every package) have ended: they’re crossed out beside today’s prices.
+            <s className="decoration-ink/50">
+              {j.endedOffer.label} {gbp(j.endedOffer.price)}
+            </s>{" "}
+            on the {j.endedOffer.room.toLowerCase()} has ended.
           </p>
         ) : null}
         {matrix ? (
@@ -194,8 +197,7 @@ export function ReservePanel({ j, bookable = false }: { j: Journey; bookable?: b
                   >
                     <span className="block text-[0.93rem] font-medium">{f ? "With flights" : "Ground only"}</span>
                     <span className={`block text-[0.875rem] ${on ? "text-canvas/70" : "text-ink/65"}`}>{f ? "Saudia from Heathrow" : "Own flights · enquire"}</span>
-                    {off ? <s className={`mt-1.5 block text-[0.875rem] ${on ? "text-canvas/55" : "text-ink/50"}`}>{gbp(from - off)}</s> : null}
-                    <span className={`display block text-[1.35rem] leading-none ${off ? "mt-0.5" : "mt-1.5"}`}>from {gbp(from)}</span>
+                    <span className="display mt-1.5 block text-[1.35rem] leading-none">from {gbp(from)}</span>
                   </button>
                 );
               })}
@@ -216,8 +218,8 @@ export function ReservePanel({ j, bookable = false }: { j: Journey; bookable?: b
                   >
                     <span className="block text-[0.875rem] font-medium">{roomName(n)}</span>
                     <span className={`block text-[0.875rem] ${on ? "text-canvas/70" : "text-ink/65"}`}>{n} sharing</span>
-                    {off ? <s className={`mt-1.5 block text-[0.875rem] ${on ? "text-canvas/55" : "text-ink/50"}`}>{gbp(r.price - off)}</s> : null}
-                    <span className={`display block text-[1.35rem] leading-none ${off ? "mt-0.5" : "mt-1.5"}`}>{gbp(r.price)}</span>
+                    <span className="display mt-1.5 block text-[1.35rem] leading-none">{gbp(r.price)}</span>
+                    {early(r.type) ? <s className={`mt-1 block text-[0.875rem] ${on ? "text-canvas/60" : "text-ink/50"}`}>{gbp(early(r.type)!.price)}</s> : null}
                   </button>
                 );
               })}

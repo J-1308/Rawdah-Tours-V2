@@ -615,6 +615,7 @@ html.motion[data-arrival] .arrival {
 @media (min-width: 30rem) { .hero-offer { grid-template-columns: 1.25fr 1fr; } }
 .offer-olive { display: flex; align-items: center; gap: 1rem; border-radius: 1.4rem; background: #585745; color: #f1eee6; padding: 1rem 1.15rem; font-family: "Montserrat", "DM Sans", system-ui, sans-serif; text-transform: uppercase; }
 .offer-price { display: grid; line-height: 1.05; flex: 1; }
+/* The early bird, ended: crossed out above the price. */
 .offer-ended { font-size: 0.875rem; font-weight: 500; letter-spacing: 0.06em; opacity: 0.7; text-decoration-thickness: 1.5px; }
 .offer-from { margin-top: 0.3rem; font-size: 0.875rem; font-weight: 600; letter-spacing: 0.12em; }
 .offer-big { font-size: clamp(2rem, 9vw, 2.6rem); font-weight: 700; letter-spacing: 0.01em; }
@@ -626,7 +627,6 @@ html.motion[data-arrival] .arrival {
 .offer-ground-l em { font-family: "Cormorant Garamond", Georgia, serif; text-transform: none; font-size: 1.15em; letter-spacing: 0; }
 .offer-ground-r { display: flex; align-items: baseline; gap: 0.6rem; font-size: 0.875rem; font-weight: 700; letter-spacing: 0.1em; }
 .offer-ground-price { font-size: 1.7rem; letter-spacing: 0.01em; }
-.offer-ground-was { font-size: 0.875rem; font-weight: 500; letter-spacing: 0.04em; opacity: 0.6; text-decoration-thickness: 1.5px; }
 
 /* The poster hero (Ramadan Umrah 2027): centred; the cut-out artwork first (edge to edge on phones), the poster's
    frosted tablets behind its towers with our words, then the title, dates, one line, the offer and the people. */
@@ -827,6 +827,43 @@ html.motion .ticker-track { animation: ticker 48s linear infinite; }
 .booking-steps { display: grid; gap: 1rem; max-width: 26rem; }
 .booking-steps > li { display: grid; grid-template-columns: 2.25rem 1fr; gap: 0.85rem; align-items: start; }
 .booking-num { display: grid; place-items: center; width: 2.25rem; height: 2.25rem; border-radius: 0.7rem; background: #545234; color: #f1eee6; font-family: "Montserrat", "DM Sans", system-ui, sans-serif; font-weight: 700; }
+
+/* The poster's two photos over what's included, with its white labels. */
+.showcase { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.6rem; }
+.showcase > li { position: relative; aspect-ratio: 632 / 446; overflow: hidden; border-radius: 1rem; box-shadow: var(--shadow-lift); }
+.showcase-label { position: absolute; right: 0.5rem; bottom: 0.5rem; border-radius: 0.5rem; background: rgb(255 255 255 / 0.94); padding: 0.25rem 0.55rem; font-family: "Montserrat", "DM Sans", system-ui, sans-serif; font-size: 0.875rem; font-weight: 700; font-style: italic; letter-spacing: 0.02em; text-transform: uppercase; color: #2e2d1f; box-shadow: 0 6px 16px -10px rgb(0 0 0 / 0.5); }
+@media (min-width: 48rem) { .showcase { gap: 1rem; } }
+@media (max-width: 26rem) { .showcase-label { font-size: 0.875rem; padding: 0.2rem 0.45rem; } }
+
+/* The poster's instalment plan: its lettering, then one tile per payment. */
+.plan-block { border-radius: 1.5rem; border: 1px solid var(--glass-line); background: var(--glass-bg); padding: 1.5rem 1rem 1.25rem; }
+.plan-title { display: grid; justify-items: center; font-family: "Montserrat", "DM Sans", system-ui, sans-serif; text-transform: uppercase; color: var(--color-bronze); line-height: 1; }
+.plan-title > :first-child { font-size: clamp(1.9rem, 7vw, 2.8rem); font-weight: 700; letter-spacing: 0.08em; }
+.plan-title > span:last-child { margin-top: 0.45rem; font-size: clamp(0.95rem, 3.4vw, 1.2rem); font-weight: 500; letter-spacing: 0.42em; margin-right: -0.42em; }
+.plan-tiles { margin-top: 1.25rem; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.6rem; }
+.plan-tiles > li { display: grid; justify-items: center; gap: 0.2rem; border-radius: 1rem; background: rgb(84 82 52 / 0.08); padding: 0.9rem 0.5rem; font-family: "Montserrat", "DM Sans", system-ui, sans-serif; text-transform: uppercase; color: #3f3e28; }
+.plan-tiles b { font-size: clamp(1.7rem, 6vw, 2.2rem); font-weight: 700; line-height: 1; }
+.plan-tiles span { font-size: 0.875rem; font-weight: 500; letter-spacing: 0.02em; }
+@media (min-width: 40rem) { .plan-tiles { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+
+/* The packages as cards, with a with-flights / ground-only switch. */
+.pkg-toggle { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.4rem; border-radius: 1.1rem; border: 1px solid var(--glass-line); background: var(--glass-bg); padding: 0.35rem; max-width: 30rem; }
+.pkg-toggle button { display: grid; justify-items: start; gap: 0.1rem; border-radius: 0.8rem; padding: 0.6rem 0.85rem; text-align: left; font-weight: 500; transition: background-color 150ms ease, color 150ms ease; }
+.pkg-toggle button small { font-size: 0.875rem; font-weight: 400; opacity: 0.7; }
+.pkg-toggle button[aria-pressed="true"] { background: #545234; color: #f1eee6; }
+.pkg-cards { margin-top: 1rem; display: grid; gap: 0.75rem; }
+@media (min-width: 48rem) { .pkg-cards { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.pkg-card { display: grid; align-content: start; border-radius: 1.4rem; border: 1px solid var(--glass-line); background: var(--glass-bg); padding: 1.25rem; }
+.pkg-room { font-family: "Cormorant Garamond", Georgia, serif; font-size: 1.6rem; line-height: 1.1; }
+.pkg-room span { margin-left: 0.35rem; font-family: "DM Sans", system-ui, sans-serif; font-size: 0.9rem; color: color-mix(in oklab, var(--color-ink) 60%, transparent); }
+.pkg-early { margin-top: 0.6rem; font-size: 0.9rem; color: color-mix(in oklab, var(--color-ink) 55%, transparent); text-decoration-thickness: 1.5px; }
+.pkg-price { margin-top: 0.6rem; font-family: "Montserrat", "DM Sans", system-ui, sans-serif; font-size: 2rem; font-weight: 700; line-height: 1; color: #3f3e28; }
+.pkg-price span { font-family: "DM Sans", system-ui, sans-serif; font-size: 0.9rem; font-weight: 400; color: color-mix(in oklab, var(--color-ink) 60%, transparent); }
+.pkg-plan { margin-top: 1rem; display: grid; border-top: 1px solid rgb(84 82 52 / 0.12); }
+.pkg-plan li { display: flex; justify-content: space-between; gap: 1rem; padding: 0.55rem 0; border-bottom: 1px solid rgb(84 82 52 / 0.12); font-size: 0.92rem; }
+.pkg-plan li span { color: color-mix(in oklab, var(--color-ink) 68%, transparent); }
+.pkg-btn { margin-top: 1rem; display: flex; min-height: 3rem; align-items: center; justify-content: center; gap: 0.5rem; border-radius: 0.9rem; border: 1px solid rgb(84 82 52 / 0.25); font-size: 0.95rem; font-weight: 500; }
+.pkg-btn:not(.btn-ink):hover { border-color: rgb(84 82 52 / 0.55); }
 
 /* The mist: big soft clouds, drifting by transform only. */
 .mist .cloud { position: absolute; border-radius: 50%; background: radial-gradient(closest-side, rgb(255 255 255 / 0.85), rgb(255 255 255 / 0)); }
