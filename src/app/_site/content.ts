@@ -843,9 +843,11 @@ export const ramadanFull: Journey = {
             { src: "/images/hotels/novotel-thakher-prayer-hall.jpg", alt: "The hotel’s prayer hall." },
             { src: "/images/hotels/novotel-thakher-restaurant.jpg", alt: "The hotel restaurant." },
           ],
+          /* Meals (Jibril, 19 Nov 2026): Makkah is room only, no suhoor; breakfast in Madinah. */
           rows: [
             { k: "Check in", v: "Sun 28 Feb, 21 Ramadan" },
             { k: "Check out", v: "Tue 9 Mar" },
+            { k: "Meals", v: "Room only, no suhoor" },
           ],
         },
         {
@@ -863,6 +865,7 @@ export const ramadanFull: Journey = {
           rows: [
             { k: "Check in", v: "Tue 9 Mar" },
             { k: "Check out", v: "Sat 13 Mar" },
+            { k: "Meals", v: "Breakfast daily" },
           ],
           note: "We check out in the early hours for the 03:35 flight.",
         },
@@ -891,9 +894,10 @@ export const ramadanFull: Journey = {
         { icon: "plane", big: "Direct", small: "Flights" },
         { icon: "train", big: "Haramain", small: "Train" },
       ],
-      includesNote: "Ground only covers the hotels and ground transport. You book your own flights.",
+      /* Not included (Jibril, 19 Nov 2026): no suhoor in Makkah, no ihram provided. */
+      includesNote: "Not included: suhoor in Makkah, and ihram, so bring your own. Ground only covers the hotels and ground transport; you book your own flights.",
       /** Under the icon row on poster trips: what the icons don't say. */
-      perksAlso: [v("9 nights at Novotel Thakher City Makkah and 4 at Al Manakha Rotana, Madinah, both 4★", "confirmed")],
+      perksAlso: [v("9 nights at Novotel Thakher City Makkah (room only) and 4 at Al Manakha Rotana, Madinah (breakfast daily), both 4★", "confirmed")],
       places: v("Up to 60 places: around 30 with flights and 30 ground only", "confirmed"),
     },
     /* A Rawdah group for now; an Umrah poster from Rawdah will replace it (Jibril, 17 Nov 2026). */
