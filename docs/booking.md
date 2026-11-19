@@ -95,3 +95,29 @@ store `rawdah-signups` (London; `BLOB_READ_WRITE_TOKEN`, added by Vercel when th
 `EMAIL_FROM`, `EMAIL_OWNER_TO`) and can be added to a Google Sheet (`SIGNUPS_SHEET_URL`, `SIGNUPS_SHEET_SECRET`; see
 `docs/signups-sheet.md`). With neither set, the form hands the person a ready-written WhatsApp message instead.
 Card payments will use Stripe later. The privacy notice follows what's switched on.
+
+## Booking requests by email (19 Nov 2026)
+
+The Ramadan page's form is a booking request, not a payment. **Bank transfer only; no card link** (Jibril). The flow
+follows the best trip sites' structure, in Rawdah's own words and look (`src/lib/server/booking-request.ts`):
+
+1. **Step 1 of the form:** the lead is saved (Blob, sheet) and the team is alerted straight away ("Started"), so
+   someone can message even if the person stops there (unchanged, `src/app/actions/lead.ts`).
+2. **Last step, with a package chosen:** a reference (`RT-` and six characters, the same every time for one booking)
+   and two emails through Resend:
+   - **To the team** (`EMAIL_OWNER_TO`): "Booking request RT-…: name, travellers × package", with the reference and
+     deposit due, one-tap WhatsApp, call and email buttons, the booking, the payment dates, their other answers and
+     where they came from. Replying goes to the traveller.
+   - **To the traveller** (only if they gave an email): their booking, the price from `src/lib/trips.ts` (never the
+     browser's), the deposit (£399 per person), the payment dates, and what happens next. With
+     `BANK_ACCOUNT_NAME`, `BANK_SORT_CODE` and `BANK_ACCOUNT_NUMBER` set in Vercel, it includes the bank details and
+     the reference to use; without them it says the team will send the details when they confirm the place.
+     Replying goes to Rawdah's inbox.
+3. The form's last screen shows the reference, and says a copy was emailed only when it was.
+
+The three `BANK_*` values are set in Vercel for Production and Preview (19 Nov 2026), as sensitive variables. They
+are never written into this repo.
+
+Each email has a plain-text version and an idempotency key, so a retried submit doesn't send twice. Without
+`RESEND_API_KEY` nothing is emailed; the lead still lands in Blob (and the sheet if set), and if it reaches nowhere
+the person is told to use WhatsApp.

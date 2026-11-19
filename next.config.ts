@@ -3,6 +3,8 @@ import { join, relative } from 'node:path'
 
 import type { NextConfig } from 'next'
 
+import { ONE_PAGE, onePageRedirects } from './src/lib/site-mode'
+
 /** Photos dropped into public/images/slots/, read once at build time (see src/app/_site/slots.ts). */
 const slotFiles = (() => {
   try {
@@ -47,6 +49,8 @@ const nextConfig = async (): Promise<NextConfig> => ({
   /** The live site's addresses, so old links and search results land on the new pages. */
   async redirects() {
     return [
+      // One-page mode first (src/lib/site-mode.ts): only the Ramadan page is live.
+      ...(ONE_PAGE ? onePageRedirects : []),
       { source: '/hajj', destination: '/trips/hajj-2027', permanent: true },
       { source: '/umrah', destination: '/trips/ramadan-umrah-2027', permanent: false },
       { source: '/book', destination: '/trips/ramadan-umrah-2027', permanent: false },

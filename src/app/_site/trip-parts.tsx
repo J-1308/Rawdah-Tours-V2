@@ -2,12 +2,15 @@ import Image from "next/image";
 import { HotelGallery } from "./hotel-gallery";
 import { Fragment } from "react";
 
-import { PosterPerks } from "@/app/_site/poster-parts";
+import { PackageCards } from "@/app/_site/package-cards";
+import { ICONS, PosterPerks } from "@/app/_site/poster-parts";
+import { PosterText } from "@/app/_site/poster-type";
 import { anchors, gbp, hajjNusuk, journeyStay, leader, people, say, teachers, trust, wa, type Journey, type Status, type StayPhoto, type TripPlan } from "@/app/_site/content";
 import { Mark } from "@/app/_site/marks";
 import { Emblem, gutter, Heading, Label, Tick } from "@/app/_site/shell";
 import { slot, slotFilled } from "@/app/_site/slots";
 import { ItineraryLink } from "@/app/_site/step-form";
+import { Chevron } from "@/app/_site/whatsapp";
 
 /* ------------------------------------------------------------------------ */
 /* The team, straightforward: a portrait, what they do, the name, one line.  */
@@ -67,41 +70,95 @@ export function TeamList({ members, className = "", cols = "lg:grid-cols-4" }: {
  * The team as on the poster (Ramadan Umrah 2027): round portraits with the role over the name, then the fuller
  * "More about" notes for those who have them.
  */
-export function PosterTeamBlock({ j, members }: { j: Journey; members: Member[] }) {
+/**
+ * The people on a poster trip (Jibril, 19 Nov 2026; after The Sunnah Experience's guide profiles, in Rawdah's look):
+ * the special guest in his own olive panel, standing out as the trip's draw, then the hosts' cards with their photos,
+ * a line each and the fuller notes to open.
+ */
+export function TripPeople({ j, members }: { j: Journey; members: Member[] }) {
   const rows = (j.posterTeam ?? []).map((p) => ({ ...p, m: members.find((m) => m.name === p.ref) }));
+  const [guest, ...hosts] = rows;
+  const g = j.guestFeature;
   return (
     <>
-      {/* The faces lead the page (the hero); here, the fuller notes (19 Nov 2026). */}
-      <p className="mt-4 max-w-[36rem] text-[1rem] leading-relaxed text-ink/72">
-        {rows.map((r, i) => (
-          <span key={r.ref}>
-            {i ? (i === rows.length - 1 ? " and " : ", ") : null}
-            <span className="font-medium text-ink">{r.m?.name ?? r.name}</span>
-            {r.note ? ` (${r.note.toLowerCase()})` : null}
-          </span>
-        ))}
-        .
-      </p>
-      <div className="mt-5 grid gap-1 border-t border-ink/10 pt-3">
-        {rows
-          .filter((r) => r.m?.more)
-          .map((r) => (
-            <details key={r.ref} className="group border-b border-ink/10 py-1">
-              <summary className="flex min-h-11 cursor-pointer list-none items-center justify-between gap-3 text-[0.95rem] font-medium [&::-webkit-details-marker]:hidden">
-                More about {r.m!.short ?? r.m!.name}
-                <svg aria-hidden viewBox="0 0 12 12" className="size-3 shrink-0 text-bronze transition-transform group-open:rotate-180">
-                  <path d="M2.5 4.5 6 8l3.5-3.5" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-              </summary>
-              <div className="grid gap-2.5 pb-3 text-[0.92rem] leading-[1.6] text-ink/70">
-                {r.m!.more!.map((p) => (
-                  <p key={p}>{p}</p>
-                ))}
-              </div>
-            </details>
-          ))}
-      </div>
+      {guest && g ? (
+        <article className="guest-feature">
+          {/* His own photo, cropped, whole and sharp: no fade here (Jibril, 19 Nov 2026). */}
+          <div className="gf-photo">
+            {guest.m?.photo ? <Image src={guest.m.photo.src} alt={guest.m.photo.alt} fill sizes="(min-width: 1024px) 24rem, 90vw" quality={88} className={`object-cover ${guest.m.photo.position ?? "object-[50%_22%]"}`} /> : null}
+          </div>
+          <div className="gf-text">
+            <p className="gf-kicker">{g.kicker}</p>
+            <h2 className="gf-name">
+              <span>{guest.label}</span> {guest.name}
+            </h2>
+            <p className="gf-line">{g.line}</p>
+            <a href={`#${anchors.join}`} className="gf-cta">
+              {g.cta}
+              <svg aria-hidden viewBox="0 0 12 12" className="size-3">
+                <path d="M2.5 4.5 6 8l3.5-3.5" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </a>
+          </div>
+        </article>
+      ) : null}
+      {hosts.length ? (
+        <>
+          <Heading className="mt-12 text-[clamp(1.9rem,3.2vw,2.6rem)] leading-tight sm:mt-16">{j.hostsTitle ?? "Your hosts"}</Heading>
+          <ul className="mt-6 grid gap-5 sm:grid-cols-2">
+            {hosts.map((h) => (
+              <li key={h.ref} className="host-card">
+                <div className="host-photo">
+                  {h.m?.photo ? <Image src={h.m.photo.src} alt={h.m.photo.alt} fill sizes="(min-width: 1024px) 26rem, (min-width: 640px) 45vw, 90vw" quality={85} className={`object-cover ${h.m.photo.position ?? "object-[50%_25%]"}`} /> : null}
+                </div>
+                <div className="p-5 sm:p-6">
+                  <p className="poster-role">{h.label}</p>
+                  <h3 className="mt-1 font-editorial text-[1.6rem] leading-tight">{h.m?.name ?? h.name}</h3>
+                  {h.m?.does ? <p className="mt-0.5 text-[0.9rem] text-ink/60">{h.m.does}</p> : null}
+                  {h.m?.line ? <p className="mt-3 text-[0.95rem] leading-relaxed text-ink/75">{h.m.line}</p> : null}
+                  {h.m?.more ? (
+                    <details className="group mt-3 border-t border-ink/10 pt-1">
+                      <summary className="flex min-h-11 cursor-pointer list-none items-center justify-between gap-3 text-[0.95rem] font-medium [&::-webkit-details-marker]:hidden">
+                        More about {h.m.short ?? h.m.name}
+                        <svg aria-hidden viewBox="0 0 12 12" className="size-3 shrink-0 text-bronze transition-transform group-open:rotate-180">
+                          <path d="M2.5 4.5 6 8l3.5-3.5" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                        </svg>
+                      </summary>
+                      <div className="grid gap-2.5 pb-1 text-[0.92rem] leading-[1.6] text-ink/70">
+                        {h.m.more.map((p) => (
+                          <p key={p}>{p}</p>
+                        ))}
+                      </div>
+                    </details>
+                  ) : null}
+                </div>
+              </li>
+            ))}
+          </ul>
+        </>
+      ) : null}
     </>
+  );
+}
+
+/** What's included on a poster trip: the poster icon and words, and one line of fact, as tiles (no photos, 19 Nov). */
+export function IncludedCards({ cards }: { cards: NonNullable<TripPlan["cards"]> }) {
+  return (
+    <ul className="included-cards mt-6">
+      {cards.map((c) => (
+        <li key={c.big + c.small} className="inc-card">
+          <div className="inc-body">
+            <svg aria-hidden viewBox="0 0 48 48" className="inc-icon" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              {ICONS[c.icon]}
+            </svg>
+            <p className="inc-title">
+              {c.big} <em>{c.small}</em>
+            </p>
+          </div>
+          <p className="inc-line">{c.line}</p>
+        </li>
+      ))}
+    </ul>
   );
 }
 
@@ -368,6 +425,141 @@ export function MomentStrip({ photos, caption }: { photos: StayPhoto[]; caption:
   );
 }
 
+/**
+ * Ramadan in the Haram (Jibril, 19 Nov 2026): what the last ten nights hold, numbered, on the night ground; words only.
+ * Worship in the Haram, not a service Rawdah sells (meals stay as the questions say).
+ */
+export function HaramNights({ n }: { n: NonNullable<Journey["nights"]> }) {
+  return (
+    <section id="nights" className={`trip-anchor pt-[clamp(3.75rem,9vw,8rem)] ${gutter}`}>
+      <Label>{n.label}</Label>
+      <Heading className="mt-4 max-w-[44rem] text-[clamp(2.3rem,4.2vw,4rem)]">{n.title}</Heading>
+      <p className="mt-4 max-w-[34rem] text-[1rem] leading-[1.65] text-ink/72">{n.intro}</p>
+      <ol className="nights-list mt-9 sm:mt-12">
+        {n.items.map((it, i) => (
+          <li key={it.title}>
+            <span aria-hidden className="nights-num">{String(i + 1).padStart(2, "0")}</span>
+            <h3 className="display text-[clamp(1.5rem,2.4vw,1.9rem)] leading-tight">{it.title}</h3>
+            <p className="mt-1.5 text-[0.98rem] leading-relaxed text-ink/70">{it.text}</p>
+          </li>
+        ))}
+      </ol>
+    </section>
+  );
+}
+
+/** Rawdah's earlier trips: their posters, then a gallery of the groups (after The Umrah Company's past journeys). */
+export function PastTrips({ p }: { p: NonNullable<Journey["pastTrips"]> }) {
+  return (
+    <section className="mt-12 sm:mt-16">
+      <Heading className="text-[clamp(1.9rem,3.2vw,2.6rem)] leading-tight">{p.title}</Heading>
+      <ul className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-3">
+        {p.trips.map((t) => (
+          <li key={t.name} className="grid content-start">
+            {t.poster ? (
+              <div className="relative aspect-[4/5] overflow-hidden rounded-[1rem] shadow-[var(--shadow-lift)]">
+                <Image src={t.poster.src} alt={t.poster.alt} fill sizes="(min-width: 640px) 16rem, 45vw" className="object-cover" />
+              </div>
+            ) : null}
+            <p className="mt-3 font-medium leading-snug">{t.name}</p>
+            <p className="text-[0.875rem] text-ink/62">{t.dates}</p>
+            <p className="mt-1.5 text-[0.9rem] leading-snug text-ink/72">{t.line}</p>
+          </li>
+        ))}
+      </ul>
+      <ul className="past-gallery mt-8">
+        {p.photos.map((ph) => (
+          <li key={ph.src}>
+            <StayFrame photo={ph} className="aspect-[4/3] rounded-[1rem]! sm:rounded-[1rem]!" sizes="(min-width: 1024px) 14rem, 78vw" />
+          </li>
+        ))}
+      </ul>
+    </section>
+  );
+}
+
+/** Who the trip suits: three short rows under the trip's two sentences (after the best trip pages' overviews). */
+export function ForWho({ items }: { items: NonNullable<Journey["forWho"]> }) {
+  return (
+    <ul className="mt-6 grid gap-3 sm:grid-cols-3">
+      {items.map((w) => (
+        <li key={w.title} className="glass rounded-[1.1rem] p-4 [--glass-shadow:none]">
+          <p className="flex items-center gap-2 font-medium">
+            <Tick />
+            {w.title}
+          </p>
+          <p className="mt-1.5 text-[0.92rem] leading-snug text-ink/70">{w.text}</p>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+/** Why Rawdah: the name's meaning, the team's photo and four short reasons, in Rawdah's own words (About page, V1). */
+export function WhyRawdah({ w }: { w: NonNullable<Journey["why"]> }) {
+  return (
+    <section className="mt-12 sm:mt-16">
+      <p className={eyebrow}>{w.label}</p>
+      <div className="mt-3 grid gap-6 sm:grid-cols-[minmax(0,1fr)_minmax(0,0.85fr)] sm:items-center">
+        <div>
+          <Heading className="text-[clamp(1.9rem,3.2vw,2.6rem)] leading-tight">
+            {w.title} <span lang="ar" dir="rtl" className="font-editorial text-bronze">{w.ar}</span>
+          </Heading>
+          <p className="mt-3 text-[0.98rem] leading-relaxed text-ink/75">{w.text}</p>
+          <p className="mt-1.5 text-[0.875rem] text-ink/55">{w.source}</p>
+        </div>
+        <StayFrame photo={w.photo} className="aspect-[4/3]" sizes="(min-width: 1024px) 22rem, 90vw" />
+      </div>
+      <ul className="mt-6 grid gap-x-6 gap-y-4 sm:grid-cols-2">
+        {w.reasons.map((r) => (
+          <li key={r.title} className="border-t border-ink/10 pt-3">
+            <p className="font-medium">{r.title}</p>
+            <p className="mt-1 text-[0.92rem] leading-snug text-ink/70">{r.text}</p>
+          </li>
+        ))}
+      </ul>
+    </section>
+  );
+}
+
+/** The other campaign at the foot of the page (Ramadan → Hajj 2027, Jibril 19 Nov 2026). */
+export function OtherTripBand({ o }: { o: NonNullable<Journey["otherTrip"]> }) {
+  return (
+    <section className={`py-[clamp(3rem,7vw,5.5rem)] ${gutter}`}>
+      <div className="other-trip">
+        <div>
+          <p className="gf-kicker">{o.label}</p>
+          <p className="other-trip-title">{o.title}</p>
+          <p className="mt-3 max-w-[30rem] text-[1rem] leading-relaxed text-[rgb(241_238_230/0.82)]">{o.text}</p>
+        </div>
+        <a href={o.href} {...(o.href.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})} className="gf-cta shrink-0">
+          {o.cta}
+          <Chevron className="size-3" />
+        </a>
+      </div>
+    </section>
+  );
+}
+
+/**
+ * Rawdah's own groups from earlier trips, as proof (Jibril, 19 Nov 2026), whole pictures with everyone in frame.
+ * Phones: a row to swipe; desktop: three side by side.
+ */
+export function GroupStrip({ photos }: { photos: { src: string; alt: string }[] }) {
+  return (
+    <section className="mt-12 sm:mt-16">
+      <ul className="group-strip">
+        {photos.map((p) => (
+          <li key={p.src} className="relative aspect-[4/3] overflow-hidden rounded-[1.25rem] shadow-[var(--shadow-lift)]">
+            <Image src={p.src} alt={p.alt} fill sizes="(min-width: 1024px) 18rem, 78vw" className="object-cover" />
+          </li>
+        ))}
+      </ul>
+      <p className="mt-3 font-editorial text-[1.05rem] text-ink/65 italic">Rawdah groups on earlier trips.</p>
+    </section>
+  );
+}
+
 /* ------------------------------------------------------------------------ */
 /* A trip with its plan settled (the Ramadan 2027 trip): the line of the     */
 /* trip, flights, hotels, what's included, packages and the payment          */
@@ -388,6 +580,8 @@ const plane = "M10.5 13.5 3 11l1.5-1.5 8 1 4-4.5a2 2 0 0 1 3 3l-4.5 4 1 8L15.5 2
 const building = "M4 21V5l8-2v18M12 21h8V9l-8-2M8 8h.01M8 12h.01M8 16h.01M16 12h.01M16 16h.01";
 const moon = "M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z";
 const alert = "M12 4 2.5 20h19L12 4zM12 10v4.5M12 17.5h.01";
+const walker = "M13 4.5a1.5 1.5 0 1 0 0-.01M9.5 21l2-6.5 2.5 2.5V21M8 12.5l2-4.5 3.5 1 2 3.5 2.5 1M11.5 8 9 15";
+const bus = "M5 17V6a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v11M5 13h14M5 17h14M7.5 20v-3M16.5 20v-3M8 15h.01M16 15h.01M5 8h14";
 
 
 function Rows({ rows }: { rows: { k: string; v: string }[] }) {
@@ -449,7 +643,7 @@ export function TripJourney({ j }: { j: Journey }) {
         Flights and hotels
         <Mark s={plan.status} />
       </Heading>
-      <p className="mt-4 max-w-[36rem] text-[1rem] leading-[1.65] text-ink/72">From Heathrow and back: fourteen nights away, one on the flight out, nine in Makkah and four in Madinah.</p>
+      <p className="mt-4 max-w-[36rem] text-[1rem] leading-[1.65] text-ink/72">From Heathrow and back: fourteen nights away, ten in Makkah and four in Madinah.</p>
 
       <div className="mt-9 sm:mt-12">
         <TripLine plan={plan} draw={j.posterType} />
@@ -499,9 +693,28 @@ export function TripJourney({ j }: { j: Journey }) {
                 <span className={pill}>{h.nights} nights</span>
               </div>
               <h3 className="display mt-4 text-[clamp(1.9rem,2.8vw,2.5rem)] leading-tight">{h.name}</h3>
-              <p className="mt-2">
-                <span className="text-[1.05rem] tracking-[0.1em] text-gold" aria-label={`${h.stars} stars`}>{"★".repeat(h.stars)}</span>
-              </p>
+              {/* No star rating on poster trips (Jibril, 19 Nov 2026: "5-star package", never a hotel rating). */}
+              {h.stars && !j.posterType ? (
+                <p className="mt-2">
+                  <span className="text-[1.05rem] tracking-[0.1em] text-gold" aria-label={`${h.stars} stars`}>{"★".repeat(h.stars)}</span>
+                </p>
+              ) : null}
+              {h.walk ? (
+                <p className="hotel-walk">
+                  <Glyph d={h.walk.by === "foot" ? walker : bus} className="size-4" />
+                  {h.walk.text}
+                </p>
+              ) : null}
+              {h.about ? <p className="mt-4 text-[0.98rem] leading-relaxed text-ink/75">{h.about}</p> : null}
+              {h.features ? (
+                <ul className="mt-4 flex flex-wrap gap-1.5">
+                  {h.features.map((f) => (
+                    <li key={f} className={pill}>
+                      {f}
+                    </li>
+                  ))}
+                </ul>
+              ) : null}
               <Rows rows={h.rows} />
               {h.note ? <p className="mt-3 text-[0.875rem] text-ink/62">{h.note}</p> : null}
             </div>
@@ -526,10 +739,20 @@ export function TripJourney({ j }: { j: Journey }) {
 /** What a planned trip includes, as a list of ticks. */
 export function TripIncludes({ plan }: { plan: TripPlan }) {
   // With the poster's icon row above, the list says only what the icons don't (poster trips, 19 Nov 2026).
-  const items = plan.perks && plan.perksAlso ? plan.perksAlso : plan.includes;
+  const items = (plan.cards || plan.perks) && plan.perksAlso ? plan.perksAlso : plan.includes;
   return (
     <>
-    {plan.perks ? <PosterPerks perks={plan.perks} className="mt-6" /> : null}
+    {plan.showcase ? (
+      <ul className="showcase mt-6">
+        {plan.showcase.map((s) => (
+          <li key={s.src}>
+            <Image src={s.src} alt={s.alt} width={s.width} height={s.height} sizes="(min-width: 1024px) 28rem, 46vw" quality={85} className="h-full w-full object-cover" />
+            <span className="showcase-label">{s.label}</span>
+          </li>
+        ))}
+      </ul>
+    ) : null}
+    {plan.cards ? <IncludedCards cards={plan.cards} /> : plan.perks ? <PosterPerks perks={plan.perks} className="mt-6" /> : null}
     <ul className={`glass-phone ${plan.perks ? "mt-4" : "mt-6"} grid grid-cols-1 rounded-[1.25rem] px-4 py-1 [--glass-shadow:none] sm:grid-cols-2 sm:gap-1.5 sm:p-0`}>
       {items.map((h, i) => (
         <li key={h.value} className={`glass-wide flex items-start gap-3 py-3 text-[0.95rem] sm:rounded-[1.1rem] sm:px-4 sm:py-3.5 ${i ? "border-t border-ink/8" : ""}`}>
@@ -542,6 +765,47 @@ export function TripIncludes({ plan }: { plan: TripPlan }) {
       ))}
     </ul>
     {plan.includesNote ? <p className="mt-3 text-[0.9rem] text-ink/68">{plan.includesNote}</p> : null}
+    </>
+  );
+}
+
+/**
+ * Poster trips' packages (Jibril, 19 Nov 2026): the poster's instalment plan as tiles, then the packages as cards with
+ * a with-flights / ground-only switch (after The Sunnah Experience), then the notes. Prices from src/lib/trips.ts.
+ */
+export function PosterPackages({ j }: { j: Journey }) {
+  const rooms = j.rooms?.value ?? [];
+  const planned = rooms.find((r) => (r.schedule ?? []).filter((p) => !/agreed/i.test(p.due)).length > 2);
+  const deposit = rooms[0]?.schedule?.[0]?.amount;
+  return (
+    <>
+      {j.heroNote ? <p className="mt-3 font-editorial text-[1.2rem] text-ink/70 italic">{j.heroNote.replace(" · ", ", for ")}.</p> : null}
+      {planned ? (
+        <div className="plan-block mt-8">
+          <p className="plan-title">
+            <PosterText text="Installment" />
+            <span>Plan available</span>
+          </p>
+          <ul className="plan-tiles">
+            {planned.schedule!.map((p, i) => (
+              <li key={p.due}>
+                <b>{gbp(p.amount)}</b>
+                <span>{i === 0 ? "Deposit due" : p.due.replace(/, final$/i, "")}</span>
+              </li>
+            ))}
+          </ul>
+          <p className="mt-3 text-center text-[0.9rem] text-ink/62">
+            For the {planned.type.toLowerCase()}, {gbp(planned.price)} per person.
+          </p>
+        </div>
+      ) : null}
+      <PackageCards j={j} />
+      <div className="mt-5 grid gap-1.5 text-[0.9rem] leading-relaxed text-ink/70">
+        {deposit ? <p>A {gbp(deposit)} deposit holds your place on every package. All deposits are non-refundable.</p> : null}
+        {planned ? <p>Every other package: the {gbp(deposit ?? 0)} deposit, then the balance on dates we agree with you after booking.</p> : null}
+        {planned?.schedule?.some((p) => /30 November/.test(p.due)) ? <p>Booking after 30 November? We’ll tell you what’s due when we confirm your place.</p> : null}
+        {j.plan?.places ? <p>{j.plan.places.value}.</p> : null}
+      </div>
     </>
   );
 }
@@ -645,7 +909,7 @@ function PackageGrid({ j }: { j: Journey }) {
             <s className="decoration-ink/50">
               {j.endedOffer.label} {gbp(j.endedOffer.price)}
             </s>{" "}
-            has ended. These are the final prices, per person.
+            on the {j.endedOffer.room.toLowerCase()} has ended. Prices per person.
           </p>
         ) : null}
         <table className="w-full text-[0.95rem] tabular-nums">
@@ -673,6 +937,7 @@ function PackageGrid({ j }: { j: Journey }) {
                   return (
                     <td key={String(f)} className="py-3 pl-3 text-right">
                       <span className="display text-[clamp(1.45rem,4.6vw,2rem)] leading-none text-ink">{r ? gbp(r.price) : "–"}</span>
+                      {r && j.endedOffer?.room === r.type ? <s className="block text-[0.875rem] text-ink/50">{gbp(j.endedOffer.price)}</s> : null}
                     </td>
                   );
                 })}

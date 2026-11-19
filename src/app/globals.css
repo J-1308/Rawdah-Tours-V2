@@ -570,7 +570,7 @@ html.motion .step-in { animation: step-in 0.45s var(--ease-out) both; }
 .perk-small { font-size: 0.875rem; font-weight: 500; font-style: italic; letter-spacing: 0.02em; opacity: 0.85; }
 
 /* The poster's team row: round portraits, role in small capitals over the name. */
-.poster-team { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.75rem; text-align: center; }
+.poster-team { display: grid; grid-template-columns: repeat(var(--n, 3), minmax(0, 1fr)); gap: 0.75rem; text-align: center; }
 .poster-person { display: grid; justify-items: center; align-content: start; }
 .poster-face { position: relative; width: min(100%, 7rem); aspect-ratio: 1; overflow: hidden; border-radius: 9999px; background: var(--color-beige); box-shadow: 0 0 0 4px rgb(255 255 255 / 0.55), var(--shadow-lift); }
 @media (min-width: 40rem) { .poster-face { width: 10rem; } }
@@ -615,6 +615,7 @@ html.motion[data-arrival] .arrival {
 @media (min-width: 30rem) { .hero-offer { grid-template-columns: 1.25fr 1fr; } }
 .offer-olive { display: flex; align-items: center; gap: 1rem; border-radius: 1.4rem; background: #585745; color: #f1eee6; padding: 1rem 1.15rem; font-family: "Montserrat", "DM Sans", system-ui, sans-serif; text-transform: uppercase; }
 .offer-price { display: grid; line-height: 1.05; flex: 1; }
+/* The early bird, ended: crossed out above the price. */
 .offer-ended { font-size: 0.875rem; font-weight: 500; letter-spacing: 0.06em; opacity: 0.7; text-decoration-thickness: 1.5px; }
 .offer-from { margin-top: 0.3rem; font-size: 0.875rem; font-weight: 600; letter-spacing: 0.12em; }
 .offer-big { font-size: clamp(2rem, 9vw, 2.6rem); font-weight: 700; letter-spacing: 0.01em; }
@@ -641,15 +642,228 @@ html.motion[data-arrival] .arrival {
   color: #4a4830; font-family: "Montserrat", "DM Sans", system-ui, sans-serif; text-transform: uppercase;
 }
 .ph-tab-l { left: 4%; }
-.ph-tab-r { right: 4%; }
 .ph-tab b { font-size: clamp(2rem, 9.5vw, 3.4rem); font-weight: 700; line-height: 1; }
 .ph-tab small { margin-top: 0.2rem; font-size: clamp(0.875rem, 2.5vw, 1.05rem); font-weight: 700; letter-spacing: 0.06em; line-height: 1.1; }
 .ph-tab em { display: block; font-family: "Cormorant Garamond", Georgia, serif; font-weight: 500; text-transform: none; letter-spacing: 0; font-size: 1.1em; }
 .ph-text { position: relative; z-index: 1; margin-top: 0.25rem; }
+/* The people in the hero: cut-out portraits fading into the mist at the shoulders and below, the role and name over
+   the fade. Phones: Sheikh Yahya inside the artwork, right, in place of the right tablet (whose words join the left
+   one). Desktop: the stage becomes three columns, the guest on the left, the guide and the ustadh on the right. */
+.ph-stage { position: relative; }
+.ph-figure { position: relative; display: grid; justify-items: center; margin: 0; }
+.ph-figure img {
+  display: block; width: auto; height: var(--fh, auto);
+  -webkit-mask-image: radial-gradient(ellipse 64% 74% at 50% 28%, #000 58%, transparent 100%);
+  mask-image: radial-gradient(ellipse 64% 74% at 50% 28%, #000 58%, transparent 100%);
+}
+.ph-figure figcaption {
+  position: absolute; left: 50%; bottom: 0.35rem; transform: translateX(-50%);
+  display: grid; justify-items: center; width: max-content; max-width: 12rem; line-height: 1.1;
+}
+.ph-figure figcaption::before {
+  content: ""; position: absolute; inset: -1.1rem -1.6rem -0.8rem; z-index: -1;
+  background: radial-gradient(closest-side, rgb(236 232 223 / 0.92), rgb(236 232 223 / 0.6) 55%, rgb(236 232 223 / 0));
+}
+.ph-figure .poster-role { margin-top: 0; }
+.ph-figure-name { margin-top: 0.15rem; font-family: "Montserrat", "DM Sans", system-ui, sans-serif; font-size: 1.05rem; font-weight: 700; letter-spacing: 0.02em; color: #3f3e28; }
+.ph-figure-note { margin-top: 0.15rem; font-family: "Cormorant Garamond", Georgia, serif; font-size: 1.1rem; font-style: italic; color: var(--color-muted); }
+.ph-guest { position: absolute; z-index: 2; right: -4%; bottom: -2%; width: 43%; }
+.ph-guest .ph-figure img { width: 100%; height: auto; }
+.ph-guest figcaption { bottom: 4%; max-width: 100%; }
+.ph-guest .poster-role { font-size: 0.875rem; }
+.ph-guest .ph-figure-name { font-size: 0.95rem; }
+.ph-guest .ph-figure-note { font-size: 1rem; }
+/* Phones: one tablet, its two faces taking turns (14 nights, then Eid in the blessed lands). Still: the first only. */
+.ph-face { grid-area: 1 / 1; display: grid; justify-items: center; align-content: start; }
+.ph-face-b { visibility: hidden; }
+html.motion .ph-face { animation: tab-swap 9s ease-in-out infinite; }
+html.motion .ph-face-b { visibility: visible; animation-delay: -4.5s; }
+/* One face fades out (40–45%) before the other fades in (45–50%): never both half-seen. */
+@keyframes tab-swap { 0%, 40% { opacity: 1; transform: none; } 45%, 95% { opacity: 0; transform: translate3d(0, -0.4rem, 0); } 100% { opacity: 1; transform: none; } }
+.ph-buy { display: grid; gap: 0.75rem; max-width: 34rem; margin-top: 1rem; }
+.ph-buy .hero-offer { margin-top: 0; }
+.ph-buy-btn { width: 100%; max-width: 22rem; justify-self: center; margin-top: 0.5rem; }
+/* Desktop (Jibril, 19 Nov 2026: the three-figure stage looked bad): two columns. The phone's artwork, Sheikh Yahya
+   in it, on the left; the title, dates, price and button on the right, so the first screen is full and sells. The
+   icon ticker runs under both. Sheikh Yahya fades more here than on phones. */
+@media (min-width: 64rem) {
+  .poster-hero {
+    display: grid; grid-template-columns: minmax(0, 1.08fr) minmax(0, 1fr); column-gap: clamp(2rem, 4vw, 4.5rem);
+    align-items: center;
+  }
+  .poster-hero > .ph-stage { grid-column: 1; }
+  .poster-hero > .ph-text { grid-column: 2; margin-top: 0; padding-block: 1.5rem; }
+  .poster-hero > .ticker { grid-column: 1 / -1; }
+  .ph-stage .ph-art { width: 100%; max-width: 44rem; margin-inline: auto; }
+  .poster-hero .poster-lockup .poster-word { font-size: clamp(4rem, 6.3vw, 6.25rem); }
+  .poster-hero .poster-lockup .poster-line { font-size: clamp(1.2rem, 1.9vw, 2rem); }
+  .ph-guest .ph-figure img {
+    -webkit-mask-image: radial-gradient(ellipse 56% 64% at 50% 30%, #000 40%, transparent 100%);
+    mask-image: radial-gradient(ellipse 56% 64% at 50% 30%, #000 40%, transparent 100%);
+  }
+  .ph-guest .poster-role { font-size: 0.9rem; }
+  .ph-guest .ph-figure-name { font-size: 1.15rem; }
+  .ph-guest .ph-figure-note { font-size: 1.15rem; }
+  .ph-team { display: none; }
+  .ph-buy { max-width: 36rem; margin-top: 1.5rem; }
+  .ph-buy-btn { max-width: none; }
+}
+/* Narrow desktops: the right column is too tight for the two offer panels side by side. */
+@media (min-width: 64rem) and (max-width: 74.99rem) { .ph-buy .hero-offer { grid-template-columns: 1fr; } }
 .poster-hero .poster-lockup .poster-kicker { margin-bottom: 0.2em; }
 .ph-team .poster-face { width: min(100%, 5.75rem); }
 @media (min-width: 40rem) { .ph-team .poster-face { width: 7rem; } }
 .ph-team .poster-role { margin-top: 0.6rem; }
+
+.poster-hero:has(.ticker) { padding-bottom: 0.5rem; }
+.ph-note { margin-top: 0.9rem; font-family: "Montserrat", "DM Sans", system-ui, sans-serif; font-size: 0.875rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-bronze); }
+
+/* The icon ticker under the poster hero: two copies of the row sliding by half their width, edges fading. Still
+   (no html.motion): one row to scroll sideways by hand. */
+.ticker {
+  position: relative; margin-inline: calc(50% - 50vw); overflow: hidden; color: var(--color-bronze);
+  border-block: 1px solid rgb(84 82 52 / 0.14);
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+}
+.ticker-track { display: flex; width: max-content; }
+.ticker-row { display: flex; flex: none; }
+.ticker-item { display: flex; align-items: center; gap: 0.65rem; padding: 0.95rem 1.6rem; white-space: nowrap; font-family: "Montserrat", "DM Sans", system-ui, sans-serif; font-size: 0.875rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; }
+.ticker-item em { font-weight: 500; font-style: italic; opacity: 0.85; }
+.ticker-icon { width: 1.9rem; height: 1.9rem; flex: none; }
+.ticker-item + .ticker-item, .ticker-row + .ticker-row .ticker-item:first-child { border-left: 1px solid rgb(84 82 52 / 0.14); }
+html:not(.motion) .ticker { overflow-x: auto; }
+html:not(.motion) .ticker-row[aria-hidden] { display: none; }
+html.motion .ticker-track { animation: ticker 48s linear infinite; }
+@keyframes ticker { to { transform: translate3d(-50%, 0, 0); } }
+.ticker[data-off] .ticker-track { animation-play-state: paused; }
+@media (hover: hover) { .ticker:hover .ticker-track { animation-play-state: paused; } }
+
+/* Jump links under the poster hero (Ramadan): chips in a row, stuck under the header on phones, centred on desktop. */
+.trip-jump { position: sticky; top: 4.5rem; z-index: 30; background: #ece8df; border-bottom: 1px solid rgb(84 82 52 / 0.12); }
+.trip-jump ul { display: flex; gap: 0.5rem; overflow-x: auto; scrollbar-width: none; padding: 0.6rem max(var(--hero-pad-x), env(safe-area-inset-left)); -webkit-mask-image: linear-gradient(90deg, #000 86%, transparent); mask-image: linear-gradient(90deg, #000 86%, transparent); }
+.trip-jump ul::-webkit-scrollbar { display: none; }
+.trip-jump a { display: flex; align-items: center; min-height: 2.75rem; padding: 0 1rem; border-radius: 0.8rem; border: 1px solid rgb(84 82 52 / 0.18); background: rgb(255 255 255 / 0.45); white-space: nowrap; font-size: 0.9rem; color: var(--color-ink); }
+.trip-jump a:hover { border-color: rgb(84 82 52 / 0.4); }
+.trip-anchor { scroll-margin-top: 9rem; }
+@media (min-width: 64rem) {
+  .trip-jump { position: static; border: 0; }
+  .trip-jump ul { justify-content: center; padding-top: 1.5rem; -webkit-mask-image: none; mask-image: none; }
+  .trip-anchor { scroll-margin-top: 7rem; }
+}
+
+/* Rawdah's own groups: swipe on phones, three across on desktop. */
+.group-strip { display: grid; grid-auto-flow: column; grid-auto-columns: 78%; gap: 0.75rem; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; margin-inline: calc(var(--hero-pad-x) * -1); padding-inline: var(--hero-pad-x); padding-bottom: 0.75rem; }
+.group-strip::-webkit-scrollbar { display: none; }
+.group-strip > li { scroll-snap-align: center; }
+@media (min-width: 40rem) { .group-strip { grid-auto-columns: 48%; } }
+@media (min-width: 64rem) { .group-strip { grid-auto-flow: row; grid-template-columns: repeat(3, minmax(0, 1fr)); overflow: visible; margin-inline: 0; padding: 0; } }
+
+/* The special guest's panel (Ramadan): the poster's olive, lit from behind, his cut-out fading into it; the one dark
+   block in the people section, so he stands out as the trip's draw (Jibril, 19 Nov 2026). Phones: photo, then words. */
+.guest-feature {
+  position: relative; display: grid; overflow: hidden; isolation: isolate; border-radius: 1.75rem; color: #f1eee6;
+  background: radial-gradient(70% 65% at 50% 22%, #6d6b4b 0%, #545234 55%, #434229 100%);
+  box-shadow: var(--shadow-lift);
+}
+.gf-photo {
+  position: relative; margin: 1.1rem 1.1rem 0; aspect-ratio: 1; overflow: hidden; border-radius: 1.2rem;
+  box-shadow: 0 0 0 1px rgb(241 238 230 / 0.18), 0 24px 50px -24px rgb(0 0 0 / 0.55);
+}
+.gf-text { position: relative; padding: 1.5rem 1.4rem 1.75rem; }
+.gf-kicker { font-family: "Montserrat", "DM Sans", system-ui, sans-serif; font-size: 0.875rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: #ddd3b1; }
+.gf-name { margin-top: 0.55rem; font-family: "Montserrat", "DM Sans", system-ui, sans-serif; font-size: clamp(2.2rem, 8vw, 3.4rem); font-weight: 700; line-height: 0.98; letter-spacing: 0.02em; text-transform: uppercase; }
+.gf-name span { display: block; margin-bottom: 0.4em; font-size: 0.4em; font-weight: 500; letter-spacing: 0.32em; color: #e6dec5; }
+.gf-line { margin-top: 1rem; max-width: 26rem; font-family: "Cormorant Garamond", Georgia, serif; font-size: 1.35rem; font-style: italic; line-height: 1.3; color: rgb(241 238 230 / 0.88); }
+.gf-cta { margin-top: 1.4rem; display: inline-flex; align-items: center; gap: 0.55rem; min-height: 3rem; padding: 0 1.3rem; border-radius: 0.9rem; background: #f1eee6; color: #3f3e28; font-size: 0.95rem; font-weight: 500; }
+.gf-cta:hover { background: #fff; }
+@media (min-width: 40rem) {
+  .guest-feature { grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); align-items: stretch; }
+  .gf-photo { order: 2; margin: 1.5rem 1.5rem 1.5rem 0; aspect-ratio: 4 / 5; }
+  .gf-text { order: 1; align-self: center; padding: 2.5rem 1.5rem 2.5rem 2.5rem; }
+}
+
+/* The hosts' cards: a photo, the role in the poster's capitals, the name, one line and the notes to open. */
+.host-card { overflow: hidden; border-radius: 1.5rem; border: 1px solid var(--glass-line); background: var(--glass-bg); }
+.host-photo { position: relative; aspect-ratio: 5 / 4; background: var(--color-beige); }
+@media (min-width: 40rem) { .host-photo { aspect-ratio: 1; } }
+.host-card .poster-role { margin-top: 0; }
+
+/* What's included as tiles (icon, words, one line): two across on phones, four on wider screens. */
+.included-cards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.6rem; }
+@media (min-width: 48rem) { .included-cards { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.75rem; } }
+.inc-card { display: grid; align-content: start; border-radius: 1.1rem; border: 1px solid var(--glass-line); background: var(--glass-bg); padding: 1rem; }
+.inc-body { display: grid; gap: 0.6rem; color: var(--color-bronze); }
+.inc-icon { width: 2.4rem; height: 2.4rem; flex: none; }
+.inc-title { font-family: "Montserrat", "DM Sans", system-ui, sans-serif; font-size: 0.875rem; font-weight: 700; letter-spacing: 0.04em; line-height: 1.15; text-transform: uppercase; }
+.inc-title em { font-weight: 500; }
+.inc-line { margin-top: 0.4rem; font-size: 0.9rem; line-height: 1.45; color: color-mix(in oklab, var(--color-ink) 72%, transparent); }
+
+/* Hotel cards: how far from the Haram, under the stars. */
+.hotel-walk { margin-top: 0.85rem; display: inline-flex; align-items: center; gap: 0.5rem; border-radius: 0.75rem; background: rgb(84 82 52 / 0.1); padding: 0.45rem 0.75rem; font-size: 0.9rem; font-weight: 500; }
+.chapter.night .hotel-walk { background: rgb(241 238 230 / 0.1); }
+
+/* Ramadan in the Haram: four numbered points on the night ground, words only; two across on wider screens. */
+.nights-list { display: grid; gap: 0; max-width: 64rem; }
+.nights-list > li { display: grid; grid-template-columns: 3rem 1fr; column-gap: 0.75rem; padding-block: 1.25rem; border-top: 1px solid rgb(241 238 230 / 0.14); }
+.nights-list > li > :not(.nights-num) { grid-column: 2; }
+.nights-num { grid-row: span 2; font-family: "Montserrat", "DM Sans", system-ui, sans-serif; font-size: 0.875rem; font-weight: 600; letter-spacing: 0.12em; color: var(--color-gold); padding-top: 0.45rem; }
+@media (min-width: 48rem) { .nights-list { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 3rem; } }
+
+/* Previous trips' gallery: swipe on phones, four across on desktop. */
+.past-gallery { display: grid; grid-auto-flow: column; grid-auto-columns: 78%; gap: 0.75rem; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; margin-inline: calc(var(--hero-pad-x) * -1); padding-inline: var(--hero-pad-x); padding-bottom: 0.5rem; }
+.past-gallery::-webkit-scrollbar { display: none; }
+.past-gallery > li { scroll-snap-align: start; }
+@media (min-width: 40rem) { .past-gallery { grid-auto-columns: 46%; } }
+@media (min-width: 64rem) { .past-gallery { grid-auto-flow: row; grid-template-columns: repeat(2, minmax(0, 1fr)); overflow: visible; margin-inline: 0; padding: 0; } }
+@media (min-width: 80rem) { .past-gallery { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+
+/* The other campaign at the foot of the Ramadan page: the guest panel's olive. */
+.other-trip { display: grid; gap: 1.5rem; border-radius: 1.75rem; padding: 1.75rem 1.4rem; color: #f1eee6; background: radial-gradient(80% 90% at 15% 0%, #6d6b4b 0%, #545234 55%, #434229 100%); box-shadow: var(--shadow-lift); }
+.other-trip-title { margin-top: 0.45rem; font-family: "Montserrat", "DM Sans", system-ui, sans-serif; font-size: clamp(2.2rem, 7vw, 3.4rem); font-weight: 700; line-height: 1; letter-spacing: 0.03em; text-transform: uppercase; }
+@media (min-width: 48rem) { .other-trip { grid-template-columns: 1fr auto; align-items: center; padding: 2.5rem; } }
+
+/* How booking works, beside the closing form: numbered steps. */
+.booking-steps { display: grid; gap: 1rem; max-width: 26rem; }
+.booking-steps > li { display: grid; grid-template-columns: 2.25rem 1fr; gap: 0.85rem; align-items: start; }
+.booking-num { display: grid; place-items: center; width: 2.25rem; height: 2.25rem; border-radius: 0.7rem; background: #545234; color: #f1eee6; font-family: "Montserrat", "DM Sans", system-ui, sans-serif; font-weight: 700; }
+
+/* The poster's two photos over what's included, with its white labels. */
+.showcase { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.6rem; }
+.showcase > li { position: relative; aspect-ratio: 632 / 446; overflow: hidden; border-radius: 1rem; box-shadow: var(--shadow-lift); }
+.showcase-label { position: absolute; right: 0.5rem; bottom: 0.5rem; border-radius: 0.5rem; background: rgb(255 255 255 / 0.94); padding: 0.25rem 0.55rem; font-family: "Montserrat", "DM Sans", system-ui, sans-serif; font-size: 0.875rem; font-weight: 700; font-style: italic; letter-spacing: 0.02em; text-transform: uppercase; color: #2e2d1f; box-shadow: 0 6px 16px -10px rgb(0 0 0 / 0.5); }
+@media (min-width: 48rem) { .showcase { gap: 1rem; } }
+@media (max-width: 26rem) { .showcase-label { font-size: 0.875rem; padding: 0.2rem 0.45rem; } }
+
+/* The poster's instalment plan: its lettering, then one tile per payment. */
+.plan-block { border-radius: 1.5rem; border: 1px solid var(--glass-line); background: var(--glass-bg); padding: 1.5rem 1rem 1.25rem; }
+.plan-title { display: grid; justify-items: center; font-family: "Montserrat", "DM Sans", system-ui, sans-serif; text-transform: uppercase; color: var(--color-bronze); line-height: 1; }
+.plan-title > :first-child { font-size: clamp(1.9rem, 7vw, 2.8rem); font-weight: 700; letter-spacing: 0.08em; }
+.plan-title > span:last-child { margin-top: 0.45rem; font-size: clamp(0.95rem, 3.4vw, 1.2rem); font-weight: 500; letter-spacing: 0.42em; margin-right: -0.42em; }
+.plan-tiles { margin-top: 1.25rem; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.6rem; }
+.plan-tiles > li { display: grid; justify-items: center; gap: 0.2rem; border-radius: 1rem; background: rgb(84 82 52 / 0.08); padding: 0.9rem 0.5rem; font-family: "Montserrat", "DM Sans", system-ui, sans-serif; text-transform: uppercase; color: #3f3e28; }
+.plan-tiles b { font-size: clamp(1.7rem, 6vw, 2.2rem); font-weight: 700; line-height: 1; }
+.plan-tiles span { font-size: 0.875rem; font-weight: 500; letter-spacing: 0.02em; }
+@media (min-width: 40rem) { .plan-tiles { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+
+/* The packages as cards, with a with-flights / ground-only switch. */
+.pkg-toggle { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.4rem; border-radius: 1.1rem; border: 1px solid var(--glass-line); background: var(--glass-bg); padding: 0.35rem; max-width: 30rem; }
+.pkg-toggle button { display: grid; justify-items: start; gap: 0.1rem; border-radius: 0.8rem; padding: 0.6rem 0.85rem; text-align: left; font-weight: 500; transition: background-color 150ms ease, color 150ms ease; }
+.pkg-toggle button small { font-size: 0.875rem; font-weight: 400; opacity: 0.7; }
+.pkg-toggle button[aria-pressed="true"] { background: #545234; color: #f1eee6; }
+.pkg-cards { margin-top: 1rem; display: grid; gap: 0.75rem; }
+@media (min-width: 48rem) { .pkg-cards { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.pkg-card { display: grid; align-content: start; border-radius: 1.4rem; border: 1px solid var(--glass-line); background: var(--glass-bg); padding: 1.25rem; }
+.pkg-room { font-family: "Cormorant Garamond", Georgia, serif; font-size: 1.6rem; line-height: 1.1; }
+.pkg-room span { margin-left: 0.35rem; font-family: "DM Sans", system-ui, sans-serif; font-size: 0.9rem; color: color-mix(in oklab, var(--color-ink) 60%, transparent); }
+.pkg-early { margin-top: 0.6rem; font-size: 0.9rem; color: color-mix(in oklab, var(--color-ink) 55%, transparent); text-decoration-thickness: 1.5px; }
+.pkg-price { margin-top: 0.6rem; font-family: "Montserrat", "DM Sans", system-ui, sans-serif; font-size: 2rem; font-weight: 700; line-height: 1; color: #3f3e28; }
+.pkg-price span { font-family: "DM Sans", system-ui, sans-serif; font-size: 0.9rem; font-weight: 400; color: color-mix(in oklab, var(--color-ink) 60%, transparent); }
+.pkg-plan { margin-top: 1rem; display: grid; border-top: 1px solid rgb(84 82 52 / 0.12); }
+.pkg-plan li { display: flex; justify-content: space-between; gap: 1rem; padding: 0.55rem 0; border-bottom: 1px solid rgb(84 82 52 / 0.12); font-size: 0.92rem; }
+.pkg-plan li span { color: color-mix(in oklab, var(--color-ink) 68%, transparent); }
+.pkg-btn { margin-top: 1rem; display: flex; min-height: 3rem; align-items: center; justify-content: center; gap: 0.5rem; border-radius: 0.9rem; border: 1px solid rgb(84 82 52 / 0.25); font-size: 0.95rem; font-weight: 500; }
+.pkg-btn:not(.btn-ink):hover { border-color: rgb(84 82 52 / 0.55); }
 
 /* The mist: big soft clouds, drifting by transform only. */
 .mist .cloud { position: absolute; border-radius: 50%; background: radial-gradient(closest-side, rgb(255 255 255 / 0.85), rgb(255 255 255 / 0)); }

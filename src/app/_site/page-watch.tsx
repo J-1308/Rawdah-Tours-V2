@@ -11,7 +11,7 @@ export function NotOn({ href, children }: { href: string; children: ReactNode })
 
 /**
  * Page-level watchers, no UI:
- * - the night sky pauses when it is off screen, so the stars cost nothing while you read the rest (Opus review);
+ * - the night sky, the mist and the icon ticker pause when off screen, so they cost nothing while you read the rest;
  * - the trip phone bar steps aside while the join panel or the booking form is on screen, so it never covers the
  *   fields or sends someone back up the page.
  */
@@ -20,7 +20,7 @@ export function PageWatch() {
   useEffect(() => {
     if (!("IntersectionObserver" in window)) return;
     const skies = new IntersectionObserver((es) => es.forEach((e) => e.target.toggleAttribute("data-off", !e.isIntersecting)));
-    document.querySelectorAll(".sky").forEach((el) => skies.observe(el));
+    document.querySelectorAll(".sky, .ticker").forEach((el) => skies.observe(el));
 
     const bar = document.querySelector<HTMLElement>('[data-placement="phone bar"]');
     const zones = ["join", "register-interest"].map((id) => document.getElementById(id)).filter((el): el is HTMLElement => Boolean(el));

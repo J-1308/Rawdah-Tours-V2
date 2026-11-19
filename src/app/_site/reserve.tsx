@@ -122,6 +122,8 @@ export function ReservePanel({ j, bookable = false }: { j: Journey; bookable?: b
   const matrix = packages && rooms.some((r) => r.flights === false) && new Set(rooms.map((r) => r.sharing)).size > 1;
   const roomName = (n: number) => ({ 4: "Quad", 3: "Triple", 2: "Double" })[n] ?? `${n} sharing`;
   const pick = (f: boolean, n: number) => rooms.find((r) => (r.flights !== false) === f && r.sharing === n);
+  /** The ended early bird (Ramadan): crossed out under the price of the one package it was on. */
+  const early = (type: string) => (j.endedOffer && j.endedOffer.room === type ? j.endedOffer : null);
   const ground = chosen.flights === false;
   const verb = matrix && ground ? "enquire about" : open ? "book" : "register interest in";
 
@@ -176,7 +178,7 @@ export function ReservePanel({ j, bookable = false }: { j: Journey; bookable?: b
             <s className="decoration-ink/50">
               {j.endedOffer.label} {gbp(j.endedOffer.price)}
             </s>{" "}
-            has ended. These are the final prices.
+            on the {j.endedOffer.room.toLowerCase()} has ended.
           </p>
         ) : null}
         {matrix ? (
@@ -217,6 +219,7 @@ export function ReservePanel({ j, bookable = false }: { j: Journey; bookable?: b
                     <span className="block text-[0.875rem] font-medium">{roomName(n)}</span>
                     <span className={`block text-[0.875rem] ${on ? "text-canvas/70" : "text-ink/65"}`}>{n} sharing</span>
                     <span className="display mt-1.5 block text-[1.35rem] leading-none">{gbp(r.price)}</span>
+                    {early(r.type) ? <s className={`mt-1 block text-[0.875rem] ${on ? "text-canvas/60" : "text-ink/50"}`}>{gbp(early(r.type)!.price)}</s> : null}
                   </button>
                 );
               })}
@@ -353,7 +356,7 @@ export function ReservePanel({ j, bookable = false }: { j: Journey; bookable?: b
           {open && bookable
             ? "Pay the deposit online by card (a small card fee applies) or by bank transfer with no fee. Prefer to talk first? WhatsApp us."
             : open
-              ? "Pay the deposit by bank transfer: we send you the details once your place is confirmed. Deposits are non-refundable. Card payments are coming soon."
+              ? "Pay the deposit by bank transfer: the details are in your confirmation email, or we send them on WhatsApp. Deposits are non-refundable."
             : confirmedPrices
               ? "No payment now. Register and we’ll be in touch to book your place. Deposits are non-refundable."
               : "No payment now. Prices are a guide from our last trip; we’ll message you when the dates and prices are confirmed."}

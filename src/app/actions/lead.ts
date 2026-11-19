@@ -1,5 +1,6 @@
 'use server'
 
+import { bookingRef, sendBookingConfirmation, sendBookingToTeam } from '@/lib/server/booking-request'
 import { sendLeadAcknowledgement, sendLeadToOwner } from '@/lib/server/email'
 import { keepLead } from '@/lib/server/leads'
 import { addToSheet } from '@/lib/server/sheet'
@@ -25,7 +26,8 @@ export type LeadInput = {
   website?: string
 }
 
-export type LeadResult = { ok: boolean; errors?: Record<string, string> }
+/** `ref`: the booking reference, on a finished booking request (shown on the form's last screen). */
+export type LeadResult = { ok: boolean; errors?: Record<string, string>; ref?: string; emailed?: boolean }
 
 /** Shown when a lead reached nowhere (no Blob, no sheet, no email), so the visitor isn't told it was received. */
 const NOT_SENT = 'We couldn’t send that just now. Please message us on WhatsApp and we’ll take it from there.'
@@ -101,6 +103,19 @@ export async function saveLead(raw: LeadInput): Promise<LeadResult> {
   if (raw.done) {
     await trackServer(form === 'hajj' || form === 'interest' ? 'interest_registered' : 'enquiry_sent', { form, trip })
     if (lead.itinerary) await trackServer('itinerary_requested', { trip })
+    // A booking request for a trip with packages (Ramadan Umrah 2027): a reference, the team's full alert and the
+    // visitor's confirmation with the deposit and how to pay it (src/lib/server/booking-request.ts).
+    if (form === 'group' && answers['Package'] && !/not sure/i.test(answers['Package'])) {
+      const request = { id, trip, name, whatsapp, email, answers, came }
+      const b = await Promise.allSettled([
+        addToSheet({ ...sheetRow, journey: `Booking request ${bookingRef(id)}: ${trip}` }),
+        sendBookingToTeam(request),
+        email ? sendBookingConfirmation(request) : Promise.resolve(),
+      ])
+      reached ||= landed(b.slice(0, 2))
+      if (!reached) return { ok: false, errors: { network: NOT_SENT } }
+      return { ok: true, ref: bookingRef(id), emailed: landed(b.slice(2)) }
+    }
     const r = await Promise.allSettled([
       addToSheet(sheetRow),
       sendLeadToOwner(`Completed: ${FORM_LABEL[form]}${trip ? `, ${trip}` : ''}, ${name}`, `${name} finished the ${FORM_LABEL[form].toLowerCase()} form.${lead.itinerary ? ' They asked for the full itinerary.' : ''}`, rows, whatsapp, email || undefined),

@@ -126,6 +126,34 @@ script in `app/layout.tsx` sets before first paint unless the visitor prefers re
   from the head; one line under the icon row; the team section is a line and the "More about" notes. Olive type on
   light grounds, never the poster's white on stone. Also: the icon row (`PosterPerks`, line icons drawn for Rawdah)
   and its own opening when arriving from another page (`Arrival`, `html[data-arrival]`).
+  **Selling pass (19 Nov 2026), the format of the best trip pages (The Umrah Company, The Sunnah Experience) in
+  Rawdah's look, facts and photos only:** Sheikh Yahya in the hero (`HeroFigures`: his portrait cut out of its
+  background, `public/images/portraits/cut/`, fading into the mist with a radial mask) standing inside the artwork,
+  right; the left tablet's two faces take turns (`tab-swap`, one fully out before the other comes in). Phones: the
+  artwork full width above the words. Desktop: two columns, the artwork left and the title, dates, price and button
+  right, so the price is on the first screen (a first try with all three people flanking the artwork looked bad,
+  Jibril 19 Nov). The price, then the button (`.ph-buy`), with one line of real facts under it (`heroNote`); the poster
+  icons as a slow ticker under the hero (`PerkTicker`, transform only, paused off screen and on hover, scrolls by
+  hand without motion); jump links (`.trip-jump`, stuck under the header on phones, `.trip-anchor` scroll margins);
+  the people straight after the trip (`TripPeople`: Sheikh Yahya in his own olive panel, `.guest-feature`, the one
+  dark block there, with his original photo cropped and never faded; then the hosts' photo cards, `.host-card`), then
+  Rawdah's previous trips (`PastTrips`: the Path of Purity II poster, a "to come" frame, a gallery of eight captioned
+  group photos); Ramadan in the Haram on the night ground before the flights and hotels (`HaramNights`: Taraweeh,
+  qiyam and Laylat al-Qadr, iftar in the Haram, the khatm; tall photo cards); hotel cards with how far each is from
+  the Haram (`.hotel-walk`, on foot or by shuttle), two sentences and feature chips, from the hotels' own listings;
+  the ended early bird crossed out beside every price (hero, join panel, packages table, phone bar); a Hajj 2027 band
+  in the guest panel's olive at the foot (`OtherTripBand`, to WhatsApp in one-page mode). Final pass for the one-page
+  launch (19 Nov 2026): no photo placeholders; Ramadan in the Haram is words only (`.nights-list`, numbered); what's
+  included is icon tiles without photos; who it's for under the trip's two sentences (`ForWho`); Why Rawdah with the
+  name's meaning, the team photo and four reasons (`WhyRawdah`); "Our last trip" is Path of Purity II only; how
+  booking works as numbered steps by the form (`steps`, `.booking-steps`). Packages on poster trips (`PosterPackages`):
+  the poster's "Installment plan available" lettering and one tile per payment (`.plan-tiles`), then cards with a
+  with-flights / ground-only switch (`PackageCards`, `.pkg-*`), each card's button filling the form with its package;
+  the poster's Saudia and Haramain train photos with white labels over what's included (`.showcase`). One-page header: call, logo, WhatsApp on
+  phones; the trip, logo, WhatsApp and "Book your place" on desktop (`src/lib/site-mode.ts`); what's included as photo cards (`IncludedCards`, `plan.cards`, "Photo to come" frames until Jibril
+  sends the shots); the trip's own
+  questions first (`faqs`); three short lines by the closing form (`closing`). Not taken: the other sites' photos,
+  copy, countdown and imam grids.
 - **Ramadan Umrah 2027 only** (`posterType`; the page every Instagram link lands on, 17–18 Nov 2026): no opening on
   this page (the head script marks it played); a night sky with stars twinkling in three groups and a crescent
   (`night-sky.tsx`, fixed seed; paused off screen by `page-watch.tsx`) on the head; the title rises letter by letter

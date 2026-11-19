@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { ONE_PAGE, ONE_PAGE_HOME } from "@/lib/site-mode";
 import { fitFrame, isEmptySlot, slotBriefs } from "@/app/_site/slots";
 import Link from "next/link";
 import type { CSSProperties, ReactNode } from "react";
@@ -348,7 +349,27 @@ export function ConfirmedPending({
 
 export function SiteFooter() {
   const link = "text-cream/70 transition-colors hover:text-cream";
-  const cols = [
+  const cols = ONE_PAGE
+    ? [
+        {
+          title: "Ramadan Umrah 2027",
+          links: [
+            { label: "The trip", href: ONE_PAGE_HOME },
+            { label: "Packages and prices", href: `${ONE_PAGE_HOME}#prices` },
+            { label: "Common questions", href: `${ONE_PAGE_HOME}#faq` },
+            { label: "Book your place", href: `${ONE_PAGE_HOME}#register-interest` },
+          ],
+        },
+        {
+          title: "Policies",
+          links: [
+            { label: "Terms and conditions", href: "/terms" },
+            { label: "Privacy notice", href: "/privacy" },
+            { label: "Cookies", href: "/cookies" },
+          ],
+        },
+      ]
+    : [
     { title: "Trips", links: tripLinks },
     {
       title: "Rawdah",
@@ -368,12 +389,13 @@ export function SiteFooter() {
       ],
     },
   ];
+  const policyLinks = cols.find((c) => c.title === "Policies")?.links ?? [];
   return (
     <footer className={`chapter-foot panel-dark relative overflow-hidden pt-[clamp(2rem,8vw,6.5rem)] pb-[calc(6rem+env(safe-area-inset-bottom))] lg:pb-10 ${gutter} ${onInk}`}>
       <Emblem className="pointer-events-none absolute right-[-4%] bottom-[-10%] h-[85%] text-cream/[0.05]" />
       <div className="relative grid grid-cols-1 gap-x-14 gap-y-11 lg:grid-cols-12">
         <div className="lg:col-span-5">
-          <Link href="/" aria-label="Rawdah Tours, home" className="inline-block text-cream">
+          <Link href={ONE_PAGE ? ONE_PAGE_HOME : "/"} aria-label="Rawdah Tours, home" className="inline-block text-cream">
             <Logo className="logo-gold h-16 sm:h-24" />
           </Link>
           <p className="mt-7 hidden max-w-[24rem] font-editorial text-[1.5rem] leading-snug text-cream/85 sm:block">Guided Umrah and Hajj from the UK, from your first message to the flight home.</p>
@@ -444,7 +466,7 @@ export function SiteFooter() {
           <Mark s={brand.companyNumber.status} />. Registered office: {brand.address}.
         </p>
         <p className="flex flex-wrap gap-x-4 gap-y-1 sm:hidden">
-          {cols[2].links.map((l) => (
+          {policyLinks.map((l) => (
             <Link key={l.href} href={l.href} className="py-1 underline underline-offset-4 hover:text-cream">
               {l.label}
             </Link>
