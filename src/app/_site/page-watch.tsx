@@ -3,6 +3,8 @@
 import { usePathname } from "next/navigation";
 import { useEffect, type ReactNode } from "react";
 
+import { anchors } from "@/app/_site/content";
+
 /** Shows its children everywhere except on the page they link to (the strip on the Ramadan page, 18 Nov 2026). */
 export function NotOn({ href, children }: { href: string; children: ReactNode }) {
   const path = usePathname();
@@ -14,7 +16,9 @@ export function NotOn({ href, children }: { href: string; children: ReactNode })
  * Page-level watchers, no UI:
  * - the night sky, the mist and the icon ticker pause when off screen, so they cost nothing while you read the rest;
  * - the trip phone bar steps aside while the join panel or the booking form is on screen, so it never covers the
- *   fields or sends someone back up the page.
+ *   fields or sends someone back up the page;
+ * - "#join" links (and a page opened at #join) go to whichever join panel is showing: on poster trips the phone copy
+ *   sits after the prices and is hidden on desktop, where the panel beside the story is the one to scroll to.
  */
 export function PageWatch() {
   const path = usePathname();
@@ -38,10 +42,33 @@ export function PageWatch() {
       const buy = document.querySelector(".ph-buy");
       if (buy) heroBuy.observe(buy);
     }
+
+    const toJoin = (hash: string) => {
+      if (hash !== `#${anchors.join}`) return false;
+      const shown = document.getElementById(anchors.join);
+      const desk = document.getElementById(anchors.joinDesktop);
+      if (!desk || (shown && shown.getClientRects().length > 0)) return false;
+      desk.scrollIntoView({ block: "start", behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
+      return true;
+    };
+    const onClick = (e: MouseEvent) => {
+      if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+      const a = e.target instanceof Element ? e.target.closest<HTMLAnchorElement>("a[href]") : null;
+      if (!a || (a.target && a.target !== "_self")) return;
+      const url = new URL(a.href, location.href);
+      if (url.pathname !== location.pathname || !toJoin(url.hash)) return;
+      e.preventDefault();
+      history.replaceState(history.state, "", url.hash);
+    };
+    document.addEventListener("click", onClick, true);
+    // Arriving at #join (from another page): the browser can't scroll to the hidden copy, so scroll to the shown one.
+    const arrive = window.setTimeout(() => toJoin(location.hash), 60);
     return () => {
       skies.disconnect();
       bars.disconnect();
       heroBuy.disconnect();
+      document.removeEventListener("click", onClick, true);
+      window.clearTimeout(arrive);
     };
   }, [path]);
   return null;

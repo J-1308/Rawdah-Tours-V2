@@ -289,8 +289,9 @@ export function TripView({ j }: { j: Journey }) {
 
       <Chapter tone="day">
       <div className={`grid grid-cols-1 gap-x-14 gap-y-12 py-[clamp(2.5rem,5vw,4.5rem)] lg:grid-cols-12 ${gutter}`}>
-        {/* The join panel: beside the story on desktop, straight after the header on phones */}
-        <aside id={anchors.join} className={`scroll-mt-28 lg:order-2 lg:col-span-4 ${j.posterType ? "trip-anchor" : ""}`}>
+        {/* The join panel: beside the story on desktop, straight after the header on phones. Poster trips: desktop
+            only here; on phones it comes after the prices instead (below), so the story comes first (Jibril, 19 Nov 2026). */}
+        <aside id={j.posterType ? anchors.joinDesktop : anchors.join} className={`scroll-mt-28 lg:order-2 lg:col-span-4 ${j.posterType ? "trip-anchor hidden lg:block" : ""}`}>
           <div className="lg:sticky lg:top-28">
             <ReservePanel j={j} bookable={bookable} />
             {/* Desktop, when the join panel is short (no packages): the trust box under it, softer option only.
@@ -427,6 +428,13 @@ export function TripView({ j }: { j: Journey }) {
                   <Heading className={h2}>Packages and payments</Heading>
                   {j.posterType ? <PosterPackages j={j} /> : <TripPackages j={j} />}
                 </section>
+                {/* Phones, poster trips: the join panel, once the prices have been read. "#join" links land here on
+                    phones and on the desktop panel above on wide screens (page-watch.tsx). */}
+                {j.posterType ? (
+                  <section id={anchors.join} className="trip-anchor mt-12 sm:mt-16 lg:hidden">
+                    <ReservePanel j={j} bookable={bookable} />
+                  </section>
+                ) : null}
                 {/* Poster trips show the people higher up, after the trip itself. */}
                 {j.posterTeam ? null : (
                   <section className="mt-12 sm:mt-16">
