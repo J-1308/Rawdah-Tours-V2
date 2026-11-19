@@ -626,6 +626,7 @@ html.motion[data-arrival] .arrival {
 .offer-ground-l em { font-family: "Cormorant Garamond", Georgia, serif; text-transform: none; font-size: 1.15em; letter-spacing: 0; }
 .offer-ground-r { display: flex; align-items: baseline; gap: 0.6rem; font-size: 0.875rem; font-weight: 700; letter-spacing: 0.1em; }
 .offer-ground-price { font-size: 1.7rem; letter-spacing: 0.01em; }
+.offer-ground-was { font-size: 0.875rem; font-weight: 500; letter-spacing: 0.04em; opacity: 0.6; text-decoration-thickness: 1.5px; }
 
 /* The poster hero (Ramadan Umrah 2027): centred; the cut-out artwork first (edge to edge on phones), the poster's
    frosted tablets behind its towers with our words, then the title, dates, one line, the offer and the people. */
@@ -765,14 +766,11 @@ html.motion .ticker-track { animation: ticker 48s linear infinite; }
   background: radial-gradient(70% 65% at 50% 22%, #6d6b4b 0%, #545234 55%, #434229 100%);
   box-shadow: var(--shadow-lift);
 }
-.gf-photo { position: relative; display: flex; justify-content: center; align-items: flex-end; padding-top: 1.75rem; }
-.gf-photo::before { content: ""; position: absolute; inset: 6% 12% 10%; background: radial-gradient(closest-side, rgb(241 238 230 / 0.3), rgb(241 238 230 / 0)); }
-.gf-photo img {
-  position: relative; display: block; width: min(80%, 19rem); height: auto;
-  -webkit-mask-image: radial-gradient(ellipse 60% 70% at 50% 30%, #000 48%, transparent 100%);
-  mask-image: radial-gradient(ellipse 60% 70% at 50% 30%, #000 48%, transparent 100%);
+.gf-photo {
+  position: relative; margin: 1.1rem 1.1rem 0; aspect-ratio: 1; overflow: hidden; border-radius: 1.2rem;
+  box-shadow: 0 0 0 1px rgb(241 238 230 / 0.18), 0 24px 50px -24px rgb(0 0 0 / 0.55);
 }
-.gf-text { position: relative; z-index: 1; margin-top: -3rem; padding: 0 1.4rem 1.75rem; }
+.gf-text { position: relative; padding: 1.5rem 1.4rem 1.75rem; }
 .gf-kicker { font-family: "Montserrat", "DM Sans", system-ui, sans-serif; font-size: 0.875rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: #ddd3b1; }
 .gf-name { margin-top: 0.55rem; font-family: "Montserrat", "DM Sans", system-ui, sans-serif; font-size: clamp(2.2rem, 8vw, 3.4rem); font-weight: 700; line-height: 0.98; letter-spacing: 0.02em; text-transform: uppercase; }
 .gf-name span { display: block; margin-bottom: 0.4em; font-size: 0.4em; font-weight: 500; letter-spacing: 0.32em; color: #e6dec5; }
@@ -781,14 +779,9 @@ html.motion .ticker-track { animation: ticker 48s linear infinite; }
 .gf-cta { margin-top: 1.4rem; display: inline-flex; align-items: center; gap: 0.55rem; min-height: 3rem; padding: 0 1.3rem; border-radius: 0.9rem; background: #f1eee6; color: #3f3e28; font-size: 0.95rem; font-weight: 500; }
 .gf-cta:hover { background: #fff; }
 @media (min-width: 40rem) {
-  .guest-feature { grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); align-items: end; }
-  .gf-photo { order: 2; padding-top: 2.25rem; }
-  .gf-photo img {
-    width: 100%; max-width: 22rem;
-    -webkit-mask-image: radial-gradient(ellipse 54% 62% at 50% 32%, #000 36%, transparent 100%);
-    mask-image: radial-gradient(ellipse 54% 62% at 50% 32%, #000 36%, transparent 100%);
-  }
-  .gf-text { order: 1; align-self: center; margin-top: 0; padding: 2.5rem 0 2.5rem 2.5rem; }
+  .guest-feature { grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); align-items: stretch; }
+  .gf-photo { order: 2; margin: 1.5rem 1.5rem 1.5rem 0; aspect-ratio: 4 / 5; }
+  .gf-text { order: 1; align-self: center; padding: 2.5rem 1.5rem 2.5rem 2.5rem; }
 }
 
 /* The hosts' cards: a photo, the role in the poster's capitals, the name, one line and the notes to open. */
@@ -806,6 +799,30 @@ html.motion .ticker-track { animation: ticker 48s linear infinite; }
 .inc-title { font-family: "Montserrat", "DM Sans", system-ui, sans-serif; font-size: 0.875rem; font-weight: 700; letter-spacing: 0.04em; line-height: 1.15; text-transform: uppercase; }
 .inc-title em { font-weight: 500; }
 .inc-line { margin-top: 0.4rem; font-size: 0.9rem; line-height: 1.45; color: color-mix(in oklab, var(--color-ink) 72%, transparent); }
+
+/* Hotel cards: how far from the Haram, under the stars. */
+.hotel-walk { margin-top: 0.85rem; display: inline-flex; align-items: center; gap: 0.5rem; border-radius: 0.75rem; background: rgb(84 82 52 / 0.1); padding: 0.45rem 0.75rem; font-size: 0.9rem; font-weight: 500; }
+.chapter.night .hotel-walk { background: rgb(241 238 230 / 0.1); }
+
+/* Ramadan in the Haram: four tall cards; swipe on phones, four across on desktop. */
+.nights-row { display: grid; grid-auto-flow: column; grid-auto-columns: 75%; gap: 1rem; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; margin-inline: calc(var(--hero-pad-x) * -1); padding-inline: var(--hero-pad-x); padding-bottom: 0.5rem; }
+.nights-row::-webkit-scrollbar { display: none; }
+.nights-row > li { scroll-snap-align: start; }
+@media (min-width: 40rem) { .nights-row { grid-auto-columns: 44%; } }
+@media (min-width: 64rem) { .nights-row { grid-auto-flow: row; grid-template-columns: repeat(4, minmax(0, 1fr)); overflow: visible; margin-inline: 0; padding: 0; gap: 1.25rem; } }
+
+/* Previous trips' gallery: swipe on phones, four across on desktop. */
+.past-gallery { display: grid; grid-auto-flow: column; grid-auto-columns: 78%; gap: 0.75rem; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; margin-inline: calc(var(--hero-pad-x) * -1); padding-inline: var(--hero-pad-x); padding-bottom: 0.5rem; }
+.past-gallery::-webkit-scrollbar { display: none; }
+.past-gallery > li { scroll-snap-align: start; }
+@media (min-width: 40rem) { .past-gallery { grid-auto-columns: 46%; } }
+@media (min-width: 64rem) { .past-gallery { grid-auto-flow: row; grid-template-columns: repeat(2, minmax(0, 1fr)); overflow: visible; margin-inline: 0; padding: 0; } }
+@media (min-width: 80rem) { .past-gallery { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+
+/* The other campaign at the foot of the Ramadan page: the guest panel's olive. */
+.other-trip { display: grid; gap: 1.5rem; border-radius: 1.75rem; padding: 1.75rem 1.4rem; color: #f1eee6; background: radial-gradient(80% 90% at 15% 0%, #6d6b4b 0%, #545234 55%, #434229 100%); box-shadow: var(--shadow-lift); }
+.other-trip-title { margin-top: 0.45rem; font-family: "Montserrat", "DM Sans", system-ui, sans-serif; font-size: clamp(2.2rem, 7vw, 3.4rem); font-weight: 700; line-height: 1; letter-spacing: 0.03em; text-transform: uppercase; }
+@media (min-width: 48rem) { .other-trip { grid-template-columns: 1fr auto; align-items: center; padding: 2.5rem; } }
 
 /* The mist: big soft clouds, drifting by transform only. */
 .mist .cloud { position: absolute; border-radius: 50%; background: radial-gradient(closest-side, rgb(255 255 255 / 0.85), rgb(255 255 255 / 0)); }

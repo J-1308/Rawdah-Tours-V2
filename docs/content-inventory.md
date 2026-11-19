@@ -72,6 +72,12 @@ is **not** identified on the site.
   portraits already on the site; Sheikh Yahya's pen painted out); the trip's own questions (meals, ihram, Eid, ground
   only, places) from facts Jibril and the PDF gave; the group strip uses Rawdah's own V1 photos
   (`group-photos-03`, `-04`, `friends-09`). Nothing from The Umrah Company or The Sunnah Experience.
+  Later the same day: the previous-trips gallery reuses `lastTrip`'s captioned photos plus, from V1's
+  `public/images/gallery`, the Path of Purity II poster and two group photos (`public/images/past/`). Hotel details
+  from the hotels' own listings: Novotel Thakher City (Accor; trip.com) is out of the centre, about 10 minutes by car
+  from the Haram, with a shuttle to and from it, an in-house mosque and three restaurants; Al Manakha Rotana
+  (Hotels.com, Expedia) is an 8-minute walk (0.7 km) from the Prophet's Mosque, steps from Masjid al-Ghamamah, with two
+  restaurants and a coffee shop. Early bird: £100 off every package (`endedOffer.offPence` in `src/lib/trips.ts`).
 - **Trust box** (trip pages, `trust` in `content.ts`): shows only the people on the trip and two buttons. Its
   numbers (years running, pilgrims taken, review rating and count) stay empty until Rawdah answers the
   questionnaire; never estimate them.

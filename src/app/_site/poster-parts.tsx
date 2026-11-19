@@ -213,7 +213,7 @@ export function Arrival({ logo }: { logo: ReactNode }) {
 /* Hero versions to compare (preview, 19 Nov 2026). Chosen by ?hero= (layout.tsx head script sets html[data-hero]). */
 
 /** The poster's bottom bar, rebuilt live: the price on the olive panel with the Saudia mark, and the ground package. */
-export function HeroOffer({ from, ended, ground, phone }: { from: string; ended?: string; ground?: string; phone: { href: string; display: string } }) {
+export function HeroOffer({ from, ended, ground, groundWas, phone }: { from: string; ended?: string; ground?: string; groundWas?: string; phone: { href: string; display: string } }) {
   return (
     <div className="hero-offer">
       <div className="offer-olive">
@@ -232,6 +232,7 @@ export function HeroOffer({ from, ended, ground, phone }: { from: string; ended?
             Ground package <em>available</em>
           </span>
           <span className="offer-ground-r">
+            {groundWas ? <s className="offer-ground-was">{groundWas}</s> : null}
             <span className="offer-ground-price">{ground}</span> Enquire
           </span>
         </a>

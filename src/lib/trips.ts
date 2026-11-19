@@ -22,7 +22,8 @@ export type RoomOption = {
 }
 
 /** An offer that has ended, shown crossed out beside the current prices. */
-export type EndedOffer = { label: string; pricePence: number }
+/** An offer that has ended: `offPence` came off every package (Ramadan's early bird, £100 off everything). */
+export type EndedOffer = { label: string; offPence: number }
 
 export type TripStatus =
   | 'interest' // registering interest; no booking
@@ -152,7 +153,7 @@ export const TRIPS: Trip[] = [
         },
       ],
       /** The early bird that has ended, shown crossed out (Jibril, 19 Nov 2026). */
-      endedOffer: { label: 'Early bird', pricePence: 189900 },
+      endedOffer: { label: 'Early bird', offPence: 10000 },
       depositPence: 39900,
       // As on the last trip; confirm before card payments open for this trip.
       cardFeePence: 800,

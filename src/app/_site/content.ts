@@ -617,7 +617,8 @@ export type TripPlan = {
   /** A note under the line, between two segments (index of the segment it follows). */
   marker?: { after: number; text: string };
   flights: { dir: "Outbound" | "Return"; date: string; airline: string; route: string; code: string; rows: { k: string; v: string }[]; note?: string; /** The night is spent flying (counts as a night away). */ overnight?: boolean }[];
-  hotels: { city: string; nights: number; name: string; stars: number; slot: string; more?: { src: string; alt: string }[]; rows: { k: string; v: string }[]; note?: string }[];
+  /** `walk`: how far from the Haram; `about`: two sentences; `features`: short chips. From the hotels' own listings. */
+  hotels: { city: string; nights: number; name: string; stars: number; slot: string; more?: { src: string; alt: string }[]; walk?: { text: string; by: "foot" | "shuttle" }; about?: string; features?: string[]; rows: { k: string; v: string }[]; note?: string }[];
   notes: { tone: "moon" | "alert"; text: string }[];
   includes: V[];
   /** One line under the list, e.g. what the ground-only package leaves out. */
@@ -645,7 +646,7 @@ export type Journey = {
   state: "open" | "interest" | "past";
   stateStatus: Status;
   /** An offer that has ended, shown crossed out beside the prices (Ramadan's early bird). */
-  endedOffer?: { label: string; price: number };
+  endedOffer?: { label: string; off: number };
   /** Titles in the GGC poster lettering (Ramadan Umrah 2027). */
   posterType?: boolean;
   /** Poster trips: the about block as a photo, a short title and two sentences (less to read, 19 Nov 2026). */
@@ -667,6 +668,17 @@ export type Journey = {
   guestFeature?: { kicker: string; line: string; toCome?: string; cta: string };
   /** Poster trips: the heading over the hosts' cards. */
   hostsTitle?: string;
+  /** Ramadan in the Haram: what the nights hold (worship, not a Rawdah service). `slot` = the photo Jibril will source. */
+  nights?: { label: string; title: string; intro: string; items: { title: string; text: string; slot?: string; photo?: { src: string; alt: string; position?: string } }[] };
+  /** Rawdah's earlier trips: poster cards and a photo gallery (proof, after The Umrah Company's past journeys). */
+  pastTrips?: {
+    title: string;
+    trips: { name: string; dates: string; line: string; href?: string; poster?: { src: string; alt: string; width: number; height: number } }[];
+    toCome?: string;
+    photos: StayPhoto[];
+  };
+  /** A band at the foot of the page for the other campaign (Ramadan → Hajj 2027). */
+  otherTrip?: { label: string; title: string; text: string; cta: string; href: string };
   /** Overrides the usual state label, e.g. "Coming soon" on the Ramadan teaser. */
   stateText?: string;
   dates: V;
@@ -713,7 +725,7 @@ export const stateLabel: Record<Journey["state"], string> = {
 /** Rooms for a trip that books online come from the server's single price list. */
 function endedFromTrips(slug: string) {
   const o = getTrip(slug)?.pricing?.endedOffer;
-  return o ? { label: o.label, price: o.pricePence / 100 } : undefined;
+  return o ? { label: o.label, off: o.offPence / 100 } : undefined;
 }
 
 function roomsFromTrips(slug: string): Room[] {
@@ -795,6 +807,48 @@ export const ramadanFull: Journey = {
       cta: "Travel with Sheikh Yahya",
     },
     hostsTitle: "Your hosts",
+    nights: {
+      label: "Ramadan in the Haram",
+      title: "The last ten nights, at the House of Allah",
+      intro: "Nine nights in Makkah from the 21st of Ramadan, then Eid in the blessed lands.",
+      items: [
+        { title: "Taraweeh in the Haram", text: "Each night after Isha, behind the imams of Masjid al-Haram.", slot: "Taraweeh in Masjid al-Haram" },
+        { title: "Qiyam and Laylat al-Qadr", text: "The night prayer of the last ten, seeking the night better than a thousand months.", slot: "The Haram at night" },
+        { title: "Break your fast in the Haram", text: "Maghrib on the Haram’s floor, with dates and Zamzam among thousands breaking their fast together.", slot: "Iftar in the Haram" },
+        { title: "The khatm", text: "The Qur’an completed in the Haram on one of the last nights, and the du‘a that follows.", slot: "The khatm night" },
+      ],
+    },
+    /* Rawdah's own: the last trip (lastTrip, V1 and its poster) and V1's gallery photos (19 Nov 2026). */
+    pastTrips: {
+      title: "Our previous trips",
+      trips: [
+        {
+          name: "Path of Purity II: Summer Edition",
+          dates: "4–15 August 2026",
+          line: "Five nights in Madinah, five in Makkah, with Ustadh Abdulrahman Hassan as guest sheikh.",
+          href: "/#last-trip",
+          poster: { src: "/images/past/path-of-purity-ii-poster.jpg", alt: "The Path of Purity II: Summer Edition poster, 4–15 August 2026.", width: 1080, height: 1350 },
+        },
+      ],
+      toCome: "Earlier trips’ posters to come",
+      photos: [
+        { src: "/images/group-photos/group-photos-05.jpg", caption: "On the roof of Masjid an-Nabawi", alt: "The group on the roof of Masjid an-Nabawi at golden hour, a minaret behind them.", position: "object-[50%_62%]" },
+        { src: "/images/past/masjid-al-haram.jpg", caption: "Masjid al-Haram", alt: "A Rawdah group together at Masjid al-Haram.", position: "object-[50%_60%]" },
+        { src: "/images/group-photos/group-photos-04.jpg", caption: "Masjid Quba", alt: "The group outside Masjid Quba, its white minarets behind them.", position: "object-[50%_75%]" },
+        { src: "/images/teaching/teaching-01.jpg", caption: "A reminder from Ustadh Abdulrahman Hassan", alt: "Ustadh Abdulrahman Hassan giving the group a reminder outdoors.", position: "object-[50%_30%]" },
+        { src: "/images/group-photos/group-photos-03.jpg", caption: "In ihram, ready for Umrah", alt: "The group in ihram at night, lit arcades and a minaret behind them.", position: "object-[50%_60%]" },
+        { src: "/images/past/brotherhood.jpg", caption: "Brotherhood", alt: "Brothers from a Rawdah group in ihram, standing together under the palms.", position: "object-[50%_55%]" },
+        { src: "/images/candid/candid-02.jpg", caption: "Brothers and sisters together", alt: "Brothers and sisters from the group standing together under the trees.", position: "object-[50%_50%]" },
+        { src: "/images/friends/friends-05.jpg", caption: "Umrah complete", alt: "Three travellers in ihram outside Masjid al-Haram at dusk, the minarets lit behind them.", position: "object-[50%_50%]" },
+      ],
+    },
+    otherTrip: {
+      label: "Also from Rawdah",
+      title: "Hajj 2027",
+      text: "Register your interest and we guide you through your Nusuk application step by step. Registering commits you to nothing.",
+      cta: "Register interest for Hajj",
+      href: "/trips/hajj-2027",
+    },
     closing: ["A £399 deposit holds your place", "The rest on dates set when you book, all before you fly", "Up to 60 places, around half with flights"],
     partner: "GGC × Rawdah Tours",
     partnerLogo: { src: "/images/brand/partners/ggc.png", width: 300, height: 100, alt: "Global Guidance Center (GGC)" },
@@ -883,6 +937,11 @@ export const ramadanFull: Journey = {
             { src: "/images/hotels/novotel-thakher-prayer-hall.jpg", alt: "The hotel’s prayer hall." },
             { src: "/images/hotels/novotel-thakher-restaurant.jpg", alt: "The hotel restaurant." },
           ],
+          /* From the hotel's own listings (Accor; trip.com, 19 Nov 2026): in Thakher, out of the centre, about 10 minutes
+             by car from the Haram, with a shuttle to and from it, an in-house mosque and three restaurants. */
+          walk: { text: "About 10 min by car · hotel shuttle to the Haram", by: "shuttle" },
+          about: "A modern Novotel in Makkah’s Thakher area, out of the centre. It runs a shuttle bus to and from Masjid al-Haram, about 10 minutes away by car.",
+          features: ["Shuttle to the Haram", "In-house mosque", "Three restaurants"],
           /* Meals (Jibril, 19 Nov 2026): Makkah is room only, no suhoor; breakfast in Madinah. */
           rows: [
             { k: "Check in", v: "Sun 28 Feb, 21 Ramadan" },
@@ -902,6 +961,11 @@ export const ramadanFull: Journey = {
             { src: "/images/hotels/al-manakha-rotana-room.jpg", alt: "A room at Al Manakha Rotana." },
             { src: "/images/hotels/al-manakha-rotana-restaurant.jpg", alt: "The hotel restaurant." },
           ],
+          /* From the hotel's Hotels.com and Expedia listings (19 Nov 2026): 8 minutes' walk (0.7 km) to the Prophet's
+             Mosque, steps from Masjid al-Ghamamah, two restaurants and a coffee shop. */
+          walk: { text: "8 min walk to Masjid an-Nabawi", by: "foot" },
+          about: "In the central Haram area, about 700 m from the Prophet’s Mosque and steps from Masjid al-Ghamamah.",
+          features: ["Walk to every prayer", "Breakfast daily", "Two restaurants and a coffee shop"],
           rows: [
             { k: "Check in", v: "Tue 9 Mar" },
             { k: "Check out", v: "Sat 13 Mar" },

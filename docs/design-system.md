@@ -136,8 +136,13 @@ script in `app/layout.tsx` sets before first paint unless the visitor prefers re
   icons as a slow ticker under the hero (`PerkTicker`, transform only, paused off screen and on hover, scrolls by
   hand without motion); jump links (`.trip-jump`, stuck under the header on phones, `.trip-anchor` scroll margins);
   the people straight after the trip (`TripPeople`: Sheikh Yahya in his own olive panel, `.guest-feature`, the one
-  dark block there, then the hosts' photo cards, `.host-card`), then Rawdah's own groups from earlier trips
-  (`GroupStrip`); what's included as photo cards (`IncludedCards`, `plan.cards`, "Photo to come" frames until Jibril
+  dark block there, with his original photo cropped and never faded; then the hosts' photo cards, `.host-card`), then
+  Rawdah's previous trips (`PastTrips`: the Path of Purity II poster, a "to come" frame, a gallery of eight captioned
+  group photos); Ramadan in the Haram on the night ground before the flights and hotels (`HaramNights`: Taraweeh,
+  qiyam and Laylat al-Qadr, iftar in the Haram, the khatm; tall photo cards); hotel cards with how far each is from
+  the Haram (`.hotel-walk`, on foot or by shuttle), two sentences and feature chips, from the hotels' own listings;
+  the ended early bird crossed out beside every price (hero, join panel, packages table, phone bar); a Hajj 2027 band
+  in the guest panel's olive at the foot (`OtherTripBand`); what's included as photo cards (`IncludedCards`, `plan.cards`, "Photo to come" frames until Jibril
   sends the shots); the trip's own
   questions first (`faqs`); three short lines by the closing form (`closing`). Not taken: the other sites' photos,
   copy, countdown and imam grids.

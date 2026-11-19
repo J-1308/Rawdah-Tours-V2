@@ -8,6 +8,7 @@ import { Mark } from "@/app/_site/marks";
 import { Emblem, gutter, Heading, Label, Tick } from "@/app/_site/shell";
 import { slot, slotFilled } from "@/app/_site/slots";
 import { ItineraryLink } from "@/app/_site/step-form";
+import { Chevron } from "@/app/_site/whatsapp";
 
 /* ------------------------------------------------------------------------ */
 /* The team, straightforward: a portrait, what they do, the name, one line.  */
@@ -80,8 +81,9 @@ export function TripPeople({ j, members }: { j: Journey; members: Member[] }) {
     <>
       {guest && g ? (
         <article className="guest-feature">
+          {/* His own photo, cropped, whole and sharp: no fade here (Jibril, 19 Nov 2026). */}
           <div className="gf-photo">
-            {guest.cut ? <Image src={guest.cut.src} alt={guest.m?.name ?? guest.name} width={guest.cut.width} height={guest.cut.height} sizes="(min-width: 1024px) 22rem, 80vw" quality={85} /> : null}
+            {guest.m?.photo ? <Image src={guest.m.photo.src} alt={guest.m.photo.alt} fill sizes="(min-width: 1024px) 24rem, 90vw" quality={88} className={`object-cover ${guest.m.photo.position ?? "object-[50%_22%]"}`} /> : null}
           </div>
           <div className="gf-text">
             <p className="gf-kicker">{g.kicker}</p>
@@ -427,6 +429,88 @@ export function MomentStrip({ photos, caption }: { photos: StayPhoto[]; caption:
 }
 
 /**
+ * Ramadan in the Haram (Jibril, 19 Nov 2026): what the last ten nights hold, as photo cards on the night ground.
+ * Worship in the Haram, not a service Rawdah sells (meals stay as the questions say). Swipe on phones.
+ */
+export function HaramNights({ n }: { n: NonNullable<Journey["nights"]> }) {
+  return (
+    <section id="nights" className={`trip-anchor pt-[clamp(3.75rem,9vw,8rem)] ${gutter}`}>
+      <Label>{n.label}</Label>
+      <Heading className="mt-4 max-w-[44rem] text-[clamp(2.3rem,4.2vw,4rem)]">{n.title}</Heading>
+      <p className="mt-4 max-w-[34rem] text-[1rem] leading-[1.65] text-ink/72">{n.intro}</p>
+      <ul className="nights-row mt-9 sm:mt-12">
+        {n.items.map((it) => (
+          <li key={it.title}>
+            <StayFrame photo={it.photo ?? { slot: it.slot }} className="aspect-[4/5]" sizes="(min-width: 1024px) 22rem, 75vw" />
+            <h3 className="display mt-4 text-[1.6rem] leading-tight">{it.title}</h3>
+            <p className="mt-1.5 text-[0.95rem] leading-relaxed text-ink/70">{it.text}</p>
+          </li>
+        ))}
+      </ul>
+    </section>
+  );
+}
+
+/** Rawdah's earlier trips: their posters, then a gallery of the groups (after The Umrah Company's past journeys). */
+export function PastTrips({ p }: { p: NonNullable<Journey["pastTrips"]> }) {
+  return (
+    <section className="mt-12 sm:mt-16">
+      <Heading className="text-[clamp(1.9rem,3.2vw,2.6rem)] leading-tight">{p.title}</Heading>
+      <ul className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-3">
+        {p.trips.map((t) => (
+          <li key={t.name} className="grid content-start">
+            {t.poster ? (
+              <div className="relative aspect-[4/5] overflow-hidden rounded-[1rem] shadow-[var(--shadow-lift)]">
+                <Image src={t.poster.src} alt={t.poster.alt} fill sizes="(min-width: 640px) 16rem, 45vw" className="object-cover" />
+              </div>
+            ) : null}
+            <p className="mt-3 font-medium leading-snug">{t.name}</p>
+            <p className="text-[0.875rem] text-ink/62">{t.dates}</p>
+            <p className="mt-1.5 text-[0.9rem] leading-snug text-ink/72">{t.line}</p>
+            {t.href ? (
+              <a href={t.href} className="mt-2 text-[0.9rem] underline underline-offset-4">
+                More on this trip
+              </a>
+            ) : null}
+          </li>
+        ))}
+        {p.toCome ? (
+          <li>
+            <StayFrame photo={{ slot: p.toCome }} className="aspect-[4/5] rounded-[1rem]! shadow-none! sm:rounded-[1rem]!" sizes="16rem" />
+          </li>
+        ) : null}
+      </ul>
+      <ul className="past-gallery mt-8">
+        {p.photos.map((ph) => (
+          <li key={ph.src}>
+            <StayFrame photo={ph} className="aspect-[4/3] rounded-[1rem]! sm:rounded-[1rem]!" sizes="(min-width: 1024px) 14rem, 78vw" />
+          </li>
+        ))}
+      </ul>
+    </section>
+  );
+}
+
+/** The other campaign at the foot of the page (Ramadan → Hajj 2027, Jibril 19 Nov 2026). */
+export function OtherTripBand({ o }: { o: NonNullable<Journey["otherTrip"]> }) {
+  return (
+    <section className={`py-[clamp(3rem,7vw,5.5rem)] ${gutter}`}>
+      <div className="other-trip">
+        <div>
+          <p className="gf-kicker">{o.label}</p>
+          <p className="other-trip-title">{o.title}</p>
+          <p className="mt-3 max-w-[30rem] text-[1rem] leading-relaxed text-[rgb(241_238_230/0.82)]">{o.text}</p>
+        </div>
+        <a href={o.href} className="gf-cta shrink-0">
+          {o.cta}
+          <Chevron className="size-3" />
+        </a>
+      </div>
+    </section>
+  );
+}
+
+/**
  * Rawdah's own groups from earlier trips, as proof (Jibril, 19 Nov 2026), whole pictures with everyone in frame.
  * Phones: a row to swipe; desktop: three side by side.
  */
@@ -465,6 +549,8 @@ const plane = "M10.5 13.5 3 11l1.5-1.5 8 1 4-4.5a2 2 0 0 1 3 3l-4.5 4 1 8L15.5 2
 const building = "M4 21V5l8-2v18M12 21h8V9l-8-2M8 8h.01M8 12h.01M8 16h.01M16 12h.01M16 16h.01";
 const moon = "M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z";
 const alert = "M12 4 2.5 20h19L12 4zM12 10v4.5M12 17.5h.01";
+const walker = "M13 4.5a1.5 1.5 0 1 0 0-.01M9.5 21l2-6.5 2.5 2.5V21M8 12.5l2-4.5 3.5 1 2 3.5 2.5 1M11.5 8 9 15";
+const bus = "M5 17V6a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v11M5 13h14M5 17h14M7.5 20v-3M16.5 20v-3M8 15h.01M16 15h.01M5 8h14";
 
 
 function Rows({ rows }: { rows: { k: string; v: string }[] }) {
@@ -579,6 +665,22 @@ export function TripJourney({ j }: { j: Journey }) {
               <p className="mt-2">
                 <span className="text-[1.05rem] tracking-[0.1em] text-gold" aria-label={`${h.stars} stars`}>{"★".repeat(h.stars)}</span>
               </p>
+              {h.walk ? (
+                <p className="hotel-walk">
+                  <Glyph d={h.walk.by === "foot" ? walker : bus} className="size-4" />
+                  {h.walk.text}
+                </p>
+              ) : null}
+              {h.about ? <p className="mt-4 text-[0.98rem] leading-relaxed text-ink/75">{h.about}</p> : null}
+              {h.features ? (
+                <ul className="mt-4 flex flex-wrap gap-1.5">
+                  {h.features.map((f) => (
+                    <li key={f} className={pill}>
+                      {f}
+                    </li>
+                  ))}
+                </ul>
+              ) : null}
               <Rows rows={h.rows} />
               {h.note ? <p className="mt-3 text-[0.875rem] text-ink/62">{h.note}</p> : null}
             </div>
@@ -719,10 +821,7 @@ function PackageGrid({ j }: { j: Journey }) {
       <div className="glass mt-6 rounded-[1.5rem] p-5 sm:p-7">
         {j.endedOffer ? (
           <p className="mb-4 text-[0.9rem] text-ink/62">
-            <s className="decoration-ink/50">
-              {j.endedOffer.label} {gbp(j.endedOffer.price)}
-            </s>{" "}
-            has ended. These are the final prices, per person.
+            {j.endedOffer.label} prices ({gbp(j.endedOffer.off)} off every package) have ended: they’re crossed out beside today’s prices, per person.
           </p>
         ) : null}
         <table className="w-full text-[0.95rem] tabular-nums">
@@ -749,6 +848,7 @@ function PackageGrid({ j }: { j: Journey }) {
                   const r = at(f, n);
                   return (
                     <td key={String(f)} className="py-3 pl-3 text-right">
+                      {r && j.endedOffer ? <s className="block text-[0.875rem] text-ink/50">{gbp(r.price - j.endedOffer.off)}</s> : null}
                       <span className="display text-[clamp(1.45rem,4.6vw,2rem)] leading-none text-ink">{r ? gbp(r.price) : "–"}</span>
                     </td>
                   );
