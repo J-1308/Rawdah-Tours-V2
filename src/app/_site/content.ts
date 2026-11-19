@@ -95,7 +95,8 @@ export const routes = {
 } as const;
 
 /** Where the "join" panel sits on a trip page, and the register form below it. */
-export const anchors = { join: "join", form: "register-interest" } as const;
+/** `joinDesktop`: on poster trips, the join panel beside the story on desktop; `join` is then the phone copy after the prices. */
+export const anchors = { join: "join", joinDesktop: "join-desktop", form: "register-interest" } as const;
 
 export const tripLinks = [
   { label: "Hajj 2027", note: "Registration of interest open", href: routes.hajj },

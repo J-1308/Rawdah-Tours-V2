@@ -149,7 +149,10 @@ script in `app/layout.tsx` sets before first paint unless the visitor prefers re
   booking works as numbered steps by the form (`steps`, `.booking-steps`). Packages on poster trips (`PosterPackages`):
   the poster's "Installment plan available" lettering and one tile per payment (`.plan-tiles`), then cards with a
   with-flights / ground-only switch (`PackageCards`, `.pkg-*`), each card's button filling the form with its package;
-  the poster's Saudia and Haramain train photos with white labels over what's included (`.showcase`). In one-page
+  the poster's Saudia and Haramain train photos with white labels over what's included (`.showcase`, phones only). On
+  phones the join panel comes after the prices, not after the hero, so the story comes first (19 Nov 2026): the desktop
+  panel is `#join-desktop` beside the story, the phone copy is `#join`, and `page-watch.tsx` sends "#join" links to
+  whichever is showing; the phone bar waits until the hero's price box has scrolled away. In one-page
   mode the whole site wears the poster: `<html data-skin="1448">` turns the top strip, header and footer from cocoa
   to the poster's olive and stone, the logo stone, and the browser bar olive (`layout.tsx`, `globals.css`). One-page header: call, logo, WhatsApp on
   phones; the trip, logo, WhatsApp and "Book your place" on desktop (`src/lib/site-mode.ts`); what's included as photo cards (`IncludedCards`, `plan.cards`, "Photo to come" frames until Jibril
