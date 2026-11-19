@@ -1,5 +1,5 @@
 import Image from "next/image";
-import type { ReactNode } from "react";
+import type { CSSProperties, ReactNode } from "react";
 
 /**
  * The poster's mist: three soft clouds drifting very slowly over the stone, and the crescent from the top of the
@@ -104,11 +104,17 @@ export function PosterPerks({ perks, className = "" }: { perks: Perk[]; classNam
 /* ------------------------------------------------------------------------ */
 /* The poster's team row: round portraits, the role in small capitals over the name (19 Nov 2026). */
 
-export type PosterPerson = { label: string; name: string; note?: string; photo?: { src: string; alt: string; position?: string } };
+export type PosterPerson = {
+  label: string;
+  name: string;
+  note?: string;
+  photo?: { src: string; alt: string; position?: string };
+  cut?: { src: string; width: number; height: number };
+};
 
 export function PosterTeam({ people, className = "" }: { people: PosterPerson[]; className?: string }) {
   return (
-    <ul className={`poster-team ${className}`}>
+    <ul className={`poster-team ${className}`} style={{ "--n": people.length } as CSSProperties}>
       {people.map((p) => (
         <li key={p.name} className="poster-person">
           <span className="poster-face">
@@ -120,6 +126,30 @@ export function PosterTeam({ people, className = "" }: { people: PosterPerson[];
         </li>
       ))}
     </ul>
+  );
+}
+
+/**
+ * The people standing in the poster hero (Jibril, 19 Nov 2026: "our sheikhs" in the empty desktop hero, Sheikh Yahya
+ * blended into the phone hero). Their portraits cut out of the background, fading into the mist at the shoulders
+ * and below, with the role and name over the fade. Desktop: either side of the artwork. Phone: Sheikh Yahya inside it.
+ */
+export function HeroFigures({ people, className = "", delay = 450 }: { people: PosterPerson[]; className?: string; delay?: number }) {
+  return (
+    <div className={className}>
+      {people.map((p, i) =>
+        p.cut ? (
+          <figure key={p.name} className="ph-figure follow" style={{ "--d": `${delay + i * 120}ms` } as CSSProperties}>
+            <Image src={p.cut.src} alt={`${p.label} ${p.name}`} width={p.cut.width} height={p.cut.height} sizes="(min-width: 1024px) 24rem, 45vw" quality={85} />
+            <figcaption>
+              <span className="poster-role">{p.label}</span>
+              <span className="ph-figure-name">{p.name}</span>
+              {p.note ? <span className="ph-figure-note">{p.note}</span> : null}
+            </figcaption>
+          </figure>
+        ) : null,
+      )}
+    </div>
   );
 }
 

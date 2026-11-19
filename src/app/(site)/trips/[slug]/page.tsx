@@ -11,7 +11,7 @@ import { anchors, brand, covers, faqs, fromPrice, gbp, hajjNusuk, journey, journ
 import { CoverGroups, FaqList, PaymentPlan, Tick } from "@/app/_site/home-sections";
 import { Mark } from "@/app/_site/marks";
 import { ArrivalTrigger } from "@/app/_site/arrival-trigger";
-import { Arrival, HeroOffer, Mist, PosterTeam } from "@/app/_site/poster-parts";
+import { Arrival, HeroFigures, HeroOffer, Mist, PosterTeam } from "@/app/_site/poster-parts";
 import { PosterLockup, PosterText } from "@/app/_site/poster-type";
 import { StepForm } from "@/app/_site/step-form";
 import { ReservePanel } from "@/app/_site/reserve";
@@ -113,7 +113,9 @@ export function TripView({ j }: { j: Journey }) {
   const shownAbove = ["What is included in the trip cost?", "What is the trip itinerary like?", "What about meal arrangements?"];
   const qs = faqs.filter((f) => (j.kind === "hajj" ? f.topic === "hajj" : f.topic !== "hajj") && !(j.plan && shownAbove.includes(f.q)));
   const joinLabel = j.state === "open" ? "Book your place" : "Register interest";
-  const posterPeople = (j.posterTeam ?? []).map((p) => ({ label: p.label, name: p.name, note: p.note, photo: members.find((m) => m.name === p.ref)?.photo }));
+  const posterPeople = (j.posterTeam ?? []).map((p) => ({ label: p.label, name: p.name, note: p.note, cut: p.cut, photo: members.find((m) => m.name === p.ref)?.photo }));
+  /** The special guest, first on the poster: inside the artwork on phones, on the left of it on desktop. */
+  const [guest, ...withGuest] = posterPeople;
   const ground = Math.min(...(j.rooms?.value ?? []).filter((r) => r.flights === false).map((r) => r.price));
   const offer = price ? <HeroOffer from={gbp(price)} ended={j.endedOffer ? `${j.endedOffer.label} ${gbp(j.endedOffer.price)}` : undefined} ground={Number.isFinite(ground) ? gbp(ground) : undefined} phone={brand.phone} /> : null;
   if (j.posterType) {
@@ -150,43 +152,64 @@ export function TripView({ j }: { j: Journey }) {
               one line, the price and the people. Less to read; the artwork does the work. */}
           <section className={`poster-hero wash-hero relative overflow-hidden pb-[clamp(2.5rem,7vw,5rem)] ${gutter}`}>
             <Mist />
-            <div className="ph-art">
-              <span className="ph-tab ph-tab-l follow" style={{ "--d": "250ms" } as CSSProperties}>
-                <b>14</b>
-                <small>Nights</small>
-              </span>
-              <span className="ph-tab ph-tab-r follow" style={{ "--d": "350ms" } as CSSProperties}>
-                <b>Eid</b>
-                <small>
-                  <em>in the</em> Blessed lands
-                </small>
-              </span>
-              <Image src="/images/brand/ramadan-1448-art-cut.png" alt="The Ka‘bah and the clock tower above Masjid al-Haram, from the GGC × Rawdah poster." width={830} height={622} priority sizes="(min-width: 1024px) 40rem, 100vw" className="ph-art-img settle" />
+            {/* Desktop: the special guest on the left of the artwork, the guide and the ustadh on the right (Jibril,
+                19 Nov 2026: the desktop hero looked empty). Phones: both tablets' words in the left one, and Sheikh
+                Yahya standing on the right inside the artwork. */}
+            <div className="ph-stage">
+              {guest ? <HeroFigures className="ph-flank ph-flank-l" people={[guest]} /> : null}
+              <div className="ph-art">
+                <span className="ph-tab ph-tab-l follow" style={{ "--d": "250ms" } as CSSProperties}>
+                  <span className="ph-face">
+                    <b>14</b>
+                    <small>Nights</small>
+                  </span>
+                  {/* Phones: the right tablet's words take turns with these (globals.css, tab-swap). */}
+                  <span className="ph-face ph-face-b">
+                    <b>Eid</b>
+                    <small>
+                      <em>in the</em> Blessed lands
+                    </small>
+                  </span>
+                </span>
+                <span className="ph-tab ph-tab-r follow" style={{ "--d": "350ms" } as CSSProperties}>
+                  <b>Eid</b>
+                  <small>
+                    <em>in the</em> Blessed lands
+                  </small>
+                </span>
+                <Image src="/images/brand/ramadan-1448-art-cut.png" alt="The Ka‘bah and the clock tower above Masjid al-Haram, from the GGC × Rawdah poster." width={830} height={622} priority sizes="(min-width: 1024px) 36rem, 100vw" className="ph-art-img settle" />
+                {guest ? <HeroFigures className="ph-guest" people={[guest]} delay={400} /> : null}
+              </div>
+              {withGuest.length ? <HeroFigures className="ph-flank ph-flank-r" people={withGuest} delay={550} /> : null}
             </div>
             <div className="ph-text">
               <Heading as="h1" className="poster-lockup poster-rise">
                 <PosterLockup year="1448" word="Ramadan" line="Last 10 nights" />
               </Heading>
-              <p style={{ "--d": "700ms" } as CSSProperties} className="poster-date follow mt-3">
+              <div className="lg:mt-2 lg:flex lg:items-center lg:justify-center lg:gap-6">
+              <p style={{ "--d": "700ms" } as CSSProperties} className="poster-date follow mt-3 lg:mt-0">
                 {j.dates.value.replace(/\bFeb\b/, "February").replace(/\bMar\b/, "March")}
               </p>
               {j.partnerLogo ? (
-                <p style={{ "--d": "800ms" } as CSSProperties} className="follow mt-4 flex items-center justify-center gap-3 text-[0.95rem] text-ink/70">
+                <p style={{ "--d": "800ms" } as CSSProperties} className="follow mt-4 flex items-center justify-center gap-3 text-[0.95rem] text-ink/70 lg:mt-0">
                   <PartnerLogo logo={j.partnerLogo} className="h-6 text-ink/85" />
                   <span aria-hidden className="h-5 w-px bg-ink/20" />
                   <span className="font-editorial text-[1.1rem] italic">with GGC</span>
                 </p>
               ) : null}
-              <p style={{ "--d": "880ms" } as CSSProperties} className="follow mx-auto mt-4 max-w-[30rem] font-editorial text-[clamp(1.3rem,4.6vw,1.65rem)] leading-snug text-ink/75 italic">
+              </div>
+              <p style={{ "--d": "880ms" } as CSSProperties} className="follow mx-auto mt-4 max-w-[30rem] lg:mt-3 lg:max-w-[44rem] font-editorial text-[clamp(1.3rem,4.6vw,1.65rem)] leading-snug text-ink/75 italic">
                 {j.heroLine ?? j.tagline}
               </p>
-              <div style={{ "--d": "960ms" } as CSSProperties} className="follow mx-auto max-w-[34rem] text-left">
+              {/* The price and the button together (desktop: side by side), then, on phones, the two people not
+                  already standing in the artwork. */}
+              <div style={{ "--d": "960ms" } as CSSProperties} className="ph-buy follow mx-auto text-left">
                 {offer}
+                <a href={`#${anchors.join}`} className="btn-ink ph-buy-btn flex min-h-[3.25rem] items-center justify-center gap-2 rounded-[0.95rem] text-[0.95rem] font-medium">
+                  {joinLabel} <Chevron dir="down" className="size-3 opacity-70" />
+                </a>
               </div>
-              <PosterTeam className="ph-team follow mx-auto mt-7 max-w-[26rem]" people={posterPeople} />
-              <a href={`#${anchors.join}`} className="btn-ink mx-auto mt-7 flex min-h-[3.25rem] max-w-[22rem] items-center justify-center gap-2 rounded-[0.95rem] text-[0.95rem] font-medium">
-                {joinLabel} <Chevron dir="down" className="size-3 opacity-70" />
-              </a>
+              {withGuest.length ? <PosterTeam className="ph-team follow mx-auto mt-8 max-w-[18rem] lg:hidden" people={withGuest} /> : null}
             </div>
           </section>
         </Chapter>

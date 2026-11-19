@@ -648,7 +648,8 @@ export type Journey = {
   /** Poster trips: one short line under the title in the hero. */
   heroLine?: string;
   /** The team row as on the poster (ref = the person's full name in the team data). */
-  posterTeam?: { label: string; name: string; note?: string; ref: string }[];
+  /** `cut`: the portrait cut out of its background, for the poster hero (public/images/portraits/cut). */
+  posterTeam?: { label: string; name: string; note?: string; ref: string; cut?: { src: string; width: number; height: number } }[];
   /** Overrides the usual state label, e.g. "Coming soon" on the Ramadan teaser. */
   stateText?: string;
   dates: V;
@@ -752,9 +753,9 @@ export const ramadanFull: Journey = {
     },
     /** The team as on the poster: role in capitals over the name (19 Nov 2026). */
     posterTeam: [
-      { label: "Sheikh", name: "Yahya Raaby", note: "Special guest", ref: "Sheikh Yahya Raaby" },
-      { label: "Guided by", name: "Ayuub Musa", ref: "Brother Ayuub Mohamed Musa" },
-      { label: "Ustadh", name: "Issa Uthman", ref: "Ustadh Issa Uthman" },
+      { label: "Sheikh", name: "Yahya Raaby", note: "Special guest", ref: "Sheikh Yahya Raaby", cut: { src: "/images/portraits/cut/yahya-raaby.png", width: 800, height: 1000 } },
+      { label: "Guided by", name: "Ayuub Musa", ref: "Brother Ayuub Mohamed Musa", cut: { src: "/images/portraits/cut/ayuub-mohamed-musa.png", width: 640, height: 743 } },
+      { label: "Ustadh", name: "Issa Uthman", ref: "Ustadh Issa Uthman", cut: { src: "/images/portraits/cut/issa-uthman.png", width: 890, height: 1000 } },
     ],
     partner: "GGC × Rawdah Tours",
     partnerLogo: { src: "/images/brand/partners/ggc.png", width: 300, height: 100, alt: "Global Guidance Center (GGC)" },
