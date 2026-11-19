@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import type { CSSProperties } from "react";
 import { preload } from "react-dom";
 import Link from "next/link";
@@ -10,7 +11,7 @@ import { anchors, brand, covers, faqs, fromPrice, gbp, hajjNusuk, journey, journ
 import { CoverGroups, FaqList, PaymentPlan, Tick } from "@/app/_site/home-sections";
 import { Mark } from "@/app/_site/marks";
 import { ArrivalTrigger } from "@/app/_site/arrival-trigger";
-import { Arrival, HeroElements, HeroOffer, Mist } from "@/app/_site/poster-parts";
+import { Arrival, HeroOffer, Mist, PosterTeam } from "@/app/_site/poster-parts";
 import { PosterLockup, PosterText } from "@/app/_site/poster-type";
 import { StepForm } from "@/app/_site/step-form";
 import { ReservePanel } from "@/app/_site/reserve";
@@ -112,6 +113,7 @@ export function TripView({ j }: { j: Journey }) {
   const shownAbove = ["What is included in the trip cost?", "What is the trip itinerary like?", "What about meal arrangements?"];
   const qs = faqs.filter((f) => (j.kind === "hajj" ? f.topic === "hajj" : f.topic !== "hajj") && !(j.plan && shownAbove.includes(f.q)));
   const joinLabel = j.state === "open" ? "Book your place" : "Register interest";
+  const posterPeople = (j.posterTeam ?? []).map((p) => ({ label: p.label, name: p.name, note: p.note, photo: members.find((m) => m.name === p.ref)?.photo }));
   const ground = Math.min(...(j.rooms?.value ?? []).filter((r) => r.flights === false).map((r) => r.price));
   const offer = price ? <HeroOffer from={gbp(price)} ended={j.endedOffer ? `${j.endedOffer.label} ${gbp(j.endedOffer.price)}` : undefined} ground={Number.isFinite(ground) ? gbp(ground) : undefined} phone={brand.phone} /> : null;
   if (j.posterType) {
@@ -142,15 +144,59 @@ export function TripView({ j }: { j: Journey }) {
         </>
       ) : null}
       <TripPhoneBar j={j} price={price} deposit={trip?.pricing ? trip.pricing.depositPence / 100 : null} bookable={bookable} />
-      <Chapter tone={j.posterType ? "day" : "top"}>
+      {j.posterType ? (
+        <Chapter tone="day">
+          {/* The head on the poster's terms (Jibril, 19 Nov 2026): centred, the image first, then the title, the dates,
+              one line, the price and the people. Less to read; the artwork does the work. */}
+          <section className={`poster-hero wash-hero relative overflow-hidden pb-[clamp(2.5rem,7vw,5rem)] ${gutter}`}>
+            <Mist />
+            <div className="ph-art">
+              <span className="ph-tab ph-tab-l follow" style={{ "--d": "250ms" } as CSSProperties}>
+                <b>14</b>
+                <small>Nights</small>
+              </span>
+              <span className="ph-tab ph-tab-r follow" style={{ "--d": "350ms" } as CSSProperties}>
+                <b>Eid</b>
+                <small>
+                  <em>in the</em> Blessed lands
+                </small>
+              </span>
+              <Image src="/images/brand/ramadan-1448-art-cut.png" alt="The Ka‘bah and the clock tower above Masjid al-Haram, from the GGC × Rawdah poster." width={830} height={622} priority sizes="(min-width: 1024px) 40rem, 100vw" className="ph-art-img settle" />
+            </div>
+            <div className="ph-text">
+              <Heading as="h1" className="poster-lockup poster-rise">
+                <PosterLockup year="1448" word="Ramadan" line="Last 10 nights" />
+              </Heading>
+              <p style={{ "--d": "700ms" } as CSSProperties} className="poster-date follow mt-3">
+                {j.dates.value.replace(/\bFeb\b/, "February").replace(/\bMar\b/, "March")}
+              </p>
+              {j.partnerLogo ? (
+                <p style={{ "--d": "800ms" } as CSSProperties} className="follow mt-4 flex items-center justify-center gap-3 text-[0.95rem] text-ink/70">
+                  <PartnerLogo logo={j.partnerLogo} className="h-6 text-ink/85" />
+                  <span aria-hidden className="h-5 w-px bg-ink/20" />
+                  <span className="font-editorial text-[1.1rem] italic">with GGC</span>
+                </p>
+              ) : null}
+              <p style={{ "--d": "880ms" } as CSSProperties} className="follow mx-auto mt-4 max-w-[30rem] font-editorial text-[clamp(1.3rem,4.6vw,1.65rem)] leading-snug text-ink/75 italic">
+                {j.heroLine ?? j.tagline}
+              </p>
+              <div style={{ "--d": "960ms" } as CSSProperties} className="follow mx-auto max-w-[34rem] text-left">
+                {offer}
+              </div>
+              <PosterTeam className="ph-team follow mx-auto mt-7 max-w-[26rem]" people={posterPeople} />
+              <a href={`#${anchors.join}`} className="btn-ink mx-auto mt-7 flex min-h-[3.25rem] max-w-[22rem] items-center justify-center gap-2 rounded-[0.95rem] text-[0.95rem] font-medium">
+                {joinLabel} <Chevron dir="down" className="size-3 opacity-70" />
+              </a>
+            </div>
+          </section>
+        </Chapter>
+      ) : (
+      <Chapter tone="top">
       <PageLead
         crumbs={[{ label: "Home", href: "/" }, { label: "Trips", href: routes.trips }, { label: j.name }]}
         title={j.posterType ? <PosterLockup year="1448" word="Ramadan" line="Last 10 nights" /> : j.name}
         backdrop={j.posterType ? <Mist /> : undefined}
         crumbsClassName={j.posterType ? "max-sm:hidden" : undefined}
-        // The head on the poster's terms (Jibril chose "elements" of four versions, 19 Nov 2026): its artwork with our
-        // words in its tablets, the offer, its team portraits.
-        photoSlot={j.posterType ? <HeroElements offer={offer} /> : undefined}
         titleClassName={j.posterType ? "poster-lockup poster-rise" : undefined}
         photos={[{ src: j.photo.src, alt: j.photo.alt, position: j.photo.position }, ...j.more]}
       >
@@ -195,6 +241,7 @@ export function TripView({ j }: { j: Journey }) {
         </a>
       </PageLead>
       </Chapter>
+      )}
 
       <Chapter tone="day">
       <div className={`grid grid-cols-1 gap-x-14 gap-y-12 py-[clamp(2.5rem,5vw,4.5rem)] lg:grid-cols-12 ${gutter}`}>
@@ -219,11 +266,24 @@ export function TripView({ j }: { j: Journey }) {
 
         <div className="min-w-0 lg:order-1 lg:col-span-8">
           <section>
+            {j.about ? (
+              // Poster trips: a picture, a title, two sentences (Jibril: less to read, 19 Nov 2026).
+              <>
+                <div className="relative aspect-[4/3] overflow-hidden rounded-[1.5rem] shadow-[var(--shadow-lift)] sm:aspect-[16/10]">
+                  <Image src={j.photo.src} alt={j.photo.alt} fill sizes="(min-width: 1024px) 50rem, 100vw" className={`object-cover ${j.photo.position ?? ""}`} />
+                </div>
+                <Heading className={`${h2} mt-7`}>{j.about.title}</Heading>
+                <p className="mt-3 max-w-[38rem] text-[1.05rem] leading-relaxed text-ink/75">{j.about.text}</p>
+              </>
+            ) : (
+              <>
             <Heading className={h2}>About this trip</Heading>
             <p className="mt-4 max-w-[44rem] font-editorial text-[clamp(1.25rem,2vw,1.8rem)] leading-[1.5] sm:leading-[1.45]">
               {j.intro}
               <Mark s={j.introStatus} />
             </p>
+              </>
+            )}
             {j.plan ? null : <ul className="glass-phone mt-6 grid grid-cols-1 rounded-[1.25rem] px-4 py-1 [--glass-shadow:none] sm:mt-7 sm:grid-cols-2 sm:gap-1.5 sm:p-0">
               {j.highlights.map((h, i) => (
                 <li key={h.value} className={`glass-wide flex items-start gap-3 py-3 text-[0.95rem] sm:rounded-[1.1rem] sm:px-4 sm:py-3.5 ${i ? "border-t border-ink/8" : ""}`}>
@@ -310,7 +370,7 @@ export function TripView({ j }: { j: Journey }) {
                 <section className="mt-12 sm:mt-16">
                   <Heading className={h2}>The people who will walk with you</Heading>
                   {j.posterTeam ? <PosterTeamBlock j={j} members={members} /> : <TeamList members={members} cols="lg:grid-cols-3" className="mt-8" />}
-                  <TeamLine />
+                  {j.posterTeam ? null : <TeamLine />}
                 </section>
               </>
             ) : j.kind === "umrah" ? (

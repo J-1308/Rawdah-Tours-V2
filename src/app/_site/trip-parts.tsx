@@ -2,7 +2,7 @@ import Image from "next/image";
 import { HotelGallery } from "./hotel-gallery";
 import { Fragment } from "react";
 
-import { PosterPerks, PosterTeam } from "@/app/_site/poster-parts";
+import { PosterPerks } from "@/app/_site/poster-parts";
 import { anchors, gbp, hajjNusuk, journeyStay, leader, people, say, teachers, trust, wa, type Journey, type Status, type StayPhoto, type TripPlan } from "@/app/_site/content";
 import { Mark } from "@/app/_site/marks";
 import { Emblem, gutter, Heading, Label, Tick } from "@/app/_site/shell";
@@ -71,8 +71,18 @@ export function PosterTeamBlock({ j, members }: { j: Journey; members: Member[] 
   const rows = (j.posterTeam ?? []).map((p) => ({ ...p, m: members.find((m) => m.name === p.ref) }));
   return (
     <>
-      <PosterTeam className="mt-8" people={rows.map((r) => ({ label: r.label, name: r.name, note: r.note, photo: r.m?.photo }))} />
-      <div className="mt-8 grid gap-1 border-t border-ink/10 pt-3">
+      {/* The faces lead the page (the hero); here, the fuller notes (19 Nov 2026). */}
+      <p className="mt-4 max-w-[36rem] text-[1rem] leading-relaxed text-ink/72">
+        {rows.map((r, i) => (
+          <span key={r.ref}>
+            {i ? (i === rows.length - 1 ? " and " : ", ") : null}
+            <span className="font-medium text-ink">{r.m?.name ?? r.name}</span>
+            {r.note ? ` (${r.note.toLowerCase()})` : null}
+          </span>
+        ))}
+        .
+      </p>
+      <div className="mt-5 grid gap-1 border-t border-ink/10 pt-3">
         {rows
           .filter((r) => r.m?.more)
           .map((r) => (

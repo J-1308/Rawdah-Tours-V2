@@ -643,6 +643,10 @@ export type Journey = {
   endedOffer?: { label: string; price: number };
   /** Titles in the GGC poster lettering (Ramadan Umrah 2027). */
   posterType?: boolean;
+  /** Poster trips: the about block as a photo, a short title and two sentences (less to read, 19 Nov 2026). */
+  about?: { title: string; text: string };
+  /** Poster trips: one short line under the title in the hero. */
+  heroLine?: string;
   /** The team row as on the poster (ref = the person's full name in the team data). */
   posterTeam?: { label: string; name: string; note?: string; ref: string }[];
   /** Overrides the usual state label, e.g. "Coming soon" on the Ramadan teaser. */
@@ -741,6 +745,11 @@ export const ramadanFull: Journey = {
     kind: "umrah",
     name: "Ramadan Umrah 2027",
     posterType: true,
+    heroLine: "The last ten nights in Makkah, then Eid and four nights in Madinah.",
+    about: {
+      title: "Ramadan in Makkah, Eid in Madinah",
+      text: "Fly from Heathrow on 27 February, straight to Makkah for the last ten nights of Ramadan. Then Eid in the blessed lands and four nights in Madinah, home on 13 March.",
+    },
     /** The team as on the poster: role in capitals over the name (19 Nov 2026). */
     posterTeam: [
       { label: "Sheikh", name: "Yahya Raaby", note: "Special guest", ref: "Sheikh Yahya Raaby" },
@@ -884,11 +893,7 @@ export const ramadanFull: Journey = {
       ],
       includesNote: "Ground only covers the hotels and ground transport. You book your own flights.",
       /** Under the icon row on poster trips: what the icons don't say. */
-      perksAlso: [
-        v("9 nights at Novotel Thakher City Makkah and 4 at Al Manakha Rotana, Madinah, both 4★", "confirmed"),
-        v("Saudia from Heathrow, with 7kg hand luggage as well as 2 × 23kg checked", "confirmed"),
-        v("Sheikh Yahya Raaby, Ustadh Issa Uthman and the Rawdah Tours team with the group", "confirmed"),
-      ],
+      perksAlso: [v("9 nights at Novotel Thakher City Makkah and 4 at Al Manakha Rotana, Madinah, both 4★", "confirmed")],
       places: v("Up to 60 places: around 30 with flights and 30 ground only", "confirmed"),
     },
     /* A Rawdah group for now; an Umrah poster from Rawdah will replace it (Jibril, 17 Nov 2026). */

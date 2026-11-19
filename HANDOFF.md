@@ -116,9 +116,11 @@ stay Rawdah's). From the rest of the poster: the lockup now reads LAST 10 NIGHTS
 "we may spend Eid travelling": go with the poster); the icon row of what's included; Sheikh Yahya Raaby as special
 guest (portrait cropped from Jibril's photo) in a poster-style team row; final prices in a flights × room grid with the
 early bird crossed out (ground only is an enquiry); its own opening when arriving from another page. Of four heads
-(group photo, the poster's artwork, the cleaned poster itself, poster elements) Jibril chose **elements**: the
-poster's Ka‘bah artwork with live text in its tablets, the olive price panel with the Saudia mark, the ground package,
-and the poster's team portraits. The others and the switch are gone.
+Jibril chose poster **elements**, then asked (19 Nov) for our own portraits instead of the poster's crop, a centred
+hero with the image first, seamless edges, and far less text across the page ("people don't want to read"). The head
+is now: the poster's Ka‘bah artwork cut out of its background, frosted tablets with live text, the live lockup,
+dates, GGC, one line, the price panels, our round portraits, the button. The about block is a photo, a title and two
+sentences. The idea, for the rest of the site: a good image, then a strong title and a little text.
 
 ## What's next
 

@@ -610,18 +610,6 @@ html.motion[data-arrival] .arrival {
 @keyframes arrival-year { from { opacity: 0; letter-spacing: 0.9em; margin-right: -0.9em; } }
 @keyframes arrival-out { from { clip-path: inset(0 0 0 0); } to { clip-path: inset(0 0 100% 0); visibility: hidden; } }
 
-/* The head (elements of the poster): on phones the artwork runs edge to edge; every piece fades into the stone. */
-@media (max-width: 63.98rem) {
-  .skin-1448 .el-art { margin-inline: calc(50% - 50vw); }
-  .lead-photo > .hero-elements { aspect-ratio: auto !important; }
-}
-.el-art img, .el-team {
-  -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 9%, #000 91%, transparent 100%), linear-gradient(to bottom, transparent 0%, #000 7%, #000 88%, transparent 100%);
-  -webkit-mask-composite: source-in;
-  mask-image: linear-gradient(to right, transparent 0%, #000 9%, #000 91%, transparent 100%), linear-gradient(to bottom, transparent 0%, #000 7%, #000 88%, transparent 100%);
-  mask-composite: intersect;
-}
-
 /* The offer (the poster's bottom bar, live): olive panel with price and Saudia; the ground package beside it. */
 .hero-offer { display: grid; gap: 0.6rem; margin-top: 1rem; }
 @media (min-width: 30rem) { .hero-offer { grid-template-columns: 1.25fr 1fr; } }
@@ -639,16 +627,29 @@ html.motion[data-arrival] .arrival {
 .offer-ground-r { display: flex; align-items: baseline; gap: 0.6rem; font-size: 0.875rem; font-weight: 700; letter-spacing: 0.1em; }
 .offer-ground-price { font-size: 1.7rem; letter-spacing: 0.01em; }
 
-/* Elements: the poster's artwork with our words in its tablets, then the offer and its team portraits. */
-.el-art { position: relative; }
-.el-tab { position: absolute; top: 9%; display: grid; justify-items: center; transform: translateX(-50%); color: #4a4830; text-align: center; font-family: "Montserrat", "DM Sans", system-ui, sans-serif; text-transform: uppercase; width: 21%; }
-.el-tab b { font-size: clamp(1.9rem, 9vw, 3.4rem); font-weight: 700; line-height: 1; }
-.el-tab small { margin-top: 0.15rem; font-size: clamp(0.875rem, 2.4vw, 1.05rem); font-weight: 700; letter-spacing: 0.06em; line-height: 1.1; }
-.el-tab em { display: block; font-family: "Cormorant Garamond", Georgia, serif; font-weight: 500; text-transform: none; letter-spacing: 0; font-size: 1.1em; }
-.el-tab-l { left: 14.5%; }
-.el-tab-r { left: 60.6%; }
-@media (min-width: 64rem) { .el-tab b { font-size: 2.6rem; } }
-.el-team { display: block; margin: 1.25rem auto 0; width: min(100%, 30rem); height: auto; }
+/* The poster hero (Ramadan Umrah 2027): centred; the cut-out artwork first (edge to edge on phones), the poster's
+   frosted tablets behind its towers with our words, then the title, dates, one line, the offer and the people. */
+.poster-hero { text-align: center; }
+.ph-art { position: relative; margin-inline: calc(50% - 50vw); padding-top: 0.5rem; }
+@media (min-width: 64rem) { .ph-art { margin-inline: auto; width: min(100%, 40rem); padding-top: 1.5rem; } }
+.ph-art-img { position: relative; z-index: 1; display: block; width: 100%; height: auto; }
+.ph-tab {
+  position: absolute; z-index: 0; top: 4%; width: 22%; height: 46%;
+  display: grid; align-content: start; justify-items: center; padding-top: 5%;
+  border-radius: 1.5rem 1.5rem 0 0; border: 1px solid rgb(255 255 255 / 0.65); border-bottom: 0;
+  background: linear-gradient(180deg, rgb(255 255 255 / 0.6) 0%, rgb(255 255 255 / 0.18) 70%, rgb(255 255 255 / 0) 100%);
+  color: #4a4830; font-family: "Montserrat", "DM Sans", system-ui, sans-serif; text-transform: uppercase;
+}
+.ph-tab-l { left: 4%; }
+.ph-tab-r { right: 4%; }
+.ph-tab b { font-size: clamp(2rem, 9.5vw, 3.4rem); font-weight: 700; line-height: 1; }
+.ph-tab small { margin-top: 0.2rem; font-size: clamp(0.875rem, 2.5vw, 1.05rem); font-weight: 700; letter-spacing: 0.06em; line-height: 1.1; }
+.ph-tab em { display: block; font-family: "Cormorant Garamond", Georgia, serif; font-weight: 500; text-transform: none; letter-spacing: 0; font-size: 1.1em; }
+.ph-text { position: relative; z-index: 1; margin-top: 0.25rem; }
+.poster-hero .poster-lockup .poster-kicker { margin-bottom: 0.2em; }
+.ph-team .poster-face { width: min(100%, 5.75rem); }
+@media (min-width: 40rem) { .ph-team .poster-face { width: 7rem; } }
+.ph-team .poster-role { margin-top: 0.6rem; }
 
 /* The mist: big soft clouds, drifting by transform only. */
 .mist .cloud { position: absolute; border-radius: 50%; background: radial-gradient(closest-side, rgb(255 255 255 / 0.85), rgb(255 255 255 / 0)); }

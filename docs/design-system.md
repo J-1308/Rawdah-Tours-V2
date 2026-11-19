@@ -116,15 +116,16 @@ script in `app/layout.tsx` sets before first paint unless the visitor prefers re
   still below the screen at load are hidden, so nothing in view blinks; add `data-reveal` to opt anything else in.
 - **Buttons:** a light sweep across `.btn-sand` on hover. Photos zoom very slightly on hover.
 - **Poster skin (Ramadan Umrah 2027, 19 Nov 2026):** the page below the header takes the GGC poster's stone, mist
-  and olive (`.skin-1448`, tokens only; header and footer stay Rawdah's). The head: the poster's lockup as live text
-  (1448 / RAMADAN / LAST 10 NIGHTS, `PosterLockup`) and the dates in italic, then `HeroElements` (Jibril chose it of
-  four versions): the poster's Ka‘bah artwork, edge to edge on phones, with live text in its tablets (14 nights; Eid
-  in the blessed lands), the poster's bottom bar rebuilt live (`HeroOffer`: the olive price panel with the Saudia
-  mark and the ended early bird crossed out; the ground package to enquire), and the poster's team portraits.
-  Everything fades into the stone; drifting mist instead of the night sky. Olive type on light grounds, never the
-  poster's white on stone. Also from the poster: the icon row of what's included (`PosterPerks`, line icons drawn
-  for Rawdah), the team row (`PosterTeam`), and its own opening when arriving from another page of the site
-  (`Arrival`: stone, olive mark, 1448, then a curtain lift; `html[data-arrival]`).
+  and olive (`.skin-1448`, tokens only; header and footer stay Rawdah's). The head is its own centred hero
+  (`.poster-hero`), image first: the poster's Ka‘bah artwork cut out of its background (`ramadan-1448-art-cut.png`,
+  edge to edge on phones, so there is no box to fade), the poster's frosted tablets behind its towers with live text
+  (14 nights; Eid in the blessed lands), then the lockup as live text (1448 / RAMADAN / LAST 10 NIGHTS), the dates, a
+  GGC line, one short line (`heroLine`), the offer (`HeroOffer`: olive panel with the Saudia mark and the ended early
+  bird crossed out; the ground package to enquire), our own round portraits (`PosterTeam`) and the button. Less to
+  read (Jibril, 19 Nov 2026): the about block is a photo, a title and two sentences (`about`); the facts grid is gone
+  from the head; one line under the icon row; the team section is a line and the "More about" notes. Olive type on
+  light grounds, never the poster's white on stone. Also: the icon row (`PosterPerks`, line icons drawn for Rawdah)
+  and its own opening when arriving from another page (`Arrival`, `html[data-arrival]`).
 - **Ramadan Umrah 2027 only** (`posterType`; the page every Instagram link lands on, 17–18 Nov 2026): no opening on
   this page (the head script marks it played); a night sky with stars twinkling in three groups and a crescent
   (`night-sky.tsx`, fixed seed; paused off screen by `page-watch.tsx`) on the head; the title rises letter by letter
