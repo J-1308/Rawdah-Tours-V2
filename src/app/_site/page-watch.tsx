@@ -26,17 +26,22 @@ export function PageWatch() {
     const bar = document.querySelector<HTMLElement>('[data-placement="phone bar"]');
     const zones = ["join", "register-interest"].map((id) => document.getElementById(id)).filter((el): el is HTMLElement => Boolean(el));
     const seen = new Set<Element>();
-    const bars = new IntersectionObserver(
-      (es) => {
-        es.forEach((e) => (e.isIntersecting ? seen.add(e.target) : seen.delete(e.target)));
-        bar?.toggleAttribute("data-away", seen.size > 0);
-      },
-      { rootMargin: "0px 0px -35% 0px" },
-    );
-    if (bar) zones.forEach((z) => bars.observe(z));
+    const note = (es: IntersectionObserverEntry[]) => {
+      es.forEach((e) => (e.isIntersecting ? seen.add(e.target) : seen.delete(e.target)));
+      bar?.toggleAttribute("data-away", seen.size > 0);
+    };
+    const bars = new IntersectionObserver(note, { rootMargin: "0px 0px -35% 0px" });
+    // The poster hero's own price and button: the bar would cover and repeat it, so it waits until it has scrolled away.
+    const heroBuy = new IntersectionObserver(note);
+    if (bar) {
+      zones.forEach((z) => bars.observe(z));
+      const buy = document.querySelector(".ph-buy");
+      if (buy) heroBuy.observe(buy);
+    }
     return () => {
       skies.disconnect();
       bars.disconnect();
+      heroBuy.disconnect();
     };
   }, [path]);
   return null;

@@ -145,7 +145,8 @@ sentences. The idea, for the rest of the site: a good image, then a strong title
 6. Deferred: reminder emails (need Resend), Makkah/Madinah guides (need client-verified text). Cut: wishlist.
 
 Waiting on Rawdah: questionnaire answers (story, years, pilgrim numbers), Cal.com link, Ramadan's other teachers
-(if any), the early-bird end and what late bookers pay for the 30 November instalment, Rawdah's Umrah poster, Sheikh Yahya Rabi's photo from GGC, photo licences (Arafah and Makkah aerial). Full list in
+(if any), a check of the derived payment plans for the triple, double and ground-only packages, Sheikh Yahya's
+background (from public sources), photo licences (Arafah and Makkah aerial). Full list in
 `docs/project/open-questions.md`.
 
 ## Rules

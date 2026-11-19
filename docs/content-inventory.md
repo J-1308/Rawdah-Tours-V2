@@ -81,7 +81,10 @@ is **not** identified on the site.
   on the quad with flights only (`endedOffer` in `src/lib/trips.ts`); 10 nights in Makkah (27 Feb – 9 Mar, landing on
   the 28th) and 4 in Madinah, 14 in all; no star rating on either hotel, "5-star package" is Rawdah's word for the
   package; the instalment plan is the poster's (£399, £600 on 30 Nov, £500 on 30 Dec, £500 on 30 Jan); the Saudia
-  and Haramain train photos are cropped from Rawdah's poster (`public/images/brand/ramadan-*.jpg`).
+  and Haramain train photos are cropped from Rawdah's poster (`public/images/brand/ramadan-*.jpg`), shown on phones
+  only. Later still (19 Nov 2026): every package has a plan on the same dates (the quad's proportions, £10 steps);
+  Sheikh Yahya's panel has a short public-source background (`guestFeature.bio`); "Our last trip" leads with the old
+  home hero's group photo (`pastTrips.lead`, `group-photos-01.jpg`); host photos are portrait-shaped on phones.
 - **Trust box** (trip pages, `trust` in `content.ts`): shows only the people on the trip and two buttons. Its
   numbers (years running, pilgrims taken, review rating and count) stay empty until Rawdah answers the
   questionnaire; never estimate them.

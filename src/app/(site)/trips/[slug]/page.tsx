@@ -111,10 +111,11 @@ export function TripView({ j }: { j: Journey }) {
       : [leaderMember, { name: j.teacher.value, does: "Certified ustadhs", line: "Every trip is guided by certified ustadhs. They’ll be named here when the trip is announced.", status: j.teacher.status }];
   /** On a trip with its plan set out above, the general answers about last year's itinerary, inclusions and meals would contradict it. */
   const shownAbove = ["What is included in the trip cost?", "What is the trip itinerary like?", "What about meal arrangements?"];
+  const ownQs = new Set((j.faqs ?? []).map((f) => f.q));
   const qs = [
     // This trip's own questions first (Ramadan: meals, ihram, Eid, ground only, places).
     ...(j.faqs ?? []).map((f) => ({ topic: j.kind, ...f })),
-    ...faqs.filter((f) => (j.kind === "hajj" ? f.topic === "hajj" : f.topic !== "hajj") && !(j.plan && shownAbove.includes(f.q))),
+    ...faqs.filter((f) => (j.kind === "hajj" ? f.topic === "hajj" : f.topic !== "hajj") && !(j.plan && shownAbove.includes(f.q)) && !ownQs.has(f.q)),
   ];
   const joinLabel = j.state === "open" ? "Book your place" : "Register interest";
   const posterPeople = (j.posterTeam ?? []).map((p) => ({ label: p.label, name: p.name, note: p.note, cut: p.cut, photo: members.find((m) => m.name === p.ref)?.photo }));

@@ -18,9 +18,11 @@ Things only Rawdah (or Jibril) can answer. Each one is marked on the page where 
    shown. From the poster (19 Nov 2026): Sheikh Yahya Raaby (special guest), guided by Ayuub Musa, Ustadh Issa Uthman;
    Eid in the blessed lands; the last 10 nights; 14 nights. The early bird (£1,899) has ended: final prices with flights
    quad £1,999, triple £2,249, double £2,449; ground only (enquire) £1,299, £1,399, £1,699. Meals: Makkah room only (no
-   suhoor), breakfast in Madinah; no ihram provided (Jibril, 19 Nov 2026). Still open: payment dates
-   for every package except the quad with flights; what someone booking after 30 November pays; the poster says
-   "Direct flights" while the return goes Madinah → Jeddah → London (direct on the London legs); the hotel distances
+   suhoor), breakfast in Madinah; no ihram provided (Jibril, 19 Nov 2026). Payment plans: every package pays £399, then
+   on 30 November, 30 December and 30 January, in the quad's proportions in £10 steps (Jibril: "you can do the math",
+   19 Nov 2026; amounts in `src/lib/trips.ts`, Rawdah to check them). Late bookings and "Direct flights" are fine as they
+   are (Jibril, 19 Nov 2026). Sheikh Yahya's short background on the page comes from public sources (FOSIS, Badr
+   Academy, his recitations); Rawdah to confirm it with him. Still open: the hotel distances
    now come from the hotels' own listings (Novotel: a shuttle, about 10 minutes by car; Rotana: 8 minutes' walk), so
    ask whether the group uses the Novotel's shuttle or its own transport to the Haram; children's prices, if any; whether
    the three V1 reviews are real travellers' words that can be shown (they'd sit by the group photos). Hotel photos: settled (Jibril, 16 Nov 2026),

@@ -78,7 +78,8 @@ export const TRIPS: Trip[] = [
        * Prices per person (Jibril, 19 Nov 2026): £1,999 is the price of the quad with flights; the early bird (£1,899)
        * has ended and shows crossed out beside it, on that package only. The instalment plan is the poster's: £399
        * deposit, £600 on 30 November, £500 on 30 December, £500 on 30 January (quad with flights). The others are a
-       * £399 deposit and a balance on dates agreed after booking.
+       * £399 deposit, then the balance in the same proportions as the quad's (37.5%, 31.25%, 31.25%) on the same
+       * dates, in £10 steps (Jibril, 19 Nov 2026: "a similar plan for the rest").
        */
       rooms: [
         {
@@ -102,7 +103,9 @@ export const TRIPS: Trip[] = [
           note: 'Flights and ground, triple room',
           schedule: [
             { due: 'Deposit on booking', pence: 39900 },
-            { due: 'Balance, dates agreed after booking', pence: 185000 },
+            { due: '30 November', pence: 69000 },
+            { due: '30 December', pence: 58000 },
+            { due: '30 January, final', pence: 58000 },
           ],
         },
         {
@@ -113,7 +116,9 @@ export const TRIPS: Trip[] = [
           note: 'Flights and ground, double room',
           schedule: [
             { due: 'Deposit on booking', pence: 39900 },
-            { due: 'Balance, dates agreed after booking', pence: 205000 },
+            { due: '30 November', pence: 77000 },
+            { due: '30 December', pence: 64000 },
+            { due: '30 January, final', pence: 64000 },
           ],
         },
         {
@@ -125,7 +130,9 @@ export const TRIPS: Trip[] = [
           flights: false,
           schedule: [
             { due: 'Deposit on booking', pence: 39900 },
-            { due: 'Balance, dates agreed after booking', pence: 90000 },
+            { due: '30 November', pence: 34000 },
+            { due: '30 December', pence: 28000 },
+            { due: '30 January, final', pence: 28000 },
           ],
         },
         {
@@ -137,7 +144,9 @@ export const TRIPS: Trip[] = [
           flights: false,
           schedule: [
             { due: 'Deposit on booking', pence: 39900 },
-            { due: 'Balance, dates agreed after booking', pence: 100000 },
+            { due: '30 November', pence: 38000 },
+            { due: '30 December', pence: 31000 },
+            { due: '30 January, final', pence: 31000 },
           ],
         },
         {
@@ -149,7 +158,9 @@ export const TRIPS: Trip[] = [
           flights: false,
           schedule: [
             { due: 'Deposit on booking', pence: 39900 },
-            { due: 'Balance, dates agreed after booking', pence: 130000 },
+            { due: '30 November', pence: 48000 },
+            { due: '30 December', pence: 41000 },
+            { due: '30 January, final', pence: 41000 },
           ],
         },
       ],
@@ -159,7 +170,7 @@ export const TRIPS: Trip[] = [
       // As on the last trip; confirm before card payments open for this trip.
       cardFeePence: 800,
       balancePlan:
-        'Quad with flights: £399 on booking, then £600 on 30 November, £500 on 30 December and £500 on 30 January, paid in full by 30 January 2027. Other rooms and ground only: £399 on booking, then the balance on dates agreed after booking. Deposits are non-refundable.',
+        'Every package: £399 on booking, then three payments on 30 November, 30 December and 30 January, paid in full by 30 January 2027 (quad with flights: £600, £500, £500). Deposits are non-refundable.',
     },
     capacity: 60,
   },
