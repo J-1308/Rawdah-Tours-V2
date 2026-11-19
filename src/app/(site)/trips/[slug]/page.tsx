@@ -9,8 +9,8 @@ import { TripPhoneBar } from "@/app/_site/trip-bar";
 import { anchors, covers, faqs, fromPrice, gbp, hajjNusuk, journey, journeys, nightsOf, ramadanReveal, routes, routeText, say, type Journey } from "@/app/_site/content";
 import { CoverGroups, FaqList, PaymentPlan, Tick } from "@/app/_site/home-sections";
 import { Mark } from "@/app/_site/marks";
-import { NightSky } from "@/app/_site/night-sky";
-import { PosterText } from "@/app/_site/poster-type";
+import { Mist, PosterTablets } from "@/app/_site/poster-parts";
+import { PosterLockup, PosterText } from "@/app/_site/poster-type";
 import { StepForm } from "@/app/_site/step-form";
 import { ReservePanel } from "@/app/_site/reserve";
 import { Chapter, ConfirmedPending, gutter, Heading, Label, PageLead, PartnerLogo, WaTile } from "@/app/_site/shell";
@@ -122,27 +122,30 @@ export function TripView({ j }: { j: Journey }) {
 
   const facts = [
     { k: "Dates", v: j.dates.value, s: j.dates.status },
-    { k: nights ? "Length" : "Booking", v: nights ? `${nights} nights in 2 cities` : "On Nusuk" },
+    // A night flight out counts as a night away (Ramadan: 1 + 9 + 4 = the poster's 14 nights).
+    { k: nights ? "Length" : "Booking", v: nights ? (j.plan?.flights[0]?.overnight ? `${nights + 1} nights: 1 flying, ${nights} in 2 cities` : `${nights} nights in 2 cities`) : "On Nusuk" },
     { k: j.kind === "hajj" ? "Hajj guide" : "Teachers", v: j.teacher.value, s: j.teacher.status },
     { k: price ? "From" : "Prices", v: price ? `${gbp(price)} per person` : "Published on Nusuk", s: j.rooms?.status ?? j.priceNote?.status },
   ];
 
   return (
-    <>
+    // The poster skin (Ramadan Umrah 2027): the page below the header takes the poster's stone and olive; the header
+    // and footer stay Rawdah's (globals.css, "The poster skin").
+    <div className={j.posterType ? "skin-1448" : "contents"}>
       <TripPhoneBar j={j} price={price} deposit={trip?.pricing ? trip.pricing.depositPence / 100 : null} bookable={bookable} />
-      <Chapter tone="top">
+      <Chapter tone={j.posterType ? "day" : "top"}>
       <PageLead
         crumbs={[{ label: "Home", href: "/" }, { label: "Trips", href: routes.trips }, { label: j.name }]}
-        title={j.posterType ? <PosterText text={j.name} rise /> : j.name}
-        backdrop={j.posterType ? <NightSky moon /> : undefined}
+        title={j.posterType ? <PosterLockup year="1448" word="Ramadan" line="Last 10 days" /> : j.name}
+        backdrop={j.posterType ? <Mist /> : undefined}
         crumbsClassName={j.posterType ? "max-sm:hidden" : undefined}
-        titleClassName={j.posterType ? "poster-title poster-rise text-[clamp(2.35rem,10.5vw,4.9rem)] lg:text-[clamp(2.35rem,5.2vw,4.9rem)] [--track:0.07em]" : undefined}
+        titleClassName={j.posterType ? "poster-lockup poster-rise" : undefined}
         photos={[{ src: j.photo.src, alt: j.photo.alt, position: j.photo.position }, ...j.more]}
       >
-        {/* Phones, on the Instagram landing page: the dates straight under the title (Jibril, 18 Nov 2026). */}
+        {/* The dates straight under the title, in the poster's italic (Jibril, 18–19 Nov 2026). */}
         {j.posterType ? (
-          <p style={{ "--d": "800ms" } as CSSProperties} className="follow mt-3 text-[1.05rem] font-medium text-ink/85 tabular-nums lg:hidden">
-            {j.dates.value}
+          <p style={{ "--d": "700ms" } as CSSProperties} className="poster-date follow mt-4">
+            {j.dates.value.replace(/\bFeb\b/, "February").replace(/\bMar\b/, "March")}
           </p>
         ) : null}
         {j.partner ? (
@@ -163,6 +166,17 @@ export function TripView({ j }: { j: Journey }) {
         <div className="mt-4">
           <StateTag j={j} onPhoto={false} />
         </div>
+        {j.posterType ? (
+          <PosterTablets
+            className="mt-6"
+            items={[
+              { big: "14", small: "Nights", s: "to confirm" },
+              { big: "Eid", small: <><em>in the</em> Haram</>, s: "to confirm" },
+              ...(price ? [{ top: true, small: "Early bird", big: gbp(price) }] : []),
+              { top: true, small: "Flights", big: "Saudia" },
+            ]}
+          />
+        ) : null}
         <p className="lead-after mt-4 max-w-[34rem] font-editorial text-[clamp(1.4rem,2vw,1.8rem)] leading-snug text-ink/70 italic">{j.tagline}</p>
         <dl style={j.posterType ? ({ "--d": "900ms" } as CSSProperties) : undefined} className={`${j.posterType ? "follow " : ""}mt-6 grid max-w-[36rem] grid-cols-2 gap-2 text-[0.9rem] sm:mt-7 sm:gap-2.5 sm:text-[0.92rem]`}>
           {[...facts, { k: j.kind === "hajj" ? "The rites" : "Route", v: routeText(j), s: j.route.status }].map((f, i, all) => (
@@ -369,6 +383,6 @@ export function TripView({ j }: { j: Journey }) {
           </div>
         </section>
       </Chapter>
-    </>
+    </div>
   );
 }

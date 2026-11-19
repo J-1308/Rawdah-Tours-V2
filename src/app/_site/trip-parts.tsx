@@ -404,7 +404,7 @@ export function TripJourney({ j }: { j: Journey }) {
         Flights and hotels
         <Mark s={plan.status} />
       </Heading>
-      <p className="mt-4 max-w-[36rem] text-[1rem] leading-[1.65] text-ink/72">From Heathrow and back: thirteen nights, nine in Makkah and four in Madinah.</p>
+      <p className="mt-4 max-w-[36rem] text-[1rem] leading-[1.65] text-ink/72">From Heathrow and back: fourteen nights away, one on the flight out, nine in Makkah and four in Madinah.</p>
 
       <div className="mt-9 sm:mt-12">
         <TripLine plan={plan} draw={j.posterType} />

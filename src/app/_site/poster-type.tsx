@@ -37,3 +37,23 @@ export function PosterText({ text, rise = false }: { text: string; rise?: boolea
     ),
   );
 }
+
+/**
+ * The poster's lockup as the page title (Ramadan Umrah 2027 in the poster skin, 19 Nov 2026): "1448" small,
+ * RAMADAN large with the drawn M, LAST 10 DAYS tracked wide. All one heading, so it reads "1448 Ramadan Last 10 days".
+ */
+export function PosterLockup({ year, word, line }: { year: string; word: string; line: string }) {
+  return (
+    <>
+      <span className="poster-kicker follow block" style={{ "--d": "60ms" } as CSSProperties}>
+        {year}
+      </span>{" "}
+      <span className="poster-word block">
+        <PosterText text={word} rise />
+      </span>{" "}
+      <span className="poster-line follow block" style={{ "--d": "560ms" } as CSSProperties}>
+        {line}
+      </span>
+    </>
+  );
+}

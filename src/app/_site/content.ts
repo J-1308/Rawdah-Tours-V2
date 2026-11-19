@@ -605,7 +605,7 @@ export type TripPlan = {
   timeline: { label: string; sub: string; nights?: number }[];
   /** A note under the line, between two segments (index of the segment it follows). */
   marker?: { after: number; text: string };
-  flights: { dir: "Outbound" | "Return"; date: string; airline: string; route: string; code: string; rows: { k: string; v: string }[]; note?: string }[];
+  flights: { dir: "Outbound" | "Return"; date: string; airline: string; route: string; code: string; rows: { k: string; v: string }[]; note?: string; /** The night is spent flying (counts as a night away). */ overnight?: boolean }[];
   hotels: { city: string; nights: number; name: string; stars: number; slot: string; more?: { src: string; alt: string }[]; rows: { k: string; v: string }[]; note?: string }[];
   notes: { tone: "moon" | "alert"; text: string }[];
   includes: V[];
@@ -776,6 +776,7 @@ export const ramadanFull: Journey = {
             { k: "Baggage", v: "2 × 23kg checked, 7kg hand" },
           ],
           note: "An overnight flight, then straight to Makkah on arrival.",
+          overnight: true,
         },
         {
           dir: "Return",

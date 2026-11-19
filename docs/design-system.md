@@ -115,6 +115,11 @@ script in `app/layout.tsx` sets before first paint unless the visitor prefers re
   framed photos (`.rise`, with the photo easing out of a slight zoom) rise into view, on phones too. Only elements
   still below the screen at load are hidden, so nothing in view blinks; add `data-reveal` to opt anything else in.
 - **Buttons:** a light sweep across `.btn-sand` on hover. Photos zoom very slightly on hover.
+- **Poster skin (preview, branch `ramadan/poster-skin`, 19 Nov 2026):** on Ramadan Umrah 2027 the page below the header
+  takes the GGC poster's stone, mist and olive (`.skin-1448`, tokens only; header and footer stay Rawdah's); the head
+  is the poster's lockup (1448 / RAMADAN / LAST 10 DAYS, `PosterLockup`), the dates in italic, and four frosted
+  tablets (`poster-parts.tsx`); drifting mist replaces the night sky. Olive type on the tablets and dates, not the
+  poster's white, which can't be read on stone.
 - **Ramadan Umrah 2027 only** (`posterType`; the page every Instagram link lands on, 17–18 Nov 2026): no opening on
   this page (the head script marks it played); a night sky with stars twinkling in three groups and a crescent
   (`night-sky.tsx`, fixed seed; paused off screen by `page-watch.tsx`) on the head; the title rises letter by letter

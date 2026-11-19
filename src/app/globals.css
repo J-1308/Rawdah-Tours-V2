@@ -479,6 +479,117 @@ html.motion .rv.in .plane-run { transform: none; }
 @keyframes step-in { from { opacity: 0; transform: translate3d(18px, 0, 0); } }
 html.motion .step-in { animation: step-in 0.45s var(--ease-out) both; }
 
+/* ------------------------------------------------------------------------------------------------------------ */
+/* The poster skin (Ramadan Umrah 2027, 19 Nov 2026): Rawdah's frame (header, footer, layout, components) with the
+   GGC × Rawdah poster's colours inside the page: stone and mist instead of cream, olive instead of cocoa and bronze.
+   Only tokens change, so every component follows. Colours sampled from the poster. */
+.skin-1448 {
+  --color-canvas: #ece8df;
+  --color-canvas-warm: #e3ded2;
+  --color-beige: #d8d2c2;
+  --color-sand: #b4ae92;
+  --color-gold-soft: #b4ae92;
+  --color-gold: #8a8664;
+  --color-bronze: #545234;
+  --color-ink: #33321f;
+  --color-ink-deep: #25241a;
+  --color-clay: #4a4831;
+  --color-muted: #66634b;
+  --color-cream: #ece8df;
+  --glass-bg: rgb(250 249 244 / 0.58);
+  --glass-line: rgb(255 255 255 / 0.75);
+  --raise: rgb(255 255 252 / 0.55);
+  --edge: rgb(255 255 255 / 0.7);
+  --field-bg: rgb(252 251 247 / 0.88);
+  --field-ring: rgb(84 82 52 / 0.3);
+  --focus: #545234;
+  --btn-bg: linear-gradient(180deg, #5f5d3d 0%, #474530 100%);
+  --btn-bg-hover: linear-gradient(180deg, #69673f 0%, #4f4d33 100%);
+  --btn-fg: #f4f2ea;
+  --btn-shadow: inset 0 1px 0 rgb(255 255 255 / 0.14), 0 14px 30px -16px rgb(37 36 26 / 0.55);
+  --hero-glow:
+    radial-gradient(55% 45% at 85% 12%, rgb(255 255 255 / 0.75) 0%, transparent 70%),
+    radial-gradient(60% 50% at 10% 70%, rgb(255 255 255 / 0.55) 0%, transparent 70%),
+    linear-gradient(180deg, #dcd6c8 0%, #e6e1d6 55%, #ece8df 100%);
+  --watermark: rgb(84 82 52 / 0.07);
+  color: var(--color-ink);
+}
+/* Its dark band (flights and hotels): the olive of the poster's price panel, not cocoa. */
+.skin-1448 .night {
+  --color-canvas: #2e2d20;
+  --color-canvas-warm: #353425;
+  --color-beige: #3c3b2a;
+  --color-gold: #c9c3a0;
+  --color-bronze: #d6d1b0;
+  --color-ink: #ece8df;
+  --color-ink-deep: #1f1e15;
+  --color-clay: #44432f;
+  --color-muted: #b3ae94;
+  --btn-bg: linear-gradient(180deg, #ece8df 0%, #cfc9b4 100%);
+  --btn-bg-hover: linear-gradient(180deg, #f4f1ea 0%, #dad4c0 100%);
+  --btn-fg: #2e2d20;
+}
+
+/* Its phone bar: the poster's olive panel with a stone button (the bar is a top-zone, so it needs the stronger rule). */
+:root[data-top] .skin-1448 [data-placement="phone bar"] {
+  --color-canvas: #3a3926;
+  --color-ink: #f1eee6;
+  --color-bronze: #d6d1b0;
+  --edge: rgb(255 255 255 / 0.1);
+  --raise: rgb(255 255 255 / 0.08);
+  --btn-bg: linear-gradient(180deg, #f1eee6 0%, #d5cfba 100%);
+  --btn-bg-hover: linear-gradient(180deg, #f7f5ef 0%, #ded9c6 100%);
+  --btn-fg: #33321f;
+  color: var(--color-ink);
+}
+
+/* Its gold buttons (the form's Next and Send) become the poster's olive panel. */
+.skin-1448 .btn-sand { background: linear-gradient(180deg, #5f5d3d 0%, #474530 100%); color: #f4f2ea; box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.14), 0 14px 30px -16px rgb(37 36 26 / 0.55); }
+.skin-1448 .btn-sand:hover { background: linear-gradient(180deg, #69673f 0%, #4f4d33 100%); }
+
+/* The lockup: 1448 / RAMADAN / LAST 10 DAYS, as on the poster. */
+.poster-lockup { font-family: "Montserrat", "DM Sans", system-ui, sans-serif; text-transform: uppercase; color: var(--color-bronze); }
+.poster-lockup .poster-kicker { font-size: clamp(1.5rem, 6vw, 2.6rem); font-weight: 400; letter-spacing: 0.14em; line-height: 1; color: var(--color-muted); margin-bottom: 0.35em; }
+.poster-lockup .poster-word { font-size: clamp(2.9rem, 14.5vw, 7rem); font-weight: 700; letter-spacing: 0.04em; line-height: 0.95; --track: 0.04em; }
+.poster-lockup .poster-line { font-size: clamp(1.15rem, 5.4vw, 2.3rem); font-weight: 500; letter-spacing: 0.42em; line-height: 1.1; margin-top: 0.45em; margin-right: -0.42em; }
+.poster-date { font-family: "Cormorant Garamond", Georgia, serif; font-style: italic; font-size: clamp(1.45rem, 5.6vw, 2.2rem); line-height: 1.15; color: var(--color-ink); }
+
+/* The tablets: tall, frosted, rounded like the poster's; olive type. */
+.poster-tablets { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.6rem; max-width: 30rem; }
+.tablet {
+  position: relative;
+  display: flex;
+  min-height: 7.25rem;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 1.6rem 1.6rem 1.1rem 1.1rem;
+  border: 1px solid rgb(255 255 255 / 0.7);
+  background: linear-gradient(180deg, rgb(255 255 255 / 0.62) 0%, rgb(255 255 255 / 0.32) 100%);
+  padding: 0.9rem 0.6rem;
+  text-align: center;
+  color: var(--color-bronze);
+  font-family: "Montserrat", "DM Sans", system-ui, sans-serif;
+  text-transform: uppercase;
+}
+.tablet-big { font-size: clamp(1.6rem, 7vw, 2.25rem); font-weight: 700; line-height: 1; letter-spacing: 0.02em; }
+.tablet-small { margin-top: 0.3rem; font-size: 0.875rem; font-weight: 600; letter-spacing: 0.12em; line-height: 1.2; }
+.tablet-small:first-child { margin-top: 0; margin-bottom: 0.3rem; }
+.tablet em { font-family: "Cormorant Garamond", Georgia, serif; font-style: italic; text-transform: none; font-weight: 500; letter-spacing: 0; font-size: 1.1em; }
+.tablet-mark { position: absolute; top: 0.4rem; right: 0.5rem; }
+
+/* The mist: big soft clouds, drifting by transform only. */
+.mist .cloud { position: absolute; border-radius: 50%; background: radial-gradient(closest-side, rgb(255 255 255 / 0.85), rgb(255 255 255 / 0)); }
+.mist .c1 { width: 70vmax; height: 34vmax; left: -18vmax; top: -6vmax; }
+.mist .c2 { width: 60vmax; height: 30vmax; right: -22vmax; top: 18%; opacity: 0.8; }
+.mist .c3 { width: 80vmax; height: 30vmax; left: 5vmax; bottom: -10vmax; opacity: 0.6; }
+@keyframes cloud-a { to { transform: translate3d(9vmax, 1.5vmax, 0); } }
+@keyframes cloud-b { to { transform: translate3d(-8vmax, -1vmax, 0); } }
+html.motion .mist .c1 { animation: cloud-a 26s ease-in-out infinite alternate; }
+html.motion .mist .c2 { animation: cloud-b 32s ease-in-out infinite alternate; }
+html.motion .mist .c3 { animation: cloud-a 38s ease-in-out -12s infinite alternate; }
+.sky[data-off] .cloud { animation-play-state: paused; }
+
 /* A soft light passes across the gold button on hover. */
 .btn-sand { position: relative; overflow: hidden; isolation: isolate; }
 .btn-sand::after {
