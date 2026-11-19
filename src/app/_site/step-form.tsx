@@ -159,6 +159,8 @@ export function StepForm(props: StepFormProps) {
   const top = useRef<HTMLDivElement>(null);
   const [step, setStep] = useState(1);
   const [done, setDone] = useState(false);
+  const [ref, setRef] = useState("");
+  const [emailed, setEmailed] = useState(false);
   const [saving, setSaving] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [name, setName] = useState("");
@@ -208,7 +210,11 @@ export function StepForm(props: StepFormProps) {
     }
     setErrors({});
     track("form_step", { form: path.form, step, trip });
-    if (finished) setDone(true);
+    if (finished) {
+      if ("ref" in res && res.ref) setRef(res.ref);
+      if ("emailed" in res) setEmailed(Boolean(res.emailed));
+      setDone(true);
+    }
     else setStep(next);
     requestAnimationFrame(() => top.current?.scrollIntoView({ behavior: "smooth", block: "start" }));
   }
@@ -235,7 +241,7 @@ export function StepForm(props: StepFormProps) {
   const summary = Object.entries(answers).filter(([, v]) => v && v !== "0").map(([k, v]) => `${k}: ${v}`).join(", ");
   const waText = `Assalamu alaykum, I’m ${name || "getting in touch"}. ${path.title.replace(/:.*/, "")}${trip ? `, ${trip}` : ""}${summary ? `. ${summary}` : ""}.`;
 
-  if (done) return <Ending props={props} name={name.trim().split(/\s+/)[0] ?? ""} waText={waText} trip={trip} answers={answers} />;
+  if (done) return <Ending props={props} name={name.trim().split(/\s+/)[0] ?? ""} waText={waText} trip={trip} answers={answers} bookingRef={ref} emailed={emailed} />;
 
   const current = path.steps[step - 2];
   return (
@@ -418,7 +424,7 @@ function Question({ q, id, value, set, error }: { q: Q; id: string; value: strin
   );
 }
 
-function Ending({ props, name, waText, trip }: { props: StepFormProps; name: string; waText: string; trip: string; answers: Record<string, string> }) {
+function Ending({ props, name, waText, trip, bookingRef, emailed }: { props: StepFormProps; name: string; waText: string; trip: string; answers: Record<string, string>; bookingRef?: string; emailed?: boolean }) {
   const waHref = wa(waText, trip || undefined);
   const call = brand.callUrl;
   const depositsOn = props.path === "group" && Boolean(props.bookHref);
@@ -443,6 +449,13 @@ function Ending({ props, name, waText, trip }: { props: StepFormProps; name: str
     <div role="status" className="scroll-mt-28">
       <p className="display text-[clamp(1.9rem,5vw,2.5rem)] leading-tight">{copy.h}</p>
       <p className="mt-3 max-w-[30rem] text-[1rem] leading-[1.6] text-ink/72">{copy.line.replace("  ", " ")}</p>
+      {bookingRef ? (
+        <p className="mt-5 inline-flex flex-wrap items-baseline gap-x-3 gap-y-1 rounded-[0.9rem] border border-(--edge) bg-(--raise) px-4 py-3 text-[0.95rem]">
+          <span className="text-ink/62">Your reference</span>
+          <span className="font-semibold tracking-[0.06em]">{bookingRef}</span>
+          {emailed ? <span className="basis-full text-[0.875rem] text-ink/62">We’ve emailed you a copy, with how to pay the deposit.</span> : null}
+        </p>
+      ) : null}
       <div className="mt-7 grid gap-2.5">
         {buttons.map((b, i) => (
           <a
