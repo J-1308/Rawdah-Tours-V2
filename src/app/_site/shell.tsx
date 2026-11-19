@@ -398,7 +398,7 @@ export function SiteFooter() {
           <Link href={ONE_PAGE ? ONE_PAGE_HOME : "/"} aria-label="Rawdah Tours, home" className="inline-block text-cream">
             <Logo className="logo-gold h-16 sm:h-24" />
           </Link>
-          <p className="mt-7 hidden max-w-[24rem] font-editorial text-[1.5rem] leading-snug text-cream/85 sm:block">Guided Umrah and Hajj from the UK, from your first message to the flight home.</p>
+          <p className="mt-7 hidden max-w-[24rem] font-editorial text-[1.5rem] leading-snug text-cream/85 sm:block">{ONE_PAGE ? "Guided Umrah from the UK" : "Guided Umrah and Hajj from the UK"}, from your first message to the flight home.</p>
           <div className="mt-7 grid grid-cols-2 gap-2 sm:mt-8 sm:flex sm:flex-wrap sm:gap-2.5">
             <WaTile text={say.general} label="WhatsApp" tone="line-canvas" className="px-3! sm:px-6!" />
             <a href={brand.phone.href} className={`${btnBase} px-3 sm:px-6 ${btnTone["line-canvas"]}`}>
@@ -454,6 +454,7 @@ export function SiteFooter() {
         </div>
       </div>
       <div className="relative mt-11 grid grid-cols-1 gap-2 border-t border-cream/12 pt-6 sm:mt-14 text-[0.875rem] leading-relaxed text-cream/50">
+        {ONE_PAGE ? null : (
         <p>
           Hajj packages are booked and paid on the official{" "}
           <a href={brand.nusuk} target="_blank" rel="noopener noreferrer" className="underline underline-offset-4 hover:text-cream">
@@ -461,6 +462,7 @@ export function SiteFooter() {
           </a>
           . Rawdah Tours does not take payment for Hajj packages.
         </p>
+        )}
         <p>
           © {new Date().getFullYear()} {brand.legalName}, registered in England and Wales. Company number {brand.companyNumber.value}
           <Mark s={brand.companyNumber.status} />. Registered office: {brand.address}.

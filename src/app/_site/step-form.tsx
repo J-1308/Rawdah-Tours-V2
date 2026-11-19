@@ -3,6 +3,7 @@
 import { track } from "@vercel/analytics";
 import { useEffect, useId, useRef, useState } from "react";
 
+import { useRouter } from "next/navigation";
 import { saveLead, type LeadInput } from "@/app/actions/lead";
 import { brand, wa } from "@/app/_site/content";
 import { readSource } from "@/app/_site/tracking";
@@ -159,6 +160,7 @@ export function StepForm(props: StepFormProps) {
   const top = useRef<HTMLDivElement>(null);
   const [step, setStep] = useState(1);
   const [done, setDone] = useState(false);
+  const router = useRouter();
   const [ref, setRef] = useState("");
   const [emailed, setEmailed] = useState(false);
   const [saving, setSaving] = useState(false);
@@ -211,6 +213,11 @@ export function StepForm(props: StepFormProps) {
     setErrors({});
     track("form_step", { form: path.form, step, trip });
     if (finished) {
+      // A booking request on a trip page goes to the trip's thank-you page with its reference (19 Nov 2026).
+      if ("ref" in res && res.ref && /^\/trips\/[^/]+\/?$/.test(location.pathname)) {
+        router.push(`${location.pathname.replace(/\/$/, "")}/thank-you?ref=${res.ref}${"emailed" in res && res.emailed ? "&e=1" : ""}`);
+        return;
+      }
       if ("ref" in res && res.ref) setRef(res.ref);
       if ("emailed" in res) setEmailed(Boolean(res.emailed));
       setDone(true);

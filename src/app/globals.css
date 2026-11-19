@@ -530,6 +530,41 @@ html.motion .step-in { animation: step-in 0.45s var(--ease-out) both; }
   --btn-fg: #2e2d20;
 }
 
+/* One-page mode (only the Ramadan page live; Jibril, 19 Nov 2026): the top (strip, header) and the footer wear the
+   poster's olive and stone instead of cocoa, the logo turns stone. <html data-skin="1448"> is set in layout.tsx. */
+:root[data-skin="1448"][data-top="night"] .top-zone {
+  --color-canvas: #45442e;
+  --color-canvas-warm: #4d4c34;
+  --color-beige: #55543a;
+  --color-gold: #d6d1b0;
+  --color-bronze: #e2ddc1;
+  --color-ink: #f1eee6;
+  --color-ink-deep: #26251a;
+  --color-clay: #4a4831;
+  --color-muted: #c9c4aa;
+  --glass-bg: linear-gradient(180deg, rgb(255 255 248 / 0.08) 0%, rgb(255 255 248 / 0.04) 100%);
+  --glass-line: rgb(255 255 248 / 0.12);
+  --raise: rgb(255 255 248 / 0.09);
+  --raise-hi: rgb(255 255 248 / 0.14);
+  --edge: rgb(255 255 248 / 0.12);
+  --focus: #e2ddc1;
+  --btn-bg: linear-gradient(180deg, #f1eee6 0%, #d5cfba 100%);
+  --btn-bg-hover: linear-gradient(180deg, #f7f5ef 0%, #ded9c6 100%);
+  --btn-fg: #33321f;
+  --btn-shadow: inset 0 1px 0 rgb(255 255 255 / 0.5), 0 16px 34px -16px rgb(0 0 0 / 0.5);
+  --logo-fill: linear-gradient(172deg, #f6f3ea 0%, #e4dfca 52%, #cfc9ad 100%);
+}
+:root[data-skin="1448"][data-top="night"] body { background-color: #45442e; }
+:root[data-skin="1448"] .chapter-foot.panel-dark {
+  --color-cream: #ece8df;
+  --color-sand: #cfc9ad;
+  background:
+    radial-gradient(90% 70% at 92% 0%, rgb(120 118 84 / 0.5) 0%, transparent 60%),
+    radial-gradient(70% 60% at 0% 100%, rgb(84 82 52 / 0.55) 0%, transparent 65%),
+    #3a3926;
+  box-shadow: 0 -30px 60px -40px rgb(37 36 26 / 0.55);
+}
+
 /* Its phone bar: the poster's olive panel with a stone button (the bar is a top-zone, so it needs the stronger rule). */
 :root[data-top] .skin-1448 [data-placement="phone bar"] {
   --color-canvas: #3a3926;
@@ -864,6 +899,8 @@ html.motion .ticker-track { animation: ticker 48s linear infinite; }
 .pkg-plan li span { color: color-mix(in oklab, var(--color-ink) 68%, transparent); }
 .pkg-btn { margin-top: 1rem; display: flex; min-height: 3rem; align-items: center; justify-content: center; gap: 0.5rem; border-radius: 0.9rem; border: 1px solid rgb(84 82 52 / 0.25); font-size: 0.95rem; font-weight: 500; }
 .pkg-btn:not(.btn-ink):hover { border-color: rgb(84 82 52 / 0.55); }
+
+.ty-ref { font-family: "Montserrat", "DM Sans", system-ui, sans-serif; font-size: 1.7rem; font-weight: 700; letter-spacing: 0.1em; }
 
 /* The mist: big soft clouds, drifting by transform only. */
 .mist .cloud { position: absolute; border-radius: 50%; background: radial-gradient(closest-side, rgb(255 255 255 / 0.85), rgb(255 255 255 / 0)); }

@@ -6,6 +6,7 @@ import { preload } from "react-dom";
 import { Analytics } from "@vercel/analytics/next";
 
 import { IS_LIVE } from "@/lib/site";
+import { ONE_PAGE } from "@/lib/site-mode";
 
 const description =
   "Guided Umrah and Hajj from the UK with Rawdah Tours. Every trip is guided by certified ustadhs, and we look after you from your first message to the flight home. Register your interest for Hajj 2027.";
@@ -23,14 +24,15 @@ export const metadata: Metadata = {
   robots: IS_LIVE ? { index: true, follow: true } : { index: false, follow: false },
 };
 
-export const viewport: Viewport = { themeColor: "#1b1410", viewportFit: "cover" };
+// One-page mode wears the poster's olive at the top and foot (data-skin below), so the browser bar matches.
+export const viewport: Viewport = { themeColor: ONE_PAGE ? "#45442e" : "#1b1410", viewportFit: "cover" };
 
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   preload("/fonts/cormorant-garamond-latin-wght-normal.woff2", { as: "font", type: "font/woff2", crossOrigin: "anonymous" });
   preload("/fonts/dm-sans-latin-wght-normal.woff2", { as: "font", type: "font/woff2", crossOrigin: "anonymous" });
   return (
-    <html lang="en-GB" data-top="night" className="h-full antialiased" suppressHydrationWarning /* the top is dark, beige-gold logo (Jibril, 31 Oct 2026; ADR 0004) */>
+    <html lang="en-GB" data-top="night" data-skin={ONE_PAGE ? "1448" : undefined} className="h-full antialiased" suppressHydrationWarning /* the top is dark, beige-gold logo (Jibril, 31 Oct 2026; ADR 0004) */>
       <head>
         {/* Before first paint: "js" + "motion" (unless reduced motion), and whether the intro already played this visit.
             Everything animated is visible without these, so no script = no animation, never hidden content.

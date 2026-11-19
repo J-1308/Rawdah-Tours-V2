@@ -44,7 +44,7 @@ export function WhatsAppFloat() {
 /** Phones: a soft cream bar pinned to the bottom, WhatsApp and the page's main action. */
 export function MobileBar() {
   const path = usePathname();
-  if (path.includes("/book") || path.startsWith("/questionnaire")) return null;
+  if (path.includes("/book") || path.startsWith("/questionnaire") || path.endsWith("/thank-you")) return null;
   // Trip pages have their own bar, with the trip's price and deposit (trip-bar.tsx).
   if (/^\/trips\/[^/]+(\/preview)?$/.test(path)) return null;
   const onTrip = path.startsWith("/trips/") && path.split("/").length === 3;
