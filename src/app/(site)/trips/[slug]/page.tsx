@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import type { CSSProperties } from "react";
 import { preload } from "react-dom";
 import Link from "next/link";
@@ -9,12 +10,13 @@ import { TripPhoneBar } from "@/app/_site/trip-bar";
 import { anchors, covers, faqs, fromPrice, gbp, hajjNusuk, journey, journeys, nightsOf, ramadanReveal, routes, routeText, say, type Journey } from "@/app/_site/content";
 import { CoverGroups, FaqList, PaymentPlan, Tick } from "@/app/_site/home-sections";
 import { Mark } from "@/app/_site/marks";
-import { Mist, PosterTablets } from "@/app/_site/poster-parts";
+import { ArrivalTrigger } from "@/app/_site/arrival-trigger";
+import { Arrival, Mist, PosterTablets } from "@/app/_site/poster-parts";
 import { PosterLockup, PosterText } from "@/app/_site/poster-type";
 import { StepForm } from "@/app/_site/step-form";
 import { ReservePanel } from "@/app/_site/reserve";
-import { Chapter, ConfirmedPending, gutter, Heading, Label, PageLead, PartnerLogo, WaTile } from "@/app/_site/shell";
-import { HajjOnNusuk, leaderMember, MomentStrip, TeamLine, TeamList, teacherMembers, teamMembers, TripIncludes, TrustBox, TripJourney, TripPackages, WhereYouStay, type Member } from "@/app/_site/trip-parts";
+import { Chapter, ConfirmedPending, gutter, Heading, Label, Logo, PageLead, PartnerLogo, PhotoStack, WaTile } from "@/app/_site/shell";
+import { HajjOnNusuk, leaderMember, MomentStrip, PosterTeamBlock, TeamLine, TeamList, tripTeacherMembers, teamMembers, TripIncludes, TrustBox, TripJourney, TripPackages, WhereYouStay, type Member } from "@/app/_site/trip-parts";
 import { StateTag } from "@/app/_site/trip-row";
 import { Chevron } from "@/app/_site/whatsapp";
 import { getTrip, isBookable, isDemoBooking } from "@/lib/trips";
@@ -100,7 +102,7 @@ export function TripView({ j }: { j: Journey }) {
   const demo = Boolean(trip && isDemoBooking(trip));
   const price = fromPrice(j);
   const nights = nightsOf(j);
-  const theirTeachers = teacherMembers.filter((t) => j.teacher.value.includes(t.name.replace(/^Ustadh /, "")));
+  const theirTeachers = tripTeacherMembers.filter((t) => j.teacher.value.includes(t.name.replace(/^Ustadh /, "")));
   /** Named teachers when the trip has them; "the Rawdah Tours team" shows Ayuub and Issa; otherwise a "to be named" slot. */
   const members: Member[] = theirTeachers.length
     ? [leaderMember, ...theirTeachers]
@@ -132,13 +134,33 @@ export function TripView({ j }: { j: Journey }) {
     // The poster skin (Ramadan Umrah 2027): the page below the header takes the poster's stone and olive; the header
     // and footer stay Rawdah's (globals.css, "The poster skin").
     <div className={j.posterType ? "skin-1448" : "contents"}>
+      {j.posterType ? (
+        <>
+          <Arrival logo={<Logo className="h-20 sm:h-24" label="" />} />
+          <ArrivalTrigger />
+        </>
+      ) : null}
       <TripPhoneBar j={j} price={price} deposit={trip?.pricing ? trip.pricing.depositPence / 100 : null} bookable={bookable} />
       <Chapter tone={j.posterType ? "day" : "top"}>
       <PageLead
         crumbs={[{ label: "Home", href: "/" }, { label: "Trips", href: routes.trips }, { label: j.name }]}
-        title={j.posterType ? <PosterLockup year="1448" word="Ramadan" line="Last 10 days" /> : j.name}
+        title={j.posterType ? <PosterLockup year="1448" word="Ramadan" line="Last 10 nights" /> : j.name}
         backdrop={j.posterType ? <Mist /> : undefined}
         crumbsClassName={j.posterType ? "max-sm:hidden" : undefined}
+        photoSlot={
+          j.posterType ? (
+            // Two heads to compare (Jibril, 19 Nov 2026): the group photo, or the poster's artwork with ?head=art.
+            // Preview only: keep the one he picks and remove the other and the head script's switch.
+            <>
+              <div className="head-photo">
+                <PhotoStack photos={[{ src: j.photo.src, alt: j.photo.alt, position: j.photo.position }, ...j.more]} priority className="lg:ml-auto lg:max-w-[34rem]" />
+              </div>
+              <div className="head-art lg:ml-auto lg:max-w-[36rem]">
+                <Image src="/images/brand/ramadan-1448-art.jpg" alt="The Ka‘bah and the clock tower above Masjid al-Haram, from the GGC × Rawdah poster." width={830} height={622} priority sizes="(min-width: 1024px) 36rem, 100vw" className="h-auto w-full" />
+              </div>
+            </>
+          ) : undefined
+        }
         titleClassName={j.posterType ? "poster-lockup poster-rise" : undefined}
         photos={[{ src: j.photo.src, alt: j.photo.alt, position: j.photo.position }, ...j.more]}
       >
@@ -170,10 +192,12 @@ export function TripView({ j }: { j: Journey }) {
           <PosterTablets
             className="mt-6"
             items={[
-              { big: "14", small: "Nights", s: "to confirm" },
-              { big: "Eid", small: <><em>in the</em> Haram</>, s: "to confirm" },
-              ...(price ? [{ top: true, small: "Early bird", big: gbp(price) }] : []),
-              { top: true, small: "Flights", big: "Saudia" },
+              { big: "14", small: "Nights" },
+              { big: "Eid", small: <><em>in the</em> Blessed lands</> },
+              ...(price
+                ? [{ top: true, small: j.endedOffer ? <><s>{j.endedOffer.label} {gbp(j.endedOffer.price)}</s></> : "From", big: gbp(price), foot: "From, with flights" }]
+                : []),
+              { top: true, small: "Flights", big: "Saudia", foot: "Direct" },
             ]}
           />
         ) : null}
@@ -308,7 +332,7 @@ export function TripView({ j }: { j: Journey }) {
                 </section>
                 <section className="mt-12 sm:mt-16">
                   <Heading className={h2}>The people who will walk with you</Heading>
-                  <TeamList members={members} cols="lg:grid-cols-3" className="mt-8" />
+                  {j.posterTeam ? <PosterTeamBlock j={j} members={members} /> : <TeamList members={members} cols="lg:grid-cols-3" className="mt-8" />}
                   <TeamLine />
                 </section>
               </>

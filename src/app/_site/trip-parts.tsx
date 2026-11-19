@@ -2,6 +2,7 @@ import Image from "next/image";
 import { HotelGallery } from "./hotel-gallery";
 import { Fragment } from "react";
 
+import { PosterPerks, PosterTeam } from "@/app/_site/poster-parts";
 import { anchors, gbp, hajjNusuk, journeyStay, leader, people, say, teachers, trust, wa, type Journey, type Status, type StayPhoto, type TripPlan } from "@/app/_site/content";
 import { Mark } from "@/app/_site/marks";
 import { Emblem, gutter, Heading, Label, Tick } from "@/app/_site/shell";
@@ -15,7 +16,9 @@ import { ItineraryLink } from "@/app/_site/step-form";
 export type Member = { name: string; does: string; line: string; status?: Status; guest?: boolean; short?: string; more?: string[]; photo?: { src: string; alt: string; position?: string } };
 
 export const leaderMember: Member = { name: leader.name, does: leader.does, line: leader.line, status: "confirmed", short: leader.short, more: leader.more, photo: leader.photo };
-export const teacherMembers: Member[] = teachers.filter((t) => !("hidden" in t && t.hidden)).map((t) => ({ name: t.name, does: t.does, line: t.bio.value, status: t.bio.status, guest: t.guest, short: "short" in t ? t.short : undefined, more: "more" in t ? t.more : undefined, photo: t.photo }));
+/** Everyone who can be named on a trip, including guests shown on one trip only (tripOnly). */
+export const tripTeacherMembers: Member[] = teachers.filter((t) => !("hidden" in t && t.hidden)).map((t) => ({ name: t.name, does: t.does, line: t.bio.value, status: t.bio.status, guest: t.guest, short: "short" in t ? t.short : undefined, more: "more" in t ? t.more : undefined, photo: t.photo }));
+export const teacherMembers: Member[] = tripTeacherMembers.filter((m) => !teachers.some((t) => t.name === m.name && "tripOnly" in t && t.tripOnly));
 export const allMembers: Member[] = [leaderMember, ...teacherMembers];
 /** The Rawdah team (Ayuub and Issa), and the guest sheikhs who join trips to teach: shown apart (Jibril, 1 Nov 2026). */
 export const teamMembers: Member[] = allMembers.filter((m) => !m.guest);
@@ -57,6 +60,38 @@ export function TeamList({ members, className = "", cols = "lg:grid-cols-4" }: {
         </li>
       ))}
     </ul>
+  );
+}
+
+/**
+ * The team as on the poster (Ramadan Umrah 2027): round portraits with the role over the name, then the fuller
+ * "More about" notes for those who have them.
+ */
+export function PosterTeamBlock({ j, members }: { j: Journey; members: Member[] }) {
+  const rows = (j.posterTeam ?? []).map((p) => ({ ...p, m: members.find((m) => m.name === p.ref) }));
+  return (
+    <>
+      <PosterTeam className="mt-8" people={rows.map((r) => ({ label: r.label, name: r.name, note: r.note, photo: r.m?.photo }))} />
+      <div className="mt-8 grid gap-1 border-t border-ink/10 pt-3">
+        {rows
+          .filter((r) => r.m?.more)
+          .map((r) => (
+            <details key={r.ref} className="group border-b border-ink/10 py-1">
+              <summary className="flex min-h-11 cursor-pointer list-none items-center justify-between gap-3 text-[0.95rem] font-medium [&::-webkit-details-marker]:hidden">
+                More about {r.m!.short ?? r.m!.name}
+                <svg aria-hidden viewBox="0 0 12 12" className="size-3 shrink-0 text-bronze transition-transform group-open:rotate-180">
+                  <path d="M2.5 4.5 6 8l3.5-3.5" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </summary>
+              <div className="grid gap-2.5 pb-3 text-[0.92rem] leading-[1.6] text-ink/70">
+                {r.m!.more!.map((p) => (
+                  <p key={p}>{p}</p>
+                ))}
+              </div>
+            </details>
+          ))}
+      </div>
+    </>
   );
 }
 
@@ -480,10 +515,13 @@ export function TripJourney({ j }: { j: Journey }) {
 
 /** What a planned trip includes, as a list of ticks. */
 export function TripIncludes({ plan }: { plan: TripPlan }) {
+  // With the poster's icon row above, the list says only what the icons don't (poster trips, 19 Nov 2026).
+  const items = plan.perks && plan.perksAlso ? plan.perksAlso : plan.includes;
   return (
     <>
-    <ul className="glass-phone mt-6 grid grid-cols-1 rounded-[1.25rem] px-4 py-1 [--glass-shadow:none] sm:grid-cols-2 sm:gap-1.5 sm:p-0">
-      {plan.includes.map((h, i) => (
+    {plan.perks ? <PosterPerks perks={plan.perks} className="mt-6" /> : null}
+    <ul className={`glass-phone ${plan.perks ? "mt-4" : "mt-6"} grid grid-cols-1 rounded-[1.25rem] px-4 py-1 [--glass-shadow:none] sm:grid-cols-2 sm:gap-1.5 sm:p-0`}>
+      {items.map((h, i) => (
         <li key={h.value} className={`glass-wide flex items-start gap-3 py-3 text-[0.95rem] sm:rounded-[1.1rem] sm:px-4 sm:py-3.5 ${i ? "border-t border-ink/8" : ""}`}>
           <Tick className="mt-[0.2em]" />
           <span>
@@ -504,6 +542,8 @@ export function TripIncludes({ plan }: { plan: TripPlan }) {
  */
 export function TripPackages({ j }: { j: Journey }) {
   const rooms = j.rooms?.value ?? [];
+  const occs = [...new Set(rooms.map((r) => r.sharing))];
+  if (rooms.some((r) => r.flights === false) && occs.length > 1) return <PackageGrid j={j} />;
   // Every payment row any package has, in order of first appearance; a package without that row shows a dash.
   const dues: string[] = [];
   for (const r of rooms) for (const p of r.schedule ?? []) if (!dues.includes(p.due)) dues.push(p.due);
@@ -571,6 +611,92 @@ export function TripPackages({ j }: { j: Journey }) {
           </>
         ) : null}
       </p>
+    </>
+  );
+}
+
+/**
+ * Packages as a grid (Ramadan, 19 Nov 2026): rooms down the side, with flights or ground only across, then how each
+ * is paid. The early bird is shown crossed out. Prices and dates from src/lib/trips.ts.
+ */
+function PackageGrid({ j }: { j: Journey }) {
+  const rooms = j.rooms?.value ?? [];
+  const name = (n: number) => ({ 4: "Quad", 3: "Triple", 2: "Double" })[n] ?? `${n} sharing`;
+  const occs = [...new Set(rooms.map((r) => r.sharing))].sort((a, b) => b - a);
+  const cols = [true, false];
+  const at = (f: boolean, n: number) => rooms.find((r) => (r.flights !== false) === f && r.sharing === n);
+  const dated = rooms.filter((r) => (r.schedule?.length ?? 0) > 2);
+  const deposit = rooms[0]?.schedule?.[0]?.amount;
+  return (
+    <>
+      <div className="glass mt-6 rounded-[1.5rem] p-5 sm:p-7">
+        {j.endedOffer ? (
+          <p className="mb-4 text-[0.9rem] text-ink/62">
+            <s className="decoration-ink/50">
+              {j.endedOffer.label} {gbp(j.endedOffer.price)}
+            </s>{" "}
+            has ended. These are the final prices, per person.
+          </p>
+        ) : null}
+        <table className="w-full text-[0.95rem] tabular-nums">
+          <caption className="sr-only">Prices per person by room, with flights or ground only</caption>
+          <thead>
+            <tr>
+              <td />
+              {cols.map((f) => (
+                <th key={String(f)} scope="col" className="pb-3 pl-3 text-right align-bottom font-normal">
+                  <span className="block font-editorial text-[1.1rem] leading-tight text-bronze italic sm:text-[1.25rem]">{f ? "With flights" : "Ground only"}</span>
+                  <span className="mt-0.5 block text-[0.875rem] text-ink/62">{f ? "Saudia from Heathrow" : "Own flights, enquire"}</span>
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {occs.map((n) => (
+              <tr key={n} className="border-t border-ink/10">
+                <th scope="row" className="py-3 pr-2 text-left font-normal">
+                  <span className="block font-medium">{name(n)}</span>
+                  <span className="block text-[0.875rem] text-ink/62">{n} sharing</span>
+                </th>
+                {cols.map((f) => {
+                  const r = at(f, n);
+                  return (
+                    <td key={String(f)} className="py-3 pl-3 text-right">
+                      <span className="display text-[clamp(1.45rem,4.6vw,2rem)] leading-none text-ink">{r ? gbp(r.price) : "–"}</span>
+                    </td>
+                  );
+                })}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <div className="mt-4 grid gap-1.5 text-[0.9rem] leading-relaxed text-ink/70">
+        {deposit ? <p>A {gbp(deposit)} deposit holds your place on every package. All deposits are non-refundable.</p> : null}
+        {dated.map((r) => (
+          <p key={r.type}>
+            {r.type}: then{" "}
+            {r
+              .schedule!.slice(1)
+              .map((p) => `${gbp(p.amount)} on ${p.due.replace(/, final$/i, "")}`)
+              .join(", ")}
+            .
+          </p>
+        ))}
+        {dated.length ? <p>Every other package: the balance on dates we agree with you after booking.</p> : null}
+        {dated.some((r) => r.schedule!.some((p) => /30 November/.test(p.due))) ? (
+          <p>
+            Booking after 30 November? We’ll tell you what’s due when we confirm your place.
+            <Mark s="to confirm" />
+          </p>
+        ) : null}
+        {j.plan?.places ? (
+          <p>
+            {j.plan.places.value}.
+            <Mark s={j.plan.places.status} />
+          </p>
+        ) : null}
+      </div>
     </>
   );
 }

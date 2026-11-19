@@ -258,6 +258,7 @@ export function PageLead({
   titleClassName = "text-[clamp(2.8rem,5.4vw,5.4rem)]",
   backdrop,
   crumbsClassName = "",
+  photoSlot,
 }: {
   label?: ReactNode;
   title: ReactNode;
@@ -270,6 +271,8 @@ export function PageLead({
   backdrop?: ReactNode;
   /** Extra classes for the breadcrumb, e.g. hidden on phones on the Instagram landing page. */
   crumbsClassName?: string;
+  /** Replaces the photo stack, e.g. the poster artwork on Ramadan Umrah 2027. */
+  photoSlot?: ReactNode;
 }) {
   return (
     <section className={`wash-hero relative overflow-hidden pt-5 pb-[clamp(3rem,8vw,7rem)] ${gutter}`}>
@@ -296,7 +299,7 @@ export function PageLead({
           photo. CSS in globals.css under "Page head". */}
       <div className="lead-grid relative grid grid-cols-1 gap-x-16 gap-y-14 lg:grid-cols-12 lg:items-center">
         <div className="lead-photo lg:order-2 lg:col-span-6">
-          <PhotoStack photos={photos} priority className="lg:ml-auto lg:max-w-[34rem]" />
+          {photoSlot ?? <PhotoStack photos={photos} priority className="lg:ml-auto lg:max-w-[34rem]" />}
         </div>
         <div className="lead-text lg:order-1 lg:col-span-6">
           {label ? <Label>{label}</Label> : null}

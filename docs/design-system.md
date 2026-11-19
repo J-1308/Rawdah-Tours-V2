@@ -119,7 +119,11 @@ script in `app/layout.tsx` sets before first paint unless the visitor prefers re
   takes the GGC poster's stone, mist and olive (`.skin-1448`, tokens only; header and footer stay Rawdah's); the head
   is the poster's lockup (1448 / RAMADAN / LAST 10 DAYS, `PosterLockup`), the dates in italic, and four frosted
   tablets (`poster-parts.tsx`); drifting mist replaces the night sky. Olive type on the tablets and dates, not the
-  poster's white, which can't be read on stone.
+  poster's white, which can't be read on stone. Also from the poster (19 Nov 2026): the icon row of what's included
+  (`PosterPerks`, line icons drawn for Rawdah), the team row (`PosterTeam`: round portraits, role in capitals over the
+  name), and its own opening when arriving from another page of the site (`Arrival`: stone, olive mark, 1448, then a
+  curtain lift; `html[data-arrival]`). Two heads to compare in the preview: the group photo, or the poster's artwork
+  with `?head=art` (`data-head`); keep one, then remove the switch.
 - **Ramadan Umrah 2027 only** (`posterType`; the page every Instagram link lands on, 17–18 Nov 2026): no opening on
   this page (the head script marks it played); a night sky with stars twinkling in three groups and a crescent
   (`night-sky.tsx`, fixed seed; paused off screen by `page-watch.tsx`) on the head; the title rises letter by letter

@@ -115,9 +115,18 @@ export function ReservePanel({ j, bookable = false }: { j: Journey; bookable?: b
   const deposit = (j.deposit?.value ?? 0) * (adults + kids);
   const open = j.state === "open";
   const confirmedPrices = j.rooms?.status === "confirmed";
+  /**
+   * Packages in a grid (Ramadan, 19 Nov 2026): with flights or ground only, then the room (quad, triple, double).
+   * Ground only is an enquiry, as on the poster.
+   */
+  const matrix = packages && rooms.some((r) => r.flights === false) && new Set(rooms.map((r) => r.sharing)).size > 1;
+  const roomName = (n: number) => ({ 4: "Quad", 3: "Triple", 2: "Double" })[n] ?? `${n} sharing`;
+  const pick = (f: boolean, n: number) => rooms.find((r) => (r.flights !== false) === f && r.sharing === n);
+  const ground = chosen.flights === false;
+  const verb = matrix && ground ? "enquire about" : open ? "book" : "register interest in";
 
   const message = [
-    `Salaam Rawdah Tours, I’d like to ${open ? "book" : "register interest in"} ${j.name} (${j.dates.value}).`,
+    `Salaam Rawdah Tours, I’d like to ${verb} ${j.name} (${j.dates.value}).`,
     packages ? `Package: ${chosen.type} (${chosen.note ?? chosen.sub})` : `Room: ${chosen.type} (${chosen.sharing} sharing)`,
     ...(j.landOnly ? [`Flights: ${flights ? "with flights from London" : "land only"}`] : []),
     packages ? `Travellers: ${adults}` : `Travelling: ${adults} adult${adults === 1 ? "" : "s"}${kids ? `, ${kids} child${kids === 1 ? "" : "ren"}` : ""}`,
@@ -162,6 +171,58 @@ export function ReservePanel({ j, bookable = false }: { j: Journey; bookable?: b
           {packages ? "Package, per person" : "Room, per person"}
           <Mark s={j.rooms?.status} />
         </p>
+        {j.endedOffer ? (
+          <p className="mt-1.5 text-[0.875rem] text-ink/62">
+            <s className="decoration-ink/50">
+              {j.endedOffer.label} {gbp(j.endedOffer.price)}
+            </s>{" "}
+            has ended. These are the final prices.
+          </p>
+        ) : null}
+        {matrix ? (
+          <>
+            <div className="mt-2.5 grid grid-cols-2 gap-1.5">
+              {[true, false].map((f) => {
+                const from = Math.min(...rooms.filter((r) => (r.flights !== false) === f).map((r) => r.price));
+                const on = (chosen.flights !== false) === f;
+                return (
+                  <button
+                    key={String(f)}
+                    type="button"
+                    aria-pressed={on}
+                    onClick={() => setRoom((pick(f, chosen.sharing) ?? pick(f, 4) ?? chosen).type)}
+                    className={`rounded-[1rem] border px-3.5 py-3 text-left transition-colors ${on ? "border-ink bg-ink text-canvas shadow-[var(--shadow-lift)]" : "border-ink/10 bg-(--raise) hover:border-ink/35"}`}
+                  >
+                    <span className="block text-[0.93rem] font-medium">{f ? "With flights" : "Ground only"}</span>
+                    <span className={`block text-[0.875rem] ${on ? "text-canvas/70" : "text-ink/65"}`}>{f ? "Saudia from Heathrow" : "Own flights · enquire"}</span>
+                    <span className="display mt-1.5 block text-[1.35rem] leading-none">from {gbp(from)}</span>
+                  </button>
+                );
+              })}
+            </div>
+            <p className={`mt-4 ${label}`}>Room</p>
+            <div className="mt-2 grid grid-cols-3 gap-1.5">
+              {[4, 3, 2].map((n) => {
+                const r = pick(chosen.flights !== false, n);
+                if (!r) return null;
+                const on = r.type === chosen.type;
+                return (
+                  <button
+                    key={n}
+                    type="button"
+                    aria-pressed={on}
+                    onClick={() => setRoom(r.type)}
+                    className={`rounded-[1rem] border px-3 py-3 text-left transition-colors ${on ? "border-ink bg-ink text-canvas shadow-[var(--shadow-lift)]" : "border-ink/10 bg-(--raise) hover:border-ink/35"}`}
+                  >
+                    <span className="block text-[0.875rem] font-medium">{roomName(n)}</span>
+                    <span className={`block text-[0.875rem] ${on ? "text-canvas/70" : "text-ink/65"}`}>{n} sharing</span>
+                    <span className="display mt-1.5 block text-[1.35rem] leading-none">{gbp(r.price)}</span>
+                  </button>
+                );
+              })}
+            </div>
+          </>
+        ) : (
         <div className="mt-2 grid grid-cols-3 gap-1.5">
           {rooms.map((r) => (
             <button
@@ -177,6 +238,7 @@ export function ReservePanel({ j, bookable = false }: { j: Journey; bookable?: b
             </button>
           ))}
         </div>
+        )}
 
         {j.landOnly ? (
           <div className="mt-3 grid grid-cols-2 gap-1.5 text-[0.875rem]">
@@ -260,20 +322,19 @@ export function ReservePanel({ j, bookable = false }: { j: Journey; bookable?: b
           <a
             href={`#${anchors.form}`}
             onClick={() => {
-              const n = adults + children;
-              // The form lists packages as "Early bird, £1,899 per person" (see the trip page).
+              // The form lists packages as "Quad with flights, £1,999 per person" (see the trip page).
               if (choice) prefillForm(choice);
             }}
             className="btn-ink mt-4 flex min-h-[3.25rem] items-center justify-center gap-2 rounded-[0.95rem] text-[0.95rem] font-medium"
           >
-            Book your place <Chevron dir="down" className="size-3 opacity-70" />
+            {matrix && ground ? "Enquire about ground only" : "Book your place"} <Chevron dir="down" className="size-3 opacity-70" />
           </a>
         ) : null}
         <a href={wa(message)} target="_blank" rel="noopener noreferrer" className={`${bookable || open ? "mt-2" : "mt-4"} ${waBtn}`}>
           <span aria-hidden className={waCell}>
             <WaGlyph className="size-5" />
           </span>
-          <span>{open ? "Book on WhatsApp" : "Register interest on WhatsApp"}</span>
+          <span>{matrix && ground ? "Enquire on WhatsApp" : open ? "Book on WhatsApp" : "Register interest on WhatsApp"}</span>
         </a>
         {open ? (
           <p className="mt-3 text-center text-[0.9rem] text-ink/70">

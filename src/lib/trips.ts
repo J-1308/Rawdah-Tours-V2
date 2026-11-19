@@ -21,6 +21,9 @@ export type RoomOption = {
   schedule?: Array<{ due: string; pence: number }>
 }
 
+/** An offer that has ended, shown crossed out beside the current prices. */
+export type EndedOffer = { label: string; pricePence: number }
+
 export type TripStatus =
   | 'interest' // registering interest; no booking
   | 'open' // bookable on this site with a deposit
@@ -41,6 +44,8 @@ export type Trip = {
   inclusions?: string[]
   pricing?: {
     rooms: RoomOption[]
+    /** An offer that has ended, shown crossed out (e.g. Ramadan's early bird). */
+    endedOffer?: EndedOffer
     depositPence: number
     /** Added to card payments only */
     cardFeePence: number
@@ -61,33 +66,25 @@ export const TRIPS: Trip[] = [
     status: 'interest',
     startDate: '2027-02-27',
     endDate: '2027-03-13',
-    summary: 'Thirteen nights in Ramadan with GGC: nine in Makkah, then four in Madinah, flying with Saudia from London Heathrow.',
+    summary: 'Fourteen nights in Ramadan with GGC, one on the flight out: nine in Makkah, then four in Madinah, flying with Saudia from London Heathrow.',
     stays: [
       { city: 'Makkah', nights: 9, hotel: 'Novotel Thakher City Makkah', note: '4-star' },
       { city: 'Madinah', nights: 4, hotel: 'Al Manakha Rotana', note: '4-star' },
     ],
     flights: 'Return flights with Saudia: London Heathrow to Jeddah, and Madinah to London Heathrow via Jeddah',
     pricing: {
+      /**
+       * Final prices per person (Jibril, 19 Nov 2026): the early bird (£1,899, quad with flights) is over. Payment
+       * dates are only those Rawdah has given: the quad with flights keeps the timetable it had as "Standard"; the
+       * others are a £399 deposit and a balance on dates agreed after booking.
+       */
       rooms: [
         {
-          id: 'early-bird',
-          label: 'Early bird',
-          occupancy: 4,
-          pricePence: 189900,
-          note: 'Flights and ground, quad sharing',
-          schedule: [
-            { due: 'Deposit on booking', pence: 39900 },
-            { due: '30 November', pence: 50000 },
-            { due: '31 December', pence: 50000 },
-            { due: '20 January, final', pence: 50000 },
-          ],
-        },
-        {
-          id: 'standard',
-          label: 'Standard',
+          id: 'flights-quad',
+          label: 'Quad with flights',
           occupancy: 4,
           pricePence: 199900,
-          note: 'Flights and ground, quad sharing',
+          note: 'Flights and ground, quad room',
           schedule: [
             { due: 'Deposit on booking', pence: 39900 },
             { due: '30 November', pence: 60000 },
@@ -96,23 +93,71 @@ export const TRIPS: Trip[] = [
           ],
         },
         {
-          id: 'ground-only',
-          label: 'Ground only',
+          id: 'flights-triple',
+          label: 'Triple with flights',
+          occupancy: 3,
+          pricePence: 224900,
+          note: 'Flights and ground, triple room',
+          schedule: [
+            { due: 'Deposit on booking', pence: 39900 },
+            { due: 'Balance, dates agreed after booking', pence: 185000 },
+          ],
+        },
+        {
+          id: 'flights-double',
+          label: 'Double with flights',
+          occupancy: 2,
+          pricePence: 244900,
+          note: 'Flights and ground, double room',
+          schedule: [
+            { due: 'Deposit on booking', pence: 39900 },
+            { due: 'Balance, dates agreed after booking', pence: 205000 },
+          ],
+        },
+        {
+          id: 'ground-quad',
+          label: 'Quad, ground only',
           occupancy: 4,
           pricePence: 129900,
-          note: 'Hotels and transfers, own flights',
+          note: 'Hotels and transfers, quad room, own flights',
           flights: false,
           schedule: [
             { due: 'Deposit on booking', pence: 39900 },
-            { due: 'Balance, agreed after booking', pence: 90000 },
+            { due: 'Balance, dates agreed after booking', pence: 90000 },
+          ],
+        },
+        {
+          id: 'ground-triple',
+          label: 'Triple, ground only',
+          occupancy: 3,
+          pricePence: 139900,
+          note: 'Hotels and transfers, triple room, own flights',
+          flights: false,
+          schedule: [
+            { due: 'Deposit on booking', pence: 39900 },
+            { due: 'Balance, dates agreed after booking', pence: 100000 },
+          ],
+        },
+        {
+          id: 'ground-double',
+          label: 'Double, ground only',
+          occupancy: 2,
+          pricePence: 169900,
+          note: 'Hotels and transfers, double room, own flights',
+          flights: false,
+          schedule: [
+            { due: 'Deposit on booking', pence: 39900 },
+            { due: 'Balance, dates agreed after booking', pence: 130000 },
           ],
         },
       ],
+      /** The early bird that has ended, shown crossed out (Jibril, 19 Nov 2026). */
+      endedOffer: { label: 'Early bird', pricePence: 189900 },
       depositPence: 39900,
       // As on the last trip; confirm before card payments open for this trip.
       cardFeePence: 800,
       balancePlan:
-        'With flights: £399 on booking, then payments on 30 November, 31 December and 20 January, paid in full by 20 January 2027. Ground only: £399 on booking, then the £900 balance on a date agreed after booking. Deposits are non-refundable.',
+        'Quad with flights: £399 on booking, then £600 on 30 November, £500 on 31 December and £500 on 20 January, paid in full by 20 January 2027. Other rooms and ground only: £399 on booking, then the balance on dates agreed after booking. Deposits are non-refundable.',
     },
     capacity: 60,
   },

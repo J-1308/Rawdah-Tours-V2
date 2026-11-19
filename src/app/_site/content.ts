@@ -120,7 +120,7 @@ export const hajjRegister = `${routes.hajj}#${anchors.form}`;
 
 /** The line above the header: the flagship trip. */
 export const strip = ramadanReveal
-  ? { text: "Ramadan Umrah 2027 with GGC: 27 February – 13 March, from £1,899", short: "Ramadan Umrah 2027, from £1,899", cta: "See the trip", href: routes.nextUmrah }
+  ? { text: "Ramadan Umrah 2027 with GGC: 27 February – 13 March, from £1,999", short: "Ramadan Umrah 2027, from £1,999", cta: "See the trip", href: routes.nextUmrah }
   : { text: "Ramadan 1448 with GGC: coming soon", short: "Ramadan 1448: coming soon", cta: "Register interest", href: routes.nextUmrah };
 
 /* ------------------------------------------------------------------------ */
@@ -408,7 +408,7 @@ export const hajjNusuk = {
 export const paying = {
   headline: "Paying for your place",
   text: "A deposit holds your place. The rest is spread out, and it’s all paid before you fly.",
-  example: ramadanReveal ? { room: "Early bird, Ramadan Umrah 2027", price: 1899, deposit: 399, instalments: 3 } : { room: "Quad room, our last trip", price: 1799, deposit: 500, instalments: 3 },
+  example: ramadanReveal ? { room: "Quad with flights, Ramadan Umrah 2027", price: 1999, deposit: 399, instalments: 3, payments: [600, 500, 500] as number[] | undefined } : { room: "Quad room, our last trip", price: 1799, deposit: 500, instalments: 3, payments: undefined as number[] | undefined },
   stages: [
     { when: "On booking", what: "A deposit", note: "Non-refundable, by bank transfer.", status: "confirmed" as Status },
     { when: "Then", what: "Set payments", note: "On dates we give you when you book.", status: "confirmed" as Status },
@@ -446,6 +446,17 @@ export const teachers = [
       "He co-founded Rawdah Tours with Brother Ayuub. On our trips he guides and teaches, explaining each rite of Umrah before you perform it. He guided and taught our August 2026 group in Madinah and Makkah.",
     ],
     photo: { src: "/images/portraits/issa-uthman.jpg", alt: "Ustadh Issa Uthman", position: "object-[40%_25%]" },
+  },
+  {
+    /** The special guest sheikh on Ramadan Umrah 2027 (Jibril and the GGC × Rawdah poster, 19 Nov 2026). Shown on that
+        trip only (tripOnly), not in the site-wide team. Spelt as on the poster. */
+    tripOnly: true,
+    name: "Sheikh Yahya Raaby",
+    role: "Special guest sheikh, Ramadan Umrah 2027",
+    does: "Special guest sheikh",
+    guest: true,
+    bio: v("Our special guest sheikh for Ramadan 1448.", "confirmed"),
+    photo: { src: "/images/portraits/yahya-raaby.jpg", alt: "Sheikh Yahya Raaby", position: "object-[50%_22%]" },
   },
   {
     /** A guest sheikh, not part of the Rawdah team (Jibril, 31 Oct 2026; V1 badge "Special Guest"). */
@@ -611,6 +622,9 @@ export type TripPlan = {
   includes: V[];
   /** One line under the list, e.g. what the ground-only package leaves out. */
   includesNote?: string;
+  /** The poster's icon row of what's included (poster trips). */
+  perksAlso?: V[];
+  perks?: { icon: "visa" | "harams" | "seminar" | "bags" | "bus" | "ziyarah" | "plane" | "train"; big: string; small: string }[];
   places?: V;
   status: Status;
 };
@@ -625,8 +639,12 @@ export type Journey = {
   /** open: takes deposits; interest: register interest; past: completed. */
   state: "open" | "interest" | "past";
   stateStatus: Status;
+  /** An offer that has ended, shown crossed out beside the prices (Ramadan's early bird). */
+  endedOffer?: { label: string; price: number };
   /** Titles in the GGC poster lettering (Ramadan Umrah 2027). */
   posterType?: boolean;
+  /** The team row as on the poster (ref = the person's full name in the team data). */
+  posterTeam?: { label: string; name: string; note?: string; ref: string }[];
   /** Overrides the usual state label, e.g. "Coming soon" on the Ramadan teaser. */
   stateText?: string;
   dates: V;
@@ -671,6 +689,11 @@ export const stateLabel: Record<Journey["state"], string> = {
 };
 
 /** Rooms for a trip that books online come from the server's single price list. */
+function endedFromTrips(slug: string) {
+  const o = getTrip(slug)?.pricing?.endedOffer;
+  return o ? { label: o.label, price: o.pricePence / 100 } : undefined;
+}
+
 function roomsFromTrips(slug: string): Room[] {
   const t = getTrip(slug);
   return (t?.pricing?.rooms ?? []).map((r) => ({
@@ -718,20 +741,27 @@ export const ramadanFull: Journey = {
     kind: "umrah",
     name: "Ramadan Umrah 2027",
     posterType: true,
+    /** The team as on the poster: role in capitals over the name (19 Nov 2026). */
+    posterTeam: [
+      { label: "Sheikh", name: "Yahya Raaby", note: "Special guest", ref: "Sheikh Yahya Raaby" },
+      { label: "Guided by", name: "Ayuub Musa", ref: "Brother Ayuub Mohamed Musa" },
+      { label: "Ustadh", name: "Issa Uthman", ref: "Ustadh Issa Uthman" },
+    ],
     partner: "GGC × Rawdah Tours",
     partnerLogo: { src: "/images/brand/partners/ggc.png", width: 300, height: 100, alt: "Global Guidance Center (GGC)" },
-    tagline: "The last ten days of Ramadan in Makkah, then four nights in Madinah.",
+    tagline: "The last ten nights of Ramadan in Makkah, then Eid in the blessed lands and four nights in Madinah.",
     /** Booking open on WhatsApp, deposits by bank transfer; card payments later (Jibril, 31 Oct 2026). */
     state: "open",
     stateStatus: "confirmed",
     dates: v("Sat 27 Feb – Sat 13 Mar 2027", "confirmed"),
     route: v([{ place: "Makkah", nights: 9 }, { place: "Madinah", nights: 4 }], "confirmed"),
     openTo: v("Brothers, sisters and families", "confirmed"),
-    /* Ustadh Issa is on the trip (Jibril, 18 Nov 2026); any other teachers still to be named. */
-    teacher: v("Ustadh Issa Uthman, more to be named", "to confirm"),
+    /* The poster (19 Nov 2026): Sheikh Yahya Raaby, special guest; guided by Ayuub Musa; Ustadh Issa Uthman. */
+    teacher: v("Sheikh Yahya Raaby and Ustadh Issa Uthman", "confirmed"),
     rooms: v(roomsFromTrips("ramadan-umrah-2027"), "confirmed"),
+    endedOffer: endedFromTrips("ramadan-umrah-2027"),
     deposit: v(399, "confirmed"),
-    /** Three payments after the deposit on the flight packages (30 Nov, 31 Dec, 20 Jan). */
+    /** Three payments after the deposit on the quad with flights (30 Nov, 31 Dec, 20 Jan). */
     months: v(3, "confirmed"),
     flights: v("Saudia from London Heathrow", "confirmed"),
     hotels: { makkah: v("Novotel Thakher City Makkah ★★★★", "confirmed"), madinah: v("Al Manakha Rotana ★★★★", "confirmed") },
@@ -743,16 +773,15 @@ export const ramadanFull: Journey = {
       v("Nine nights in Makkah, then four in Madinah", "confirmed"),
       v("Saudia from Heathrow, 2 × 23kg bags each", "confirmed"),
       v("4★ hotels: Novotel Thakher City and Al Manakha Rotana", "confirmed"),
-      v("From £1,899, with a £399 deposit", "confirmed"),
+      v("From £1,999 with flights, £1,299 ground only; a £399 deposit", "confirmed"),
     ],
     confirmed: [
       { title: "Dates and flights", text: "27 February to 13 March 2027, with Saudia." },
       { title: "Hotels", text: "Novotel Thakher City Makkah and Al Manakha Rotana, both 4★." },
-      { title: "Packages", text: "Early bird £1,899, Standard £1,999, Ground only £1,299." },
+      { title: "Packages", text: "With flights: quad £1,999, triple £2,249, double £2,449. Ground only: quad £1,299, triple £1,399, double £1,699." },
     ],
     pending: [
-      { title: "Teachers", text: "Ustadh Issa Uthman, with more to be named." },
-      { title: "Eid", text: "Tuesday 9 or Wednesday 10 March, so we may spend it travelling." },
+      { title: "Eid", text: "Eid in the blessed lands: Tuesday 9 or Wednesday 10 March." },
     ],
     plan: {
       status: "confirmed",
@@ -829,16 +858,37 @@ export const ramadanFull: Journey = {
           note: "We check out in the early hours for the 03:35 flight.",
         },
       ],
-      notes: [{ tone: "moon", text: "Eid al-Fitr falls on Tuesday 9 or Wednesday 10 March, so we may spend it travelling." }],
+      /* Go with the poster: Eid in the blessed lands (Jibril, 19 Nov 2026). */
+      notes: [{ tone: "moon", text: "Eid in the blessed lands: Eid al-Fitr falls on Tuesday 9 or Wednesday 10 March." }],
+      /* The poster's list (19 Nov 2026), plus the hotels and the team. */
       includes: [
-        v("Return flights with Saudia from Heathrow, 2 × 23kg checked and 7kg hand luggage", "confirmed"),
-        v("9 nights at Novotel Thakher City Makkah, 4★", "confirmed"),
-        v("4 nights at Al Manakha Rotana, Madinah, 4★", "confirmed"),
-        v("Transfers on the ground, straight to Makkah when you land", "confirmed"),
-        v("Your Umrah visa", "confirmed"),
-        v("Certified ustadhs and the Rawdah Tours team with the group", "proposed"),
+        v("Direct flights with Saudia, 2 × 23kg checked baggage and 7kg hand luggage", "confirmed"),
+        v("A 2-year entry visa", "confirmed"),
+        v("9 nights at Novotel Thakher City Makkah and 4 at Al Manakha Rotana, Madinah, both 4★", "confirmed"),
+        v("Ground transport, and the Haramain train", "confirmed"),
+        v("Jumuah in both Harams", "confirmed"),
+        v("A pre-Umrah seminar", "confirmed"),
+        v("Madinah ziyarah", "confirmed"),
+        v("Sheikh Yahya Raaby, Ustadh Issa Uthman and the Rawdah Tours team with the group", "confirmed"),
       ],
-      includesNote: "Ground only covers the hotels and transfers. You book your own flights.",
+      /** The poster's icon row: shown as tiles above the list on poster trips. */
+      perks: [
+        { icon: "visa", big: "2 year", small: "Entry visa" },
+        { icon: "harams", big: "Jumuah in", small: "Both Harams" },
+        { icon: "seminar", big: "Pre-Umrah", small: "Seminar" },
+        { icon: "bags", big: "2 × 23kg", small: "Baggage" },
+        { icon: "bus", big: "Ground", small: "Transport" },
+        { icon: "ziyarah", big: "Madinah", small: "Ziyarah" },
+        { icon: "plane", big: "Direct", small: "Flights" },
+        { icon: "train", big: "Haramain", small: "Train" },
+      ],
+      includesNote: "Ground only covers the hotels and ground transport. You book your own flights.",
+      /** Under the icon row on poster trips: what the icons don't say. */
+      perksAlso: [
+        v("9 nights at Novotel Thakher City Makkah and 4 at Al Manakha Rotana, Madinah, both 4★", "confirmed"),
+        v("Saudia from Heathrow, with 7kg hand luggage as well as 2 × 23kg checked", "confirmed"),
+        v("Sheikh Yahya Raaby, Ustadh Issa Uthman and the Rawdah Tours team with the group", "confirmed"),
+      ],
       places: v("Up to 60 places: around 30 with flights and 30 ground only", "confirmed"),
     },
     /* A Rawdah group for now; an Umrah poster from Rawdah will replace it (Jibril, 17 Nov 2026). */

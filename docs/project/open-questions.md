@@ -15,9 +15,11 @@ Things only Rawdah (or Jibril) can answer. Each one is marked on the page where 
    everything (Jibril, 17 Nov 2026). Before that it was hidden behind a "Ramadan 1448 · Coming soon" teaser. Settled with Jibril (31 Oct 2026): the £399 deposit is right (terms
    6.1 updated from £299), visas are included, open to brothers, sisters and families, booking on WhatsApp with
    deposits by bank transfer (card payments with Stripe later), GGC is the Global Guidance Center and its logo is
-   shown. Ustadh Issa Uthman is on the trip (Jibril, 18 Nov 2026). Still open: any other teachers; how long the
-   early-bird price lasts (date, places or open); what someone booking after 30 November pays for that instalment;
-   Rawdah's Umrah poster for the page head (a group photo stands in). Hotel photos: settled (Jibril, 16 Nov 2026),
+   shown. From the poster (19 Nov 2026): Sheikh Yahya Raaby (special guest), guided by Ayuub Musa, Ustadh Issa Uthman;
+   Eid in the blessed lands; the last 10 nights; 14 nights. The early bird (£1,899) has ended: final prices with flights
+   quad £1,999, triple £2,249, double £2,449; ground only (enquire) £1,299, £1,399, £1,699. Still open: payment dates
+   for every package except the quad with flights; what someone booking after 30 November pays; the poster says
+   "Direct flights" while the return goes Madinah → Jeddah → London (direct on the London legs). Hotel photos: settled (Jibril, 16 Nov 2026),
    four per hotel from the hotels' own listings.
 5. **Hajj 2027 "open to":** settled. Brothers and sisters, and children over 12 (Rawdah, 31 Oct 2026).
 5a. **Hajj 2027 group:** settled from the live Hajj page (31 Oct 2026): no provider is named, dates and hotels
