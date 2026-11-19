@@ -679,7 +679,8 @@ html.motion[data-arrival] .arrival {
 .ph-face-b { visibility: hidden; }
 html.motion .ph-face { animation: tab-swap 9s ease-in-out infinite; }
 html.motion .ph-face-b { visibility: visible; animation-delay: -4.5s; }
-@keyframes tab-swap { 0%, 42% { opacity: 1; transform: none; } 50%, 92% { opacity: 0; transform: translate3d(0, -0.4rem, 0); } 100% { opacity: 1; transform: none; } }
+/* One face fades out (40–45%) before the other fades in (45–50%): never both half-seen. */
+@keyframes tab-swap { 0%, 40% { opacity: 1; transform: none; } 45%, 95% { opacity: 0; transform: translate3d(0, -0.4rem, 0); } 100% { opacity: 1; transform: none; } }
 .ph-buy { display: grid; gap: 0.75rem; max-width: 34rem; margin-top: 1rem; }
 .ph-buy .hero-offer { margin-top: 0; }
 .ph-buy-btn { width: 100%; max-width: 22rem; justify-self: center; margin-top: 0.5rem; }
@@ -706,6 +707,50 @@ html.motion .ph-face-b { visibility: visible; animation-delay: -4.5s; }
 .ph-team .poster-face { width: min(100%, 5.75rem); }
 @media (min-width: 40rem) { .ph-team .poster-face { width: 7rem; } }
 .ph-team .poster-role { margin-top: 0.6rem; }
+
+.poster-hero:has(.ticker) { padding-bottom: 0.5rem; }
+.ph-note { margin-top: 0.9rem; font-family: "Montserrat", "DM Sans", system-ui, sans-serif; font-size: 0.875rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-bronze); }
+
+/* The icon ticker under the poster hero: two copies of the row sliding by half their width, edges fading. Still
+   (no html.motion): one row to scroll sideways by hand. */
+.ticker {
+  position: relative; margin-inline: calc(50% - 50vw); overflow: hidden; color: var(--color-bronze);
+  border-block: 1px solid rgb(84 82 52 / 0.14);
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+}
+.ticker-track { display: flex; width: max-content; }
+.ticker-row { display: flex; flex: none; }
+.ticker-item { display: flex; align-items: center; gap: 0.65rem; padding: 0.95rem 1.6rem; white-space: nowrap; font-family: "Montserrat", "DM Sans", system-ui, sans-serif; font-size: 0.875rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; }
+.ticker-item em { font-weight: 500; font-style: italic; opacity: 0.85; }
+.ticker-icon { width: 1.9rem; height: 1.9rem; flex: none; }
+.ticker-item + .ticker-item, .ticker-row + .ticker-row .ticker-item:first-child { border-left: 1px solid rgb(84 82 52 / 0.14); }
+html:not(.motion) .ticker { overflow-x: auto; }
+html:not(.motion) .ticker-row[aria-hidden] { display: none; }
+html.motion .ticker-track { animation: ticker 48s linear infinite; }
+@keyframes ticker { to { transform: translate3d(-50%, 0, 0); } }
+.ticker[data-off] .ticker-track { animation-play-state: paused; }
+@media (hover: hover) { .ticker:hover .ticker-track { animation-play-state: paused; } }
+
+/* Jump links under the poster hero (Ramadan): chips in a row, stuck under the header on phones, centred on desktop. */
+.trip-jump { position: sticky; top: 4.5rem; z-index: 30; background: #ece8df; border-bottom: 1px solid rgb(84 82 52 / 0.12); }
+.trip-jump ul { display: flex; gap: 0.5rem; overflow-x: auto; scrollbar-width: none; padding: 0.6rem max(var(--hero-pad-x), env(safe-area-inset-left)); -webkit-mask-image: linear-gradient(90deg, #000 86%, transparent); mask-image: linear-gradient(90deg, #000 86%, transparent); }
+.trip-jump ul::-webkit-scrollbar { display: none; }
+.trip-jump a { display: flex; align-items: center; min-height: 2.75rem; padding: 0 1rem; border-radius: 0.8rem; border: 1px solid rgb(84 82 52 / 0.18); background: rgb(255 255 255 / 0.45); white-space: nowrap; font-size: 0.9rem; color: var(--color-ink); }
+.trip-jump a:hover { border-color: rgb(84 82 52 / 0.4); }
+.trip-anchor { scroll-margin-top: 9rem; }
+@media (min-width: 64rem) {
+  .trip-jump { position: static; border: 0; }
+  .trip-jump ul { justify-content: center; padding-top: 1.5rem; -webkit-mask-image: none; mask-image: none; }
+  .trip-anchor { scroll-margin-top: 7rem; }
+}
+
+/* Rawdah's own groups: swipe on phones, three across on desktop. */
+.group-strip { display: grid; grid-auto-flow: column; grid-auto-columns: 78%; gap: 0.75rem; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; margin-inline: calc(var(--hero-pad-x) * -1); padding-inline: var(--hero-pad-x); padding-bottom: 0.75rem; }
+.group-strip::-webkit-scrollbar { display: none; }
+.group-strip > li { scroll-snap-align: center; }
+@media (min-width: 40rem) { .group-strip { grid-auto-columns: 48%; } }
+@media (min-width: 64rem) { .group-strip { grid-auto-flow: row; grid-template-columns: repeat(3, minmax(0, 1fr)); overflow: visible; margin-inline: 0; padding: 0; } }
 
 /* The mist: big soft clouds, drifting by transform only. */
 .mist .cloud { position: absolute; border-radius: 50%; background: radial-gradient(closest-side, rgb(255 255 255 / 0.85), rgb(255 255 255 / 0)); }

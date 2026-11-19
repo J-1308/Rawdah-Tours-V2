@@ -20,7 +20,9 @@ Things only Rawdah (or Jibril) can answer. Each one is marked on the page where 
    quad £1,999, triple £2,249, double £2,449; ground only (enquire) £1,299, £1,399, £1,699. Meals: Makkah room only (no
    suhoor), breakfast in Madinah; no ihram provided (Jibril, 19 Nov 2026). Still open: payment dates
    for every package except the quad with flights; what someone booking after 30 November pays; the poster says
-   "Direct flights" while the return goes Madinah → Jeddah → London (direct on the London legs). Hotel photos: settled (Jibril, 16 Nov 2026),
+   "Direct flights" while the return goes Madinah → Jeddah → London (direct on the London legs); how far each hotel
+   is from the Haram (minutes' walk or a shuttle), which the best trip pages show; children's prices, if any; whether
+   the three V1 reviews are real travellers' words that can be shown (they'd sit by the group photos). Hotel photos: settled (Jibril, 16 Nov 2026),
    four per hotel from the hotels' own listings.
 5. **Hajj 2027 "open to":** settled. Brothers and sisters, and children over 12 (Rawdah, 31 Oct 2026).
 5a. **Hajj 2027 group:** settled from the live Hajj page (31 Oct 2026): no provider is named, dates and hotels

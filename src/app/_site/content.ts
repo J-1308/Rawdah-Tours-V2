@@ -650,6 +650,14 @@ export type Journey = {
   /** The team row as on the poster (ref = the person's full name in the team data). */
   /** `cut`: the portrait cut out of its background, for the poster hero (public/images/portraits/cut). */
   posterTeam?: { label: string; name: string; note?: string; ref: string; cut?: { src: string; width: number; height: number } }[];
+  /** Poster trips: a short line under the price in the hero (real facts only: places, deposit). */
+  heroNote?: string;
+  /** This trip's own questions, shown before the general ones. */
+  faqs?: { q: string; a: string; status: Status }[];
+  /** Rawdah's own photos from earlier trips, shown on the trip page as proof (not this trip's photos). */
+  groups?: { src: string; alt: string }[];
+  /** Short lines beside the closing form: how booking works. */
+  closing?: string[];
   /** Overrides the usual state label, e.g. "Coming soon" on the Ramadan teaser. */
   stateText?: string;
   dates: V;
@@ -757,6 +765,21 @@ export const ramadanFull: Journey = {
       { label: "Guided by", name: "Ayuub Musa", ref: "Brother Ayuub Mohamed Musa", cut: { src: "/images/portraits/cut/ayuub-mohamed-musa.png", width: 640, height: 743 } },
       { label: "Ustadh", name: "Issa Uthman", ref: "Ustadh Issa Uthman", cut: { src: "/images/portraits/cut/issa-uthman.png", width: 890, height: 1000 } },
     ],
+    /* Selling pass (Jibril, 19 Nov 2026): the format of the best trip pages, in Rawdah's own facts and photos. */
+    heroNote: "Up to 60 places · £399 deposit",
+    faqs: [
+      { q: "Are meals included?", a: "Breakfast each day in Madinah is the only meal included. The Makkah hotel is room only, with no suhoor.", status: "confirmed" },
+      { q: "Is ihram provided?", a: "No. Please bring your own.", status: "confirmed" },
+      { q: "Where will we spend Eid?", a: "In the blessed lands. Eid al-Fitr falls on Tuesday 9 or Wednesday 10 March.", status: "confirmed" },
+      { q: "What does ground only cover?", a: "The hotels and ground transport. You book your own flights.", status: "confirmed" },
+      { q: "How many places are there?", a: "Up to 60: around 30 with flights and 30 ground only.", status: "confirmed" },
+    ],
+    groups: [
+      { src: "/images/group-photos/group-photos-03.jpg", alt: "A Rawdah group in ihram at night, lit arcades and a minaret behind them." },
+      { src: "/images/group-photos/group-photos-04.jpg", alt: "A Rawdah group outside Masjid Quba." },
+      { src: "/images/friends/friends-09.jpg", alt: "Two travellers in ihram at night in Makkah, the clock tower lit green behind them." },
+    ],
+    closing: ["A £399 deposit holds your place", "The rest on dates set when you book, all before you fly", "Up to 60 places, around half with flights"],
     partner: "GGC × Rawdah Tours",
     partnerLogo: { src: "/images/brand/partners/ggc.png", width: 300, height: 100, alt: "Global Guidance Center (GGC)" },
     tagline: "The last ten nights of Ramadan in Makkah, then Eid in the blessed lands and four nights in Madinah.",

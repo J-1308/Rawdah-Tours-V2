@@ -68,6 +68,10 @@ is **not** identified on the site.
   City from Accor's own photos (exterior, room, prayer hall, restaurant); Al Manakha Rotana from its Hotels.com
   listing (exterior, room with the Haram minarets, room, restaurant). The first of each is the slot photo
   (`public/images/slots/`), the rest are in `public/images/hotels/`.
+  Selling pass (19 Nov 2026): the three portraits cut out for the hero (`public/images/portraits/cut/`, from the
+  portraits already on the site; Sheikh Yahya's pen painted out); the trip's own questions (meals, ihram, Eid, ground
+  only, places) from facts Jibril and the PDF gave; the group strip uses Rawdah's own V1 photos
+  (`group-photos-03`, `-04`, `friends-09`). Nothing from The Umrah Company or The Sunnah Experience.
 - **Trust box** (trip pages, `trust` in `content.ts`): shows only the people on the trip and two buttons. Its
   numbers (years running, pilgrims taken, review rating and count) stay empty until Rawdah answers the
   questionnaire; never estimate them.

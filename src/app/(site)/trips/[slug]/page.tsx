@@ -11,12 +11,12 @@ import { anchors, brand, covers, faqs, fromPrice, gbp, hajjNusuk, journey, journ
 import { CoverGroups, FaqList, PaymentPlan, Tick } from "@/app/_site/home-sections";
 import { Mark } from "@/app/_site/marks";
 import { ArrivalTrigger } from "@/app/_site/arrival-trigger";
-import { Arrival, HeroFigures, HeroOffer, Mist, PosterTeam } from "@/app/_site/poster-parts";
+import { Arrival, HeroFigures, HeroOffer, Mist, PerkTicker, PosterTeam } from "@/app/_site/poster-parts";
 import { PosterLockup, PosterText } from "@/app/_site/poster-type";
 import { StepForm } from "@/app/_site/step-form";
 import { ReservePanel } from "@/app/_site/reserve";
 import { Chapter, ConfirmedPending, gutter, Heading, Label, Logo, PageLead, PartnerLogo, WaTile } from "@/app/_site/shell";
-import { HajjOnNusuk, leaderMember, MomentStrip, PosterTeamBlock, TeamLine, TeamList, tripTeacherMembers, teamMembers, TripIncludes, TrustBox, TripJourney, TripPackages, WhereYouStay, type Member } from "@/app/_site/trip-parts";
+import { GroupStrip, HajjOnNusuk, leaderMember, MomentStrip, PosterTeamBlock, TeamLine, TeamList, tripTeacherMembers, teamMembers, TripIncludes, TrustBox, TripJourney, TripPackages, WhereYouStay, type Member } from "@/app/_site/trip-parts";
 import { StateTag } from "@/app/_site/trip-row";
 import { Chevron } from "@/app/_site/whatsapp";
 import { getTrip, isBookable, isDemoBooking } from "@/lib/trips";
@@ -111,7 +111,11 @@ export function TripView({ j }: { j: Journey }) {
       : [leaderMember, { name: j.teacher.value, does: "Certified ustadhs", line: "Every trip is guided by certified ustadhs. They’ll be named here when the trip is announced.", status: j.teacher.status }];
   /** On a trip with its plan set out above, the general answers about last year's itinerary, inclusions and meals would contradict it. */
   const shownAbove = ["What is included in the trip cost?", "What is the trip itinerary like?", "What about meal arrangements?"];
-  const qs = faqs.filter((f) => (j.kind === "hajj" ? f.topic === "hajj" : f.topic !== "hajj") && !(j.plan && shownAbove.includes(f.q)));
+  const qs = [
+    // This trip's own questions first (Ramadan: meals, ihram, Eid, ground only, places).
+    ...(j.faqs ?? []).map((f) => ({ topic: j.kind, ...f })),
+    ...faqs.filter((f) => (j.kind === "hajj" ? f.topic === "hajj" : f.topic !== "hajj") && !(j.plan && shownAbove.includes(f.q))),
+  ];
   const joinLabel = j.state === "open" ? "Book your place" : "Register interest";
   const posterPeople = (j.posterTeam ?? []).map((p) => ({ label: p.label, name: p.name, note: p.note, cut: p.cut, photo: members.find((m) => m.name === p.ref)?.photo }));
   /** The special guest, first on the poster: inside the artwork on phones, on the left of it on desktop. */
@@ -209,8 +213,14 @@ export function TripView({ j }: { j: Journey }) {
                   {joinLabel} <Chevron dir="down" className="size-3 opacity-70" />
                 </a>
               </div>
+              {j.heroNote ? (
+                <p style={{ "--d": "1000ms" } as CSSProperties} className="ph-note follow">
+                  {j.heroNote}
+                </p>
+              ) : null}
               {withGuest.length ? <PosterTeam className="ph-team follow mx-auto mt-8 max-w-[18rem] lg:hidden" people={withGuest} /> : null}
             </div>
+            {j.plan?.perks ? <PerkTicker perks={j.plan.perks} className="follow mt-10 sm:mt-14" /> : null}
           </section>
         </Chapter>
       ) : (
@@ -266,10 +276,29 @@ export function TripView({ j }: { j: Journey }) {
       </Chapter>
       )}
 
+      {/* Poster trips: jump links (after The Sunnah Experience's section nav), stuck under the header on phones. */}
+      {j.posterType ? (
+        <nav aria-label="On this page" className="trip-jump">
+          <ul>
+            {[
+              ...(j.posterTeam ? [["The people", "people"]] : []),
+              ["Flights & hotels", "stay"],
+              ["Included", "included"],
+              ["Prices", "prices"],
+              ["Questions", "faq"],
+            ].map(([label, id]) => (
+              <li key={id}>
+                <a href={`#${id}`}>{label}</a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      ) : null}
+
       <Chapter tone="day">
       <div className={`grid grid-cols-1 gap-x-14 gap-y-12 py-[clamp(2.5rem,5vw,4.5rem)] lg:grid-cols-12 ${gutter}`}>
         {/* The join panel: beside the story on desktop, straight after the header on phones */}
-        <aside id={anchors.join} className="scroll-mt-28 lg:order-2 lg:col-span-4">
+        <aside id={anchors.join} className={`scroll-mt-28 lg:order-2 lg:col-span-4 ${j.posterType ? "trip-anchor" : ""}`}>
           <div className="lg:sticky lg:top-28">
             <ReservePanel j={j} bookable={bookable} />
             {/* Desktop, when the join panel is short (no packages): the trust box under it, softer option only.
@@ -320,6 +349,16 @@ export function TripView({ j }: { j: Journey }) {
             </ul>}
           </section>
 
+          {/* Poster trips: the people straight after the trip, as the best trip pages do (Sheikh Yahya is the draw),
+              then Rawdah's own groups from earlier trips. */}
+          {j.posterTeam ? (
+            <section id="people" className="trip-anchor mt-12 sm:mt-16">
+              <Heading className={h2}>The people who will walk with you</Heading>
+              <PosterTeamBlock j={j} members={members} />
+            </section>
+          ) : null}
+          {j.groups ? <GroupStrip photos={j.groups} /> : null}
+
           {j.kind === "hajj" ? <HajjOnNusuk /> : null}
 
           {j.kind === "umrah" && j.itinerary ? <Itinerary j={j} /> : null}
@@ -350,7 +389,9 @@ export function TripView({ j }: { j: Journey }) {
       <Chapter tone="night">
         {j.kind === "umrah" ? (
           j.plan ? (
-            <TripJourney j={j} />
+            <div id="stay" className="trip-anchor">
+              <TripJourney j={j} />
+            </div>
           ) : (
             <WhereYouStay j={j} />
           )
@@ -382,19 +423,22 @@ export function TripView({ j }: { j: Journey }) {
           <div className="max-w-[60rem]">
             {j.kind === "umrah" && j.plan ? (
               <>
-                <section>
+                <section id="included" className="trip-anchor">
                   <Heading className={h2}>What’s included</Heading>
                   <TripIncludes plan={j.plan} />
                 </section>
-                <section className="mt-12 sm:mt-16">
+                <section id="prices" className="trip-anchor mt-12 sm:mt-16">
                   <Heading className={h2}>Packages and payments</Heading>
                   <TripPackages j={j} />
                 </section>
-                <section className="mt-12 sm:mt-16">
-                  <Heading className={h2}>The people who will walk with you</Heading>
-                  {j.posterTeam ? <PosterTeamBlock j={j} members={members} /> : <TeamList members={members} cols="lg:grid-cols-3" className="mt-8" />}
-                  {j.posterTeam ? null : <TeamLine />}
-                </section>
+                {/* Poster trips show the people higher up, after the trip itself. */}
+                {j.posterTeam ? null : (
+                  <section className="mt-12 sm:mt-16">
+                    <Heading className={h2}>The people who will walk with you</Heading>
+                    <TeamList members={members} cols="lg:grid-cols-3" className="mt-8" />
+                    <TeamLine />
+                  </section>
+                )}
               </>
             ) : j.kind === "umrah" ? (
               <>
@@ -418,7 +462,7 @@ export function TripView({ j }: { j: Journey }) {
               </>
             ) : null}
 
-            <section className={j.kind === "umrah" ? "mt-12 sm:mt-16" : ""}>
+            <section id="faq" className={`trip-anchor ${j.kind === "umrah" ? "mt-12 sm:mt-16" : ""}`}>
               <Heading className={h2}>Common questions</Heading>
               <div className="glass mt-6 rounded-[1.5rem] px-5 py-1">
                 <FaqList items={qs} />
@@ -442,7 +486,7 @@ export function TripView({ j }: { j: Journey }) {
           </div>
         </div>
 
-        <section id={anchors.form} className={`wash-linen scroll-mt-28 py-[clamp(3.75rem,10vw,9rem)] ${gutter}`}>
+        <section id={anchors.form} className={`wash-linen scroll-mt-28 ${j.posterType ? "trip-anchor" : ""} py-[clamp(3.75rem,10vw,9rem)] ${gutter}`}>
           <div className="grid grid-cols-1 gap-x-14 gap-y-10 lg:grid-cols-12">
             <div className="lg:col-span-4">
               {/* Poster lettering on the title and this closing heading only; section headings stay in the serif (Jibril, 18 Nov 2026). */}
@@ -454,6 +498,16 @@ export function TripView({ j }: { j: Journey }) {
                     ? "About a minute. The Rawdah Tours team confirms your place and how to pay the deposit."
                     : "About a minute, and the Rawdah Tours team will be in touch. Registering doesn’t reserve a place or commit you to anything."}
               </p>
+              {j.closing ? (
+                <ul className="mt-6 grid gap-2.5 text-[0.98rem]">
+                  {j.closing.map((c) => (
+                    <li key={c} className="flex items-start gap-3">
+                      <Tick className="mt-[0.2em]" />
+                      {c}
+                    </li>
+                  ))}
+                </ul>
+              ) : null}
             </div>
             <div className="glass rounded-[1.75rem] p-5 sm:p-8 lg:col-span-7 lg:col-start-6">
               {j.kind === "hajj" ? (

@@ -104,6 +104,36 @@ export function PosterPerks({ perks, className = "" }: { perks: Perk[]; classNam
 /* ------------------------------------------------------------------------ */
 /* The poster's team row: round portraits, the role in small capitals over the name (19 Nov 2026). */
 
+/**
+ * The poster's icons as a slow ticker under the hero (after The Sunnah Experience's badge strip, in Rawdah's icons):
+ * the offer at a glance. Moves by transform only, paused off screen (page-watch.tsx); still with reduced motion, where it
+ * scrolls sideways by hand instead.
+ */
+export function PerkTicker({ perks, className = "" }: { perks: Perk[]; className?: string }) {
+  const row = (copy: boolean) => (
+    <ul aria-hidden={copy || undefined} className="ticker-row">
+      {perks.map((p) => (
+        <li key={p.icon} className="ticker-item">
+          <svg aria-hidden viewBox="0 0 48 48" className="ticker-icon" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            {ICONS[p.icon]}
+          </svg>
+          <span>
+            {p.big} <em>{p.small}</em>
+          </span>
+        </li>
+      ))}
+    </ul>
+  );
+  return (
+    <div className={`ticker ${className}`}>
+      <div className="ticker-track">
+        {row(false)}
+        {row(true)}
+      </div>
+    </div>
+  );
+}
+
 export type PosterPerson = {
   label: string;
   name: string;

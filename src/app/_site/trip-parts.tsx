@@ -368,6 +368,25 @@ export function MomentStrip({ photos, caption }: { photos: StayPhoto[]; caption:
   );
 }
 
+/**
+ * Rawdah's own groups from earlier trips, as proof (Jibril, 19 Nov 2026), whole pictures with everyone in frame.
+ * Phones: a row to swipe; desktop: three side by side.
+ */
+export function GroupStrip({ photos }: { photos: { src: string; alt: string }[] }) {
+  return (
+    <section className="mt-12 sm:mt-16">
+      <ul className="group-strip">
+        {photos.map((p) => (
+          <li key={p.src} className="relative aspect-[4/3] overflow-hidden rounded-[1.25rem] shadow-[var(--shadow-lift)]">
+            <Image src={p.src} alt={p.alt} fill sizes="(min-width: 1024px) 18rem, 78vw" className="object-cover" />
+          </li>
+        ))}
+      </ul>
+      <p className="mt-3 font-editorial text-[1.05rem] text-ink/65 italic">Rawdah groups on earlier trips.</p>
+    </section>
+  );
+}
+
 /* ------------------------------------------------------------------------ */
 /* A trip with its plan settled (the Ramadan 2027 trip): the line of the     */
 /* trip, flights, hotels, what's included, packages and the payment          */
