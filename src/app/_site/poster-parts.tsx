@@ -171,3 +171,57 @@ export function Arrival({ logo }: { logo: ReactNode }) {
     </div>
   );
 }
+
+/* ------------------------------------------------------------------------ */
+/* Hero versions to compare (preview, 19 Nov 2026). Chosen by ?hero= (layout.tsx head script sets html[data-hero]). */
+
+/** The poster's bottom bar, rebuilt live: the price on the olive panel with the Saudia mark, and the ground package. */
+export function HeroOffer({ from, ended, ground, phone }: { from: string; ended?: string; ground?: string; phone: { href: string; display: string } }) {
+  return (
+    <div className="hero-offer">
+      <div className="offer-olive">
+        <div className="offer-price">
+          {ended ? <s className="offer-ended">{ended}</s> : null}
+          <span className="offer-from">From</span>
+          <span className="offer-big">{from}</span>
+          <span className="offer-sub">with flights</span>
+        </div>
+        <span aria-hidden className="offer-rule" />
+        <Image src="/images/brand/partners/saudia-on-olive.png" alt="Saudia" width={96} height={108} className="offer-saudia" />
+      </div>
+      {ground ? (
+        <a href={phone.href} className="offer-ground">
+          <span className="offer-ground-l">
+            Ground package <em>available</em>
+          </span>
+          <span className="offer-ground-r">
+            <span className="offer-ground-price">{ground}</span> Enquire
+          </span>
+        </a>
+      ) : null}
+    </div>
+  );
+}
+
+/** Elements from the poster, live: its artwork with our text in its tablets, the offer, its team portraits. */
+export function HeroElements({ offer }: { offer: ReactNode }) {
+  return (
+    <div className="hero-elements">
+      <div className="el-art">
+        <Image src="/images/brand/ramadan-1448-art.jpg" alt="The Ka‘bah and the clock tower above Masjid al-Haram, from the GGC × Rawdah poster." width={830} height={622} sizes="(min-width: 1024px) 36rem, 100vw" className="h-auto w-full" />
+        <span className="el-tab el-tab-l">
+          <b>14</b>
+          <small>Nights</small>
+        </span>
+        <span className="el-tab el-tab-r">
+          <b>Eid</b>
+          <small>
+            <em>in the</em> Blessed lands
+          </small>
+        </span>
+      </div>
+      {offer}
+      <Image src="/images/brand/ramadan-1448-team.jpg" alt="Sheikh Yahya Raaby, guided by Ayuub Musa, and Ustadh Issa Uthman, from the poster." width={600} height={184} sizes="(min-width: 1024px) 30rem, 90vw" className="el-team" />
+    </div>
+  );
+}

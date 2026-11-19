@@ -122,8 +122,11 @@ script in `app/layout.tsx` sets before first paint unless the visitor prefers re
   poster's white, which can't be read on stone. Also from the poster (19 Nov 2026): the icon row of what's included
   (`PosterPerks`, line icons drawn for Rawdah), the team row (`PosterTeam`: round portraits, role in capitals over the
   name), and its own opening when arriving from another page of the site (`Arrival`: stone, olive mark, 1448, then a
-  curtain lift; `html[data-arrival]`). Two heads to compare in the preview: the group photo, or the poster's artwork
-  with `?head=art` (`data-head`); keep one, then remove the switch.
+  curtain lift; `html[data-arrival]`). Four heads to compare in the preview, by `?hero=` (`html[data-hero]`): `photo` (default), `art` (the poster's
+  Ka‘bah artwork), `poster` (the poster itself, cleaned: no logo, no outdated early bird, lettering from the "nights"
+  page; it leads on phones and stands in for the live lockup), `elements` (the artwork with live text in its tablets,
+  the olive offer panel with the Saudia mark, the ground package, the poster's team portraits). Keep one, then remove
+  the switch and the others.
 - **Ramadan Umrah 2027 only** (`posterType`; the page every Instagram link lands on, 17–18 Nov 2026): no opening on
   this page (the head script marks it played); a night sky with stars twinkling in three groups and a crescent
   (`night-sky.tsx`, fixed seed; paused off screen by `page-watch.tsx`) on the head; the title rises letter by letter

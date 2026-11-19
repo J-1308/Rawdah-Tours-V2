@@ -7,11 +7,11 @@ import { notFound } from "next/navigation";
 
 import { ComingSoonTrip } from "@/app/_site/coming-soon";
 import { TripPhoneBar } from "@/app/_site/trip-bar";
-import { anchors, covers, faqs, fromPrice, gbp, hajjNusuk, journey, journeys, nightsOf, ramadanReveal, routes, routeText, say, type Journey } from "@/app/_site/content";
+import { anchors, brand, covers, faqs, fromPrice, gbp, hajjNusuk, journey, journeys, nightsOf, ramadanReveal, routes, routeText, say, type Journey } from "@/app/_site/content";
 import { CoverGroups, FaqList, PaymentPlan, Tick } from "@/app/_site/home-sections";
 import { Mark } from "@/app/_site/marks";
 import { ArrivalTrigger } from "@/app/_site/arrival-trigger";
-import { Arrival, Mist, PosterTablets } from "@/app/_site/poster-parts";
+import { Arrival, HeroElements, HeroOffer, Mist, PosterTablets } from "@/app/_site/poster-parts";
 import { PosterLockup, PosterText } from "@/app/_site/poster-type";
 import { StepForm } from "@/app/_site/step-form";
 import { ReservePanel } from "@/app/_site/reserve";
@@ -113,6 +113,8 @@ export function TripView({ j }: { j: Journey }) {
   const shownAbove = ["What is included in the trip cost?", "What is the trip itinerary like?", "What about meal arrangements?"];
   const qs = faqs.filter((f) => (j.kind === "hajj" ? f.topic === "hajj" : f.topic !== "hajj") && !(j.plan && shownAbove.includes(f.q)));
   const joinLabel = j.state === "open" ? "Book your place" : "Register interest";
+  const ground = Math.min(...(j.rooms?.value ?? []).filter((r) => r.flights === false).map((r) => r.price));
+  const offer = price ? <HeroOffer from={gbp(price)} ended={j.endedOffer ? `${j.endedOffer.label} ${gbp(j.endedOffer.price)}` : undefined} ground={Number.isFinite(ground) ? gbp(ground) : undefined} phone={brand.phone} /> : null;
   if (j.posterType) {
     // The title's face and the italic under it, fetched with the page, so the title doesn't rise in a fallback font.
     preload("/fonts/montserrat-latin-wght-normal.woff2", { as: "font", type: "font/woff2", crossOrigin: "anonymous" });
@@ -149,14 +151,21 @@ export function TripView({ j }: { j: Journey }) {
         crumbsClassName={j.posterType ? "max-sm:hidden" : undefined}
         photoSlot={
           j.posterType ? (
-            // Two heads to compare (Jibril, 19 Nov 2026): the group photo, or the poster's artwork with ?head=art.
-            // Preview only: keep the one he picks and remove the other and the head script's switch.
+            // Four heads to compare (Jibril, 19 Nov 2026), by ?hero=: photo (default), art, poster, elements.
+            // Preview only: keep the one he picks, then remove the others and the head script's switch.
             <>
-              <div className="head-photo">
+              <div className="hero-v hero-v-photo">
                 <PhotoStack photos={[{ src: j.photo.src, alt: j.photo.alt, position: j.photo.position }, ...j.more]} priority className="lg:ml-auto lg:max-w-[34rem]" />
               </div>
-              <div className="head-art lg:ml-auto lg:max-w-[36rem]">
-                <Image src="/images/brand/ramadan-1448-art.jpg" alt="The Ka‘bah and the clock tower above Masjid al-Haram, from the GGC × Rawdah poster." width={830} height={622} priority sizes="(min-width: 1024px) 36rem, 100vw" className="h-auto w-full" />
+              <div className="hero-v hero-v-art head-art lg:ml-auto lg:max-w-[36rem]">
+                <Image src="/images/brand/ramadan-1448-art.jpg" alt="The Ka‘bah and the clock tower above Masjid al-Haram, from the GGC × Rawdah poster." width={830} height={622} sizes="(min-width: 1024px) 36rem, 100vw" className="h-auto w-full" />
+              </div>
+              <div className="hero-v hero-v-poster lg:ml-auto lg:max-w-[36rem]">
+                <Image src="/images/brand/ramadan-1448-poster-hero.jpg" alt="The GGC × Rawdah poster: 1448, Ramadan, last 10 nights, Saturday 27 February to Saturday 13 March; 14 nights; Eid in the Haram; Sheikh Yahya Raaby, guided by Ayuub Musa, and Ustadh Issa Uthman." width={1080} height={1094} sizes="(min-width: 1024px) 36rem, 100vw" className="poster-hero-img h-auto w-full" />
+                {offer}
+              </div>
+              <div className="hero-v hero-v-elements lg:ml-auto lg:max-w-[36rem]">
+                <HeroElements offer={offer} />
               </div>
             </>
           ) : undefined
