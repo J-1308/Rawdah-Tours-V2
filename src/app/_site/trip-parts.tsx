@@ -2,7 +2,7 @@ import Image from "next/image";
 import { HotelGallery } from "./hotel-gallery";
 import { Fragment } from "react";
 
-import { PosterPerks } from "@/app/_site/poster-parts";
+import { ICONS, PosterPerks } from "@/app/_site/poster-parts";
 import { anchors, gbp, hajjNusuk, journeyStay, leader, people, say, teachers, trust, wa, type Journey, type Status, type StayPhoto, type TripPlan } from "@/app/_site/content";
 import { Mark } from "@/app/_site/marks";
 import { Emblem, gutter, Heading, Label, Tick } from "@/app/_site/shell";
@@ -67,41 +67,99 @@ export function TeamList({ members, className = "", cols = "lg:grid-cols-4" }: {
  * The team as on the poster (Ramadan Umrah 2027): round portraits with the role over the name, then the fuller
  * "More about" notes for those who have them.
  */
-export function PosterTeamBlock({ j, members }: { j: Journey; members: Member[] }) {
+/**
+ * The people on a poster trip (Jibril, 19 Nov 2026; after The Sunnah Experience's guide profiles, in Rawdah's look):
+ * the special guest in his own olive panel, standing out as the trip's draw, then the hosts' cards with their photos,
+ * a line each and the fuller notes to open.
+ */
+export function TripPeople({ j, members }: { j: Journey; members: Member[] }) {
   const rows = (j.posterTeam ?? []).map((p) => ({ ...p, m: members.find((m) => m.name === p.ref) }));
+  const [guest, ...hosts] = rows;
+  const g = j.guestFeature;
   return (
     <>
-      {/* The faces lead the page (the hero); here, the fuller notes (19 Nov 2026). */}
-      <p className="mt-4 max-w-[36rem] text-[1rem] leading-relaxed text-ink/72">
-        {rows.map((r, i) => (
-          <span key={r.ref}>
-            {i ? (i === rows.length - 1 ? " and " : ", ") : null}
-            <span className="font-medium text-ink">{r.m?.name ?? r.name}</span>
-            {r.note ? ` (${r.note.toLowerCase()})` : null}
-          </span>
-        ))}
-        .
-      </p>
-      <div className="mt-5 grid gap-1 border-t border-ink/10 pt-3">
-        {rows
-          .filter((r) => r.m?.more)
-          .map((r) => (
-            <details key={r.ref} className="group border-b border-ink/10 py-1">
-              <summary className="flex min-h-11 cursor-pointer list-none items-center justify-between gap-3 text-[0.95rem] font-medium [&::-webkit-details-marker]:hidden">
-                More about {r.m!.short ?? r.m!.name}
-                <svg aria-hidden viewBox="0 0 12 12" className="size-3 shrink-0 text-bronze transition-transform group-open:rotate-180">
-                  <path d="M2.5 4.5 6 8l3.5-3.5" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-              </summary>
-              <div className="grid gap-2.5 pb-3 text-[0.92rem] leading-[1.6] text-ink/70">
-                {r.m!.more!.map((p) => (
-                  <p key={p}>{p}</p>
-                ))}
-              </div>
-            </details>
-          ))}
-      </div>
+      {guest && g ? (
+        <article className="guest-feature">
+          <div className="gf-photo">
+            {guest.cut ? <Image src={guest.cut.src} alt={guest.m?.name ?? guest.name} width={guest.cut.width} height={guest.cut.height} sizes="(min-width: 1024px) 22rem, 80vw" quality={85} /> : null}
+          </div>
+          <div className="gf-text">
+            <p className="gf-kicker">{g.kicker}</p>
+            <h2 className="gf-name">
+              <span>{guest.label}</span> {guest.name}
+            </h2>
+            <p className="gf-line">{g.line}</p>
+            {g.toCome ? <p className="gf-tocome">{g.toCome}</p> : null}
+            <a href={`#${anchors.join}`} className="gf-cta">
+              {g.cta}
+              <svg aria-hidden viewBox="0 0 12 12" className="size-3">
+                <path d="M2.5 4.5 6 8l3.5-3.5" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </a>
+          </div>
+        </article>
+      ) : null}
+      {hosts.length ? (
+        <>
+          <Heading className="mt-12 text-[clamp(1.9rem,3.2vw,2.6rem)] leading-tight sm:mt-16">{j.hostsTitle ?? "Your hosts"}</Heading>
+          <ul className="mt-6 grid gap-5 sm:grid-cols-2">
+            {hosts.map((h) => (
+              <li key={h.ref} className="host-card">
+                <div className="host-photo">
+                  {h.m?.photo ? <Image src={h.m.photo.src} alt={h.m.photo.alt} fill sizes="(min-width: 1024px) 26rem, (min-width: 640px) 45vw, 90vw" quality={85} className={`object-cover ${h.m.photo.position ?? "object-[50%_25%]"}`} /> : null}
+                </div>
+                <div className="p-5 sm:p-6">
+                  <p className="poster-role">{h.label}</p>
+                  <h3 className="mt-1 font-editorial text-[1.6rem] leading-tight">{h.m?.name ?? h.name}</h3>
+                  {h.m?.does ? <p className="mt-0.5 text-[0.9rem] text-ink/60">{h.m.does}</p> : null}
+                  {h.m?.line ? <p className="mt-3 text-[0.95rem] leading-relaxed text-ink/75">{h.m.line}</p> : null}
+                  {h.m?.more ? (
+                    <details className="group mt-3 border-t border-ink/10 pt-1">
+                      <summary className="flex min-h-11 cursor-pointer list-none items-center justify-between gap-3 text-[0.95rem] font-medium [&::-webkit-details-marker]:hidden">
+                        More about {h.m.short ?? h.m.name}
+                        <svg aria-hidden viewBox="0 0 12 12" className="size-3 shrink-0 text-bronze transition-transform group-open:rotate-180">
+                          <path d="M2.5 4.5 6 8l3.5-3.5" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                        </svg>
+                      </summary>
+                      <div className="grid gap-2.5 pb-1 text-[0.92rem] leading-[1.6] text-ink/70">
+                        {h.m.more.map((p) => (
+                          <p key={p}>{p}</p>
+                        ))}
+                      </div>
+                    </details>
+                  ) : null}
+                </div>
+              </li>
+            ))}
+          </ul>
+        </>
+      ) : null}
     </>
+  );
+}
+
+/**
+ * What's included on a poster trip as photo cards: a photo (Rawdah's own or the hotel's) or a "Photo to come" frame
+ * naming the shot Jibril will source, the poster icon and words, and one line of fact.
+ */
+export function IncludedCards({ cards }: { cards: NonNullable<TripPlan["cards"]> }) {
+  return (
+    <ul className="included-cards mt-6">
+      {cards.map((c) => (
+        <li key={c.big + c.small} className="inc-card">
+          <StayFrame photo={c.photo ?? { slot: c.slot }} className="aspect-[4/3] rounded-[1rem]! shadow-none! sm:rounded-[1rem]!" sizes="(min-width: 1024px) 15rem, 45vw" />
+          <div className="inc-body">
+            <svg aria-hidden viewBox="0 0 48 48" className="inc-icon" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              {ICONS[c.icon]}
+            </svg>
+            <p className="inc-title">
+              {c.big} <em>{c.small}</em>
+            </p>
+          </div>
+          <p className="inc-line">{c.line}</p>
+        </li>
+      ))}
+    </ul>
   );
 }
 
@@ -545,10 +603,10 @@ export function TripJourney({ j }: { j: Journey }) {
 /** What a planned trip includes, as a list of ticks. */
 export function TripIncludes({ plan }: { plan: TripPlan }) {
   // With the poster's icon row above, the list says only what the icons don't (poster trips, 19 Nov 2026).
-  const items = plan.perks && plan.perksAlso ? plan.perksAlso : plan.includes;
+  const items = (plan.cards || plan.perks) && plan.perksAlso ? plan.perksAlso : plan.includes;
   return (
     <>
-    {plan.perks ? <PosterPerks perks={plan.perks} className="mt-6" /> : null}
+    {plan.cards ? <IncludedCards cards={plan.cards} /> : plan.perks ? <PosterPerks perks={plan.perks} className="mt-6" /> : null}
     <ul className={`glass-phone ${plan.perks ? "mt-4" : "mt-6"} grid grid-cols-1 rounded-[1.25rem] px-4 py-1 [--glass-shadow:none] sm:grid-cols-2 sm:gap-1.5 sm:p-0`}>
       {items.map((h, i) => (
         <li key={h.value} className={`glass-wide flex items-start gap-3 py-3 text-[0.95rem] sm:rounded-[1.1rem] sm:px-4 sm:py-3.5 ${i ? "border-t border-ink/8" : ""}`}>

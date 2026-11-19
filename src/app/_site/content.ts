@@ -625,6 +625,11 @@ export type TripPlan = {
   /** The poster's icon row of what's included (poster trips). */
   perksAlso?: V[];
   perks?: { icon: "visa" | "harams" | "seminar" | "bags" | "bus" | "ziyarah" | "plane" | "train"; big: string; small: string }[];
+  /**
+   * Poster trips: what's included as photo cards (after The Sunnah Experience's photo-led blocks, Jibril 19 Nov 2026).
+   * `photo` is Rawdah's own or the hotel's; `slot` names the photo Jibril will source, shown as "Photo to come".
+   */
+  cards?: { icon: string; big: string; small: string; line: string; photo?: { src: string; alt: string; position?: string }; slot?: string }[];
   places?: V;
   status: Status;
 };
@@ -658,6 +663,10 @@ export type Journey = {
   groups?: { src: string; alt: string }[];
   /** Short lines beside the closing form: how booking works. */
   closing?: string[];
+  /** Poster trips: the special guest's own panel, above the hosts. `toCome` shows until Rawdah sends the bio. */
+  guestFeature?: { kicker: string; line: string; toCome?: string; cta: string };
+  /** Poster trips: the heading over the hosts' cards. */
+  hostsTitle?: string;
   /** Overrides the usual state label, e.g. "Coming soon" on the Ramadan teaser. */
   stateText?: string;
   dates: V;
@@ -762,8 +771,8 @@ export const ramadanFull: Journey = {
     /** The team as on the poster: role in capitals over the name (19 Nov 2026). */
     posterTeam: [
       { label: "Sheikh", name: "Yahya Raaby", note: "Special guest", ref: "Sheikh Yahya Raaby", cut: { src: "/images/portraits/cut/yahya-raaby.png", width: 800, height: 1000 } },
-      { label: "Guided by", name: "Ayuub Musa", ref: "Brother Ayuub Mohamed Musa", cut: { src: "/images/portraits/cut/ayuub-mohamed-musa.png", width: 640, height: 743 } },
-      { label: "Ustadh", name: "Issa Uthman", ref: "Ustadh Issa Uthman", cut: { src: "/images/portraits/cut/issa-uthman.png", width: 890, height: 1000 } },
+      { label: "Guided by", name: "Ayuub Musa", ref: "Brother Ayuub Mohamed Musa" },
+      { label: "Ustadh", name: "Issa Uthman", ref: "Ustadh Issa Uthman" },
     ],
     /* Selling pass (Jibril, 19 Nov 2026): the format of the best trip pages, in Rawdah's own facts and photos. */
     heroNote: "Up to 60 places · £399 deposit",
@@ -776,9 +785,16 @@ export const ramadanFull: Journey = {
     ],
     groups: [
       { src: "/images/group-photos/group-photos-03.jpg", alt: "A Rawdah group in ihram at night, lit arcades and a minaret behind them." },
-      { src: "/images/group-photos/group-photos-04.jpg", alt: "A Rawdah group outside Masjid Quba." },
+      { src: "/images/friends/friends-05.jpg", alt: "Three travellers in ihram outside Masjid al-Haram at dusk." },
       { src: "/images/friends/friends-09.jpg", alt: "Two travellers in ihram at night in Makkah, the clock tower lit green behind them." },
     ],
+    guestFeature: {
+      kicker: "Special guest · Ramadan 1448",
+      line: "Our special guest sheikh for Ramadan 1448, travelling with the group.",
+      toCome: "His background, studies and teachers: to come from Rawdah.",
+      cta: "Travel with Sheikh Yahya",
+    },
+    hostsTitle: "Your hosts",
     closing: ["A £399 deposit holds your place", "The rest on dates set when you book, all before you fly", "Up to 60 places, around half with flights"],
     partner: "GGC × Rawdah Tours",
     partnerLogo: { src: "/images/brand/partners/ggc.png", width: 300, height: 100, alt: "Global Guidance Center (GGC)" },
@@ -917,6 +933,17 @@ export const ramadanFull: Journey = {
         { icon: "ziyarah", big: "Madinah", small: "Ziyarah" },
         { icon: "plane", big: "Direct", small: "Flights" },
         { icon: "train", big: "Haramain", small: "Train" },
+      ],
+      /* The cards: facts from the poster, the PDF and Jibril only. Jumuah dates follow from the hotel dates. */
+      cards: [
+        { icon: "plane", big: "Direct flights", small: "with Saudia", line: "Heathrow to Jeddah, 2 × 23kg checked and 7kg hand.", slot: "Saudia: the aircraft or cabin" },
+        { icon: "hotel", big: "4★ hotels", small: "Makkah and Madinah", line: "9 nights at Novotel Thakher City, 4 at Al Manakha Rotana.", photo: { src: "/images/hotels/al-manakha-rotana-room-view.jpg", alt: "A room at Al Manakha Rotana, with the minarets of Masjid an-Nabawi outside." } },
+        { icon: "visa", big: "2 year", small: "entry visa", line: "Arranged for you.", slot: "The visa" },
+        { icon: "train", big: "Haramain", small: "train", line: "The high-speed train between the cities.", slot: "The Haramain train" },
+        { icon: "bus", big: "Ground", small: "transport", line: "The group’s transfers throughout.", slot: "The group’s coach" },
+        { icon: "harams", big: "Jumuah in", small: "both Harams", line: "Fri 5 March in Makkah, Fri 12 March in Madinah.", slot: "Jumuah at the Haram" },
+        { icon: "ziyarah", big: "Madinah", small: "ziyarah", line: "Visits to the historic sites of Madinah.", photo: { src: "/images/group-photos/group-photos-04.jpg", alt: "A Rawdah group outside Masjid Quba." } },
+        { icon: "seminar", big: "Pre-Umrah", small: "seminar", line: "Each step of Umrah explained before you perform it.", photo: { src: "/images/teaching/teaching-06.jpg", alt: "A Rawdah preparation session in the UK.", position: "object-[50%_60%]" } },
       ],
       /* Not included (Jibril, 19 Nov 2026): no suhoor in Makkah, no ihram provided. */
       includesNote: "Not included: suhoor in Makkah, and ihram, so bring your own. Ground only covers the hotels and ground transport; you book your own flights.",

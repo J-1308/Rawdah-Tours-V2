@@ -127,14 +127,18 @@ script in `app/layout.tsx` sets before first paint unless the visitor prefers re
   light grounds, never the poster's white on stone. Also: the icon row (`PosterPerks`, line icons drawn for Rawdah)
   and its own opening when arriving from another page (`Arrival`, `html[data-arrival]`).
   **Selling pass (19 Nov 2026), the format of the best trip pages (The Umrah Company, The Sunnah Experience) in
-  Rawdah's look, facts and photos only:** the people in the hero (`HeroFigures`: portraits cut out of their
-  background, `public/images/portraits/cut/`, fading into the mist with a radial mask; desktop: Sheikh Yahya left of
-  the artwork, Ayuub and Issa right, on a three-column `.ph-stage`; phones: Sheikh Yahya inside the artwork, right,
-  and the left tablet's two faces take turns, `tab-swap`, one fully out before the other comes in); the price and
-  button together (`.ph-buy`, side by side on desktop) with one line of real facts under it (`heroNote`); the poster
+  Rawdah's look, facts and photos only:** Sheikh Yahya in the hero (`HeroFigures`: his portrait cut out of its
+  background, `public/images/portraits/cut/`, fading into the mist with a radial mask) standing inside the artwork,
+  right; the left tablet's two faces take turns (`tab-swap`, one fully out before the other comes in). Phones: the
+  artwork full width above the words. Desktop: two columns, the artwork left and the title, dates, price and button
+  right, so the price is on the first screen (a first try with all three people flanking the artwork looked bad,
+  Jibril 19 Nov). The price, then the button (`.ph-buy`), with one line of real facts under it (`heroNote`); the poster
   icons as a slow ticker under the hero (`PerkTicker`, transform only, paused off screen and on hover, scrolls by
   hand without motion); jump links (`.trip-jump`, stuck under the header on phones, `.trip-anchor` scroll margins);
-  the people straight after the trip, then Rawdah's own groups from earlier trips (`GroupStrip`); the trip's own
+  the people straight after the trip (`TripPeople`: Sheikh Yahya in his own olive panel, `.guest-feature`, the one
+  dark block there, then the hosts' photo cards, `.host-card`), then Rawdah's own groups from earlier trips
+  (`GroupStrip`); what's included as photo cards (`IncludedCards`, `plan.cards`, "Photo to come" frames until Jibril
+  sends the shots); the trip's own
   questions first (`faqs`); three short lines by the closing form (`closing`). Not taken: the other sites' photos,
   copy, countdown and imam grids.
 - **Ramadan Umrah 2027 only** (`posterType`; the page every Instagram link lands on, 17–18 Nov 2026): no opening on

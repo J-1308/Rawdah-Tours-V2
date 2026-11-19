@@ -16,7 +16,7 @@ import { PosterLockup, PosterText } from "@/app/_site/poster-type";
 import { StepForm } from "@/app/_site/step-form";
 import { ReservePanel } from "@/app/_site/reserve";
 import { Chapter, ConfirmedPending, gutter, Heading, Label, Logo, PageLead, PartnerLogo, WaTile } from "@/app/_site/shell";
-import { GroupStrip, HajjOnNusuk, leaderMember, MomentStrip, PosterTeamBlock, TeamLine, TeamList, tripTeacherMembers, teamMembers, TripIncludes, TrustBox, TripJourney, TripPackages, WhereYouStay, type Member } from "@/app/_site/trip-parts";
+import { GroupStrip, HajjOnNusuk, leaderMember, MomentStrip, TeamLine, TripPeople, TeamList, tripTeacherMembers, teamMembers, TripIncludes, TrustBox, TripJourney, TripPackages, WhereYouStay, type Member } from "@/app/_site/trip-parts";
 import { StateTag } from "@/app/_site/trip-row";
 import { Chevron } from "@/app/_site/whatsapp";
 import { getTrip, isBookable, isDemoBooking } from "@/lib/trips";
@@ -156,18 +156,16 @@ export function TripView({ j }: { j: Journey }) {
               one line, the price and the people. Less to read; the artwork does the work. */}
           <section className={`poster-hero wash-hero relative overflow-hidden pb-[clamp(2.5rem,7vw,5rem)] ${gutter}`}>
             <Mist />
-            {/* Desktop: the special guest on the left of the artwork, the guide and the ustadh on the right (Jibril,
-                19 Nov 2026: the desktop hero looked empty). Phones: both tablets' words in the left one, and Sheikh
-                Yahya standing on the right inside the artwork. */}
+            {/* The artwork with Sheikh Yahya standing in it, right; the tablet's two faces take turns (Jibril, 19 Nov
+                2026). Phones: full width above the title. Desktop: the left column, the words on the right. */}
             <div className="ph-stage">
-              {guest ? <HeroFigures className="ph-flank ph-flank-l" people={[guest]} /> : null}
               <div className="ph-art">
                 <span className="ph-tab ph-tab-l follow" style={{ "--d": "250ms" } as CSSProperties}>
                   <span className="ph-face">
                     <b>14</b>
                     <small>Nights</small>
                   </span>
-                  {/* Phones: the right tablet's words take turns with these (globals.css, tab-swap). */}
+                  {/* The poster's second tablet, taking turns with the first (globals.css, tab-swap). */}
                   <span className="ph-face ph-face-b">
                     <b>Eid</b>
                     <small>
@@ -175,38 +173,30 @@ export function TripView({ j }: { j: Journey }) {
                     </small>
                   </span>
                 </span>
-                <span className="ph-tab ph-tab-r follow" style={{ "--d": "350ms" } as CSSProperties}>
-                  <b>Eid</b>
-                  <small>
-                    <em>in the</em> Blessed lands
-                  </small>
-                </span>
-                <Image src="/images/brand/ramadan-1448-art-cut.png" alt="The Ka‘bah and the clock tower above Masjid al-Haram, from the GGC × Rawdah poster." width={830} height={622} priority sizes="(min-width: 1024px) 36rem, 100vw" className="ph-art-img settle" />
+                <Image src="/images/brand/ramadan-1448-art-cut.png" alt="The Ka‘bah and the clock tower above Masjid al-Haram, from the GGC × Rawdah poster." width={830} height={622} priority sizes="(min-width: 1024px) 44rem, 100vw" className="ph-art-img settle" />
                 {guest ? <HeroFigures className="ph-guest" people={[guest]} delay={400} /> : null}
               </div>
-              {withGuest.length ? <HeroFigures className="ph-flank ph-flank-r" people={withGuest} delay={550} /> : null}
             </div>
             <div className="ph-text">
               <Heading as="h1" className="poster-lockup poster-rise">
                 <PosterLockup year="1448" word="Ramadan" line="Last 10 nights" />
               </Heading>
-              <div className="lg:mt-2 lg:flex lg:items-center lg:justify-center lg:gap-6">
-              <p style={{ "--d": "700ms" } as CSSProperties} className="poster-date follow mt-3 lg:mt-0">
+              <div>
+              <p style={{ "--d": "700ms" } as CSSProperties} className="poster-date follow mt-3">
                 {j.dates.value.replace(/\bFeb\b/, "February").replace(/\bMar\b/, "March")}
               </p>
               {j.partnerLogo ? (
-                <p style={{ "--d": "800ms" } as CSSProperties} className="follow mt-4 flex items-center justify-center gap-3 text-[0.95rem] text-ink/70 lg:mt-0">
+                <p style={{ "--d": "800ms" } as CSSProperties} className="follow mt-4 flex items-center justify-center gap-3 text-[0.95rem] text-ink/70">
                   <PartnerLogo logo={j.partnerLogo} className="h-6 text-ink/85" />
                   <span aria-hidden className="h-5 w-px bg-ink/20" />
                   <span className="font-editorial text-[1.1rem] italic">with GGC</span>
                 </p>
               ) : null}
               </div>
-              <p style={{ "--d": "880ms" } as CSSProperties} className="follow mx-auto mt-4 max-w-[30rem] lg:mt-3 lg:max-w-[44rem] font-editorial text-[clamp(1.3rem,4.6vw,1.65rem)] leading-snug text-ink/75 italic">
+              <p style={{ "--d": "880ms" } as CSSProperties} className="follow mx-auto mt-4 max-w-[30rem] font-editorial text-[clamp(1.3rem,4.6vw,1.65rem)] leading-snug text-ink/75 italic">
                 {j.heroLine ?? j.tagline}
               </p>
-              {/* The price and the button together (desktop: side by side), then, on phones, the two people not
-                  already standing in the artwork. */}
+              {/* The price, then the button, then (phones only) the two people not standing in the artwork. */}
               <div style={{ "--d": "960ms" } as CSSProperties} className="ph-buy follow mx-auto text-left">
                 {offer}
                 <a href={`#${anchors.join}`} className="btn-ink ph-buy-btn flex min-h-[3.25rem] items-center justify-center gap-2 rounded-[0.95rem] text-[0.95rem] font-medium">
@@ -352,9 +342,8 @@ export function TripView({ j }: { j: Journey }) {
           {/* Poster trips: the people straight after the trip, as the best trip pages do (Sheikh Yahya is the draw),
               then Rawdah's own groups from earlier trips. */}
           {j.posterTeam ? (
-            <section id="people" className="trip-anchor mt-12 sm:mt-16">
-              <Heading className={h2}>The people who will walk with you</Heading>
-              <PosterTeamBlock j={j} members={members} />
+            <section id="people" aria-label="The people on this trip" className="trip-anchor mt-12 sm:mt-16">
+              <TripPeople j={j} members={members} />
             </section>
           ) : null}
           {j.groups ? <GroupStrip photos={j.groups} /> : null}

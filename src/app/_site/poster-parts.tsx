@@ -18,7 +18,13 @@ export function Mist() {
 /* ------------------------------------------------------------------------ */
 /* The poster's icon row: what's included (19 Nov 2026). Line icons drawn for Rawdah, olive on stone. */
 
-const ICONS: Record<string, ReactNode> = {
+export const ICONS: Record<string, ReactNode> = {
+  hotel: (
+    <>
+      <path d="M10 42V9.5A2.5 2.5 0 0 1 12.5 7h17A2.5 2.5 0 0 1 32 9.5V42M32 20h5.5A2.5 2.5 0 0 1 40 22.5V42M6 42h37" />
+      <path d="M16 14h3M23 14h3M16 21h3M23 21h3M16 28h3M23 28h3M18 42v-6h6v6M35 28h1M35 34h1" />
+    </>
+  ),
   visa: (
     <>
       <rect x="9" y="5" width="22" height="34" rx="3" />

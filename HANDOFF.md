@@ -84,6 +84,10 @@ Code fixes are on `review/launch-fixes`. Jibril still has to:
 4. Decide on the Nusuk Hajj logo in the brands row (a Saudi government mark; drop it unless Rawdah has permission).
 5. Then delete `SITE_PASSWORD` and redeploy.
 6. When ready, point rawdahtours.co.uk's DNS at Vercel (Vercel → project → Domains shows the records).
+7. Ramadan page placeholders (19 Nov 2026; Jibril is sourcing them): six "Photo to come" frames in What's included
+   (`plan.cards[].slot` in `content.ts`: Saudia, the visa, the Haramain train, the group's coach, Jumuah at the
+   Haram) and Sheikh Yahya's background (`guestFeature.toCome`). Put a photo's `src` in place of its `slot`, and the
+   bio in `line` (delete `toCome`), or remove the card before the page goes public.
 
 Review items left for later: focus moves between form steps, the Private page's thin FAQ and empty desktop column,
 desktop hero buttons on Private and Groups, Ramadan reveal facts (the 30 November instalment for late bookings, an

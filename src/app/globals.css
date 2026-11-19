@@ -641,7 +641,6 @@ html.motion[data-arrival] .arrival {
   color: #4a4830; font-family: "Montserrat", "DM Sans", system-ui, sans-serif; text-transform: uppercase;
 }
 .ph-tab-l { left: 4%; }
-.ph-tab-r { right: 4%; }
 .ph-tab b { font-size: clamp(2rem, 9.5vw, 3.4rem); font-weight: 700; line-height: 1; }
 .ph-tab small { margin-top: 0.2rem; font-size: clamp(0.875rem, 2.5vw, 1.05rem); font-weight: 700; letter-spacing: 0.06em; line-height: 1.1; }
 .ph-tab em { display: block; font-family: "Cormorant Garamond", Georgia, serif; font-weight: 500; text-transform: none; letter-spacing: 0; font-size: 1.1em; }
@@ -673,7 +672,6 @@ html.motion[data-arrival] .arrival {
 .ph-guest .poster-role { font-size: 0.875rem; }
 .ph-guest .ph-figure-name { font-size: 0.95rem; }
 .ph-guest .ph-figure-note { font-size: 1rem; }
-.ph-tab-r { display: none; }
 /* Phones: one tablet, its two faces taking turns (14 nights, then Eid in the blessed lands). Still: the first only. */
 .ph-face { grid-area: 1 / 1; display: grid; justify-items: center; align-content: start; }
 .ph-face-b { visibility: hidden; }
@@ -684,25 +682,33 @@ html.motion .ph-face-b { visibility: visible; animation-delay: -4.5s; }
 .ph-buy { display: grid; gap: 0.75rem; max-width: 34rem; margin-top: 1rem; }
 .ph-buy .hero-offer { margin-top: 0; }
 .ph-buy-btn { width: 100%; max-width: 22rem; justify-self: center; margin-top: 0.5rem; }
-.ph-flank { display: none; }
+/* Desktop (Jibril, 19 Nov 2026: the three-figure stage looked bad): two columns. The phone's artwork, Sheikh Yahya
+   in it, on the left; the title, dates, price and button on the right, so the first screen is full and sells. The
+   icon ticker runs under both. Sheikh Yahya fades more here than on phones. */
 @media (min-width: 64rem) {
-  .ph-guest, .ph-face-b, .ph-team { display: none; }
-  html.motion .ph-face { animation: none; }
-  .ph-tab-r { display: grid; }
-  .ph-buy { grid-template-columns: minmax(0, 1fr) 13rem; align-items: stretch; max-width: 50rem; margin-top: 1.25rem; }
-  .ph-buy-btn { max-width: none; margin-top: 0; min-height: 0; }
-  .ph-stage { padding-top: 0.75rem; }
-  .ph-stage {
-    display: grid; grid-template-columns: minmax(0, 1fr) min(36rem, 42vw) minmax(0, 1fr); align-items: end;
-    margin-inline: calc(var(--hero-pad-x) * -1);
+  .poster-hero {
+    display: grid; grid-template-columns: minmax(0, 1.08fr) minmax(0, 1fr); column-gap: clamp(2rem, 4vw, 4.5rem);
+    align-items: center;
   }
-  .ph-stage .ph-art { width: 100%; margin-inline: 0; }
-  .ph-flank { display: flex; align-items: flex-end; justify-content: center; min-width: 0; padding-bottom: 0.5rem; }
-  .ph-flank-l { --fh: min(28rem, 50vh); }
-  .ph-flank-r { --fh: min(26rem, 46vh); }
-  .ph-flank-r .ph-figure + .ph-figure { margin-left: -6rem; }
-  .ph-flank-r .ph-figure:first-child { z-index: 1; }
+  .poster-hero > .ph-stage { grid-column: 1; }
+  .poster-hero > .ph-text { grid-column: 2; margin-top: 0; padding-block: 1.5rem; }
+  .poster-hero > .ticker { grid-column: 1 / -1; }
+  .ph-stage .ph-art { width: 100%; max-width: 44rem; margin-inline: auto; }
+  .poster-hero .poster-lockup .poster-word { font-size: clamp(4rem, 6.3vw, 6.25rem); }
+  .poster-hero .poster-lockup .poster-line { font-size: clamp(1.2rem, 1.9vw, 2rem); }
+  .ph-guest .ph-figure img {
+    -webkit-mask-image: radial-gradient(ellipse 56% 64% at 50% 30%, #000 40%, transparent 100%);
+    mask-image: radial-gradient(ellipse 56% 64% at 50% 30%, #000 40%, transparent 100%);
+  }
+  .ph-guest .poster-role { font-size: 0.9rem; }
+  .ph-guest .ph-figure-name { font-size: 1.15rem; }
+  .ph-guest .ph-figure-note { font-size: 1.15rem; }
+  .ph-team { display: none; }
+  .ph-buy { max-width: 36rem; margin-top: 1.5rem; }
+  .ph-buy-btn { max-width: none; }
 }
+/* Narrow desktops: the right column is too tight for the two offer panels side by side. */
+@media (min-width: 64rem) and (max-width: 74.99rem) { .ph-buy .hero-offer { grid-template-columns: 1fr; } }
 .poster-hero .poster-lockup .poster-kicker { margin-bottom: 0.2em; }
 .ph-team .poster-face { width: min(100%, 5.75rem); }
 @media (min-width: 40rem) { .ph-team .poster-face { width: 7rem; } }
@@ -751,6 +757,55 @@ html.motion .ticker-track { animation: ticker 48s linear infinite; }
 .group-strip > li { scroll-snap-align: center; }
 @media (min-width: 40rem) { .group-strip { grid-auto-columns: 48%; } }
 @media (min-width: 64rem) { .group-strip { grid-auto-flow: row; grid-template-columns: repeat(3, minmax(0, 1fr)); overflow: visible; margin-inline: 0; padding: 0; } }
+
+/* The special guest's panel (Ramadan): the poster's olive, lit from behind, his cut-out fading into it; the one dark
+   block in the people section, so he stands out as the trip's draw (Jibril, 19 Nov 2026). Phones: photo, then words. */
+.guest-feature {
+  position: relative; display: grid; overflow: hidden; isolation: isolate; border-radius: 1.75rem; color: #f1eee6;
+  background: radial-gradient(70% 65% at 50% 22%, #6d6b4b 0%, #545234 55%, #434229 100%);
+  box-shadow: var(--shadow-lift);
+}
+.gf-photo { position: relative; display: flex; justify-content: center; align-items: flex-end; padding-top: 1.75rem; }
+.gf-photo::before { content: ""; position: absolute; inset: 6% 12% 10%; background: radial-gradient(closest-side, rgb(241 238 230 / 0.3), rgb(241 238 230 / 0)); }
+.gf-photo img {
+  position: relative; display: block; width: min(80%, 19rem); height: auto;
+  -webkit-mask-image: radial-gradient(ellipse 60% 70% at 50% 30%, #000 48%, transparent 100%);
+  mask-image: radial-gradient(ellipse 60% 70% at 50% 30%, #000 48%, transparent 100%);
+}
+.gf-text { position: relative; z-index: 1; margin-top: -3rem; padding: 0 1.4rem 1.75rem; }
+.gf-kicker { font-family: "Montserrat", "DM Sans", system-ui, sans-serif; font-size: 0.875rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: #ddd3b1; }
+.gf-name { margin-top: 0.55rem; font-family: "Montserrat", "DM Sans", system-ui, sans-serif; font-size: clamp(2.2rem, 8vw, 3.4rem); font-weight: 700; line-height: 0.98; letter-spacing: 0.02em; text-transform: uppercase; }
+.gf-name span { display: block; margin-bottom: 0.4em; font-size: 0.4em; font-weight: 500; letter-spacing: 0.32em; color: #e6dec5; }
+.gf-line { margin-top: 1rem; max-width: 26rem; font-family: "Cormorant Garamond", Georgia, serif; font-size: 1.35rem; font-style: italic; line-height: 1.3; color: rgb(241 238 230 / 0.88); }
+.gf-tocome { margin-top: 1rem; max-width: 26rem; border: 1px dashed rgb(241 238 230 / 0.4); border-radius: 0.9rem; padding: 0.7rem 0.95rem; font-size: 0.9rem; line-height: 1.45; color: rgb(241 238 230 / 0.78); }
+.gf-cta { margin-top: 1.4rem; display: inline-flex; align-items: center; gap: 0.55rem; min-height: 3rem; padding: 0 1.3rem; border-radius: 0.9rem; background: #f1eee6; color: #3f3e28; font-size: 0.95rem; font-weight: 500; }
+.gf-cta:hover { background: #fff; }
+@media (min-width: 40rem) {
+  .guest-feature { grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); align-items: end; }
+  .gf-photo { order: 2; padding-top: 2.25rem; }
+  .gf-photo img {
+    width: 100%; max-width: 22rem;
+    -webkit-mask-image: radial-gradient(ellipse 54% 62% at 50% 32%, #000 36%, transparent 100%);
+    mask-image: radial-gradient(ellipse 54% 62% at 50% 32%, #000 36%, transparent 100%);
+  }
+  .gf-text { order: 1; align-self: center; margin-top: 0; padding: 2.5rem 0 2.5rem 2.5rem; }
+}
+
+/* The hosts' cards: a photo, the role in the poster's capitals, the name, one line and the notes to open. */
+.host-card { overflow: hidden; border-radius: 1.5rem; border: 1px solid var(--glass-line); background: var(--glass-bg); }
+.host-photo { position: relative; aspect-ratio: 5 / 4; background: var(--color-beige); }
+@media (min-width: 40rem) { .host-photo { aspect-ratio: 1; } }
+.host-card .poster-role { margin-top: 0; }
+
+/* What's included as photo cards: two across on phones, four on wider screens. */
+.included-cards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.4rem 0.75rem; }
+@media (min-width: 48rem) { .included-cards { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1.75rem 1rem; } }
+.inc-card { display: grid; align-content: start; }
+.inc-body { display: flex; align-items: center; gap: 0.55rem; margin-top: 0.75rem; color: var(--color-bronze); }
+.inc-icon { width: 1.75rem; height: 1.75rem; flex: none; }
+.inc-title { font-family: "Montserrat", "DM Sans", system-ui, sans-serif; font-size: 0.875rem; font-weight: 700; letter-spacing: 0.04em; line-height: 1.15; text-transform: uppercase; }
+.inc-title em { font-weight: 500; }
+.inc-line { margin-top: 0.4rem; font-size: 0.9rem; line-height: 1.45; color: color-mix(in oklab, var(--color-ink) 72%, transparent); }
 
 /* The mist: big soft clouds, drifting by transform only. */
 .mist .cloud { position: absolute; border-radius: 50%; background: radial-gradient(closest-side, rgb(255 255 255 / 0.85), rgb(255 255 255 / 0)); }
