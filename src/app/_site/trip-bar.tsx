@@ -31,7 +31,9 @@ export function TripPhoneBar({ j, price, deposit, bookable }: { j: Journey; pric
         {price ? (
           <p className="min-w-0 px-1.5 leading-tight">
             <span className="block text-[0.875rem] text-ink/62">From, per person</span>
-            <span className="block text-[1.05rem] font-medium text-ink">{gbp(price)}</span>
+            <span className="block text-[1.05rem] font-medium text-ink">
+              {gbp(price)}
+            </span>
             {deposit ? <span className="block truncate text-[0.875rem] text-ink/62">{gbp(deposit)} deposit</span> : null}
           </p>
         ) : null}

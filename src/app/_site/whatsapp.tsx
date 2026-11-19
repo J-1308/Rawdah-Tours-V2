@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 import { anchors, hajjRegister, journey, ramadanReveal, routes, say, wa } from "@/app/_site/content";
+import { ONE_PAGE, ONE_PAGE_HOME } from "@/lib/site-mode";
 
 /** The WhatsApp link for wherever the visitor is: on a trip page it names that trip. */
 export function pageWa(path: string) {
@@ -53,7 +54,9 @@ export function MobileBar() {
       ? { label: "Plan a group trip", href: "#start" }
       : onTrip
         ? { label: path.includes("path-of-purity") ? "Hear about the next" : path.startsWith(routes.nextUmrah) && ramadanReveal ? "Book your place" : "Register interest", href: `#${anchors.join}` }
-        : { label: "Register interest", href: hajjRegister };
+        : ONE_PAGE
+          ? { label: "Book Ramadan 2027", href: `${ONE_PAGE_HOME}#join` }
+          : { label: "Register interest", href: hajjRegister };
   return (
     <div data-placement="phone bar" className="top-zone fixed inset-x-0 bottom-0 z-50 px-2.5 pb-[calc(0.5rem+env(safe-area-inset-bottom))] lg:hidden motion-lift">
       <div className="grid grid-cols-[auto_1fr] gap-1.5 rounded-[1.15rem] border border-(--edge) bg-canvas p-1.5 shadow-[var(--shadow-float)] backdrop-blur-md">

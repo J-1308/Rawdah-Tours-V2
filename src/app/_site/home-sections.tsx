@@ -399,12 +399,13 @@ export function Covers() {
 /* ------------------------------------------------------------------------ */
 
 export function PaymentPlan({ tone = "ink" }: { tone?: "ink" | "canvas" }) {
-  const { price, deposit, instalments, room } = paying.example;
+  const { price, deposit, instalments, room, payments } = paying.example;
   const each = Math.ceil((price - deposit) / instalments);
   const last = price - deposit - each * (instalments - 1);
-  const parts = [deposit, ...Array.from({ length: instalments - 1 }, () => each), last];
+  // The trip's own timetable when there is one (Ramadan: £600, £500, £500), an even split otherwise.
+  const parts = payments ? [deposit, ...payments] : [deposit, ...Array.from({ length: instalments - 1 }, () => each), last];
   const dark = tone === "ink";
-  const amounts = [gbp(deposit), `${instalments} × ${gbp(each)}`, gbp(price), "Together"];
+  const amounts = [gbp(deposit), payments ? payments.map(gbp).join(", ") : `${instalments} × ${gbp(each)}`, gbp(price), "Together"];
   return (
     <div className={`relative overflow-hidden rounded-[2rem] p-5 sm:p-8 ${dark ? `panel-dark ${onInk}` : "glass"}`}>
       {dark ? <Emblem className="pointer-events-none absolute right-[-4%] bottom-[-30%] h-[150%] text-cream/[0.04]" /> : null}

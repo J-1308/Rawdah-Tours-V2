@@ -56,9 +56,12 @@ export function Reveals() {
     const fold = window.innerHeight;
     document.querySelectorAll<HTMLElement>(TARGETS).forEach((el) => {
       if (first?.contains(el) || el.classList.contains("rv")) return;
+      // Inside a part that animates as one (the journey line), only the part itself is revealed.
+      if (!el.hasAttribute("data-reveal") && el.closest("[data-rv-skip]")) return;
       if (el.getBoundingClientRect().top < fold) return;
       const siblings = el.parentElement ? Array.from(el.parentElement.children) : [];
-      const i = el.tagName === "LI" ? Math.min(siblings.indexOf(el), 5) : 0;
+      // data-rv sets the order by hand (cards in a row, a note after its line); list items count themselves.
+      const i = el.dataset.rv ? Number(el.dataset.rv) : el.tagName === "LI" ? Math.min(siblings.indexOf(el), 5) : 0;
       el.style.setProperty("--rv", String(i));
       el.classList.add("rv");
       if (el.classList.contains("rise")) el.classList.add("rv-photo");

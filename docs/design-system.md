@@ -43,6 +43,7 @@ on phones outdoors.
 | Labels, captions, sub-titles | Cormorant Garamond italic | Bronze on cream, sand on cocoa, with the tiny mark (`<Label>`). |
 | Body and UI | DM Sans 400/500 | 0.92–1.05rem, line-height 1.6–1.75, ink at 60–75%. Nothing below 0.875rem (14px), ink no lighter than 62% (design pass, Nov 2026). |
 | Arabic | Amiri | روضة. |
+| Poster titles (Ramadan Umrah 2027 only) | Montserrat 700 capitals | `.poster-title` with `<PosterText>` (`poster-type.tsx`): the GGC × Rawdah poster's lettering. Every M is a real, invisible letter with the poster's M (two overlapping Λ, like the sharp, rectangular Rawdah mark) laid over it as a mask, so copied, searched and spoken text stay exact. On by `posterType` on a trip (Jibril, 17 Nov 2026), and only on the title and the closing "Book your place"; section headings stay in Cormorant (Jibril, 18 Nov 2026). |
 
 ## 3. Shape and depth
 
@@ -114,6 +115,52 @@ script in `app/layout.tsx` sets before first paint unless the visitor prefers re
   framed photos (`.rise`, with the photo easing out of a slight zoom) rise into view, on phones too. Only elements
   still below the screen at load are hidden, so nothing in view blinks; add `data-reveal` to opt anything else in.
 - **Buttons:** a light sweep across `.btn-sand` on hover. Photos zoom very slightly on hover.
+- **Poster skin (Ramadan Umrah 2027, 19 Nov 2026):** the page below the header takes the GGC poster's stone, mist
+  and olive (`.skin-1448`, tokens only; header and footer stay Rawdah's). The head is its own centred hero
+  (`.poster-hero`), image first: the poster's Ka‘bah artwork cut out of its background (`ramadan-1448-art-cut.png`,
+  edge to edge on phones, so there is no box to fade), the poster's frosted tablets behind its towers with live text
+  (14 nights; Eid in the blessed lands), then the lockup as live text (1448 / RAMADAN / LAST 10 NIGHTS), the dates, a
+  GGC line, one short line (`heroLine`), the offer (`HeroOffer`: olive panel with the Saudia mark and the ended early
+  bird crossed out; the ground package to enquire), our own round portraits (`PosterTeam`) and the button. Less to
+  read (Jibril, 19 Nov 2026): the about block is a photo, a title and two sentences (`about`); the facts grid is gone
+  from the head; one line under the icon row; the team section is a line and the "More about" notes. Olive type on
+  light grounds, never the poster's white on stone. Also: the icon row (`PosterPerks`, line icons drawn for Rawdah)
+  and its own opening when arriving from another page (`Arrival`, `html[data-arrival]`).
+  **Selling pass (19 Nov 2026), the format of the best trip pages (The Umrah Company, The Sunnah Experience) in
+  Rawdah's look, facts and photos only:** Sheikh Yahya in the hero (`HeroFigures`: his portrait cut out of its
+  background, `public/images/portraits/cut/`, fading into the mist with a radial mask) standing inside the artwork,
+  right; the left tablet's two faces take turns (`tab-swap`, one fully out before the other comes in). Phones: the
+  artwork full width above the words. Desktop: two columns, the artwork left and the title, dates, price and button
+  right, so the price is on the first screen (a first try with all three people flanking the artwork looked bad,
+  Jibril 19 Nov). The price, then the button (`.ph-buy`), with one line of real facts under it (`heroNote`); the poster
+  icons as a slow ticker under the hero (`PerkTicker`, transform only, paused off screen and on hover, scrolls by
+  hand without motion); jump links (`.trip-jump`, stuck under the header on phones, `.trip-anchor` scroll margins);
+  the people straight after the trip (`TripPeople`: Sheikh Yahya in his own olive panel, `.guest-feature`, the one
+  dark block there, with his original photo cropped and never faded; then the hosts' photo cards, `.host-card`), then
+  Rawdah's previous trips (`PastTrips`: the Path of Purity II poster, a "to come" frame, a gallery of eight captioned
+  group photos); Ramadan in the Haram on the night ground before the flights and hotels (`HaramNights`: Taraweeh,
+  qiyam and Laylat al-Qadr, iftar in the Haram, the khatm; tall photo cards); hotel cards with how far each is from
+  the Haram (`.hotel-walk`, on foot or by shuttle), two sentences and feature chips, from the hotels' own listings;
+  the ended early bird crossed out beside every price (hero, join panel, packages table, phone bar); a Hajj 2027 band
+  in the guest panel's olive at the foot (`OtherTripBand`, to WhatsApp in one-page mode). Final pass for the one-page
+  launch (19 Nov 2026): no photo placeholders; Ramadan in the Haram is words only (`.nights-list`, numbered); what's
+  included is icon tiles without photos; who it's for under the trip's two sentences (`ForWho`); Why Rawdah with the
+  name's meaning, the team photo and four reasons (`WhyRawdah`); "Our last trip" is Path of Purity II only; how
+  booking works as numbered steps by the form (`steps`, `.booking-steps`). Packages on poster trips (`PosterPackages`):
+  the poster's "Installment plan available" lettering and one tile per payment (`.plan-tiles`), then cards with a
+  with-flights / ground-only switch (`PackageCards`, `.pkg-*`), each card's button filling the form with its package;
+  the poster's Saudia and Haramain train photos with white labels over what's included (`.showcase`). One-page header: call, logo, WhatsApp on
+  phones; the trip, logo, WhatsApp and "Book your place" on desktop (`src/lib/site-mode.ts`); what's included as photo cards (`IncludedCards`, `plan.cards`, "Photo to come" frames until Jibril
+  sends the shots); the trip's own
+  questions first (`faqs`); three short lines by the closing form (`closing`). Not taken: the other sites' photos,
+  copy, countdown and imam grids.
+- **Ramadan Umrah 2027 only** (`posterType`; the page every Instagram link lands on, 17–18 Nov 2026): no opening on
+  this page (the head script marks it played); a night sky with stars twinkling in three groups and a crescent
+  (`night-sky.tsx`, fixed seed; paused off screen by `page-watch.tsx`) on the head; the title rises letter by letter
+  (`.poster-rise .pl`), then the facts and button (`.follow`); the journey line draws itself in (`.line-draw`, its
+  wrapper is what's revealed, `data-rv-skip` inside); flight and hotel cards lift in turn (`data-rv` sets the order);
+  a small plane crosses each flight card (`.plane-run`, moved by transform); form steps slide in (`.step-in`).
+  Cut after the Opus review (18 Nov 2026): the price count-up (it showed wrong prices mid-count) and the star drift. Rawdah's own: none of it from The Umrah Experience (ADR 0001).
 
 ## 8. Photography
 
