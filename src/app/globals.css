@@ -554,32 +554,6 @@ html.motion .step-in { animation: step-in 0.45s var(--ease-out) both; }
 .poster-lockup .poster-line { font-size: clamp(1.15rem, 5.4vw, 2.3rem); font-weight: 500; letter-spacing: 0.42em; line-height: 1.1; margin-top: 0.45em; margin-right: -0.42em; }
 .poster-date { font-family: "Cormorant Garamond", Georgia, serif; font-style: italic; font-size: clamp(1.45rem, 5.6vw, 2.2rem); line-height: 1.15; color: var(--color-ink); }
 
-/* The tablets: tall, frosted, rounded like the poster's; olive type. */
-.poster-tablets { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.6rem; max-width: 30rem; }
-.tablet {
-  position: relative;
-  display: flex;
-  min-height: 7.25rem;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  border-radius: 1.6rem 1.6rem 1.1rem 1.1rem;
-  border: 1px solid rgb(255 255 255 / 0.7);
-  background: linear-gradient(180deg, rgb(255 255 255 / 0.62) 0%, rgb(255 255 255 / 0.32) 100%);
-  padding: 0.9rem 0.6rem;
-  text-align: center;
-  color: var(--color-bronze);
-  font-family: "Montserrat", "DM Sans", system-ui, sans-serif;
-  text-transform: uppercase;
-}
-.tablet-big { font-size: clamp(1.6rem, 7vw, 2.25rem); font-weight: 700; line-height: 1; letter-spacing: 0.02em; }
-.tablet-small { margin-top: 0.3rem; font-size: 0.875rem; font-weight: 600; letter-spacing: 0.12em; line-height: 1.2; }
-.tablet-small:first-child { margin-top: 0; margin-bottom: 0.3rem; }
-.tablet em { font-family: "Cormorant Garamond", Georgia, serif; font-style: italic; text-transform: none; font-weight: 500; letter-spacing: 0; font-size: 1.1em; }
-.tablet-mark { position: absolute; top: 0.4rem; right: 0.5rem; }
-.tablet-foot { margin-top: 0.35rem; font-size: 0.875rem; font-weight: 500; letter-spacing: 0.06em; line-height: 1.2; }
-.tablet s { text-decoration-thickness: 1.5px; opacity: 0.75; }
-
 /* The poster's icon row (what's included): two columns on phones, four from tablets up. */
 .poster-perks { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.5rem; }
 @media (min-width: 40rem) { .poster-perks { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.6rem; } }
@@ -636,35 +610,17 @@ html.motion[data-arrival] .arrival {
 @keyframes arrival-year { from { opacity: 0; letter-spacing: 0.9em; margin-right: -0.9em; } }
 @keyframes arrival-out { from { clip-path: inset(0 0 0 0); } to { clip-path: inset(0 0 100% 0); visibility: hidden; } }
 
-/* Hero versions to compare (preview, layout.tsx head script sets html[data-hero] from ?hero=). Default: photo. */
-.hero-v { display: none; }
-:root:not([data-hero]) .hero-v-photo, :root[data-hero="photo"] .hero-v-photo,
-:root[data-hero="art"] .hero-v-art, :root[data-hero="poster"] .hero-v-poster, :root[data-hero="elements"] .hero-v-elements { display: block; }
-.head-art img {
-  -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 14%, #000 86%, transparent 100%), linear-gradient(to bottom, transparent 0%, #000 12%, #000 84%, transparent 100%);
-  -webkit-mask-composite: source-in;
-  mask-image: linear-gradient(to right, transparent 0%, #000 14%, #000 86%, transparent 100%), linear-gradient(to bottom, transparent 0%, #000 12%, #000 84%, transparent 100%);
-  mask-composite: intersect;
-}
-/* Poster: the poster leads on phones; its own lettering, dates and tablets stand in for ours (kept for screen readers). */
-:root[data-hero="poster"] .skin-1448 .poster-lockup { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
-:root[data-hero="poster"] .skin-1448 .poster-date,
-:root[data-hero="poster"] .skin-1448 .poster-tablets,
-:root[data-hero="elements"] .skin-1448 .poster-tablets { display: none; }
+/* The head (elements of the poster): on phones the artwork runs edge to edge; every piece fades into the stone. */
 @media (max-width: 63.98rem) {
-  :root[data-hero="poster"] .skin-1448 .lead-photo { order: -1; margin-top: 0; margin-inline: calc(50% - 50vw); }
-  :root[data-hero="poster"] .skin-1448 .hero-v-poster .hero-offer { margin-inline: 1.25rem; }
-  :root[data-hero="elements"] .skin-1448 .el-art { margin-inline: calc(50% - 50vw); }
-  .lead-photo > .hero-v { aspect-ratio: auto !important; }
-  .lead-photo > .hero-v-photo > div { aspect-ratio: 4 / 3 !important; }
+  .skin-1448 .el-art { margin-inline: calc(50% - 50vw); }
+  .lead-photo > .hero-elements { aspect-ratio: auto !important; }
 }
-.poster-hero-img, .el-art img, .el-team {
+.el-art img, .el-team {
   -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 9%, #000 91%, transparent 100%), linear-gradient(to bottom, transparent 0%, #000 7%, #000 88%, transparent 100%);
   -webkit-mask-composite: source-in;
   mask-image: linear-gradient(to right, transparent 0%, #000 9%, #000 91%, transparent 100%), linear-gradient(to bottom, transparent 0%, #000 7%, #000 88%, transparent 100%);
   mask-composite: intersect;
 }
-@media (min-width: 64rem) { :root[data-hero="poster"] .skin-1448 .lead-grid { align-items: start; } }
 
 /* The offer (the poster's bottom bar, live): olive panel with price and Saudia; the ground package beside it. */
 .hero-offer { display: grid; gap: 0.6rem; margin-top: 1rem; }

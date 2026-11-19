@@ -41,7 +41,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <script
           dangerouslySetInnerHTML={{
             __html:
-              "try{var d=document.documentElement;window.__rawdahFirst=location.pathname;d.classList.add('js');if(!matchMedia('(prefers-reduced-motion: reduce)').matches)d.classList.add('motion');var h=location.search.match(/[?&](?:hero|head)=(photo|art|poster|elements)/);if(h)d.setAttribute('data-hero',h[1]);if(/^\\/trips\\/ramadan-umrah-2027/.test(location.pathname)||sessionStorage.getItem('rawdah-intro'))d.setAttribute('data-intro','seen');sessionStorage.setItem('rawdah-intro','1');var r=document.referrer&&new URL(document.referrer);if(r&&r.origin===location.origin&&r.pathname!==location.pathname&&/^\\/trips\\/ramadan-umrah-2027\\/?$/.test(location.pathname))d.setAttribute('data-arrival','1448')}catch(e){}",
+              "try{var d=document.documentElement;window.__rawdahFirst=location.pathname;d.classList.add('js');if(!matchMedia('(prefers-reduced-motion: reduce)').matches)d.classList.add('motion');if(/^\\/trips\\/ramadan-umrah-2027/.test(location.pathname)||sessionStorage.getItem('rawdah-intro'))d.setAttribute('data-intro','seen');sessionStorage.setItem('rawdah-intro','1');var r=document.referrer&&new URL(document.referrer);if(r&&r.origin===location.origin&&r.pathname!==location.pathname&&/^\\/trips\\/ramadan-umrah-2027\\/?$/.test(location.pathname))d.setAttribute('data-arrival','1448')}catch(e){}",
           }}
         />
       </head>

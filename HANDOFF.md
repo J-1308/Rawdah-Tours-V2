@@ -109,15 +109,16 @@ poster lettering on the title and the closing "Book your place" only; keep the p
 stars above the flights; on phones, the dates straight under the title and no breadcrumb on this page. Note: share
 images use the site's base URL (www.rawdahtours.co.uk), so they show only once the domain points at Vercel.
 
-## Ramadan poster skin (19 Nov 2026, branch `ramadan/poster-skin`, preview)
+## Ramadan poster skin (19 Nov 2026, branch `ramadan/poster-skin`)
 
 Jibril liked the direction: the page below the header in the GGC poster's stone, mist and olive (header and footer
 stay Rawdah's). From the rest of the poster: the lockup now reads LAST 10 NIGHTS; Eid in the blessed lands (never
 "we may spend Eid travelling": go with the poster); the icon row of what's included; Sheikh Yahya Raaby as special
 guest (portrait cropped from Jibril's photo) in a poster-style team row; final prices in a flights × room grid with the
-early bird crossed out (ground only is an enquiry); its own opening when arriving from another page. Four heads to
-compare by `?hero=`: `photo`, `art` (the poster's Ka‘bah artwork, tile text removed), `poster` (the cleaned poster
-itself) and `elements` (poster pieces with live text). Jibril picks one; then remove the rest and the switch.
+early bird crossed out (ground only is an enquiry); its own opening when arriving from another page. Of four heads
+(group photo, the poster's artwork, the cleaned poster itself, poster elements) Jibril chose **elements**: the
+poster's Ka‘bah artwork with live text in its tablets, the olive price panel with the Saudia mark, the ground package,
+and the poster's team portraits. The others and the switch are gone.
 
 ## What's next
 

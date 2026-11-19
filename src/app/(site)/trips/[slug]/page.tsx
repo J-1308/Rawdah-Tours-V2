@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import type { CSSProperties } from "react";
 import { preload } from "react-dom";
 import Link from "next/link";
@@ -11,11 +10,11 @@ import { anchors, brand, covers, faqs, fromPrice, gbp, hajjNusuk, journey, journ
 import { CoverGroups, FaqList, PaymentPlan, Tick } from "@/app/_site/home-sections";
 import { Mark } from "@/app/_site/marks";
 import { ArrivalTrigger } from "@/app/_site/arrival-trigger";
-import { Arrival, HeroElements, HeroOffer, Mist, PosterTablets } from "@/app/_site/poster-parts";
+import { Arrival, HeroElements, HeroOffer, Mist } from "@/app/_site/poster-parts";
 import { PosterLockup, PosterText } from "@/app/_site/poster-type";
 import { StepForm } from "@/app/_site/step-form";
 import { ReservePanel } from "@/app/_site/reserve";
-import { Chapter, ConfirmedPending, gutter, Heading, Label, Logo, PageLead, PartnerLogo, PhotoStack, WaTile } from "@/app/_site/shell";
+import { Chapter, ConfirmedPending, gutter, Heading, Label, Logo, PageLead, PartnerLogo, WaTile } from "@/app/_site/shell";
 import { HajjOnNusuk, leaderMember, MomentStrip, PosterTeamBlock, TeamLine, TeamList, tripTeacherMembers, teamMembers, TripIncludes, TrustBox, TripJourney, TripPackages, WhereYouStay, type Member } from "@/app/_site/trip-parts";
 import { StateTag } from "@/app/_site/trip-row";
 import { Chevron } from "@/app/_site/whatsapp";
@@ -149,27 +148,9 @@ export function TripView({ j }: { j: Journey }) {
         title={j.posterType ? <PosterLockup year="1448" word="Ramadan" line="Last 10 nights" /> : j.name}
         backdrop={j.posterType ? <Mist /> : undefined}
         crumbsClassName={j.posterType ? "max-sm:hidden" : undefined}
-        photoSlot={
-          j.posterType ? (
-            // Four heads to compare (Jibril, 19 Nov 2026), by ?hero=: photo (default), art, poster, elements.
-            // Preview only: keep the one he picks, then remove the others and the head script's switch.
-            <>
-              <div className="hero-v hero-v-photo">
-                <PhotoStack photos={[{ src: j.photo.src, alt: j.photo.alt, position: j.photo.position }, ...j.more]} priority className="lg:ml-auto lg:max-w-[34rem]" />
-              </div>
-              <div className="hero-v hero-v-art head-art lg:ml-auto lg:max-w-[36rem]">
-                <Image src="/images/brand/ramadan-1448-art.jpg" alt="The Ka‘bah and the clock tower above Masjid al-Haram, from the GGC × Rawdah poster." width={830} height={622} sizes="(min-width: 1024px) 36rem, 100vw" className="h-auto w-full" />
-              </div>
-              <div className="hero-v hero-v-poster lg:ml-auto lg:max-w-[36rem]">
-                <Image src="/images/brand/ramadan-1448-poster-hero.jpg" alt="The GGC × Rawdah poster: 1448, Ramadan, last 10 nights, Saturday 27 February to Saturday 13 March; 14 nights; Eid in the Haram; Sheikh Yahya Raaby, guided by Ayuub Musa, and Ustadh Issa Uthman." width={1080} height={1094} sizes="(min-width: 1024px) 36rem, 100vw" className="poster-hero-img h-auto w-full" />
-                {offer}
-              </div>
-              <div className="hero-v hero-v-elements lg:ml-auto lg:max-w-[36rem]">
-                <HeroElements offer={offer} />
-              </div>
-            </>
-          ) : undefined
-        }
+        // The head on the poster's terms (Jibril chose "elements" of four versions, 19 Nov 2026): its artwork with our
+        // words in its tablets, the offer, its team portraits.
+        photoSlot={j.posterType ? <HeroElements offer={offer} /> : undefined}
         titleClassName={j.posterType ? "poster-lockup poster-rise" : undefined}
         photos={[{ src: j.photo.src, alt: j.photo.alt, position: j.photo.position }, ...j.more]}
       >
@@ -197,19 +178,6 @@ export function TripView({ j }: { j: Journey }) {
         <div className="mt-4">
           <StateTag j={j} onPhoto={false} />
         </div>
-        {j.posterType ? (
-          <PosterTablets
-            className="mt-6"
-            items={[
-              { big: "14", small: "Nights" },
-              { big: "Eid", small: <><em>in the</em> Blessed lands</> },
-              ...(price
-                ? [{ top: true, small: j.endedOffer ? <><s>{j.endedOffer.label} {gbp(j.endedOffer.price)}</s></> : "From", big: gbp(price), foot: "From, with flights" }]
-                : []),
-              { top: true, small: "Flights", big: "Saudia", foot: "Direct" },
-            ]}
-          />
-        ) : null}
         <p className="lead-after mt-4 max-w-[34rem] font-editorial text-[clamp(1.4rem,2vw,1.8rem)] leading-snug text-ink/70 italic">{j.tagline}</p>
         <dl style={j.posterType ? ({ "--d": "900ms" } as CSSProperties) : undefined} className={`${j.posterType ? "follow " : ""}mt-6 grid max-w-[36rem] grid-cols-2 gap-2 text-[0.9rem] sm:mt-7 sm:gap-2.5 sm:text-[0.92rem]`}>
           {[...facts, { k: j.kind === "hajj" ? "The rites" : "Route", v: routeText(j), s: j.route.status }].map((f, i, all) => (
