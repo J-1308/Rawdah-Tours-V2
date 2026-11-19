@@ -91,7 +91,6 @@ export function TripPeople({ j, members }: { j: Journey; members: Member[] }) {
               <span>{guest.label}</span> {guest.name}
             </h2>
             <p className="gf-line">{g.line}</p>
-            {g.toCome ? <p className="gf-tocome">{g.toCome}</p> : null}
             <a href={`#${anchors.join}`} className="gf-cta">
               {g.cta}
               <svg aria-hidden viewBox="0 0 12 12" className="size-3">
@@ -140,16 +139,12 @@ export function TripPeople({ j, members }: { j: Journey; members: Member[] }) {
   );
 }
 
-/**
- * What's included on a poster trip as photo cards: a photo (Rawdah's own or the hotel's) or a "Photo to come" frame
- * naming the shot Jibril will source, the poster icon and words, and one line of fact.
- */
+/** What's included on a poster trip: the poster icon and words, and one line of fact, as tiles (no photos, 19 Nov). */
 export function IncludedCards({ cards }: { cards: NonNullable<TripPlan["cards"]> }) {
   return (
     <ul className="included-cards mt-6">
       {cards.map((c) => (
         <li key={c.big + c.small} className="inc-card">
-          <StayFrame photo={c.photo ?? { slot: c.slot }} className="aspect-[4/3] rounded-[1rem]! shadow-none! sm:rounded-[1rem]!" sizes="(min-width: 1024px) 15rem, 45vw" />
           <div className="inc-body">
             <svg aria-hidden viewBox="0 0 48 48" className="inc-icon" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               {ICONS[c.icon]}
@@ -429,8 +424,8 @@ export function MomentStrip({ photos, caption }: { photos: StayPhoto[]; caption:
 }
 
 /**
- * Ramadan in the Haram (Jibril, 19 Nov 2026): what the last ten nights hold, as photo cards on the night ground.
- * Worship in the Haram, not a service Rawdah sells (meals stay as the questions say). Swipe on phones.
+ * Ramadan in the Haram (Jibril, 19 Nov 2026): what the last ten nights hold, numbered, on the night ground; words only.
+ * Worship in the Haram, not a service Rawdah sells (meals stay as the questions say).
  */
 export function HaramNights({ n }: { n: NonNullable<Journey["nights"]> }) {
   return (
@@ -438,15 +433,15 @@ export function HaramNights({ n }: { n: NonNullable<Journey["nights"]> }) {
       <Label>{n.label}</Label>
       <Heading className="mt-4 max-w-[44rem] text-[clamp(2.3rem,4.2vw,4rem)]">{n.title}</Heading>
       <p className="mt-4 max-w-[34rem] text-[1rem] leading-[1.65] text-ink/72">{n.intro}</p>
-      <ul className="nights-row mt-9 sm:mt-12">
-        {n.items.map((it) => (
+      <ol className="nights-list mt-9 sm:mt-12">
+        {n.items.map((it, i) => (
           <li key={it.title}>
-            <StayFrame photo={it.photo ?? { slot: it.slot }} className="aspect-[4/5]" sizes="(min-width: 1024px) 22rem, 75vw" />
-            <h3 className="display mt-4 text-[1.6rem] leading-tight">{it.title}</h3>
-            <p className="mt-1.5 text-[0.95rem] leading-relaxed text-ink/70">{it.text}</p>
+            <span aria-hidden className="nights-num">{String(i + 1).padStart(2, "0")}</span>
+            <h3 className="display text-[clamp(1.5rem,2.4vw,1.9rem)] leading-tight">{it.title}</h3>
+            <p className="mt-1.5 text-[0.98rem] leading-relaxed text-ink/70">{it.text}</p>
           </li>
         ))}
-      </ul>
+      </ol>
     </section>
   );
 }
@@ -467,23 +462,57 @@ export function PastTrips({ p }: { p: NonNullable<Journey["pastTrips"]> }) {
             <p className="mt-3 font-medium leading-snug">{t.name}</p>
             <p className="text-[0.875rem] text-ink/62">{t.dates}</p>
             <p className="mt-1.5 text-[0.9rem] leading-snug text-ink/72">{t.line}</p>
-            {t.href ? (
-              <a href={t.href} className="mt-2 text-[0.9rem] underline underline-offset-4">
-                More on this trip
-              </a>
-            ) : null}
           </li>
         ))}
-        {p.toCome ? (
-          <li>
-            <StayFrame photo={{ slot: p.toCome }} className="aspect-[4/5] rounded-[1rem]! shadow-none! sm:rounded-[1rem]!" sizes="16rem" />
-          </li>
-        ) : null}
       </ul>
       <ul className="past-gallery mt-8">
         {p.photos.map((ph) => (
           <li key={ph.src}>
             <StayFrame photo={ph} className="aspect-[4/3] rounded-[1rem]! sm:rounded-[1rem]!" sizes="(min-width: 1024px) 14rem, 78vw" />
+          </li>
+        ))}
+      </ul>
+    </section>
+  );
+}
+
+/** Who the trip suits: three short rows under the trip's two sentences (after the best trip pages' overviews). */
+export function ForWho({ items }: { items: NonNullable<Journey["forWho"]> }) {
+  return (
+    <ul className="mt-6 grid gap-3 sm:grid-cols-3">
+      {items.map((w) => (
+        <li key={w.title} className="glass rounded-[1.1rem] p-4 [--glass-shadow:none]">
+          <p className="flex items-center gap-2 font-medium">
+            <Tick />
+            {w.title}
+          </p>
+          <p className="mt-1.5 text-[0.92rem] leading-snug text-ink/70">{w.text}</p>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+/** Why Rawdah: the name's meaning, the team's photo and four short reasons, in Rawdah's own words (About page, V1). */
+export function WhyRawdah({ w }: { w: NonNullable<Journey["why"]> }) {
+  return (
+    <section className="mt-12 sm:mt-16">
+      <p className={eyebrow}>{w.label}</p>
+      <div className="mt-3 grid gap-6 sm:grid-cols-[minmax(0,1fr)_minmax(0,0.85fr)] sm:items-center">
+        <div>
+          <Heading className="text-[clamp(1.9rem,3.2vw,2.6rem)] leading-tight">
+            {w.title} <span lang="ar" dir="rtl" className="font-editorial text-bronze">{w.ar}</span>
+          </Heading>
+          <p className="mt-3 text-[0.98rem] leading-relaxed text-ink/75">{w.text}</p>
+          <p className="mt-1.5 text-[0.875rem] text-ink/55">{w.source}</p>
+        </div>
+        <StayFrame photo={w.photo} className="aspect-[4/3]" sizes="(min-width: 1024px) 22rem, 90vw" />
+      </div>
+      <ul className="mt-6 grid gap-x-6 gap-y-4 sm:grid-cols-2">
+        {w.reasons.map((r) => (
+          <li key={r.title} className="border-t border-ink/10 pt-3">
+            <p className="font-medium">{r.title}</p>
+            <p className="mt-1 text-[0.92rem] leading-snug text-ink/70">{r.text}</p>
           </li>
         ))}
       </ul>
@@ -501,7 +530,7 @@ export function OtherTripBand({ o }: { o: NonNullable<Journey["otherTrip"]> }) {
           <p className="other-trip-title">{o.title}</p>
           <p className="mt-3 max-w-[30rem] text-[1rem] leading-relaxed text-[rgb(241_238_230/0.82)]">{o.text}</p>
         </div>
-        <a href={o.href} className="gf-cta shrink-0">
+        <a href={o.href} {...(o.href.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})} className="gf-cta shrink-0">
           {o.cta}
           <Chevron className="size-3" />
         </a>

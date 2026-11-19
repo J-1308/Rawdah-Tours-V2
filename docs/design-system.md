@@ -142,7 +142,12 @@ script in `app/layout.tsx` sets before first paint unless the visitor prefers re
   qiyam and Laylat al-Qadr, iftar in the Haram, the khatm; tall photo cards); hotel cards with how far each is from
   the Haram (`.hotel-walk`, on foot or by shuttle), two sentences and feature chips, from the hotels' own listings;
   the ended early bird crossed out beside every price (hero, join panel, packages table, phone bar); a Hajj 2027 band
-  in the guest panel's olive at the foot (`OtherTripBand`); what's included as photo cards (`IncludedCards`, `plan.cards`, "Photo to come" frames until Jibril
+  in the guest panel's olive at the foot (`OtherTripBand`, to WhatsApp in one-page mode). Final pass for the one-page
+  launch (19 Nov 2026): no photo placeholders; Ramadan in the Haram is words only (`.nights-list`, numbered); what's
+  included is icon tiles without photos; who it's for under the trip's two sentences (`ForWho`); Why Rawdah with the
+  name's meaning, the team photo and four reasons (`WhyRawdah`); "Our last trip" is Path of Purity II only; how
+  booking works as numbered steps by the form (`steps`, `.booking-steps`). One-page header: call, logo, WhatsApp on
+  phones; the trip, logo, WhatsApp and "Book your place" on desktop (`src/lib/site-mode.ts`); what's included as photo cards (`IncludedCards`, `plan.cards`, "Photo to come" frames until Jibril
   sends the shots); the trip's own
   questions first (`faqs`); three short lines by the closing form (`closing`). Not taken: the other sites' photos,
   copy, countdown and imam grids.

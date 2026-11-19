@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { brand, hajjRegister, nav, say, tripLinks, wa } from "@/app/_site/content";
 import { Emblem, Logo } from "@/app/_site/shell";
 import { Chevron, pageWa, WaGlyph } from "@/app/_site/whatsapp";
+import { ONE_PAGE, ONE_PAGE_HOME } from "@/lib/site-mode";
 
 /**
  * The header: soft glass in the top zone (night with the beige-gold logo, or
@@ -56,6 +57,45 @@ export function SiteHeader() {
   const isCurrent = (href: string) => pathname === href || pathname.startsWith(href + "/");
   const linkCls = "relative py-2 text-[0.9rem] text-ink/75 transition-colors hover:text-ink aria-[current=page]:text-ink aria-[current=page]:after:absolute aria-[current=page]:after:inset-x-1 aria-[current=page]:after:-bottom-0.5 aria-[current=page]:after:h-px aria-[current=page]:after:bg-gold";
   const [hajj, trips, priv, groups, about] = nav;
+
+  // One-page mode (src/lib/site-mode.ts): no menu. Phones: call, logo, WhatsApp. Desktop: the trip, the logo, then
+  // WhatsApp and "Book your place".
+  if (ONE_PAGE) {
+    return (
+      <header
+        className={`top-zone motion-drop sticky top-0 z-40 backdrop-blur-md transition-[box-shadow,border-color] duration-300 ${
+          scrolled ? "border-b border-ink/6 bg-canvas/85 shadow-[0_10px_40px_-28px_rgb(58_43_36/0.5)]" : "border-b border-transparent bg-canvas/60"
+        }`}
+      >
+        <div className={`grid h-[4.5rem] grid-cols-[1fr_auto_1fr] items-center gap-4 lg:h-[5.25rem] ${pad}`}>
+          <div className="flex items-center">
+            <a href={brand.phone.href} aria-label={`Call ${brand.phone.display}`} className="-ml-1 grid size-11 place-items-center rounded-full bg-(--raise) text-ink/80 shadow-[0_6px_18px_-10px_rgb(58_43_36/0.4)] lg:hidden">
+              <svg aria-hidden viewBox="0 0 24 24" className="size-[1.1rem]" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M5 4h3l1.5 4.5-2 1.5a11 11 0 0 0 6.5 6.5l1.5-2L20 16v3a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2" />
+              </svg>
+            </a>
+            <Link href={ONE_PAGE_HOME} className="hidden text-[0.9rem] text-ink/75 transition-colors hover:text-ink lg:block">
+              <span className="font-editorial text-[1.15rem] text-ink italic">Ramadan Umrah 2027</span> · 27 Feb – 13 Mar, with GGC
+            </Link>
+          </div>
+          <Link href={ONE_PAGE_HOME} className="text-ink" aria-label="Rawdah Tours, Ramadan Umrah 2027">
+            <Logo className="logo-gold h-10 lg:h-[3.4rem]" />
+          </Link>
+          <div className="flex items-center justify-end gap-[clamp(1rem,1.6vw,1.5rem)]">
+            <a href={pageWa(pathname)} target="_blank" rel="noopener noreferrer" className="hidden items-center gap-2 text-[0.9rem] text-ink/75 transition-colors hover:text-ink lg:inline-flex">
+              <WaGlyph className="size-[1.1rem] text-wa" /> WhatsApp us
+            </a>
+            <Link href={`${ONE_PAGE_HOME}#join`} className="btn-ink hidden h-11 items-center rounded-[0.85rem] px-5 text-[0.88rem] font-medium lg:inline-flex">
+              Book your place
+            </Link>
+            <a href={pageWa(pathname)} target="_blank" rel="noopener noreferrer" aria-label="WhatsApp us" className="-mr-1 grid size-11 place-items-center rounded-full bg-(--raise) text-wa shadow-[0_6px_18px_-10px_rgb(58_43_36/0.4)] lg:hidden">
+              <WaGlyph className="size-5" />
+            </a>
+          </div>
+        </div>
+      </header>
+    );
+  }
 
   return (
     <header

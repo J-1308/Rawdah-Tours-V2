@@ -775,7 +775,6 @@ html.motion .ticker-track { animation: ticker 48s linear infinite; }
 .gf-name { margin-top: 0.55rem; font-family: "Montserrat", "DM Sans", system-ui, sans-serif; font-size: clamp(2.2rem, 8vw, 3.4rem); font-weight: 700; line-height: 0.98; letter-spacing: 0.02em; text-transform: uppercase; }
 .gf-name span { display: block; margin-bottom: 0.4em; font-size: 0.4em; font-weight: 500; letter-spacing: 0.32em; color: #e6dec5; }
 .gf-line { margin-top: 1rem; max-width: 26rem; font-family: "Cormorant Garamond", Georgia, serif; font-size: 1.35rem; font-style: italic; line-height: 1.3; color: rgb(241 238 230 / 0.88); }
-.gf-tocome { margin-top: 1rem; max-width: 26rem; border: 1px dashed rgb(241 238 230 / 0.4); border-radius: 0.9rem; padding: 0.7rem 0.95rem; font-size: 0.9rem; line-height: 1.45; color: rgb(241 238 230 / 0.78); }
 .gf-cta { margin-top: 1.4rem; display: inline-flex; align-items: center; gap: 0.55rem; min-height: 3rem; padding: 0 1.3rem; border-radius: 0.9rem; background: #f1eee6; color: #3f3e28; font-size: 0.95rem; font-weight: 500; }
 .gf-cta:hover { background: #fff; }
 @media (min-width: 40rem) {
@@ -790,12 +789,12 @@ html.motion .ticker-track { animation: ticker 48s linear infinite; }
 @media (min-width: 40rem) { .host-photo { aspect-ratio: 1; } }
 .host-card .poster-role { margin-top: 0; }
 
-/* What's included as photo cards: two across on phones, four on wider screens. */
-.included-cards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.4rem 0.75rem; }
-@media (min-width: 48rem) { .included-cards { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1.75rem 1rem; } }
-.inc-card { display: grid; align-content: start; }
-.inc-body { display: flex; align-items: center; gap: 0.55rem; margin-top: 0.75rem; color: var(--color-bronze); }
-.inc-icon { width: 1.75rem; height: 1.75rem; flex: none; }
+/* What's included as tiles (icon, words, one line): two across on phones, four on wider screens. */
+.included-cards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.6rem; }
+@media (min-width: 48rem) { .included-cards { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.75rem; } }
+.inc-card { display: grid; align-content: start; border-radius: 1.1rem; border: 1px solid var(--glass-line); background: var(--glass-bg); padding: 1rem; }
+.inc-body { display: grid; gap: 0.6rem; color: var(--color-bronze); }
+.inc-icon { width: 2.4rem; height: 2.4rem; flex: none; }
 .inc-title { font-family: "Montserrat", "DM Sans", system-ui, sans-serif; font-size: 0.875rem; font-weight: 700; letter-spacing: 0.04em; line-height: 1.15; text-transform: uppercase; }
 .inc-title em { font-weight: 500; }
 .inc-line { margin-top: 0.4rem; font-size: 0.9rem; line-height: 1.45; color: color-mix(in oklab, var(--color-ink) 72%, transparent); }
@@ -804,12 +803,12 @@ html.motion .ticker-track { animation: ticker 48s linear infinite; }
 .hotel-walk { margin-top: 0.85rem; display: inline-flex; align-items: center; gap: 0.5rem; border-radius: 0.75rem; background: rgb(84 82 52 / 0.1); padding: 0.45rem 0.75rem; font-size: 0.9rem; font-weight: 500; }
 .chapter.night .hotel-walk { background: rgb(241 238 230 / 0.1); }
 
-/* Ramadan in the Haram: four tall cards; swipe on phones, four across on desktop. */
-.nights-row { display: grid; grid-auto-flow: column; grid-auto-columns: 75%; gap: 1rem; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; margin-inline: calc(var(--hero-pad-x) * -1); padding-inline: var(--hero-pad-x); padding-bottom: 0.5rem; }
-.nights-row::-webkit-scrollbar { display: none; }
-.nights-row > li { scroll-snap-align: start; }
-@media (min-width: 40rem) { .nights-row { grid-auto-columns: 44%; } }
-@media (min-width: 64rem) { .nights-row { grid-auto-flow: row; grid-template-columns: repeat(4, minmax(0, 1fr)); overflow: visible; margin-inline: 0; padding: 0; gap: 1.25rem; } }
+/* Ramadan in the Haram: four numbered points on the night ground, words only; two across on wider screens. */
+.nights-list { display: grid; gap: 0; max-width: 64rem; }
+.nights-list > li { display: grid; grid-template-columns: 3rem 1fr; column-gap: 0.75rem; padding-block: 1.25rem; border-top: 1px solid rgb(241 238 230 / 0.14); }
+.nights-list > li > :not(.nights-num) { grid-column: 2; }
+.nights-num { grid-row: span 2; font-family: "Montserrat", "DM Sans", system-ui, sans-serif; font-size: 0.875rem; font-weight: 600; letter-spacing: 0.12em; color: var(--color-gold); padding-top: 0.45rem; }
+@media (min-width: 48rem) { .nights-list { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 3rem; } }
 
 /* Previous trips' gallery: swipe on phones, four across on desktop. */
 .past-gallery { display: grid; grid-auto-flow: column; grid-auto-columns: 78%; gap: 0.75rem; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; margin-inline: calc(var(--hero-pad-x) * -1); padding-inline: var(--hero-pad-x); padding-bottom: 0.5rem; }
@@ -823,6 +822,11 @@ html.motion .ticker-track { animation: ticker 48s linear infinite; }
 .other-trip { display: grid; gap: 1.5rem; border-radius: 1.75rem; padding: 1.75rem 1.4rem; color: #f1eee6; background: radial-gradient(80% 90% at 15% 0%, #6d6b4b 0%, #545234 55%, #434229 100%); box-shadow: var(--shadow-lift); }
 .other-trip-title { margin-top: 0.45rem; font-family: "Montserrat", "DM Sans", system-ui, sans-serif; font-size: clamp(2.2rem, 7vw, 3.4rem); font-weight: 700; line-height: 1; letter-spacing: 0.03em; text-transform: uppercase; }
 @media (min-width: 48rem) { .other-trip { grid-template-columns: 1fr auto; align-items: center; padding: 2.5rem; } }
+
+/* How booking works, beside the closing form: numbered steps. */
+.booking-steps { display: grid; gap: 1rem; max-width: 26rem; }
+.booking-steps > li { display: grid; grid-template-columns: 2.25rem 1fr; gap: 0.85rem; align-items: start; }
+.booking-num { display: grid; place-items: center; width: 2.25rem; height: 2.25rem; border-radius: 0.7rem; background: #545234; color: #f1eee6; font-family: "Montserrat", "DM Sans", system-ui, sans-serif; font-weight: 700; }
 
 /* The mist: big soft clouds, drifting by transform only. */
 .mist .cloud { position: absolute; border-radius: 50%; background: radial-gradient(closest-side, rgb(255 255 255 / 0.85), rgb(255 255 255 / 0)); }

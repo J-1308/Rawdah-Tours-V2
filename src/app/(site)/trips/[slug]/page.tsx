@@ -16,7 +16,7 @@ import { PosterLockup, PosterText } from "@/app/_site/poster-type";
 import { StepForm } from "@/app/_site/step-form";
 import { ReservePanel } from "@/app/_site/reserve";
 import { Chapter, ConfirmedPending, gutter, Heading, Label, Logo, PageLead, PartnerLogo, WaTile } from "@/app/_site/shell";
-import { GroupStrip, HaramNights, HajjOnNusuk, OtherTripBand, PastTrips, leaderMember, MomentStrip, TeamLine, TripPeople, TeamList, tripTeacherMembers, teamMembers, TripIncludes, TrustBox, TripJourney, TripPackages, WhereYouStay, type Member } from "@/app/_site/trip-parts";
+import { ForWho, GroupStrip, HaramNights, WhyRawdah, HajjOnNusuk, OtherTripBand, PastTrips, leaderMember, MomentStrip, TeamLine, TripPeople, TeamList, tripTeacherMembers, teamMembers, TripIncludes, TrustBox, TripJourney, TripPackages, WhereYouStay, type Member } from "@/app/_site/trip-parts";
 import { StateTag } from "@/app/_site/trip-row";
 import { Chevron } from "@/app/_site/whatsapp";
 import { getTrip, isBookable, isDemoBooking } from "@/lib/trips";
@@ -317,6 +317,7 @@ export function TripView({ j }: { j: Journey }) {
                 </div>
                 <Heading className={`${h2} mt-7`}>{j.about.title}</Heading>
                 <p className="mt-3 max-w-[38rem] text-[1.05rem] leading-relaxed text-ink/75">{j.about.text}</p>
+                {j.forWho ? <ForWho items={j.forWho} /> : null}
               </>
             ) : (
               <>
@@ -347,6 +348,7 @@ export function TripView({ j }: { j: Journey }) {
               <TripPeople j={j} members={members} />
             </section>
           ) : null}
+          {j.why ? <WhyRawdah w={j.why} /> : null}
           {j.pastTrips ? <PastTrips p={j.pastTrips} /> : j.groups ? <GroupStrip photos={j.groups} /> : null}
 
           {j.kind === "hajj" ? <HajjOnNusuk /> : null}
@@ -484,6 +486,19 @@ export function TripView({ j }: { j: Journey }) {
             <div className="lg:col-span-4">
               {/* Poster lettering on the title and this closing heading only; section headings stay in the serif (Jibril, 18 Nov 2026). */}
               <Heading className={j.posterType ? `poster-title ${posterH2}` : "text-[clamp(2.4rem,4vw,3.6rem)]"}>{j.kind === "hajj" ? hajjNusuk.closing.title : packages.length ? (j.posterType ? <PosterText text={joinLabel} /> : joinLabel) : "Hear first when the dates are out"}</Heading>
+              {j.steps ? (
+                <ol className="booking-steps mt-6">
+                  {j.steps.map((st, i) => (
+                    <li key={st.title}>
+                      <span aria-hidden className="booking-num">{i + 1}</span>
+                      <div>
+                        <p className="font-medium">{st.title}</p>
+                        <p className="mt-0.5 text-[0.92rem] leading-snug text-ink/70">{st.text}</p>
+                      </div>
+                    </li>
+                  ))}
+                </ol>
+              ) : (
               <p className="mt-5 max-w-[24rem] text-[1rem] leading-[1.65] text-ink/72">
                 {j.kind === "hajj"
                   ? `${hajjNusuk.closing.text} Registering doesn’t reserve a place or commit you to anything.`
@@ -491,6 +506,7 @@ export function TripView({ j }: { j: Journey }) {
                     ? "About a minute. The Rawdah Tours team confirms your place and how to pay the deposit."
                     : "About a minute, and the Rawdah Tours team will be in touch. Registering doesn’t reserve a place or commit you to anything."}
               </p>
+              )}
               {j.closing ? (
                 <ul className="mt-6 grid gap-2.5 text-[0.98rem]">
                   {j.closing.map((c) => (
