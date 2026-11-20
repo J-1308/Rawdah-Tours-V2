@@ -11,7 +11,7 @@ from it, and the checkout reads it on the server. A trip is bookable only when i
 
 | Route | What it does |
 | --- | --- |
-| `/trips/[slug]` | Trip page with the join panel (`reserve.tsx`): rooms, travellers, live total, deposit, instalments. "Pay the deposit" appears only when the trip is bookable. |
+| `/trips/[slug]` | Trip page with the join panel (`reserve.tsx`): rooms, travellers, live total, deposit, instalments. "Pay the deposit" appears only when the trip is bookable. The hero's "Ground package · Enquire" (`data-pick="ground"`) opens it on ground only. |
 | `/trips/[slug]/book` | Booking form (`booking-form.tsx`) → server action `createBooking` (`src/app/actions/booking.ts`). 404 unless bookable. |
 | `/booking/confirmed` | Stripe success return. |
 | `/booking/cancelled` | Stripe cancel return, with a retry link to `/trips/[slug]/book`. |

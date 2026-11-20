@@ -7,7 +7,7 @@ import { notFound } from "next/navigation";
 
 import { ComingSoonTrip } from "@/app/_site/coming-soon";
 import { TripPhoneBar } from "@/app/_site/trip-bar";
-import { anchors, brand, covers, faqs, fromPrice, gbp, hajjNusuk, journey, journeys, nightsOf, ramadanReveal, routes, routeText, say, type Journey } from "@/app/_site/content";
+import { anchors, covers, faqs, fromPrice, gbp, hajjNusuk, journey, journeys, nightsOf, ramadanReveal, routes, routeText, say, type Journey } from "@/app/_site/content";
 import { CoverGroups, FaqList, PaymentPlan, Tick } from "@/app/_site/home-sections";
 import { Mark } from "@/app/_site/marks";
 import { ArrivalTrigger } from "@/app/_site/arrival-trigger";
@@ -122,7 +122,7 @@ export function TripView({ j }: { j: Journey }) {
   /** The special guest, first on the poster: inside the artwork on phones, on the left of it on desktop. */
   const [guest, ...withGuest] = posterPeople;
   const ground = Math.min(...(j.rooms?.value ?? []).filter((r) => r.flights === false).map((r) => r.price));
-  const offer = price ? <HeroOffer from={gbp(price)} ended={j.endedOffer ? `${j.endedOffer.label} ${gbp(j.endedOffer.price)}` : undefined} ground={Number.isFinite(ground) ? gbp(ground) : undefined} phone={brand.phone} /> : null;
+  const offer = price ? <HeroOffer from={gbp(price)} ended={j.endedOffer ? `${j.endedOffer.label} ${gbp(j.endedOffer.price)}` : undefined} ground={Number.isFinite(ground) ? gbp(ground) : undefined} href={`#${anchors.join}`} /> : null;
   if (j.posterType) {
     // The title's face and the italic under it, fetched with the page, so the title doesn't rise in a fallback font.
     preload("/fonts/montserrat-latin-wght-normal.woff2", { as: "font", type: "font/woff2", crossOrigin: "anonymous" });

@@ -44,6 +44,21 @@ export function ReservePanel({ j, bookable = false }: { j: Journey; bookable?: b
     if (choice && j.state === "open") prefillForm(choice);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [choiceKey]);
+  // The hero's "Ground package · Enquire" (data-pick="ground", poster-parts.tsx) lands here on ground only, same room.
+  useEffect(() => {
+    const list = j.rooms?.value ?? [];
+    if (!list.some((r) => r.flights === false)) return;
+    const onPick = (e: MouseEvent) => {
+      if (!(e.target instanceof Element) || !e.target.closest('[data-pick="ground"]')) return;
+      setRoom((cur) => {
+        const now = list.find((r) => r.type === cur);
+        if (now?.flights === false) return cur;
+        return (list.find((r) => r.flights === false && r.sharing === now?.sharing) ?? list.find((r) => r.flights === false))?.type ?? cur;
+      });
+    };
+    document.addEventListener("click", onPick);
+    return () => document.removeEventListener("click", onPick);
+  }, [j]);
 
   if (j.state === "past") {
     return (

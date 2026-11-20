@@ -121,7 +121,7 @@ script in `app/layout.tsx` sets before first paint unless the visitor prefers re
   edge to edge on phones, so there is no box to fade), the poster's frosted tablets behind its towers with live text
   (14 nights; Eid in the blessed lands), then the lockup as live text (1448 / RAMADAN / LAST 10 NIGHTS), the dates, a
   GGC line, one short line (`heroLine`), the offer (`HeroOffer`: olive panel with the Saudia mark and the ended early
-  bird crossed out; the ground package to enquire), our own round portraits (`PosterTeam`) and the button. Less to
+  bird crossed out; the ground package to enquire, which opens the join panel on ground only), our own round portraits (`PosterTeam`) and the button. Less to
   read (Jibril, 19 Nov 2026): the about block is a photo, a title and two sentences (`about`); the facts grid is gone
   from the head; one line under the icon row; the team section is a line and the "More about" notes. Olive type on
   light grounds, never the poster's white on stone. Also: the icon row (`PosterPerks`, line icons drawn for Rawdah)

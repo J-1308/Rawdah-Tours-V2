@@ -212,8 +212,12 @@ export function Arrival({ logo }: { logo: ReactNode }) {
 /* ------------------------------------------------------------------------ */
 /* Hero versions to compare (preview, 19 Nov 2026). Chosen by ?hero= (layout.tsx head script sets html[data-hero]). */
 
-/** The poster's bottom bar, rebuilt live: the price on the olive panel with the Saudia mark, and the ground package. */
-export function HeroOffer({ from, ended, ground, phone }: { from: string; ended?: string; ground?: string; phone: { href: string; display: string } }) {
+/**
+ * The poster's bottom bar, rebuilt live: the price on the olive panel with the Saudia mark, and the ground package.
+ * "Ground package · Enquire" opens the join panel on ground only (`data-pick`, handled in `reserve.tsx`), where the
+ * enquiry goes by WhatsApp or the form and the phone number sits under them. It used to dial the phone straight away.
+ */
+export function HeroOffer({ from, ended, ground, href }: { from: string; ended?: string; ground?: string; href: string }) {
   return (
     <div className="hero-offer">
       <div className="offer-olive">
@@ -227,7 +231,7 @@ export function HeroOffer({ from, ended, ground, phone }: { from: string; ended?
         <Image src="/images/brand/partners/saudia-on-olive.png" alt="Saudia" width={96} height={108} className="offer-saudia" />
       </div>
       {ground ? (
-        <a href={phone.href} className="offer-ground">
+        <a href={href} data-pick="ground" className="offer-ground">
           <span className="offer-ground-l">
             Ground package <em>available</em>
           </span>
