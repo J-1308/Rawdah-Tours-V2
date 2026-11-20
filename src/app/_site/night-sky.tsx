@@ -106,3 +106,17 @@ export function Nightfall() {
     </div>
   );
 }
+
+/**
+ * Daybreak, at the foot of the night chapter, before Eid (20 Nov 2026): the nightfall in reverse. As it scrolls past,
+ * the stars go out and a gold light rises from below, and the garden chapter comes up over it. Still where scroll
+ * timelines aren't supported, and with reduced motion: a night sky warming at the bottom.
+ */
+export function Daybreak() {
+  return (
+    <div aria-hidden className="daybreak">
+      <NightSky count={40} seed={30} className="db-sky" />
+      <span className="db-dawn" />
+    </div>
+  );
+}

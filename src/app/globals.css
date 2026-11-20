@@ -1155,3 +1155,114 @@ details > summary::-webkit-details-marker { display: none; }
    (motion.tsx adds .rv/.in to the gallery's items and to the lead photo). */
 html.motion .past-gallery .rv img, html.motion .past-lead.rv img { filter: sepia(0.55) saturate(0.35) brightness(1.12) contrast(0.88); transition: filter 1.8s var(--ease-out) calc(var(--rv, 0) * 120ms + 150ms); }
 html.motion .past-gallery .rv.in img, html.motion .past-lead.rv.in img { filter: none; }
+
+/* === The garden (docs/adr/0006-the-garden.md, 20 Nov 2026) ===================================================
+   Rawdah means garden, and the trip ends in Madinah where the Rawdah is: the page is a journey to the Garden. */
+
+/* The garden chapter: Madinah in the Rawdah's green (its carpet is light green with a floral design, where the rest of
+   the masjid is red), with that floral lattice faint in the ground and a gold dawn at the top, after the night. */
+.skin-1448 .garden {
+  --color-canvas: #dfe6d1;
+  --color-canvas-warm: #e6ebda;
+  --color-beige: #cfd9bd;
+  --color-sand: #9fb08a;
+  --color-gold-soft: #b9a274;
+  --color-gold: #93783f;
+  --color-bronze: #46613a;
+  --color-ink: #23311b;
+  --color-ink-deep: #182214;
+  --color-clay: #3a5030;
+  --color-muted: #54664a;
+  --glass-bg: rgb(250 252 244 / 0.62);
+  --field-ring: rgb(70 97 58 / 0.3);
+  --focus: #46613a;
+  --btn-bg: linear-gradient(180deg, #557a43 0%, #3f5e31 100%);
+  --btn-bg-hover: linear-gradient(180deg, #5f8649 0%, #466836 100%);
+  --btn-fg: #f3f6ec;
+  --watermark: rgb(70 97 58 / 0.08);
+  --chapter-glow:
+    radial-gradient(90% 26rem at 50% 0%, rgb(236 214 158 / 0.85) 0%, rgb(236 214 158 / 0.25) 45%, transparent 75%),
+    radial-gradient(60% 40% at 100% 100%, rgb(255 255 255 / 0.35) 0%, transparent 70%);
+  --carpet: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64' viewBox='0 0 64 64'%3E%3Cg fill='%23466437' fill-opacity='0.075'%3E%3Cellipse cx='32' cy='24' rx='3.2' ry='6'/%3E%3Cellipse cx='32' cy='40' rx='3.2' ry='6'/%3E%3Cellipse cx='24' cy='32' rx='6' ry='3.2'/%3E%3Cellipse cx='40' cy='32' rx='6' ry='3.2'/%3E%3Ccircle cx='0' cy='0' r='3.4'/%3E%3Ccircle cx='64' cy='0' r='3.4'/%3E%3Ccircle cx='0' cy='64' r='3.4'/%3E%3Ccircle cx='64' cy='64' r='3.4'/%3E%3C/g%3E%3Cg fill='none' stroke='%23466437' stroke-opacity='0.06'%3E%3Cpath d='M0 32h14M50 32h14M32 0v14M32 50v14'/%3E%3C/g%3E%3C/svg%3E");
+  color: var(--color-ink);
+}
+.chapter.garden { background: var(--chapter-glow), var(--carpet), var(--color-canvas); }
+/* Stone comes back over the green as a sheet, as night meets day. */
+.chapter.garden + .chapter:not(.night):not(.garden) {
+  margin-top: calc(-1 * var(--sheet));
+  border-top-left-radius: var(--sheet);
+  border-top-right-radius: var(--sheet);
+  box-shadow: 0 -26px 54px -38px rgb(35 49 27 / 0.5);
+}
+.chapter.garden .hotel-walk { background: rgb(255 255 255 / 0.5); }
+
+/* Leaves behind the words: in the margins of the stone chapters, all through the garden. Behind content (the chapter
+   is its own stacking layer), faint, drifting a little with the scroll. */
+.chapter:has(> .garden-leaves) { isolation: isolate; }
+.garden-leaves { position: absolute; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; }
+.gl { position: absolute; height: auto; color: rgb(84 82 52 / 0.1); transform: rotate(var(--turn)); }
+.gl-lush .gl { color: rgb(70 97 58 / 0.13); }
+@media (max-width: 47.99rem) { .garden-leaves:not(.gl-lush) .gl:nth-child(n + 6) { display: none; } }
+@supports (animation-timeline: view()) {
+  @keyframes gl-drift { from { transform: translate3d(0, var(--dy), 0) rotate(var(--turn)); } to { transform: translate3d(0, calc(var(--dy) * -1), 0) rotate(calc(var(--turn) + 14deg)); } }
+  html.motion .gl { animation: gl-drift linear both; animation-timeline: view(); }
+}
+
+/* The garden path: the chapter row, stuck under the header on phones and desktop. Ahead: faint. The chapter you're in:
+   olive, its stage grows in gold. Behind you: in leaf. */
+.garden-path a { gap: 0.45rem; padding: 0 0.9rem 0 0.7rem; transition: background-color 0.4s var(--ease-out), color 0.4s var(--ease-out), border-color 0.4s; }
+.gp-glyph { width: 1.15rem; height: 1.15rem; flex: none; color: rgb(84 82 52 / 0.32); transform-origin: 50% 85%; transition: color 0.4s var(--ease-out); }
+.garden-path [data-state="passed"] .gp-glyph { color: #545234; }
+.garden-path [data-state="here"] a { background: #545234; border-color: #545234; color: #f4f2ea; }
+.garden-path [data-state="here"] .gp-glyph { color: #e2c98f; }
+@keyframes gp-grow { from { transform: scale(0.3) translateY(0.2rem); opacity: 0.2; } 70% { transform: scale(1.12); opacity: 1; } to { transform: none; } }
+html.motion .garden-path [data-state="here"] .gp-glyph { animation: gp-grow 0.9s var(--ease-out) both; }
+@media (min-width: 64rem) {
+  .trip-jump.garden-path { position: sticky; top: 5.3rem; border-bottom: 1px solid rgb(84 82 52 / 0.12); background: rgb(236 232 223 / 0.92); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
+  .trip-jump.garden-path ul { padding-top: 0.6rem; }
+  .skin-1448 .trip-anchor { scroll-margin-top: 10.5rem; }
+}
+
+/* Daybreak: stars go out, gold rises, then the garden sheet comes up over it. */
+.daybreak { position: relative; height: clamp(11rem, 32vh, 20rem); margin-top: clamp(1rem, 4vw, 3rem); pointer-events: none; }
+.daybreak .sky { -webkit-mask-image: linear-gradient(to bottom, #000 0%, transparent 80%); mask-image: linear-gradient(to bottom, #000 0%, transparent 80%); opacity: 0.55; }
+.db-dawn { position: absolute; inset: 0; background: linear-gradient(to bottom, transparent 0%, rgb(160 132 74 / 0.18) 45%, rgb(236 214 158 / 0.55) 100%); }
+@supports (animation-timeline: view()) {
+  @keyframes db-out { from { opacity: 1; } to { opacity: 0.08; } }
+  @keyframes db-in { from { opacity: 0; } to { opacity: 1; } }
+  html.motion .daybreak { view-timeline: --daybreak block; }
+  html.motion .daybreak .sky { animation: db-out linear both; animation-timeline: --daybreak; animation-range: cover 20% cover 75%; }
+  html.motion .db-dawn { animation: db-in linear both; animation-timeline: --daybreak; animation-range: cover 15% cover 70%; }
+}
+
+/* Eid: the crescent rises over the heading as the section comes in. */
+.eid { position: relative; padding-top: clamp(4.5rem, 10vw, 6.5rem); }
+.eid-moon { position: absolute; top: 0; left: 0; width: clamp(3rem, 8vw, 4.25rem); height: auto; aspect-ratio: 1; color: #93783f; }
+@supports (animation-timeline: view()) {
+  @keyframes eid-rise { from { opacity: 0; transform: translate3d(0, 1.6rem, 0) rotate(-18deg); } to { opacity: 1; transform: none; } }
+  html.motion .eid-moon { animation: eid-rise linear both; animation-timeline: view(); animation-range: entry 0% cover 35%; }
+}
+
+/* Your hosts, arched like the garden's gate, side by side; no card boxes. */
+.hosts { display: grid; gap: 2.75rem; }
+.host-arch { position: relative; aspect-ratio: 4 / 5; overflow: hidden; border-radius: 999px 999px 1.25rem 1.25rem; background: var(--color-beige); box-shadow: var(--shadow-lift); }
+.host-arch::after { content: ""; position: absolute; inset: 0.55rem; border: 1px solid rgb(255 255 255 / 0.55); border-radius: 999px 999px 0.85rem 0.85rem; pointer-events: none; }
+.host-text { padding-top: 1.35rem; }
+.host-name { margin-top: 0.2rem; font-family: var(--font-editorial, "Cormorant Garamond", Georgia, serif); font-size: clamp(1.75rem, 3vw, 2.15rem); line-height: 1.1; }
+@media (min-width: 40rem) { .hosts { grid-template-columns: 1fr 1fr; gap: 2rem; } }
+html.motion .hosts .rv .host-arch img { transform: scale(1.06); transition: transform 1.6s var(--ease-out); }
+html.motion .hosts .rv.in .host-arch img { transform: none; }
+
+/* The last words: the Rawdah hadith, under the mark's crown. */
+.closing-verse { display: grid; justify-items: center; padding-block: clamp(4rem, 10vw, 7.5rem) clamp(5.5rem, 12vw, 9rem); text-align: center; }
+.cv-crown { width: 2.6rem; height: 2.6rem; color: var(--color-bronze); }
+.cv-text { margin-top: 1.4rem; max-width: 36rem; font-family: var(--font-editorial, "Cormorant Garamond", Georgia, serif); font-size: clamp(1.75rem, 4.2vw, 2.7rem); line-height: 1.25; text-wrap: balance; color: var(--color-ink); }
+.cv-source { margin-top: 1rem; font-size: 0.9rem; color: rgb(from var(--color-ink) r g b / 0.62); }
+@supports (animation-timeline: view()) {
+  @keyframes cv-grow { from { opacity: 0; transform: scale(0.4) translateY(0.6rem); } to { opacity: 1; transform: none; } }
+  html.motion .cv-crown { transform-origin: 50% 90%; animation: cv-grow linear both; animation-timeline: view(); animation-range: entry 10% cover 40%; }
+}
+
+/* One button family (the garden pass): WhatsApp keeps its glyph but takes a garden green, not the app's neon. */
+.skin-1448 { --color-wa: #2f7a4c; }
+.skin-1448 .garden { --color-wa: #2f7a4c; }

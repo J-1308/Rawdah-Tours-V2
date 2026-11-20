@@ -678,6 +678,17 @@ export type Journey = {
   guestFeature?: { kicker: string; line: string; bio?: string; cta: string };
   /** Poster trips: the heading over the hosts' cards. */
   hostsTitle?: string;
+  /** One line under "Your hosts" (poster trips). */
+  hostsIntro?: string;
+  /* The garden (Jibril, 20 Nov 2026; docs/adr/0006-the-garden.md): the page in the order you'd live the trip. */
+  /** Before the nights: the route, the flight out and the Makkah hotel. */
+  gettingThere?: { label: string; title: string; intro: string };
+  /** After the nights: daybreak and Eid. */
+  eid?: { label: string; title: string; text: string };
+  /** The garden chapter: the Madinah hotel and the flight home. */
+  madinah?: { label: string; title: string; intro: string };
+  /** The last words on the page. */
+  closeVerse?: { text: string; source: string };
   /** Ramadan in the Haram: what the nights hold (worship, not a Rawdah service). `slot` = the photo Jibril will source. */
   nights?: { label: string; title: string; intro: string; items: { title: string; text: string }[] };
   /** Rawdah's earlier trips: poster cards and a photo gallery (proof, after The Umrah Company's past journeys). */
@@ -825,6 +836,27 @@ export const ramadanFull: Journey = {
       cta: "Travel with Sheikh Yahya",
     },
     hostsTitle: "Your hosts",
+    hostsIntro: "Rawdah’s two co-founders, with the group the whole way.",
+    /* Facts only, from the plan below and the FAQs (Eid on Tue 9 or Wed 10 March; Makkah to Madinah on Tue 9 March). */
+    gettingThere: {
+      label: "The journey",
+      title: "Getting there",
+      intro: "An overnight Saudia flight from London Heathrow on Saturday 27 February, then straight to Makkah for the last ten nights.",
+    },
+    eid: {
+      label: "After the last ten nights",
+      title: "Eid in the blessed lands",
+      text: "Eid al-Fitr falls on Tuesday 9 or Wednesday 10 March, as the moon is sighted. Either way, you spend it in the blessed lands, then go on to Madinah.",
+    },
+    madinah: {
+      label: "Madinah",
+      title: "Four nights in Madinah",
+      intro: "In the city of the Prophet ﷺ, where the Rawdah is: an 8-minute walk to Masjid an-Nabawi, then home on Saturday 13 March.",
+    },
+    closeVerse: {
+      text: "“What is between my house and my minbar is a garden from the gardens of Paradise.”",
+      source: "The Prophet ﷺ · reported by al-Bukhari and Muslim",
+    },
     nights: {
       label: "Ramadan in the Haram",
       title: "The last ten nights, at the House of Allah",

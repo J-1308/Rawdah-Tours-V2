@@ -85,6 +85,10 @@ is **not** identified on the site.
   only. Later still (19 Nov 2026): every package has a plan on the same dates (the quad's proportions, £10 steps);
   Sheikh Yahya's panel has a short public-source background (`guestFeature.bio`); "Our last trip" leads with the old
   home hero's group photo (`pastTrips.lead`, `group-photos-01.jpg`); host photos are portrait-shaped on phones.
+  The garden (20 Nov 2026): new Ramadan fields `gettingThere`, `eid`, `madinah`, `hostsIntro` and `closeVerse`, worded
+  only from facts already on the page (Eid on Tue 9 or Wed 10 March; Makkah to Madinah on Tue 9 March; the Rotana's
+  8-minute walk; home on 13 March; "the Rawdah Tours team with you the whole way"). The closing line is the Rawdah
+  hadith (al-Bukhari and Muslim), as in "Rawdah means garden".
 - **Trust box** (trip pages, `trust` in `content.ts`): shows only the people on the trip and two buttons. Its
   numbers (years running, pilgrims taken, review rating and count) stay empty until Rawdah answers the
   questionnaire; never estimate them.

@@ -99,6 +99,9 @@ Code fixes are on `review/launch-fixes`. Jibril still has to:
 9. Story and motion (Jibril, 20 Nov 2026; `docs/adr/0005-story-and-motion.md`): a calmer hero (`poster-hero.tsx`), the
    page reordered as a story (trip, people, nights, journey, included, proof, price, book), and Rawdah's own motion:
    the ten nights in the hero, nightfall into the night chapter, focus-in reveals, developing photos. No marquee.
+10. The garden (Jibril, 20 Nov 2026; `docs/adr/0006-the-garden.md`): Rawdah's design direction. The page as a journey
+   to the Garden (Madinah, where the Rawdah is), the garden path as its guide, leaves from the mark behind the words,
+   a Rawdah-green Madinah chapter after daybreak, Ayuub and Issa featured as the hosts, the Rawdah hadith last.
 
 Review items left for later: focus moves between form steps, the Private page's thin FAQ and empty desktop column,
 desktop hero buttons on Private and Groups, Ramadan reveal facts (the 30 November instalment for late bookings, an

@@ -157,7 +157,11 @@ script in `app/layout.tsx` sets before first paint unless the visitor prefers re
   lockup, the ten nights (`.ten-nights`), one line of dates and partner, one price line, Book and WhatsApp; the order is
   trip, people, nightfall and the nights, flights and hotels, included, our last trip, why Rawdah, prices, book,
   questions; the night chapter opens with `Nightfall` (`night-sky.tsx`); reveals focus in (`.rv`) instead of rising; the
-  last trip's photos develop. In one-page
+  last trip's photos develop. The garden (20 Nov 2026, `docs/adr/0006-the-garden.md`): the page runs in the order
+  you'd live the trip (getting there, nights, Eid, Madinah, hosts, proof, price, book, the Rawdah hadith); the guide is
+  the garden path (`garden-path.tsx`, stages in `garden.tsx`); the Madinah chapter is `Chapter tone="garden"` (Rawdah
+  green, floral lattice, dawn at the top) after `Daybreak`; leaves from the mark sit faintly behind chapters
+  (`GardenLeaves`); hosts are arched portraits (`.hosts`, `.host-arch`); `ClosingVerse` ends the page. In one-page
   mode the whole site wears the poster: `<html data-skin="1448">` turns the top strip, header and footer from cocoa
   to the poster's olive and stone, the logo stone, and the browser bar olive (`layout.tsx`, `globals.css`). One-page header: call, logo, WhatsApp on
   phones; the trip, logo, WhatsApp and "Book your place" on desktop (`src/lib/site-mode.ts`); what's included as photo cards (`IncludedCards`, `plan.cards`, "Photo to come" frames until Jibril
