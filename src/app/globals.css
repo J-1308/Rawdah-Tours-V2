@@ -930,6 +930,14 @@ html.motion .ticker-track { animation: ticker 48s linear infinite; }
 @media (min-width: 64rem) { .past-gallery { grid-auto-flow: row; grid-template-columns: repeat(2, minmax(0, 1fr)); overflow: visible; margin-inline: 0; padding: 0; } }
 @media (min-width: 80rem) { .past-gallery { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
 
+/* The last trip as a strip of photos at their own shapes, one height (20 Nov 2026: no cropping). */
+.past-strip, .skin-1448 .past-strip { display: flex; gap: 0.75rem; overflow-x: auto; scroll-snap-type: x mandatory; margin-inline: calc(var(--hero-pad-x) * -1); padding-inline: var(--hero-pad-x); padding-bottom: 0.5rem; }
+.past-strip > li { flex: none; scroll-snap-align: start; }
+.past-shot { margin: 0; }
+.past-shot-img { display: block; height: clamp(14rem, 62vw, 20rem); width: auto; max-width: none; border-radius: 1rem; box-shadow: var(--shadow-lift); }
+.past-shot figcaption { margin-top: 0.55rem; font-size: 0.875rem; color: rgb(from var(--color-ink) r g b / 0.7); }
+@media (min-width: 64rem) { .past-strip, .skin-1448 .past-strip { margin-inline: 0; padding-inline: 0; } }
+
 /* The other campaign at the foot of the Ramadan page: the guest panel's olive. */
 .other-trip { display: grid; gap: 1.5rem; border-radius: 1.75rem; padding: 1.75rem 1.4rem; color: #f1eee6; background: radial-gradient(80% 90% at 15% 0%, #6d6b4b 0%, #545234 55%, #434229 100%); box-shadow: var(--shadow-lift); }
 .other-trip-title { margin-top: 0.45rem; font-family: "Montserrat", "DM Sans", system-ui, sans-serif; font-size: clamp(2.2rem, 7vw, 3.4rem); font-weight: 700; line-height: 1; letter-spacing: 0.03em; text-transform: uppercase; }
@@ -1581,6 +1589,81 @@ html.motion .hosts .rv.in .host-arch img { transform: none; }
 .skin-1448 .stay-name { font-weight: 600; }
 .skin-1448 .pkg-facts b { font-weight: 600; }
 
+/* --- The journey (JourneySection, 20 Nov 2026) ------------------------------------------------------------------------
+   The package, the nights and our journey in one lighter section: the title, the group photo uncropped in a gilt-lined
+   frame, the price, then the highlights, the route line and the hadith. Phones in that order; desktop the title and
+   price beside the photo, the rest full width under them. */
+.pkg-in.jr { grid-template-areas: "head" "photo" "buy" "points" "line" "verse"; gap: 2.25rem; }
+.jr-head { grid-area: head; }
+.jr-lead { margin-top: 1.1rem; max-width: 36rem; font-size: 1.08rem; line-height: 1.7; color: rgb(from var(--color-ink) r g b / 0.84); }
+.jr-photo { grid-area: photo; margin: 0; }
+.jr-photo-frame { position: relative; overflow: hidden; border-radius: 1.5rem; background: #d8d2c2; box-shadow: 0 0 0 1px rgb(168 134 63 / 0.35), 0 30px 60px -36px rgb(60 48 20 / 0.55); }
+.jr-photo-frame::after { content: ""; position: absolute; inset: 0.55rem; border: 1px solid rgb(255 248 228 / 0.65); border-radius: 1.05rem; pointer-events: none; }
+.jr-photo-img { display: block; width: 100%; height: auto; }
+.jr-photo figcaption { margin-top: 0.7rem; font-size: 0.86rem; color: rgb(from var(--color-ink) r g b / 0.66); }
+.jr-buy { grid-area: buy; }
+.jr-points { grid-area: points; padding-top: 0.5rem; }
+.jr-sub { margin-bottom: 1rem; font-family: "Montserrat", "DM Sans", system-ui, sans-serif; font-size: 0.74rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: #7d6129; }
+.jr-line { grid-area: line; }
+.jr-verse { grid-area: verse; margin-top: 0; }
+.pkg-night .jr-sub { color: #e2c98f; }
+@media (min-width: 64rem) {
+  .pkg-in.jr { grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); grid-template-areas: "head photo" "buy photo" "points points" "line line" "verse verse"; column-gap: clamp(3rem, 5vw, 5rem); row-gap: 2.75rem; align-items: start; }
+  .jr-buy { align-self: end; }
+  .jr-points { padding-top: 1.5rem; }
+}
+
+/* --- Highlights: the page's one list (20 Nov 2026: "easy to read and follow… throughout the website") ---------------
+   Numbered in the gilt eight-pointed star, a Cormorant title and one line, on fine rules; two columns on wider screens.
+   The journey, Sheikh Yahya and Madinah all use it. */
+.highlights { display: grid; border-top: 1px solid rgb(125 97 41 / 0.3); }
+.highlights li { display: grid; grid-template-columns: 2.9rem 1fr; gap: 1rem; align-items: start; padding-block: 1.2rem; border-bottom: 1px solid rgb(125 97 41 / 0.16); }
+.hl-num { position: relative; display: grid; place-items: center; width: 2.75rem; height: 2.75rem; margin-top: -0.2rem; filter: drop-shadow(0 6px 10px rgb(125 97 41 / 0.3)); }
+.hl-star { position: absolute; inset: 0; width: 100%; height: 100%; color: #c9a85c; }
+.hl-num b { position: relative; font-family: "Montserrat", "DM Sans", system-ui, sans-serif; font-size: 0.92rem; font-weight: 700; line-height: 1; color: #2b2a1a; }
+.hl-title { font-family: var(--font-editorial, "Cormorant Garamond", Georgia, serif); font-size: clamp(1.4rem, 4.6vw, 1.6rem); font-weight: 600; line-height: 1.15; color: var(--color-ink); }
+.hl-text { margin-top: 0.3rem; font-size: 0.98rem; line-height: 1.6; color: rgb(from var(--color-ink) r g b / 0.82); }
+.night .highlights, .pkg-night .highlights { border-top-color: rgb(216 187 114 / 0.3); }
+.night .highlights li, .pkg-night .highlights li { border-color: rgb(216 187 114 / 0.16); }
+.night .hl-star, .pkg-night .hl-star { color: #d8bb72; }
+.night .hl-num, .pkg-night .hl-num { filter: drop-shadow(0 0 12px rgb(216 187 114 / 0.25)); }
+@media (min-width: 48rem) {
+  .highlights:not(.hl-one) { grid-template-columns: 1fr 1fr; column-gap: 3rem; border-top: 0; }
+  .highlights:not(.hl-one) li { border-top: 1px solid rgb(125 97 41 / 0.16); border-bottom: 0; }
+  .highlights:not(.hl-one) li:nth-child(-n + 2) { border-top-color: rgb(125 97 41 / 0.32); }
+  .night .highlights:not(.hl-one) li { border-top-color: rgb(216 187 114 / 0.16); }
+  .night .highlights:not(.hl-one) li:nth-child(-n + 2) { border-top-color: rgb(216 187 114 / 0.32); }
+}
+
+/* --- Hosts: each portrait at its own shape, the corners rounded (20 Nov 2026: "curve the edges but don't distort") -- */
+.host-frame { position: relative; overflow: hidden; border-radius: 1.4rem; background: var(--color-beige); box-shadow: var(--shadow-lift); }
+.host-frame::after { content: ""; position: absolute; inset: 0.55rem; border: 1px solid rgb(255 255 255 / 0.55); border-radius: 0.9rem; pointer-events: none; }
+.host-img { display: block; width: 100%; height: auto; }
+.skin-1448 .hosts { align-items: start; }
+html.motion .hosts .rv .host-frame img { transform: scale(1.04); transition: transform 1.6s var(--ease-out); }
+html.motion .hosts .rv.in .host-frame img { transform: none; }
+
+/* --- The feature band, animated (20 Nov 2026: "animate the dark bar") -------------------------------------------------
+   Each icon draws itself in gilt as the band comes into view, one after another; a slow light crosses the band every
+   few seconds. Still with reduced motion. */
+.fb-sheen { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+.fb-sheen::before { content: ""; position: absolute; top: 0; bottom: 0; left: -30%; width: 30%; background: linear-gradient(100deg, transparent 0%, rgb(255 236 180 / 0.12) 50%, transparent 100%); }
+@keyframes fb-sheen { 0% { transform: translateX(0); } 40%, 100% { transform: translateX(460%); } }
+html.motion .fb-sheen::before { animation: fb-sheen 9s cubic-bezier(0.45, 0, 0.25, 1) 1.5s infinite; }
+.fb-icon * { stroke-dasharray: 180; stroke-dashoffset: 0; }
+html.motion .fb-item.rv { opacity: 1; filter: none; transform: none; }
+html.motion .fb-item.rv .fb-icon * { stroke-dashoffset: 180; transition: stroke-dashoffset 1.8s var(--ease-out); }
+html.motion .fb-item.rv .fb-text { opacity: 0; transform: translateY(0.35rem); transition: opacity 0.8s var(--ease-out), transform 0.8s var(--ease-out); }
+html.motion .fb-item.rv.in .fb-icon * { stroke-dashoffset: 0; }
+html.motion .fb-item.rv.in .fb-text { opacity: 1; transform: none; }
+.fb-item:nth-child(2) .fb-icon *, .fb-item:nth-child(2) .fb-text { transition-delay: 0.1s; }
+.fb-item:nth-child(3) .fb-icon *, .fb-item:nth-child(3) .fb-text { transition-delay: 0.2s; }
+.fb-item:nth-child(4) .fb-icon *, .fb-item:nth-child(4) .fb-text { transition-delay: 0.3s; }
+.fb-item:nth-child(5) .fb-icon *, .fb-item:nth-child(5) .fb-text { transition-delay: 0.4s; }
+.fb-item:nth-child(6) .fb-icon *, .fb-item:nth-child(6) .fb-text { transition-delay: 0.5s; }
+.fb-item:nth-child(7) .fb-icon *, .fb-item:nth-child(7) .fb-text { transition-delay: 0.6s; }
+.fb-item:nth-child(8) .fb-icon *, .fb-item:nth-child(8) .fb-text { transition-delay: 0.7s; }
+
 /* --- Rawdah's mark, faint in the background (20 Nov 2026: "the Rawdah logo faintly in the background") ---------------
    Large and barely there: a deep gilt on stone, a light one in the night. Behind the hero's words, the package, the
    hotels and the booking. */
@@ -1588,11 +1671,11 @@ html.motion .hosts .rv.in .host-arch img { transform: none; }
 .skin-1448 .night { --watermark: rgb(216 187 114 / 0.05); }
 .rp-mark { z-index: 0; right: -14%; bottom: 4%; height: 48%; }
 .pkg { overflow: clip; }
-.pkg-mark { z-index: 0; right: -18%; top: 6%; height: 70%; }
+.pkg-mark { z-index: 0; right: -22%; top: 3rem; height: min(24rem, 80vw); }
 .pkg-in { position: relative; z-index: 1; }
 @media (min-width: 64rem) {
   .rp-mark { right: -3%; top: 6%; bottom: auto; height: 92%; }
-  .pkg-mark { right: auto; left: -4%; top: auto; bottom: -14%; height: 105%; }
+  .pkg-mark { right: auto; left: -3%; top: auto; bottom: 1rem; height: 30rem; }
 }
 
 /* --- The flight, in the background of Getting there (20 Nov 2026) --------------------------------------------------
@@ -1672,13 +1755,15 @@ html.motion .hosts .rv.in .host-arch img { transform: none; }
 .stay-mark { z-index: 0; right: -16%; top: 2.5rem; height: min(34rem, 60vw); }
 .stay > :not(.stay-mark) { position: relative; z-index: 1; }
 @media (min-width: 64rem) { .stay-mark { right: 2%; top: 3rem; height: 30rem; } }
-.stay-hotel { display: grid; grid-template-areas: "arch" "plates" "text"; margin-top: clamp(3rem, 7vw, 5.5rem); }
-.stay-arch { grid-area: arch; position: relative; aspect-ratio: 4 / 5; max-height: 34rem; width: 100%; overflow: hidden; border-radius: 999px 999px 1.4rem 1.4rem; background: #3c3b2a; box-shadow: 0 0 0 1px rgb(216 187 114 / 0.35), 0 40px 80px -40px rgb(0 0 0 / 0.7), 0 0 70px -30px rgb(216 187 114 / 0.35); }
-.stay-arch::after { content: ""; position: absolute; inset: 0.6rem; z-index: 1; border: 1px solid rgb(236 219 166 / 0.6); border-radius: 999px 999px 0.95rem 0.95rem; pointer-events: none; }
-.stay-arch-img { opacity: 0; transition: opacity 0.7s var(--ease-out), transform 1.6s var(--ease-out); transform: scale(1.04); }
-.stay-arch-img.is-on { opacity: 1; transform: none; }
-.stay-plates { grid-area: plates; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.55rem; margin-top: 0.75rem; }
-.stay-plate { position: relative; aspect-ratio: 1; min-height: 2.75rem; overflow: hidden; border-radius: 0.8rem; opacity: 0.55; box-shadow: 0 0 0 1px rgb(216 187 114 / 0.2); transition: opacity 0.3s, box-shadow 0.3s; }
+.stay-hotel { display: grid; grid-template-areas: "photo" "plates" "text"; margin-top: clamp(3rem, 7vw, 5.5rem); }
+.stay-photo { grid-area: photo; position: relative; margin: 0; overflow: hidden; border-radius: 1.4rem; background: #3c3b2a; box-shadow: 0 0 0 1px rgb(216 187 114 / 0.35), 0 40px 80px -40px rgb(0 0 0 / 0.7), 0 0 70px -30px rgb(216 187 114 / 0.3); }
+.stay-photo::after { content: ""; position: absolute; inset: 0.55rem; border: 1px solid rgb(236 219 166 / 0.55); border-radius: 0.95rem; pointer-events: none; }
+.stay-photo-img { display: block; width: 100%; height: auto; }
+@keyframes stay-in { from { opacity: 0.15; } to { opacity: 1; } }
+html.motion .stay-photo-img { animation: stay-in 0.7s var(--ease-out); }
+.stay-plates { grid-area: plates; display: flex; gap: 0.55rem; margin-top: 0.75rem; overflow-x: auto; scrollbar-width: none; }
+.stay-plates::-webkit-scrollbar { display: none; }
+.stay-plate { position: relative; flex: none; height: 4.4rem; overflow: hidden; border-radius: 0.6rem; background: #2a291d; opacity: 0.55; box-shadow: 0 0 0 1px rgb(216 187 114 / 0.2); transition: opacity 0.3s, box-shadow 0.3s; }
 .stay-plate:hover { opacity: 0.85; }
 .stay-plate[aria-pressed="true"] { opacity: 1; box-shadow: 0 0 0 2px #d8bb72; }
 .stay-text { grid-area: text; padding-top: 1.75rem; }
@@ -1699,15 +1784,12 @@ html.motion .hosts .rv.in .host-arch img { transform: none; }
 .stay-features { display: flex; flex-wrap: wrap; gap: 0.5rem 1.3rem; margin-top: 1rem; }
 .stay-features li { display: inline-flex; align-items: center; gap: 0.55rem; font-size: 0.94rem; color: rgb(from var(--color-ink) r g b / 0.86); }
 .stay-features li::before { content: ""; width: 0.42rem; height: 0.42rem; flex: none; transform: rotate(45deg); background: linear-gradient(135deg, #efdfaa, #b99749); }
-html.motion .stay-hotel.rv .stay-arch { clip-path: inset(18% 0 0 0 round 999px 999px 1.4rem 1.4rem); transition: clip-path 1.4s var(--ease-out); }
-html.motion .stay-hotel.rv.in .stay-arch { clip-path: inset(0 0 0 0 round 999px 999px 1.4rem 1.4rem); }
 @media (min-width: 40rem) and (max-width: 63.99rem) {
-  .stay-arch, .stay-plates { max-width: 30rem; }
+  .stay-photo, .stay-plates { max-width: 40rem; }
 }
 @media (min-width: 64rem) {
-  .stay-hotel { grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); grid-template-areas: "arch text" "arch plates"; grid-template-rows: 1fr auto; column-gap: clamp(3rem, 6vw, 6rem); align-items: center; }
-  .stay-flip { grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr); grid-template-areas: "text arch" "plates arch"; }
-  .stay-arch { max-height: none; aspect-ratio: 4 / 5; }
-  .stay-text { padding-top: 0; align-self: end; }
-  .stay-plates { align-self: start; margin-top: 1.75rem; max-width: 26rem; }
+  .stay-hotel { grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr); grid-template-areas: "photo text" "plates text"; grid-template-rows: auto 1fr; column-gap: clamp(2.5rem, 5vw, 5rem); align-items: start; }
+  .stay-flip { grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr); grid-template-areas: "text photo" "text plates"; }
+  .stay-text { padding-top: 0.5rem; }
+  .stay-plate { height: 4.8rem; }
 }

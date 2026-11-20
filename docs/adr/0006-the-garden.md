@@ -192,3 +192,29 @@ plane animation… doesn't make sense; it can be used as something else or in th
   Cormorant at 600, near-black olive on stone and warm white in the night, their gilt words deeper on stone; labels
   (`.label`) as small gilt capitals with the mark; body text a step stronger. The garden path gains a gilt line along
   its foot that fills as you go down the page (`.gp-progress`, scroll-driven, stepping by chapter where it can't be).
+
+## Eighth pass: the journey in one section, highlights throughout, photos uncropped (20 November 2026)
+
+Jibril chose A (the lighter section before the night) and asked: the highlights like The Umrah Company's, mixing our
+journey, the nights and the package; "easy to read and follow… throughout the website"; animate the dark bar; hotel
+photos not cropped ("I don't like that in general"); hosts with curved edges, not distorted; the old home hero's photo
+at the top; the order the journey, then Sheikh Yahya, then where you'll stay, the rest the same; better image quality.
+
+- **The journey** (`JourneySection` in `poster-hero.tsx`, `id="journey"`): the package, the nights and "Our journey"
+  in one lighter section after the garden path. The title, the journey in a paragraph, the old home hero's group photo
+  uncropped in a gilt-lined frame (`pack.photo`), the price and buttons, then "The journey, step by step": eight
+  highlights in the order you live them (`storyPoints`: the flight, ten nights in Makkah, Taraweeh, Qiyam and Laylat
+  al-Qadr, iftar in the Haram, the khatm, Eid, Madinah), the route line, who it's for, and the hadith of Umrah in
+  Ramadan. The separate nights section and "Our journey" in the night are gone; the night now holds Sheikh Yahya,
+  getting there and where you'll stay. The garden path: the journey, Sheikh Yahya, getting there, where you'll stay,
+  Eid, Madinah, prices, book.
+- **One list of highlights** (`Highlights` in `trip-parts.tsx`, `.highlights`): numbered in the gilt eight-pointed star
+  (Western numerals, to read easily), a title and a line, on fine rules. Used for the journey, Sheikh Yahya's three
+  points and Madinah's three moments, so the page reads the same way all through.
+- **The feature band, animated**: each icon draws itself in gilt as the band comes into view, one after another, and a
+  slow light crosses the band every few seconds. Not a ticker (ADR 0005; The Umrah Company's band is one).
+- **No cropping**: hotel photos at their own shapes (`HotelPlates`, sizes in the plan), the plates too; hosts at their
+  own shapes with rounded corners (`.host-frame`); the last trip's photos as a strip at their own shapes, one height
+  (`.past-strip`). The arches are gone.
+- **Image quality**: the group photo now shows uncropped at 85 quality, lightly sharpened (the original we have is the
+  2400 px copy; a sharper original from Rawdah would be better).

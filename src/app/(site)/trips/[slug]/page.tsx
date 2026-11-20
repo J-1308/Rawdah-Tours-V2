@@ -13,7 +13,7 @@ import { Mark } from "@/app/_site/marks";
 import { ArrivalTrigger } from "@/app/_site/arrival-trigger";
 import { Arrival, Mist } from "@/app/_site/poster-parts";
 import { PosterLockup, PosterText } from "@/app/_site/poster-type";
-import { FeatureBand, PackageSection, PosterHero } from "@/app/_site/poster-hero";
+import { FeatureBand, JourneySection, PosterHero } from "@/app/_site/poster-hero";
 import { Daybreak, FlightScene, Nightfall } from "@/app/_site/night-sky";
 import { GardenLeaves } from "@/app/_site/garden";
 import { GardenPath } from "@/app/_site/garden-path";
@@ -233,10 +233,9 @@ export function TripView({ j }: { j: Journey }) {
       {j.posterType ? (
         <GardenPath
           stops={[
-            ...(j.pack ? [{ id: "package", label: "The package", stage: "gate" as const }] : []),
-            ...(j.nights ? [{ id: "nights", label: "The nights", stage: "lantern" as const }] : []),
-            ...(j.guestFeature ? [{ id: "sheikh", label: "Sheikh Yahya", stage: "quran" as const }] : []),
             { id: "journey", label: "The journey", stage: "kaaba" as const },
+            ...(j.guestFeature ? [{ id: "sheikh", label: "Sheikh Yahya", stage: "quran" as const }] : []),
+            ...(j.gettingThere ? [{ id: "flights", label: "Getting there", stage: "plane" as const }] : []),
             ...(j.stay ? [{ id: "stay", label: "Where you’ll stay", stage: "minaret" as const }] : []),
             ...(j.eid ? [{ id: "eid", label: "Eid", stage: "crescent" as const }] : []),
             ...(j.madinah ? [{ id: "madinah", label: "Madinah", stage: "dome" as const }] : []),
@@ -249,7 +248,7 @@ export function TripView({ j }: { j: Journey }) {
       {/* The package as its own section (Jibril, 20 Nov 2026): here, a lighter section before the night ("day"), or the
           first thing in the night ("night", below). */}
       {/* Not a chapter of its own: the night after it keeps its square top, so the nightfall's veil has no corners. */}
-      {j.posterType && j.pack?.at === "day" ? <PackageSection {...buy} /> : null}
+      {j.posterType && j.pack?.at === "day" ? <JourneySection {...buy} /> : null}
 
       {/* Poster trips go straight from the hero into the night (Jibril, 20 Nov 2026): see the night chapter below. */}
       {j.posterType ? null : (
@@ -355,38 +354,15 @@ export function TripView({ j }: { j: Journey }) {
           j.plan ? (
             <>
               {j.posterType ? <Nightfall>{j.verses?.nights ? <VerseLine v={j.verses.nights} className="verse-night" /> : null}</Nightfall> : null}
-              {j.posterType && j.pack?.at === "night" ? <PackageSection {...buy} /> : null}
-              {j.nights ? <HaramNights n={j.nights} /> : null}
-              {/* Poster trips, in the night after the nights (Jibril, 20 Nov 2026: "the dark… right under the hero and
-                  then the light for Medina again"): Sheikh Yahya, the journey, the flight, getting there, where you'll
-                  stay; then daybreak into the garden. */}
+              {j.posterType && j.pack?.at === "night" ? <JourneySection {...buy} /> : null}
+              {/* Poster trips: the nights are in the journey's highlights now (20 Nov 2026). */}
+              {j.nights && !j.storyPoints ? <HaramNights n={j.nights} /> : null}
+              {/* Poster trips, in the night (Jibril, 20 Nov 2026: "the journey… then Guest Sheikh, then where you will stay,
+                  and the rest kinda the same"): Sheikh Yahya, getting there, where you'll stay; then daybreak into the
+                  garden. */}
               {j.posterType ? (
                 <>
                   <GuestIntimate j={j} members={members} />
-                  {/* The hadith of Umrah in Ramadan opens the journey (Jibril, 20 Nov 2026: lower down, so the hero fades straight
-                      into the nightfall). */}
-                  {j.verses?.open ? (
-                    <div className={gutter}>
-                      <VerseLine v={j.verses.open} className="verse-open verse-in-night" />
-                    </div>
-                  ) : null}
-                  <div className={`pt-[clamp(3.5rem,8vw,6.5rem)] ${gutter}`}>
-                    <section id="journey" className="trip-anchor pw">
-                      <Label>Our journey</Label>
-                      {j.about ? (
-                        <>
-                          <Heading className="mt-4 max-w-[48rem] section-title text-[clamp(2.3rem,4.2vw,4rem)]">{j.about.title}</Heading>
-                          <p className="mt-4 max-w-[38rem] text-[1.05rem] leading-relaxed text-ink/75">{j.about.text}</p>
-                        </>
-                      ) : null}
-                      {j.plan ? (
-                        <div className="mt-8 sm:mt-10">
-                          <TripLine plan={j.plan} draw />
-                        </div>
-                      ) : null}
-                      {j.forWho ? <ForWho items={j.forWho} /> : null}
-                    </section>
-                  </div>
                   {/* The overnight flight in the background of Getting there, not a section of its own (Jibril, 20 Nov
                       2026): its arc drawn behind the flight cards as you scroll, the plane along it. */}
                   {j.gettingThere && j.plan ? (

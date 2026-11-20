@@ -17,7 +17,7 @@ import { GardenCrown, GardenGlyph } from "@/app/_site/garden";
 /* The team, straightforward: a portrait, what they do, the name, one line.  */
 /* ------------------------------------------------------------------------ */
 
-export type Member = { name: string; does: string; line: string; status?: Status; guest?: boolean; short?: string; more?: string[]; photo?: { src: string; alt: string; position?: string } };
+export type Member = { name: string; does: string; line: string; status?: Status; guest?: boolean; short?: string; more?: string[]; photo?: { src: string; alt: string; position?: string; width?: number; height?: number } };
 
 export const leaderMember: Member = { name: leader.name, does: leader.does, line: leader.line, status: "confirmed", short: leader.short, more: leader.more, photo: leader.photo };
 /** Everyone who can be named on a trip, including guests shown on one trip only (tripOnly). */
@@ -114,9 +114,17 @@ export function TripPeople({ j, members }: { j: Journey; members: Member[] }) {
           <ul className={j.posterType ? "hosts mt-8" : "mt-6 grid gap-5 sm:grid-cols-2"}>
             {hosts.map((h) => (
               <li key={h.ref} data-reveal={j.posterType ? "" : undefined} className={j.posterType ? "host" : "host-card"}>
-                <div className={j.posterType ? "host-arch" : "host-photo"}>
-                  {h.m?.photo ? <Image src={h.m.photo.src} alt={h.m.photo.alt} fill sizes="(min-width: 1024px) 26rem, (min-width: 640px) 45vw, 90vw" quality={85} className={`object-cover ${h.m.photo.position ?? "object-[50%_25%]"}`} /> : null}
-                </div>
+                {/* Poster trips: each portrait at its own shape, the corners rounded (Jibril, 20 Nov 2026: "curve the edges but
+                    don't distort it"). */}
+                {j.posterType && h.m?.photo?.width && h.m.photo.height ? (
+                  <div className="host-frame">
+                    <Image src={h.m.photo.src} alt={h.m.photo.alt} width={h.m.photo.width} height={h.m.photo.height} sizes="(min-width: 1024px) 26rem, (min-width: 640px) 45vw, 90vw" quality={85} className="host-img" />
+                  </div>
+                ) : (
+                  <div className={j.posterType ? "host-arch" : "host-photo"}>
+                    {h.m?.photo ? <Image src={h.m.photo.src} alt={h.m.photo.alt} fill sizes="(min-width: 1024px) 26rem, (min-width: 640px) 45vw, 90vw" quality={85} className={`object-cover ${h.m.photo.position ?? "object-[50%_25%]"}`} /> : null}
+                  </div>
+                )}
                 <div className={j.posterType ? "host-text" : "p-5 sm:p-6"}>
                   <p className="poster-role">{h.label}</p>
                   <h3 className={j.posterType ? "host-name" : "mt-1 font-editorial text-[1.6rem] leading-tight"}>{h.m?.name ?? h.name}</h3>
@@ -489,12 +497,22 @@ export function PastTrips({ p }: { p: NonNullable<Journey["pastTrips"]> }) {
           ))}
         </ul>
       </div>
-      <ul className="past-gallery mt-8">
-        {p.photos.map((ph) => (
-          <li key={ph.src} data-reveal>
-            <StayFrame photo={ph} className="aspect-[4/3] rounded-[1rem]! sm:rounded-[1rem]!" sizes="(min-width: 1024px) 14rem, 78vw" />
-          </li>
-        ))}
+      {/* Each photo at its own shape, one height, in a row you swipe (Jibril, 20 Nov 2026: no cropping). */}
+      <ul className="past-gallery past-strip mt-8">
+        {p.photos.map((ph) =>
+          ph.src && ph.width && ph.height ? (
+            <li key={ph.src} data-reveal>
+              <figure className="past-shot">
+                <Image src={ph.src} alt={ph.alt ?? ""} width={ph.width} height={ph.height} sizes="(min-width: 1024px) 30rem, 80vw" quality={85} className="past-shot-img" />
+                {ph.caption ? <figcaption>{ph.caption}</figcaption> : null}
+              </figure>
+            </li>
+          ) : (
+            <li key={ph.src ?? ph.slot} data-reveal>
+              <StayFrame photo={ph} className="aspect-[4/3] rounded-[1rem]! sm:rounded-[1rem]!" sizes="(min-width: 1024px) 14rem, 78vw" />
+            </li>
+          ),
+        )}
       </ul>
     </section>
   );
@@ -1186,17 +1204,7 @@ export function GuestIntimate({ j, members }: { j: Journey; members: Member[] })
         {g.ways ? (
           <>
             <h3 className="gc-ways-title">{gild(g.ways.title)}</h3>
-            <ol className="gc-ways">
-              {g.ways.items.map((w, i) => (
-                <li key={w.title} data-reveal="" data-rv={String(i)}>
-                  <GardenGlyph stage={i === 0 ? "quran" : i === 1 ? "kaaba" : "lantern"} className="gc-way-glyph" />
-                  <div>
-                    <p className="gc-way-title">{w.title}</p>
-                    <p className="gc-way-text">{w.text}</p>
-                  </div>
-                </li>
-              ))}
-            </ol>
+            <Highlights items={g.ways.items} className="mt-5" one />
           </>
         ) : null}
         <a href={`#${anchors.join}`} className="gf-cta gc-cta">
@@ -1231,11 +1239,14 @@ export function StayShowcase({ j, s }: { j: Journey; s: NonNullable<Journey["sta
       </div>
       {plan.hotels.map((h, i) => {
         const meals = h.rows.find((r) => r.k === "Meals")?.v;
-        const photos = slotFilled(h.slot) ? [{ src: slot(h.slot), alt: `${h.name}, ${h.city}.` }, ...(h.more ?? [])] : [];
+        // Every photo at its own shape: the slot photo's size from the plan, the others' from their own entries.
+        const photos = slotFilled(h.slot) && h.size
+          ? [{ src: slot(h.slot), alt: `${h.name}, ${h.city}.`, width: h.size[0], height: h.size[1] }, ...(h.more ?? []).flatMap((m) => (m.width && m.height ? [{ src: m.src, alt: m.alt, width: m.width, height: m.height }] : []))]
+          : [];
         const madinah = /madinah/i.test(h.city);
         return (
           <article key={h.city} className={`stay-hotel ${gutter} ${i % 2 ? "stay-flip" : ""}`} data-reveal="">
-            {photos.length ? <HotelPlates name={h.name} photos={photos} position={h.arch} /> : null}
+            {photos.length ? <HotelPlates name={h.name} photos={photos} /> : null}
             <div className="stay-text">
               <p className="stay-city">
                 <span className="stay-city-icon">
@@ -1293,18 +1304,32 @@ export function StayShowcase({ j, s }: { j: Journey; s: NonNullable<Journey["sta
   );
 }
 
-/** Madinah's moments in the garden chapter: facts from the plan, as three quiet tiles. */
+/** Madinah's moments in the garden chapter: facts from the plan, in the page's one list of highlights. */
 export function MadinahMoments({ items }: { items: { title: string; text: string }[] }) {
+  return <Highlights items={items} className="mt-8" />;
+}
+
+/**
+ * The page's one list of highlights (Jibril, 20 Nov 2026: "an easy to read and follow thing… throughout the website"):
+ * numbered in the gilt eight-pointed star, a short title and one line each, on fine rules; two columns on desktop
+ * unless `one`. The journey, Sheikh Yahya and Madinah all use it.
+ */
+export function Highlights({ items, className = "", one = false }: { items: { title: string; text: string }[]; className?: string; one?: boolean }) {
   return (
-    <ul className="madinah-moments mt-8">
+    <ol className={`highlights ${one ? "hl-one" : ""} ${className}`}>
       {items.map((it, i) => (
-        <li key={it.title} data-reveal="" data-rv={String(i)}>
-          <GardenGlyph stage={i === 0 ? "dome" : i === 1 ? "minaret" : "mihrab"} className="mm-glyph" />
-          <p className="mm-title">{it.title}</p>
-          <p className="mm-text">{it.text}</p>
+        <li key={it.title} data-reveal="" data-rv={String(i % 4)}>
+          <span aria-hidden className="hl-num">
+            <GardenGlyph stage="star" className="hl-star" />
+            <b>{i + 1}</b>
+          </span>
+          <div>
+            <h3 className="hl-title">{it.title}</h3>
+            <p className="hl-text">{it.text}</p>
+          </div>
         </li>
       ))}
-    </ul>
+    </ol>
   );
 }
 

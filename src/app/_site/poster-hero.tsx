@@ -2,9 +2,9 @@ import Image from "next/image";
 import type { CSSProperties, ComponentProps } from "react";
 
 import { anchors, type Journey } from "@/app/_site/content";
-import { GardenGlyph, type Stage } from "@/app/_site/garden";
+import { ForWho, Highlights, TripLine, VerseLine } from "@/app/_site/trip-parts";
 import { HeroFigures, ICONS, type Perk } from "@/app/_site/poster-parts";
-import { Emblem, gutter, Heading, Label, PartnerLogo, plain, WaTile } from "@/app/_site/shell";
+import { Emblem, gutter, Heading, Label, PartnerLogo, WaTile } from "@/app/_site/shell";
 import { Chevron } from "@/app/_site/whatsapp";
 
 type Person = ComponentProps<typeof HeroFigures>["people"][number];
@@ -110,56 +110,51 @@ export function PosterHero({ j, guest, price, ended, ground, deposit, payments, 
 }
 
 /**
- * The package, as its own section straight after the hero and the garden path (Jibril, 20 Nov 2026: "not a pop up but
- * an actual website section… the package and its main point details"). Its main points with gilt icons, each from the
- * plan, then the price and the buttons. Two places to compare (`j.pack.at`): "day", a lighter section before the night;
- * "night", the first thing the night shows once it has fallen.
+ * The journey (Jibril, 20 Nov 2026): the package, the nights and our journey in one section straight after the hero
+ * and the garden path, "easy to read and follow". The old home hero's group photo at its top, the title with its gilt
+ * words, the journey in a paragraph, then its highlights numbered in the order you live them (the flight, the ten
+ * nights and what fills them, Eid, Madinah), the route line with dates, who it's for, the hadith of Umrah in Ramadan,
+ * and the price with the buttons. A lighter section before the night (`j.pack.at` "day"; "night" puts it in the night).
  */
-export function PackageSection({ j, guest, price, ended, ground, deposit, payments, joinLabel }: Buy & { guest?: Person }) {
+export function JourneySection({ j, price, ended, ground, deposit, payments, joinLabel }: Buy & { guest?: Person }) {
   const p = j.pack;
   if (!p) return null;
   const night = p.at === "night";
-  const plan = j.plan;
-  const mk = plan?.hotels.find((h) => /makkah/i.test(h.city));
-  const md = plan?.hotels.find((h) => /madinah/i.test(h.city));
-  const out = plan?.flights[0];
-  // The poster's 14 nights: the hotels' nights in the plan (10 in Makkah, 4 in Madinah).
-  const nights = (plan?.hotels ?? []).reduce((n, h) => n + (Number(h.nights) || 0), 0);
-  const dates = j.dates.value.replace(/\bFeb\b/, "February").replace(/\bMar\b/, "March");
-  const facts: { icon: Stage; big: string; small?: string }[] = [
-    { icon: "star", big: dates, small: nights ? `${nights} nights` : undefined },
-    ...(mk ? [{ icon: "kaaba" as Stage, big: `${mk.nights} nights in Makkah`, small: mk.name }] : []),
-    ...(md ? [{ icon: "dome" as Stage, big: `${md.nights} nights in Madinah`, small: md.name }] : []),
-    ...(out ? [{ icon: "plane" as Stage, big: `Return flights with ${out.airline}`, small: "From London Heathrow" }] : []),
-    ...(j.eid ? [{ icon: "crescent" as Stage, big: plain(j.eid.title), small: j.eid.label }] : []),
-    ...(guest ? [{ icon: "quran" as Stage, big: `With ${guest.label} ${guest.name}`, small: guest.note }] : []),
-  ];
   return (
-    <section id="package" className={`pkg pkg-${p.at} trip-anchor`}>
+    <section id="journey" className={`pkg pkg-${p.at} trip-anchor`}>
       <Emblem className="pkg-mark watermark pointer-events-none absolute" />
-      <div className={`pkg-in ${gutter}`}>
-        <div className="pkg-head" data-reveal="">
+      <div className={`pkg-in jr ${gutter}`}>
+        <div className="jr-head" data-reveal="">
           <Label tone={night ? "canvas" : "ink"}>{p.label}</Label>
           <Heading className="section-title pkg-title">{p.title}</Heading>
+          {j.about ? <p className="jr-lead">{j.about.text}</p> : null}
           {j.heroNote ? <p className="pkg-note">{j.heroNote}</p> : null}
         </div>
-        <ul className="pkg-facts">
-          {facts.map((f, i) => (
-            <li key={f.big} data-reveal="" data-rv={String(i)}>
-              <span className="pkg-icon">
-                <GardenGlyph stage={f.icon} className="size-[1.35rem]" />
-              </span>
-              <span>
-                <b>{f.big}</b>
-                {f.small ? <small>{f.small}</small> : null}
-              </span>
-            </li>
-          ))}
-        </ul>
-        <div className="pkg-buy" data-reveal="">
+        {p.photo ? (
+          <figure className="jr-photo" data-reveal="">
+            <div className="jr-photo-frame">
+              <Image src={p.photo.src} alt={p.photo.alt} width={p.photo.width} height={p.photo.height} sizes="(min-width: 1024px) 40rem, 92vw" quality={85} className="jr-photo-img" />
+            </div>
+            <figcaption>{p.photo.caption}</figcaption>
+          </figure>
+        ) : null}
+        <div className="pkg-buy jr-buy" data-reveal="">
           <PriceLine price={price} ended={ended} ground={ground} deposit={deposit} payments={payments} />
           <Actions j={j} joinLabel={joinLabel} tone={night ? "line-canvas" : "line-ink"} />
         </div>
+        {j.storyPoints?.length ? (
+          <div className="jr-points">
+            <p className="jr-sub">The journey, step by step</p>
+            <Highlights items={j.storyPoints} />
+          </div>
+        ) : null}
+        {j.plan ? (
+          <div className="jr-line">
+            <TripLine plan={j.plan} draw />
+            {j.forWho ? <ForWho items={j.forWho} /> : null}
+          </div>
+        ) : null}
+        {j.verses?.open ? <VerseLine v={j.verses.open} className="jr-verse verse-open" /> : null}
       </div>
     </section>
   );
@@ -168,13 +163,17 @@ export function PackageSection({ j, guest, price, ended, ground, deposit, paymen
 /**
  * The feature band under the hero (Jibril, 20 Nov 2026: "a feature kind of bar below the hero similar to The Umrah
  * Company… that could be the contrasting thing"). What the package includes, from Rawdah's own poster (its icon row,
- * `plan.perks`), on deep olive between gilt rules: the contrast that closes the hero off. Still, never a moving ticker
- * (that is The Umrah Company's, ADR 0005): one row on desktop, four by two on phones.
+ * `plan.perks`), on deep olive between gilt rules: the contrast that closes the hero off. Animated in Rawdah's way
+ * (Jibril, 20 Nov 2026: "animate the dark bar"): each icon draws itself in gilt line by line, and a slow light crosses
+ * the band now and then, like light on gold leaf. Not a moving ticker (The Umrah Company's, ADR 0005). One row on
+ * desktop, four by two on phones.
  */
 export function FeatureBand({ perks }: { perks: Perk[] }) {
   if (!perks.length) return null;
   return (
     <section aria-label="Included in the package" className="feature-band">
+      {/* A slow light passes over the gilt now and then; the icons draw themselves in as the band comes into view. */}
+      <span aria-hidden className="fb-sheen" />
       <ul className={`fb-list ${gutter}`}>
         {perks.map((p, i) => (
           <li key={p.icon} className="fb-item" data-reveal="" data-rv={String(i)}>

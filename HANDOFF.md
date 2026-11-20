@@ -57,8 +57,8 @@ Added on 16 Nov (the conversion brief, `prompt-rawdah-tours.md` in Jibril's Down
 - **Questionnaire** for Rawdah (`/questionnaire`): 43 questions; answers go to Blob and email.
 - **Design pass** led by Fable: 14px minimum text, no pills, quieter home, opaque phone bars, shorter phone footer;
   on phones the page head shows the title and status above a 4:3 photo (Jibril's pick).
-- **Ramadan hotel photos**: four each; on the Ramadan page the first stands in an arch and the others are plates
-  that bring themselves into it (`HotelPlates` in `hotel-gallery.tsx`).
+- **Ramadan hotel photos**: four each, shown uncropped; tapping a plate shows that photo (`HotelPlates` in
+  `hotel-gallery.tsx`).
 - **Trust box** (`TrustBox` in `trip-parts.tsx`, switch and numbers in `trust` in `content.ts`): the people on the
   trip, then "Book your place" and "Get the full itinerary" (or WhatsApp). Years, pilgrims and rating stay empty
   until Rawdah confirms them.
@@ -111,6 +111,8 @@ Code fixes are on `review/launch-fixes`. Jibril still has to:
    section, or the first thing in the night: `j.pack.at`), gilt words in the titles, the hotels in gilt-lined arches,
    a feature band under the hero (the poster's icon row on deep olive), Rawdah's mark faint behind sections, and the
    overnight flight as a background to Getting there instead of its own section.
+   Then the journey in one section (package, nights and our journey, with numbered highlights), one highlights list
+   used through the page, photos shown uncropped, and the feature band animated.
 
 Review items left for later: focus moves between form steps, the Private page's thin FAQ and empty desktop column,
 desktop hero buttons on Private and Groups, Ramadan reveal facts (the 30 November instalment for late bookings, an
