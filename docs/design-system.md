@@ -177,7 +177,9 @@ script in `app/layout.tsx` sets before first paint unless the visitor prefers re
   light frosted row with a gilt rule; hotels stand in gilt-lined arches with photo plates and the nights in a gilt
   star (`HotelPlates`, `.stay-*`). Seventh pass: `FeatureBand` (`.feature-band`) under the hero is the dark contrast
   (the poster's icon row, still, never a ticker); Rawdah's mark faint behind the hero, package and hotels (`.watermark`);
-  the overnight flight is a background to Getting there (`FlightScene bg`, `.flight-bg`), not a section. In one-page
+  the overnight flight is a background to Getting there (`FlightScene bg`, `.flight-bg`), not a section.
+  Type on the poster skin: `.section-title` (Cormorant 600, clamp(2.65rem, 5.4vw, 4.9rem), #1f1e13 on stone),
+  `.label` as gilt Montserrat capitals, body text stronger; the garden path's `.gp-progress` gilt line fills with scroll. In one-page
   mode the whole site wears the poster: `<html data-skin="1448">` turns the top strip, header and footer from cocoa
   to the poster's olive and stone, the logo stone, and the browser bar olive (`layout.tsx`, `globals.css`). One-page header: call, logo, WhatsApp on
   phones; the trip, logo, WhatsApp and "Book your place" on desktop (`src/lib/site-mode.ts`); what's included as photo cards (`IncludedCards`, `plan.cards`, "Photo to come" frames until Jibril

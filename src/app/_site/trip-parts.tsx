@@ -225,7 +225,7 @@ export function WhereYouStay({ j }: { j: Journey }) {
   return (
     <section className={`py-[clamp(3.75rem,9vw,8rem)] ${gutter}`}>
       <Label>The journey</Label>
-      <Heading className="mt-4 max-w-[48rem] text-[clamp(2.3rem,4.2vw,4rem)]">{journeyStay.headline}</Heading>
+      <Heading className="mt-4 max-w-[48rem] section-title text-[clamp(2.3rem,4.2vw,4rem)]">{journeyStay.headline}</Heading>
       <p className="mt-4 max-w-[36rem] text-[1rem] leading-[1.65] text-ink/72">{past ? "Where our August 2026 group stayed, and how they travelled." : journeyStay.text}</p>
 
       <div className="mt-10 grid gap-14 sm:mt-14 sm:gap-20">
@@ -439,7 +439,7 @@ export function HaramNights({ n }: { n: NonNullable<Journey["nights"]> }) {
   return (
     <section id="nights" className={`trip-anchor pt-[clamp(3.75rem,9vw,8rem)] ${gutter}`}>
       <Label>{n.label}</Label>
-      <Heading className="mt-4 max-w-[44rem] text-[clamp(2.3rem,4.2vw,4rem)]">{n.title}</Heading>
+      <Heading className="mt-4 max-w-[44rem] section-title text-[clamp(2.3rem,4.2vw,4rem)]">{n.title}</Heading>
       <p className="mt-4 max-w-[34rem] text-[1rem] leading-[1.65] text-ink/72">{n.intro}</p>
       <ol className="nights-list mt-9 sm:mt-12">
         {n.items.map((it, i) => (
@@ -766,7 +766,7 @@ export function JourneyPart({
   return (
     <section id={id} className={`trip-anchor ${className}`}>
       <Label>{label}</Label>
-      <Heading className="mt-4 max-w-[48rem] text-[clamp(2.3rem,4.2vw,4rem)]">{title}</Heading>
+      <Heading className="mt-4 max-w-[48rem] section-title text-[clamp(2.3rem,4.2vw,4rem)]">{title}</Heading>
       {intro ? <p className="mt-4 max-w-[36rem] text-[1rem] leading-[1.65] text-ink/72">{intro}</p> : null}
       {line ? (
         <div className="mt-9 sm:mt-12">
@@ -795,7 +795,7 @@ export function EidSection({ e, className = "" }: { e: NonNullable<Journey["eid"
         <GardenGlyph stage="crescent" className="size-full" />
       </span>
       <Label>{e.label}</Label>
-      <Heading className="mt-4 max-w-[44rem] text-[clamp(2.3rem,4.2vw,4rem)]">{e.title}</Heading>
+      <Heading className="mt-4 max-w-[44rem] section-title text-[clamp(2.3rem,4.2vw,4rem)]">{e.title}</Heading>
       <p className="mt-4 max-w-[34rem] text-[1.02rem] leading-[1.7] text-ink/75">{e.text}</p>
     </section>
   );
@@ -825,7 +825,7 @@ export function TripJourney({ j }: { j: Journey }) {
   return (
     <section className={`py-[clamp(3.75rem,9vw,8rem)] ${gutter}`}>
       <Label>The journey</Label>
-      <Heading className="mt-4 max-w-[48rem] text-[clamp(2.3rem,4.2vw,4rem)]">
+      <Heading className="mt-4 max-w-[48rem] section-title text-[clamp(2.3rem,4.2vw,4rem)]">
         Flights and hotels
         <Mark s={plan.status} />
       </Heading>
@@ -1226,7 +1226,7 @@ export function StayShowcase({ j, s }: { j: Journey; s: NonNullable<Journey["sta
       <Emblem className="stay-mark watermark pointer-events-none absolute" />
       <div className={`stay-head ${gutter}`}>
         <Label>{s.label}</Label>
-        <Heading className="mt-4 max-w-[48rem] text-[clamp(2.4rem,4.6vw,4.4rem)]">{s.title}</Heading>
+        <Heading className="section-title mt-4 max-w-[48rem] text-[clamp(2.4rem,4.6vw,4.4rem)]">{s.title}</Heading>
         <p className="mt-4 max-w-[36rem] text-[1.02rem] leading-[1.7] text-ink/72">{s.intro}</p>
       </div>
       {plan.hotels.map((h, i) => {

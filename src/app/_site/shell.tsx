@@ -43,7 +43,7 @@ export function Square({ className = "bg-gold" }: { className?: string }) {
 export function Label({ children, tone = "ink", className = "" }: { children: ReactNode; tone?: "ink" | "canvas" | "gold"; className?: string }) {
   const color = tone === "canvas" ? "text-sand" : "text-bronze";
   return (
-    <p className={`flex items-center gap-2.5 font-editorial text-[1.12rem] italic ${color} ${className}`}>
+    <p className={`label flex items-center gap-2.5 font-editorial text-[1.12rem] italic ${color} ${className}`}>
       <Emblem className={`h-[1.05em] ${tone === "canvas" ? "text-sand/80" : "text-gold"}`} />
       <span>{children}</span>
     </p>

@@ -187,3 +187,8 @@ plane animation… doesn't make sense; it can be used as something else or in th
   words, the package and "Where you'll stay"; a deep gilt on stone, a light one in the night.
 - **The flight goes to the background** (`FlightScene bg`, `.flight-bg`): no section of its own. Its arc and plane sit
   faint behind "Getting there" and draw as you scroll through it; the flight cards frost what passes behind them.
+- **Titles that tell the story** (same day: "the titles and the images are enough to tell the story… our font needs
+  to be better: the sizing, thickness, colouring; good contrast"): section titles (`.section-title`) larger and in
+  Cormorant at 600, near-black olive on stone and warm white in the night, their gilt words deeper on stone; labels
+  (`.label`) as small gilt capitals with the mark; body text a step stronger. The garden path gains a gilt line along
+  its foot that fills as you go down the page (`.gp-progress`, scroll-driven, stepping by chapter where it can't be).
