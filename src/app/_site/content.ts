@@ -843,7 +843,7 @@ export const ramadanFull: Journey = {
       cta: "Travel with Sheikh Yahya",
     },
     hostsTitle: "Your hosts",
-    heroGuest: false,
+    heroGuest: true,
     hostsIntro: "Rawdah’s two co-founders, with the group the whole way.",
     /* Facts only, from the plan below and the FAQs (Eid on Tue 9 or Wed 10 March; Makkah to Madinah on Tue 9 March). */
     gettingThere: {
