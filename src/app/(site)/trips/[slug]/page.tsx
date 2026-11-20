@@ -375,7 +375,7 @@ export function TripView({ j }: { j: Journey }) {
                       <Label>Our journey</Label>
                       {j.about ? (
                         <>
-                          <Heading className="mt-4 max-w-[48rem] text-[clamp(2.3rem,4.2vw,4rem)]">{j.about.title}</Heading>
+                          <Heading className="mt-4 max-w-[48rem] section-title text-[clamp(2.3rem,4.2vw,4rem)]">{j.about.title}</Heading>
                           <p className="mt-4 max-w-[38rem] text-[1.05rem] leading-relaxed text-ink/75">{j.about.text}</p>
                         </>
                       ) : null}
@@ -420,7 +420,7 @@ export function TripView({ j }: { j: Journey }) {
         ) : (
           <section className={`py-[clamp(3.75rem,9vw,8rem)] ${gutter}`}>
             <Label>Hajj 2027</Label>
-            <Heading className="mt-4 max-w-[44rem] text-[clamp(2.3rem,4.2vw,4rem)]">Guidance that walks with you</Heading>
+            <Heading className="mt-4 max-w-[44rem] section-title text-[clamp(2.3rem,4.2vw,4rem)]">Guidance that walks with you</Heading>
             <p className="mt-4 max-w-[36rem] text-[1rem] leading-[1.65] text-ink/72">From your first question in the UK to the last tawaf, the same people with you the whole way.</p>
             <TeamList members={members} cols="lg:grid-cols-3" className="mt-10" />
             {j.itinerary ? (

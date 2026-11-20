@@ -1552,6 +1552,35 @@ html.motion .hosts .rv.in .host-arch img { transform: none; }
 .skin-1448 .garden-path [data-state="here"] a { background: linear-gradient(180deg, #efdfaa 0%, #d8ba6e 50%, #b99749 100%); border-color: #c9a85c; color: #2b2a1a; box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.5), 0 8px 18px -12px rgb(125 97 41 / 0.7); }
 .skin-1448 .garden-path [data-state="here"] .gp-glyph { color: #4a3c17; }
 
+/* The path's guide line: gilt, along its foot, filling as you go down the page. */
+.gp-progress { position: absolute; left: 0; right: 0; bottom: -1px; height: 3px; z-index: 1; pointer-events: none; transform-origin: 0 50%; transform: scaleX(var(--gp, 0)); background: linear-gradient(90deg, #b99749 0%, #e2c98f 70%, #f3e4b4 100%); box-shadow: 0 0 10px rgb(216 187 114 / 0.6); transition: transform 0.6s var(--ease-out); }
+@supports (animation-timeline: scroll()) {
+  @keyframes gp-fill { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+  .gp-progress { transition: none; animation: gp-fill linear both; animation-timeline: scroll(root); }
+}
+.skin-1448 .trip-jump.garden-path { position: sticky; }
+
+/* --- Titles that tell the story (20 Nov 2026: "the titles and the images are enough to tell the story… our font
+   needs to be better: the sizing, thickness, colouring; good contrast") ---------------------------------------------
+   Section titles larger and heavier (Cormorant at 600), near-black olive on stone and warm white in the night, their
+   gilt words deeper on stone. Labels become small gilt capitals over them, so each section reads at a glance: label,
+   title, picture. Body text a step stronger. */
+.skin-1448 .display { font-weight: 600; letter-spacing: -0.014em; }
+.skin-1448 .section-title { font-size: clamp(2.65rem, 5.4vw, 4.9rem); line-height: 0.98; color: #1f1e13; text-wrap: balance; }
+.skin-1448 .night .section-title, .skin-1448 .pkg-night .section-title { color: #f7f2e5; }
+.skin-1448 .pkg-title { font-size: clamp(2.65rem, 5vw, 4.3rem); }
+.skin-1448 .gild { font-weight: 600; background-image: linear-gradient(180deg, #927433 0%, #7a5d26 50%, #5f4719 100%); }
+.skin-1448 .night .gild, .skin-1448 .pkg-night .gild { background-image: linear-gradient(180deg, #f8ecc4 0%, #e2c784 55%, #c9a75a 100%); }
+.skin-1448 .label { font-family: "Montserrat", "DM Sans", system-ui, sans-serif; font-size: 0.76rem; font-style: normal; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: #7d6129; }
+.skin-1448 .label .mark-mask { height: 1.35em; color: #a8863f; }
+.skin-1448 .night .label, .skin-1448 .pkg-night .label { color: #e2c98f; }
+.skin-1448 .night .label .mark-mask, .skin-1448 .pkg-night .label .mark-mask { color: #d8bb72; }
+.skin-1448 .label + .display, .skin-1448 .label + div > .display { margin-top: 1rem; }
+.skin-1448 .text-ink\/72, .skin-1448 .text-ink\/70, .skin-1448 .text-ink\/75 { color: color-mix(in oklab, var(--color-ink) 86%, transparent); }
+.skin-1448 .text-ink\/62, .skin-1448 .text-ink\/65 { color: color-mix(in oklab, var(--color-ink) 76%, transparent); }
+.skin-1448 .stay-name { font-weight: 600; }
+.skin-1448 .pkg-facts b { font-weight: 600; }
+
 /* --- Rawdah's mark, faint in the background (20 Nov 2026: "the Rawdah logo faintly in the background") ---------------
    Large and barely there: a deep gilt on stone, a light one in the night. Behind the hero's words, the package, the
    hotels and the booking. */

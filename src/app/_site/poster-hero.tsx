@@ -140,7 +140,7 @@ export function PackageSection({ j, guest, price, ended, ground, deposit, paymen
       <div className={`pkg-in ${gutter}`}>
         <div className="pkg-head" data-reveal="">
           <Label tone={night ? "canvas" : "ink"}>{p.label}</Label>
-          <Heading className="pkg-title">{p.title}</Heading>
+          <Heading className="section-title pkg-title">{p.title}</Heading>
           {j.heroNote ? <p className="pkg-note">{j.heroNote}</p> : null}
         </div>
         <ul className="pkg-facts">
