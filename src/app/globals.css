@@ -1549,11 +1549,11 @@ html.motion .hosts .rv.in .host-arch img { transform: none; }
 .fb-text span { color: rgb(241 235 217 / 0.7); }
 @keyframes fb-run { from { transform: translate3d(0, 0, 0); } to { transform: translate3d(-50%, 0, 0); } }
 html.motion .fb-track { animation: fb-run 40s linear infinite; }
-html:not(.motion) .fb-copy { display: none; }
+html:not(.motion) .fb-list.fb-copy { display: none; }
 html:not(.motion) .feature-band { overflow-x: auto; }
 @media (min-width: 48rem) {
   .fb-track, html.motion .fb-track { display: block; width: auto; animation: none; }
-  .fb-copy { display: none; }
+  .fb-list.fb-copy { display: none; }
   .fb-list { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); max-width: calc(72rem + 2 * var(--hero-pad-x)); margin-inline: auto; padding-block: 1.75rem; }
   .fb-item { display: grid; justify-items: center; align-content: start; gap: 0.5rem; padding-inline: 0.25rem; text-align: center; white-space: normal; }
   .fb-item:first-child { border-left: 0; }

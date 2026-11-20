@@ -701,6 +701,9 @@ export type Journey = {
   hostsTitle?: string;
   /** Poster trips: the special guest stands in front of the poster in the hero (two versions, Jibril 20 Nov 2026). */
   heroGuest?: boolean;
+  /** The link preview (1200 × 630): the hero as the page shows it (Jibril, 20 Nov 2026: "when you share the link I want
+   * the preview to reflect this page"). Remake it when the hero's prices or dates change. */
+  shareImage?: { src: string; width: number; height: number; alt: string };
   /**
    * Poster trips: the package as its own section, right after the hero (Jibril, 20 Nov 2026: "not a pop up but an
    * actual website section"). Two to compare: "day", a lighter section before the night; "night", the night itself
@@ -887,6 +890,14 @@ export const ramadanFull: Journey = {
     },
     hostsTitle: "Your hosts",
     heroGuest: true,
+    /* The hero captured at 1200 × 630, with the logo and without the button (20 Nov 2026). Prices and dates are in it:
+       remake it if they change (docs/content-inventory.md). */
+    shareImage: {
+      src: "/images/share/ramadan-1448-share.jpg",
+      width: 1200,
+      height: 630,
+      alt: "Rawdah Tours: Ramadan 1448, the last 10 nights, Sat 27 February to Sat 13 March 2027, with GGC and Sheikh Yahya Raaby; from £1,999 with flights, £1,299 ground only.",
+    },
     /* Facts from the plan; the title after the poster's "Last 10 days". Gilt words in asterisks (shell.tsx gild). */
     /* The journey: the package, the nights and our journey in one section, the old home hero's group photo at its top
        (Jibril, 20 Nov 2026). */

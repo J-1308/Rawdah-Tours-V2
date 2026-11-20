@@ -264,3 +264,5 @@ our writing in gold look like The Umrah Company"), agreed to the cuts, and asked
   shows them; a checklist stays); Sheikh Yahya's repeated first line; the FAQs the page answers (Eid, places, paying);
   three of the last trip's eight photos; the leaves behind the chapters. Hosts sit side by side. The phone page is
   about 20 screens, down from 26.
+- **Fixes before merging**: the feature band showed twice on desktop (its phone copy wasn't hidden); the link preview
+  is now the hero itself (`shareImage`, site-wide `opengraph-image.jpg`; `scripts/share-image.py` remakes it).

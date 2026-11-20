@@ -37,7 +37,8 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const title = price ? `${j.name}, from ${gbp(price)} per person` : j.name;
   // The trip's own share card: without these, a shared link shows the site-wide (Hajj) one (Opus review).
   const share = { title: j.partner ? `${j.name} with ${j.partner.replace(/ × Rawdah Tours$/, "")}, from ${price ? gbp(price) : ""}`.replace(/, from $/, "") : title, description: `${j.dates.value}. ${j.tagline}` };
-  const image = j.photo ? [{ url: j.photo.src, width: j.photo.width, height: j.photo.height, alt: j.photo.alt }] : undefined;
+  const pic = j.shareImage ?? j.photo;
+  const image = pic ? [{ url: pic.src, width: pic.width, height: pic.height, alt: pic.alt }] : undefined;
   return {
     title,
     description: j.tagline,
