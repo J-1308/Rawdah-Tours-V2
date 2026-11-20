@@ -11,7 +11,9 @@ export type Stage =
   | "seed" | "sprout" | "palm" | "crescent" | "garden" | "leaf" | "bloom" | "gate"
   /* Closer to the deen (Jibril, 20 Nov 2026: "a bit more spiritual… as close as possible"): the Ka‘bah, a Ramadan
      lantern, the Green Dome, a minaret, a mus‘haf on its rehal, the eight-pointed star, a mihrab. */
-  | "kaaba" | "lantern" | "dome" | "minaret" | "quran" | "star" | "mihrab";
+  | "kaaba" | "lantern" | "dome" | "minaret" | "quran" | "star" | "mihrab"
+  /* Practical, drawn the same way. */
+  | "plane";
 
 /** One stage of the garden, in a 24-unit square, in the current colour. */
 export function GardenGlyph({ stage, className = "" }: { stage: Stage; className?: string }) {
@@ -95,6 +97,8 @@ export function GardenGlyph({ stage, className = "" }: { stage: Stage; className
           <path d="M8.6 21.5v-8.6c0-2.2 1.4-3.6 3.4-4.7 2 1.1 3.4 2.5 3.4 4.7v8.6" strokeWidth="1.3" />
           <circle cx="12" cy="14.4" r="1" fill="currentColor" stroke="none" />
         </g>
+      ) : stage === "plane" ? (
+        <path d="M21 15.6v-1.9l-7.6-4.8V3.6a1.4 1.4 0 0 0-2.8 0v5.3L3 13.7v1.9l7.6-2.4v5.1l-1.9 1.4v1.5l3.3-.9 3.3.9v-1.5l-1.9-1.4v-5.1z" />
       ) : stage === "bloom" ? (
         <>
           <ellipse cx="12" cy="7.2" rx="2.7" ry="4.1" />

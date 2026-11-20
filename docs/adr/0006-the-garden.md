@@ -120,3 +120,23 @@ Medina again… yahya rabi doesn't need to be as high up."
   No session times or formats named until Rawdah confirms them.
 - **Desktop spacing:** one centred column (`.pw`, 72rem) for every section, so headings share a left edge; Sheikh
   Yahya's portrait stays in view beside his words; hosts and questions read narrower inside the column.
+
+## Fifth pass: the package first, and Rawdah's gold (20 November 2026)
+
+Jibril: "the first part of our website… similar to the sunnah experience and the umrah company. The package and its
+main point details… think about the font and the colour… the umrah company's one stands out very nicely, the use of
+the golden. We need something similar."
+
+- **The package in one glance** (`PosterHero`, `.rp-pack`): under the poster on phones, beside it on desktop, a
+  plaque of deep olive with a fine gold frame: the dates and nights, the Makkah and Madinah hotels, Saudia from
+  Heathrow, Eid, Sheikh Yahya, each with a gold icon; then the price (early bird crossed out, ground only, deposit and
+  payments) and a gilt "Book your place". Facts computed from the plan only. The same method as the other sites (the
+  whole package first); its own form.
+- **Rawdah's gold, not theirs.** The Umrah Company is caramel gold (#C59B57) on kiswa black and marble, set in
+  Instrument Serif and Outfit, with gold buttons (checked in its repo, 20 Nov 2026). Rawdah's gold is gilt on olive
+  and green, after the Rawdah's own pillars (a gold inscription on a green circle in a golden wreath): `--gilt`
+  #d3b469, `--gilt-light` #ecdba6, `--gilt-deep` #7d6129 for words on stone; a gilt gradient button (`.btn-gilt`) for
+  "Book your place" in the hero, the header, the phone bar and the night; gold labels; gold-edged cards and gold
+  numerals in the night. Never on black.
+- **Type:** Rawdah's own families stay (Cormorant Garamond, DM Sans, the poster's Montserrat), distinct from theirs;
+  headings take more weight (520) to hold the page.

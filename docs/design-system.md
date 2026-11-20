@@ -169,7 +169,10 @@ script in `app/layout.tsx` sets before first paint unless the visitor prefers re
   for the nights, a star lattice behind the night chapter. Night first (same day): the night chapter opens right under
   the hero and holds the nights, Sheikh Yahya (with `guestFeature.ways`), the journey and the hotels; desktop sections
   share one centred column (`.pw`, 72rem). The one-page header on desktop: the logo on the left, the trip line in the
-  middle, WhatsApp and Book on the right (phones keep call, logo, WhatsApp). In one-page
+  middle, WhatsApp and Book on the right (phones keep call, logo, WhatsApp). Rawdah's gold (ADR 0006, fifth pass):
+  `--gilt`, `--gilt-light`, `--gilt-deep` on the poster skin, `.btn-gilt` for the main "Book your place", gold labels
+  and gold-edged night cards, headings at weight 520; the hero's package plaque is `.rp-pack`. Gold on olive and green,
+  never on black (The Umrah Company is gold on black). In one-page
   mode the whole site wears the poster: `<html data-skin="1448">` turns the top strip, header and footer from cocoa
   to the poster's olive and stone, the logo stone, and the browser bar olive (`layout.tsx`, `globals.css`). One-page header: call, logo, WhatsApp on
   phones; the trip, logo, WhatsApp and "Book your place" on desktop (`src/lib/site-mode.ts`); what's included as photo cards (`IncludedCards`, `plan.cards`, "Photo to come" frames until Jibril

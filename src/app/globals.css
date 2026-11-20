@@ -1500,3 +1500,68 @@ html.motion .hosts .rv.in .host-arch img { transform: none; }
   .skin-1448 .stay { padding-top: clamp(5rem, 8vw, 7rem); }
   .skin-1448 .stay-hotel { margin-top: clamp(3.5rem, 6vw, 5.5rem); }
 }
+
+/* === Rawdah's gold (20 Nov 2026) ================================================================================
+   Jibril: "the use of the golden… we need something similar". Rawdah's own: gilt on olive and green, after the
+   Rawdah's pillars (a gold inscription on a green circle in a golden wreath), never gold on black. A light gilt for the
+   night, a deep gilt for words on stone, a gilt button. Headings take more weight. */
+.skin-1448 {
+  --gilt: #d3b469;
+  --gilt-light: #ecdba6;
+  --gilt-deep: #7d6129;
+  --color-gold: #a8863f;
+  --color-bronze: #7d6129;
+}
+.skin-1448 .night { --color-gold: #d8bb72; --color-bronze: #e0c88e; --glass-line: rgb(216 187 114 / 0.17); }
+.skin-1448 .display { font-weight: 520; letter-spacing: -0.006em; }
+
+.btn-gilt {
+  background: linear-gradient(180deg, #efdfaa 0%, #d8ba6e 46%, #b99749 100%);
+  color: #2b2a1a;
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.55), inset 0 -1px 0 rgb(120 92 40 / 0.35), 0 14px 30px -16px rgb(84 66 24 / 0.6);
+  transition: filter 0.2s, transform 0.2s;
+}
+.btn-gilt:hover { filter: brightness(1.05) saturate(1.05); }
+.btn-gilt:active { transform: translateY(1px); }
+/* The main "Book your place" everywhere on the Ramadan page takes the gilt: the header, the phone bar, the night. */
+:root[data-skin="1448"] header .btn-ink, .skin-1448 [data-placement="phone bar"] .btn-ink, .skin-1448 .night .gc-cta {
+  background: linear-gradient(180deg, #efdfaa 0%, #d8ba6e 46%, #b99749 100%); color: #2b2a1a;
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.55), inset 0 -1px 0 rgb(120 92 40 / 0.35), 0 14px 30px -16px rgb(84 66 24 / 0.6);
+}
+
+/* The package plaque: deep olive, a fine gold frame inside its edge, the main points with gold icons, then the price
+   and the gilt button. Under the poster on phones, beside it on desktop. */
+.rp-pack {
+  position: relative; width: 100%; max-width: 30rem; margin-top: 0.5rem; padding: 1.5rem 1.35rem 1.35rem;
+  border-radius: 1.6rem; color: #f1ebd9;
+  background: radial-gradient(120% 70% at 50% 0%, rgb(255 236 180 / 0.08) 0%, transparent 60%), linear-gradient(180deg, #45442e 0%, #36351f 100%);
+  box-shadow: 0 30px 60px -30px rgb(37 36 24 / 0.7);
+  text-align: left;
+}
+.rp-pack::before { content: ""; position: absolute; inset: 0.45rem; border: 1px solid rgb(216 187 114 / 0.45); border-radius: 1.25rem; pointer-events: none; }
+.rp-pack-k { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.5rem 1rem; font-family: "Montserrat", "DM Sans", system-ui, sans-serif; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: #e0c27a; }
+.rp-pack-with { display: inline-flex; align-items: center; gap: 0.45rem; letter-spacing: 0.08em; text-transform: none; font-weight: 500; color: rgb(241 235 217 / 0.75); }
+.rp-pack-with svg, .rp-pack-with img { color: #f1ebd9; }
+.rp-pack-list { display: grid; gap: 0.85rem; margin-top: 1.1rem; padding: 1.1rem 0; border-block: 1px solid rgb(216 187 114 / 0.22); }
+.rp-pack-list li { display: grid; grid-template-columns: 1.6rem 1fr; gap: 0.75rem; align-items: start; }
+.rp-pack-icon { width: 1.35rem; height: 1.35rem; margin-top: 0.1rem; color: #dcbf76; }
+.rp-pack-list b { display: block; font-family: var(--font-editorial, "Cormorant Garamond", Georgia, serif); font-size: 1.22rem; font-weight: 560; line-height: 1.2; color: #f6f0de; }
+.rp-pack-list small { display: block; margin-top: 0.1rem; font-size: 0.86rem; color: rgb(241 235 217 / 0.66); }
+.rp-pack-buy { display: grid; gap: 1rem; margin-top: 1.15rem; }
+.rp-pack .rh-price { justify-items: start; }
+.rp-pack .rh-from strong { color: #f3e2ac; }
+.rp-pack .rh-from-k, .rp-pack .rh-alt { color: rgb(241 235 217 / 0.72); }
+.rp-pack .rh-ended { color: rgb(241 235 217 / 0.55); }
+.rp-pack .rp-ground { text-decoration-color: rgb(241 235 217 / 0.4); }
+.rp-pack .rh-actions { max-width: none; }
+.rp-pack .rh-wa { color: #f1ebd9; border-color: rgb(241 235 217 / 0.35); }
+.rp-pack-note { margin-top: 1rem; font-family: "Montserrat", "DM Sans", system-ui, sans-serif; font-size: 0.74rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: rgb(224 194 122 / 0.85); }
+.rp .rp-copy { margin-top: 0; }
+@media (min-width: 64rem) {
+  .rp-pack { max-width: 28rem; padding: 1.75rem 1.6rem 1.5rem; }
+}
+/* Phones: the plaque's buttons full width, one above the other, so neither label wraps. */
+@media (max-width: 29.99rem) {
+  .rp-pack .rh-actions { grid-template-columns: 1fr; }
+  .rp-pack { padding-inline: 1.2rem; }
+}
