@@ -74,12 +74,16 @@ export function SiteHeader() {
                 <path d="M5 4h3l1.5 4.5-2 1.5a11 11 0 0 0 6.5 6.5l1.5-2L20 16v3a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2" />
               </svg>
             </a>
-            <Link href={ONE_PAGE_HOME} className="hidden text-[0.9rem] text-ink/75 transition-colors hover:text-ink lg:block">
-              <span className="font-editorial text-[1.15rem] text-ink italic">Ramadan Umrah 2027</span> · 27 Feb – 13 Mar, with GGC
+            {/* Desktop: the logo on the left, the trip in the middle (Jibril, 20 Nov 2026). Phones keep the logo central. */}
+            <Link href={ONE_PAGE_HOME} className="hidden text-ink lg:block" aria-label="Rawdah Tours, Ramadan Umrah 2027">
+              <Logo className="logo-gold h-[3.4rem]" />
             </Link>
           </div>
-          <Link href={ONE_PAGE_HOME} className="text-ink" aria-label="Rawdah Tours, Ramadan Umrah 2027">
-            <Logo className="logo-gold h-10 lg:h-[3.4rem]" />
+          <Link href={ONE_PAGE_HOME} className="text-ink lg:hidden" aria-label="Rawdah Tours, Ramadan Umrah 2027">
+            <Logo className="logo-gold h-10" />
+          </Link>
+          <Link href={ONE_PAGE_HOME} className="hidden text-center text-[0.9rem] whitespace-nowrap text-ink/75 transition-colors hover:text-ink lg:block">
+            <span className="font-editorial text-[1.15rem] text-ink italic">Ramadan Umrah 2027</span> · 27 Feb – 13 Mar, with GGC
           </Link>
           <div className="flex items-center justify-end gap-[clamp(1rem,1.6vw,1.5rem)]">
             <a href={pageWa(pathname)} target="_blank" rel="noopener noreferrer" className="hidden items-center gap-2 text-[0.9rem] text-ink/75 transition-colors hover:text-ink lg:inline-flex">

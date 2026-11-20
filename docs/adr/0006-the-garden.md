@@ -103,3 +103,118 @@ close as possible."
 - **The nights** are numbered in Arabic numerals inside the eight-pointed star; a faint lattice of eight-pointed stars
   lies behind the night chapter.
 - Practical icons (flights, hotels' facts, what's included from the poster) stay practical.
+
+## Fourth pass: night first (20 November 2026)
+
+Jibril: "there should be more with yahya rabi… how he will teach and help and how it's gonna be intimate and help u
+every step of the way… the spacing on the desktop can be better… I like how the dark contrasts with the light when we
+get into the last ten nights. I think we should have that earlier on like right under the hero and then the light for
+Medina again… yahya rabi doesn't need to be as high up."
+
+- **Order:** hero (light) → the night at once: nightfall with Laylat al-Qadr, the last ten nights, Sheikh Yahya, the
+  hadith of Umrah in Ramadan opening our journey (moved down so the hero fades straight into the nightfall), the flight scene, getting there, where you'll stay →
+  daybreak with the takbir → the garden: Eid, Madinah, "Rawdah means garden" → your hosts, our last trip, included,
+  prices, book, questions, the form, the Rawdah hadith. The garden path follows that order.
+- **Sheikh Yahya:** "With you every step of the way", three points in Jibril's words with the page's facts (he
+  teaches as you go; he's there to help in Makkah and Madinah; close, not a crowd: up to 60 places, three teachers).
+  No session times or formats named until Rawdah confirms them.
+- **Desktop spacing:** one centred column (`.pw`, 72rem) for every section, so headings share a left edge; Sheikh
+  Yahya's portrait stays in view beside his words; hosts and questions read narrower inside the column.
+
+## Fifth pass: the package first, and Rawdah's gold (20 November 2026)
+
+Jibril: "the first part of our website… similar to the sunnah experience and the umrah company. The package and its
+main point details… think about the font and the colour… the umrah company's one stands out very nicely, the use of
+the golden. We need something similar."
+
+- **The package in one glance** (`PosterHero`, `.rp-pack`): under the poster on phones, beside it on desktop, a
+  plaque of deep olive with a fine gold frame: the dates and nights, the Makkah and Madinah hotels, Saudia from
+  Heathrow, Eid, Sheikh Yahya, each with a gold icon; then the price (early bird crossed out, ground only, deposit and
+  payments) and a gilt "Book your place". Facts computed from the plan only. The same method as the other sites (the
+  whole package first); its own form.
+- **Rawdah's gold, not theirs.** The Umrah Company is caramel gold (#C59B57) on kiswa black and marble, set in
+  Instrument Serif and Outfit, with gold buttons (checked in its repo, 20 Nov 2026). Rawdah's gold is gilt on olive
+  and green, after the Rawdah's own pillars (a gold inscription on a green circle in a golden wreath): `--gilt`
+  #d3b469, `--gilt-light` #ecdba6, `--gilt-deep` #7d6129 for words on stone; a gilt gradient button (`.btn-gilt`) for
+  "Book your place" in the hero, the header, the phone bar and the night; gold labels; gold-edged cards and gold
+  numerals in the night. Never on black.
+- **Type:** Rawdah's own families stay (Cormorant Garamond, DM Sans, the poster's Montserrat), distinct from theirs;
+  headings take more weight (520) to hold the page.
+
+## Sixth pass: the package as a section, gilt words, a five-star stay (20 November 2026)
+
+Jibril: "I didn't want it as a pop up but an actual website section. I like the colours… I want some colours in the
+font like The Umrah Company… The Umrah Company looks a bit more premium, especially around where you will stay… the
+sticky bar… contrast more with the hero, sectioning it… test a lighter package section then into the animation, or
+straight into the animation and that part will be the package part."
+
+- **The package is a section, not a card** (`PackageSection` in `poster-hero.tsx`, `.pkg-*`): full width, after the
+  hero and the garden path. A label, a headline with gilt words ("Fourteen nights, *the last ten in Makkah*", after
+  the poster's "Last 10 days"), the package note, the six main points (dates and nights, both hotels, Saudia, Eid,
+  Sheikh Yahya) with gilt-ringed icons on fine rules (two columns on desktop), then the price and the buttons. Two
+  places to compare, `j.pack.at`: `"day"`, a lighter ivory section that fades back to stone so the nightfall's veil
+  carries on from it; `"night"`, the first thing the night shows after the Laylat al-Qadr verse. Not wrapped in its
+  own chapter, so the night keeps a square top and the veil has no corners.
+- **The hero** keeps the poster; beside it on desktop a kicker (Ramadan Umrah 2027 with GGC), the headline "The last
+  ten days of Ramadan, *in Makkah*", a line, the price and the buttons. Phones show only the price and the buttons
+  under the poster (it says the rest); the headline stays for screen readers.
+- **Gilt words** (`gild` and `plain` in `shell.tsx`, `.gild`): words in asterisks in a title come out in Rawdah's
+  gilt, in the Cormorant italic; a deep gilt on stone (3:1 at the top of its fall), a light one in the night. The big
+  prices take the same gilt. Not The Umrah Company's upright bronze words in its display face.
+- **The garden path as a band** (`.skin-1448 .garden-path`): deep olive between fine gilt rules, cream chapters with
+  gilt stages, the current chapter as the gilt button. It closes the hero off, and under the header its upper rule
+  keeps the two apart. A new first stop, "The package".
+- **Where you'll stay, five-star** (`StayShowcase`, `HotelPlates` in `hotel-gallery.tsx`): each hotel's first photo
+  stands tall in an arch with a fine gilt line inside (the hosts' arches), its other photos are plates that bring
+  themselves into the arch, the name large, its nights in the gilt eight-pointed star with the dates, the walk and the
+  meals with gilt icons, the detail, gilt diamonds for the features. The arch opens as it comes into view. No star
+  ratings: the hotels' own aren't stated. Not The Umrah Company's wide photo over a row of three with a gold badge.
+
+## Seventh pass: a feature band, the mark in the background, the flight behind (20 November 2026)
+
+Jibril: "I want to see the Rawdah logo faintly in the background. We can have a feature kind of bar below the hero
+similar to The Umrah Company; that could be the contrasting thing, so we kinda keep both. Having a whole section for a
+plane animation… doesn't make sense; it can be used as something else or in the background."
+
+- **The feature band** (`FeatureBand` in `poster-hero.tsx`, `.feature-band`, `.fb-*`): straight under the hero, what
+  the package includes from Rawdah's own poster (its icon row, `plan.perks`: visa, Jumuah in both Harams, seminar,
+  baggage, transport, ziyarah, direct flights, the Haramain train), on deep olive between double gilt rules. It is the
+  contrast that closes the hero off. Still, never a moving ticker (The Umrah Company's is a black-and-gold ticker;
+  ADR 0005 keeps marquees out): four by two on phones, one row of eight from tablets up.
+- **The garden path is light again** (ivory frosted, a gilt rule, the current chapter the gilt button), so two dark
+  bands don't stack under the hero. Both stay: the band scrolls away, the path sticks.
+- **Rawdah's mark, faint** (`.watermark` with `--watermark` on the skin): large and barely there behind the hero's
+  words, the package and "Where you'll stay"; a deep gilt on stone, a light one in the night.
+- **The flight goes to the background** (`FlightScene bg`, `.flight-bg`): no section of its own. Its arc and plane sit
+  faint behind "Getting there" and draw as you scroll through it; the flight cards frost what passes behind them.
+- **Titles that tell the story** (same day: "the titles and the images are enough to tell the story… our font needs
+  to be better: the sizing, thickness, colouring; good contrast"): section titles (`.section-title`) larger and in
+  Cormorant at 600, near-black olive on stone and warm white in the night, their gilt words deeper on stone; labels
+  (`.label`) as small gilt capitals with the mark; body text a step stronger. The garden path gains a gilt line along
+  its foot that fills as you go down the page (`.gp-progress`, scroll-driven, stepping by chapter where it can't be).
+
+## Eighth pass: the journey in one section, highlights throughout, photos uncropped (20 November 2026)
+
+Jibril chose A (the lighter section before the night) and asked: the highlights like The Umrah Company's, mixing our
+journey, the nights and the package; "easy to read and follow… throughout the website"; animate the dark bar; hotel
+photos not cropped ("I don't like that in general"); hosts with curved edges, not distorted; the old home hero's photo
+at the top; the order the journey, then Sheikh Yahya, then where you'll stay, the rest the same; better image quality.
+
+- **The journey** (`JourneySection` in `poster-hero.tsx`, `id="journey"`): the package, the nights and "Our journey"
+  in one lighter section after the garden path. The title, the journey in a paragraph, the old home hero's group photo
+  uncropped in a gilt-lined frame (`pack.photo`), the price and buttons, then "The journey, step by step": eight
+  highlights in the order you live them (`storyPoints`: the flight, ten nights in Makkah, Taraweeh, Qiyam and Laylat
+  al-Qadr, iftar in the Haram, the khatm, Eid, Madinah), the route line, who it's for, and the hadith of Umrah in
+  Ramadan. The separate nights section and "Our journey" in the night are gone; the night now holds Sheikh Yahya,
+  getting there and where you'll stay. The garden path: the journey, Guest Sheikh, getting there, where you'll stay,
+  Eid, Madinah, prices, book.
+- **One list of highlights** (`Highlights` in `trip-parts.tsx`, `.highlights`): numbered in the gilt eight-pointed star
+  (Western numerals, to read easily), a title and a line, on fine rules. Used for the journey, Sheikh Yahya's three
+  points and Madinah's three moments, so the page reads the same way all through.
+- **The feature band, animated**: each icon draws itself in gilt as the band comes into view, one after another, and a
+  slow light crosses the band every few seconds. Not a ticker (ADR 0005; The Umrah Company's band is one).
+- **No cropping**: hotel photos at their own shapes (`HotelPlates`, sizes in the plan), the plates too; hosts at their
+  own shapes with rounded corners (`.host-frame`); the last trip's photos as a strip at their own shapes, one height
+  (`.past-strip`). The arches are gone.
+- **Image quality**: the group photo now shows uncropped at 85 quality, lightly sharpened (the original we have is the
+  2400 px copy; a sharper original from Rawdah would be better).

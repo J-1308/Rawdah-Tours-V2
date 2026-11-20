@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type CSSProperties } from "react";
 
 import { GardenGlyph, type Stage } from "@/app/_site/garden";
 
@@ -54,6 +54,9 @@ export function GardenPath({ stops }: { stops: PathStop[] }) {
 
   return (
     <nav aria-label="The journey on this page" className="trip-jump garden-path">
+      {/* A gilt line along its foot fills as you go down the page (Jibril, 20 Nov 2026: the bar should "catch your eye,
+          guide you through"). Scroll-driven where the browser can; otherwise it steps with the chapter you're in. */}
+      <span aria-hidden className="gp-progress" style={{ "--gp": stops.length ? (here + 1) / stops.length : 0 } as CSSProperties} />
       <ul ref={list}>
         {stops.map((s, i) => {
           const state = i < here ? "passed" : i === here ? "here" : "ahead";

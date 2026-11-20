@@ -72,3 +72,38 @@ export function HotelGallery({ photos, name }: { photos: { src: string; alt: str
     </div>
   );
 }
+
+/**
+ * A hotel's photos, uncropped (Jibril, 20 Nov 2026: "the photos of the hotels should not be cropped… I don't like that
+ * in general"). The chosen photo at its own shape, rounded, with a fine gilt line inside its edge; under it every
+ * photo as a small plate at its own shape, and tapping one shows it above. Returns two grid items (the photo and the
+ * plates) so the article can place them.
+ */
+export function HotelPlates({ photos, name }: { photos: { src: string; alt: string; width: number; height: number }[]; name: string }) {
+  const [at, setAt] = useState(0);
+  const p = photos[at];
+  return (
+    <>
+      <figure className="stay-photo">
+        <Image key={p.src} src={p.src} alt={p.alt} width={p.width} height={p.height} sizes="(min-width: 1024px) 38rem, 92vw" quality={85} className="stay-photo-img" />
+      </figure>
+      {photos.length > 1 ? (
+        <div className="stay-plates" role="group" aria-label={`Photos of ${name}`}>
+          {photos.map((ph, i) => (
+            <button
+              key={ph.src}
+              type="button"
+              onClick={() => setAt(i)}
+              aria-label={`Show photo ${i + 1} of ${photos.length}: ${ph.alt}`}
+              aria-pressed={i === at}
+              className="stay-plate"
+              style={{ aspectRatio: `${ph.width} / ${ph.height}` }}
+            >
+              <Image src={ph.src} alt="" fill sizes="9rem" quality={75} className="object-contain" />
+            </button>
+          ))}
+        </div>
+      ) : null}
+    </>
+  );
+}
