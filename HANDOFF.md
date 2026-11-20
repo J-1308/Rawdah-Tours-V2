@@ -108,8 +108,9 @@ Code fixes are on `review/launch-fixes`. Jibril still has to:
    (deen icons, Qur'an and hadith in Arabic at the story's turns) and night first: the dark chapter right under the
    hero, Sheikh Yahya inside it with "With you every step of the way", the light again for Madinah.
    Then Rawdah's gold (gilt on olive, never on black) and the package as its own section after the hero (a lighter
-   section, or the first thing in the night: `j.pack.at`), gilt words in the titles, the garden path as a dark band,
-   and the hotels in gilt-lined arches.
+   section, or the first thing in the night: `j.pack.at`), gilt words in the titles, the hotels in gilt-lined arches,
+   a feature band under the hero (the poster's icon row on deep olive), Rawdah's mark faint behind sections, and the
+   overnight flight as a background to Getting there instead of its own section.
 
 Review items left for later: focus moves between form steps, the Private page's thin FAQ and empty desktop column,
 desktop hero buttons on Private and Groups, Ramadan reveal facts (the 30 November instalment for late bookings, an

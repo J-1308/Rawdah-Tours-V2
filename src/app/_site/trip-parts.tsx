@@ -1223,6 +1223,7 @@ export function StayShowcase({ j, s }: { j: Journey; s: NonNullable<Journey["sta
   const seal = ["Meals", "Nights", "Check in", "Check out"];
   return (
     <section id="stay" className="trip-anchor stay">
+      <Emblem className="stay-mark watermark pointer-events-none absolute" />
       <div className={`stay-head ${gutter}`}>
         <Label>{s.label}</Label>
         <Heading className="mt-4 max-w-[48rem] text-[clamp(2.4rem,4.6vw,4.4rem)]">{s.title}</Heading>

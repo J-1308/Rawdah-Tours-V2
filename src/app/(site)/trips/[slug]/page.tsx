@@ -13,7 +13,7 @@ import { Mark } from "@/app/_site/marks";
 import { ArrivalTrigger } from "@/app/_site/arrival-trigger";
 import { Arrival, Mist } from "@/app/_site/poster-parts";
 import { PosterLockup, PosterText } from "@/app/_site/poster-type";
-import { PackageSection, PosterHero } from "@/app/_site/poster-hero";
+import { FeatureBand, PackageSection, PosterHero } from "@/app/_site/poster-hero";
 import { Daybreak, FlightScene, Nightfall } from "@/app/_site/night-sky";
 import { GardenLeaves } from "@/app/_site/garden";
 import { GardenPath } from "@/app/_site/garden-path";
@@ -226,6 +226,9 @@ export function TripView({ j }: { j: Journey }) {
       </Chapter>
       )}
 
+      {/* Poster trips: the feature band, the poster's icon row of what's included, closing the hero off. */}
+      {j.posterType && j.plan?.perks?.length ? <FeatureBand perks={j.plan.perks} /> : null}
+
       {/* Poster trips: the garden path, the page's guide and navigation, stuck under the header (garden-path.tsx). */}
       {j.posterType ? (
         <GardenPath
@@ -384,15 +387,11 @@ export function TripView({ j }: { j: Journey }) {
                       {j.forWho ? <ForWho items={j.forWho} /> : null}
                     </section>
                   </div>
-                  {j.flightScene ? (
-                    <div className={`mt-12 sm:mt-16 ${gutter}`}>
-                      <div className="pw">
-                        <FlightScene f={j.flightScene} />
-                      </div>
-                    </div>
-                  ) : null}
+                  {/* The overnight flight in the background of Getting there, not a section of its own (Jibril, 20 Nov
+                      2026): its arc drawn behind the flight cards as you scroll, the plane along it. */}
                   {j.gettingThere && j.plan ? (
-                    <div className={gutter}>
+                    <div className={`has-flight-bg relative ${gutter}`}>
+                      {j.flightScene ? <FlightScene f={j.flightScene} bg /> : null}
                       <JourneyPart
                         j={j}
                         id="flights"
