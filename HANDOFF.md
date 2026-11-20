@@ -179,3 +179,19 @@ On only while `SITE_PASSWORD` is set (Production). After launch, `PRIVATE_PASSWO
 `/questionnaire` behind the same `/gate`; with neither set those two pages return 404. Visitors type it once at `/gate`; a cookie keeps them in for 30
 days; robots.txt shuts search engines out meanwhile. To open the site, delete it in Vercel and redeploy. Code:
 `src/proxy.ts`, `src/lib/server/site-gate.ts`, `src/app/gate/page.tsx`.
+
+## The Rawdah Tours app's pages: keep them for good (20 Nov 2026)
+
+The app is in App Store review. App Store Connect and the app link to three pages on this site, and Apple re-checks them
+on every app update:
+
+- `/app-privacy`: the app privacy policy (Privacy Policy URL in App Store Connect)
+- `/app-terms`: the app terms of use (linked inside the app)
+- `/support`: app support (Support URL in App Store Connect)
+
+They live in `src/app/(site)/app-privacy`, `app-terms` and `support`, with the words copied exactly from the app team's
+handoff (`APP_POLICY_PAGES_HANDOFF.md`): change styling only, never the wording, unless the app team agrees. Never
+rename, redirect or gate them (not in `onePageRedirects`, not behind `SITE_PASSWORD`, no bot check or cookie wall), and
+keep them in any rebuild. They're in the footer under Policies and in the sitemap. The website's own `/privacy`,
+`/terms` and `/cookies` are separate and stay as they are.
+

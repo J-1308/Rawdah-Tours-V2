@@ -27,3 +27,5 @@ Next.js 16 (App Router) · React 19 · TypeScript · Tailwind v4 · Supabase · 
 - Mobile first: check every change at phone width (390px), and that nothing widens the page.
 - Ask before creating Vercel projects or any other outside resource.
 - Keep these docs current: when you change something a doc describes, update the doc in the same PR.
+- Never remove, rename, redirect or gate `/app-privacy`, `/app-terms` or `/support`: the Rawdah Tours app and App Store
+  Connect link to them, word for word as the app team wrote them (`HANDOFF.md`).
