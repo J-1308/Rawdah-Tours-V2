@@ -640,6 +640,9 @@ export type TripPlan = {
 export type Leg = { place: string; nights?: number };
 export type Day = { day: string; title: string; text: string };
 
+/** A line of Qur’an or hadith on the page: the Arabic, its meaning in English, and where it is from. */
+export type Verse = { ar: string; text: string; source: string };
+
 export type Journey = {
   slug: string;
   kind: "umrah" | "hajj";
@@ -694,7 +697,9 @@ export type Journey = {
   /** The overnight flight, as a scene that plays as you scroll: from and to, with times. */
   flightScene?: { from: string; fromWhen: string; to: string; toWhen: string };
   /** The last words on the page. */
-  closeVerse?: { text: string; source: string };
+  closeVerse?: { text: string; source: string; ar?: string };
+  /** Words of the deen at the story's turns (Arabic, its meaning, its source): checked against the sources named. */
+  verses?: { open?: Verse; nights?: Verse; eid?: Verse };
   /** Ramadan in the Haram: what the nights hold (worship, not a Rawdah service). `slot` = the photo Jibril will source. */
   nights?: { label: string; title: string; intro: string; items: { title: string; text: string }[] };
   /** Rawdah's earlier trips: poster cards and a photo gallery (proof, after The Umrah Company's past journeys). */
@@ -872,7 +877,14 @@ export const ramadanFull: Journey = {
         { title: "Walk to every prayer", text: "Al Manakha Rotana is an 8-minute walk from Masjid an-Nabawi, with breakfast daily." },
       ],
     },
+    /* Checked 20 Nov 2026: al-Bukhari 1782 and Muslim 1256 (Ibn ‘Abbas); Surah al-Qadr 97:3; the takbir of Eid. */
+    verses: {
+      open: { ar: "إِنَّ عُمْرَةً فِي رَمَضَانَ حَجَّةٌ", text: "‘Umrah in Ramadan is equal to a Hajj.", source: "The Prophet ﷺ · al-Bukhari and Muslim" },
+      nights: { ar: "لَيْلَةُ الْقَدْرِ خَيْرٌ مِّنْ أَلْفِ شَهْرٍ", text: "The Night of Decree is better than a thousand months.", source: "Surah al-Qadr, 97:3" },
+      eid: { ar: "اللهُ أَكْبَرُ، اللهُ أَكْبَرُ، لَا إِلٰهَ إِلَّا اللهُ، وَاللهُ أَكْبَرُ، اللهُ أَكْبَرُ، وَلِلّٰهِ الْحَمْدُ", text: "Allah is the Greatest; there is no god but Allah; and to Allah belongs all praise.", source: "The takbir of Eid" },
+    },
     closeVerse: {
+      ar: "مَا بَيْنَ بَيْتِي وَمِنْبَرِي رَوْضَةٌ مِنْ رِيَاضِ الْجَنَّةِ",
       text: "“What is between my house and my minbar is a garden from the gardens of Paradise.”",
       source: "The Prophet ﷺ · reported by al-Bukhari and Muslim",
     },

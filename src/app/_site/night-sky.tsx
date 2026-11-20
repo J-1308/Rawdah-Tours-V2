@@ -81,9 +81,11 @@ const TEN = Array.from({ length: 10 }, (_, i) => {
  * the last ten nights, the odd ones gold. Tied to scrolling where the browser can (globals.css, "nightfall"); otherwise,
  * and with reduced motion, it is simply a night sky.
  */
-export function Nightfall() {
+export function Nightfall({ children }: { children?: React.ReactNode }) {
   return (
-    <div aria-hidden className="nightfall">
+    <div className="nightfall">
+      {children ? <div className="nf-verse">{children}</div> : null}
+      <div aria-hidden className="nf-art">
       <NightSky count={54} seed={27} className="nf-sky" />
       <svg className="nf-moon" viewBox="0 0 100 100">
         <defs>
@@ -105,6 +107,7 @@ export function Nightfall() {
         ))}
       </span>
       <span className="nf-dusk" />
+      </div>
     </div>
   );
 }
@@ -114,9 +117,11 @@ export function Nightfall() {
  * the stars go out and a gold light rises from below, and the garden chapter comes up over it. Still where scroll
  * timelines aren't supported, and with reduced motion: a night sky warming at the bottom.
  */
-export function Daybreak() {
+export function Daybreak({ children }: { children?: React.ReactNode }) {
   return (
-    <div aria-hidden className="daybreak">
+    <div className="daybreak">
+      {children ? <div className="db-verse">{children}</div> : null}
+      <div aria-hidden className="db-art">
       <NightSky count={40} seed={30} className="db-sky" />
       <span className="db-dawn" />
       {/* The garden grows up into Madinah: the mark's crown, a row of them, rising with the light. */}
@@ -125,6 +130,7 @@ export function Daybreak() {
           <GardenCrown key={i} className="db-plant" style={{ left: `${g.x}%`, height: `${g.h}rem`, "--n": i } as CSSProperties} />
         ))}
       </span>
+      </div>
     </div>
   );
 }

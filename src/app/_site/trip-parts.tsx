@@ -5,7 +5,7 @@ import { Fragment } from "react";
 import { PackageCards } from "@/app/_site/package-cards";
 import { ICONS, PosterPerks } from "@/app/_site/poster-parts";
 import { PosterText } from "@/app/_site/poster-type";
-import { anchors, gbp, hajjNusuk, journeyStay, leader, people, say, teachers, trust, wa, type Journey, type Status, type StayPhoto, type TripPlan } from "@/app/_site/content";
+import { anchors, gbp, hajjNusuk, journeyStay, leader, people, say, teachers, trust, wa, type Journey, type Status, type StayPhoto, type TripPlan, type Verse } from "@/app/_site/content";
 import { Mark } from "@/app/_site/marks";
 import { Emblem, gutter, Heading, Label, Tick } from "@/app/_site/shell";
 import { slot, slotFilled } from "@/app/_site/slots";
@@ -444,7 +444,11 @@ export function HaramNights({ n }: { n: NonNullable<Journey["nights"]> }) {
       <ol className="nights-list mt-9 sm:mt-12">
         {n.items.map((it, i) => (
           <li key={it.title}>
-            <span aria-hidden className="nights-num">{String(i + 1).padStart(2, "0")}</span>
+            {/* The night's number in Arabic numerals, inside the eight-pointed star (the deen pass, 20 Nov 2026). */}
+            <span aria-hidden className="nights-num nights-star">
+              <GardenGlyph stage="star" className="ns-star" />
+              <span lang="ar">{"١٢٣٤٥٦٧٨٩"[i] ?? i + 1}</span>
+            </span>
             <h3 className="display text-[clamp(1.5rem,2.4vw,1.9rem)] leading-tight">{it.title}</h3>
             <p className="mt-1.5 text-[0.98rem] leading-relaxed text-ink/70">{it.text}</p>
           </li>
@@ -803,6 +807,11 @@ export function ClosingVerse({ c }: { c: NonNullable<Journey["closeVerse"]> }) {
     <section aria-label="Why we are called Rawdah" className={`closing-verse ${gutter}`}>
       <GardenCrown className="cv-crown" />
       <blockquote>
+        {c.ar ? (
+          <p lang="ar" dir="rtl" className="cv-ar">
+            {c.ar}
+          </p>
+        ) : null}
         <p className="cv-text">{c.text}</p>
         <footer className="cv-source">{c.source}</footer>
       </blockquote>
@@ -1211,8 +1220,8 @@ export function StayShowcase({ j, s }: { j: Journey; s: NonNullable<Journey["sta
             ) : null}
             <div className={`stay-text ${gutter}`}>
               <p className={`flex items-center gap-2.5 ${eyebrow}`}>
-                <span className="grid size-8 place-items-center rounded-full border border-ink/15 text-ink/75">
-                  <Glyph d={building} className="size-3.5" />
+                <span className="grid size-9 place-items-center rounded-full border border-ink/15 text-bronze">
+                  <GardenGlyph stage={/madinah/i.test(h.city) ? "dome" : "kaaba"} className="size-[1.15rem]" />
                 </span>
                 {h.city}
               </p>
@@ -1265,11 +1274,30 @@ export function MadinahMoments({ items }: { items: { title: string; text: string
     <ul className="madinah-moments mt-8">
       {items.map((it, i) => (
         <li key={it.title} data-reveal="" data-rv={String(i)}>
-          <GardenGlyph stage={i === 0 ? "garden" : i === 1 ? "crescent" : "leaf"} className="mm-glyph" />
+          <GardenGlyph stage={i === 0 ? "dome" : i === 1 ? "minaret" : "mihrab"} className="mm-glyph" />
           <p className="mm-title">{it.title}</p>
           <p className="mm-text">{it.text}</p>
         </li>
       ))}
     </ul>
+  );
+}
+
+/**
+ * Words of the deen at the story's turns (Jibril, 20 Nov 2026: "a bit more spiritual… related to the deen as close as
+ * possible"): the Arabic in Amiri, then its meaning, then its source. `tone` night for the dark chapters.
+ */
+export function VerseLine({ v, className = "" }: { v: Verse; className?: string }) {
+  return (
+    <figure className={`verse ${className}`}>
+      <GardenGlyph stage="star" className="verse-star" />
+      <blockquote>
+        <p lang="ar" dir="rtl" className="verse-ar">
+          {v.ar}
+        </p>
+        <p className="verse-text">{v.text}</p>
+      </blockquote>
+      <figcaption className="verse-source">{v.source}</figcaption>
+    </figure>
   );
 }

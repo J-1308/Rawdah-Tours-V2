@@ -87,3 +87,19 @@ how this would look without him first and then add him… that kinda animation e
 - **Daybreak** now grows the garden: a row of the mark's crowns rising as the gold light comes up, before the green.
 - No ten squares under the hero (Jibril, in PR #30: "looks weird"); the ten stars stay in the nightfall.
 - The garden path's stops follow: Sheikh Yahya, the journey, where you'll stay, the nights, Eid, Madinah, prices, book.
+
+## Third pass: closer to the deen (20 November 2026)
+
+Jibril: "a bit more spiritual, like the garden… even the icons that we're using… a bit more related to the deen, as
+close as possible."
+
+- **Icons from the deen** (`GardenGlyph`): the Ka‘bah, a Ramadan lantern, the Green Dome, a minaret, a mus‘haf on its
+  rehal, the eight-pointed star, a mihrab. The garden path now reads: Sheikh Yahya (mus‘haf), the journey (Ka‘bah),
+  where you'll stay (minaret), the nights (lantern), Eid (crescent), Madinah (Green Dome), prices (star), book (mihrab).
+  The hotels carry the Ka‘bah (Makkah) and the Green Dome (Madinah); Madinah's moments a dome, a minaret, a mihrab.
+- **Words of the deen at the story's turns** (`VerseLine`, Arabic in Amiri, its meaning, its source), each checked:
+  after the hero, "‘Umrah in Ramadan is equal to a Hajj" (al-Bukhari 1782, Muslim 1256); in the nightfall, under the
+  arch of ten stars, Surah al-Qadr 97:3; at daybreak, the takbir of Eid; last, the Rawdah hadith in Arabic and English.
+- **The nights** are numbered in Arabic numerals inside the eight-pointed star; a faint lattice of eight-pointed stars
+  lies behind the night chapter.
+- Practical icons (flights, hotels' facts, what's included from the poster) stay practical.

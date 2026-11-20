@@ -20,7 +20,7 @@ import { GardenPath } from "@/app/_site/garden-path";
 import { StepForm } from "@/app/_site/step-form";
 import { ReservePanel } from "@/app/_site/reserve";
 import { Chapter, ConfirmedPending, gutter, Heading, Label, Logo, PageLead, PartnerLogo, WaTile } from "@/app/_site/shell";
-import { ForWho, GroupStrip, PosterPackages, HaramNights, WhyRawdah, HajjOnNusuk, OtherTripBand, PastTrips, leaderMember, MomentStrip, TeamLine, TripPeople, TeamList, tripTeacherMembers, teamMembers, TripIncludes, TrustBox, TripJourney, JourneyPart, EidSection, ClosingVerse, GuestIntimate, StayShowcase, MadinahMoments, TripLine, TripPackages, WhereYouStay, type Member } from "@/app/_site/trip-parts";
+import { ForWho, GroupStrip, PosterPackages, HaramNights, WhyRawdah, HajjOnNusuk, OtherTripBand, PastTrips, leaderMember, MomentStrip, TeamLine, TripPeople, TeamList, tripTeacherMembers, teamMembers, TripIncludes, TrustBox, TripJourney, JourneyPart, EidSection, ClosingVerse, GuestIntimate, StayShowcase, MadinahMoments, TripLine, VerseLine, TripPackages, WhereYouStay, type Member } from "@/app/_site/trip-parts";
 import { StateTag } from "@/app/_site/trip-row";
 import { Chevron } from "@/app/_site/whatsapp";
 import { getTrip, isBookable, isDemoBooking } from "@/lib/trips";
@@ -227,14 +227,14 @@ export function TripView({ j }: { j: Journey }) {
       {j.posterType ? (
         <GardenPath
           stops={[
-            ...(j.guestFeature ? [{ id: "sheikh", label: "Sheikh Yahya", stage: "seed" as const }] : []),
-            { id: "journey", label: "The journey", stage: "sprout" as const },
-            ...(j.stay ? [{ id: "stay", label: "Where you’ll stay", stage: "leaf" as const }] : []),
-            ...(j.nights ? [{ id: "nights", label: "The nights", stage: "palm" as const }] : []),
+            ...(j.guestFeature ? [{ id: "sheikh", label: "Sheikh Yahya", stage: "quran" as const }] : []),
+            { id: "journey", label: "The journey", stage: "kaaba" as const },
+            ...(j.stay ? [{ id: "stay", label: "Where you’ll stay", stage: "minaret" as const }] : []),
+            ...(j.nights ? [{ id: "nights", label: "The nights", stage: "lantern" as const }] : []),
             ...(j.eid ? [{ id: "eid", label: "Eid", stage: "crescent" as const }] : []),
-            ...(j.madinah ? [{ id: "madinah", label: "Madinah", stage: "garden" as const }] : []),
-            { id: "prices", label: "Prices", stage: "bloom" as const },
-            { id: anchors.form, label: "Book", stage: "gate" as const },
+            ...(j.madinah ? [{ id: "madinah", label: "Madinah", stage: "dome" as const }] : []),
+            { id: "prices", label: "Prices", stage: "star" as const },
+            { id: anchors.form, label: "Book", stage: "mihrab" as const },
           ]}
         />
       ) : null}
@@ -245,6 +245,11 @@ export function TripView({ j }: { j: Journey }) {
       {j.posterType ? (
         <Chapter tone="day">
           <GardenLeaves count={9} seed={11} />
+          {j.verses?.open ? (
+            <div className={gutter}>
+              <VerseLine v={j.verses.open} className="verse-open" />
+            </div>
+          ) : null}
           <GuestIntimate j={j} members={members} />
           <div className={`pt-[clamp(3.5rem,8vw,6.5rem)] ${gutter}`}>
             <section id="journey" className="trip-anchor max-w-[60rem]">
@@ -396,10 +401,10 @@ export function TripView({ j }: { j: Journey }) {
         {j.kind === "umrah" ? (
           j.plan ? (
             <>
-              {j.posterType ? <Nightfall /> : null}
+              {j.posterType ? <Nightfall>{j.verses?.nights ? <VerseLine v={j.verses.nights} className="verse-night" /> : null}</Nightfall> : null}
               {j.nights ? <HaramNights n={j.nights} /> : null}
               {j.posterType ? (
-                <Daybreak />
+                <Daybreak>{j.verses?.eid ? <VerseLine v={j.verses.eid} className="verse-dawn" /> : null}</Daybreak>
               ) : (
                 <div id="stay" className="trip-anchor">
                   <TripJourney j={j} />
