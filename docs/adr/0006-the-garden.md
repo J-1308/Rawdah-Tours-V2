@@ -85,4 +85,5 @@ how this would look without him first and then add him… that kinda animation e
 - **The flight scene** (`FlightScene`): the nightfall's kind of moment, earlier: dusk over London, night with stars and
   the plane riding its arc, dawn and the clock tower at Jeddah, with the real times at each end.
 - **Daybreak** now grows the garden: a row of the mark's crowns rising as the gold light comes up, before the green.
+- No ten squares under the hero (Jibril, in PR #30: "looks weird"); the ten stars stay in the nightfall.
 - The garden path's stops follow: Sheikh Yahya, the journey, where you'll stay, the nights, Eid, Madinah, prices, book.
