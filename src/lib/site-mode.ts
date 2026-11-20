@@ -9,7 +9,8 @@ export const ONE_PAGE = true
 /** The one page. */
 export const ONE_PAGE_HOME = '/trips/ramadan-umrah-2027'
 
-/** Old addresses sent to the one page in one-page mode (next.config.ts). */
+/** Old addresses sent to the one page in one-page mode (next.config.ts). Never add /app-privacy, /app-terms or /support:
+ * the Rawdah Tours app and App Store Connect link to them (HANDOFF.md). */
 export const onePageRedirects = [
   '/',
   '/about',

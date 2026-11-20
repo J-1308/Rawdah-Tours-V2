@@ -378,6 +378,10 @@ export function SiteFooter() {
             { label: "Terms and conditions", href: "/terms" },
             { label: "Privacy notice", href: "/privacy" },
             { label: "Cookies", href: "/cookies" },
+            /* The Rawdah Tours app's pages (App Store review, 20 Nov 2026): keep these paths for good. */
+            { label: "App privacy", href: "/app-privacy" },
+            { label: "App terms", href: "/app-terms" },
+            { label: "App support", href: "/support" },
           ],
         },
       ]
@@ -398,6 +402,9 @@ export function SiteFooter() {
         { label: "Terms and conditions", href: "/terms" },
         { label: "Privacy notice", href: "/privacy" },
         { label: "Cookies", href: "/cookies" },
+        { label: "App privacy", href: "/app-privacy" },
+        { label: "App terms", href: "/app-terms" },
+        { label: "App support", href: "/support" },
       ],
     },
   ];

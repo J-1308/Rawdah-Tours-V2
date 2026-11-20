@@ -8,10 +8,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
   if (ONE_PAGE) {
     return [
       { url: `${SITE_URL}${ONE_PAGE_HOME}`, changeFrequency: 'weekly', priority: 1 },
-      ...['/privacy', '/terms', '/cookies'].map((path) => ({ url: `${SITE_URL}${path}`, changeFrequency: 'yearly' as const, priority: 0.3 })),
+      ...['/privacy', '/terms', '/cookies', '/app-privacy', '/app-terms', '/support'].map((path) => ({ url: `${SITE_URL}${path}`, changeFrequency: 'yearly' as const, priority: 0.3 })),
     ]
   }
-  const pages = ['', '/trips', '/private-umrah', '/groups', '/about', '/privacy', '/terms', '/cookies']
+  const pages = ['', '/trips', '/private-umrah', '/groups', '/about', '/privacy', '/terms', '/cookies', '/app-privacy', '/app-terms', '/support']
   return [
     ...pages.map((path) => ({ url: `${SITE_URL}${path}`, changeFrequency: 'monthly' as const, priority: path === '' ? 1 : 0.7 })),
     ...journeys.filter((j) => j.state !== 'past').map((j) => ({ url: `${SITE_URL}/trips/${j.slug}`, changeFrequency: 'weekly' as const, priority: 0.9 })),
