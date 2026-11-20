@@ -152,7 +152,12 @@ script in `app/layout.tsx` sets before first paint unless the visitor prefers re
   the poster's Saudia and Haramain train photos with white labels over what's included (`.showcase`, phones only). On
   phones the join panel comes after the prices, not after the hero, so the story comes first (19 Nov 2026): the desktop
   panel is `#join-desktop` beside the story, the phone copy is `#join`, and `page-watch.tsx` sends "#join" links to
-  whichever is showing; the phone bar waits until the hero's price box has scrolled away. In one-page
+  whichever is showing; the phone bar waits until the hero's price box has scrolled away. Rebuilt 20 Nov 2026
+  (`docs/adr/0005-story-and-motion.md`): the hero is `PosterHero` (`poster-hero.tsx`, `.rh-*`): artwork with the guest,
+  lockup, the ten nights (`.ten-nights`), one line of dates and partner, one price line, Book and WhatsApp; the order is
+  trip, people, nightfall and the nights, flights and hotels, included, our last trip, why Rawdah, prices, book,
+  questions; the night chapter opens with `Nightfall` (`night-sky.tsx`); reveals focus in (`.rv`) instead of rising; the
+  last trip's photos develop. In one-page
   mode the whole site wears the poster: `<html data-skin="1448">` turns the top strip, header and footer from cocoa
   to the poster's olive and stone, the logo stone, and the browser bar olive (`layout.tsx`, `globals.css`). One-page header: call, logo, WhatsApp on
   phones; the trip, logo, WhatsApp and "Book your place" on desktop (`src/lib/site-mode.ts`); what's included as photo cards (`IncludedCards`, `plan.cards`, "Photo to come" frames until Jibril
