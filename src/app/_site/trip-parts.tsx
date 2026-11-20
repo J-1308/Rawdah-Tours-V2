@@ -861,7 +861,8 @@ export function TripJourney({ j }: { j: Journey }) {
 
 /** What a planned trip includes, as a list of ticks. */
 export function TripIncludes({ plan }: { plan: TripPlan }) {
-  // With the poster's icon row above, the list says only what the icons don't (poster trips, 19 Nov 2026).
+  // With the poster's icon row above, the list says only what the icons don't (poster trips, 19 Nov 2026); an empty
+  // perksAlso means the cards say it all, so no list.
   const items = (plan.cards || plan.perks) && plan.perksAlso ? plan.perksAlso : plan.includes;
   return (
     <>
@@ -876,6 +877,7 @@ export function TripIncludes({ plan }: { plan: TripPlan }) {
       </ul>
     ) : null}
     {plan.cards ? <IncludedCards cards={plan.cards} /> : plan.perks ? <PosterPerks perks={plan.perks} className="mt-6" /> : null}
+    {items.length ? (
     <ul className={`glass-phone ${plan.perks ? "mt-4" : "mt-6"} grid grid-cols-1 rounded-[1.25rem] px-4 py-1 [--glass-shadow:none] sm:grid-cols-2 sm:gap-1.5 sm:p-0`}>
       {items.map((h, i) => (
         <li key={h.value} className={`glass-wide flex items-start gap-3 py-3 text-[0.95rem] sm:rounded-[1.1rem] sm:px-4 sm:py-3.5 ${i ? "border-t border-ink/8" : ""}`}>
@@ -887,6 +889,7 @@ export function TripIncludes({ plan }: { plan: TripPlan }) {
         </li>
       ))}
     </ul>
+    ) : null}
     {plan.includesNote ? <p className="mt-3 text-[0.9rem] text-ink/68">{plan.includesNote}</p> : null}
     </>
   );
