@@ -182,7 +182,10 @@ script in `app/layout.tsx` sets before first paint unless the visitor prefers re
   `.label` as gilt Montserrat capitals, body text stronger; the garden path's `.gp-progress` gilt line fills with scroll.
   Eighth pass: `JourneySection` merges the package, the nights and our journey; `Highlights` (`.highlights`) is the
   page's one numbered list; photos show uncropped (`HotelPlates`, `.host-frame`, `.past-strip`); the feature band's
-  icons draw in and a light crosses it. In one-page
+  icons draw in and a light crosses it.
+  Tenth pass: the hero is `LockupHero` (`.rl-*`: lettering, artwork, two gold price tiles, one gilt button); gold
+  only at key points (buttons, prices, current chapter, the band, night stars), headline accents in olive italic; one
+  button identity (gilt main, stone outline with WhatsApp's mark, text links); repeats cut (ADR 0006). In one-page
   mode the whole site wears the poster: `<html data-skin="1448">` turns the top strip, header and footer from cocoa
   to the poster's olive and stone, the logo stone, and the browser bar olive (`layout.tsx`, `globals.css`). One-page header: call, logo, WhatsApp on
   phones; the trip, logo, WhatsApp and "Book your place" on desktop (`src/lib/site-mode.ts`); what's included as photo cards (`IncludedCards`, `plan.cards`, "Photo to come" frames until Jibril

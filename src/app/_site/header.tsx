@@ -86,10 +86,11 @@ export function SiteHeader() {
             <span className="font-editorial text-[1.15rem] text-ink italic">Ramadan Umrah 2027</span> · 27 Feb – 13 Mar, with GGC
           </Link>
           <div className="flex items-center justify-end gap-[clamp(1rem,1.6vw,1.5rem)]">
-            <a href={pageWa(pathname)} target="_blank" rel="noopener noreferrer" className="hidden items-center gap-2 text-[0.9rem] text-ink/75 transition-colors hover:text-ink lg:inline-flex">
+            {/* The page's second button, as everywhere (one button identity, 20 Nov 2026): an outline with WhatsApp's mark. */}
+            <a href={pageWa(pathname)} target="_blank" rel="noopener noreferrer" className="hdr-wa hidden h-11 items-center gap-2 rounded-[0.95rem] px-4 text-[0.88rem] font-medium lg:inline-flex">
               <WaGlyph className="size-[1.1rem] text-wa" /> WhatsApp us
             </a>
-            <Link href={`${ONE_PAGE_HOME}#join`} className="btn-ink hidden h-11 items-center rounded-[0.85rem] px-5 text-[0.88rem] font-medium lg:inline-flex">
+            <Link href={`${ONE_PAGE_HOME}#join`} className="btn-ink hidden h-11 items-center rounded-[0.95rem] px-5 text-[0.88rem] font-medium lg:inline-flex">
               Book your place
             </Link>
             <a href={pageWa(pathname)} target="_blank" rel="noopener noreferrer" aria-label="WhatsApp us" className="-mr-1 grid size-11 place-items-center rounded-full bg-(--raise) text-wa shadow-[0_6px_18px_-10px_rgb(58_43_36/0.4)] lg:hidden">

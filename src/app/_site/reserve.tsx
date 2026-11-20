@@ -20,7 +20,7 @@ import { Chevron, WaGlyph } from "@/app/_site/whatsapp";
 
 const box = "glass overflow-hidden rounded-[1.75rem]";
 const head = "flex flex-wrap items-center justify-between gap-x-3 gap-y-1 border-b border-ink/8 bg-(--raise) px-5 py-4 sm:px-6";
-const waBtn = "flex min-h-[3.25rem] items-center justify-center gap-2.5 rounded-[0.95rem] bg-wa px-4 text-[0.95rem] font-medium text-white shadow-[0_14px_30px_-16px_rgb(31_168_85/0.7)]";
+const waBtn = "wa-btn flex min-h-[3.25rem] items-center justify-center gap-2.5 rounded-[0.95rem] bg-wa px-4 text-[0.95rem] font-medium text-white shadow-[0_14px_30px_-16px_rgb(31_168_85/0.7)]";
 const waCell = "grid place-items-center";
 
 export function ReservePanel({ j, bookable = false }: { j: Journey; bookable?: boolean }) {
