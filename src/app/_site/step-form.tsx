@@ -5,7 +5,7 @@ import { useEffect, useId, useRef, useState } from "react";
 
 import { useRouter } from "next/navigation";
 import { saveLead, type LeadInput } from "@/app/actions/lead";
-import { brand, wa } from "@/app/_site/content";
+import { brand, roomSharing, wa } from "@/app/_site/content";
 import { readSource } from "@/app/_site/tracking";
 import { Chevron, WaGlyph } from "@/app/_site/whatsapp";
 
@@ -82,7 +82,7 @@ function pathFor(p: StepFormProps): Path {
             questions: [
               { kind: "chips", key: "Travellers", label: "How many of you?", options: ["1", "2", "3", "4", "5 or more"] },
               { kind: "chips", key: "Package", label: "Which package?", options: [...p.packages, "Not sure yet"] },
-              { kind: "chips", key: "Sharing", label: "Sharing a room with", options: SHARING },
+              { kind: "chips", key: "Sharing", label: "Sharing a room with", options: SHARING, help: roomSharing.note },
             ],
             itinerary: true,
           },
@@ -487,7 +487,7 @@ function Ending({ props, name, waText, trip, bookingRef, emailed }: { props: Ste
 const ITINERARY_EVENT = "rawdah:itinerary";
 const PREFILL_EVENT = "rawdah:prefill";
 /** Who a traveller shares a room with: the same four options as the join panel. */
-export const SHARING = ["Anyone", "Brothers only", "Sisters only", "My family"];
+export const SHARING = roomSharing.options;
 
 /** Sends the join panel's choices to the booking form on the same page (answer keys as in the form). */
 export function prefillForm(detail: Record<string, string>) {
