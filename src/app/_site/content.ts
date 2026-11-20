@@ -875,14 +875,15 @@ export const ramadanFull: Journey = {
          confirm with him. No personal details. */
       portrait: { src: "/images/portraits/yahya-raaby-full.jpg", width: 1190, height: 2048, position: "object-[50%_14%]" },
       /* Jibril, 20 Nov 2026: "how he will teach and help and how it's gonna be intimate and help u every step of the
-         way". Kept at that level, with the page's facts (up to 60 places; three teachers with the group). Rawdah to
+         way". Kept at that level, with the page's facts (three teachers with the group; no number of places, Jibril
+         20 Nov 2026). Rawdah to
          confirm any session times or formats before they are named. */
       ways: {
         title: "With you *every step* of the way",
         items: [
           { title: "He teaches as you go", text: "Reminders and lessons through the trip, from the rites of Umrah to the meaning of the last ten nights." },
           { title: "He’s there to help", text: "With the group in Makkah and Madinah, to guide you through your Umrah and answer your questions." },
-          { title: "Close, not a crowd", text: "Up to 60 places, with Sheikh Yahya, Brother Ayuub and Ustadh Issa beside you, so no one is lost in the crowd." },
+          { title: "Close, not a crowd", text: "Sheikh Yahya, Brother Ayuub and Ustadh Issa are beside you the whole way, so no one is lost in the crowd." },
         ],
       },
       bio: "A Qur’an reciter known for his calm, moving recitation, Sheikh Yahya teaches Arabic and the Islamic sciences at Badr Academy, and gives lectures and Friday khutbahs across the UK and abroad.",
@@ -1017,7 +1018,7 @@ export const ramadanFull: Journey = {
     steps: [
       { title: "Send the form", text: "About a minute: your name, how to reach you and the package you want." },
       { title: "We confirm your place", text: "Your confirmation email has the bank details for the £399 deposit, and the team gets in touch to confirm your place." },
-      { title: "Pay the rest in three parts", text: "On 30 November, 30 December and 30 January. Up to 60 places, around half with flights." },
+      { title: "Pay the rest in three parts", text: "On 30 November, 30 December and 30 January." },
     ],
     partner: "GGC × Rawdah Tours",
     partnerLogo: { src: "/images/brand/partners/ggc.png", width: 300, height: 100, alt: "Global Guidance Center (GGC)" },
@@ -1187,7 +1188,7 @@ export const ramadanFull: Journey = {
       includesNote: "Not included: suhoor in Makkah, and ihram, so bring your own. Ground only covers the hotels and ground transport; you book your own flights.",
       /** Under the icon row on poster trips: what the icons don't say. */
       perksAlso: [v("10 nights at Novotel Thakher City Makkah (room only) and 4 at Al Manakha Rotana, Madinah (breakfast daily)", "confirmed")],
-      places: v("Up to 60 places: around 30 with flights and 30 ground only", "confirmed"),
+      /* No number of places on the page (Jibril, 20 Nov 2026: "don't say up to 60 places"). */
     },
     /* A Rawdah group for now; an Umrah poster from Rawdah will replace it (Jibril, 17 Nov 2026). */
     photo: { src: "/images/group-photos/group-photos-02.jpg", width: 2400, height: 1600, alt: "A Rawdah group together on the hill at Uhud, the mountains behind them.", position: "object-[50%_70%]" },

@@ -116,7 +116,7 @@ Medina again… yahya rabi doesn't need to be as high up."
   daybreak with the takbir → the garden: Eid, Madinah, "Rawdah means garden" → your hosts, our last trip, included,
   prices, book, questions, the form, the Rawdah hadith. The garden path follows that order.
 - **Sheikh Yahya:** "With you every step of the way", three points in Jibril's words with the page's facts (he
-  teaches as you go; he's there to help in Makkah and Madinah; close, not a crowd: up to 60 places, three teachers).
+  teaches as you go; he's there to help in Makkah and Madinah; close, not a crowd: three teachers beside you). No number of places is shown (Jibril, 20 Nov 2026).
   No session times or formats named until Rawdah confirms them.
 - **Desktop spacing:** one centred column (`.pw`, 72rem) for every section, so headings share a left edge; Sheikh
   Yahya's portrait stays in view beside his words; hosts and questions read narrower inside the column.
