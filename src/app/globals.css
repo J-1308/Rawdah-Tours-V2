@@ -780,7 +780,10 @@ html.motion .ph-face-b { visibility: visible; animation-delay: -4.5s; }
 .rh-from strong { font-family: "Montserrat", "DM Sans", system-ui, sans-serif; font-size: clamp(2.1rem, 9vw, 2.7rem); font-weight: 700; letter-spacing: 0.01em; line-height: 1; color: var(--color-ink); }
 .rh-from-k { font-size: 0.92rem; color: rgb(from var(--color-ink) r g b / 0.7); }
 .rh-alt { margin-top: 0.3rem; font-size: 0.92rem; color: rgb(from var(--color-ink) r g b / 0.7); }
-.rh-alt > span:not([aria-hidden]) { white-space: nowrap; }
+.rh-alt > span:not([aria-hidden]), .rh-alt > a { white-space: nowrap; }
+/* The ground-only price opens the join panel on ground only (reserve.tsx, data-pick). */
+.rp-ground { text-decoration: underline; text-decoration-color: rgb(from var(--color-ink) r g b / 0.3); text-underline-offset: 0.2em; }
+.rp-ground:hover { text-decoration-color: currentColor; }
 .rh-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem; width: 100%; max-width: 26rem; }
 .rh-book { display: inline-flex; min-height: 3.25rem; align-items: center; justify-content: center; gap: 0.5rem; border-radius: 0.95rem; padding-inline: 1rem; font-size: 0.95rem; font-weight: 500; }
 .rh-wa { padding-inline: 1rem; }

@@ -78,7 +78,11 @@ export function PosterHero({
                   <span className="rh-from-k">From</span> <strong>{price}</strong> <span className="rh-from-k">with flights</span>
                 </p>
                 <p className="rh-alt">
-                  {ground ? <span>{ground} ground only</span> : null}
+                  {ground ? (
+                    <a href={`#${anchors.join}`} data-pick="ground" className="rp-ground">
+                      {ground} ground only
+                    </a>
+                  ) : null}
                   {ground && deposit ? <span aria-hidden> · </span> : null}
                   {deposit ? <span>{deposit} deposit{payments ? `, then ${payments} payments` : ""}</span> : null}
                 </p>
