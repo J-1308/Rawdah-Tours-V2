@@ -884,7 +884,7 @@ export const ramadanFull: Journey = {
     hostsTitle: "Your hosts",
     heroGuest: true,
     /* Facts from the plan; the title after the poster's "Last 10 days". Gilt words in asterisks (shell.tsx gild). */
-    pack: { at: "day", label: "The package", title: "Fourteen nights, *the last ten in Makkah*" },
+    pack: { at: "night", label: "The package", title: "Fourteen nights, *the last ten in Makkah*" },
     hostsIntro: "Rawdah’s two co-founders, with the group the whole way.",
     /* Facts only, from the plan below and the FAQs (Eid on Tue 9 or Wed 10 March; Makkah to Madinah on Tue 9 March). */
     gettingThere: {
