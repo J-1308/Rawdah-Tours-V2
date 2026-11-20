@@ -169,11 +169,6 @@ export function TripView({ j }: { j: Journey }) {
             payments={payments}
             joinLabel={joinLabel}
           />
-          {j.verses?.open ? (
-            <div className={gutter}>
-              <VerseLine v={j.verses.open} className="verse-open" />
-            </div>
-          ) : null}
         </Chapter>
       ) : (
       <Chapter tone="top">
@@ -355,6 +350,13 @@ export function TripView({ j }: { j: Journey }) {
               {j.posterType ? (
                 <>
                   <GuestIntimate j={j} members={members} />
+                  {/* The hadith of Umrah in Ramadan opens the journey (Jibril, 20 Nov 2026: lower down, so the hero fades straight
+                      into the nightfall). */}
+                  {j.verses?.open ? (
+                    <div className={gutter}>
+                      <VerseLine v={j.verses.open} className="verse-open verse-in-night" />
+                    </div>
+                  ) : null}
                   <div className={`pt-[clamp(3.5rem,8vw,6.5rem)] ${gutter}`}>
                     <section id="journey" className="trip-anchor pw">
                       <Label>Our journey</Label>

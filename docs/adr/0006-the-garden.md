@@ -111,8 +111,8 @@ every step of the way… the spacing on the desktop can be better… I like how 
 get into the last ten nights. I think we should have that earlier on like right under the hero and then the light for
 Medina again… yahya rabi doesn't need to be as high up."
 
-- **Order:** hero (light, with the hadith of Umrah in Ramadan under it) → the night at once: nightfall with Laylat
-  al-Qadr, the last ten nights, Sheikh Yahya, our journey, the flight scene, getting there, where you'll stay →
+- **Order:** hero (light) → the night at once: nightfall with Laylat al-Qadr, the last ten nights, Sheikh Yahya, the
+  hadith of Umrah in Ramadan opening our journey (moved down so the hero fades straight into the nightfall), the flight scene, getting there, where you'll stay →
   daybreak with the takbir → the garden: Eid, Madinah, "Rawdah means garden" → your hosts, our last trip, included,
   prices, book, questions, the form, the Rawdah hadith. The garden path follows that order.
 - **Sheikh Yahya:** "With you every step of the way", three points in Jibril's words with the page's facts (he

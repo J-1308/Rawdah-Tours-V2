@@ -1433,6 +1433,9 @@ html.motion .hosts .rv.in .host-arch img { transform: none; }
 .verse-text { margin-top: 0.15rem; font-family: var(--font-editorial, "Cormorant Garamond", Georgia, serif); font-size: clamp(1.15rem, 4.2vw, 1.5rem); font-style: italic; line-height: 1.35; color: rgb(from var(--color-ink) r g b / 0.8); text-wrap: balance; }
 .verse-source { margin-top: 0.65rem; font-size: 0.82rem; letter-spacing: 0.04em; color: rgb(from var(--color-ink) r g b / 0.58); }
 .verse-open { padding-block: clamp(3rem, 8vw, 5rem) clamp(1.5rem, 4vw, 3rem); }
+.verse-in-night { padding-top: clamp(4.5rem, 10vw, 7rem); padding-bottom: 0; }
+.verse-in-night .verse-star { color: #e2c98f; }
+.verse-in-night .verse-ar { color: #f4ecd6; text-shadow: 0 0 26px rgb(233 210 156 / 0.22); }
 /* In the night bands: light words, a soft gold glow, fading in with the sky. */
 .nf-verse, .db-verse { position: absolute; z-index: 3; left: var(--hero-pad-x); right: var(--hero-pad-x); }
 .nf-verse { top: 47%; }
