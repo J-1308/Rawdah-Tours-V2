@@ -1119,22 +1119,30 @@ details > summary::-webkit-details-marker { display: none; }
    A band of sky at the top of the night chapter. Without scroll-linked animation (or motion) it is a still night: the
    stars, the crescent and the ten stars of the last ten nights. With it, as the band scrolls in, the day's stone light
    drains away, the crescent rises, the sky fills and the ten stars come out one by one. */
-.nightfall { position: relative; height: clamp(23rem, 66vh, 36rem); margin-bottom: calc(-1 * clamp(3rem, 7vw, 6rem)); pointer-events: none; }
+.nightfall { position: relative; height: clamp(23rem, 66vh, 36rem); margin-top: -1px; margin-bottom: calc(-1 * clamp(3rem, 7vw, 6rem)); overflow: hidden; pointer-events: none; }
 .nightfall .sky { -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 55%, transparent 100%); mask-image: linear-gradient(to bottom, #000 0%, #000 55%, transparent 100%); }
 .nf-moon { position: absolute; top: 12%; right: 9%; width: clamp(4.5rem, 15vw, 9.5rem); height: auto; }
 .nf-ten { position: absolute; inset: 8% 4% 30%; }
 .nf-star { position: absolute; width: 5px; height: 5px; border-radius: 1.5px; transform: translate(-50%, -50%) rotate(45deg); background: #efe6cf; box-shadow: 0 0 8px 1px rgb(239 230 207 / 0.45); }
 .nf-odd { width: 9px; height: 9px; border-radius: 2px; background: linear-gradient(155deg, #f0dca8 0%, #c9a464 100%); box-shadow: 0 0 14px 3px rgb(222 190 120 / 0.55); }
-.nf-dusk { position: absolute; inset: 0; opacity: 0; border-radius: var(--sheet) var(--sheet) 0 0; background: linear-gradient(to bottom, #ece8df 0%, rgb(236 232 223 / 0.92) 38%, rgb(196 170 120 / 0.35) 72%, transparent 100%); }
+/* The light lifting away (20 Nov 2026, Jibril: "more seamless for light to dark… the black corners come up"): a tall
+   veil of the page's stone, square, covering the band, with a soft warm dusk at its foot. As you scroll it slides up
+   and out, so the night rises from below through the dusk and the light leaves last at the top: no edge, no corners.
+   Without scroll timelines it is gone, and the band is simply night. */
+.nf-dusk {
+  position: absolute; left: 0; right: 0; top: 0; height: 230%;
+  opacity: 0; transform: translate3d(0, 0, 0);
+  background: linear-gradient(to bottom, #ece8df 0%, #ece8df 42%, #e4d8bd 46%, rgb(201 170 112 / 0.75) 50%, rgb(120 104 68 / 0.45) 55%, rgb(46 45 32 / 0) 62%);
+}
 /* The night sheet doesn't cast its shadow up where dusk falls: the light changes instead. */
 .chapter:not(.night):not(.top-zone) + .chapter.night:has(> .nightfall) { box-shadow: none; }
 @supports (animation-timeline: view()) {
-  @keyframes nf-dusk { from { opacity: 1; } to { opacity: 0; } }
+  @keyframes nf-dusk { from { transform: translate3d(0, 0, 0); } to { transform: translate3d(0, -62%, 0); } }
   @keyframes nf-moon { from { opacity: 0; transform: translate3d(0, 55%, 0) rotate(-14deg); } to { opacity: 1; transform: none; } }
   @keyframes nf-fill { from { opacity: 0; } to { opacity: 1; } }
   @keyframes nf-star { from { opacity: 0; transform: translate(-50%, -50%) rotate(45deg) scale(0.2); } to { opacity: 1; transform: translate(-50%, -50%) rotate(45deg); } }
   html.motion .nightfall { view-timeline: --nightfall block; }
-  html.motion .nf-dusk { animation: nf-dusk linear both; animation-timeline: --nightfall; animation-range: cover 16% cover 50%; }
+  html.motion .nf-dusk { opacity: 1; animation: nf-dusk linear both; animation-timeline: --nightfall; animation-range: cover 8% cover 58%; }
   html.motion .nf-moon { animation: nf-moon linear both; animation-timeline: --nightfall; animation-range: cover 24% cover 54%; }
   html.motion .nightfall .sky-par { animation: nf-fill linear both; animation-timeline: --nightfall; animation-range: cover 28% cover 54%; }
   html.motion .nf-star { animation: nf-star linear both; animation-timeline: --nightfall; animation-range: cover calc(30% + var(--n) * 2.6%) cover calc(37% + var(--n) * 2.6%); }
@@ -1453,7 +1461,7 @@ html.motion .hosts .rv.in .host-arch img { transform: none; }
 .skin-1448 .chapter.night {
   background:
     var(--chapter-glow),
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='88' height='88' viewBox='0 0 88 88'%3E%3Cg fill='none' stroke='%23e9d29c' stroke-opacity='0.055' stroke-width='1'%3E%3Cpath d='M32 32h24v24H32z'/%3E%3Cpath d='M44 27l17 17-17 17-17-17z'/%3E%3Cpath d='M0 44h27M61 44h27M44 0v27M44 61v27'/%3E%3C/g%3E%3C/svg%3E"),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='88' height='88' viewBox='0 0 88 88'%3E%3Cg fill='none' stroke='%23e9d29c' stroke-opacity='0.04' stroke-width='1'%3E%3Cpath d='M32 32h24v24H32z'/%3E%3Cpath d='M44 27l17 17-17 17-17-17z'/%3E%3Cpath d='M0 44h27M61 44h27M44 0v27M44 61v27'/%3E%3C/g%3E%3C/svg%3E"),
     var(--color-canvas);
 }
 
