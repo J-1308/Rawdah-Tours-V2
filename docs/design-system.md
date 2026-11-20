@@ -166,7 +166,9 @@ script in `app/layout.tsx` sets before first paint unless the visitor prefers re
   flight as you scroll; `StayShowcase` (`.stay-*`) shows both hotels high in the page; the join panel follows the prices
   on every screen. Closer to the deen: deen icons in `GardenGlyph` (kaaba, lantern, dome, minaret, quran, star, mihrab),
   `VerseLine` (`.verse`) for Qur'an and hadith in Arabic with meaning and source, Arabic numerals in eight-pointed stars
-  for the nights, a star lattice behind the night chapter. In one-page
+  for the nights, a star lattice behind the night chapter. Night first (same day): the night chapter opens right under
+  the hero and holds the nights, Sheikh Yahya (with `guestFeature.ways`), the journey and the hotels; desktop sections
+  share one centred column (`.pw`, 72rem). In one-page
   mode the whole site wears the poster: `<html data-skin="1448">` turns the top strip, header and footer from cocoa
   to the poster's olive and stone, the logo stone, and the browser bar olive (`layout.tsx`, `globals.css`). One-page header: call, logo, WhatsApp on
   phones; the trip, logo, WhatsApp and "Book your place" on desktop (`src/lib/site-mode.ts`); what's included as photo cards (`IncludedCards`, `plan.cards`, "Photo to come" frames until Jibril

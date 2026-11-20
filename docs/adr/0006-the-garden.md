@@ -103,3 +103,20 @@ close as possible."
 - **The nights** are numbered in Arabic numerals inside the eight-pointed star; a faint lattice of eight-pointed stars
   lies behind the night chapter.
 - Practical icons (flights, hotels' facts, what's included from the poster) stay practical.
+
+## Fourth pass: night first (20 November 2026)
+
+Jibril: "there should be more with yahya rabi… how he will teach and help and how it's gonna be intimate and help u
+every step of the way… the spacing on the desktop can be better… I like how the dark contrasts with the light when we
+get into the last ten nights. I think we should have that earlier on like right under the hero and then the light for
+Medina again… yahya rabi doesn't need to be as high up."
+
+- **Order:** hero (light, with the hadith of Umrah in Ramadan under it) → the night at once: nightfall with Laylat
+  al-Qadr, the last ten nights, Sheikh Yahya, our journey, the flight scene, getting there, where you'll stay →
+  daybreak with the takbir → the garden: Eid, Madinah, "Rawdah means garden" → your hosts, our last trip, included,
+  prices, book, questions, the form, the Rawdah hadith. The garden path follows that order.
+- **Sheikh Yahya:** "With you every step of the way", three points in Jibril's words with the page's facts (he
+  teaches as you go; he's there to help in Makkah and Madinah; close, not a crowd: up to 60 places, three teachers).
+  No session times or formats named until Rawdah confirms them.
+- **Desktop spacing:** one centred column (`.pw`, 72rem) for every section, so headings share a left edge; Sheikh
+  Yahya's portrait stays in view beside his words; hosts and questions read narrower inside the column.

@@ -1183,6 +1183,22 @@ export function GuestIntimate({ j, members }: { j: Journey; members: Member[] })
       <div className={`gc-text ${gutter}`}>
         <p className="gc-line">{g.line}</p>
         {g.bio ? <p className="gc-bio">{g.bio}</p> : null}
+        {g.ways ? (
+          <>
+            <h3 className="gc-ways-title">{g.ways.title}</h3>
+            <ol className="gc-ways">
+              {g.ways.items.map((w, i) => (
+                <li key={w.title} data-reveal="" data-rv={String(i)}>
+                  <GardenGlyph stage={i === 0 ? "quran" : i === 1 ? "kaaba" : "lantern"} className="gc-way-glyph" />
+                  <div>
+                    <p className="gc-way-title">{w.title}</p>
+                    <p className="gc-way-text">{w.text}</p>
+                  </div>
+                </li>
+              ))}
+            </ol>
+          </>
+        ) : null}
         <a href={`#${anchors.join}`} className="gf-cta gc-cta">
           {g.cta}
           <svg aria-hidden viewBox="0 0 12 12" className="size-3">

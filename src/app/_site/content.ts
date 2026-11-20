@@ -687,7 +687,15 @@ export type Journey = {
   /** Why Rawdah: the name's meaning, a photo and short reasons (from the About page, Rawdah's own words). */
   why?: { label: string; title: string; ar: string; text: string; source: string; photo: { src: string; alt: string; caption?: string }; reasons: { title: string; text: string }[] };
   /** Poster trips: the special guest's own panel, above the hosts. `toCome` shows until Rawdah sends the bio. */
-  guestFeature?: { kicker: string; line: string; bio?: string; cta: string; portrait?: { src: string; width: number; height: number; position?: string } };
+  guestFeature?: {
+    kicker: string;
+    line: string;
+    bio?: string;
+    cta: string;
+    portrait?: { src: string; width: number; height: number; position?: string };
+    /** How he is with the group: a heading and three short points. */
+    ways?: { title: string; items: { title: string; text: string }[] };
+  };
   /** Poster trips: the heading over the hosts' cards. */
   hostsTitle?: string;
   /** Poster trips: the special guest stands in front of the poster in the hero (two versions, Jibril 20 Nov 2026). */
@@ -853,6 +861,17 @@ export const ramadanFull: Journey = {
       /* Public facts only (FOSIS speaker page; Badr Academy; his recitations on Muslim Central), 19 Nov 2026. Rawdah to
          confirm with him. No personal details. */
       portrait: { src: "/images/portraits/yahya-raaby-full.jpg", width: 1190, height: 2048, position: "object-[50%_14%]" },
+      /* Jibril, 20 Nov 2026: "how he will teach and help and how it's gonna be intimate and help u every step of the
+         way". Kept at that level, with the page's facts (up to 60 places; three teachers with the group). Rawdah to
+         confirm any session times or formats before they are named. */
+      ways: {
+        title: "With you every step of the way",
+        items: [
+          { title: "He teaches as you go", text: "Reminders and lessons through the trip, from the rites of Umrah to the meaning of the last ten nights." },
+          { title: "He’s there to help", text: "With the group in Makkah and Madinah, to guide you through your Umrah and answer your questions." },
+          { title: "Close, not a crowd", text: "Up to 60 places, with Sheikh Yahya, Brother Ayuub and Ustadh Issa beside you, so no one is lost in the crowd." },
+        ],
+      },
       bio: "A Qur’an reciter known for his calm, moving recitation, Sheikh Yahya teaches Arabic and the Islamic sciences at Badr Academy, and gives lectures and Friday khutbahs across the UK and abroad.",
       cta: "Travel with Sheikh Yahya",
     },

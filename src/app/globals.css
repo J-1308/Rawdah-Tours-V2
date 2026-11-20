@@ -1456,3 +1456,36 @@ html.motion .hosts .rv.in .host-arch img { transform: none; }
     url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='88' height='88' viewBox='0 0 88 88'%3E%3Cg fill='none' stroke='%23e9d29c' stroke-opacity='0.055' stroke-width='1'%3E%3Cpath d='M32 32h24v24H32z'/%3E%3Cpath d='M44 27l17 17-17 17-17-17z'/%3E%3Cpath d='M0 44h27M61 44h27M44 0v27M44 61v27'/%3E%3C/g%3E%3C/svg%3E"),
     var(--color-canvas);
 }
+
+/* --- Night first (20 Nov 2026): the night chapter now opens under the hero and carries Sheikh Yahya, the journey and
+   the hotels, so those pieces take the night's light. --- */
+.gc-ways-title { margin-top: 2rem; font-family: var(--font-editorial, "Cormorant Garamond", Georgia, serif); font-size: clamp(1.6rem, 5vw, 2.1rem); line-height: 1.15; }
+.gc-ways { display: grid; gap: 0.7rem; margin-top: 1rem; }
+.gc-ways li { display: grid; grid-template-columns: 2.4rem 1fr; gap: 0.9rem; align-items: start; padding: 1rem 1.1rem; border-radius: 1.2rem; background: var(--glass-bg); border: 1px solid var(--glass-line, rgb(255 255 255 / 0.1)); }
+.gc-way-glyph { width: 1.7rem; height: 1.7rem; margin-top: 0.15rem; color: var(--color-gold); }
+.gc-way-title { font-family: var(--font-editorial, "Cormorant Garamond", Georgia, serif); font-size: 1.35rem; line-height: 1.2; }
+.gc-way-text { margin-top: 0.25rem; font-size: 0.95rem; line-height: 1.6; color: rgb(from var(--color-ink) r g b / 0.74); }
+.night .gc-cta, .skin-1448 .night .gc-cta { background: #ece8df; color: #2e2d20; }
+.night .gc-photo { background: #3c3b2a; }
+.night .gc-way-glyph { color: #e2c98f; }
+.night .flight-scene { box-shadow: 0 0 0 1px rgb(233 210 156 / 0.14), 0 30px 60px -30px rgb(0 0 0 / 0.6); }
+.night .stay-media { background: rgb(255 248 238 / 0.05); }
+.night .stay-facts dt { color: #e2c98f; }
+
+/* --- One content width on desktop (20 Nov 2026: "the spacing on the desktop can be better") ----------------------
+   Every section of a poster trip sits in the same centred column, so left edges line up from chapter to chapter and
+   wide screens don't leave an empty right half. Long reading (questions, hosts) stays narrower inside it. */
+.pw { width: 100%; max-width: 72rem; margin-inline: auto; }
+@media (min-width: 64rem) {
+  .skin-1448 #nights, .skin-1448 .stay > div:first-child { box-sizing: border-box; max-width: calc(72rem + 2 * var(--hero-pad-x)); margin-inline: auto; }
+  .skin-1448 .stay-hotel { box-sizing: border-box; max-width: calc(72rem + 2 * var(--hero-pad-x)); margin-inline: auto; }
+  .skin-1448 .guest-close { box-sizing: border-box; max-width: calc(72rem + 2 * var(--hero-pad-x)); margin-inline: auto; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); align-items: start; padding-top: clamp(4rem, 7vw, 6rem); }
+  .skin-1448 .guest-close .gc-photo { position: sticky; top: 10.5rem; }
+  .skin-1448 .gc-ways { max-width: 38rem; }
+  .skin-1448 .gc-photo { max-width: 30rem; }
+  .skin-1448 .hosts { max-width: 52rem; }
+  .skin-1448 #faq { max-width: 56rem; }
+  .skin-1448 #register-interest > div { max-width: 72rem; margin-inline: auto; }
+  .skin-1448 .stay { padding-top: clamp(5rem, 8vw, 7rem); }
+  .skin-1448 .stay-hotel { margin-top: clamp(3.5rem, 6vw, 5.5rem); }
+}

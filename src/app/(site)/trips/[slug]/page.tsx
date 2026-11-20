@@ -169,6 +169,11 @@ export function TripView({ j }: { j: Journey }) {
             payments={payments}
             joinLabel={joinLabel}
           />
+          {j.verses?.open ? (
+            <div className={gutter}>
+              <VerseLine v={j.verses.open} className="verse-open" />
+            </div>
+          ) : null}
         </Chapter>
       ) : (
       <Chapter tone="top">
@@ -227,10 +232,10 @@ export function TripView({ j }: { j: Journey }) {
       {j.posterType ? (
         <GardenPath
           stops={[
+            ...(j.nights ? [{ id: "nights", label: "The nights", stage: "lantern" as const }] : []),
             ...(j.guestFeature ? [{ id: "sheikh", label: "Sheikh Yahya", stage: "quran" as const }] : []),
             { id: "journey", label: "The journey", stage: "kaaba" as const },
             ...(j.stay ? [{ id: "stay", label: "Where you’ll stay", stage: "minaret" as const }] : []),
-            ...(j.nights ? [{ id: "nights", label: "The nights", stage: "lantern" as const }] : []),
             ...(j.eid ? [{ id: "eid", label: "Eid", stage: "crescent" as const }] : []),
             ...(j.madinah ? [{ id: "madinah", label: "Madinah", stage: "dome" as const }] : []),
             { id: "prices", label: "Prices", stage: "star" as const },
@@ -239,56 +244,8 @@ export function TripView({ j }: { j: Journey }) {
         />
       ) : null}
 
-      {/* Poster trips (Jibril, 20 Nov 2026): Sheikh Yahya first and close; then the journey as you'd live it: the trip at a
-          glance, the overnight flight as a scene, getting there, and where you'll stay, high and large. The join panel
-          comes after the prices on every screen. */}
-      {j.posterType ? (
-        <Chapter tone="day">
-          <GardenLeaves count={9} seed={11} />
-          {j.verses?.open ? (
-            <div className={gutter}>
-              <VerseLine v={j.verses.open} className="verse-open" />
-            </div>
-          ) : null}
-          <GuestIntimate j={j} members={members} />
-          <div className={`pt-[clamp(3.5rem,8vw,6.5rem)] ${gutter}`}>
-            <section id="journey" className="trip-anchor max-w-[60rem]">
-              <Label>Our journey</Label>
-              {j.about ? (
-                <>
-                  <Heading className="mt-4 max-w-[48rem] text-[clamp(2.3rem,4.2vw,4rem)]">{j.about.title}</Heading>
-                  <p className="mt-4 max-w-[38rem] text-[1.05rem] leading-relaxed text-ink/75">{j.about.text}</p>
-                </>
-              ) : null}
-              {j.plan ? (
-                <div className="mt-8 sm:mt-10">
-                  <TripLine plan={j.plan} draw />
-                </div>
-              ) : null}
-              {j.forWho ? <ForWho items={j.forWho} /> : null}
-            </section>
-          </div>
-          {j.flightScene ? (
-            <div className={`mt-12 sm:mt-16 ${gutter}`}>
-              <FlightScene f={j.flightScene} />
-            </div>
-          ) : null}
-          {j.gettingThere && j.plan ? (
-            <div className={gutter}>
-              <JourneyPart
-                j={j}
-                id="flights"
-                label={j.gettingThere.label}
-                title={j.gettingThere.title}
-                intro={j.gettingThere.intro}
-                cards={[{ flight: 0 }, { flight: 1 }]}
-                className="mt-12 max-w-[60rem] sm:mt-16"
-              />
-            </div>
-          ) : null}
-          {j.stay && j.plan ? <StayShowcase j={j} s={j.stay} /> : null}
-        </Chapter>
-      ) : (
+      {/* Poster trips go straight from the hero into the night (Jibril, 20 Nov 2026): see the night chapter below. */}
+      {j.posterType ? null : (
       <Chapter tone="day">
         {j.posterType ? <GardenLeaves count={9} seed={11} /> : null}
       <div className={`grid grid-cols-1 gap-x-14 gap-y-12 py-[clamp(2.5rem,5vw,4.5rem)] lg:grid-cols-12 ${gutter}`}>
@@ -348,18 +305,7 @@ export function TripView({ j }: { j: Journey }) {
 
           {/* Poster trips: the people straight after the trip, as the best trip pages do (Sheikh Yahya is the draw),
               then Rawdah's own groups from earlier trips. */}
-          {j.posterType && j.gettingThere && j.plan ? (
-            <JourneyPart
-              j={j}
-              id="journey"
-              label={j.gettingThere.label}
-              title={j.gettingThere.title}
-              intro={j.gettingThere.intro}
-              cards={[{ flight: 0 }, { hotel: 0 }]}
-              line
-              className="mt-14 sm:mt-20"
-            />
-          ) : j.posterTeam ? (
+          {j.posterTeam ? (
             <section id="people" aria-label="The people on this trip" className="trip-anchor mt-12 sm:mt-16">
               <TripPeople j={j} members={members} />
             </section>
@@ -403,6 +349,52 @@ export function TripView({ j }: { j: Journey }) {
             <>
               {j.posterType ? <Nightfall>{j.verses?.nights ? <VerseLine v={j.verses.nights} className="verse-night" /> : null}</Nightfall> : null}
               {j.nights ? <HaramNights n={j.nights} /> : null}
+              {/* Poster trips, in the night after the nights (Jibril, 20 Nov 2026: "the dark… right under the hero and
+                  then the light for Medina again"): Sheikh Yahya, the journey, the flight, getting there, where you'll
+                  stay; then daybreak into the garden. */}
+              {j.posterType ? (
+                <>
+                  <GuestIntimate j={j} members={members} />
+                  <div className={`pt-[clamp(3.5rem,8vw,6.5rem)] ${gutter}`}>
+                    <section id="journey" className="trip-anchor pw">
+                      <Label>Our journey</Label>
+                      {j.about ? (
+                        <>
+                          <Heading className="mt-4 max-w-[48rem] text-[clamp(2.3rem,4.2vw,4rem)]">{j.about.title}</Heading>
+                          <p className="mt-4 max-w-[38rem] text-[1.05rem] leading-relaxed text-ink/75">{j.about.text}</p>
+                        </>
+                      ) : null}
+                      {j.plan ? (
+                        <div className="mt-8 sm:mt-10">
+                          <TripLine plan={j.plan} draw />
+                        </div>
+                      ) : null}
+                      {j.forWho ? <ForWho items={j.forWho} /> : null}
+                    </section>
+                  </div>
+                  {j.flightScene ? (
+                    <div className={`mt-12 sm:mt-16 ${gutter}`}>
+                      <div className="pw">
+                        <FlightScene f={j.flightScene} />
+                      </div>
+                    </div>
+                  ) : null}
+                  {j.gettingThere && j.plan ? (
+                    <div className={gutter}>
+                      <JourneyPart
+                        j={j}
+                        id="flights"
+                        label={j.gettingThere.label}
+                        title={j.gettingThere.title}
+                        intro={j.gettingThere.intro}
+                        cards={[{ flight: 0 }, { flight: 1 }]}
+                        className="pw mt-12 sm:mt-16"
+                      />
+                    </div>
+                  ) : null}
+                  {j.stay && j.plan ? <StayShowcase j={j} s={j.stay} /> : null}
+                </>
+              ) : null}
               {j.posterType ? (
                 <Daybreak>{j.verses?.eid ? <VerseLine v={j.verses.eid} className="verse-dawn" /> : null}</Daybreak>
               ) : (
@@ -442,7 +434,7 @@ export function TripView({ j }: { j: Journey }) {
         <Chapter tone="garden">
           <GardenLeaves count={22} seed={47} edges={false} className="gl-lush" />
           <div className={`py-[clamp(3.5rem,8vw,7rem)] ${gutter}`}>
-            <div className="max-w-[60rem]">
+            <div className="pw">
               {j.eid ? <EidSection e={j.eid} /> : null}
               {j.madinah ? (
                 <JourneyPart j={j} id="madinah" label={j.madinah.label} title={j.madinah.title} intro={j.madinah.intro} cards={[]} className="mt-16 sm:mt-24">
@@ -458,7 +450,7 @@ export function TripView({ j }: { j: Journey }) {
       <Chapter tone="day">
         {j.posterType ? <GardenLeaves count={7} seed={83} /> : null}
         <div className={`py-[clamp(3.75rem,9vw,8rem)] ${gutter}`}>
-          <div className="max-w-[60rem]">
+          <div className={j.posterType ? "pw" : "max-w-[60rem]"}>
             {/* Poster trips: who walks with you, after the journey (trust after desire), then our last trip. */}
             {j.posterType && j.posterTeam ? (
               <section id="people" aria-label="The people on this trip" className="trip-anchor">

@@ -93,7 +93,8 @@ is **not** identified on the site.
   early bird and portraits; its wording is "Last 10 days"); Sheikh Yahya's full-length portrait
   (`public/images/portraits/yahya-raaby-full.jpg`, from the same uploads); new fields `stay`, `flightScene`,
   `madinah.moments` and `heroGuest`, all from facts already on the page. `verses` (open: al-Bukhari 1782 and Muslim
-  1256; nights: Surah al-Qadr 97:3; eid: the takbir) and `closeVerse.ar`, checked 20 Nov 2026.
+  1256; nights: Surah al-Qadr 97:3; eid: the takbir) and `closeVerse.ar`, checked 20 Nov 2026. `guestFeature.ways`:
+  Jibril's words (he teaches, helps, close, every step of the way) with the page's facts; no session times named.
 - **Trust box** (trip pages, `trust` in `content.ts`): shows only the people on the trip and two buttons. Its
   numbers (years running, pilgrims taken, review rating and count) stay empty until Rawdah answers the
   questionnaire; never estimate them.

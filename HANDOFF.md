@@ -103,7 +103,9 @@ Code fixes are on `review/launch-fixes`. Jibril still has to:
    to the Garden (Madinah, where the Rawdah is), the garden path as its guide, leaves from the mark behind the words,
    a Rawdah-green Madinah chapter after daybreak, Ayuub and Issa featured as the hosts, the Rawdah hadith last.
    Second pass: the poster as the hero (with and without Sheikh Yahya, `heroGuest`), Sheikh Yahya close at the top,
-   the overnight flight as a scroll scene, both hotels in "Where you'll stay" high in the page.
+   the overnight flight as a scroll scene, both hotels in "Where you'll stay" high in the page. Then closer to the deen
+   (deen icons, Qur'an and hadith in Arabic at the story's turns) and night first: the dark chapter right under the
+   hero, Sheikh Yahya inside it with "With you every step of the way", the light again for Madinah.
 
 Review items left for later: focus moves between form steps, the Private page's thin FAQ and empty desktop column,
 desktop hero buttons on Private and Groups, Ramadan reveal facts (the 30 November instalment for late bookings, an
