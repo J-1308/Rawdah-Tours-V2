@@ -171,8 +171,11 @@ script in `app/layout.tsx` sets before first paint unless the visitor prefers re
   share one centred column (`.pw`, 72rem). The one-page header on desktop: the logo on the left, the trip line in the
   middle, WhatsApp and Book on the right (phones keep call, logo, WhatsApp). Rawdah's gold (ADR 0006, fifth pass):
   `--gilt`, `--gilt-light`, `--gilt-deep` on the poster skin, `.btn-gilt` for the main "Book your place", gold labels
-  and gold-edged night cards, headings at weight 520; the hero's package plaque is `.rp-pack`. Gold on olive and green,
-  never on black (The Umrah Company is gold on black). In one-page
+  and gold-edged night cards, headings at weight 520. Gold on olive and green, never on black (The Umrah Company is gold on black).
+  Sixth pass (ADR 0006): the package is its own section (`PackageSection`, `.pkg-*`, `j.pack.at` "day" or "night"),
+  never a card on the hero; gilt words in titles (`*asterisks*`, `gild` in `shell.tsx`, `.gild`); the garden path is a
+  deep olive band between gilt rules; hotels stand in gilt-lined arches with photo plates and the nights in a gilt star
+  (`HotelPlates`, `.stay-*`). In one-page
   mode the whole site wears the poster: `<html data-skin="1448">` turns the top strip, header and footer from cocoa
   to the poster's olive and stone, the logo stone, and the browser bar olive (`layout.tsx`, `globals.css`). One-page header: call, logo, WhatsApp on
   phones; the trip, logo, WhatsApp and "Book your place" on desktop (`src/lib/site-mode.ts`); what's included as photo cards (`IncludedCards`, `plan.cards`, "Photo to come" frames until Jibril

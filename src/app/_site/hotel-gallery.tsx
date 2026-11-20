@@ -72,3 +72,49 @@ export function HotelGallery({ photos, name }: { photos: { src: string; alt: str
     </div>
   );
 }
+
+/**
+ * A hotel, in Rawdah's way (Jibril, 20 Nov 2026: The Umrah Company "looks a bit more premium especially around… where
+ * you will stay"). The first photo stands tall in an arch with a fine gilt line inside it (the hosts' arches, the Rawdah's
+ * doors); every photo is a small plate beside it, and tapping one brings it into the arch. Returns two grid items (the
+ * arch and the plates), so the article lays them out: the plates under the arch on phones, under the words on desktop.
+ * Not The Umrah Company's wide photo over a row of three.
+ */
+export function HotelPlates({ photos, name, position }: { photos: { src: string; alt: string }[]; name: string; position?: string }) {
+  const [at, setAt] = useState(0);
+  return (
+    <>
+      <figure className="stay-arch">
+        {photos.map((p, i) => (
+          <Image
+            key={p.src}
+            src={p.src}
+            alt={i === at ? p.alt : ""}
+            aria-hidden={i !== at}
+            fill
+            sizes="(min-width: 1024px) 26rem, 90vw"
+            quality={85}
+            loading={i ? "lazy" : undefined}
+            className={`stay-arch-img object-cover ${i === 0 && position ? position : ""} ${i === at ? "is-on" : ""}`}
+          />
+        ))}
+      </figure>
+      {photos.length > 1 ? (
+        <div className="stay-plates" role="group" aria-label={`Photos of ${name}`}>
+          {photos.map((p, i) => (
+            <button
+              key={p.src}
+              type="button"
+              onClick={() => setAt(i)}
+              aria-label={`Show photo ${i + 1} of ${photos.length}: ${p.alt}`}
+              aria-pressed={i === at}
+              className="stay-plate"
+            >
+              <Image src={p.src} alt="" fill sizes="8rem" quality={60} className="object-cover" />
+            </button>
+          ))}
+        </div>
+      ) : null}
+    </>
+  );
+}

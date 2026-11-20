@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { HotelGallery } from "./hotel-gallery";
+import { HotelGallery, HotelPlates } from "./hotel-gallery";
 import { Fragment } from "react";
 
 import { PackageCards } from "@/app/_site/package-cards";
@@ -7,7 +7,7 @@ import { ICONS, PosterPerks } from "@/app/_site/poster-parts";
 import { PosterText } from "@/app/_site/poster-type";
 import { anchors, gbp, hajjNusuk, journeyStay, leader, people, say, teachers, trust, wa, type Journey, type Status, type StayPhoto, type TripPlan, type Verse } from "@/app/_site/content";
 import { Mark } from "@/app/_site/marks";
-import { Emblem, gutter, Heading, Label, Tick } from "@/app/_site/shell";
+import { Emblem, gild, gutter, Heading, Label, Tick } from "@/app/_site/shell";
 import { slot, slotFilled } from "@/app/_site/slots";
 import { ItineraryLink } from "@/app/_site/step-form";
 import { Chevron } from "@/app/_site/whatsapp";
@@ -525,7 +525,7 @@ export function WhyRawdah({ w }: { w: NonNullable<Journey["why"]> }) {
       <div className="mt-3 grid gap-6 sm:grid-cols-[minmax(0,1fr)_minmax(0,0.85fr)] sm:items-center">
         <div>
           <Heading className="text-[clamp(1.9rem,3.2vw,2.6rem)] leading-tight">
-            {w.title} <span lang="ar" dir="rtl" className="font-editorial text-bronze">{w.ar}</span>
+            {gild(w.title)} <span lang="ar" dir="rtl" className="font-editorial text-bronze">{w.ar}</span>
           </Heading>
           <p className="mt-3 text-[0.98rem] leading-relaxed text-ink/75">{w.text}</p>
           <p className="mt-1.5 text-[0.875rem] text-ink/55">{w.source}</p>
@@ -1185,7 +1185,7 @@ export function GuestIntimate({ j, members }: { j: Journey; members: Member[] })
         {g.bio ? <p className="gc-bio">{g.bio}</p> : null}
         {g.ways ? (
           <>
-            <h3 className="gc-ways-title">{g.ways.title}</h3>
+            <h3 className="gc-ways-title">{gild(g.ways.title)}</h3>
             <ol className="gc-ways">
               {g.ways.items.map((w, i) => (
                 <li key={w.title} data-reveal="" data-rv={String(i)}>
@@ -1212,70 +1212,78 @@ export function GuestIntimate({ j, members }: { j: Journey; members: Member[] })
 
 /**
  * Where you'll stay (Jibril, 20 Nov 2026: hotels "high in a section saying where you will stay… too minimalistic, we
- * want our reader to say wow"). Each hotel as a spread: its photos large (edge to edge on phones), the name big, three
- * facts at a glance, then the detail. Makkah, then Madinah, the second mirrored on desktop.
+ * want our reader to say wow"; then "The Umrah Company looks a bit more premium… where you will stay"). Each hotel as a
+ * spread: its first photo tall in a gilt-lined arch, every photo a plate that brings itself into the arch (HotelPlates),
+ * the name big, its nights in the gilt eight-pointed star, then the walk, the meals and the detail. Makkah, then Madinah,
+ * the second mirrored on desktop. No star ratings: the hotels' own ratings aren't stated.
  */
 export function StayShowcase({ j, s }: { j: Journey; s: NonNullable<Journey["stay"]> }) {
   const plan = j.plan!;
+  /** Rows the seal and the facts already show. */
+  const seal = ["Meals", "Nights", "Check in", "Check out"];
   return (
     <section id="stay" className="trip-anchor stay">
-      <div className={gutter}>
+      <div className={`stay-head ${gutter}`}>
         <Label>{s.label}</Label>
-        <Heading className="mt-4 max-w-[48rem] text-[clamp(2.3rem,4.2vw,4rem)]">{s.title}</Heading>
-        <p className="mt-4 max-w-[36rem] text-[1rem] leading-[1.65] text-ink/72">{s.intro}</p>
+        <Heading className="mt-4 max-w-[48rem] text-[clamp(2.4rem,4.6vw,4.4rem)]">{s.title}</Heading>
+        <p className="mt-4 max-w-[36rem] text-[1.02rem] leading-[1.7] text-ink/72">{s.intro}</p>
       </div>
       {plan.hotels.map((h, i) => {
         const meals = h.rows.find((r) => r.k === "Meals")?.v;
         const photos = slotFilled(h.slot) ? [{ src: slot(h.slot), alt: `${h.name}, ${h.city}.` }, ...(h.more ?? [])] : [];
+        const madinah = /madinah/i.test(h.city);
         return (
-          <article key={h.city} className={`stay-hotel ${i % 2 ? "stay-flip" : ""}`}>
-            {photos.length ? (
-              <div className="stay-media">
-                <HotelGallery name={h.name} photos={photos} />
-              </div>
-            ) : null}
-            <div className={`stay-text ${gutter}`}>
-              <p className={`flex items-center gap-2.5 ${eyebrow}`}>
-                <span className="grid size-9 place-items-center rounded-full border border-ink/15 text-bronze">
-                  <GardenGlyph stage={/madinah/i.test(h.city) ? "dome" : "kaaba"} className="size-[1.15rem]" />
+          <article key={h.city} className={`stay-hotel ${gutter} ${i % 2 ? "stay-flip" : ""}`} data-reveal="">
+            {photos.length ? <HotelPlates name={h.name} photos={photos} position={h.arch} /> : null}
+            <div className="stay-text">
+              <p className="stay-city">
+                <span className="stay-city-icon">
+                  <GardenGlyph stage={madinah ? "dome" : "kaaba"} className="size-[1.15rem]" />
                 </span>
                 {h.city}
               </p>
               <h3 className="stay-name">{h.name}</h3>
-              <dl className="stay-facts">
-                <div>
-                  <dt>{h.nights}</dt>
-                  <dd>nights</dd>
-                </div>
+              {/* The nights, in the eight-pointed star in gilt: Rawdah's own seal, not a badge. */}
+              <div className="stay-seal">
+                <span aria-hidden className="stay-seal-star">
+                  <GardenGlyph stage="star" className="size-full" />
+                  <b>{h.nights}</b>
+                </span>
+                <span className="stay-seal-words">
+                  <span className="sr-only">{h.nights} </span>
+                  nights
+                  {h.rows.find((r) => r.k === "Nights" || r.k === "Check in") ? (
+                    <small>
+                      {h.rows.find((r) => r.k === "Nights")?.v ??
+                        [h.rows.find((r) => r.k === "Check in")?.v, h.rows.find((r) => r.k === "Check out")?.v].filter(Boolean).join(" – ")}
+                    </small>
+                  ) : null}
+                </span>
+              </div>
+              <ul className="stay-facts">
                 {h.walk ? (
-                  <div>
-                    <dt>
-                      <Glyph d={h.walk.by === "foot" ? walker : bus} className="size-5" />
-                    </dt>
-                    <dd>{h.walk.text}</dd>
-                  </div>
+                  <li>
+                    <Glyph d={h.walk.by === "foot" ? walker : bus} className="size-5" />
+                    {h.walk.text}
+                  </li>
                 ) : null}
                 {meals ? (
-                  <div>
-                    <dt>
-                      <Glyph d={cup} className="size-5" />
-                    </dt>
-                    <dd>{meals}</dd>
-                  </div>
+                  <li>
+                    <Glyph d={cup} className="size-5" />
+                    {meals}
+                  </li>
                 ) : null}
-              </dl>
-              {h.about ? <p className="mt-5 text-[1rem] leading-relaxed text-ink/75">{h.about}</p> : null}
+              </ul>
+              {h.about ? <p className="stay-about">{h.about}</p> : null}
               {h.features ? (
-                <ul className="mt-4 flex flex-wrap gap-1.5">
+                <ul className="stay-features">
                   {h.features.map((f) => (
-                    <li key={f} className={pill}>
-                      {f}
-                    </li>
+                    <li key={f}>{f}</li>
                   ))}
                 </ul>
               ) : null}
-              <Rows rows={h.rows.filter((r) => r.k !== "Meals")} />
-              {h.note ? <p className="mt-3 text-[0.875rem] text-ink/62">{h.note}</p> : null}
+              {h.rows.some((r) => !seal.includes(r.k)) ? <Rows rows={h.rows.filter((r) => !seal.includes(r.k))} /> : null}
+              {h.note ? <p className="mt-4 text-[0.875rem] text-ink/62">{h.note}</p> : null}
             </div>
           </article>
         );

@@ -50,11 +50,22 @@ export function Label({ children, tone = "ink", className = "" }: { children: Re
   );
 }
 
-/** A Cormorant headline. */
+/**
+ * Gilt words in a headline (Jibril, 20 Nov 2026: "some colours in the font like The Umrah Company"). In copy, wrap the
+ * key words in asterisks: "Ten nights in *Makkah*". They take Rawdah's gilt, in the Cormorant italic: never The Umrah
+ * Company's upright bronze. `plain` strips the asterisks where a title is used as plain text.
+ */
+export function gild(text: ReactNode): ReactNode {
+  if (typeof text !== "string" || !text.includes("*")) return text;
+  return text.split(/\*([^*]+)\*/).map((part, i) => (i % 2 ? <em key={i} className="gild">{part}</em> : part));
+}
+export const plain = (text: string) => text.replace(/\*/g, "");
+
+/** A Cormorant headline. Words in asterisks come out in gilt. */
 export function Heading({ as: Tag = "h2", children, className = "", id }: { as?: "h1" | "h2" | "h3"; children: ReactNode; className?: string; id?: string }) {
   return (
     <Tag id={id} className={`display ${className}`}>
-      {children}
+      {gild(children)}
     </Tag>
   );
 }

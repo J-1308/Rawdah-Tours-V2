@@ -140,3 +140,32 @@ the golden. We need something similar."
   numerals in the night. Never on black.
 - **Type:** Rawdah's own families stay (Cormorant Garamond, DM Sans, the poster's Montserrat), distinct from theirs;
   headings take more weight (520) to hold the page.
+
+## Sixth pass: the package as a section, gilt words, a five-star stay (20 November 2026)
+
+Jibril: "I didn't want it as a pop up but an actual website section. I like the colours… I want some colours in the
+font like The Umrah Company… The Umrah Company looks a bit more premium, especially around where you will stay… the
+sticky bar… contrast more with the hero, sectioning it… test a lighter package section then into the animation, or
+straight into the animation and that part will be the package part."
+
+- **The package is a section, not a card** (`PackageSection` in `poster-hero.tsx`, `.pkg-*`): full width, after the
+  hero and the garden path. A label, a headline with gilt words ("Fourteen nights, *the last ten in Makkah*", after
+  the poster's "Last 10 days"), the package note, the six main points (dates and nights, both hotels, Saudia, Eid,
+  Sheikh Yahya) with gilt-ringed icons on fine rules (two columns on desktop), then the price and the buttons. Two
+  places to compare, `j.pack.at`: `"day"`, a lighter ivory section that fades back to stone so the nightfall's veil
+  carries on from it; `"night"`, the first thing the night shows after the Laylat al-Qadr verse. Not wrapped in its
+  own chapter, so the night keeps a square top and the veil has no corners.
+- **The hero** keeps the poster; beside it on desktop a kicker (Ramadan Umrah 2027 with GGC), the headline "The last
+  ten days of Ramadan, *in Makkah*", a line, the price and the buttons. Phones show only the price and the buttons
+  under the poster (it says the rest); the headline stays for screen readers.
+- **Gilt words** (`gild` and `plain` in `shell.tsx`, `.gild`): words in asterisks in a title come out in Rawdah's
+  gilt, in the Cormorant italic; a deep gilt on stone (3:1 at the top of its fall), a light one in the night. The big
+  prices take the same gilt. Not The Umrah Company's upright bronze words in its display face.
+- **The garden path as a band** (`.skin-1448 .garden-path`): deep olive between fine gilt rules, cream chapters with
+  gilt stages, the current chapter as the gilt button. It closes the hero off, and under the header its upper rule
+  keeps the two apart. A new first stop, "The package".
+- **Where you'll stay, five-star** (`StayShowcase`, `HotelPlates` in `hotel-gallery.tsx`): each hotel's first photo
+  stands tall in an arch with a fine gilt line inside (the hosts' arches), its other photos are plates that bring
+  themselves into the arch, the name large, its nights in the gilt eight-pointed star with the dates, the walk and the
+  meals with gilt icons, the detail, gilt diamonds for the features. The arch opens as it comes into view. No star
+  ratings: the hotels' own aren't stated. Not The Umrah Company's wide photo over a row of three with a gold badge.

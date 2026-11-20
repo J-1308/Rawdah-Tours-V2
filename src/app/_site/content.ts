@@ -628,7 +628,7 @@ export type TripPlan = {
   marker?: { after: number; text: string };
   flights: { dir: "Outbound" | "Return"; date: string; airline: string; route: string; code: string; rows: { k: string; v: string }[]; note?: string; /** The night is spent flying (counts as a night away). */ overnight?: boolean }[];
   /** `walk`: how far from the Haram; `about`: two sentences; `features`: short chips. From the hotels' own listings. */
-  hotels: { city: string; nights: number; name: string; /** Not shown on poster trips. */ stars?: number; slot: string; more?: { src: string; alt: string }[]; walk?: { text: string; by: "foot" | "shuttle" }; about?: string; features?: string[]; rows: { k: string; v: string }[]; note?: string }[];
+  hotels: { city: string; nights: number; name: string; /** Not shown on poster trips. */ stars?: number; slot: string; more?: { src: string; alt: string }[]; walk?: { text: string; by: "foot" | "shuttle" }; /** Where the first photo sits in the tall arch (object-position). */ arch?: string; about?: string; features?: string[]; rows: { k: string; v: string }[]; note?: string }[];
   notes: { tone: "moon" | "alert"; text: string }[];
   includes: V[];
   /** One line under the list, e.g. what the ground-only package leaves out. */
@@ -700,6 +700,12 @@ export type Journey = {
   hostsTitle?: string;
   /** Poster trips: the special guest stands in front of the poster in the hero (two versions, Jibril 20 Nov 2026). */
   heroGuest?: boolean;
+  /**
+   * Poster trips: the package as its own section, right after the hero (Jibril, 20 Nov 2026: "not a pop up but an
+   * actual website section"). Two to compare: "day", a lighter section before the night; "night", the night itself
+   * opens with it.
+   */
+  pack?: { at: "day" | "night"; label: string; title: string };
   /** One line under "Your hosts" (poster trips). */
   hostsIntro?: string;
   /* The garden (Jibril, 20 Nov 2026; docs/adr/0006-the-garden.md): the page in the order you'd live the trip. */
@@ -829,7 +835,7 @@ export const ramadanFull: Journey = {
     posterType: true,
     heroLine: "The last ten nights in Makkah, then Eid and four nights in Madinah.",
     about: {
-      title: "Ramadan in Makkah, Eid in Madinah",
+      title: "Ramadan in *Makkah*, Eid in *Madinah*",
       text: "Fly from Heathrow on 27 February, straight to Makkah for the last ten nights of Ramadan. Then Eid in the blessed lands and four nights in Madinah, home on 13 March.",
     },
     /** The team as on the poster: role in capitals over the name (19 Nov 2026). */
@@ -865,7 +871,7 @@ export const ramadanFull: Journey = {
          way". Kept at that level, with the page's facts (up to 60 places; three teachers with the group). Rawdah to
          confirm any session times or formats before they are named. */
       ways: {
-        title: "With you every step of the way",
+        title: "With you *every step* of the way",
         items: [
           { title: "He teaches as you go", text: "Reminders and lessons through the trip, from the rites of Umrah to the meaning of the last ten nights." },
           { title: "He’s there to help", text: "With the group in Makkah and Madinah, to guide you through your Umrah and answer your questions." },
@@ -877,27 +883,29 @@ export const ramadanFull: Journey = {
     },
     hostsTitle: "Your hosts",
     heroGuest: true,
+    /* Facts from the plan; the title after the poster's "Last 10 days". Gilt words in asterisks (shell.tsx gild). */
+    pack: { at: "day", label: "The package", title: "Fourteen nights, *the last ten in Makkah*" },
     hostsIntro: "Rawdah’s two co-founders, with the group the whole way.",
     /* Facts only, from the plan below and the FAQs (Eid on Tue 9 or Wed 10 March; Makkah to Madinah on Tue 9 March). */
     gettingThere: {
       label: "Getting there",
-      title: "Saudia, from London Heathrow",
+      title: "*Saudia*, from London Heathrow",
       intro: "An overnight flight on Saturday 27 February, straight to Makkah on arrival; home from Madinah on Saturday 13 March.",
     },
     flightScene: { from: "London Heathrow", fromWhen: "Sat 27 Feb · 22:05", to: "Jeddah", toWhen: "Sun 28 Feb · 07:10" },
     stay: {
       label: "Where you’ll stay",
-      title: "Ten nights in Makkah, four in Madinah",
+      title: "Ten nights in *Makkah*, four in *Madinah*",
       intro: "Novotel Thakher City in Makkah, with its shuttle to the Haram, then Al Manakha Rotana, a short walk from Masjid an-Nabawi.",
     },
     eid: {
       label: "After the last ten nights",
-      title: "Eid in the blessed lands",
+      title: "Eid in *the blessed lands*",
       text: "Eid al-Fitr falls on Tuesday 9 or Wednesday 10 March, as the moon is sighted. Either way, you spend it in the blessed lands, then go on to Madinah.",
     },
     madinah: {
       label: "Madinah",
-      title: "Four nights in Madinah",
+      title: "Four nights in *Madinah*",
       intro: "In the city of the Prophet ﷺ, where the Rawdah is: an 8-minute walk to Masjid an-Nabawi, then home on Saturday 13 March.",
       moments: [
         { title: "Madinah ziyarah", text: "Visits to the historic sites of Madinah." },
@@ -918,7 +926,7 @@ export const ramadanFull: Journey = {
     },
     nights: {
       label: "Ramadan in the Haram",
-      title: "The last ten nights, at the House of Allah",
+      title: "The last ten nights, at *the House of Allah*",
       intro: "Ten nights in Makkah for the last ten of Ramadan, then Eid in the blessed lands.",
       items: [
         { title: "Taraweeh in the Haram", text: "Each night after Isha, behind the imams of Masjid al-Haram." },
@@ -964,7 +972,7 @@ export const ramadanFull: Journey = {
     ],
     why: {
       label: "Why Rawdah",
-      title: "Rawdah means garden.",
+      title: "Rawdah means *garden*.",
       ar: "روضة",
       text: "In the Prophet’s Mosque in Madinah, the space between his house and his minbar is called al-Rawdah. The Prophet ﷺ described it as a garden from the gardens of Paradise.",
       source: "Reported by al-Bukhari and Muslim.",
@@ -1060,6 +1068,7 @@ export const ramadanFull: Journey = {
           nights: 10,
           name: "Novotel Thakher City Makkah",
           slot: "hotel-novotel-thakher",
+          arch: "object-[64%_50%]",
           /* The hotel's own photos (Accor), sent by Jibril 16 Nov 2026. The first is the slot photo. */
           more: [
             { src: "/images/hotels/novotel-thakher-room.jpg", alt: "A room at Novotel Thakher City Makkah." },
@@ -1084,6 +1093,7 @@ export const ramadanFull: Journey = {
           nights: 4,
           name: "Al Manakha Rotana",
           slot: "hotel-al-manakha-rotana",
+          arch: "object-[52%_50%]",
           /* The hotel's own photos (from its Hotels.com listing), sent by Jibril 16 Nov 2026. The first is the slot photo. */
           more: [
             { src: "/images/hotels/al-manakha-rotana-room-view.jpg", alt: "A room at Al Manakha Rotana, with the minarets of Masjid an-Nabawi outside." },

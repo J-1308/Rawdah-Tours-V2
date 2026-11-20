@@ -13,7 +13,7 @@ import { Mark } from "@/app/_site/marks";
 import { ArrivalTrigger } from "@/app/_site/arrival-trigger";
 import { Arrival, Mist } from "@/app/_site/poster-parts";
 import { PosterLockup, PosterText } from "@/app/_site/poster-type";
-import { PosterHero } from "@/app/_site/poster-hero";
+import { PackageSection, PosterHero } from "@/app/_site/poster-hero";
 import { Daybreak, FlightScene, Nightfall } from "@/app/_site/night-sky";
 import { GardenLeaves } from "@/app/_site/garden";
 import { GardenPath } from "@/app/_site/garden-path";
@@ -146,6 +146,18 @@ export function TripView({ j }: { j: Journey }) {
     { k: price ? "From" : "Prices", v: price ? `${gbp(price)} per person` : "Published on Nusuk", s: j.rooms?.status ?? j.priceNote?.status },
   ];
 
+  /** The price and the buttons, as the hero and the package section show them (poster trips). */
+  const buy = {
+    j,
+    guest,
+    price: price ? gbp(price) : undefined,
+    ended: j.endedOffer ? `${j.endedOffer.label} ${gbp(j.endedOffer.price)}` : undefined,
+    ground: Number.isFinite(ground) ? gbp(ground) : undefined,
+    deposit: trip?.pricing ? gbp(trip.pricing.depositPence / 100) : undefined,
+    payments,
+    joinLabel,
+  };
+
   return (
     // The poster skin (Ramadan Umrah 2027): the page below the header takes the poster's stone and olive; the header
     // and footer stay Rawdah's (globals.css, "The poster skin").
@@ -159,16 +171,7 @@ export function TripView({ j }: { j: Journey }) {
       <TripPhoneBar j={j} price={price} deposit={trip?.pricing ? trip.pricing.depositPence / 100 : null} bookable={bookable} />
       {j.posterType ? (
         <Chapter tone="day">
-          <PosterHero
-            j={j}
-            guest={guest}
-            price={price ? gbp(price) : undefined}
-            ended={j.endedOffer ? `${j.endedOffer.label} ${gbp(j.endedOffer.price)}` : undefined}
-            ground={Number.isFinite(ground) ? gbp(ground) : undefined}
-            deposit={trip?.pricing ? gbp(trip.pricing.depositPence / 100) : undefined}
-            payments={payments}
-            joinLabel={joinLabel}
-          />
+          <PosterHero {...buy} />
         </Chapter>
       ) : (
       <Chapter tone="top">
@@ -227,6 +230,7 @@ export function TripView({ j }: { j: Journey }) {
       {j.posterType ? (
         <GardenPath
           stops={[
+            ...(j.pack ? [{ id: "package", label: "The package", stage: "gate" as const }] : []),
             ...(j.nights ? [{ id: "nights", label: "The nights", stage: "lantern" as const }] : []),
             ...(j.guestFeature ? [{ id: "sheikh", label: "Sheikh Yahya", stage: "quran" as const }] : []),
             { id: "journey", label: "The journey", stage: "kaaba" as const },
@@ -238,6 +242,11 @@ export function TripView({ j }: { j: Journey }) {
           ]}
         />
       ) : null}
+
+      {/* The package as its own section (Jibril, 20 Nov 2026): here, a lighter section before the night ("day"), or the
+          first thing in the night ("night", below). */}
+      {/* Not a chapter of its own: the night after it keeps its square top, so the nightfall's veil has no corners. */}
+      {j.posterType && j.pack?.at === "day" ? <PackageSection {...buy} /> : null}
 
       {/* Poster trips go straight from the hero into the night (Jibril, 20 Nov 2026): see the night chapter below. */}
       {j.posterType ? null : (
@@ -343,6 +352,7 @@ export function TripView({ j }: { j: Journey }) {
           j.plan ? (
             <>
               {j.posterType ? <Nightfall>{j.verses?.nights ? <VerseLine v={j.verses.nights} className="verse-night" /> : null}</Nightfall> : null}
+              {j.posterType && j.pack?.at === "night" ? <PackageSection {...buy} /> : null}
               {j.nights ? <HaramNights n={j.nights} /> : null}
               {/* Poster trips, in the night after the nights (Jibril, 20 Nov 2026: "the dark… right under the hero and
                   then the light for Medina again"): Sheikh Yahya, the journey, the flight, getting there, where you'll
