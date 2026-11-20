@@ -20,7 +20,7 @@ import { GardenPath } from "@/app/_site/garden-path";
 import { StepForm } from "@/app/_site/step-form";
 import { ReservePanel } from "@/app/_site/reserve";
 import { Chapter, ConfirmedPending, gutter, Heading, Label, Logo, PageLead, PartnerLogo, WaTile } from "@/app/_site/shell";
-import { ForWho, GroupStrip, PosterPackages, HaramNights, WhyRawdah, HajjOnNusuk, OtherTripBand, PastTrips, leaderMember, MomentStrip, TeamLine, TripPeople, TeamList, tripTeacherMembers, teamMembers, TripIncludes, TrustBox, TripJourney, JourneyPart, EidSection, ClosingVerse, GuestIntimate, StayShowcase, MadinahMoments, TripLine, VerseLine, TripPackages, WhereYouStay, type Member } from "@/app/_site/trip-parts";
+import { ForWho, GroupStrip, PosterPackages, HaramNights, WhyRawdah, HajjOnNusuk, OtherTripBand, PastTrips, leaderMember, MomentStrip, TeamLine, TripPeople, TeamList, tripTeacherMembers, teamMembers, TripIncludes, TrustBox, TripJourney, JourneyPart, EidSection, ClosingVerse, GuestIntimate, StayShowcase, MadinahMoments, VerseLine, TripPackages, WhereYouStay, type Member } from "@/app/_site/trip-parts";
 import { StateTag } from "@/app/_site/trip-row";
 import { Chevron } from "@/app/_site/whatsapp";
 import { getTrip, isBookable, isDemoBooking } from "@/lib/trips";
