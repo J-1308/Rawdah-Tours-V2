@@ -7,7 +7,11 @@ import type { CSSProperties } from "react";
  * backdrop, and the crown. See docs/adr/0006-the-garden.md.
  */
 
-export type Stage = "seed" | "sprout" | "palm" | "crescent" | "garden" | "leaf" | "bloom" | "gate";
+export type Stage =
+  | "seed" | "sprout" | "palm" | "crescent" | "garden" | "leaf" | "bloom" | "gate"
+  /* Closer to the deen (Jibril, 20 Nov 2026: "a bit more spiritual… as close as possible"): the Ka‘bah, a Ramadan
+     lantern, the Green Dome, a minaret, a mus‘haf on its rehal, the eight-pointed star, a mihrab. */
+  | "kaaba" | "lantern" | "dome" | "minaret" | "quran" | "star" | "mihrab";
 
 /** One stage of the garden, in a 24-unit square, in the current colour. */
 export function GardenGlyph({ stage, className = "" }: { stage: Stage; className?: string }) {
@@ -44,6 +48,53 @@ export function GardenGlyph({ stage, className = "" }: { stage: Stage; className
         </>
       ) : stage === "leaf" ? (
         <GardenCrownPaths />
+      ) : stage === "kaaba" ? (
+        <>
+          {/* The Ka‘bah from a corner; the gap across both faces is the gold band of the kiswah. */}
+          <path d="M4 8.6 10.6 6.6 20.4 8.6 13.8 10.6z" opacity=".5" />
+          <path d="M4 9.2 13.6 11.2v1.9L4 11.1z" />
+          <path d="M4 12.7 13.6 14.7V21L4 19z" />
+          <path d="M14.2 11.2 20.4 9.2v1.9l-6.2 2z" opacity=".72" />
+          <path d="M14.2 14.7 20.4 12.7V19l-6.2 2z" opacity=".72" />
+        </>
+      ) : stage === "lantern" ? (
+        <>
+          <circle cx="12" cy="2.9" r="1.15" fill="none" stroke="currentColor" strokeWidth="1.1" />
+          <path d="M8.6 7.3C9 5.3 10.4 4.1 12 4.1s3 1.2 3.4 3.2z" />
+          <path fillRule="evenodd" d="M8 8h8l-1.1 9.8H9.1zm2.3 1.9h3.4l-.6 6h-2.2z" />
+          <path d="M8.4 18.5h7.2v1.5H8.4zM11 20.6h2l-1 1.8z" />
+        </>
+      ) : stage === "dome" ? (
+        <>
+          {/* The Green Dome: its crescent finial, the dome, its drum and base. */}
+          <path d="M11.4 1.8a1.6 1.6 0 1 0 1.6 2.2 1.3 1.3 0 0 1-1.6-2.2zM11.6 4.6h.8v1.3h-.8z" />
+          <path d="M5.3 14.2C5.3 9.4 8.2 6.4 12 6s6.7 3.4 6.7 8.2z" />
+          <path d="M5.8 15h12.4v2.6H5.8zM4 18.3h16v3.2H4z" />
+        </>
+      ) : stage === "minaret" ? (
+        <>
+          <path d="M12 1.6 13.8 6.2h-3.6z" />
+          <path d="M10.4 6.8h3.2v3.4h-3.2zM8.8 10.6h6.4v1.7H8.8z" />
+          <path fillRule="evenodd" d="M9.6 12.8h4.8v8.7H9.6zm1.7 2.1h1.4v2.6h-1.4z" />
+        </>
+      ) : stage === "quran" ? (
+        <>
+          {/* A mus‘haf open on its rehal. */}
+          <path d="M12 9.2c-2.3-1.4-5.2-1.6-7.8-.6v6.3c2.6-1 5.5-.8 7.8.7zM12 9.2c2.3-1.4 5.2-1.6 7.8-.6v6.3c-2.6-1-5.5-.8-7.8.7z" />
+          <path d="M5.5 21.5 18 14.6M18.5 21.5 6 14.6" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+        </>
+      ) : stage === "star" ? (
+        <>
+          {/* The eight-pointed star (two squares, one turned): a common ornament of Islamic art. */}
+          <path d="M5.6 5.6h12.8v12.8H5.6z" />
+          <path d="M12 2.9 21.1 12 12 21.1 2.9 12z" />
+        </>
+      ) : stage === "mihrab" ? (
+        <g fill="none" stroke="currentColor" strokeLinecap="round">
+          <path d="M4.8 21.5V11.2c0-3.6 3-6.3 7.2-8.4 4.2 2.1 7.2 4.8 7.2 8.4v10.3" strokeWidth="1.8" />
+          <path d="M8.6 21.5v-8.6c0-2.2 1.4-3.6 3.4-4.7 2 1.1 3.4 2.5 3.4 4.7v8.6" strokeWidth="1.3" />
+          <circle cx="12" cy="14.4" r="1" fill="currentColor" stroke="none" />
+        </g>
       ) : stage === "bloom" ? (
         <>
           <ellipse cx="12" cy="7.2" rx="2.7" ry="4.1" />

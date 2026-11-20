@@ -1116,7 +1116,7 @@ details > summary::-webkit-details-marker { display: none; }
    A band of sky at the top of the night chapter. Without scroll-linked animation (or motion) it is a still night: the
    stars, the crescent and the ten stars of the last ten nights. With it, as the band scrolls in, the day's stone light
    drains away, the crescent rises, the sky fills and the ten stars come out one by one. */
-.nightfall { position: relative; height: clamp(15rem, 46vh, 28rem); margin-bottom: calc(-1 * clamp(5rem, 12vw, 9rem)); pointer-events: none; }
+.nightfall { position: relative; height: clamp(23rem, 66vh, 36rem); margin-bottom: calc(-1 * clamp(3rem, 7vw, 6rem)); pointer-events: none; }
 .nightfall .sky { -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 55%, transparent 100%); mask-image: linear-gradient(to bottom, #000 0%, #000 55%, transparent 100%); }
 .nf-moon { position: absolute; top: 12%; right: 9%; width: clamp(4.5rem, 15vw, 9.5rem); height: auto; }
 .nf-ten { position: absolute; inset: 8% 4% 30%; }
@@ -1210,7 +1210,7 @@ html.motion .garden-path [data-state="here"] .gp-glyph { animation: gp-grow 0.9s
 }
 
 /* Daybreak: stars go out, gold rises, then the garden sheet comes up over it. */
-.daybreak { position: relative; height: clamp(11rem, 32vh, 20rem); margin-top: clamp(1rem, 4vw, 3rem); pointer-events: none; }
+.daybreak { position: relative; height: clamp(20rem, 56vh, 30rem); margin-top: clamp(1rem, 4vw, 3rem); pointer-events: none; }
 .daybreak .sky { -webkit-mask-image: linear-gradient(to bottom, #000 0%, transparent 80%); mask-image: linear-gradient(to bottom, #000 0%, transparent 80%); opacity: 0.55; }
 .db-dawn { position: absolute; inset: 0; background: linear-gradient(to bottom, transparent 0%, rgb(160 132 74 / 0.18) 45%, rgb(236 214 158 / 0.55) 100%); }
 @supports (animation-timeline: view()) {
@@ -1409,4 +1409,47 @@ html.motion .hosts .rv.in .host-arch img { transform: none; }
 @supports (animation-timeline: view()) {
   @keyframes db-grow { from { transform: scaleY(0) scaleX(0.6); opacity: 0; } to { transform: none; opacity: 1; } }
   html.motion .db-plant { animation: db-grow linear both; animation-timeline: --daybreak; animation-range: cover calc(30% + var(--n) * 3%) cover calc(52% + var(--n) * 3%); }
+}
+
+/* === Closer to the deen (20 Nov 2026) ===========================================================================
+   Words of the deen at the story's turns (VerseLine): the Arabic large in Amiri, its meaning in the serif, its source
+   small, under an eight-pointed star. After the hero: the hadith of Umrah in Ramadan. In the nightfall, under the arch
+   of ten stars: Laylat al-Qadr (97:3). At daybreak: the takbir of Eid. Last: the Rawdah hadith. */
+.verse { display: grid; justify-items: center; margin: 0 auto; max-width: 40rem; text-align: center; }
+.verse-star { width: 1.05rem; height: 1.05rem; color: var(--color-gold); opacity: 0.85; }
+.verse blockquote { margin: 0; }
+.verse-ar { margin-top: 0.85rem; font-family: var(--font-arabic); font-size: clamp(1.9rem, 7.4vw, 3rem); line-height: 1.75; color: var(--color-ink); text-wrap: balance; }
+.verse-text { margin-top: 0.15rem; font-family: var(--font-editorial, "Cormorant Garamond", Georgia, serif); font-size: clamp(1.15rem, 4.2vw, 1.5rem); font-style: italic; line-height: 1.35; color: rgb(from var(--color-ink) r g b / 0.8); text-wrap: balance; }
+.verse-source { margin-top: 0.65rem; font-size: 0.82rem; letter-spacing: 0.04em; color: rgb(from var(--color-ink) r g b / 0.58); }
+.verse-open { padding-block: clamp(3rem, 8vw, 5rem) clamp(1.5rem, 4vw, 3rem); }
+/* In the night bands: light words, a soft gold glow, fading in with the sky. */
+.nf-verse, .db-verse { position: absolute; z-index: 3; left: var(--hero-pad-x); right: var(--hero-pad-x); }
+.nf-verse { top: 47%; }
+.db-verse { top: 16%; }
+.verse-night .verse-star, .verse-dawn .verse-star { display: none; }
+.verse-night .verse-ar, .verse-dawn .verse-ar { margin-top: 0; color: #f4ecd6; text-shadow: 0 0 26px rgb(233 210 156 / 0.28); }
+.verse-night .verse-text, .verse-dawn .verse-text { color: rgb(244 236 214 / 0.82); }
+.verse-night .verse-source, .verse-dawn .verse-source { color: rgb(244 236 214 / 0.6); }
+.verse-dawn .verse-ar { font-size: clamp(1.45rem, 5.4vw, 2.2rem); line-height: 1.9; }
+@supports (animation-timeline: view()) {
+  @keyframes verse-in { from { opacity: 0; transform: translate3d(0, 0.8rem, 0); } to { opacity: 1; transform: none; } }
+  html.motion .nf-verse { animation: verse-in linear both; animation-timeline: --nightfall; animation-range: cover 46% cover 62%; }
+  html.motion .db-verse { animation: verse-in linear both; animation-timeline: --daybreak; animation-range: cover 22% cover 42%; }
+}
+
+/* The last words: the Rawdah hadith in Arabic over its meaning. */
+.cv-ar { margin-top: 1.3rem; font-family: var(--font-arabic); font-size: clamp(1.7rem, 6.2vw, 2.6rem); line-height: 1.85; color: var(--color-ink); text-wrap: balance; }
+.cv-ar + .cv-text { margin-top: 0.35rem; font-size: clamp(1.35rem, 3.6vw, 2rem); }
+
+/* The nights, numbered in Arabic numerals inside the eight-pointed star. */
+.nights-star { position: relative; display: grid; width: 2.5rem; height: 2.5rem; place-items: center; }
+.ns-star { position: absolute; inset: 0; width: 100%; height: 100%; color: rgb(233 210 156 / 0.16); }
+.nights-star > span { position: relative; font-family: var(--font-arabic); font-size: 1.2rem; line-height: 1; letter-spacing: 0; color: #e9d29c; }
+
+/* Behind the night chapter, faint: a lattice of eight-pointed stars. */
+.skin-1448 .chapter.night {
+  background:
+    var(--chapter-glow),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='88' height='88' viewBox='0 0 88 88'%3E%3Cg fill='none' stroke='%23e9d29c' stroke-opacity='0.055' stroke-width='1'%3E%3Cpath d='M32 32h24v24H32z'/%3E%3Cpath d='M44 27l17 17-17 17-17-17z'/%3E%3Cpath d='M0 44h27M61 44h27M44 0v27M44 61v27'/%3E%3C/g%3E%3C/svg%3E"),
+    var(--color-canvas);
 }
