@@ -1,5 +1,7 @@
 import type { CSSProperties } from "react";
 
+import { GardenCrown } from "@/app/_site/garden";
+
 /**
  * A Ramadan night sky for the Ramadan Umrah 2027 page (Jibril, 17 Nov 2026: the client values good animation):
  * small stars that twinkle in three groups out of step, and on the page head a crescent that fades in.
@@ -79,9 +81,11 @@ const TEN = Array.from({ length: 10 }, (_, i) => {
  * the last ten nights, the odd ones gold. Tied to scrolling where the browser can (globals.css, "nightfall"); otherwise,
  * and with reduced motion, it is simply a night sky.
  */
-export function Nightfall() {
+export function Nightfall({ children }: { children?: React.ReactNode }) {
   return (
-    <div aria-hidden className="nightfall">
+    <div className="nightfall">
+      {children ? <div className="nf-verse">{children}</div> : null}
+      <div aria-hidden className="nf-art">
       <NightSky count={54} seed={27} className="nf-sky" />
       <svg className="nf-moon" viewBox="0 0 100 100">
         <defs>
@@ -103,6 +107,75 @@ export function Nightfall() {
         ))}
       </span>
       <span className="nf-dusk" />
+      </div>
+    </div>
+  );
+}
+
+/**
+ * Daybreak, at the foot of the night chapter, before Eid (20 Nov 2026): the nightfall in reverse. As it scrolls past,
+ * the stars go out and a gold light rises from below, and the garden chapter comes up over it. Still where scroll
+ * timelines aren't supported, and with reduced motion: a night sky warming at the bottom.
+ */
+export function Daybreak({ children }: { children?: React.ReactNode }) {
+  return (
+    <div className="daybreak">
+      {children ? <div className="db-verse">{children}</div> : null}
+      <div aria-hidden className="db-art">
+      <NightSky count={40} seed={30} className="db-sky" />
+      <span className="db-dawn" />
+      {/* The garden grows up into Madinah: the mark's crown, a row of them, rising with the light. */}
+      <span className="db-garden">
+        {GROW.map((g, i) => (
+          <GardenCrown key={i} className="db-plant" style={{ left: `${g.x}%`, height: `${g.h}rem`, "--n": i } as CSSProperties} />
+        ))}
+      </span>
+      </div>
+    </div>
+  );
+}
+
+const GROW = [
+  { x: 4, h: 2.2 }, { x: 13, h: 3.4 }, { x: 22, h: 2.6 }, { x: 33, h: 4 }, { x: 44, h: 2.8 },
+  { x: 55, h: 3.6 }, { x: 66, h: 2.4 }, { x: 76, h: 3.8 }, { x: 87, h: 2.7 }, { x: 95, h: 3.2 },
+];
+
+/**
+ * The overnight flight, as a scene that plays as you scroll past it (Jibril, 20 Nov 2026: the last-ten-nights
+ * animation "earlier… with the journey"). A window on the sky: dusk over London, night with the stars and the plane
+ * crossing on its arc, then dawn and the clock tower rising at the far end. Still without scroll timelines or motion:
+ * the night, the plane mid-way, both ends labelled.
+ */
+export function FlightScene({ f }: { f: { from: string; fromWhen: string; to: string; toWhen: string } }) {
+  return (
+    <div className="flight-scene" role="img" aria-label={`The overnight flight: ${f.from}, ${f.fromWhen}, to ${f.to}, ${f.toWhen}.`}>
+      <span className="fs-sky fs-dusk" />
+      <span className="fs-sky fs-night" />
+      <NightSky count={34} seed={9} className="fs-stars" />
+      <span className="fs-sky fs-dawn" />
+      <svg className="fs-route" viewBox="0 0 1000 300" preserveAspectRatio="none" aria-hidden>
+        <path d="M70 250 Q500 10 930 250" fill="none" stroke="currentColor" strokeWidth="1.5" strokeDasharray="2 9" vectorEffect="non-scaling-stroke" />
+        <path className="fs-trail" d="M70 250 Q500 10 930 250" pathLength={1} fill="none" stroke="currentColor" strokeWidth="2" vectorEffect="non-scaling-stroke" />
+      </svg>
+      <span className="fs-plane-x" aria-hidden>
+        <span className="fs-plane-y">
+          <svg viewBox="0 0 24 24" className="fs-plane">
+            <path fill="currentColor" d="M21 16v-2l-8-5V3.5a1.5 1.5 0 0 0-3 0V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5z" />
+          </svg>
+        </span>
+      </span>
+      <svg className="fs-tower" viewBox="0 0 60 160" aria-hidden>
+        <path fill="currentColor" d="M28 0h4l1 14h2v10h3v18h4v40h6v88H12V82h6V42h4V24h3V14h2z" />
+        <circle cx="30" cy="54" r="6" fill="#e9d29c" />
+      </svg>
+      <p className="fs-end fs-from">
+        <span>{f.from}</span>
+        {f.fromWhen}
+      </p>
+      <p className="fs-end fs-to">
+        <span>{f.to}</span>
+        {f.toWhen}
+      </p>
     </div>
   );
 }

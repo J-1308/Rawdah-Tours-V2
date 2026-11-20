@@ -14,11 +14,13 @@ import { ArrivalTrigger } from "@/app/_site/arrival-trigger";
 import { Arrival, Mist } from "@/app/_site/poster-parts";
 import { PosterLockup, PosterText } from "@/app/_site/poster-type";
 import { PosterHero } from "@/app/_site/poster-hero";
-import { Nightfall } from "@/app/_site/night-sky";
+import { Daybreak, FlightScene, Nightfall } from "@/app/_site/night-sky";
+import { GardenLeaves } from "@/app/_site/garden";
+import { GardenPath } from "@/app/_site/garden-path";
 import { StepForm } from "@/app/_site/step-form";
 import { ReservePanel } from "@/app/_site/reserve";
 import { Chapter, ConfirmedPending, gutter, Heading, Label, Logo, PageLead, PartnerLogo, WaTile } from "@/app/_site/shell";
-import { ForWho, GroupStrip, PosterPackages, HaramNights, WhyRawdah, HajjOnNusuk, OtherTripBand, PastTrips, leaderMember, MomentStrip, TeamLine, TripPeople, TeamList, tripTeacherMembers, teamMembers, TripIncludes, TrustBox, TripJourney, TripPackages, WhereYouStay, type Member } from "@/app/_site/trip-parts";
+import { ForWho, GroupStrip, PosterPackages, HaramNights, WhyRawdah, HajjOnNusuk, OtherTripBand, PastTrips, leaderMember, MomentStrip, TeamLine, TripPeople, TeamList, tripTeacherMembers, teamMembers, TripIncludes, TrustBox, TripJourney, JourneyPart, EidSection, ClosingVerse, GuestIntimate, StayShowcase, MadinahMoments, TripLine, VerseLine, TripPackages, WhereYouStay, type Member } from "@/app/_site/trip-parts";
 import { StateTag } from "@/app/_site/trip-row";
 import { Chevron } from "@/app/_site/whatsapp";
 import { getTrip, isBookable, isDemoBooking } from "@/lib/trips";
@@ -221,32 +223,79 @@ export function TripView({ j }: { j: Journey }) {
       </Chapter>
       )}
 
-      {/* Poster trips: jump links (after The Sunnah Experience's section nav), stuck under the header on phones. */}
+      {/* Poster trips: the garden path, the page's guide and navigation, stuck under the header (garden-path.tsx). */}
       {j.posterType ? (
-        <nav aria-label="On this page" className="trip-jump">
-          <ul>
-            {[
-              ...(j.posterTeam ? [["The people", "people"]] : []),
-              ...(j.nights ? [["Ramadan nights", "nights"]] : []),
-              ["Flights & hotels", "stay"],
-              ["Included", "included"],
-              ["Prices", "prices"],
-              ["Questions", "faq"],
-            ].map(([label, id]) => (
-              <li key={id}>
-                <a href={`#${id}`}>{label}</a>
-              </li>
-            ))}
-          </ul>
-        </nav>
+        <GardenPath
+          stops={[
+            ...(j.guestFeature ? [{ id: "sheikh", label: "Sheikh Yahya", stage: "quran" as const }] : []),
+            { id: "journey", label: "The journey", stage: "kaaba" as const },
+            ...(j.stay ? [{ id: "stay", label: "Where you’ll stay", stage: "minaret" as const }] : []),
+            ...(j.nights ? [{ id: "nights", label: "The nights", stage: "lantern" as const }] : []),
+            ...(j.eid ? [{ id: "eid", label: "Eid", stage: "crescent" as const }] : []),
+            ...(j.madinah ? [{ id: "madinah", label: "Madinah", stage: "dome" as const }] : []),
+            { id: "prices", label: "Prices", stage: "star" as const },
+            { id: anchors.form, label: "Book", stage: "mihrab" as const },
+          ]}
+        />
       ) : null}
 
+      {/* Poster trips (Jibril, 20 Nov 2026): Sheikh Yahya first and close; then the journey as you'd live it: the trip at a
+          glance, the overnight flight as a scene, getting there, and where you'll stay, high and large. The join panel
+          comes after the prices on every screen. */}
+      {j.posterType ? (
+        <Chapter tone="day">
+          <GardenLeaves count={9} seed={11} />
+          {j.verses?.open ? (
+            <div className={gutter}>
+              <VerseLine v={j.verses.open} className="verse-open" />
+            </div>
+          ) : null}
+          <GuestIntimate j={j} members={members} />
+          <div className={`pt-[clamp(3.5rem,8vw,6.5rem)] ${gutter}`}>
+            <section id="journey" className="trip-anchor max-w-[60rem]">
+              <Label>Our journey</Label>
+              {j.about ? (
+                <>
+                  <Heading className="mt-4 max-w-[48rem] text-[clamp(2.3rem,4.2vw,4rem)]">{j.about.title}</Heading>
+                  <p className="mt-4 max-w-[38rem] text-[1.05rem] leading-relaxed text-ink/75">{j.about.text}</p>
+                </>
+              ) : null}
+              {j.plan ? (
+                <div className="mt-8 sm:mt-10">
+                  <TripLine plan={j.plan} draw />
+                </div>
+              ) : null}
+              {j.forWho ? <ForWho items={j.forWho} /> : null}
+            </section>
+          </div>
+          {j.flightScene ? (
+            <div className={`mt-12 sm:mt-16 ${gutter}`}>
+              <FlightScene f={j.flightScene} />
+            </div>
+          ) : null}
+          {j.gettingThere && j.plan ? (
+            <div className={gutter}>
+              <JourneyPart
+                j={j}
+                id="flights"
+                label={j.gettingThere.label}
+                title={j.gettingThere.title}
+                intro={j.gettingThere.intro}
+                cards={[{ flight: 0 }, { flight: 1 }]}
+                className="mt-12 max-w-[60rem] sm:mt-16"
+              />
+            </div>
+          ) : null}
+          {j.stay && j.plan ? <StayShowcase j={j} s={j.stay} /> : null}
+        </Chapter>
+      ) : (
       <Chapter tone="day">
+        {j.posterType ? <GardenLeaves count={9} seed={11} /> : null}
       <div className={`grid grid-cols-1 gap-x-14 gap-y-12 py-[clamp(2.5rem,5vw,4.5rem)] lg:grid-cols-12 ${gutter}`}>
         {/* The join panel: beside the story on desktop, straight after the header on phones. Poster trips: desktop
             only here; on phones it comes after the prices instead (below), so the story comes first (Jibril, 19 Nov 2026). */}
         <aside id={j.posterType ? anchors.joinDesktop : anchors.join} className={`scroll-mt-28 lg:order-2 lg:col-span-4 ${j.posterType ? "trip-anchor hidden lg:block" : ""}`}>
-          <div className="lg:sticky lg:top-28">
+          <div className={`lg:sticky ${j.posterType ? "lg:top-[10.5rem]" : "lg:top-28"}`}>
             <ReservePanel j={j} bookable={bookable} />
             {/* Desktop, when the join panel is short (no packages): the trust box under it, softer option only.
                 With packages the panel is tall, so the box sits in the story column instead (below). */}
@@ -299,7 +348,18 @@ export function TripView({ j }: { j: Journey }) {
 
           {/* Poster trips: the people straight after the trip, as the best trip pages do (Sheikh Yahya is the draw),
               then Rawdah's own groups from earlier trips. */}
-          {j.posterTeam ? (
+          {j.posterType && j.gettingThere && j.plan ? (
+            <JourneyPart
+              j={j}
+              id="journey"
+              label={j.gettingThere.label}
+              title={j.gettingThere.title}
+              intro={j.gettingThere.intro}
+              cards={[{ flight: 0 }, { hotel: 0 }]}
+              line
+              className="mt-14 sm:mt-20"
+            />
+          ) : j.posterTeam ? (
             <section id="people" aria-label="The people on this trip" className="trip-anchor mt-12 sm:mt-16">
               <TripPeople j={j} members={members} />
             </section>
@@ -334,17 +394,22 @@ export function TripView({ j }: { j: Journey }) {
         </div>
       </div>
       </Chapter>
+      )}
 
       {/* Night: the journey itself */}
       <Chapter tone="night">
         {j.kind === "umrah" ? (
           j.plan ? (
             <>
-              {j.posterType ? <Nightfall /> : null}
+              {j.posterType ? <Nightfall>{j.verses?.nights ? <VerseLine v={j.verses.nights} className="verse-night" /> : null}</Nightfall> : null}
               {j.nights ? <HaramNights n={j.nights} /> : null}
-              <div id="stay" className="trip-anchor">
-                <TripJourney j={j} />
-              </div>
+              {j.posterType ? (
+                <Daybreak>{j.verses?.eid ? <VerseLine v={j.verses.eid} className="verse-dawn" /> : null}</Daybreak>
+              ) : (
+                <div id="stay" className="trip-anchor">
+                  <TripJourney j={j} />
+                </div>
+              )}
             </>
           ) : (
             <WhereYouStay j={j} />
@@ -372,17 +437,41 @@ export function TripView({ j }: { j: Journey }) {
         )}
       </Chapter>
 
+      {/* The garden (poster trips): Eid at daybreak, then Madinah in the Rawdah's green, and why Rawdah is Rawdah. */}
+      {j.posterType && j.plan && (j.eid || j.madinah) ? (
+        <Chapter tone="garden">
+          <GardenLeaves count={22} seed={47} edges={false} className="gl-lush" />
+          <div className={`py-[clamp(3.5rem,8vw,7rem)] ${gutter}`}>
+            <div className="max-w-[60rem]">
+              {j.eid ? <EidSection e={j.eid} /> : null}
+              {j.madinah ? (
+                <JourneyPart j={j} id="madinah" label={j.madinah.label} title={j.madinah.title} intro={j.madinah.intro} cards={[]} className="mt-16 sm:mt-24">
+                  {j.madinah.moments ? <MadinahMoments items={j.madinah.moments} /> : null}
+                </JourneyPart>
+              ) : null}
+              {j.why ? <WhyRawdah w={j.why} /> : null}
+            </div>
+          </div>
+        </Chapter>
+      ) : null}
+
       <Chapter tone="day">
+        {j.posterType ? <GardenLeaves count={7} seed={83} /> : null}
         <div className={`py-[clamp(3.75rem,9vw,8rem)] ${gutter}`}>
           <div className="max-w-[60rem]">
+            {/* Poster trips: who walks with you, after the journey (trust after desire), then our last trip. */}
+            {j.posterType && j.posterTeam ? (
+              <section id="people" aria-label="The people on this trip" className="trip-anchor">
+                <TripPeople j={j} members={members} />
+              </section>
+            ) : null}
+            {j.posterType && j.pastTrips ? <PastTrips p={j.pastTrips} /> : null}
             {j.kind === "umrah" && j.plan ? (
               <>
-                <section id="included" className="trip-anchor">
+                <section id="included" className={`trip-anchor ${j.posterType ? "mt-12 sm:mt-16" : ""}`}>
                   <Heading className={h2}>What’s included</Heading>
                   <TripIncludes plan={j.plan} />
                 </section>
-                {j.posterType && j.pastTrips ? <PastTrips p={j.pastTrips} /> : null}
-                {j.posterType && j.why ? <WhyRawdah w={j.why} /> : null}
                 <section id="prices" className="trip-anchor mt-12 sm:mt-16">
                   <Heading className={h2}>Packages and payments</Heading>
                   {j.posterType ? <PosterPackages j={j} /> : <TripPackages j={j} />}
@@ -390,7 +479,7 @@ export function TripView({ j }: { j: Journey }) {
                 {/* Phones, poster trips: the join panel, once the prices have been read. "#join" links land here on
                     phones and on the desktop panel above on wide screens (page-watch.tsx). */}
                 {j.posterType ? (
-                  <section id={anchors.join} className="trip-anchor mt-12 sm:mt-16 lg:hidden">
+                  <section id={anchors.join} className="trip-anchor mt-12 max-w-[34rem] sm:mt-16">
                     <ReservePanel j={j} bookable={bookable} />
                   </section>
                 ) : null}
@@ -498,6 +587,7 @@ export function TripView({ j }: { j: Journey }) {
           </div>
         </section>
         {j.otherTrip ? <OtherTripBand o={j.otherTrip} /> : null}
+        {j.posterType && j.closeVerse ? <ClosingVerse c={j.closeVerse} /> : null}
       </Chapter>
     </div>
   );
