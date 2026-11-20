@@ -12,22 +12,8 @@ type Person = ComponentProps<typeof HeroFigures>["people"][number];
 const at = (ms: number) => ({ "--d": `${ms}ms` }) as CSSProperties;
 
 /**
- * The last ten nights of Ramadan as ten lights from the logo's square-kufic grid. The odd nights (the 21st, 23rd, 25th,
- * 27th and 29th), when Laylat al-Qadr is sought, are gold. They light one by one after the title (globals.css, `.tn`).
- */
-export function TenNights({ className = "" }: { className?: string }) {
-  return (
-    <span role="img" aria-label="The last ten nights of Ramadan, the odd nights in gold" className={`ten-nights ${className}`}>
-      {Array.from({ length: 10 }, (_, i) => (
-        <span key={i} className={i % 2 === 0 ? "tn tn-odd" : "tn"} style={{ "--n": i } as CSSProperties} />
-      ))}
-    </span>
-  );
-}
-
-/**
  * The poster trip's hero, rebuilt 20 Nov 2026 (Jibril: "the hero looks a bit mashed together"). One composition: the
- * poster's artwork with the special guest standing in it; the lockup and the ten nights; one line of when and with whom;
+ * poster's artwork with the special guest standing in it; the lockup; one line of when and with whom;
  * one line of what it is; one price; two buttons. Phones: the artwork first, centred. Desktop: the words left, the
  * artwork right, the full first screen.
  */
@@ -72,7 +58,6 @@ export function PosterHero({
           <Heading as="h1" className="poster-lockup poster-rise rh-title">
             <PosterLockup year="1448" word="Ramadan" line="Last 10 nights" />
           </Heading>
-          <TenNights className="rh-nights" />
 
           <p style={at(760)} className="rh-when follow">
             <span className="poster-date">{dates}</span>

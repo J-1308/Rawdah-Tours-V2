@@ -154,7 +154,7 @@ script in `app/layout.tsx` sets before first paint unless the visitor prefers re
   panel is `#join-desktop` beside the story, the phone copy is `#join`, and `page-watch.tsx` sends "#join" links to
   whichever is showing; the phone bar waits until the hero's price box has scrolled away. Rebuilt 20 Nov 2026
   (`docs/adr/0005-story-and-motion.md`): the hero is `PosterHero` (`poster-hero.tsx`, `.rh-*`): artwork with the guest,
-  lockup, the ten nights (`.ten-nights`), one line of dates and partner, one price line, Book and WhatsApp; the order is
+  lockup (no ten squares under it: removed 20 Nov 2026), one line of dates and partner, one price line, Book and WhatsApp; the order is
   trip, people, nightfall and the nights, flights and hotels, included, our last trip, why Rawdah, prices, book,
   questions; the night chapter opens with `Nightfall` (`night-sky.tsx`); reveals focus in (`.rv`) instead of rising; the
   last trip's photos develop. In one-page

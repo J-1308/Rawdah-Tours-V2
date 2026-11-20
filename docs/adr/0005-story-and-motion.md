@@ -19,12 +19,11 @@ lists marquee, rising items and stepper fill as theirs). Rawdah's page was doing
 
 ## Decision
 
-**Hero (`poster-hero.tsx`).** One composition: the poster's artwork with the special guest standing in it; the lockup;
-ten lights for the last ten nights; one line of dates and partner; one line of what it is; one price line (the ended
+**Hero (`poster-hero.tsx`).** One composition: the poster's artwork with the special guest standing in it; the lockup; one line of dates and partner; one line of what it is; one price line (the ended
 early bird crossed out, ground-only price, deposit and number of payments); Book and WhatsApp side by side; the
 package note. Three faces, each with one job: Montserrat for the poster's words and the price, Cormorant italic for
 the dates, DM Sans for the rest. Phones: centred, artwork first. Desktop: words left, artwork right, the first screen.
-Removed: the tablet, the price boxes, the hosts in the hero, the icon strip.
+Removed: the tablet, the ten squares under the lockup (Jibril, 20 Nov 2026: "looks weird"), the price boxes, the hosts in the hero, the icon strip.
 
 **Order.** The trip → the people → nightfall into the Ramadan nights → flights and hotels → what's included → our last
 trip → why Rawdah → packages and payments → book (phones; desktop keeps the panel beside the story) → questions → the
@@ -34,7 +33,6 @@ form. Why first, then who, then how, then proof, then price.
 
 | Moment | What it does | Where |
 |---|---|---|
-| The ten nights | Ten squares from the logo's kufic grid light one by one after the title; the odd nights (when Laylat al-Qadr is sought) are gold and breathe slowly, out of step, like lamps | hero, `.ten-nights` |
 | Nightfall | As the night sheet scrolls in, the day's stone light drains to night, the crescent rises, the sky fills and ten stars come out one by one along an arc: the ten nights again | top of the night chapter, `Nightfall` in `night-sky.tsx`, CSS scroll timeline |
 | Focus-in | Things come into focus as they scroll in (blur and a breath of scale), not the slide-up | every page, `.rv` |
 | Developing photos | The last trip's photos come up from a pale warm print to full colour | `PastTrips`, `.past-gallery`, `.past-lead` |

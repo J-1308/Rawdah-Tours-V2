@@ -766,7 +766,6 @@ html.motion .ph-face-b { visibility: visible; animation-delay: -4.5s; }
 .rh-art-img { position: relative; z-index: 1; display: block; width: 100%; height: auto; }
 .rh-copy { position: relative; z-index: 1; display: grid; justify-items: center; width: 100%; max-width: 34rem; margin-top: 0.5rem; }
 .rh-title { margin: 0; }
-.rh-nights { margin-top: 1rem; }
 .rh-when { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; column-gap: 0.9rem; row-gap: 0.35rem; margin-top: 1.1rem; }
 .rh-when .poster-date { font-size: clamp(1.3rem, 5vw, 1.75rem); }
 .rh-with { display: inline-flex; align-items: center; gap: 0.55rem; font-family: "Cormorant Garamond", Georgia, serif; font-size: 1.1rem; color: rgb(from var(--color-ink) r g b / 0.72); }
@@ -787,17 +786,6 @@ html.motion .ph-face-b { visibility: visible; animation-delay: -4.5s; }
 
 /* The ten nights: ten squares from the logo's grid light one by one after the title; the odd nights then breathe gold,
    slowly and out of step, like lamps. Still without html.motion. */
-.ten-nights { display: inline-flex; gap: clamp(0.42rem, 1.6vw, 0.6rem); }
-.tn { width: clamp(0.6rem, 2.3vw, 0.78rem); aspect-ratio: 1; border-radius: 2px; background: rgb(84 82 52 / 0.8); }
-.tn-odd { background: linear-gradient(155deg, #e7d19c 0%, #c3a065 55%, #a8854b 100%); box-shadow: 0 0 0.55rem 0 rgb(214 180 112 / 0.45); }
-@keyframes tn-light { from { opacity: 0; transform: scale(0.2) rotate(45deg); } 60% { opacity: 1; } }
-@keyframes tn-glow { 0%, 100% { box-shadow: 0 0 0.45rem 0 rgb(214 180 112 / 0.35); } 50% { box-shadow: 0 0 1.1rem 0.15rem rgb(222 190 120 / 0.7); } }
-html.motion .tn { animation: tn-light 0.7s var(--ease-out) calc(var(--intro) + 700ms + var(--n) * 95ms) backwards; }
-html.motion .tn-odd {
-  animation:
-    tn-light 0.7s var(--ease-out) calc(var(--intro) + 700ms + var(--n) * 95ms) backwards,
-    tn-glow 4.8s ease-in-out calc(var(--intro) + 1900ms + var(--n) * 380ms) infinite;
-}
 
 @media (min-width: 64rem) {
   .rh-grid {
@@ -816,7 +804,6 @@ html.motion .tn-odd {
   .rh-copy { grid-column: 1; grid-row: 1; justify-items: start; max-width: 35rem; margin-top: 0; }
   .rh-copy .poster-lockup .poster-word { font-size: clamp(4.25rem, 6.6vw, 6.6rem); }
   .rh-copy .poster-lockup .poster-line { font-size: clamp(1.2rem, 1.85vw, 1.95rem); }
-  .rh-nights { margin-top: 1.25rem; }
   .rh-when { justify-content: start; margin-top: 1.5rem; }
   .rh-line { max-width: 30rem; font-size: 1.05rem; }
   .rh-buy { justify-items: start; margin-top: 1.9rem; }
