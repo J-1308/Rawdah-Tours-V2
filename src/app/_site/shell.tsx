@@ -149,8 +149,9 @@ export function Actions({
  * meet as soft rounded sheets (globals.css .chapter). "top" is the first
  * chapter, which follows the dark/light top switch with the header.
  */
-export function Chapter({ tone, children, className = "", id }: { tone: "top" | "day" | "night"; children: ReactNode; className?: string; id?: string }) {
-  const look = tone === "top" ? "top-zone" : tone === "night" ? "night" : "";
+/** `garden`: Madinah on poster trips, the Rawdah's green (docs/adr/0006-the-garden.md); a day chapter in every other way. */
+export function Chapter({ tone, children, className = "", id }: { tone: "top" | "day" | "night" | "garden"; children: ReactNode; className?: string; id?: string }) {
+  const look = tone === "top" ? "top-zone" : tone === "night" ? "night" : tone === "garden" ? "garden" : "";
   return (
     <div id={id} className={`chapter ${look} ${className}`}>
       {children}

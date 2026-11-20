@@ -45,6 +45,22 @@ export function ReservePanel({ j, bookable = false }: { j: Journey; bookable?: b
     if (choice && j.state === "open") prefillForm(choice);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [choiceKey]);
+  // The hero's ground-only price (data-pick="ground", poster-hero.tsx) lands here on ground only, in the same room.
+  // From PR #27 (an improvement run), carried over to the poster hero (20 Nov 2026).
+  useEffect(() => {
+    const list = j.rooms?.value ?? [];
+    if (!list.some((r) => r.flights === false)) return;
+    const onPick = (e: MouseEvent) => {
+      if (!(e.target instanceof Element) || !e.target.closest('[data-pick="ground"]')) return;
+      setRoom((cur) => {
+        const now = list.find((r) => r.type === cur);
+        if (now?.flights === false) return cur;
+        return (list.find((r) => r.flights === false && r.sharing === now?.sharing) ?? list.find((r) => r.flights === false))?.type ?? cur;
+      });
+    };
+    document.addEventListener("click", onPick);
+    return () => document.removeEventListener("click", onPick);
+  }, [j]);
 
   if (j.state === "past") {
     return (

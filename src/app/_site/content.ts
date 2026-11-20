@@ -649,6 +649,9 @@ export type TripPlan = {
 export type Leg = { place: string; nights?: number };
 export type Day = { day: string; title: string; text: string };
 
+/** A line of Qur’an or hadith on the page: the Arabic, its meaning in English, and where it is from. */
+export type Verse = { ar: string; text: string; source: string };
+
 export type Journey = {
   slug: string;
   kind: "umrah" | "hajj";
@@ -684,9 +687,28 @@ export type Journey = {
   /** Why Rawdah: the name's meaning, a photo and short reasons (from the About page, Rawdah's own words). */
   why?: { label: string; title: string; ar: string; text: string; source: string; photo: { src: string; alt: string; caption?: string }; reasons: { title: string; text: string }[] };
   /** Poster trips: the special guest's own panel, above the hosts. `toCome` shows until Rawdah sends the bio. */
-  guestFeature?: { kicker: string; line: string; bio?: string; cta: string };
+  guestFeature?: { kicker: string; line: string; bio?: string; cta: string; portrait?: { src: string; width: number; height: number; position?: string } };
   /** Poster trips: the heading over the hosts' cards. */
   hostsTitle?: string;
+  /** Poster trips: the special guest stands in front of the poster in the hero (two versions, Jibril 20 Nov 2026). */
+  heroGuest?: boolean;
+  /** One line under "Your hosts" (poster trips). */
+  hostsIntro?: string;
+  /* The garden (Jibril, 20 Nov 2026; docs/adr/0006-the-garden.md): the page in the order you'd live the trip. */
+  /** Before the nights: the route, the flight out and the Makkah hotel. */
+  gettingThere?: { label: string; title: string; intro: string };
+  /** After the nights: daybreak and Eid. */
+  eid?: { label: string; title: string; text: string };
+  /** The garden chapter: Madinah, with its moments (facts from the plan). */
+  madinah?: { label: string; title: string; intro: string; moments?: { title: string; text: string }[] };
+  /** Where you'll stay: both hotels, high in the page. */
+  stay?: { label: string; title: string; intro: string };
+  /** The overnight flight, as a scene that plays as you scroll: from and to, with times. */
+  flightScene?: { from: string; fromWhen: string; to: string; toWhen: string };
+  /** The last words on the page. */
+  closeVerse?: { text: string; source: string; ar?: string };
+  /** Words of the deen at the story's turns (Arabic, its meaning, its source): checked against the sources named. */
+  verses?: { open?: Verse; nights?: Verse; eid?: Verse };
   /** Ramadan in the Haram: what the nights hold (worship, not a Rawdah service). `slot` = the photo Jibril will source. */
   nights?: { label: string; title: string; intro: string; items: { title: string; text: string }[] };
   /** Rawdah's earlier trips: poster cards and a photo gallery (proof, after The Umrah Company's past journeys). */
@@ -830,10 +852,51 @@ export const ramadanFull: Journey = {
       line: "Our special guest sheikh for Ramadan 1448, travelling with the group.",
       /* Public facts only (FOSIS speaker page; Badr Academy; his recitations on Muslim Central), 19 Nov 2026. Rawdah to
          confirm with him. No personal details. */
+      portrait: { src: "/images/portraits/yahya-raaby-full.jpg", width: 1190, height: 2048, position: "object-[50%_14%]" },
       bio: "A Qur’an reciter known for his calm, moving recitation, Sheikh Yahya teaches Arabic and the Islamic sciences at Badr Academy, and gives lectures and Friday khutbahs across the UK and abroad.",
       cta: "Travel with Sheikh Yahya",
     },
     hostsTitle: "Your hosts",
+    heroGuest: true,
+    hostsIntro: "Rawdah’s two co-founders, with the group the whole way.",
+    /* Facts only, from the plan below and the FAQs (Eid on Tue 9 or Wed 10 March; Makkah to Madinah on Tue 9 March). */
+    gettingThere: {
+      label: "Getting there",
+      title: "Saudia, from London Heathrow",
+      intro: "An overnight flight on Saturday 27 February, straight to Makkah on arrival; home from Madinah on Saturday 13 March.",
+    },
+    flightScene: { from: "London Heathrow", fromWhen: "Sat 27 Feb · 22:05", to: "Jeddah", toWhen: "Sun 28 Feb · 07:10" },
+    stay: {
+      label: "Where you’ll stay",
+      title: "Ten nights in Makkah, four in Madinah",
+      intro: "Novotel Thakher City in Makkah, with its shuttle to the Haram, then Al Manakha Rotana, a short walk from Masjid an-Nabawi.",
+    },
+    eid: {
+      label: "After the last ten nights",
+      title: "Eid in the blessed lands",
+      text: "Eid al-Fitr falls on Tuesday 9 or Wednesday 10 March, as the moon is sighted. Either way, you spend it in the blessed lands, then go on to Madinah.",
+    },
+    madinah: {
+      label: "Madinah",
+      title: "Four nights in Madinah",
+      intro: "In the city of the Prophet ﷺ, where the Rawdah is: an 8-minute walk to Masjid an-Nabawi, then home on Saturday 13 March.",
+      moments: [
+        { title: "Madinah ziyarah", text: "Visits to the historic sites of Madinah." },
+        { title: "Jumuah in Masjid an-Nabawi", text: "Friday 12 March, after Jumuah in Masjid al-Haram on Friday 5 March." },
+        { title: "Walk to every prayer", text: "Al Manakha Rotana is an 8-minute walk from Masjid an-Nabawi, with breakfast daily." },
+      ],
+    },
+    /* Checked 20 Nov 2026: al-Bukhari 1782 and Muslim 1256 (Ibn ‘Abbas); Surah al-Qadr 97:3; the takbir of Eid. */
+    verses: {
+      open: { ar: "إِنَّ عُمْرَةً فِي رَمَضَانَ حَجَّةٌ", text: "‘Umrah in Ramadan is equal to a Hajj.", source: "The Prophet ﷺ · al-Bukhari and Muslim" },
+      nights: { ar: "لَيْلَةُ الْقَدْرِ خَيْرٌ مِّنْ أَلْفِ شَهْرٍ", text: "The Night of Decree is better than a thousand months.", source: "Surah al-Qadr, 97:3" },
+      eid: { ar: "اللهُ أَكْبَرُ، اللهُ أَكْبَرُ، لَا إِلٰهَ إِلَّا اللهُ، وَاللهُ أَكْبَرُ، اللهُ أَكْبَرُ، وَلِلّٰهِ الْحَمْدُ", text: "Allah is the Greatest; there is no god but Allah; and to Allah belongs all praise.", source: "The takbir of Eid" },
+    },
+    closeVerse: {
+      ar: "مَا بَيْنَ بَيْتِي وَمِنْبَرِي رَوْضَةٌ مِنْ رِيَاضِ الْجَنَّةِ",
+      text: "“What is between my house and my minbar is a garden from the gardens of Paradise.”",
+      source: "The Prophet ﷺ · reported by al-Bukhari and Muslim",
+    },
     nights: {
       label: "Ramadan in the Haram",
       title: "The last ten nights, at the House of Allah",
