@@ -1561,15 +1561,21 @@ html:not(.motion) .feature-band { overflow-x: auto; }
   .fb-text { display: grid; gap: 0; }
 }
 
-/* --- The garden path (light again, 20 Nov 2026: the feature band is the contrast now) -------------------------------
-   Ivory frosted under a gilt rule; the chapters ahead faint, behind you in gilt, the one you're in the gilt button. */
-.skin-1448 .trip-jump.garden-path { background: rgb(247 244 237 / 0.94); border-bottom: 1px solid rgb(168 134 63 / 0.32); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
-.skin-1448 .garden-path a { background: rgb(255 255 255 / 0.55); border-color: rgb(168 134 63 / 0.26); color: var(--color-ink); }
-.skin-1448 .garden-path a:hover { border-color: rgb(168 134 63 / 0.6); }
-.skin-1448 .garden-path .gp-glyph { color: rgb(125 97 41 / 0.38); }
-.skin-1448 .garden-path [data-state="passed"] .gp-glyph { color: #87692c; }
-.skin-1448 .garden-path [data-state="here"] a { background: linear-gradient(180deg, #efdfaa 0%, #d8ba6e 50%, #b99749 100%); border-color: #c9a85c; color: #2b2a1a; box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.5), 0 8px 18px -12px rgb(125 97 41 / 0.7); }
-.skin-1448 .garden-path [data-state="here"] .gp-glyph { color: #4a3c17; }
+/* --- The garden path (20 Nov 2026: "a similar thing but a different, better effect, more subtle and guiding") --------
+   Chips without boxes: ahead, faint words and an outline stage; behind you, stronger words and an olive stage; the
+   chapter you're in, dark words, a gold stage that grows in, a soft raised ground, and a short gold line that glides
+   along under the row to sit beneath it (garden-path.tsx sets --gp-x and --gp-w; it scrolls with the row). Nothing
+   here looks like the Book button. */
+.skin-1448 .trip-jump.garden-path { background: rgb(247 244 237 / 0.94); border-bottom: 1px solid rgb(84 82 52 / 0.1); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
+.skin-1448 .garden-path ul { position: relative; gap: 0.15rem; background-image: linear-gradient(90deg, #c4a254, #e2c98f); background-repeat: no-repeat; background-size: var(--gp-w, 0px) 2px; background-position: var(--gp-x, 0px) calc(100% - 0.35rem); background-attachment: local; transition: background-position 0.55s cubic-bezier(0.22, 1, 0.36, 1), background-size 0.55s cubic-bezier(0.22, 1, 0.36, 1); }
+.skin-1448 .garden-path a { background: transparent; border-color: transparent; color: rgb(51 50 31 / 0.58); padding-inline: 0.85rem 0.95rem; transition: color 0.4s var(--ease-out), background-color 0.4s var(--ease-out), box-shadow 0.4s var(--ease-out); }
+.skin-1448 .garden-path a:hover { color: var(--color-ink); background: rgb(255 255 255 / 0.45); border-color: transparent; }
+.skin-1448 .garden-path .gp-glyph { color: rgb(84 82 52 / 0.32); }
+.skin-1448 .garden-path [data-state="passed"] a { color: rgb(51 50 31 / 0.82); }
+.skin-1448 .garden-path [data-state="passed"] .gp-glyph { color: #6b6a4c; }
+.skin-1448 .garden-path [data-state="here"] a { color: #1f1e13; background: rgb(255 255 255 / 0.7); border-color: transparent; box-shadow: 0 6px 16px -12px rgb(60 48 20 / 0.45); }
+.skin-1448 .garden-path [data-state="here"] .gp-glyph { color: #a8863f; }
+.skin-1448 .gp-progress { height: 2px; opacity: 0.55; box-shadow: none; }
 
 /* The path's guide line: gilt, along its foot, filling as you go down the page. */
 .gp-progress { position: absolute; left: 0; right: 0; bottom: -1px; height: 3px; z-index: 1; pointer-events: none; transform-origin: 0 50%; transform: scaleX(var(--gp, 0)); background: linear-gradient(90deg, #b99749 0%, #e2c98f 70%, #f3e4b4 100%); box-shadow: 0 0 10px rgb(216 187 114 / 0.6); transition: transform 0.6s var(--ease-out); }
@@ -1775,10 +1781,29 @@ html.motion .fb-item.rv.in .fb-text { opacity: 1; transform: none; }
    the main action in gilt (Book your place in the header, the hero, the phone bar, the booking panel, and the form's
    Next and Send); the second action as a stone outline (WhatsApp, with its green mark); anything lesser as a text link. */
 :root[data-skin="1448"] header .btn-ink, .skin-1448 [data-placement="phone bar"] .btn-ink, .skin-1448 #join .btn-ink, .skin-1448 #register-interest .btn-sand, .skin-1448 .btn-gilt {
-  border-radius: 0.95rem; font-weight: 500; color: #2b2a1a;
-  background: linear-gradient(180deg, #efdfaa 0%, #d8ba6e 46%, #b99749 100%);
-  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.55), inset 0 -1px 0 rgb(120 92 40 / 0.35), 0 14px 30px -16px rgb(84 66 24 / 0.6);
+  position: relative; overflow: hidden; isolation: isolate;
+  border-radius: 0.95rem; font-weight: 600; letter-spacing: 0.01em; color: #2a2510;
+  /* Satin gold leaf (20 Nov 2026: "could it look better"): a warm light at the top, a deeper band low down, a fine
+     darker hairline at the edge and a soft warm glow under it, instead of a flat gradient. */
+  background:
+    radial-gradient(120% 140% at 50% -40%, rgb(255 250 228 / 0.85) 0%, rgb(255 250 228 / 0) 55%),
+    linear-gradient(180deg, #f0e0ad 0%, #dfc282 42%, #c9a65b 72%, #b8944c 100%);
+  box-shadow:
+    inset 0 0 0 1px rgb(138 104 42 / 0.45),
+    inset 0 1px 0 rgb(255 255 255 / 0.75),
+    inset 0 -6px 12px -6px rgb(122 90 32 / 0.35),
+    0 12px 26px -14px rgb(110 82 28 / 0.65);
+  transition: transform 0.25s var(--ease-out), box-shadow 0.25s var(--ease-out), filter 0.25s;
 }
+/* A slow light crosses it when you hover or press; still with reduced motion. */
+:root[data-skin="1448"] header .btn-ink::after, .skin-1448 [data-placement="phone bar"] .btn-ink::after, .skin-1448 #join .btn-ink::after, .skin-1448 #register-interest .btn-sand::after, .skin-1448 .btn-gilt::after {
+  content: ""; position: absolute; z-index: -1; top: 0; bottom: 0; left: -60%; width: 45%; pointer-events: none;
+  background: linear-gradient(100deg, transparent 0%, rgb(255 252 236 / 0.55) 50%, transparent 100%); transform: skewX(-18deg); opacity: 0;
+}
+html.motion[data-skin="1448"] header .btn-ink:hover::after, html.motion .skin-1448 [data-placement="phone bar"] .btn-ink:hover::after, html.motion .skin-1448 #join .btn-ink:hover::after, html.motion .skin-1448 #register-interest .btn-sand:hover::after, html.motion .skin-1448 .btn-gilt:hover::after { opacity: 1; animation: gilt-sheen 0.9s var(--ease-out) both; }
+@keyframes gilt-sheen { from { left: -60%; } to { left: 120%; } }
+:root[data-skin="1448"] header .btn-ink:hover, .skin-1448 [data-placement="phone bar"] .btn-ink:hover, .skin-1448 #join .btn-ink:hover, .skin-1448 #register-interest .btn-sand:hover, .skin-1448 .btn-gilt:hover { filter: none; transform: translateY(-1px); box-shadow: inset 0 0 0 1px rgb(138 104 42 / 0.5), inset 0 1px 0 rgb(255 255 255 / 0.8), inset 0 -6px 12px -6px rgb(122 90 32 / 0.35), 0 16px 30px -14px rgb(110 82 28 / 0.75); }
+:root[data-skin="1448"] header .btn-ink:active, .skin-1448 [data-placement="phone bar"] .btn-ink:active, .skin-1448 #join .btn-ink:active, .skin-1448 #register-interest .btn-sand:active, .skin-1448 .btn-gilt:active { transform: translateY(1px); }
 .skin-1448 .wa-btn { color: var(--color-ink); background: rgb(255 255 255 / 0.5); border: 1px solid rgb(84 82 52 / 0.22); box-shadow: none; }
 .skin-1448 .wa-btn:hover { border-color: rgb(84 82 52 / 0.45); }
 .skin-1448 .wa-btn svg { color: var(--color-wa); }
