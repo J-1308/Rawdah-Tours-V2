@@ -234,7 +234,7 @@ export function TripView({ j }: { j: Journey }) {
         <GardenPath
           stops={[
             { id: "journey", label: "The journey", stage: "kaaba" as const },
-            ...(j.guestFeature ? [{ id: "sheikh", label: "Sheikh Yahya", stage: "quran" as const }] : []),
+            ...(j.guestFeature ? [{ id: "sheikh", label: "Guest Sheikh", stage: "quran" as const }] : []),
             ...(j.gettingThere ? [{ id: "flights", label: "Getting there", stage: "plane" as const }] : []),
             ...(j.stay ? [{ id: "stay", label: "Where you’ll stay", stage: "minaret" as const }] : []),
             ...(j.eid ? [{ id: "eid", label: "Eid", stage: "crescent" as const }] : []),

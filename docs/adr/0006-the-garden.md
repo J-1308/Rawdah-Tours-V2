@@ -206,7 +206,7 @@ at the top; the order the journey, then Sheikh Yahya, then where you'll stay, th
   highlights in the order you live them (`storyPoints`: the flight, ten nights in Makkah, Taraweeh, Qiyam and Laylat
   al-Qadr, iftar in the Haram, the khatm, Eid, Madinah), the route line, who it's for, and the hadith of Umrah in
   Ramadan. The separate nights section and "Our journey" in the night are gone; the night now holds Sheikh Yahya,
-  getting there and where you'll stay. The garden path: the journey, Sheikh Yahya, getting there, where you'll stay,
+  getting there and where you'll stay. The garden path: the journey, Guest Sheikh, getting there, where you'll stay,
   Eid, Madinah, prices, book.
 - **One list of highlights** (`Highlights` in `trip-parts.tsx`, `.highlights`): numbered in the gilt eight-pointed star
   (Western numerals, to read easily), a title and a line, on fine rules. Used for the journey, Sheikh Yahya's three
