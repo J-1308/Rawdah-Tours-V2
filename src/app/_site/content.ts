@@ -419,6 +419,15 @@ export const paying = {
   sharing: v("Travelling alone? You share a room with travellers of the same gender.", "confirmed"),
 };
 
+/**
+ * Who you'd share a room with: the join panel and the booking form use this one list, so they always match.
+ * The note repeats the confirmed rule above, so "Anyone in the group" never reads as mixed rooms.
+ */
+export const roomSharing = {
+  options: ["Anyone in the group", "Brothers only", "Sisters only", "My family"],
+  note: "Rooms are shared with travellers of the same gender.",
+};
+
 /** Teachers: only facts Rawdah has published. Bios to be read by the client before launch. */
 export const teachers = [
   {
