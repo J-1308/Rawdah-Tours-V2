@@ -2,27 +2,13 @@ import Image from "next/image";
 import type { CSSProperties, ComponentProps } from "react";
 
 import { anchors, type Journey } from "@/app/_site/content";
-import { HeroFigures, Mist } from "@/app/_site/poster-parts";
+import { HeroFigures } from "@/app/_site/poster-parts";
 import { gutter, Heading, PartnerLogo, WaTile } from "@/app/_site/shell";
 import { Chevron } from "@/app/_site/whatsapp";
 
 type Person = ComponentProps<typeof HeroFigures>["people"][number];
 
 const at = (ms: number) => ({ "--d": `${ms}ms` }) as CSSProperties;
-
-/**
- * The last ten nights of Ramadan as ten lights from the logo's square-kufic grid. The odd nights (the 21st, 23rd, 25th,
- * 27th and 29th), when Laylat al-Qadr is sought, are gold. They light one by one after the title (globals.css, `.tn`).
- */
-export function TenNights({ className = "" }: { className?: string }) {
-  return (
-    <span role="img" aria-label="The last ten nights of Ramadan, the odd nights in gold" className={`ten-nights ${className}`}>
-      {Array.from({ length: 10 }, (_, i) => (
-        <span key={i} className={i % 2 === 0 ? "tn tn-odd" : "tn"} style={{ "--n": i } as CSSProperties} />
-      ))}
-    </span>
-  );
-}
 
 /**
  * The poster trip's hero, third version (Jibril, 20 Nov 2026: "maybe use the poster as is… cropping it at just above
@@ -72,8 +58,8 @@ export function PosterHero({
           <Heading as="h1" className="sr-only">
             Ramadan Umrah 2027: the last ten nights in Makkah, then Eid and four nights in Madinah
           </Heading>
-          <TenNights className="rp-nights" />
-          <p style={at(760)} className="rh-line rp-line follow">
+          {/* No ten squares here (Jibril, 20 Nov 2026: "looks weird", PR #30); the ten stars live in the nightfall. */}
+          <p style={at(700)} className="rh-line rp-line follow">
             {j.heroLine ?? j.tagline}
           </p>
           {j.partnerLogo ? (
