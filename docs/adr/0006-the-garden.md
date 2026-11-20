@@ -218,3 +218,24 @@ at the top; the order the journey, then Sheikh Yahya, then where you'll stay, th
   (`.past-strip`). The arches are gone.
 - **Image quality**: the group photo now shows uncropped at 85 quality, lightly sharpened (the original we have is the
   2400 px copy; a sharper original from Rawdah would be better).
+
+## Ninth pass: three looks to compare, and the band moves on phones (20 November 2026)
+
+Jibril, with a screenshot of the earlier lettered hero: "I liked… the right hand side with the Ramadan writing… the
+simplicity… the colours look maybe even better. Let's do a mix… a few different sections… one to have less gold
+because I think it may be overused. The bar under the hero… a moving bar on the phone as it's too long; 1 layer."
+
+- **The feature band on phones is one row that moves on its own** (`.fb-track`, the list twice, the copy hidden from
+  screen readers; a row to swipe without motion). Tablets and desktop keep the still row of eight. This is Jibril's
+  call for phones and overrides ADR 0005's no-marquee rule for this band only.
+- **Looks to compare, by `?look=`** (`LockupHero` in `poster-hero.tsx`, `.rl-*`; `.less-gold`):
+  - `a`: the poster's artwork (our words in its tablets: Eid in the blessed lands, 14 nights; Sheikh Yahya standing
+    in it) beside the lettering as the poster sets it (1448, RAMADAN, LAST 10 NIGHTS) in olive, the dates in the
+    italic, GGC, one line, the poster's price bar rebuilt live (olive panel with Saudia, the ground package) and one
+    olive button. Gold elsewhere as now.
+  - `b`: the same lettering in deep gilt, with our price line, the gilt button and WhatsApp.
+  - `c`: as `a`, with far less gold through the page: olive italic for the titles' key words (cream at night), olive
+    labels and buttons, a light feature band with olive icons, the current chapter in olive; gold only in the
+    eight-pointed stars at night.
+  - No `?look`: the poster image hero, as live.
+  Once Jibril picks, the others and the switch come out.

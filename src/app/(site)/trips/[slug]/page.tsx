@@ -13,7 +13,7 @@ import { Mark } from "@/app/_site/marks";
 import { ArrivalTrigger } from "@/app/_site/arrival-trigger";
 import { Arrival, Mist } from "@/app/_site/poster-parts";
 import { PosterLockup, PosterText } from "@/app/_site/poster-type";
-import { FeatureBand, JourneySection, PosterHero } from "@/app/_site/poster-hero";
+import { FeatureBand, JourneySection, LockupHero, PosterHero } from "@/app/_site/poster-hero";
 import { Daybreak, FlightScene, Nightfall } from "@/app/_site/night-sky";
 import { GardenLeaves } from "@/app/_site/garden";
 import { GardenPath } from "@/app/_site/garden-path";
@@ -90,16 +90,25 @@ function Itinerary({ j }: { j: Journey }) {
  * Day: what's included, the people and paying (Umrah), questions, Hajj
  * updates, and the register-interest form.
  */
-export default async function TripPage({ params }: { params: Promise<{ slug: string }> }) {
+/** The header's and phone bar's Book button in olive instead of gilt, for the "less gold" look. */
+const lessGoldTop = `:root[data-skin="1448"] header .btn-ink, .skin-1448 [data-placement="phone bar"] .btn-ink { background: linear-gradient(180deg, #ece8df 0%, #d6d0bd 100%); color: #2e2d20; box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.6), 0 12px 26px -16px rgb(30 29 18 / 0.6); }`;
+
+export default async function TripPage({ params, searchParams }: { params: Promise<{ slug: string }>; searchParams: Promise<{ look?: string }> }) {
+  /**
+   * Looks to compare on the Ramadan page (Jibril, 20 Nov 2026: "a few different sections… one to have less gold"), by
+   * ?look=: "a" the poster's lettering with its price tiles, "b" the lettering with our price line and gilt button,
+   * "c" as "a" with far less gold through the page. None: the poster hero as it is.
+   */
+  const look = (await searchParams)?.look;
   const { slug } = await params;
   const j = journey(slug);
   if (!j || j.state === "past") notFound();
   if (j.slug === "ramadan-umrah-2027" && !ramadanReveal) return <ComingSoonTrip j={j} />;
-  return <TripView j={j} />;
+  return <TripView j={j} look={look} />;
 }
 
 /** The full trip page. Also used by the private Ramadan preview (preview/page.tsx). */
-export function TripView({ j }: { j: Journey }) {
+export function TripView({ j, look }: { j: Journey; look?: string }) {
 
   const trip = j.bookingSlug ? getTrip(j.bookingSlug) : undefined;
   const bookable = Boolean(trip && isBookable(trip) && j.state === "open");
@@ -161,7 +170,9 @@ export function TripView({ j }: { j: Journey }) {
   return (
     // The poster skin (Ramadan Umrah 2027): the page below the header takes the poster's stone and olive; the header
     // and footer stay Rawdah's (globals.css, "The poster skin").
-    <div className={j.posterType ? "skin-1448" : "contents"}>
+    <div className={j.posterType ? `skin-1448 ${look === "c" ? "less-gold" : ""}` : "contents"}>
+      {/* Less gold reaches the header and the phone bar too, which sit outside this wrapper. */}
+      {j.posterType && look === "c" ? <style>{lessGoldTop}</style> : null}
       {j.posterType ? (
         <>
           <Arrival logo={<Logo className="h-20 sm:h-24" label="" />} />
@@ -171,7 +182,7 @@ export function TripView({ j }: { j: Journey }) {
       <TripPhoneBar j={j} price={price} deposit={trip?.pricing ? trip.pricing.depositPence / 100 : null} bookable={bookable} />
       {j.posterType ? (
         <Chapter tone="day">
-          <PosterHero {...buy} />
+          {look === "a" || look === "c" ? <LockupHero {...buy} offer="tiles" tone="olive" /> : look === "b" ? <LockupHero {...buy} offer="line" /> : <PosterHero {...buy} />}
         </Chapter>
       ) : (
       <Chapter tone="top">

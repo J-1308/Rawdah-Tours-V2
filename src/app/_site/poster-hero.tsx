@@ -4,6 +4,7 @@ import type { CSSProperties, ComponentProps } from "react";
 import { anchors, type Journey } from "@/app/_site/content";
 import { ForWho, Highlights, TripLine, VerseLine } from "@/app/_site/trip-parts";
 import { HeroFigures, ICONS, type Perk } from "@/app/_site/poster-parts";
+import { PosterLockup } from "@/app/_site/poster-type";
 import { Emblem, gutter, Heading, Label, PartnerLogo, WaTile } from "@/app/_site/shell";
 import { Chevron } from "@/app/_site/whatsapp";
 
@@ -170,22 +171,136 @@ export function JourneySection({ j, price, ended, ground, deposit, payments, joi
  */
 export function FeatureBand({ perks }: { perks: Perk[] }) {
   if (!perks.length) return null;
+  const item = (p: Perk, i: number, copy: boolean) => (
+    <li key={p.icon} className="fb-item" data-reveal={copy ? undefined : ""} data-rv={copy ? undefined : String(i)}>
+      <svg aria-hidden viewBox="0 0 48 48" className="fb-icon" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+        {ICONS[p.icon]}
+      </svg>
+      <span className="fb-text">
+        <b>{p.big}</b> <span>{p.small}</span>
+      </span>
+    </li>
+  );
   return (
     <section aria-label="Included in the package" className="feature-band">
       {/* A slow light passes over the gilt now and then; the icons draw themselves in as the band comes into view. */}
       <span aria-hidden className="fb-sheen" />
-      <ul className={`fb-list ${gutter}`}>
-        {perks.map((p, i) => (
-          <li key={p.icon} className="fb-item" data-reveal="" data-rv={String(i)}>
-            <svg aria-hidden viewBox="0 0 48 48" className="fb-icon" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-              {ICONS[p.icon]}
-            </svg>
-            <span className="fb-text">
-              <b>{p.big}</b> <span>{p.small}</span>
-            </span>
-          </li>
-        ))}
-      </ul>
+      {/* Phones: one row that moves on its own (Jibril, 20 Nov 2026: "a moving bar on the phone as it's too long… 1
+          layer"), so the list runs twice; the copy is hidden from screen readers. Wider screens: one still row. */}
+      <div className="fb-track">
+        <ul className={`fb-list ${gutter}`}>{perks.map((p, i) => item(p, i, false))}</ul>
+        <ul aria-hidden className={`fb-list fb-copy ${gutter}`}>
+          {perks.map((p, i) => item(p, i, true))}
+        </ul>
+      </div>
+    </section>
+  );
+}
+
+/**
+ * The hero with the poster's lettering (Jibril, 20 Nov 2026, from an earlier version: "the right hand side with the
+ * Ramadan writing… something about the simplicity… the colours look maybe even better. Let's do a mix"). The
+ * poster's artwork on one side, our words in its tablets, Sheikh Yahya standing in it; on the other the lockup as the
+ * poster sets it (1448, RAMADAN, LAST 10 NIGHTS), the dates in the italic, GGC, one line, then the offer. `offer`:
+ * "tiles", the poster's bottom bar rebuilt live (the olive price panel with Saudia, the ground package) and one olive
+ * button; "line", the price line with the gilt button and WhatsApp. `tone` "olive" sets the lettering in the poster's
+ * olive, as the earlier version had it. Phones: the lockup, the artwork, then the offer.
+ */
+export function LockupHero({ j, guest, price, ended, ground, deposit, payments, joinLabel, offer, tone = "gilt" }: Buy & { guest?: Person; offer: "tiles" | "line"; tone?: "olive" | "gilt" }) {
+  const withGuest = Boolean(j.heroGuest && guest);
+  const dates = j.dates.value.replace(/\bFeb\b/, "February").replace(/\bMar\b/, "March");
+  return (
+    <section className={`rl wash-hero relative overflow-hidden ${tone === "olive" ? "rl-olive" : ""}`}>
+      <Emblem className="rl-mark watermark pointer-events-none absolute" />
+      <div className="rl-grid">
+        <div className={`rl-head ${gutter}`}>
+          <h1 className="poster-lockup rl-lockup">
+            <span className="sr-only">Ramadan Umrah 2027: </span>
+            <PosterLockup year="1448" word="Ramadan" line="Last 10 nights" />
+          </h1>
+          <p style={at(650)} className="poster-date rl-date follow">
+            {dates}
+          </p>
+          {j.partnerLogo ? (
+            <p style={at(740)} className="rl-with follow">
+              <PartnerLogo logo={j.partnerLogo} className="h-6" />
+              <span aria-hidden className="rl-bar" />
+              <em>with GGC</em>
+            </p>
+          ) : null}
+        </div>
+        <div className="rl-art">
+          <Image
+            src="/images/brand/ramadan-1448-art-cut.png"
+            alt="The Ka‘bah and the clock tower, from Rawdah’s poster."
+            width={830}
+            height={622}
+            priority
+            quality={90}
+            sizes="(min-width: 1024px) 46rem, 100vw"
+            className="rl-art-img settle"
+          />
+          {/* Our words in the poster's tablets. */}
+          <p aria-hidden className="rl-tablet rl-tablet-eid">
+            <b>Eid</b>
+            <em>in the</em>
+            <span>Blessed lands</span>
+          </p>
+          <p aria-hidden className="rl-tablet rl-tablet-nights">
+            <b>14</b>
+            <span>Nights</span>
+          </p>
+          {withGuest && guest ? <HeroFigures className="ph-guest rl-figure" people={[guest]} delay={500} /> : null}
+        </div>
+        <div className={`rl-foot ${gutter}`}>
+          <p style={at(820)} className="rl-tagline follow">
+            {j.heroLine ?? j.tagline}
+          </p>
+          {/* `.ph-buy`: the phone bar waits until this has scrolled away (page-watch.tsx). */}
+          <div style={at(900)} className="ph-buy rl-buy follow">
+            {offer === "tiles" && price ? (
+              <>
+                <div className="hero-offer rl-offer">
+                  <div className="offer-olive">
+                    <div className="offer-price">
+                      {ended ? <s className="offer-ended">{ended}</s> : null}
+                      <span className="offer-from">From</span>
+                      <span className="offer-big">{price}</span>
+                      <span className="offer-sub">with flights</span>
+                    </div>
+                    <span aria-hidden className="offer-rule" />
+                    <Image src="/images/brand/partners/saudia-on-olive.png" alt="Saudia" width={96} height={108} className="offer-saudia" />
+                  </div>
+                  {ground ? (
+                    <a href={`#${anchors.join}`} data-pick="ground" className="offer-ground">
+                      <span className="offer-ground-l">
+                        Ground package <em>available</em>
+                      </span>
+                      <span className="offer-ground-r">
+                        <span className="offer-ground-price">{ground}</span> Book
+                      </span>
+                    </a>
+                  ) : null}
+                </div>
+                {deposit ? <p className="rl-deposit">{deposit} deposit{payments ? `, then ${payments} payments` : ""}</p> : null}
+                <a href={`#${anchors.join}`} className="btn-ink rl-book">
+                  {joinLabel} <Chevron dir="down" className="size-3 opacity-70" />
+                </a>
+              </>
+            ) : (
+              <>
+                <PriceLine price={price} ended={ended} ground={ground} deposit={deposit} payments={payments} />
+                <Actions j={j} joinLabel={joinLabel} tone="line-ink" />
+              </>
+            )}
+          </div>
+          {j.heroNote ? (
+            <p style={at(980)} className="rl-note follow">
+              {j.heroNote}
+            </p>
+          ) : null}
+        </div>
+      </div>
     </section>
   );
 }
