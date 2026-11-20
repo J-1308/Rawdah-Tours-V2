@@ -68,10 +68,13 @@ export function GardenGlyph({ stage, className = "" }: { stage: Stage; className
         </>
       ) : stage === "dome" ? (
         <>
-          {/* The Green Dome: its crescent finial, the dome, its drum and base. */}
-          <path d="M11.4 1.8a1.6 1.6 0 1 0 1.6 2.2 1.3 1.3 0 0 1-1.6-2.2zM11.6 4.6h.8v1.3h-.8z" />
-          <path d="M5.3 14.2C5.3 9.4 8.2 6.4 12 6s6.7 3.4 6.7 8.2z" />
-          <path d="M5.8 15h12.4v2.6H5.8zM4 18.3h16v3.2H4z" />
+          {/* The Green Dome of Masjid an-Nabawi (20 Nov 2026, redrawn): crescent finial, the pointed dome, its drum with
+              three arched windows, and two steps. */}
+          <path d="M12 .9a1.45 1.45 0 1 0 1.25 2.15A1.15 1.15 0 0 1 12 .9z" />
+          <path d="M11.55 3.6h.9v1.4h-.9z" />
+          <path d="M12 4.9c.6 1.7 2.4 2.7 4.1 3.8 1.9 1.3 3 2.8 3 4.8H4.9c0-2 1.1-3.5 3-4.8C9.6 7.6 11.4 6.6 12 4.9z" />
+          <path fillRule="evenodd" d="M6.2 14.1h11.6v4.3H6.2zm2.1 1.3v1.9h1.4v-1.9a.7.7 0 0 0-1.4 0zm3 0v1.9h1.4v-1.9a.7.7 0 0 0-1.4 0zm3 0v1.9h1.4v-1.9a.7.7 0 0 0-1.4 0z" />
+          <path d="M4.4 19h15.2v1.3H4.4zM3.4 20.8h17.2v1.2H3.4z" />
         </>
       ) : stage === "minaret" ? (
         <>
@@ -81,9 +84,11 @@ export function GardenGlyph({ stage, className = "" }: { stage: Stage; className
         </>
       ) : stage === "quran" ? (
         <>
-          {/* A mus‘haf open on its rehal. */}
-          <path d="M12 9.2c-2.3-1.4-5.2-1.6-7.8-.6v6.3c2.6-1 5.5-.8 7.8.7zM12 9.2c2.3-1.4 5.2-1.6 7.8-.6v6.3c-2.6-1-5.5-.8-7.8.7z" />
-          <path d="M5.5 21.5 18 14.6M18.5 21.5 6 14.6" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+          {/* The mus'haf open on its rehal (20 Nov 2026, redrawn): two full pages, the curve of the cover, the stand. */}
+          <path d="M11.3 6.3C9.1 4.9 6.3 4.5 3.3 5.3v11.6c3-.8 5.8-.4 8 1z" />
+          <path d="M12.7 6.3c2.2-1.4 5-1.8 8-1v11.6c-3-.8-5.8-.4-8 1z" />
+          <path d="M2.6 18.6c3.3-.9 6.5-.5 9.4 1.1 2.9-1.6 6.1-2 9.4-1.1" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+          <path d="M8.2 21.6 15.8 19M15.8 21.6 8.2 19" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
         </>
       ) : stage === "star" ? (
         <>
@@ -92,11 +97,11 @@ export function GardenGlyph({ stage, className = "" }: { stage: Stage; className
           <path d="M12 2.9 21.1 12 12 21.1 2.9 12z" />
         </>
       ) : stage === "mihrab" ? (
-        <g fill="none" stroke="currentColor" strokeLinecap="round">
-          <path d="M4.8 21.5V11.2c0-3.6 3-6.3 7.2-8.4 4.2 2.1 7.2 4.8 7.2 8.4v10.3" strokeWidth="1.8" />
-          <path d="M8.6 21.5v-8.6c0-2.2 1.4-3.6 3.4-4.7 2 1.1 3.4 2.5 3.4 4.7v8.6" strokeWidth="1.3" />
-          <circle cx="12" cy="14.4" r="1" fill="currentColor" stroke="none" />
-        </g>
+        <>
+          {/* Book: the arch of a door with a tick inside (20 Nov 2026, redrawn): your place, confirmed. */}
+          <path fillRule="evenodd" d="M12 1.9c3.9 1.9 7 4.6 7 8.4v11.2H5V10.3c0-3.8 3.1-6.5 7-8.4zm0 2.3c-2.9 1.6-5.1 3.6-5.1 6.2v9.2h10.2v-9.2c0-2.6-2.2-4.6-5.1-6.2z" />
+          <path d="M8.9 13.6l2.2 2.3 4.1-4.6" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round" />
+        </>
       ) : stage === "plane" ? (
         <path d="M21 15.6v-1.9l-7.6-4.8V3.6a1.4 1.4 0 0 0-2.8 0v5.3L3 13.7v1.9l7.6-2.4v5.1l-1.9 1.4v1.5l3.3-.9 3.3.9v-1.5l-1.9-1.4v-5.1z" />
       ) : stage === "bloom" ? (

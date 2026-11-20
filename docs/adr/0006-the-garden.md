@@ -269,3 +269,17 @@ our writing in gold look like The Umrah Company"), agreed to the cuts, and asked
 - **Hero touches** (same day): "SHEIKH" over Sheikh Yahya's name in the deep gilt; the ground-only tile keeps its light
   stone and its figure takes the with-flights gold, a step deeper at its foot to read on stone (Jibril: "the button to be
   the same, just the gold writing"). The link preview was remade to match.
+
+## Eleventh pass: a better gold button, a guiding navigator, three icons redrawn (20 November 2026)
+
+- **The gold button** (one rule for every main action): satin gold leaf instead of a flat gradient: a warm light at
+  the top, a deeper band low down, a fine darker hairline at the edge, a soft warm glow under it, 600 weight; on hover
+  it lifts a little and a slow light crosses it (none with reduced motion).
+- **The garden path** no longer turns the current chapter into a gold button (Jibril: it looked like Book; "a similar
+  thing but a different, better effect, more subtle and guiding"). The chips lose their boxes: ahead faint, behind
+  stronger, the current one dark words on a soft raised ground with a gold stage, and a short gold line that glides
+  along under the row to sit beneath it (`--gp-x`, `--gp-w` set by `garden-path.tsx`; it scrolls with the row). The
+  page-progress line stays, thinner and quieter.
+- **Icons redrawn** (`GardenGlyph`): the Green Dome (crescent finial, pointed dome, a drum with three arched windows,
+  two steps) for Madinah; the mus'haf as two full pages on its rehal for the Guest Sheikh; an arched door with a tick
+  for Book.
