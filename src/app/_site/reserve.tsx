@@ -1,9 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 
-import { anchors, brand, gbp, monthly, routes, wa, type Journey } from "@/app/_site/content";
+import { anchors, brand, gbp, monthly, roomSharing, routes, wa, type Journey } from "@/app/_site/content";
 import { Mark } from "@/app/_site/marks";
 import { prefillForm, SHARING } from "@/app/_site/step-form";
 import { Chevron, WaGlyph } from "@/app/_site/whatsapp";
@@ -31,6 +31,7 @@ export function ReservePanel({ j, bookable = false }: { j: Journey; bookable?: b
   const [children, setChildren] = useState(0);
   const shareOptions = SHARING;
   const [share, setShare] = useState(shareOptions[0]);
+  const shareId = useId();
   // Once someone has changed the panel, the form below follows it (not only on "Book your place").
   const touched = useRef(false);
   const picked = rooms.find((r) => r.type === room) ?? rooms[0];
@@ -258,14 +259,15 @@ export function ReservePanel({ j, bookable = false }: { j: Journey; bookable?: b
           {packages ? null : counter("Children", "Under 12, sharing a room", children, setChildren, 0)}
         </div>
 
-        <p className={`mt-4 ${label}`}>Sharing a room with</p>
-        <div className="mt-2 flex flex-wrap gap-1.5 text-[0.875rem]">
+        <p id={`${shareId}-label`} className={`mt-4 ${label}`}>Sharing a room with</p>
+        <div role="group" aria-labelledby={`${shareId}-label`} aria-describedby={`${shareId}-note`} className="mt-2 flex flex-wrap gap-1.5 text-[0.875rem]">
           {shareOptions.map((s) => (
             <button key={s} type="button" aria-pressed={share === s} onClick={() => setShare(s)} className={`min-h-11 rounded-[0.95rem] border px-3.5 transition-colors sm:px-3 ${share === s ? "border-ink bg-ink text-canvas" : "border-ink/10 bg-(--raise) hover:border-ink/35"}`}>
               {s}
             </button>
           ))}
         </div>
+        <p id={`${shareId}-note`} className="mt-2 text-[0.875rem] text-ink/68">{roomSharing.note}</p>
 
         <dl className="mt-5 grid grid-cols-1 gap-1.5 rounded-[1.1rem] bg-canvas-warm/80 p-4 text-[0.9rem]">
           <div className="flex justify-between">
