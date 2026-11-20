@@ -445,6 +445,8 @@ html.motion .moon { animation: moon-in 2.4s var(--ease-out) calc(var(--intro) + 
 @supports (animation-timeline: scroll()) {
   @keyframes sky-par { to { transform: translate3d(0, 22vh, 0); } }
   html.motion .sky-par { animation: sky-par linear both; animation-timeline: scroll(root); animation-range: 0 100vh; }
+  /* Skies set in a scene down the page keep their stars where they are. */
+  html.motion .flight-scene .sky-par, html.motion .daybreak .sky-par { animation: none; }
 }
 
 /* motion: the poster title rises in letter by letter, then the facts and button follow (Ramadan Umrah 2027). */
@@ -1266,3 +1268,161 @@ html.motion .hosts .rv.in .host-arch img { transform: none; }
 /* One button family (the garden pass): WhatsApp keeps its glyph but takes a garden green, not the app's neon. */
 .skin-1448 { --color-wa: #2f7a4c; }
 .skin-1448 .garden { --color-wa: #2f7a4c; }
+
+/* === The poster hero (third version, 20 Nov 2026) ===============================================================
+   Rawdah's poster as the hero, cropped below its logo and above the early bird and the portraits. Its ground (sampled:
+   #e3dfd3 at the top, warming to #d7cbb9 by the crowd) continues into the page's, so the image has no edge. Phones: the
+   poster full width (it was made for a phone), the price and buttons under it. Desktop: the poster large on the left,
+   the words on the right, the whole first screen. */
+.rp { background: linear-gradient(180deg, #e3dfd3 0%, #e1dbce 45%, #e4ded2 72%, var(--color-canvas) 100%); padding-bottom: clamp(2.5rem, 7vw, 4rem); }
+.rp-grid { position: relative; display: grid; }
+.rp-poster { position: relative; z-index: 1; }
+.rp-img { display: block; width: 100%; height: auto; -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 74%, transparent 100%); mask-image: linear-gradient(to bottom, #000 0%, #000 74%, transparent 100%); }
+.rp-copy { position: relative; z-index: 2; display: grid; justify-items: center; text-align: center; margin-top: 0.4rem; }
+.rp-line { margin-top: 1rem; }
+.rp-with { display: inline-flex; margin-top: 0.55rem; }
+.rp-buy { margin-top: 1.35rem; }
+/* With the guest: he stands at the poster's lower right, over the crowd, faded into it. */
+/* Phones: small enough to stand clear of the poster's "Eid in the Haram" tablet, over the arches at the right. */
+.rp-poster .rp-figure { right: 0; bottom: 1%; width: 31%; }
+.rp-poster .rp-figure figcaption { bottom: 0; }
+.rp-poster .rp-figure .poster-role { font-size: 0.7rem; }
+.rp-poster .rp-figure .ph-figure-name { font-size: 0.8rem; }
+.rp-poster .rp-figure .ph-figure-note { font-size: 0.85rem; }
+
+@media (min-width: 64rem) {
+  .rp { padding-bottom: 1.5rem; }
+  .rp-grid {
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+    column-gap: clamp(1.5rem, 3.5vw, 3.5rem);
+    align-items: center;
+    min-height: calc(100svh - 5.3rem - 1.5rem);
+    padding: 1.5rem var(--hero-pad-x) 0.5rem;
+  }
+  .rp-poster { justify-self: end; width: 100%; max-width: 50rem; }
+  .rp-img {
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 9%, #000 91%, transparent 100%), linear-gradient(to bottom, transparent 0%, #000 6%, #000 80%, transparent 100%);
+    -webkit-mask-composite: source-in;
+    mask-image: linear-gradient(to right, transparent 0%, #000 9%, #000 91%, transparent 100%), linear-gradient(to bottom, transparent 0%, #000 6%, #000 80%, transparent 100%);
+    mask-composite: intersect;
+  }
+  .rp-copy { justify-items: start; text-align: left; margin-top: 0; padding-inline: 0; max-width: 30rem; }
+  .rp-line { margin-top: 1.25rem; font-size: 1.1rem; }
+  .rp-copy .rh-buy, .rp-copy .rh-price { justify-items: start; }
+  .rp-copy .rh-actions { grid-template-columns: auto auto; justify-content: start; max-width: none; }
+  .rp-copy .rh-book { padding-inline: 1.75rem; }
+  .rp-poster .rp-figure { right: -8%; bottom: 2%; width: 34%; }
+}
+
+/* --- Sheikh Yahya, close (GuestIntimate, 20 Nov 2026) --------------------------------------------------------------
+   His own portrait, warm and large: edge to edge on phones, his name over the golden light at its foot; on desktop the
+   portrait tall on the left, the words beside it. Settles in as it comes into view. */
+.guest-close { position: relative; }
+.gc-photo { position: relative; aspect-ratio: 4 / 5; overflow: hidden; background: #d9cdb4; }
+.gc-photo::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to bottom, transparent 48%, rgb(58 45 22 / 0.18) 66%, rgb(40 32 18 / 0.78) 100%); pointer-events: none; }
+.gc-name { position: absolute; z-index: 1; left: var(--hero-pad-x); right: var(--hero-pad-x); bottom: 1.4rem; color: #f6efdf; }
+.gc-kicker { font-family: "Montserrat", "DM Sans", system-ui, sans-serif; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: #ecd9a8; }
+.gc-name h2 { margin-top: 0.35rem; font-family: var(--font-editorial, "Cormorant Garamond", Georgia, serif); font-size: clamp(2.5rem, 10vw, 4.4rem); line-height: 1; font-weight: 500; }
+.gc-name h2 span { display: block; font-size: 0.5em; font-style: italic; opacity: 0.85; }
+.gc-text { padding-top: 1.6rem; }
+.gc-line { font-family: var(--font-editorial, "Cormorant Garamond", Georgia, serif); font-size: clamp(1.4rem, 5vw, 1.85rem); font-style: italic; line-height: 1.3; color: var(--color-ink); max-width: 30rem; }
+.gc-bio { margin-top: 0.9rem; max-width: 32rem; font-size: 1rem; line-height: 1.7; color: rgb(from var(--color-ink) r g b / 0.75); }
+.gc-cta { margin-top: 1.4rem; }
+.skin-1448 .gc-cta { background: #545234; color: #f4f2ea; }
+@supports (animation-timeline: view()) {
+  @keyframes gc-settle { from { transform: scale(1.12); } to { transform: scale(1); } }
+  html.motion .gc-photo img { animation: gc-settle linear both; animation-timeline: view(); animation-range: entry 0% cover 55%; }
+}
+@media (min-width: 64rem) {
+  .guest-close { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); align-items: center; gap: clamp(2rem, 5vw, 5rem); padding: clamp(3rem, 6vw, 5rem) var(--hero-pad-x) 0; }
+  .gc-photo { aspect-ratio: 3 / 4; border-radius: 1.75rem; box-shadow: var(--shadow-soft); }
+  .gc-text { padding: 0; }
+  .gc-line { font-size: 2rem; }
+  .gc-bio { font-size: 1.05rem; }
+}
+
+/* --- The overnight flight, as a scene (FlightScene) --------------------------------------------------------------- */
+.flight-scene { position: relative; height: clamp(15rem, 52vw, 22rem); overflow: hidden; border-radius: 1.75rem; color: #efe6cf; isolation: isolate; box-shadow: var(--shadow-soft); }
+.fs-sky { position: absolute; inset: 0; }
+/* Stacked: the night, the dusk over it (fading away), the stars, the dawn over all (rising), then the route and plane. */
+.fs-night { z-index: 0; } .fs-dusk { z-index: 1; } .flight-scene .sky { z-index: 2; } .fs-dawn { z-index: 3; }
+.fs-route, .fs-plane-x, .fs-tower, .fs-end { z-index: 4; }
+.fs-dusk { background: linear-gradient(180deg, #8e8a6c 0%, #b89f6c 62%, #dcbf86 100%); opacity: 0; }
+.fs-night { background: radial-gradient(70% 60% at 50% 110%, #3c3b2a 0%, transparent 70%), linear-gradient(180deg, #1f1e15 0%, #2e2d20 100%); }
+.fs-dawn { background: linear-gradient(180deg, #4a4a35 0%, #a08a5a 55%, #e9d29c 100%); opacity: 0; }
+.flight-scene .sky { opacity: 0.9; }
+.fs-route { position: absolute; inset: 8% 0 18%; width: 100%; height: 74%; color: rgb(239 230 207 / 0.45); }
+.fs-trail { stroke-dasharray: 1; stroke-dashoffset: 0.5; color: #ecd9a8; }
+/* The plane rides the arc exactly: the route is a quadratic curve from (7%, 69.7%) through (50%, 40.1%) to (93%,
+   69.7%) of the scene, so x moves evenly and y follows y = 69.7% - 118.4% · t(1 - t). */
+.fs-plane-x { position: absolute; top: 0; bottom: 0; left: 50%; width: 0; }
+.fs-plane-y { position: absolute; left: 0; top: 40.1%; transform: translate(-50%, -50%); }
+.fs-plane { display: block; width: clamp(1.6rem, 5vw, 2.2rem); height: auto; color: #f6efdf; transform: rotate(90deg); filter: drop-shadow(0 0 10px rgb(246 239 223 / 0.5)); }
+.fs-tower { position: absolute; right: 5%; bottom: 0; width: clamp(2.3rem, 7.5vw, 3.4rem); height: auto; color: #2e2d20; }
+.fs-end { position: absolute; bottom: 1rem; display: grid; font-size: 0.82rem; line-height: 1.3; color: rgb(239 230 207 / 0.8); }
+.fs-end span { font-family: var(--font-editorial, "Cormorant Garamond", Georgia, serif); font-size: 1.15rem; font-style: italic; color: #f6efdf; }
+.fs-from { left: 1.2rem; }
+.fs-to { right: clamp(3.6rem, 14vw, 6.5rem); text-align: right; }
+@supports (animation-timeline: view()) {
+  html.motion .flight-scene { view-timeline: --flight block; }
+  @keyframes fs-fade-out { from { opacity: 1; } to { opacity: 0; } }
+  @keyframes fs-fade-in { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes fs-x { from { left: 7%; } to { left: 93%; } }
+  @keyframes fs-y {
+    0% { top: 69.7%; rotate: -34deg; } 12.5% { top: 56.7%; rotate: -26deg; } 25% { top: 47.5%; rotate: -18deg; } 37.5% { top: 42%; rotate: -9deg; }
+    50% { top: 40.1%; rotate: 0deg; } 62.5% { top: 42%; rotate: 9deg; } 75% { top: 47.5%; rotate: 18deg; } 87.5% { top: 56.7%; rotate: 26deg; } 100% { top: 69.7%; rotate: 34deg; }
+  }
+  @keyframes fs-draw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+  @keyframes fs-rise { from { transform: translateY(100%); } to { transform: none; } }
+  html.motion .fs-dusk { opacity: 1; animation: fs-fade-out linear both; animation-timeline: --flight; animation-range: cover 30% cover 48%; }
+  html.motion .flight-scene .sky { animation: fs-fade-in linear both; animation-timeline: --flight; animation-range: cover 36% cover 52%; }
+  html.motion .fs-dawn { animation: fs-fade-in linear both; animation-timeline: --flight; animation-range: cover 58% cover 74%; }
+  html.motion .fs-plane-x { animation: fs-x linear both; animation-timeline: --flight; animation-range: cover 28% cover 76%; }
+  html.motion .fs-plane-y { animation: fs-y linear both; animation-timeline: --flight; animation-range: cover 28% cover 76%; }
+  html.motion .fs-trail { animation: fs-draw linear both; animation-timeline: --flight; animation-range: cover 28% cover 76%; }
+  html.motion .fs-tower { animation: fs-rise linear both; animation-timeline: --flight; animation-range: cover 60% cover 78%; }
+  html.motion .fs-to { animation: fs-fade-in linear both; animation-timeline: --flight; animation-range: cover 66% cover 78%; }
+  /* Arriving at dawn: the far end is read dark on the gold. */
+  html.motion .fs-to { color: rgb(46 45 32 / 0.8); }
+  html.motion .fs-to span { color: #2e2d20; }
+  html.motion .fs-from { animation: fs-fade-out linear both; animation-timeline: --flight; animation-range: cover 62% cover 72%; }
+}
+
+/* --- Where you'll stay (StayShowcase) -------------------------------------------------------------------------------
+   Each hotel as a spread: photos large (edge to edge on phones, 4:3), the name big, three facts, then the detail. */
+.stay { padding-top: clamp(4rem, 9vw, 7rem); padding-bottom: clamp(3.5rem, 8vw, 6rem); }
+.stay-hotel { margin-top: clamp(2.5rem, 6vw, 4.5rem); }
+.stay-media [role="group"][aria-label^="Photos of"] { aspect-ratio: 4 / 3; }
+.stay-text { padding-top: 1.4rem; }
+.stay-name { margin-top: 0.6rem; font-family: var(--font-editorial, "Cormorant Garamond", Georgia, serif); font-size: clamp(2.3rem, 7vw, 3.4rem); line-height: 1.02; font-weight: 500; }
+.stay-facts { display: grid; grid-template-columns: auto 1fr; gap: 0.75rem 1rem; margin-top: 1.3rem; padding: 1rem 0; border-block: 1px solid rgb(from var(--color-ink) r g b / 0.12); }
+.stay-facts > div { display: contents; }
+.stay-facts dt { display: grid; place-items: center start; min-width: 2.6rem; font-family: "Montserrat", "DM Sans", system-ui, sans-serif; font-size: 1.9rem; font-weight: 700; line-height: 1; color: var(--color-bronze); }
+.stay-facts dd { align-self: center; font-size: 0.98rem; color: rgb(from var(--color-ink) r g b / 0.8); }
+@supports (animation-timeline: view()) {
+  @keyframes stay-zoom { from { transform: scale(1.14); } to { transform: scale(1); } }
+  html.motion .stay-media [aria-label^="Photos of"] img { animation: stay-zoom linear both; animation-timeline: view(); animation-range: entry 0% cover 60%; }
+}
+@media (min-width: 64rem) {
+  .stay-hotel { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.75fr); gap: clamp(2rem, 4vw, 4rem); align-items: center; padding-inline: var(--hero-pad-x); }
+  .stay-flip { grid-template-columns: minmax(0, 0.75fr) minmax(0, 1.25fr); }
+  .stay-flip .stay-media { order: 2; }
+  .stay-media { overflow: hidden; border-radius: 1.75rem; box-shadow: var(--shadow-soft); background: var(--glass-bg); padding-bottom: 1rem; }
+  .stay-text { padding: 0; }
+}
+
+/* --- Madinah's moments (garden chapter) --- */
+.madinah-moments { display: grid; gap: 0.75rem; }
+.madinah-moments li { padding: 1.2rem 1.25rem; border-radius: 1.25rem; background: rgb(255 255 255 / 0.45); border: 1px solid rgb(255 255 255 / 0.6); }
+.mm-glyph { width: 1.6rem; height: 1.6rem; color: #46613a; }
+.mm-title { margin-top: 0.7rem; font-family: var(--font-editorial, "Cormorant Garamond", Georgia, serif); font-size: 1.45rem; line-height: 1.15; }
+.mm-text { margin-top: 0.3rem; font-size: 0.95rem; line-height: 1.55; color: rgb(from var(--color-ink) r g b / 0.72); }
+@media (min-width: 48rem) { .madinah-moments { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+
+/* --- The garden grows at daybreak --- */
+.db-garden { position: absolute; left: 0; right: 0; bottom: calc(var(--sheet) - 0.2rem); height: 4.5rem; }
+.db-plant { position: absolute; bottom: 0; width: auto; color: #7d9c63; transform-origin: 50% 100%; }
+@supports (animation-timeline: view()) {
+  @keyframes db-grow { from { transform: scaleY(0) scaleX(0.6); opacity: 0; } to { transform: none; opacity: 1; } }
+  html.motion .db-plant { animation: db-grow linear both; animation-timeline: --daybreak; animation-range: cover calc(30% + var(--n) * 3%) cover calc(52% + var(--n) * 3%); }
+}

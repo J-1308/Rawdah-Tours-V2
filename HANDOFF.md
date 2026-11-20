@@ -102,6 +102,8 @@ Code fixes are on `review/launch-fixes`. Jibril still has to:
 10. The garden (Jibril, 20 Nov 2026; `docs/adr/0006-the-garden.md`): Rawdah's design direction. The page as a journey
    to the Garden (Madinah, where the Rawdah is), the garden path as its guide, leaves from the mark behind the words,
    a Rawdah-green Madinah chapter after daybreak, Ayuub and Issa featured as the hosts, the Rawdah hadith last.
+   Second pass: the poster as the hero (with and without Sheikh Yahya, `heroGuest`), Sheikh Yahya close at the top,
+   the overnight flight as a scroll scene, both hotels in "Where you'll stay" high in the page.
 
 Review items left for later: focus moves between form steps, the Private page's thin FAQ and empty desktop column,
 desktop hero buttons on Private and Groups, Ramadan reveal facts (the 30 November instalment for late bookings, an

@@ -75,9 +75,9 @@ function GardenCrownPaths() {
   );
 }
 
-export function GardenCrown({ className = "" }: { className?: string }) {
+export function GardenCrown({ className = "", style }: { className?: string; style?: CSSProperties }) {
   return (
-    <svg viewBox="0 0 24 24" aria-hidden className={className} fill="currentColor">
+    <svg viewBox="0 0 24 24" aria-hidden className={className} style={style} fill="currentColor">
       <GardenCrownPaths />
     </svg>
   );

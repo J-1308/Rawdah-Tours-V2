@@ -161,7 +161,10 @@ script in `app/layout.tsx` sets before first paint unless the visitor prefers re
   you'd live the trip (getting there, nights, Eid, Madinah, hosts, proof, price, book, the Rawdah hadith); the guide is
   the garden path (`garden-path.tsx`, stages in `garden.tsx`); the Madinah chapter is `Chapter tone="garden"` (Rawdah
   green, floral lattice, dawn at the top) after `Daybreak`; leaves from the mark sit faintly behind chapters
-  (`GardenLeaves`); hosts are arched portraits (`.hosts`, `.host-arch`); `ClosingVerse` ends the page. In one-page
+  (`GardenLeaves`); hosts are arched portraits (`.hosts`, `.host-arch`); `ClosingVerse` ends the page. Second pass the same day: the hero is the poster itself (`.rp-*`, `heroGuest` adds
+  Sheikh Yahya); `GuestIntimate` (`.guest-close`) sits at the top; `FlightScene` (`.flight-scene`) plays the overnight
+  flight as you scroll; `StayShowcase` (`.stay-*`) shows both hotels high in the page; the join panel follows the prices
+  on every screen. In one-page
   mode the whole site wears the poster: `<html data-skin="1448">` turns the top strip, header and footer from cocoa
   to the poster's olive and stone, the logo stone, and the browser bar olive (`layout.tsx`, `globals.css`). One-page header: call, logo, WhatsApp on
   phones; the trip, logo, WhatsApp and "Book your place" on desktop (`src/lib/site-mode.ts`); what's included as photo cards (`IncludedCards`, `plan.cards`, "Photo to come" frames until Jibril

@@ -57,3 +57,32 @@ WhatsApp keeps its glyph in a garden green (`--color-wa: #2f7a4c` on the poster 
 - The home page and other pages are still in the older cocoa design; when the full site returns (`ONE_PAGE` false) they
   should move to this system.
 - Photos of iftar, Taraweeh or the Rawdah from Rawdah's own trips would strengthen the peak; none are used yet.
+
+## Second pass (20 November 2026, later the same day)
+
+Jibril: "everything past the hero is a lot better… we should have our hotels high in a section saying where you will
+stay… our journey similar to the umrah company first then getting there and then where you will stay… too
+minimalistic, we want our reader to say wow… yahya rabi should be included at the top… very intimate… use the poster
+as is… cropping it at just above where it says early bird and the photos… the poster was made for iphone… I want to see
+how this would look without him first and then add him… that kinda animation earlier… with the journey."
+
+- **Hero: Rawdah's poster itself** (`ramadan-1448-poster-hero.jpg`), cropped below its logo (the header carries it)
+  and above the early bird and the portraits, its stone ground continued in the page's so there is no edge. Phones:
+  full width, the price and buttons under it. Desktop: the poster large on the left, the words on the right. Two
+  versions: `heroGuest` false (no guest) and true (Sheikh Yahya standing at the poster's lower right, clear of its
+  "Eid in the Haram" tablet on phones).
+- **Order:** hero → Sheikh Yahya, close → our journey (the trip at a glance, the route) → the overnight flight as a scene
+  → getting there (both flights) → where you'll stay (both hotels) → nightfall and the nights → daybreak and Eid →
+  Madinah (its moments, "Rawdah means garden") → your hosts → our last trip → included → prices → book → questions →
+  the form → the Rawdah hadith. The join panel comes after the prices on every screen (no sticky side panel).
+- **Sheikh Yahya** (`GuestIntimate`): his own full-length portrait, large and warm, edge to edge on phones with his name
+  over its golden foot; on desktop tall on the left. Only the page's facts. The Sunnah Experience leads its sheikhs
+  with "Led by" and lists "private sittings"; Rawdah has no confirmed sessions to list (an open question), so the
+  closeness is in the picture and the words "travelling with the group".
+- **Where you'll stay** (`StayShowcase`): each hotel as a spread, its photos large (edge to edge on phones), the name
+  big, three facts (nights, the walk or shuttle, meals), then the detail; Madinah mirrored on desktop. The photos
+  settle as they scroll in.
+- **The flight scene** (`FlightScene`): the nightfall's kind of moment, earlier: dusk over London, night with stars and
+  the plane riding its arc, dawn and the clock tower at Jeddah, with the real times at each end.
+- **Daybreak** now grows the garden: a row of the mark's crowns rising as the gold light comes up, before the green.
+- The garden path's stops follow: Sheikh Yahya, the journey, where you'll stay, the nights, Eid, Madinah, prices, book.

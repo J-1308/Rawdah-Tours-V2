@@ -3,7 +3,6 @@ import type { CSSProperties, ComponentProps } from "react";
 
 import { anchors, type Journey } from "@/app/_site/content";
 import { HeroFigures, Mist } from "@/app/_site/poster-parts";
-import { PosterLockup } from "@/app/_site/poster-type";
 import { gutter, Heading, PartnerLogo, WaTile } from "@/app/_site/shell";
 import { Chevron } from "@/app/_site/whatsapp";
 
@@ -26,10 +25,11 @@ export function TenNights({ className = "" }: { className?: string }) {
 }
 
 /**
- * The poster trip's hero, rebuilt 20 Nov 2026 (Jibril: "the hero looks a bit mashed together"). One composition: the
- * poster's artwork with the special guest standing in it; the lockup and the ten nights; one line of when and with whom;
- * one line of what it is; one price; two buttons. Phones: the artwork first, centred. Desktop: the words left, the
- * artwork right, the full first screen.
+ * The poster trip's hero, third version (Jibril, 20 Nov 2026: "maybe use the poster as is… cropping it at just above
+ * where it says early bird and the photos. make it blend nicely"). Rawdah's own poster is the hero: cropped below its
+ * logo (the header carries the logo) and above the early-bird box and the portraits, its stone ground fading into the
+ * page's. The price, the buttons and the line are live text under it on phones (the poster was made for a phone) and
+ * beside it on desktop. `j.heroGuest`: Sheikh Yahya stands in front of the poster, blended.
  */
 export function PosterHero({
   j,
@@ -50,45 +50,41 @@ export function PosterHero({
   payments?: number;
   joinLabel: string;
 }) {
-  const dates = j.dates.value.replace(/\bFeb\b/, "February").replace(/\bMar\b/, "March");
+  const withGuest = Boolean(j.heroGuest && guest);
   return (
-    <section className="rh wash-hero relative overflow-hidden">
-      <Mist />
-      <div className={`rh-grid ${gutter}`}>
-        <div className="rh-art">
+    <section className={`rp wash-hero relative overflow-hidden ${withGuest ? "rp-guest" : ""}`}>
+      <div className="rp-grid">
+        <div className="rp-poster">
           <Image
-            src="/images/brand/ramadan-1448-art-cut.png"
-            alt="The Ka‘bah and the clock tower above Masjid al-Haram, from the GGC × Rawdah poster."
-            width={830}
-            height={622}
+            src="/images/brand/ramadan-1448-poster-hero.jpg"
+            alt="Rawdah Tours’ poster: 1448 Ramadan, last 10 days, Saturday 27 February to Saturday 13 March; 14 nights; Eid in the Haram; the Ka‘bah and the clock tower."
+            width={1080}
+            height={890}
             priority
+            quality={90}
             sizes="(min-width: 1024px) 46rem, 100vw"
-            className="rh-art-img settle"
+            className="rp-img settle"
           />
-          {guest ? <HeroFigures className="ph-guest" people={[guest]} delay={400} /> : null}
+          {withGuest && guest ? <HeroFigures className="ph-guest rp-figure" people={[guest]} delay={500} /> : null}
         </div>
 
-        <div className="rh-copy">
-          <Heading as="h1" className="poster-lockup poster-rise rh-title">
-            <PosterLockup year="1448" word="Ramadan" line="Last 10 nights" />
+        <div className={`rp-copy ${gutter}`}>
+          <Heading as="h1" className="sr-only">
+            Ramadan Umrah 2027: the last ten nights in Makkah, then Eid and four nights in Madinah
           </Heading>
-          <TenNights className="rh-nights" />
-
-          <p style={at(760)} className="rh-when follow">
-            <span className="poster-date">{dates}</span>
-            {j.partnerLogo ? (
-              <span className="rh-with">
-                <PartnerLogo logo={j.partnerLogo} className="h-5 text-ink/85" />
-                <em>with GGC</em>
-              </span>
-            ) : null}
-          </p>
-          <p style={at(840)} className="rh-line follow">
+          <TenNights className="rp-nights" />
+          <p style={at(760)} className="rh-line rp-line follow">
             {j.heroLine ?? j.tagline}
           </p>
+          {j.partnerLogo ? (
+            <p style={at(800)} className="rh-with rp-with follow">
+              <PartnerLogo logo={j.partnerLogo} className="h-5 text-ink/85" />
+              <em>with GGC</em>
+            </p>
+          ) : null}
 
           {/* `.ph-buy`: the phone bar waits until this has scrolled away (page-watch.tsx). */}
-          <div style={at(920)} className="ph-buy rh-buy follow">
+          <div style={at(880)} className="ph-buy rh-buy rp-buy follow">
             {price ? (
               <div className="rh-price">
                 {ended ? <s className="rh-ended">{ended}</s> : null}
@@ -110,7 +106,7 @@ export function PosterHero({
             </div>
           </div>
           {j.heroNote ? (
-            <p style={at(1000)} className="ph-note rh-note follow">
+            <p style={at(960)} className="ph-note rh-note follow">
               {j.heroNote}
             </p>
           ) : null}

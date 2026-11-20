@@ -88,7 +88,11 @@ is **not** identified on the site.
   The garden (20 Nov 2026): new Ramadan fields `gettingThere`, `eid`, `madinah`, `hostsIntro` and `closeVerse`, worded
   only from facts already on the page (Eid on Tue 9 or Wed 10 March; Makkah to Madinah on Tue 9 March; the Rotana's
   8-minute walk; home on 13 March; "the Rawdah Tours team with you the whole way"). The closing line is the Rawdah
-  hadith (al-Bukhari and Muslim), as in "Rawdah means garden".
+  hadith (al-Bukhari and Muslim), as in "Rawdah means garden". Second pass: the hero is Rawdah's own poster
+  (`public/images/brand/ramadan-1448-poster-hero.jpg`, cropped from the upload of 19 Nov: below the logo, above the
+  early bird and portraits; its wording is "Last 10 days"); Sheikh Yahya's full-length portrait
+  (`public/images/portraits/yahya-raaby-full.jpg`, from the same uploads); new fields `stay`, `flightScene`,
+  `madinah.moments` and `heroGuest`, all from facts already on the page.
 - **Trust box** (trip pages, `trust` in `content.ts`): shows only the people on the trip and two buttons. Its
   numbers (years running, pilgrims taken, review rating and count) stay empty until Rawdah answers the
   questionnaire; never estimate them.

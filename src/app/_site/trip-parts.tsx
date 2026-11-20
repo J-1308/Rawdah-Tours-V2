@@ -79,7 +79,8 @@ export function TeamList({ members, className = "", cols = "lg:grid-cols-4" }: {
 export function TripPeople({ j, members }: { j: Journey; members: Member[] }) {
   const rows = (j.posterTeam ?? []).map((p) => ({ ...p, m: members.find((m) => m.name === p.ref) }));
   const [guest, ...hosts] = rows;
-  const g = j.guestFeature;
+  // Poster trips: the guest has his own section at the top (GuestIntimate); here, only the hosts.
+  const g = j.posterType ? undefined : j.guestFeature;
   return (
     <>
       {guest && g ? (
@@ -598,6 +599,7 @@ const building = "M4 21V5l8-2v18M12 21h8V9l-8-2M8 8h.01M8 12h.01M8 16h.01M16 12h
 const moon = "M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z";
 const alert = "M12 4 2.5 20h19L12 4zM12 10v4.5M12 17.5h.01";
 const walker = "M13 4.5a1.5 1.5 0 1 0 0-.01M9.5 21l2-6.5 2.5 2.5V21M8 12.5l2-4.5 3.5 1 2 3.5 2.5 1M11.5 8 9 15";
+const cup = "M5 9h11v5a5 5 0 0 1-5 5h-1a5 5 0 0 1-5-5V9zM16 10.5h1.5a2.5 2.5 0 0 1 0 5H16M8.5 3.5c0 1.5 1 1.5 1 3M11.5 3.5c0 1.5 1 1.5 1 3";
 const bus = "M5 17V6a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v11M5 13h14M5 17h14M7.5 20v-3M16.5 20v-3M8 15h.01M16 15h.01M5 8h14";
 
 
@@ -767,7 +769,7 @@ export function JourneyPart({
           <TripLine plan={plan} draw />
         </div>
       ) : null}
-      <div className="mt-8 grid grid-cols-1 gap-3 lg:grid-cols-2 lg:items-start lg:gap-4">
+      {cards.length ? <div className="mt-8 grid grid-cols-1 gap-3 lg:grid-cols-2 lg:items-start lg:gap-4">
         {cards.map((c, n) =>
           "flight" in c ? (
             plan.flights[c.flight] ? <FlightCard key={`f${c.flight}`} j={j} f={plan.flights[c.flight]} i={n} /> : null
@@ -775,7 +777,7 @@ export function JourneyPart({
             <HotelCard key={`h${c.hotel}`} j={j} h={plan.hotels[c.hotel]} i={n} />
           ) : null,
         )}
-      </div>
+      </div> : null}
       {children}
     </section>
   );
@@ -1146,3 +1148,128 @@ export function TrustBox({ j, members, book, bookHref, bookLabel, className = ""
 
 const outline = "flex min-h-[3.25rem] items-center justify-center rounded-[0.95rem] border border-ink/15 bg-(--raise) text-[0.95rem] font-medium hover:border-ink/40";
 
+
+/**
+ * Sheikh Yahya, at the top of the page and close (Jibril, 20 Nov 2026: "yahya rabi should be included at the top. and
+ * it need to make it seem very intimate"). His own portrait, large and warm, his name over it; then who he is, in the
+ * page's facts only. The other site leads its sheikhs with "Led by"; Rawdah's is "Your special guest".
+ */
+export function GuestIntimate({ j, members }: { j: Journey; members: Member[] }) {
+  const g = j.guestFeature;
+  const p = j.posterTeam?.[0];
+  const m = p ? members.find((x) => x.name === p.ref) : undefined;
+  if (!g || !p) return null;
+  const photo = g.portrait ?? (m?.photo ? { src: m.photo.src, width: 800, height: 1000, position: m.photo.position } : undefined);
+  return (
+    <section id="sheikh" aria-label={`${p.label} ${p.name}, special guest`} className="trip-anchor guest-close">
+      <div className="gc-photo">
+        {photo ? <Image src={photo.src} alt={`${p.label} ${p.name}`} fill sizes="(min-width: 1024px) 34rem, 100vw" quality={88} className={`object-cover ${photo.position ?? "object-[50%_20%]"}`} /> : null}
+        <div className="gc-name">
+          <p className="gc-kicker">{g.kicker}</p>
+          <h2>
+            <span>{p.label}</span> {p.name}
+          </h2>
+        </div>
+      </div>
+      <div className={`gc-text ${gutter}`}>
+        <p className="gc-line">{g.line}</p>
+        {g.bio ? <p className="gc-bio">{g.bio}</p> : null}
+        <a href={`#${anchors.join}`} className="gf-cta gc-cta">
+          {g.cta}
+          <svg aria-hidden viewBox="0 0 12 12" className="size-3">
+            <path d="M2.5 4.5 6 8l3.5-3.5" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        </a>
+      </div>
+    </section>
+  );
+}
+
+/**
+ * Where you'll stay (Jibril, 20 Nov 2026: hotels "high in a section saying where you will stay… too minimalistic, we
+ * want our reader to say wow"). Each hotel as a spread: its photos large (edge to edge on phones), the name big, three
+ * facts at a glance, then the detail. Makkah, then Madinah, the second mirrored on desktop.
+ */
+export function StayShowcase({ j, s }: { j: Journey; s: NonNullable<Journey["stay"]> }) {
+  const plan = j.plan!;
+  return (
+    <section id="stay" className="trip-anchor stay">
+      <div className={gutter}>
+        <Label>{s.label}</Label>
+        <Heading className="mt-4 max-w-[48rem] text-[clamp(2.3rem,4.2vw,4rem)]">{s.title}</Heading>
+        <p className="mt-4 max-w-[36rem] text-[1rem] leading-[1.65] text-ink/72">{s.intro}</p>
+      </div>
+      {plan.hotels.map((h, i) => {
+        const meals = h.rows.find((r) => r.k === "Meals")?.v;
+        const photos = slotFilled(h.slot) ? [{ src: slot(h.slot), alt: `${h.name}, ${h.city}.` }, ...(h.more ?? [])] : [];
+        return (
+          <article key={h.city} className={`stay-hotel ${i % 2 ? "stay-flip" : ""}`}>
+            {photos.length ? (
+              <div className="stay-media">
+                <HotelGallery name={h.name} photos={photos} />
+              </div>
+            ) : null}
+            <div className={`stay-text ${gutter}`}>
+              <p className={`flex items-center gap-2.5 ${eyebrow}`}>
+                <span className="grid size-8 place-items-center rounded-full border border-ink/15 text-ink/75">
+                  <Glyph d={building} className="size-3.5" />
+                </span>
+                {h.city}
+              </p>
+              <h3 className="stay-name">{h.name}</h3>
+              <dl className="stay-facts">
+                <div>
+                  <dt>{h.nights}</dt>
+                  <dd>nights</dd>
+                </div>
+                {h.walk ? (
+                  <div>
+                    <dt>
+                      <Glyph d={h.walk.by === "foot" ? walker : bus} className="size-5" />
+                    </dt>
+                    <dd>{h.walk.text}</dd>
+                  </div>
+                ) : null}
+                {meals ? (
+                  <div>
+                    <dt>
+                      <Glyph d={cup} className="size-5" />
+                    </dt>
+                    <dd>{meals}</dd>
+                  </div>
+                ) : null}
+              </dl>
+              {h.about ? <p className="mt-5 text-[1rem] leading-relaxed text-ink/75">{h.about}</p> : null}
+              {h.features ? (
+                <ul className="mt-4 flex flex-wrap gap-1.5">
+                  {h.features.map((f) => (
+                    <li key={f} className={pill}>
+                      {f}
+                    </li>
+                  ))}
+                </ul>
+              ) : null}
+              <Rows rows={h.rows.filter((r) => r.k !== "Meals")} />
+              {h.note ? <p className="mt-3 text-[0.875rem] text-ink/62">{h.note}</p> : null}
+            </div>
+          </article>
+        );
+      })}
+    </section>
+  );
+}
+
+/** Madinah's moments in the garden chapter: facts from the plan, as three quiet tiles. */
+export function MadinahMoments({ items }: { items: { title: string; text: string }[] }) {
+  return (
+    <ul className="madinah-moments mt-8">
+      {items.map((it, i) => (
+        <li key={it.title} data-reveal="" data-rv={String(i)}>
+          <GardenGlyph stage={i === 0 ? "garden" : i === 1 ? "crescent" : "leaf"} className="mm-glyph" />
+          <p className="mm-title">{it.title}</p>
+          <p className="mm-text">{it.text}</p>
+        </li>
+      ))}
+    </ul>
+  );
+}
