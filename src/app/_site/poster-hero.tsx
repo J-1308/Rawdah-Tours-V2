@@ -3,8 +3,8 @@ import type { CSSProperties, ComponentProps } from "react";
 
 import { anchors, type Journey } from "@/app/_site/content";
 import { GardenGlyph, type Stage } from "@/app/_site/garden";
-import { HeroFigures } from "@/app/_site/poster-parts";
-import { gutter, Heading, Label, PartnerLogo, plain, WaTile } from "@/app/_site/shell";
+import { HeroFigures, ICONS, type Perk } from "@/app/_site/poster-parts";
+import { Emblem, gutter, Heading, Label, PartnerLogo, plain, WaTile } from "@/app/_site/shell";
 import { Chevron } from "@/app/_site/whatsapp";
 
 type Person = ComponentProps<typeof HeroFigures>["people"][number];
@@ -65,6 +65,8 @@ export function PosterHero({ j, guest, price, ended, ground, deposit, payments, 
   const withGuest = Boolean(j.heroGuest && guest);
   return (
     <section className={`rp wash-hero relative overflow-hidden ${withGuest ? "rp-guest" : ""}`}>
+      {/* Rawdah's mark, large and faint behind the words (Jibril, 20 Nov 2026: "the Rawdah logo faintly in the background"). */}
+      <Emblem className="rp-mark watermark pointer-events-none absolute" />
       <div className="rp-grid">
         <div className="rp-poster">
           <Image
@@ -134,6 +136,7 @@ export function PackageSection({ j, guest, price, ended, ground, deposit, paymen
   ];
   return (
     <section id="package" className={`pkg pkg-${p.at} trip-anchor`}>
+      <Emblem className="pkg-mark watermark pointer-events-none absolute" />
       <div className={`pkg-in ${gutter}`}>
         <div className="pkg-head" data-reveal="">
           <Label tone={night ? "canvas" : "ink"}>{p.label}</Label>
@@ -158,6 +161,32 @@ export function PackageSection({ j, guest, price, ended, ground, deposit, paymen
           <Actions j={j} joinLabel={joinLabel} tone={night ? "line-canvas" : "line-ink"} />
         </div>
       </div>
+    </section>
+  );
+}
+
+/**
+ * The feature band under the hero (Jibril, 20 Nov 2026: "a feature kind of bar below the hero similar to The Umrah
+ * Company… that could be the contrasting thing"). What the package includes, from Rawdah's own poster (its icon row,
+ * `plan.perks`), on deep olive between gilt rules: the contrast that closes the hero off. Still, never a moving ticker
+ * (that is The Umrah Company's, ADR 0005): one row on desktop, four by two on phones.
+ */
+export function FeatureBand({ perks }: { perks: Perk[] }) {
+  if (!perks.length) return null;
+  return (
+    <section aria-label="Included in the package" className="feature-band">
+      <ul className={`fb-list ${gutter}`}>
+        {perks.map((p, i) => (
+          <li key={p.icon} className="fb-item" data-reveal="" data-rv={String(i)}>
+            <svg aria-hidden viewBox="0 0 48 48" className="fb-icon" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+              {ICONS[p.icon]}
+            </svg>
+            <span className="fb-text">
+              <b>{p.big}</b> <span>{p.small}</span>
+            </span>
+          </li>
+        ))}
+      </ul>
     </section>
   );
 }

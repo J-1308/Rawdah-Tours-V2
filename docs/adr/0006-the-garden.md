@@ -169,3 +169,21 @@ straight into the animation and that part will be the package part."
   themselves into the arch, the name large, its nights in the gilt eight-pointed star with the dates, the walk and the
   meals with gilt icons, the detail, gilt diamonds for the features. The arch opens as it comes into view. No star
   ratings: the hotels' own aren't stated. Not The Umrah Company's wide photo over a row of three with a gold badge.
+
+## Seventh pass: a feature band, the mark in the background, the flight behind (20 November 2026)
+
+Jibril: "I want to see the Rawdah logo faintly in the background. We can have a feature kind of bar below the hero
+similar to The Umrah Company; that could be the contrasting thing, so we kinda keep both. Having a whole section for a
+plane animation… doesn't make sense; it can be used as something else or in the background."
+
+- **The feature band** (`FeatureBand` in `poster-hero.tsx`, `.feature-band`, `.fb-*`): straight under the hero, what
+  the package includes from Rawdah's own poster (its icon row, `plan.perks`: visa, Jumuah in both Harams, seminar,
+  baggage, transport, ziyarah, direct flights, the Haramain train), on deep olive between double gilt rules. It is the
+  contrast that closes the hero off. Still, never a moving ticker (The Umrah Company's is a black-and-gold ticker;
+  ADR 0005 keeps marquees out): four by two on phones, one row of eight from tablets up.
+- **The garden path is light again** (ivory frosted, a gilt rule, the current chapter the gilt button), so two dark
+  bands don't stack under the hero. Both stay: the band scrolls away, the path sticks.
+- **Rawdah's mark, faint** (`.watermark` with `--watermark` on the skin): large and barely there behind the hero's
+  words, the package and "Where you'll stay"; a deep gilt on stone, a light one in the night.
+- **The flight goes to the background** (`FlightScene bg`, `.flight-bg`): no section of its own. Its arc and plane sit
+  faint behind "Getting there" and draw as you scroll through it; the flight cards frost what passes behind them.

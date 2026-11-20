@@ -174,8 +174,10 @@ script in `app/layout.tsx` sets before first paint unless the visitor prefers re
   and gold-edged night cards, headings at weight 520. Gold on olive and green, never on black (The Umrah Company is gold on black).
   Sixth pass (ADR 0006): the package is its own section (`PackageSection`, `.pkg-*`, `j.pack.at` "day" or "night"),
   never a card on the hero; gilt words in titles (`*asterisks*`, `gild` in `shell.tsx`, `.gild`); the garden path is a
-  deep olive band between gilt rules; hotels stand in gilt-lined arches with photo plates and the nights in a gilt star
-  (`HotelPlates`, `.stay-*`). In one-page
+  light frosted row with a gilt rule; hotels stand in gilt-lined arches with photo plates and the nights in a gilt
+  star (`HotelPlates`, `.stay-*`). Seventh pass: `FeatureBand` (`.feature-band`) under the hero is the dark contrast
+  (the poster's icon row, still, never a ticker); Rawdah's mark faint behind the hero, package and hotels (`.watermark`);
+  the overnight flight is a background to Getting there (`FlightScene bg`, `.flight-bg`), not a section. In one-page
   mode the whole site wears the poster: `<html data-skin="1448">` turns the top strip, header and footer from cocoa
   to the poster's olive and stone, the logo stone, and the browser bar olive (`layout.tsx`, `globals.css`). One-page header: call, logo, WhatsApp on
   phones; the trip, logo, WhatsApp and "Book your place" on desktop (`src/lib/site-mode.ts`); what's included as photo cards (`IncludedCards`, `plan.cards`, "Photo to come" frames until Jibril
