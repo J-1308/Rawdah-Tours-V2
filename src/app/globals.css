@@ -1713,10 +1713,11 @@ html.motion .fb-item.rv.in .fb-text { opacity: 1; transform: none; }
 .rl-flights .rl-sub { color: rgb(241 238 230 / 0.72); }
 .rl-saudia { width: 2.4rem; height: auto; flex: none; filter: brightness(0) invert(1); opacity: 0.85; }
 .rl-k { white-space: nowrap; }
-/* Ground only matches with flights (Jibril, 20 Nov 2026): the same olive tile, the same gold figure. */
-.rl-ground { color: #f1eee6; background: radial-gradient(120% 90% at 20% 0%, rgb(255 236 180 / 0.08) 0%, transparent 60%), linear-gradient(180deg, #57563f 0%, #45442e 100%); box-shadow: 0 22px 40px -26px rgb(37 36 24 / 0.75); }
-.rl-ground .rl-price { background-image: linear-gradient(180deg, #f6e8bb 0%, #dcbf76 60%, #c4a254 100%); }
-.rl-ground .rl-sub { color: rgb(241 238 230 / 0.72); }
+/* Ground only keeps its light tile; its figure takes the gold of the with-flights one (Jibril, 20 Nov 2026: "the button
+   to be the same, just the gold writing"), a step deeper at its foot so it still reads on stone. */
+.rl-ground { color: #45442e; background: rgb(255 255 255 / 0.5); border: 1px solid rgb(255 255 255 / 0.85); box-shadow: 0 18px 34px -28px rgb(60 48 20 / 0.5); }
+.rl-ground .rl-price { background-image: linear-gradient(180deg, #d2b162 0%, #b8963f 50%, #94742f 100%); }
+.rl-ground .rl-sub { color: rgb(51 50 31 / 0.66); }
 .rl-book { display: inline-flex; width: 100%; min-height: 3.4rem; align-items: center; justify-content: center; gap: 0.5rem; border-radius: 1rem; font-size: 1rem; font-weight: 500; }
 .rl-note { display: flex; flex-wrap: wrap; justify-content: center; font-size: 0.86rem; line-height: 1.5; color: rgb(from var(--color-ink) r g b / 0.7); }
 @media (max-width: 23.99rem) { .rl-saudia { display: none; } }

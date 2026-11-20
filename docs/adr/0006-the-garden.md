@@ -266,5 +266,6 @@ our writing in gold look like The Umrah Company"), agreed to the cuts, and asked
   about 20 screens, down from 26.
 - **Fixes before merging**: the feature band showed twice on desktop (its phone copy wasn't hidden); the link preview
   is now the hero itself (`shareImage`, site-wide `opengraph-image.jpg`; `scripts/share-image.py` remakes it).
-- **Hero touches** (same day): "SHEIKH" over Sheikh Yahya's name in the deep gilt; the ground-only tile matches the
-  with-flights one (olive, gold figure). The link preview was remade to match.
+- **Hero touches** (same day): "SHEIKH" over Sheikh Yahya's name in the deep gilt; the ground-only tile keeps its light
+  stone and its figure takes the with-flights gold, a step deeper at its foot to read on stone (Jibril: "the button to be
+  the same, just the gold writing"). The link preview was remade to match.
