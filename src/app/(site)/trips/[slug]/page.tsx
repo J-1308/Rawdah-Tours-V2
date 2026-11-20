@@ -7,12 +7,14 @@ import { notFound } from "next/navigation";
 
 import { ComingSoonTrip } from "@/app/_site/coming-soon";
 import { TripPhoneBar } from "@/app/_site/trip-bar";
-import { anchors, brand, covers, faqs, fromPrice, gbp, hajjNusuk, journey, journeys, nightsOf, ramadanReveal, routes, routeText, say, type Journey } from "@/app/_site/content";
+import { anchors, covers, faqs, fromPrice, gbp, hajjNusuk, journey, journeys, nightsOf, ramadanReveal, routes, routeText, say, type Journey } from "@/app/_site/content";
 import { CoverGroups, FaqList, PaymentPlan, Tick } from "@/app/_site/home-sections";
 import { Mark } from "@/app/_site/marks";
 import { ArrivalTrigger } from "@/app/_site/arrival-trigger";
-import { Arrival, HeroFigures, HeroOffer, Mist, PerkTicker, PosterTeam } from "@/app/_site/poster-parts";
+import { Arrival, Mist } from "@/app/_site/poster-parts";
 import { PosterLockup, PosterText } from "@/app/_site/poster-type";
+import { PosterHero } from "@/app/_site/poster-hero";
+import { Nightfall } from "@/app/_site/night-sky";
 import { StepForm } from "@/app/_site/step-form";
 import { ReservePanel } from "@/app/_site/reserve";
 import { Chapter, ConfirmedPending, gutter, Heading, Label, Logo, PageLead, PartnerLogo, WaTile } from "@/app/_site/shell";
@@ -119,10 +121,12 @@ export function TripView({ j }: { j: Journey }) {
   ];
   const joinLabel = j.state === "open" ? "Book your place" : "Register interest";
   const posterPeople = (j.posterTeam ?? []).map((p) => ({ label: p.label, name: p.name, note: p.note, cut: p.cut, photo: members.find((m) => m.name === p.ref)?.photo }));
-  /** The special guest, first on the poster: inside the artwork on phones, on the left of it on desktop. */
-  const [guest, ...withGuest] = posterPeople;
+  /** The special guest, first on the poster, stands in the hero's artwork; the hosts come in "The people" below. */
+  const [guest] = posterPeople;
   const ground = Math.min(...(j.rooms?.value ?? []).filter((r) => r.flights === false).map((r) => r.price));
-  const offer = price ? <HeroOffer from={gbp(price)} ended={j.endedOffer ? `${j.endedOffer.label} ${gbp(j.endedOffer.price)}` : undefined} ground={Number.isFinite(ground) ? gbp(ground) : undefined} phone={brand.phone} /> : null;
+  // The same number of payments after the deposit on every package, or none shown (the hero's price line).
+  const plans = trip?.pricing?.rooms.map((r) => r.schedule?.length ?? 0) ?? [];
+  const payments = plans.length && plans[0] > 1 && plans.every((n) => n === plans[0]) ? plans[0] - 1 : undefined;
   if (j.posterType) {
     // The title's face and the italic under it, fetched with the page, so the title doesn't rise in a fallback font.
     preload("/fonts/montserrat-latin-wght-normal.woff2", { as: "font", type: "font/woff2", crossOrigin: "anonymous" });
@@ -153,66 +157,16 @@ export function TripView({ j }: { j: Journey }) {
       <TripPhoneBar j={j} price={price} deposit={trip?.pricing ? trip.pricing.depositPence / 100 : null} bookable={bookable} />
       {j.posterType ? (
         <Chapter tone="day">
-          {/* The head on the poster's terms (Jibril, 19 Nov 2026): centred, the image first, then the title, the dates,
-              one line, the price and the people. Less to read; the artwork does the work. */}
-          <section className={`poster-hero wash-hero relative overflow-hidden pb-[clamp(2.5rem,7vw,5rem)] ${gutter}`}>
-            <Mist />
-            {/* The artwork with Sheikh Yahya standing in it, right; the tablet's two faces take turns (Jibril, 19 Nov
-                2026). Phones: full width above the title. Desktop: the left column, the words on the right. */}
-            <div className="ph-stage">
-              <div className="ph-art">
-                <span className="ph-tab ph-tab-l follow" style={{ "--d": "250ms" } as CSSProperties}>
-                  <span className="ph-face">
-                    <b>14</b>
-                    <small>Nights</small>
-                  </span>
-                  {/* The poster's second tablet, taking turns with the first (globals.css, tab-swap). */}
-                  <span className="ph-face ph-face-b">
-                    <b>Eid</b>
-                    <small>
-                      <em>in the</em> Blessed lands
-                    </small>
-                  </span>
-                </span>
-                <Image src="/images/brand/ramadan-1448-art-cut.png" alt="The Ka‘bah and the clock tower above Masjid al-Haram, from the GGC × Rawdah poster." width={830} height={622} priority sizes="(min-width: 1024px) 44rem, 100vw" className="ph-art-img settle" />
-                {guest ? <HeroFigures className="ph-guest" people={[guest]} delay={400} /> : null}
-              </div>
-            </div>
-            <div className="ph-text">
-              <Heading as="h1" className="poster-lockup poster-rise">
-                <PosterLockup year="1448" word="Ramadan" line="Last 10 nights" />
-              </Heading>
-              <div>
-              <p style={{ "--d": "700ms" } as CSSProperties} className="poster-date follow mt-3">
-                {j.dates.value.replace(/\bFeb\b/, "February").replace(/\bMar\b/, "March")}
-              </p>
-              {j.partnerLogo ? (
-                <p style={{ "--d": "800ms" } as CSSProperties} className="follow mt-4 flex items-center justify-center gap-3 text-[0.95rem] text-ink/70">
-                  <PartnerLogo logo={j.partnerLogo} className="h-6 text-ink/85" />
-                  <span aria-hidden className="h-5 w-px bg-ink/20" />
-                  <span className="font-editorial text-[1.1rem] italic">with GGC</span>
-                </p>
-              ) : null}
-              </div>
-              <p style={{ "--d": "880ms" } as CSSProperties} className="follow mx-auto mt-4 max-w-[30rem] font-editorial text-[clamp(1.3rem,4.6vw,1.65rem)] leading-snug text-ink/75 italic">
-                {j.heroLine ?? j.tagline}
-              </p>
-              {/* The price, then the button, then (phones only) the two people not standing in the artwork. */}
-              <div style={{ "--d": "960ms" } as CSSProperties} className="ph-buy follow mx-auto text-left">
-                {offer}
-                <a href={`#${anchors.join}`} className="btn-ink ph-buy-btn flex min-h-[3.25rem] items-center justify-center gap-2 rounded-[0.95rem] text-[0.95rem] font-medium">
-                  {joinLabel} <Chevron dir="down" className="size-3 opacity-70" />
-                </a>
-              </div>
-              {j.heroNote ? (
-                <p style={{ "--d": "1000ms" } as CSSProperties} className="ph-note follow">
-                  {j.heroNote}
-                </p>
-              ) : null}
-              {withGuest.length ? <PosterTeam className="ph-team follow mx-auto mt-8 max-w-[18rem] lg:hidden" people={withGuest} /> : null}
-            </div>
-            {j.plan?.perks ? <PerkTicker perks={j.plan.perks} className="follow mt-10 sm:mt-14" /> : null}
-          </section>
+          <PosterHero
+            j={j}
+            guest={guest}
+            price={price ? gbp(price) : undefined}
+            ended={j.endedOffer ? `${j.endedOffer.label} ${gbp(j.endedOffer.price)}` : undefined}
+            ground={Number.isFinite(ground) ? gbp(ground) : undefined}
+            deposit={trip?.pricing ? gbp(trip.pricing.depositPence / 100) : undefined}
+            payments={payments}
+            joinLabel={joinLabel}
+          />
         </Chapter>
       ) : (
       <Chapter tone="top">
@@ -350,8 +304,10 @@ export function TripView({ j }: { j: Journey }) {
               <TripPeople j={j} members={members} />
             </section>
           ) : null}
-          {j.why ? <WhyRawdah w={j.why} /> : null}
-          {j.pastTrips ? <PastTrips p={j.pastTrips} /> : j.groups ? <GroupStrip photos={j.groups} /> : null}
+          {/* Poster trips tell it as a story (Jibril, 20 Nov 2026): the trip, the people, the nights, the journey, what's
+              included, then the proof (our last trip, why Rawdah) just before the price. */}
+          {j.why && !j.posterType ? <WhyRawdah w={j.why} /> : null}
+          {j.posterType ? null : j.pastTrips ? <PastTrips p={j.pastTrips} /> : j.groups ? <GroupStrip photos={j.groups} /> : null}
 
           {j.kind === "hajj" ? <HajjOnNusuk /> : null}
 
@@ -384,6 +340,7 @@ export function TripView({ j }: { j: Journey }) {
         {j.kind === "umrah" ? (
           j.plan ? (
             <>
+              {j.posterType ? <Nightfall /> : null}
               {j.nights ? <HaramNights n={j.nights} /> : null}
               <div id="stay" className="trip-anchor">
                 <TripJourney j={j} />
@@ -424,6 +381,8 @@ export function TripView({ j }: { j: Journey }) {
                   <Heading className={h2}>What’s included</Heading>
                   <TripIncludes plan={j.plan} />
                 </section>
+                {j.posterType && j.pastTrips ? <PastTrips p={j.pastTrips} /> : null}
+                {j.posterType && j.why ? <WhyRawdah w={j.why} /> : null}
                 <section id="prices" className="trip-anchor mt-12 sm:mt-16">
                   <Heading className={h2}>Packages and payments</Heading>
                   {j.posterType ? <PosterPackages j={j} /> : <TripPackages j={j} />}

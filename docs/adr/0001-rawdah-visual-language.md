@@ -38,7 +38,7 @@ Replace everything visible with a language built from Rawdah's own material:
 | Included | stage stepper with photos | "What the trip cost includes" in four columns, hotels as a table |
 | Booking | five numbered columns | a payment timeline with a worked example |
 | Reviews | three cards with stars | one large quote and two smaller on clay |
-| Motion | marquee, rising items, stepper fill | one moment: the hero mosaic settles in on load |
+| Motion | marquee, rising items, stepper fill | one moment: the hero mosaic settles in on load (amended by 0005: the ten nights, nightfall, focus-in, developing photos) |
 
 Words come from Rawdah's own sources first (V1: "Why choose Rawdah", "The
 people who will walk with you", "Our last trip", "Accommodation & travel",

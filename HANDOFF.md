@@ -96,6 +96,9 @@ Code fixes are on `review/launch-fixes`. Jibril still has to:
    Live on rawdahtours.co.uk since 19 Nov 2026 (PRs #21, #22; `SITE_PASSWORD` removed). No Hajj band on the page for
    now; a booking request ends on `/trips/ramadan-umrah-2027/thank-you`.
    Set `ONE_PAGE` to false to bring the full site back.
+9. Story and motion (Jibril, 20 Nov 2026; `docs/adr/0005-story-and-motion.md`): a calmer hero (`poster-hero.tsx`), the
+   page reordered as a story (trip, people, nights, journey, included, proof, price, book), and Rawdah's own motion:
+   the ten nights in the hero, nightfall into the night chapter, focus-in reveals, developing photos. No marquee.
 
 Review items left for later: focus moves between form steps, the Private page's thin FAQ and empty desktop column,
 desktop hero buttons on Private and Groups, Ramadan reveal facts (the 30 November instalment for late bookings, an

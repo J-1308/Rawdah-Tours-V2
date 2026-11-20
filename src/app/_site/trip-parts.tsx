@@ -456,7 +456,7 @@ export function PastTrips({ p }: { p: NonNullable<Journey["pastTrips"]> }) {
       <Heading className="text-[clamp(1.9rem,3.2vw,2.6rem)] leading-tight">{p.title}</Heading>
       <div className="past-top mt-6">
         {p.lead ? (
-          <figure className="past-lead">
+          <figure className="past-lead" data-reveal>
             <div className="past-lead-photo">
               <Image src={p.lead.src} alt={p.lead.alt} fill sizes="(min-width: 1024px) 46rem, 100vw" className={`object-cover ${p.lead.position ?? ""}`} />
             </div>
@@ -482,7 +482,7 @@ export function PastTrips({ p }: { p: NonNullable<Journey["pastTrips"]> }) {
       </div>
       <ul className="past-gallery mt-8">
         {p.photos.map((ph) => (
-          <li key={ph.src}>
+          <li key={ph.src} data-reveal>
             <StayFrame photo={ph} className="aspect-[4/3] rounded-[1rem]! sm:rounded-[1rem]!" sizes="(min-width: 1024px) 14rem, 78vw" />
           </li>
         ))}

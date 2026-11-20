@@ -1,3 +1,5 @@
+import type { CSSProperties } from "react";
+
 /**
  * A Ramadan night sky for the Ramadan Umrah 2027 page (Jibril, 17 Nov 2026: the client values good animation):
  * small stars that twinkle in three groups out of step, and on the page head a crescent that fades in.
@@ -61,6 +63,46 @@ export function NightSky({ count = 64, seed = 1448, moon = false, className = ""
           <circle cx="50" cy="50" r="24" fill="#e9d4a8" mask="url(#moon-cut)" />
         </svg>
       ) : null}
+    </div>
+  );
+}
+
+/** Ten stars along a low arc, left to right: the last ten nights, the odd ones gold (as in the hero's ten nights). */
+const TEN = Array.from({ length: 10 }, (_, i) => {
+  const t = i / 9;
+  return { x: 10 + t * 80, y: 70 - Math.sin(Math.PI * t) * 30, odd: i % 2 === 0 };
+});
+
+/**
+ * Nightfall, at the top of the night chapter (Jibril, 20 Nov 2026: "it needs to tell a story… unique animations"). As
+ * the band scrolls in, the day's stone light drains into the night, the crescent rises and ten stars come out one by one:
+ * the last ten nights, the odd ones gold. Tied to scrolling where the browser can (globals.css, "nightfall"); otherwise,
+ * and with reduced motion, it is simply a night sky.
+ */
+export function Nightfall() {
+  return (
+    <div aria-hidden className="nightfall">
+      <NightSky count={54} seed={27} className="nf-sky" />
+      <svg className="nf-moon" viewBox="0 0 100 100">
+        <defs>
+          <radialGradient id="nf-glow" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stopColor="#e9d4a8" stopOpacity="0.3" />
+            <stop offset="100%" stopColor="#e9d4a8" stopOpacity="0" />
+          </radialGradient>
+          <mask id="nf-cut">
+            <rect width="100" height="100" fill="#fff" />
+            <circle cx="61" cy="42" r="23" fill="#000" />
+          </mask>
+        </defs>
+        <circle cx="50" cy="50" r="50" fill="url(#nf-glow)" />
+        <circle cx="50" cy="50" r="24" fill="#e9d4a8" mask="url(#nf-cut)" />
+      </svg>
+      <span className="nf-ten">
+        {TEN.map((s, i) => (
+          <span key={i} className={`nf-star ${s.odd ? "nf-odd" : ""}`} style={{ left: `${s.x}%`, top: `${s.y}%`, "--n": i } as CSSProperties} />
+        ))}
+      </span>
+      <span className="nf-dusk" />
     </div>
   );
 }
