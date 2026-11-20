@@ -2,9 +2,10 @@ import Image from "next/image";
 import type { CSSProperties, ComponentProps } from "react";
 
 import { anchors, type Journey } from "@/app/_site/content";
-import { ForWho, Highlights, TripLine, VerseLine } from "@/app/_site/trip-parts";
+import { Highlights, TripLine, VerseLine } from "@/app/_site/trip-parts";
 import { HeroFigures, ICONS, type Perk } from "@/app/_site/poster-parts";
-import { Emblem, gutter, Heading, Label, PartnerLogo, WaTile } from "@/app/_site/shell";
+import { PosterLockup } from "@/app/_site/poster-type";
+import { Emblem, gutter, Heading, Label, PartnerLogo } from "@/app/_site/shell";
 import { Chevron } from "@/app/_site/whatsapp";
 
 type Person = ComponentProps<typeof HeroFigures>["people"][number];
@@ -21,102 +22,14 @@ type Buy = {
   joinLabel: string;
 };
 
-/** The price and the two buttons, shared by the hero and the package section. */
-function PriceLine({ price, ended, ground, deposit, payments, className = "" }: Omit<Buy, "j" | "joinLabel"> & { className?: string }) {
-  if (!price) return null;
-  return (
-    <div className={`rh-price ${className}`}>
-      {ended ? <s className="rh-ended">{ended}</s> : null}
-      <p className="rh-from">
-        <span className="rh-from-k">From</span> <strong>{price}</strong> <span className="rh-from-k">with flights</span>
-      </p>
-      <p className="rh-alt">
-        {ground ? (
-          <a href={`#${anchors.join}`} data-pick="ground" className="rp-ground">
-            {ground} ground only
-          </a>
-        ) : null}
-        {ground && deposit ? <span aria-hidden> · </span> : null}
-        {deposit ? <span>{deposit} deposit{payments ? `, then ${payments} payments` : ""}</span> : null}
-      </p>
-    </div>
-  );
-}
-
-function Actions({ j, joinLabel, tone }: { j: Journey; joinLabel: string; tone: "line-ink" | "line-canvas" }) {
-  return (
-    <div className="rh-actions">
-      <a href={`#${anchors.join}`} className="btn-gilt rh-book">
-        {joinLabel} <Chevron dir="down" className="size-3 opacity-70" />
-      </a>
-      <WaTile text={j.waText} trip={j.name} tone={tone} className="rh-wa" />
-    </div>
-  );
-}
-
-/**
- * The poster trip's hero (Jibril, 20 Nov 2026: "use the poster as is… cropping it at just above where it says early
- * bird"). Rawdah's own poster, cropped below its logo and above the early-bird box, its stone ground fading into the
- * page's. Beside it on desktop: the trip in a line with its key words in gilt, the price and the buttons; under it on
- * phones, only the price and the buttons (the poster already says the rest). The package itself is the next section
- * (`PackageSection`), never a card on the hero. `j.heroGuest`: Sheikh Yahya stands in front of the poster, blended.
- */
-export function PosterHero({ j, guest, price, ended, ground, deposit, payments, joinLabel }: Buy & { guest?: Person }) {
-  const withGuest = Boolean(j.heroGuest && guest);
-  return (
-    <section className={`rp wash-hero relative overflow-hidden ${withGuest ? "rp-guest" : ""}`}>
-      {/* Rawdah's mark, large and faint behind the words (Jibril, 20 Nov 2026: "the Rawdah logo faintly in the background"). */}
-      <Emblem className="rp-mark watermark pointer-events-none absolute" />
-      <div className="rp-grid">
-        <div className="rp-poster">
-          <Image
-            src="/images/brand/ramadan-1448-poster-hero.jpg"
-            alt="Rawdah Tours’ poster: 1448 Ramadan, last 10 days, Saturday 27 February to Saturday 13 March; 14 nights; Eid in the Haram; the Ka‘bah and the clock tower."
-            width={1080}
-            height={890}
-            priority
-            quality={90}
-            sizes="(min-width: 1024px) 46rem, 100vw"
-            className="rp-img settle"
-          />
-          {withGuest && guest ? <HeroFigures className="ph-guest rp-figure" people={[guest]} delay={500} /> : null}
-        </div>
-
-        <div className={`rp-copy ${gutter}`}>
-          <p style={at(550)} className="rp-kicker follow">
-            <span>Ramadan Umrah 2027</span>
-            {j.partnerLogo ? (
-              <span className="rp-with">
-                with <PartnerLogo logo={j.partnerLogo} className="h-[1.05rem]" />
-              </span>
-            ) : null}
-          </p>
-          {/* Seen beside the poster on desktop; on phones the poster says it, so it's for screen readers. */}
-          <div style={at(650)} className="follow">
-            <Heading as="h1" className="rp-title">
-              The last ten days of Ramadan, *in Makkah*
-            </Heading>
-          </div>
-          <p style={at(750)} className="rp-line follow">Then Eid in the blessed lands, and four nights in Madinah.</p>
-          {/* `.ph-buy`: the phone bar waits until this has scrolled away (page-watch.tsx). */}
-          <div style={at(850)} className="ph-buy rp-buy follow">
-            <PriceLine price={price} ended={ended} ground={ground} deposit={deposit} payments={payments} />
-            <Actions j={j} joinLabel={joinLabel} tone="line-ink" />
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
 /**
  * The journey (Jibril, 20 Nov 2026): the package, the nights and our journey in one section straight after the hero
  * and the garden path, "easy to read and follow". The old home hero's group photo at its top, the title with its gilt
  * words, the journey in a paragraph, then its highlights numbered in the order you live them (the flight, the ten
- * nights and what fills them, Eid, Madinah), the route line with dates, who it's for, the hadith of Umrah in Ramadan,
- * and the price with the buttons. A lighter section before the night (`j.pack.at` "day"; "night" puts it in the night).
+ * nights and what fills them, Eid, Madinah), the route line with dates and the hadith of Umrah in Ramadan. No price
+ * or buttons here (the hero and the phone bar carry them) and no "who it's for" cards (the questions answer them). A lighter section before the night (`j.pack.at` "day"; "night" puts it in the night).
  */
-export function JourneySection({ j, price, ended, ground, deposit, payments, joinLabel }: Buy & { guest?: Person }) {
+export function JourneySection({ j }: { j: Journey }) {
   const p = j.pack;
   if (!p) return null;
   const night = p.at === "night";
@@ -128,7 +41,6 @@ export function JourneySection({ j, price, ended, ground, deposit, payments, joi
           <Label tone={night ? "canvas" : "ink"}>{p.label}</Label>
           <Heading className="section-title pkg-title">{p.title}</Heading>
           {j.about ? <p className="jr-lead">{j.about.text}</p> : null}
-          {j.heroNote ? <p className="pkg-note">{j.heroNote}</p> : null}
         </div>
         {p.photo ? (
           <figure className="jr-photo" data-reveal="">
@@ -138,10 +50,6 @@ export function JourneySection({ j, price, ended, ground, deposit, payments, joi
             <figcaption>{p.photo.caption}</figcaption>
           </figure>
         ) : null}
-        <div className="pkg-buy jr-buy" data-reveal="">
-          <PriceLine price={price} ended={ended} ground={ground} deposit={deposit} payments={payments} />
-          <Actions j={j} joinLabel={joinLabel} tone={night ? "line-canvas" : "line-ink"} />
-        </div>
         {j.storyPoints?.length ? (
           <div className="jr-points">
             <p className="jr-sub">The journey, step by step</p>
@@ -151,7 +59,6 @@ export function JourneySection({ j, price, ended, ground, deposit, payments, joi
         {j.plan ? (
           <div className="jr-line">
             <TripLine plan={j.plan} draw />
-            {j.forWho ? <ForWho items={j.forWho} /> : null}
           </div>
         ) : null}
         {j.verses?.open ? <VerseLine v={j.verses.open} className="jr-verse verse-open" /> : null}
@@ -170,22 +77,127 @@ export function JourneySection({ j, price, ended, ground, deposit, payments, joi
  */
 export function FeatureBand({ perks }: { perks: Perk[] }) {
   if (!perks.length) return null;
+  const item = (p: Perk, i: number, copy: boolean) => (
+    <li key={p.icon} className="fb-item" data-reveal={copy ? undefined : ""} data-rv={copy ? undefined : String(i)}>
+      <svg aria-hidden viewBox="0 0 48 48" className="fb-icon" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+        {ICONS[p.icon]}
+      </svg>
+      <span className="fb-text">
+        <b>{p.big}</b> <span>{p.small}</span>
+      </span>
+    </li>
+  );
   return (
     <section aria-label="Included in the package" className="feature-band">
       {/* A slow light passes over the gilt now and then; the icons draw themselves in as the band comes into view. */}
       <span aria-hidden className="fb-sheen" />
-      <ul className={`fb-list ${gutter}`}>
-        {perks.map((p, i) => (
-          <li key={p.icon} className="fb-item" data-reveal="" data-rv={String(i)}>
-            <svg aria-hidden viewBox="0 0 48 48" className="fb-icon" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-              {ICONS[p.icon]}
-            </svg>
-            <span className="fb-text">
-              <b>{p.big}</b> <span>{p.small}</span>
-            </span>
-          </li>
-        ))}
-      </ul>
+      {/* Phones: one row that moves on its own (Jibril, 20 Nov 2026: "a moving bar on the phone as it's too long… 1
+          layer"), so the list runs twice; the copy is hidden from screen readers. Wider screens: one still row. */}
+      <div className="fb-track">
+        <ul className={`fb-list ${gutter}`}>{perks.map((p, i) => item(p, i, false))}</ul>
+        <ul aria-hidden className={`fb-list fb-copy ${gutter}`}>
+          {perks.map((p, i) => item(p, i, true))}
+        </ul>
+      </div>
+    </section>
+  );
+}
+
+/**
+ * The hero (Jibril, 20 Nov 2026: "the one closest to the screenshot… show more than we say, and not repeat ourselves…
+ * the price should be golden… ground package on the hero as well… gold in key points"). The poster's artwork on one
+ * side, our words in its tablets (Eid in the blessed lands, 14 nights) and Sheikh Yahya standing in it; on the other the
+ * lettering as the poster sets it, in olive (1448, RAMADAN, LAST 10 NIGHTS), the dates in the italic and "with GGC".
+ * Then the two prices side by side, the same shape each, the figures in gold: with flights (with Saudia's mark) and
+ * ground only (it opens the booking on ground only), and one gilt button. No line of copy: the poster says it.
+ * Phones: the lettering, the artwork, then the prices and the button.
+ */
+export function LockupHero({ j, guest, price, ended, ground, deposit, payments, joinLabel }: Buy & { guest?: Person }) {
+  const withGuest = Boolean(j.heroGuest && guest);
+  const dates = j.dates.value.replace(/\bFeb\b/, "February").replace(/\bMar\b/, "March");
+  return (
+    <section className="rl wash-hero relative overflow-hidden">
+      <Emblem className="rl-mark watermark pointer-events-none absolute" />
+      <div className="rl-grid">
+        <div className={`rl-head ${gutter}`}>
+          <h1 className="poster-lockup rl-lockup">
+            <span className="sr-only">Ramadan Umrah 2027: </span>
+            <PosterLockup year="1448" word="Ramadan" line="Last 10 nights" />
+          </h1>
+          <p style={at(650)} className="poster-date rl-date follow">
+            {dates}
+          </p>
+          {j.partnerLogo ? (
+            <p style={at(740)} className="rl-with follow">
+              <em>with</em>
+              <PartnerLogo logo={j.partnerLogo} className="h-6" />
+            </p>
+          ) : null}
+        </div>
+        <div className="rl-art">
+          <Image
+            src="/images/brand/ramadan-1448-art-cut.png"
+            alt="The Ka‘bah and the clock tower, from Rawdah’s poster."
+            width={830}
+            height={622}
+            priority
+            quality={90}
+            sizes="(min-width: 1024px) 46rem, 100vw"
+            className="rl-art-img settle"
+          />
+          {/* Our words in the poster's tablets. */}
+          <p aria-hidden className="rl-tablet rl-tablet-eid">
+            <b>Eid</b>
+            <em>in the</em>
+            <span>Blessed lands</span>
+          </p>
+          <p aria-hidden className="rl-tablet rl-tablet-nights">
+            <b>14</b>
+            <span>Nights</span>
+          </p>
+          {withGuest && guest ? <HeroFigures className="ph-guest rl-figure" people={[guest]} delay={500} /> : null}
+        </div>
+        <div className={`rl-foot ${gutter}`}>
+          {/* `.ph-buy`: the phone bar waits until this has scrolled away (page-watch.tsx). */}
+          <div style={at(860)} className="ph-buy rl-buy follow">
+            {price ? (
+              <div className="rl-offer">
+                <a href={`#${anchors.join}`} className="rl-tile rl-flights">
+                  <span className="rl-tile-words">
+                    {ended ? <s className="rl-ended">{ended}</s> : null}
+                    <span className="rl-k">With flights</span>
+                    <strong className="rl-price">{price}</strong>
+                    <span className="rl-sub">per person</span>
+                  </span>
+                  <Image src="/images/brand/partners/saudia.png" alt="Saudia" width={246} height={311} className="rl-saudia" />
+                </a>
+                {ground ? (
+                  <a href={`#${anchors.join}`} data-pick="ground" className="rl-tile rl-ground">
+                    <span className="rl-tile-words">
+                      <span className="rl-k">Ground only</span>
+                      <strong className="rl-price">{ground}</strong>
+                      <span className="rl-sub">your own flights</span>
+                    </span>
+                  </a>
+                ) : null}
+              </div>
+            ) : null}
+            <a href={`#${anchors.join}`} className="btn-gilt rl-book">
+              {joinLabel} <Chevron dir="down" className="size-3 opacity-70" />
+            </a>
+            {deposit || j.heroNote ? (
+              <p className="rl-note">
+                                {[...(deposit ? [`${deposit} deposit${payments ? `, then ${payments} payments` : ""}`] : []), ...(j.heroNote ? j.heroNote.split(" · ") : [])].map((part, i, arr) => (
+                  <span key={part} className="whitespace-nowrap">
+                    {part}
+                    {i < arr.length - 1 ? <span aria-hidden>{"\u00a0·\u00a0"}</span> : null}
+                  </span>
+                ))}
+              </p>
+            ) : null}
+          </div>
+        </div>
+      </div>
     </section>
   );
 }

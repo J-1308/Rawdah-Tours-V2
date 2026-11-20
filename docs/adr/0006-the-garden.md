@@ -218,3 +218,51 @@ at the top; the order the journey, then Sheikh Yahya, then where you'll stay, th
   (`.past-strip`). The arches are gone.
 - **Image quality**: the group photo now shows uncropped at 85 quality, lightly sharpened (the original we have is the
   2400 px copy; a sharper original from Rawdah would be better).
+
+## Ninth pass: three looks to compare, and the band moves on phones (20 November 2026)
+
+Jibril, with a screenshot of the earlier lettered hero: "I liked… the right hand side with the Ramadan writing… the
+simplicity… the colours look maybe even better. Let's do a mix… a few different sections… one to have less gold
+because I think it may be overused. The bar under the hero… a moving bar on the phone as it's too long; 1 layer."
+
+- **The feature band on phones is one row that moves on its own** (`.fb-track`, the list twice, the copy hidden from
+  screen readers; a row to swipe without motion). Tablets and desktop keep the still row of eight. This is Jibril's
+  call for phones and overrides ADR 0005's no-marquee rule for this band only.
+- **Looks to compare, by `?look=`** (`LockupHero` in `poster-hero.tsx`, `.rl-*`; `.less-gold`):
+  - `a`: the poster's artwork (our words in its tablets: Eid in the blessed lands, 14 nights; Sheikh Yahya standing
+    in it) beside the lettering as the poster sets it (1448, RAMADAN, LAST 10 NIGHTS) in olive, the dates in the
+    italic, GGC, one line, the poster's price bar rebuilt live (olive panel with Saudia, the ground package) and one
+    olive button. Gold elsewhere as now.
+  - `b`: the same lettering in deep gilt, with our price line, the gilt button and WhatsApp.
+  - `c`: as `a`, with far less gold through the page: olive italic for the titles' key words (cream at night), olive
+    labels and buttons, a light feature band with olive icons, the current chapter in olive; gold only in the
+    eight-pointed stars at night.
+  - No `?look`: the poster image hero, as live.
+  Once Jibril picks, the others and the switch come out.
+
+## Tenth pass: the lettered hero, gold at key points, one button identity, the repeats cut (20 November 2026)
+
+Jibril chose the look closest to his screenshot ("some places need gold, like the booking… show more than we say, and
+not repeat ourselves… the price should be golden… ground package on the hero… gold in key points… careful not to make
+our writing in gold look like The Umrah Company"), agreed to the cuts, and asked that the buttons match everywhere.
+
+- **The hero** (`LockupHero`; the poster-image hero and the `?look` switch are gone): the poster's artwork with our
+  words in its tablets and Sheikh Yahya; the lettering in olive (1448, RAMADAN, LAST 10 NIGHTS), the dates, "with GGC";
+  then two price tiles of the same shape with the figures in gold (with flights on olive with Saudia's mark; ground
+  only on stone, opening the booking on ground only), one gilt Book button, and one small line (deposit, 5-star,
+  brothers, sisters and families). No paragraph.
+- **Gold at key points only**: the Book buttons, the prices (hero, the price table), the chapter you're in on the
+  garden path, the dark feature band and the stars at night. Titles' key words are olive italic (cream at night, green
+  in the Madinah chapter), never gold; labels are olive.
+- **One button identity**: the main action is the gilt button everywhere (header, hero, phone bar, booking panel, the
+  form's Next and Send), the second is a stone outline with WhatsApp's green mark (header, booking panel), the rest are
+  text links (Sheikh Yahya's). Same corners and height throughout.
+- **Cut as repeats**: the journey section's price and buttons and its "who it's for" cards; the separate Eid section
+  and "Rawdah means garden" (the closing verse keeps the Rawdah hadith); the Eid stop in the garden path; Madinah's
+  "walk to every prayer" (the hotel says it); the package cards with their own timetables (the instalment tiles stay,
+  then one price table; the booking panel shows your plan); the included section's photo crops and icon cards (the band
+  shows them; a checklist stays); Sheikh Yahya's repeated first line; the FAQs the page answers (Eid, places, paying);
+  three of the last trip's eight photos; the leaves behind the chapters. Hosts sit side by side. The phone page is
+  about 20 screens, down from 26.
+- **Fixes before merging**: the feature band showed twice on desktop (its phone copy wasn't hidden); the link preview
+  is now the hero itself (`shareImage`, site-wide `opengraph-image.jpg`; `scripts/share-image.py` remakes it).

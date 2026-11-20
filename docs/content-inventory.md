@@ -147,3 +147,8 @@ ggcenter.org; logo from GGC's own artwork as on the Ramadan itinerary), Saudia a
 August 2026 hotels, the Haramain railway (sar.com.sa) and Nusuk Hajj. Links go to each one's own site. Logos (31 Oct 2026, downloaded by
 Jibril from Wikipedia and the brands' sites) are one-colour cut-outs in `public/images/brand/partners/`. Brands
 usually expect permission for logo use; Jibril chose to show them.
+
+- **Link preview** (20 Nov 2026): sharing the site shows the hero itself, captured at 1200 × 630 with the logo and
+  without the button (`public/images/share/ramadan-1448-share.jpg`, `shareImage` on the Ramadan trip; the same image is
+  the site-wide `src/app/opengraph-image.jpg`). The prices (£1,999, £1,299) and dates are in the picture: remake it with
+  `scripts/share-image.py` when they change. WhatsApp keeps old previews for links already shared.

@@ -1537,17 +1537,28 @@ html.motion .hosts .rv.in .host-arch img { transform: none; }
 .feature-band::before, .feature-band::after { content: ""; position: absolute; left: 0; right: 0; height: 1px; background: rgb(216 187 114 / 0.22); pointer-events: none; }
 .feature-band::before { top: 4px; }
 .feature-band::after { bottom: 4px; }
-.fb-list { box-sizing: border-box; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1.3rem 0.4rem; max-width: calc(72rem + 2 * var(--hero-pad-x)); margin-inline: auto; padding-block: 1.6rem; }
-.fb-item { display: grid; justify-items: center; align-content: start; gap: 0.5rem; text-align: center; }
-.fb-icon { width: 1.95rem; height: 1.95rem; color: #dcbf76; }
-.fb-text { display: grid; font-size: 0.74rem; line-height: 1.3; }
+/* Phones: one row that moves on its own (20 Nov 2026: "a moving bar on the phone… 1 layer"); without motion, a row to
+   swipe. Tablets up: one still row of eight. */
+.feature-band { overflow: hidden; }
+.fb-track { display: flex; width: max-content; }
+.fb-list { box-sizing: border-box; display: flex; flex: none; margin: 0; padding-block: 0.95rem; }
+.fb-item { display: flex; align-items: center; gap: 0.6rem; padding-inline: 1.15rem; white-space: nowrap; border-left: 1px solid rgb(216 187 114 / 0.2); }
+.fb-icon { width: 1.6rem; height: 1.6rem; flex: none; color: #dcbf76; }
+.fb-text { display: flex; gap: 0.3em; font-size: 0.8rem; line-height: 1.3; }
 .fb-text b { font-family: "Montserrat", "DM Sans", system-ui, sans-serif; font-weight: 600; letter-spacing: 0.03em; color: #f6f0de; }
 .fb-text span { color: rgb(241 235 217 / 0.7); }
+@keyframes fb-run { from { transform: translate3d(0, 0, 0); } to { transform: translate3d(-50%, 0, 0); } }
+html.motion .fb-track { animation: fb-run 40s linear infinite; }
+html:not(.motion) .fb-list.fb-copy { display: none; }
+html:not(.motion) .feature-band { overflow-x: auto; }
 @media (min-width: 48rem) {
-  .fb-list { grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 0; padding-block: 1.75rem; }
-  .fb-item + .fb-item { border-left: 1px solid rgb(216 187 114 / 0.2); }
+  .fb-track, html.motion .fb-track { display: block; width: auto; animation: none; }
+  .fb-list.fb-copy { display: none; }
+  .fb-list { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); max-width: calc(72rem + 2 * var(--hero-pad-x)); margin-inline: auto; padding-block: 1.75rem; }
+  .fb-item { display: grid; justify-items: center; align-content: start; gap: 0.5rem; padding-inline: 0.25rem; text-align: center; white-space: normal; }
+  .fb-item:first-child { border-left: 0; }
   .fb-icon { width: 2.15rem; height: 2.15rem; }
-  .fb-text { font-size: 0.8rem; }
+  .fb-text { display: grid; gap: 0; }
 }
 
 /* --- The garden path (light again, 20 Nov 2026: the feature band is the contrast now) -------------------------------
@@ -1593,7 +1604,7 @@ html.motion .hosts .rv.in .host-arch img { transform: none; }
    The package, the nights and our journey in one lighter section: the title, the group photo uncropped in a gilt-lined
    frame, the price, then the highlights, the route line and the hadith. Phones in that order; desktop the title and
    price beside the photo, the rest full width under them. */
-.pkg-in.jr { grid-template-areas: "head" "photo" "buy" "points" "line" "verse"; gap: 2.25rem; }
+.pkg-in.jr { grid-template-areas: "head" "photo" "points" "line" "verse"; gap: 2.25rem; }
 .jr-head { grid-area: head; }
 .jr-lead { margin-top: 1.1rem; max-width: 36rem; font-size: 1.08rem; line-height: 1.7; color: rgb(from var(--color-ink) r g b / 0.84); }
 .jr-photo { grid-area: photo; margin: 0; }
@@ -1608,7 +1619,7 @@ html.motion .hosts .rv.in .host-arch img { transform: none; }
 .jr-verse { grid-area: verse; margin-top: 0; }
 .pkg-night .jr-sub { color: #e2c98f; }
 @media (min-width: 64rem) {
-  .pkg-in.jr { grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); grid-template-areas: "head photo" "buy photo" "points points" "line line" "verse verse"; column-gap: clamp(3rem, 5vw, 5rem); row-gap: 2.75rem; align-items: start; }
+  .pkg-in.jr { grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); grid-template-areas: "head photo" "points points" "line line" "verse verse"; column-gap: clamp(3rem, 5vw, 5rem); row-gap: 2.75rem; align-items: center; }
   .jr-buy { align-self: end; }
   .jr-points { padding-top: 1.5rem; }
 }
@@ -1663,6 +1674,123 @@ html.motion .fb-item.rv.in .fb-text { opacity: 1; transform: none; }
 .fb-item:nth-child(6) .fb-icon *, .fb-item:nth-child(6) .fb-text { transition-delay: 0.5s; }
 .fb-item:nth-child(7) .fb-icon *, .fb-item:nth-child(7) .fb-text { transition-delay: 0.6s; }
 .fb-item:nth-child(8) .fb-icon *, .fb-item:nth-child(8) .fb-text { transition-delay: 0.7s; }
+
+/* --- The hero with the poster's lettering (LockupHero, ?look=a/b/c, 20 Nov 2026) ----------------------------------------
+   Phones: the lockup, the artwork with our words in its tablets and Sheikh Yahya, then the line and the offer. Desktop:
+   the artwork on the left, the words centred on the right, as the poster sets them. */
+.rl { background: linear-gradient(180deg, #e3dfd3 0%, #e1dbce 45%, #e4ded2 72%, var(--color-canvas) 100%); padding-bottom: clamp(2rem, 6vw, 3.5rem); }
+.rl-mark { z-index: 0; right: -14%; bottom: 4%; height: 46%; }
+.rl-grid { position: relative; z-index: 1; display: grid; grid-template-columns: minmax(0, 1fr); grid-template-areas: "head" "art" "foot"; justify-items: center; text-align: center; }
+.rl-head { grid-area: head; display: grid; justify-items: center; padding-top: 1.25rem; }
+.rl-lockup { margin: 0; }
+.rl-date { margin-top: 0.55rem; }
+.rl-with { display: inline-flex; align-items: center; gap: 0.6rem; margin-top: 0.7rem; color: var(--color-ink); }
+.rl-with em { font-family: var(--font-editorial, "Cormorant Garamond", Georgia, serif); font-size: 1.15rem; font-style: italic; color: rgb(from var(--color-ink) r g b / 0.72); }
+.rl-art { grid-area: art; position: relative; width: 100%; max-width: 40rem; margin-top: 0.75rem; container-type: inline-size; }
+.rl-art-img { display: block; width: 100%; height: auto; -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 78%, transparent 100%), linear-gradient(to right, transparent 0%, #000 7%, #000 93%, transparent 100%); -webkit-mask-composite: source-in; mask-image: linear-gradient(to bottom, #000 0%, #000 78%, transparent 100%), linear-gradient(to right, transparent 0%, #000 7%, #000 93%, transparent 100%); mask-composite: intersect; }
+.rl-tablet { position: absolute; z-index: 1; display: grid; justify-items: center; width: 20.5%; margin: 0; font-family: "Montserrat", "DM Sans", system-ui, sans-serif; line-height: 1; text-align: center; text-transform: uppercase; color: #3f3e28; }
+.rl-tablet b { font-weight: 700; letter-spacing: 0.01em; }
+.rl-tablet em { margin-top: 0.4cqw; font-family: var(--font-editorial, "Cormorant Garamond", Georgia, serif); font-size: 2.7cqw; font-style: italic; text-transform: none; color: #545234; }
+.rl-tablet span { margin-top: 0.4cqw; font-size: 2.5cqw; font-weight: 700; letter-spacing: 0.04em; line-height: 1.1; }
+.rl-tablet-eid { left: 4.3%; top: 13%; }
+.rl-tablet-eid b { font-size: 7.4cqw; }
+.rl-tablet-nights { left: 50.4%; top: 13%; }
+.rl-tablet-nights b { font-size: 9.5cqw; }
+.rl-foot { grid-area: foot; display: grid; grid-template-columns: minmax(0, 1fr); justify-items: center; width: 100%; max-width: 34rem; min-width: 0; box-sizing: border-box; }
+/* The two prices: the same shape each, the figures in gold (key points); with flights on the poster's olive with Saudia's
+   mark, ground only on stone. Both open the booking (ground only on ground only). Then the one gilt button. */
+.rl-buy { display: grid; grid-template-columns: minmax(0, 1fr); justify-items: center; gap: 0.9rem; width: 100%; margin-top: 1.3rem; }
+.rl-offer { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 0.6rem; width: 100%; }
+.rl-tile { position: relative; display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; min-height: 6.6rem; padding: 0.95rem 1rem; border-radius: 1.25rem; text-align: left; transition: transform 0.25s var(--ease-out), box-shadow 0.25s; }
+.rl-tile:hover { transform: translateY(-1px); }
+.rl-tile-words { display: grid; line-height: 1.05; }
+.rl-k { font-family: "Montserrat", "DM Sans", system-ui, sans-serif; font-size: 0.7rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; }
+.rl-price { margin-top: 0.3rem; font-family: "Montserrat", "DM Sans", system-ui, sans-serif; font-size: clamp(1.75rem, 7.6vw, 2.4rem); font-weight: 700; letter-spacing: 0.005em; line-height: 1; -webkit-background-clip: text; background-clip: text; color: transparent; -webkit-text-fill-color: transparent; }
+.rl-sub { margin-top: 0.3rem; font-family: var(--font-editorial, "Cormorant Garamond", Georgia, serif); font-size: 0.98rem; font-style: italic; }
+.rl-ended { margin-bottom: 0.2rem; font-size: 0.78rem; opacity: 0.6; text-decoration-thickness: 1px; }
+.rl-flights { color: #f1eee6; background: radial-gradient(120% 90% at 20% 0%, rgb(255 236 180 / 0.08) 0%, transparent 60%), linear-gradient(180deg, #57563f 0%, #45442e 100%); box-shadow: 0 22px 40px -26px rgb(37 36 24 / 0.75); }
+.rl-flights .rl-price { background-image: linear-gradient(180deg, #f6e8bb 0%, #dcbf76 60%, #c4a254 100%); }
+.rl-flights .rl-sub { color: rgb(241 238 230 / 0.72); }
+.rl-saudia { width: 2.4rem; height: auto; flex: none; filter: brightness(0) invert(1); opacity: 0.85; }
+.rl-k { white-space: nowrap; }
+.rl-ground { color: #45442e; background: rgb(255 255 255 / 0.5); border: 1px solid rgb(255 255 255 / 0.85); box-shadow: 0 18px 34px -28px rgb(60 48 20 / 0.5); }
+.rl-ground .rl-price { background-image: linear-gradient(180deg, #9a7b36 0%, #6f5424 100%); }
+.rl-ground .rl-sub { color: rgb(51 50 31 / 0.66); }
+.rl-book { display: inline-flex; width: 100%; min-height: 3.4rem; align-items: center; justify-content: center; gap: 0.5rem; border-radius: 1rem; font-size: 1rem; font-weight: 500; }
+.rl-note { display: flex; flex-wrap: wrap; justify-content: center; font-size: 0.86rem; line-height: 1.5; color: rgb(from var(--color-ink) r g b / 0.7); }
+@media (max-width: 23.99rem) { .rl-saudia { display: none; } }
+@media (min-width: 64rem) { .rl-saudia { width: 2.8rem; } }
+.rl .rh-price { justify-items: center; }
+.rl .poster-lockup { color: #4a4931; }
+.rl .poster-lockup .poster-kicker { color: #6b6a55; }
+.rl .poster-role { color: #545234; }
+@media (min-width: 64rem) {
+  .rl { padding-bottom: 1.5rem; }
+  .rl-grid { grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr); grid-template-areas: "art head" "art foot"; column-gap: clamp(1.5rem, 3vw, 3rem); align-items: center; min-height: calc(100svh - 5.3rem - 1.5rem); padding: 1rem var(--hero-pad-x); }
+  .rl-head, .rl-foot { padding-inline: 0; }
+  .rl-head { align-self: end; padding-top: 0; }
+  .rl-foot { align-self: start; }
+  .rl-art { justify-self: end; max-width: 50rem; margin-top: 0; }
+  .rl .poster-lockup .poster-word { font-size: clamp(4rem, 6.4vw, 6.6rem); }
+  .rl .poster-lockup .poster-line { font-size: clamp(1.2rem, 1.9vw, 2rem); }
+  .rl-foot { max-width: 30rem; }
+  .rl-figure.ph-guest { right: -6%; width: 40%; }
+}
+
+/* --- Gold at key points (20 Nov 2026: "throughout the whole site we should use gold in key points… careful not to make
+   our writing in gold look like The Umrah Company") -------------------------------------------------------------------
+   Gold only where it matters: the Book buttons, the prices, the chapter you're in, the dark feature band, the nights'
+   star. Headlines carry their key words in olive italic (warm cream in the night), never gold; labels are olive. */
+.skin-1448 .gild, .skin-1448 .night .gild, .skin-1448 .pkg-night .gild { background-image: none; -webkit-text-fill-color: currentColor; }
+.skin-1448 .gild { color: #5a5937; }
+.skin-1448 .night .gild, .skin-1448 .pkg-night .gild { color: #ebe4cc; }
+.skin-1448 .garden .gild { color: #3f5e31; }
+.skin-1448 .label, .skin-1448 .jr-sub { color: #545234; }
+.skin-1448 .label .mark-mask { color: #8a8664; }
+.skin-1448 .night .label { color: #d6d1b0; }
+.skin-1448 .night .label .mark-mask { color: #b3ae94; }
+.skin-1448 .grid-price { background-image: linear-gradient(180deg, #9a7b36 0%, #6f5424 100%); -webkit-background-clip: text; background-clip: text; color: transparent; -webkit-text-fill-color: transparent; }
+.skin-1448 .hl-star { color: #6b6a4c; }
+.skin-1448 .hl-num b { color: #f4f2ea; }
+.skin-1448 .hl-num { filter: none; }
+.skin-1448 .night .hl-star { color: #d8bb72; }
+.skin-1448 .night .hl-num b { color: #2b2a1a; }
+.skin-1448 .highlights, .skin-1448 .highlights li { border-color: rgb(84 82 52 / 0.16); }
+.skin-1448 .night .highlights, .skin-1448 .night .highlights li { border-color: rgb(214 209 176 / 0.16); }
+.skin-1448 .jr-photo-frame { box-shadow: 0 30px 60px -36px rgb(40 38 24 / 0.5); }
+.skin-1448 .stay-photo { box-shadow: 0 40px 80px -40px rgb(0 0 0 / 0.7); }
+.skin-1448 .stay-photo::after, .skin-1448 .jr-photo-frame::after { border-color: rgb(255 255 255 / 0.45); }
+.skin-1448 .stay-city-icon, .skin-1448 .stay-facts svg, .skin-1448 .stay-city { color: #d6d1b0; border-color: rgb(214 209 176 / 0.4); }
+.skin-1448 .stay-seal-words { color: #d6d1b0; }
+.skin-1448 .stay-features li::before { background: #b3ae94; }
+.skin-1448 .stay-facts { border-color: rgb(214 209 176 / 0.18); }
+.skin-1448 .stay-plate[aria-pressed="true"] { box-shadow: 0 0 0 2px #ece8df; }
+/* The booking panel's main button is a key point too. */
+.skin-1448 #join .btn-ink { background: linear-gradient(180deg, #efdfaa 0%, #d8ba6e 46%, #b99749 100%); color: #2b2a1a; box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.55), inset 0 -1px 0 rgb(120 92 40 / 0.35), 0 14px 30px -16px rgb(84 66 24 / 0.6); }
+/* --- One button identity (20 Nov 2026: "the buttons… at the top… and on the actual website… don't match") ------------
+   Three kinds, the same shape everywhere (0.95rem corners, 3.25rem tall, 500 weight; the header's a touch shorter):
+   the main action in gilt (Book your place in the header, the hero, the phone bar, the booking panel, and the form's
+   Next and Send); the second action as a stone outline (WhatsApp, with its green mark); anything lesser as a text link. */
+:root[data-skin="1448"] header .btn-ink, .skin-1448 [data-placement="phone bar"] .btn-ink, .skin-1448 #join .btn-ink, .skin-1448 #register-interest .btn-sand, .skin-1448 .btn-gilt {
+  border-radius: 0.95rem; font-weight: 500; color: #2b2a1a;
+  background: linear-gradient(180deg, #efdfaa 0%, #d8ba6e 46%, #b99749 100%);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.55), inset 0 -1px 0 rgb(120 92 40 / 0.35), 0 14px 30px -16px rgb(84 66 24 / 0.6);
+}
+.skin-1448 .wa-btn { color: var(--color-ink); background: rgb(255 255 255 / 0.5); border: 1px solid rgb(84 82 52 / 0.22); box-shadow: none; }
+.skin-1448 .wa-btn:hover { border-color: rgb(84 82 52 / 0.45); }
+.skin-1448 .wa-btn svg { color: var(--color-wa); }
+.skin-1448 .rl-book { min-height: 3.25rem; border-radius: 0.95rem; }
+.hdr-wa { color: var(--color-ink); border: 1px solid rgb(from var(--color-ink) r g b / 0.28); transition: border-color 0.2s; }
+.hdr-wa:hover { border-color: rgb(from var(--color-ink) r g b / 0.6); }
+
+/* Sheikh Yahya's link: words, not another button. */
+.gc-link { display: inline-flex; align-items: center; gap: 0.45rem; margin-top: 1.4rem; font-size: 1rem; font-weight: 500; color: #ebe4cc; text-decoration: underline; text-decoration-color: rgb(235 228 204 / 0.4); text-underline-offset: 0.3em; }
+.gc-link:hover { text-decoration-color: currentColor; }
+/* Hosts side by side, at their own shapes, on every screen. */
+.skin-1448 .hosts { grid-template-columns: 1fr 1fr; gap: 1rem; }
+.skin-1448 .host-text { padding-top: 0.9rem; }
+.skin-1448 .host-name { font-size: clamp(1.25rem, 4.6vw, 2.1rem); }
+@media (max-width: 39.99rem) { .skin-1448 .host-text .mt-3 { font-size: 0.86rem; } }
 
 /* --- Rawdah's mark, faint in the background (20 Nov 2026: "the Rawdah logo faintly in the background") ---------------
    Large and barely there: a deep gilt on stone, a light one in the night. Behind the hero's words, the package, the

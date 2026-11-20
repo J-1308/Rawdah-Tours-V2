@@ -701,6 +701,9 @@ export type Journey = {
   hostsTitle?: string;
   /** Poster trips: the special guest stands in front of the poster in the hero (two versions, Jibril 20 Nov 2026). */
   heroGuest?: boolean;
+  /** The link preview (1200 × 630): the hero as the page shows it (Jibril, 20 Nov 2026: "when you share the link I want
+   * the preview to reflect this page"). Remake it when the hero's prices or dates change. */
+  shareImage?: { src: string; width: number; height: number; alt: string };
   /**
    * Poster trips: the package as its own section, right after the hero (Jibril, 20 Nov 2026: "not a pop up but an
    * actual website section"). Two to compare: "day", a lighter section before the night; "night", the night itself
@@ -856,11 +859,9 @@ export const ramadanFull: Journey = {
     faqs: [
       { q: "Are meals included?", a: "Breakfast each day in Madinah is the only meal included. The Makkah hotel is room only, with no suhoor.", status: "confirmed" },
       { q: "Is ihram provided?", a: "No. Please bring your own.", status: "confirmed" },
-      { q: "Where will we spend Eid?", a: "In the blessed lands. Eid al-Fitr falls on Tuesday 9 or Wednesday 10 March.", status: "confirmed" },
       { q: "What does ground only cover?", a: "The hotels and ground transport. You book your own flights.", status: "confirmed" },
-      { q: "How many places are there?", a: "Up to 60: around 30 with flights and 30 ground only.", status: "confirmed" },
       // Replaces the general answer, which says the dates are set when you book (they're fixed for this trip).
-      { q: "How do I pay for the trip?", a: "By bank transfer. A £399 deposit holds your place, and the bank details are in your confirmation email once you book. The rest is paid on 30 November, 30 December and 30 January; each package’s amounts are under Packages and payments.", status: "confirmed" },
+      /* "Where will we spend Eid?", "How many places?" and "How do I pay?" came out: the page answers them (20 Nov 2026). */
     ],
     groups: [
       { src: "/images/group-photos/group-photos-03.jpg", alt: "A Rawdah group in ihram at night, lit arcades and a minaret behind them." },
@@ -889,6 +890,14 @@ export const ramadanFull: Journey = {
     },
     hostsTitle: "Your hosts",
     heroGuest: true,
+    /* The hero captured at 1200 × 630, with the logo and without the button (20 Nov 2026). Prices and dates are in it:
+       remake it if they change (docs/content-inventory.md). */
+    shareImage: {
+      src: "/images/share/ramadan-1448-share.jpg",
+      width: 1200,
+      height: 630,
+      alt: "Rawdah Tours: Ramadan 1448, the last 10 nights, Sat 27 February to Sat 13 March 2027, with GGC and Sheikh Yahya Raaby; from £1,999 with flights, £1,299 ground only.",
+    },
     /* Facts from the plan; the title after the poster's "Last 10 days". Gilt words in asterisks (shell.tsx gild). */
     /* The journey: the package, the nights and our journey in one section, the old home hero's group photo at its top
        (Jibril, 20 Nov 2026). */
@@ -940,7 +949,6 @@ export const ramadanFull: Journey = {
       moments: [
         { title: "Madinah ziyarah", text: "Visits to the historic sites of Madinah." },
         { title: "Jumuah in Masjid an-Nabawi", text: "Friday 12 March, after Jumuah in Masjid al-Haram on Friday 5 March." },
-        { title: "Walk to every prayer", text: "Al Manakha Rotana is an 8-minute walk from Masjid an-Nabawi, with breakfast daily." },
       ],
     },
     /* Checked 20 Nov 2026: al-Bukhari 1782 and Muslim 1256 (Ibn ‘Abbas); Surah al-Qadr 97:3; the takbir of Eid. */
@@ -982,10 +990,7 @@ export const ramadanFull: Journey = {
         { src: "/images/past/masjid-al-haram.jpg", caption: "Masjid al-Haram", alt: "A Rawdah group together at Masjid al-Haram.", position: "object-[50%_60%]", width: 1200, height: 1600 },
         { src: "/images/group-photos/group-photos-04.jpg", caption: "Masjid Quba", alt: "The group outside Masjid Quba, its white minarets behind them.", position: "object-[50%_75%]", width: 2400, height: 1600 },
         { src: "/images/teaching/teaching-01.jpg", caption: "A reminder from Ustadh Abdulrahman Hassan", alt: "Ustadh Abdulrahman Hassan giving the group a reminder outdoors.", position: "object-[50%_30%]", width: 2250, height: 3000 },
-        { src: "/images/group-photos/group-photos-03.jpg", caption: "In ihram, ready for Umrah", alt: "The group in ihram at night, lit arcades and a minaret behind them.", position: "object-[50%_60%]", width: 3000, height: 2250 },
-        { src: "/images/past/brotherhood.jpg", caption: "Brotherhood", alt: "Brothers from a Rawdah group in ihram, standing together under the palms.", position: "object-[50%_55%]", width: 1600, height: 1200 },
         { src: "/images/candid/candid-02.jpg", caption: "Brothers and sisters together", alt: "Brothers and sisters from the group standing together under the trees.", position: "object-[50%_50%]", width: 3000, height: 2250 },
-        { src: "/images/friends/friends-05.jpg", caption: "Umrah complete", alt: "Three travellers in ihram outside Masjid al-Haram at dusk, the minarets lit behind them.", position: "object-[50%_50%]", width: 2400, height: 1800 },
       ],
     },
     /* No Hajj band for now: on a one-trip page it confused people (Jibril, 19 Nov 2026). */

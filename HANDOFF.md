@@ -113,6 +113,8 @@ Code fixes are on `review/launch-fixes`. Jibril still has to:
    overnight flight as a background to Getting there instead of its own section.
    Then the journey in one section (package, nights and our journey, with numbered highlights), one highlights list
    used through the page, photos shown uncropped, and the feature band animated.
+   Then the lettered hero (olive lockup, gold prices, ground package), gold at key points only, one button identity,
+   and a pass that cut the page's repeats (about 20 phone screens, from 26).
 
 Review items left for later: focus moves between form steps, the Private page's thin FAQ and empty desktop column,
 desktop hero buttons on Private and Groups, Ramadan reveal facts (the 30 November instalment for late bookings, an

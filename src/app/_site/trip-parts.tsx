@@ -2,7 +2,6 @@ import Image from "next/image";
 import { HotelGallery, HotelPlates } from "./hotel-gallery";
 import { Fragment } from "react";
 
-import { PackageCards } from "@/app/_site/package-cards";
 import { ICONS, PosterPerks } from "@/app/_site/poster-parts";
 import { PosterText } from "@/app/_site/poster-type";
 import { anchors, gbp, hajjNusuk, journeyStay, leader, people, say, teachers, trust, wa, type Journey, type Status, type StayPhoto, type TripPlan, type Verse } from "@/app/_site/content";
@@ -878,12 +877,13 @@ export function TripJourney({ j }: { j: Journey }) {
 }
 
 /** What a planned trip includes, as a list of ticks. */
-export function TripIncludes({ plan }: { plan: TripPlan }) {
+export function TripIncludes({ plan, checklist = false }: { plan: TripPlan; checklist?: boolean }) {
   // With the poster's icon row above, the list says only what the icons don't (poster trips, 19 Nov 2026).
-  const items = (plan.cards || plan.perks) && plan.perksAlso ? plan.perksAlso : plan.includes;
+  // `checklist` (poster trips, 20 Nov 2026): the feature band already shows the icons, so here only the full list.
+  const items = checklist ? plan.includes : (plan.cards || plan.perks) && plan.perksAlso ? plan.perksAlso : plan.includes;
   return (
     <>
-    {plan.showcase ? (
+    {!checklist && plan.showcase ? (
       <ul className="showcase mt-6">
         {plan.showcase.map((s) => (
           <li key={s.src}>
@@ -893,8 +893,8 @@ export function TripIncludes({ plan }: { plan: TripPlan }) {
         ))}
       </ul>
     ) : null}
-    {plan.cards ? <IncludedCards cards={plan.cards} /> : plan.perks ? <PosterPerks perks={plan.perks} className="mt-6" /> : null}
-    <ul className={`glass-phone ${plan.perks ? "mt-4" : "mt-6"} grid grid-cols-1 rounded-[1.25rem] px-4 py-1 [--glass-shadow:none] sm:grid-cols-2 sm:gap-1.5 sm:p-0`}>
+    {checklist ? null : plan.cards ? <IncludedCards cards={plan.cards} /> : plan.perks ? <PosterPerks perks={plan.perks} className="mt-6" /> : null}
+    <ul className={`glass-phone ${plan.perks && !checklist ? "mt-4" : "mt-6"} grid grid-cols-1 rounded-[1.25rem] px-4 py-1 [--glass-shadow:none] sm:grid-cols-2 sm:gap-1.5 sm:p-0`}>
       {items.map((h, i) => (
         <li key={h.value} className={`glass-wide flex items-start gap-3 py-3 text-[0.95rem] sm:rounded-[1.1rem] sm:px-4 sm:py-3.5 ${i ? "border-t border-ink/8" : ""}`}>
           <Tick className="mt-[0.2em]" />
@@ -920,7 +920,6 @@ export function PosterPackages({ j }: { j: Journey }) {
   const deposit = rooms[0]?.schedule?.[0]?.amount;
   return (
     <>
-      {j.heroNote ? <p className="mt-3 font-editorial text-[1.2rem] text-ink/70 italic">{j.heroNote.replace(" · ", ", for ")}.</p> : null}
       {planned ? (
         <div className="plan-block mt-8">
           <p className="plan-title">
@@ -936,15 +935,13 @@ export function PosterPackages({ j }: { j: Journey }) {
             ))}
           </ul>
           <p className="mt-3 text-center text-[0.9rem] text-ink/62">
-            For the {planned.type.toLowerCase()}, {gbp(planned.price)} per person. Every package pays on the same dates: each one’s plan is below.
+            For the {planned.type.toLowerCase()}, {gbp(planned.price)} per person. Every package pays on the same dates; choose yours below to see its plan.
           </p>
         </div>
       ) : null}
-      <PackageCards j={j} />
-      <div className="mt-5 grid gap-1.5 text-[0.9rem] leading-relaxed text-ink/70">
-        {deposit ? <p>A {gbp(deposit)} deposit holds your place on every package. All deposits are non-refundable.</p> : null}
-        {j.plan?.places ? <p>{j.plan.places.value}.</p> : null}
-      </div>
+      {/* Every price at a glance (20 Nov 2026: the three package cards with their own timetables came out; the join panel
+          shows the plan of the package you choose). */}
+      <PackageGrid j={j} brief />
     </>
   );
 }
@@ -1027,7 +1024,7 @@ export function TripPackages({ j }: { j: Journey }) {
  * Packages as a grid (Ramadan, 19 Nov 2026): rooms down the side, with flights or ground only across, then how each
  * is paid. The early bird is shown crossed out. Prices and dates from src/lib/trips.ts.
  */
-function PackageGrid({ j }: { j: Journey }) {
+function PackageGrid({ j, brief = false }: { j: Journey; brief?: boolean }) {
   const rooms = j.rooms?.value ?? [];
   const name = (n: number) => ({ 4: "Quad", 3: "Triple", 2: "Double" })[n] ?? `${n} sharing`;
   const occs = [...new Set(rooms.map((r) => r.sharing))].sort((a, b) => b - a);
@@ -1070,7 +1067,7 @@ function PackageGrid({ j }: { j: Journey }) {
                   const r = at(f, n);
                   return (
                     <td key={String(f)} className="py-3 pl-3 text-right">
-                      <span className="display text-[clamp(1.45rem,4.6vw,2rem)] leading-none text-ink">{r ? gbp(r.price) : "–"}</span>
+                      <span className={`display text-[clamp(1.45rem,4.6vw,2rem)] leading-none text-ink ${brief ? "grid-price" : ""}`}>{r ? gbp(r.price) : "–"}</span>
                       {r && j.endedOffer?.room === r.type ? <s className="block text-[0.875rem] text-ink/50">{gbp(j.endedOffer.price)}</s> : null}
                     </td>
                   );
@@ -1082,7 +1079,7 @@ function PackageGrid({ j }: { j: Journey }) {
       </div>
       <div className="mt-4 grid gap-1.5 text-[0.9rem] leading-relaxed text-ink/70">
         {deposit ? <p>A {gbp(deposit)} deposit holds your place on every package. All deposits are non-refundable.</p> : null}
-        {dated.map((r) => (
+        {(brief ? [] : dated).map((r) => (
           <p key={r.type}>
             {r.type}: then{" "}
             {r
@@ -1092,7 +1089,7 @@ function PackageGrid({ j }: { j: Journey }) {
             .
           </p>
         ))}
-        {dated.length && dated.length < rooms.length ? <p>Every other package: the balance on dates we agree with you after booking.</p> : null}
+        {!brief && dated.length && dated.length < rooms.length ? <p>Every other package: the balance on dates we agree with you after booking.</p> : null}
         {j.plan?.places ? (
           <p>
             {j.plan.places.value}.
@@ -1199,7 +1196,6 @@ export function GuestIntimate({ j, members }: { j: Journey; members: Member[] })
         </div>
       </div>
       <div className={`gc-text ${gutter}`}>
-        <p className="gc-line">{g.line}</p>
         {g.bio ? <p className="gc-bio">{g.bio}</p> : null}
         {g.ways ? (
           <>
@@ -1207,7 +1203,7 @@ export function GuestIntimate({ j, members }: { j: Journey; members: Member[] })
             <Highlights items={g.ways.items} className="mt-5" one />
           </>
         ) : null}
-        <a href={`#${anchors.join}`} className="gf-cta gc-cta">
+        <a href={`#${anchors.join}`} className="gc-link">
           {g.cta}
           <svg aria-hidden viewBox="0 0 12 12" className="size-3">
             <path d="M2.5 4.5 6 8l3.5-3.5" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
