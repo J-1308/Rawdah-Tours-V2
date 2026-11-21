@@ -286,3 +286,23 @@ our writing in gold look like The Umrah Company"), agreed to the cuts, and asked
 - **Sheikh Yahya on phones as on desktop** (21 Nov 2026: Jibril prefers the desktop card to the phone's full-width
   photo): on phones the photo is a rounded card inside the page's margins with a soft shadow and his name over its
   foot; desktop unchanged.
+
+## Twelfth pass: liquid glass, the device's font, a simpler hero to compare (21 November 2026)
+
+From advice Jibril was given (pages, liquid glass, big-brand fonts, a one-image hero), the three changes we agreed to
+try first:
+
+- **Liquid glass, only where something floats over the page**: the header, the phone's bottom bar, the sticky garden
+  path, the round phone buttons, the WhatsApp outlines and the ground-only price tile. A frosted pane (blur 16–24px,
+  saturate 170–180%), a bright top edge, faint side edges and a soft shadow. Safari can't refract on the web (it
+  ignores SVG filters in `backdrop-filter`), so it's the frosted version everywhere. On flat backgrounds glass reads
+  as a grey box, so nothing else gets it, and the gold Book button stays solid.
+- **Body text in the device's own font** (`--font-display`: San Francisco on iPhones and Macs, Roboto on Android,
+  Segoe on Windows), replacing DM Sans; labels, prices and small capitals too. Two families now: Cormorant for
+  headings, the system font for the rest; Montserrat only in the poster lettering. SF is never hosted (Apple's licence
+  allows it only for UI mock-ups), and the page downloads one font file fewer.
+- **A simpler hero, to compare** (`LockupHero simple`): the artwork alone (Sheikh Yahya in his own section), the
+  lettering, one line with both prices in gold over their labels, and the gold button; no small print. The current
+  hero stays at `?hero=full` while comparing; the switch comes out once Jibril picks.
+- **Later**: restyle the other pages and switch one-page mode off after the Ramadan push; sharper photos from Rawdah or
+  a shoot; Paper for mock-ups if wanted. 21st MCP set aside (ready-made components look templated).

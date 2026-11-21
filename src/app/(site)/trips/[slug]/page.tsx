@@ -90,16 +90,18 @@ function Itinerary({ j }: { j: Journey }) {
  * Day: what's included, the people and paying (Umrah), questions, Hajj
  * updates, and the register-interest form.
  */
-export default async function TripPage({ params }: { params: Promise<{ slug: string }> }) {
+export default async function TripPage({ params, searchParams }: { params: Promise<{ slug: string }>; searchParams: Promise<{ hero?: string }> }) {
+  /** To compare (21 Nov 2026): the simpler hero by default, ?hero=full for the current one. Comes out once Jibril picks. */
+  const hero = (await searchParams)?.hero === "full" ? "full" : "simple";
   const { slug } = await params;
   const j = journey(slug);
   if (!j || j.state === "past") notFound();
   if (j.slug === "ramadan-umrah-2027" && !ramadanReveal) return <ComingSoonTrip j={j} />;
-  return <TripView j={j} />;
+  return <TripView j={j} hero={hero} />;
 }
 
 /** The full trip page. Also used by the private Ramadan preview (preview/page.tsx). */
-export function TripView({ j }: { j: Journey }) {
+export function TripView({ j, hero = "full" }: { j: Journey; hero?: "simple" | "full" }) {
 
   const trip = j.bookingSlug ? getTrip(j.bookingSlug) : undefined;
   const bookable = Boolean(trip && isBookable(trip) && j.state === "open");
@@ -173,7 +175,7 @@ export function TripView({ j }: { j: Journey }) {
       <TripPhoneBar j={j} price={price} deposit={trip?.pricing ? trip.pricing.depositPence / 100 : null} bookable={bookable} />
       {j.posterType ? (
         <Chapter tone="day">
-          <LockupHero {...buy} />
+          <LockupHero {...buy} simple={hero === "simple"} />
         </Chapter>
       ) : (
       <Chapter tone="top">

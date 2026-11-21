@@ -40,7 +40,9 @@
   --color-error: #9b4a2f;
 
   --font-editorial: "Cormorant Garamond", "Amiri", ui-serif, Georgia, serif;
-  --font-display: "DM Sans", "Amiri", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  /* Body text in the device's own font (Jibril, 21 Nov 2026: big-brand type): San Francisco on iPhones and Macs,
+     Roboto on Android, Segoe on Windows. Apple's licence doesn't allow hosting SF, so it's never served from here. */
+  --font-display: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Amiri", sans-serif;
   --font-arabic: "Amiri", "Geeza Pro", "Noto Naskh Arabic", serif;
 
   --shadow-soft: 0 34px 70px -38px rgb(58 43 36 / 0.42);
@@ -604,7 +606,7 @@ html.motion .step-in { animation: step-in 0.45s var(--ease-out) both; }
 @media (min-width: 40rem) { .perk { flex-direction: column; text-align: center; gap: 0.55rem; padding: 1.1rem 0.6rem 1rem; } }
 .perk-icon { width: 2.4rem; height: 2.4rem; flex: none; }
 @media (min-width: 40rem) { .perk-icon { width: 3rem; height: 3rem; } }
-.perk-text { display: grid; line-height: 1.15; font-family: "Montserrat", "DM Sans", system-ui, sans-serif; text-transform: uppercase; }
+.perk-text { display: grid; line-height: 1.15; font-family: var(--font-display); text-transform: uppercase; }
 .perk-big { font-size: 0.875rem; font-weight: 700; letter-spacing: 0.03em; }
 .perk-small { font-size: 0.875rem; font-weight: 500; font-style: italic; letter-spacing: 0.02em; opacity: 0.85; }
 
@@ -652,7 +654,7 @@ html.motion[data-arrival] .arrival {
 /* The offer (the poster's bottom bar, live): olive panel with price and Saudia; the ground package beside it. */
 .hero-offer { display: grid; gap: 0.6rem; margin-top: 1rem; }
 @media (min-width: 30rem) { .hero-offer { grid-template-columns: 1.25fr 1fr; } }
-.offer-olive { display: flex; align-items: center; gap: 1rem; border-radius: 1.4rem; background: #585745; color: #f1eee6; padding: 1rem 1.15rem; font-family: "Montserrat", "DM Sans", system-ui, sans-serif; text-transform: uppercase; }
+.offer-olive { display: flex; align-items: center; gap: 1rem; border-radius: 1.4rem; background: #585745; color: #f1eee6; padding: 1rem 1.15rem; font-family: var(--font-display); text-transform: uppercase; }
 .offer-price { display: grid; line-height: 1.05; flex: 1; }
 /* The early bird, ended: crossed out above the price. */
 .offer-ended { font-size: 0.875rem; font-weight: 500; letter-spacing: 0.06em; opacity: 0.7; text-decoration-thickness: 1.5px; }
@@ -661,7 +663,7 @@ html.motion[data-arrival] .arrival {
 .offer-sub { font-size: 0.875rem; font-weight: 500; letter-spacing: 0.08em; opacity: 0.85; }
 .offer-rule { align-self: stretch; width: 1px; background: rgb(241 238 230 / 0.3); }
 .offer-saudia { width: 3.6rem; height: auto; }
-.offer-ground { display: flex; flex-direction: column; justify-content: center; gap: 0.2rem; border-radius: 1.4rem; border: 1px solid rgb(255 255 255 / 0.7); background: rgb(255 255 255 / 0.4); padding: 0.9rem 1.15rem; color: var(--color-bronze); font-family: "Montserrat", "DM Sans", system-ui, sans-serif; text-transform: uppercase; }
+.offer-ground { display: flex; flex-direction: column; justify-content: center; gap: 0.2rem; border-radius: 1.4rem; border: 1px solid rgb(255 255 255 / 0.7); background: rgb(255 255 255 / 0.4); padding: 0.9rem 1.15rem; color: var(--color-bronze); font-family: var(--font-display); text-transform: uppercase; }
 .offer-ground-l { font-size: 0.875rem; font-weight: 600; letter-spacing: 0.08em; line-height: 1.2; }
 .offer-ground-l em { font-family: "Cormorant Garamond", Georgia, serif; text-transform: none; font-size: 1.15em; letter-spacing: 0; }
 .offer-ground-r { display: flex; align-items: baseline; gap: 0.6rem; font-size: 0.875rem; font-weight: 700; letter-spacing: 0.1em; }
@@ -755,7 +757,7 @@ html.motion .ph-face-b { visibility: visible; animation-delay: -4.5s; }
 .ph-team .poster-role { margin-top: 0.6rem; }
 
 .poster-hero:has(.ticker) { padding-bottom: 0.5rem; }
-.ph-note { margin-top: 0.9rem; font-family: "Montserrat", "DM Sans", system-ui, sans-serif; font-size: 0.875rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-bronze); }
+.ph-note { margin-top: 0.9rem; font-family: var(--font-display); font-size: 0.875rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-bronze); }
 
 /* --- The poster hero, rebuilt (20 Nov 2026) -------------------------------------------------------------------
    One composition instead of boxes: the artwork with the special guest in it, the lockup, the ten nights, one line of
@@ -777,7 +779,7 @@ html.motion .ph-face-b { visibility: visible; animation-delay: -4.5s; }
 .rh-price { display: grid; justify-items: center; gap: 0.15rem; }
 .rh-ended { font-size: 0.875rem; color: rgb(from var(--color-ink) r g b / 0.62); }
 .rh-from { display: flex; align-items: baseline; gap: 0.5rem; }
-.rh-from strong { font-family: "Montserrat", "DM Sans", system-ui, sans-serif; font-size: clamp(2.1rem, 9vw, 2.7rem); font-weight: 700; letter-spacing: 0.01em; line-height: 1; color: var(--color-ink); }
+.rh-from strong { font-family: var(--font-display); font-size: clamp(2.1rem, 9vw, 2.7rem); font-weight: 700; letter-spacing: 0.01em; line-height: 1; color: var(--color-ink); }
 .rh-from-k { font-size: 0.92rem; color: rgb(from var(--color-ink) r g b / 0.7); }
 .rh-alt { margin-top: 0.3rem; font-size: 0.92rem; color: rgb(from var(--color-ink) r g b / 0.7); }
 .rh-alt > span:not([aria-hidden]), .rh-alt > a { white-space: nowrap; }
@@ -869,8 +871,8 @@ html.motion .ticker-track { animation: ticker 48s linear infinite; }
   box-shadow: 0 0 0 1px rgb(241 238 230 / 0.18), 0 24px 50px -24px rgb(0 0 0 / 0.55);
 }
 .gf-text { position: relative; padding: 1.5rem 1.4rem 1.75rem; }
-.gf-kicker { font-family: "Montserrat", "DM Sans", system-ui, sans-serif; font-size: 0.875rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: #ddd3b1; }
-.gf-name { margin-top: 0.55rem; font-family: "Montserrat", "DM Sans", system-ui, sans-serif; font-size: clamp(2.2rem, 8vw, 3.4rem); font-weight: 700; line-height: 0.98; letter-spacing: 0.02em; text-transform: uppercase; }
+.gf-kicker { font-family: var(--font-display); font-size: 0.875rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: #ddd3b1; }
+.gf-name { margin-top: 0.55rem; font-family: var(--font-display); font-size: clamp(2.2rem, 8vw, 3.4rem); font-weight: 700; line-height: 0.98; letter-spacing: 0.02em; text-transform: uppercase; }
 .gf-name span { display: block; margin-bottom: 0.4em; font-size: 0.4em; font-weight: 500; letter-spacing: 0.32em; color: #e6dec5; }
 .gf-line { margin-top: 1rem; max-width: 26rem; font-family: "Cormorant Garamond", Georgia, serif; font-size: 1.35rem; font-style: italic; line-height: 1.3; color: rgb(241 238 230 / 0.88); }
 .gf-bio { margin-top: 0.9rem; max-width: 28rem; font-size: 0.98rem; line-height: 1.6; color: rgb(241 238 230 / 0.8); }
@@ -894,7 +896,7 @@ html.motion .ticker-track { animation: ticker 48s linear infinite; }
 .inc-card { display: grid; align-content: start; border-radius: 1.1rem; border: 1px solid var(--glass-line); background: var(--glass-bg); padding: 1rem; }
 .inc-body { display: grid; gap: 0.6rem; color: var(--color-bronze); }
 .inc-icon { width: 2.4rem; height: 2.4rem; flex: none; }
-.inc-title { font-family: "Montserrat", "DM Sans", system-ui, sans-serif; font-size: 0.875rem; font-weight: 700; letter-spacing: 0.04em; line-height: 1.15; text-transform: uppercase; }
+.inc-title { font-family: var(--font-display); font-size: 0.875rem; font-weight: 700; letter-spacing: 0.04em; line-height: 1.15; text-transform: uppercase; }
 .inc-title em { font-weight: 500; }
 .inc-line { margin-top: 0.4rem; font-size: 0.9rem; line-height: 1.45; color: color-mix(in oklab, var(--color-ink) 72%, transparent); }
 
@@ -942,18 +944,18 @@ html.motion .ticker-track { animation: ticker 48s linear infinite; }
 
 /* The other campaign at the foot of the Ramadan page: the guest panel's olive. */
 .other-trip { display: grid; gap: 1.5rem; border-radius: 1.75rem; padding: 1.75rem 1.4rem; color: #f1eee6; background: radial-gradient(80% 90% at 15% 0%, #6d6b4b 0%, #545234 55%, #434229 100%); box-shadow: var(--shadow-lift); }
-.other-trip-title { margin-top: 0.45rem; font-family: "Montserrat", "DM Sans", system-ui, sans-serif; font-size: clamp(2.2rem, 7vw, 3.4rem); font-weight: 700; line-height: 1; letter-spacing: 0.03em; text-transform: uppercase; }
+.other-trip-title { margin-top: 0.45rem; font-family: var(--font-display); font-size: clamp(2.2rem, 7vw, 3.4rem); font-weight: 700; line-height: 1; letter-spacing: 0.03em; text-transform: uppercase; }
 @media (min-width: 48rem) { .other-trip { grid-template-columns: 1fr auto; align-items: center; padding: 2.5rem; } }
 
 /* How booking works, beside the closing form: numbered steps. */
 .booking-steps { display: grid; gap: 1rem; max-width: 26rem; }
 .booking-steps > li { display: grid; grid-template-columns: 2.25rem 1fr; gap: 0.85rem; align-items: start; }
-.booking-num { display: grid; place-items: center; width: 2.25rem; height: 2.25rem; border-radius: 0.7rem; background: #545234; color: #f1eee6; font-family: "Montserrat", "DM Sans", system-ui, sans-serif; font-weight: 700; }
+.booking-num { display: grid; place-items: center; width: 2.25rem; height: 2.25rem; border-radius: 0.7rem; background: #545234; color: #f1eee6; font-family: var(--font-display); font-weight: 700; }
 
 /* The poster's two photos over what's included, with its white labels. */
 .showcase { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.6rem; }
 .showcase > li { position: relative; aspect-ratio: 632 / 446; overflow: hidden; border-radius: 1rem; box-shadow: var(--shadow-lift); }
-.showcase-label { position: absolute; right: 0.5rem; bottom: 0.5rem; border-radius: 0.5rem; background: rgb(255 255 255 / 0.94); padding: 0.25rem 0.55rem; font-family: "Montserrat", "DM Sans", system-ui, sans-serif; font-size: 0.875rem; font-weight: 700; font-style: italic; letter-spacing: 0.02em; text-transform: uppercase; color: #2e2d1f; box-shadow: 0 6px 16px -10px rgb(0 0 0 / 0.5); }
+.showcase-label { position: absolute; right: 0.5rem; bottom: 0.5rem; border-radius: 0.5rem; background: rgb(255 255 255 / 0.94); padding: 0.25rem 0.55rem; font-family: var(--font-display); font-size: 0.875rem; font-weight: 700; font-style: italic; letter-spacing: 0.02em; text-transform: uppercase; color: #2e2d1f; box-shadow: 0 6px 16px -10px rgb(0 0 0 / 0.5); }
 @media (min-width: 48rem) { .showcase { gap: 1rem; } }
 /* Phones only: on wide screens the two poster crops read badly (Jibril, 19 Nov 2026). */
 @media (min-width: 48rem) { .showcase { display: none; } }
@@ -961,11 +963,11 @@ html.motion .ticker-track { animation: ticker 48s linear infinite; }
 
 /* The poster's instalment plan: its lettering, then one tile per payment. */
 .plan-block { border-radius: 1.5rem; border: 1px solid var(--glass-line); background: var(--glass-bg); padding: 1.5rem 1rem 1.25rem; }
-.plan-title { display: grid; justify-items: center; font-family: "Montserrat", "DM Sans", system-ui, sans-serif; text-transform: uppercase; color: var(--color-bronze); line-height: 1; }
+.plan-title { display: grid; justify-items: center; font-family: var(--font-display); text-transform: uppercase; color: var(--color-bronze); line-height: 1; }
 .plan-title > :first-child { font-size: clamp(1.9rem, 7vw, 2.8rem); font-weight: 700; letter-spacing: 0.08em; }
 .plan-title > span:last-child { margin-top: 0.45rem; font-size: clamp(0.95rem, 3.4vw, 1.2rem); font-weight: 500; letter-spacing: 0.42em; margin-right: -0.42em; }
 .plan-tiles { margin-top: 1.25rem; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.6rem; }
-.plan-tiles > li { display: grid; justify-items: center; gap: 0.2rem; border-radius: 1rem; background: rgb(84 82 52 / 0.08); padding: 0.9rem 0.5rem; font-family: "Montserrat", "DM Sans", system-ui, sans-serif; text-transform: uppercase; color: #3f3e28; }
+.plan-tiles > li { display: grid; justify-items: center; gap: 0.2rem; border-radius: 1rem; background: rgb(84 82 52 / 0.08); padding: 0.9rem 0.5rem; font-family: var(--font-display); text-transform: uppercase; color: #3f3e28; }
 .plan-tiles b { font-size: clamp(1.7rem, 6vw, 2.2rem); font-weight: 700; line-height: 1; }
 .plan-tiles span { font-size: 0.875rem; font-weight: 500; letter-spacing: 0.02em; }
 @media (min-width: 40rem) { .plan-tiles { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
@@ -979,17 +981,17 @@ html.motion .ticker-track { animation: ticker 48s linear infinite; }
 @media (min-width: 48rem) { .pkg-cards { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
 .pkg-card { display: grid; align-content: start; border-radius: 1.4rem; border: 1px solid var(--glass-line); background: var(--glass-bg); padding: 1.25rem; }
 .pkg-room { font-family: "Cormorant Garamond", Georgia, serif; font-size: 1.6rem; line-height: 1.1; }
-.pkg-room span { margin-left: 0.35rem; font-family: "DM Sans", system-ui, sans-serif; font-size: 0.9rem; color: color-mix(in oklab, var(--color-ink) 60%, transparent); }
+.pkg-room span { margin-left: 0.35rem; font-family: var(--font-display); font-size: 0.9rem; color: color-mix(in oklab, var(--color-ink) 60%, transparent); }
 .pkg-early { margin-top: 0.6rem; font-size: 0.9rem; color: color-mix(in oklab, var(--color-ink) 55%, transparent); text-decoration-thickness: 1.5px; }
-.pkg-price { margin-top: 0.6rem; font-family: "Montserrat", "DM Sans", system-ui, sans-serif; font-size: 2rem; font-weight: 700; line-height: 1; color: #3f3e28; }
-.pkg-price span { font-family: "DM Sans", system-ui, sans-serif; font-size: 0.9rem; font-weight: 400; color: color-mix(in oklab, var(--color-ink) 60%, transparent); }
+.pkg-price { margin-top: 0.6rem; font-family: var(--font-display); font-size: 2rem; font-weight: 700; line-height: 1; color: #3f3e28; }
+.pkg-price span { font-family: var(--font-display); font-size: 0.9rem; font-weight: 400; color: color-mix(in oklab, var(--color-ink) 60%, transparent); }
 .pkg-plan { margin-top: 1rem; display: grid; border-top: 1px solid rgb(84 82 52 / 0.12); }
 .pkg-plan li { display: flex; justify-content: space-between; gap: 1rem; padding: 0.55rem 0; border-bottom: 1px solid rgb(84 82 52 / 0.12); font-size: 0.92rem; }
 .pkg-plan li span { color: color-mix(in oklab, var(--color-ink) 68%, transparent); }
 .pkg-btn { margin-top: 1rem; display: flex; min-height: 3rem; align-items: center; justify-content: center; gap: 0.5rem; border-radius: 0.9rem; border: 1px solid rgb(84 82 52 / 0.25); font-size: 0.95rem; font-weight: 500; }
 .pkg-btn:not(.btn-ink):hover { border-color: rgb(84 82 52 / 0.55); }
 
-.ty-ref { font-family: "Montserrat", "DM Sans", system-ui, sans-serif; font-size: 1.7rem; font-weight: 700; letter-spacing: 0.1em; }
+.ty-ref { font-family: var(--font-display); font-size: 1.7rem; font-weight: 700; letter-spacing: 0.1em; }
 
 /* The mist: big soft clouds, drifting by transform only. */
 .mist .cloud { position: absolute; border-radius: 50%; background: radial-gradient(closest-side, rgb(255 255 255 / 0.85), rgb(255 255 255 / 0)); }
@@ -1326,7 +1328,7 @@ html.motion .hosts .rv.in .host-arch img { transform: none; }
 .gc-photo { position: relative; aspect-ratio: 4 / 5; overflow: hidden; background: #d9cdb4; }
 .gc-photo::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to bottom, transparent 48%, rgb(58 45 22 / 0.18) 66%, rgb(40 32 18 / 0.78) 100%); pointer-events: none; }
 .gc-name { position: absolute; z-index: 1; left: var(--hero-pad-x); right: var(--hero-pad-x); bottom: 1.4rem; color: #f6efdf; }
-.gc-kicker { font-family: "Montserrat", "DM Sans", system-ui, sans-serif; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: #ecd9a8; }
+.gc-kicker { font-family: var(--font-display); font-size: 0.8rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: #ecd9a8; }
 .gc-name h2 { margin-top: 0.35rem; font-family: var(--font-editorial, "Cormorant Garamond", Georgia, serif); font-size: clamp(2.5rem, 10vw, 4.4rem); line-height: 1; font-weight: 500; }
 .gc-name h2 span { display: block; font-size: 0.5em; font-style: italic; opacity: 0.85; }
 .gc-text { padding-top: 1.6rem; }
@@ -1547,7 +1549,7 @@ html.motion .hosts .rv.in .host-arch img { transform: none; }
 .fb-item { display: flex; align-items: center; gap: 0.6rem; padding-inline: 1.15rem; white-space: nowrap; border-left: 1px solid rgb(216 187 114 / 0.2); }
 .fb-icon { width: 1.6rem; height: 1.6rem; flex: none; color: #dcbf76; }
 .fb-text { display: flex; gap: 0.3em; font-size: 0.8rem; line-height: 1.3; }
-.fb-text b { font-family: "Montserrat", "DM Sans", system-ui, sans-serif; font-weight: 600; letter-spacing: 0.03em; color: #f6f0de; }
+.fb-text b { font-family: var(--font-display); font-weight: 600; letter-spacing: 0.03em; color: #f6f0de; }
 .fb-text span { color: rgb(241 235 217 / 0.7); }
 @keyframes fb-run { from { transform: translate3d(0, 0, 0); } to { transform: translate3d(-50%, 0, 0); } }
 html.motion .fb-track { animation: fb-run 40s linear infinite; }
@@ -1598,7 +1600,7 @@ html:not(.motion) .feature-band { overflow-x: auto; }
 .skin-1448 .pkg-title { font-size: clamp(2.65rem, 5vw, 4.3rem); }
 .skin-1448 .gild { font-weight: 600; background-image: linear-gradient(180deg, #927433 0%, #7a5d26 50%, #5f4719 100%); }
 .skin-1448 .night .gild, .skin-1448 .pkg-night .gild { background-image: linear-gradient(180deg, #f8ecc4 0%, #e2c784 55%, #c9a75a 100%); }
-.skin-1448 .label { font-family: "Montserrat", "DM Sans", system-ui, sans-serif; font-size: 0.76rem; font-style: normal; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: #7d6129; }
+.skin-1448 .label { font-family: var(--font-display); font-size: 0.76rem; font-style: normal; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: #7d6129; }
 .skin-1448 .label .mark-mask { height: 1.35em; color: #a8863f; }
 .skin-1448 .night .label, .skin-1448 .pkg-night .label { color: #e2c98f; }
 .skin-1448 .night .label .mark-mask, .skin-1448 .pkg-night .label .mark-mask { color: #d8bb72; }
@@ -1622,7 +1624,7 @@ html:not(.motion) .feature-band { overflow-x: auto; }
 .jr-photo figcaption { margin-top: 0.7rem; font-size: 0.86rem; color: rgb(from var(--color-ink) r g b / 0.66); }
 .jr-buy { grid-area: buy; }
 .jr-points { grid-area: points; padding-top: 0.5rem; }
-.jr-sub { margin-bottom: 1rem; font-family: "Montserrat", "DM Sans", system-ui, sans-serif; font-size: 0.74rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: #7d6129; }
+.jr-sub { margin-bottom: 1rem; font-family: var(--font-display); font-size: 0.74rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: #7d6129; }
 .jr-line { grid-area: line; }
 .jr-verse { grid-area: verse; margin-top: 0; }
 .pkg-night .jr-sub { color: #e2c98f; }
@@ -1639,7 +1641,7 @@ html:not(.motion) .feature-band { overflow-x: auto; }
 .highlights li { display: grid; grid-template-columns: 2.9rem 1fr; gap: 1rem; align-items: start; padding-block: 1.2rem; border-bottom: 1px solid rgb(125 97 41 / 0.16); }
 .hl-num { position: relative; display: grid; place-items: center; width: 2.75rem; height: 2.75rem; margin-top: -0.2rem; filter: drop-shadow(0 6px 10px rgb(125 97 41 / 0.3)); }
 .hl-star { position: absolute; inset: 0; width: 100%; height: 100%; color: #c9a85c; }
-.hl-num b { position: relative; font-family: "Montserrat", "DM Sans", system-ui, sans-serif; font-size: 0.92rem; font-weight: 700; line-height: 1; color: #2b2a1a; }
+.hl-num b { position: relative; font-family: var(--font-display); font-size: 0.92rem; font-weight: 700; line-height: 1; color: #2b2a1a; }
 .hl-title { font-family: var(--font-editorial, "Cormorant Garamond", Georgia, serif); font-size: clamp(1.4rem, 4.6vw, 1.6rem); font-weight: 600; line-height: 1.15; color: var(--color-ink); }
 .hl-text { margin-top: 0.3rem; font-size: 0.98rem; line-height: 1.6; color: rgb(from var(--color-ink) r g b / 0.82); }
 .night .highlights, .pkg-night .highlights { border-top-color: rgb(216 187 114 / 0.3); }
@@ -1712,8 +1714,8 @@ html.motion .fb-item.rv.in .fb-text { opacity: 1; transform: none; }
 .rl-tile { position: relative; display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; min-height: 6.6rem; padding: 0.95rem 1rem; border-radius: 1.25rem; text-align: left; transition: transform 0.25s var(--ease-out), box-shadow 0.25s; }
 .rl-tile:hover { transform: translateY(-1px); }
 .rl-tile-words { display: grid; line-height: 1.05; }
-.rl-k { font-family: "Montserrat", "DM Sans", system-ui, sans-serif; font-size: 0.7rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; }
-.rl-price { margin-top: 0.3rem; font-family: "Montserrat", "DM Sans", system-ui, sans-serif; font-size: clamp(1.75rem, 7.6vw, 2.4rem); font-weight: 700; letter-spacing: 0.005em; line-height: 1; -webkit-background-clip: text; background-clip: text; color: transparent; -webkit-text-fill-color: transparent; }
+.rl-k { font-family: var(--font-display); font-size: 0.7rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; }
+.rl-price { margin-top: 0.3rem; font-family: var(--font-display); font-size: clamp(1.75rem, 7.6vw, 2.4rem); font-weight: 700; letter-spacing: 0.005em; line-height: 1; -webkit-background-clip: text; background-clip: text; color: transparent; -webkit-text-fill-color: transparent; }
 .rl-sub { margin-top: 0.3rem; font-family: var(--font-editorial, "Cormorant Garamond", Georgia, serif); font-size: 0.98rem; font-style: italic; }
 .rl-ended { margin-bottom: 0.2rem; font-size: 0.78rem; opacity: 0.6; text-decoration-thickness: 1px; }
 .rl-flights { color: #f1eee6; background: radial-gradient(120% 90% at 20% 0%, rgb(255 236 180 / 0.08) 0%, transparent 60%), linear-gradient(180deg, #57563f 0%, #45442e 100%); box-shadow: 0 22px 40px -26px rgb(37 36 24 / 0.75); }
@@ -1790,6 +1792,62 @@ html.motion .fb-item.rv.in .fb-text { opacity: 1; transform: none; }
 .skin-1448 .stay-plate[aria-pressed="true"] { box-shadow: 0 0 0 2px #ece8df; }
 /* The booking panel's main button is a key point too. */
 .skin-1448 #join .btn-ink { background: linear-gradient(180deg, #efdfaa 0%, #d8ba6e 46%, #b99749 100%); color: #2b2a1a; box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.55), inset 0 -1px 0 rgb(120 92 40 / 0.35), 0 14px 30px -16px rgb(84 66 24 / 0.6); }
+/* --- The simpler hero (?hero default while comparing, 21 Nov 2026) ----------------------------------------------------
+   The artwork alone, the lettering, and one line with the two prices in gold, each a link (ground only opens the
+   booking on ground only), a hairline between them; then the gold button. */
+.rl-line { display: flex; justify-content: center; align-items: stretch; margin: 0.2rem 0 0.3rem; }
+.rl-line-item { display: inline-flex; flex-direction: column; align-items: center; gap: 0.3rem; padding-inline: clamp(1.1rem, 5vw, 2rem); font-size: 0.95rem; color: rgb(from var(--color-ink) r g b / 0.72); text-decoration: none; }
+.rl-line-item + .rl-line-item { border-left: 1px solid rgb(84 82 52 / 0.25); }
+.rl-line-item:hover span { color: var(--color-ink); }
+.rl-line-price { font-family: var(--font-display); font-size: clamp(2rem, 8.2vw, 2.5rem); font-weight: 700; letter-spacing: -0.01em; line-height: 1; background-image: linear-gradient(180deg, #a8873c 0%, #7e6128 100%); -webkit-background-clip: text; background-clip: text; color: transparent; -webkit-text-fill-color: transparent; }
+.rl-simple .rl-buy { gap: 1.1rem; }
+@media (min-width: 64rem) { .rl-simple .rl-art { max-width: 46rem; } }
+
+/* --- Liquid glass on the floating parts (21 Nov 2026: "liquid glass… on the buttons… more premium") --------------------
+   Only what floats over the page: the header, the phone's bottom bar, the sticky navigator, the round phone buttons,
+   the WhatsApp outlines and the ground-only price tile. Each is a frosted pane (blur and a lift in colour from what's
+   behind), a bright top edge, a fainter side edge and a soft shadow, like Apple's glass. Safari has no refraction on
+   the web, so this is the frosted version everywhere. The gold Book button stays solid: it's the one to press. */
+:root[data-skin="1448"] header.top-zone {
+  background: linear-gradient(180deg, rgb(69 68 46 / 0.86) 0%, rgb(58 57 38 / 0.8) 100%);
+  -webkit-backdrop-filter: blur(22px) saturate(170%); backdrop-filter: blur(22px) saturate(170%);
+  border-bottom: 1px solid rgb(255 255 240 / 0.12);
+  box-shadow: inset 0 -1px 0 rgb(255 255 255 / 0.04), 0 12px 32px -24px rgb(0 0 0 / 0.55);
+}
+:root[data-skin="1448"] header .bg-\(--raise\) {
+  background: linear-gradient(180deg, rgb(255 255 245 / 0.16) 0%, rgb(255 255 245 / 0.06) 100%);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.32), inset 0 0 0 1px rgb(255 255 245 / 0.1), 0 8px 20px -12px rgb(0 0 0 / 0.5);
+}
+:root[data-skin="1448"] .hdr-wa {
+  border-color: rgb(255 255 245 / 0.18);
+  background: linear-gradient(180deg, rgb(255 255 245 / 0.12) 0%, rgb(255 255 245 / 0.04) 100%);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.28);
+}
+.skin-1448 [data-placement="phone bar"] > div {
+  background: linear-gradient(180deg, rgb(62 61 42 / 0.72) 0%, rgb(46 45 31 / 0.8) 100%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%); backdrop-filter: blur(24px) saturate(180%);
+  border-color: rgb(255 255 240 / 0.16);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.22), inset 1px 0 0 rgb(255 255 255 / 0.06), inset -1px 0 0 rgb(255 255 255 / 0.06), 0 18px 40px -16px rgb(20 19 12 / 0.6);
+}
+.skin-1448 [data-placement="phone bar"] .bg-\(--raise\) {
+  background: linear-gradient(180deg, rgb(255 255 245 / 0.14) 0%, rgb(255 255 245 / 0.05) 100%);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.26), inset 0 0 0 1px rgb(255 255 245 / 0.08);
+}
+.skin-1448 .trip-jump.garden-path {
+  background: linear-gradient(180deg, rgb(250 248 242 / 0.8) 0%, rgb(244 241 233 / 0.72) 100%);
+  -webkit-backdrop-filter: blur(22px) saturate(180%); backdrop-filter: blur(22px) saturate(180%);
+  border-bottom: 1px solid rgb(255 255 255 / 0.6);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.7), 0 10px 28px -22px rgb(40 38 24 / 0.5);
+}
+.skin-1448 .garden-path [data-state="here"] a { background: linear-gradient(180deg, rgb(255 255 255 / 0.85) 0%, rgb(255 255 255 / 0.55) 100%); box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.95), inset 0 0 0 1px rgb(255 255 255 / 0.5), 0 6px 16px -10px rgb(60 48 20 / 0.45); }
+.skin-1448 .rl-ground, .skin-1448 .wa-btn {
+  background: linear-gradient(180deg, rgb(255 255 255 / 0.62) 0%, rgb(255 255 255 / 0.32) 100%);
+  -webkit-backdrop-filter: blur(16px) saturate(170%); backdrop-filter: blur(16px) saturate(170%);
+  border: 1px solid rgb(255 255 255 / 0.75);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.9), inset 0 -1px 0 rgb(255 255 255 / 0.25), 0 16px 32px -24px rgb(60 48 20 / 0.5);
+}
+.skin-1448 .wa-btn:hover { border-color: rgb(255 255 255 / 0.95); }
+
 /* --- One button identity (20 Nov 2026: "the buttons… at the top… and on the actual website… don't match") ------------
    Three kinds, the same shape everywhere (0.95rem corners, 3.25rem tall, 500 weight; the header's a touch shorter):
    the main action in gilt (Book your place in the header, the hero, the phone bar, the booking panel, and the form's
@@ -1866,7 +1924,7 @@ html.motion[data-skin="1448"] header .btn-ink:hover::after, html.motion .skin-14
 .rp-title { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 .rp-buy { display: grid; justify-items: center; gap: 1.1rem; width: 100%; }
 @media (min-width: 64rem) {
-  .rp-kicker { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 1rem; font-family: "Montserrat", "DM Sans", system-ui, sans-serif; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: #7d6129; }
+  .rp-kicker { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 1rem; font-family: var(--font-display); font-size: 0.78rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: #7d6129; }
   .rp-with { display: inline-flex; align-items: center; gap: 0.5rem; padding-left: 1rem; border-left: 1px solid rgb(125 97 41 / 0.3); letter-spacing: 0.06em; text-transform: none; font-weight: 500; color: rgb(from var(--color-ink) r g b / 0.7); }
   .rp-with > span { color: var(--color-ink); }
   .rp-title { position: static; width: auto; height: auto; overflow: visible; clip-path: none; white-space: normal; margin-top: 1.1rem; font-size: clamp(2.9rem, 4vw, 4.1rem); line-height: 1.02; text-wrap: balance; }
@@ -1886,7 +1944,7 @@ html.motion[data-skin="1448"] header .btn-ink:hover::after, html.motion .skin-14
 .pkg-night { padding-top: clamp(1.5rem, 5vw, 3rem); padding-bottom: clamp(1rem, 4vw, 2rem); }
 .pkg-in { box-sizing: border-box; display: grid; gap: 2rem; max-width: calc(72rem + 2 * var(--hero-pad-x)); margin-inline: auto; }
 .pkg-title { margin-top: 0.9rem; max-width: 34rem; font-size: clamp(2.4rem, 8vw, 3.5rem); line-height: 1.03; text-wrap: balance; }
-.pkg-note { margin-top: 1.1rem; font-family: "Montserrat", "DM Sans", system-ui, sans-serif; font-size: 0.74rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: #7d6129; }
+.pkg-note { margin-top: 1.1rem; font-family: var(--font-display); font-size: 0.74rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: #7d6129; }
 .pkg-facts { display: grid; border-top: 1px solid rgb(125 97 41 / 0.28); }
 .pkg-facts li { display: grid; grid-template-columns: 2.9rem 1fr; gap: 1rem; align-items: center; padding-block: 1.05rem; border-bottom: 1px solid rgb(125 97 41 / 0.16); }
 .pkg-icon { display: grid; place-items: center; width: 2.9rem; height: 2.9rem; border-radius: 999px; border: 1px solid rgb(168 134 63 / 0.5); color: #87692c; background: radial-gradient(circle at 50% 28%, rgb(255 251 240 / 0.95) 0%, rgb(238 228 204 / 0.6) 100%); box-shadow: 0 8px 18px -12px rgb(125 97 41 / 0.6); }
@@ -1944,9 +2002,9 @@ html.motion .stay-photo-img { animation: stay-in 0.7s var(--ease-out); }
 .stay-seal-star { position: relative; display: grid; place-items: center; width: 4.4rem; height: 4.4rem; flex: none; color: #d8bb72; filter: drop-shadow(0 10px 18px rgb(0 0 0 / 0.35)); }
 .stay-seal-star svg { position: absolute; inset: 0; }
 .stay-seal-star svg * { fill: currentColor; stroke: none; }
-.stay-seal-star b { position: relative; font-family: "Montserrat", "DM Sans", system-ui, sans-serif; font-size: 1.45rem; font-weight: 700; line-height: 1; color: #2e2d20; }
-.stay-seal-words { display: grid; font-family: "Montserrat", "DM Sans", system-ui, sans-serif; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: #e2c98f; }
-.stay-seal-words small { margin-top: 0.3rem; font-family: "DM Sans", system-ui, sans-serif; font-size: 0.95rem; font-weight: 400; letter-spacing: 0; text-transform: none; color: rgb(from var(--color-ink) r g b / 0.78); }
+.stay-seal-star b { position: relative; font-family: var(--font-display); font-size: 1.45rem; font-weight: 700; line-height: 1; color: #2e2d20; }
+.stay-seal-words { display: grid; font-family: var(--font-display); font-size: 0.8rem; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: #e2c98f; }
+.stay-seal-words small { margin-top: 0.3rem; font-family: var(--font-display); font-size: 0.95rem; font-weight: 400; letter-spacing: 0; text-transform: none; color: rgb(from var(--color-ink) r g b / 0.78); }
 .stay-facts { display: grid; gap: 0.7rem; margin-top: 1.4rem; padding-block: 1.1rem; border-block: 1px solid rgb(216 187 114 / 0.2); }
 .stay-facts li { display: grid; grid-template-columns: 1.6rem 1fr; gap: 0.8rem; align-items: center; font-size: 1rem; color: rgb(from var(--color-ink) r g b / 0.86); }
 .stay-facts svg { color: #e2c98f; }

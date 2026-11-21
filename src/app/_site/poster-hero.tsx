@@ -111,12 +111,14 @@ export function FeatureBand({ perks }: { perks: Perk[] }) {
  * Then the two prices side by side, the same shape each, the figures in gold: with flights (with Saudia's mark) and
  * ground only (it opens the booking on ground only), and one gilt button. No line of copy: the poster says it.
  * Phones: the lettering, the artwork, then the prices and the button.
+ * `simple` (21 Nov 2026: "the hero should be one photo and no extra stuff"): the artwork alone, without Sheikh Yahya
+ * (he has his own section), and one price line instead of the two tiles; no small print under the button.
  */
-export function LockupHero({ j, guest, price, ended, ground, deposit, payments, joinLabel }: Buy & { guest?: Person }) {
-  const withGuest = Boolean(j.heroGuest && guest);
+export function LockupHero({ j, guest, price, ended, ground, deposit, payments, joinLabel, simple = false }: Buy & { guest?: Person; simple?: boolean }) {
+  const withGuest = Boolean(j.heroGuest && guest) && !simple;
   const dates = j.dates.value.replace(/\bFeb\b/, "February").replace(/\bMar\b/, "March");
   return (
-    <section className="rl wash-hero relative overflow-hidden">
+    <section className={`rl wash-hero relative overflow-hidden ${simple ? "rl-simple" : ""}`}>
       <Emblem className="rl-mark watermark pointer-events-none absolute" />
       <div className="rl-grid">
         <div className={`rl-head ${gutter}`}>
@@ -160,7 +162,20 @@ export function LockupHero({ j, guest, price, ended, ground, deposit, payments, 
         <div className={`rl-foot ${gutter}`}>
           {/* `.ph-buy`: the phone bar waits until this has scrolled away (page-watch.tsx). */}
           <div style={at(860)} className="ph-buy rl-buy follow">
-            {price ? (
+            {simple && price ? (
+              <p className="rl-line">
+                <a href={`#${anchors.join}`} className="rl-line-item">
+                  <strong className="rl-line-price">{price}</strong>
+                  <span>with flights</span>
+                </a>
+                {ground ? (
+                  <a href={`#${anchors.join}`} data-pick="ground" className="rl-line-item">
+                    <strong className="rl-line-price">{ground}</strong>
+                    <span>ground only</span>
+                  </a>
+                ) : null}
+              </p>
+            ) : price ? (
               <div className="rl-offer">
                 <a href={`#${anchors.join}`} className="rl-tile rl-flights">
                   <span className="rl-tile-words">
@@ -185,7 +200,7 @@ export function LockupHero({ j, guest, price, ended, ground, deposit, payments, 
             <a href={`#${anchors.join}`} className="btn-gilt rl-book">
               {joinLabel} <Chevron dir="down" className="size-3 opacity-70" />
             </a>
-            {deposit || j.heroNote ? (
+            {!simple && (deposit || j.heroNote) ? (
               <p className="rl-note">
                                 {[...(deposit ? [`${deposit} deposit${payments ? `, then ${payments} payments` : ""}`] : []), ...(j.heroNote ? j.heroNote.split(" · ") : [])].map((part, i, arr) => (
                   <span key={part} className="whitespace-nowrap">

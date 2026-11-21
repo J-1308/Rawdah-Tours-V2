@@ -41,7 +41,7 @@ on phones outdoors.
 | --- | --- | --- |
 | Headlines | Cormorant Garamond 460 | `.display`, upright, one colour, `text-wrap: balance`. |
 | Labels, captions, sub-titles | Cormorant Garamond italic | Bronze on cream, sand on cocoa, with the tiny mark (`<Label>`). |
-| Body and UI | DM Sans 400/500 | 0.92–1.05rem, line-height 1.6–1.75, ink at 60–75%. Nothing below 0.875rem (14px), ink no lighter than 62% (design pass, Nov 2026). |
+| Body and UI | The device's own font (`--font-display`: San Francisco on Apple, Roboto on Android, Segoe on Windows), 400/500; DM Sans until 21 Nov 2026 | 0.92–1.05rem, line-height 1.6–1.75, ink at 60–75%. Nothing below 0.875rem (14px), ink no lighter than 62% (design pass, Nov 2026). Labels, prices and small capitals use it too; Montserrat stays only in the poster lettering (the lockup, the tablets, the Sheikh caption, `.poster-title`). SF itself is never hosted: Apple's licence allows it only for UI mock-ups. |
 | Arabic | Amiri | روضة. |
 | Poster titles (Ramadan Umrah 2027 only) | Montserrat 700 capitals | `.poster-title` with `<PosterText>` (`poster-type.tsx`): the GGC × Rawdah poster's lettering. Every M is a real, invisible letter with the poster's M (two overlapping Λ, like the sharp, rectangular Rawdah mark) laid over it as a mask, so copied, searched and spoken text stay exact. On by `posterType` on a trip (Jibril, 17 Nov 2026), and only on the title and the closing "Book your place"; section headings stay in Cormorant (Jibril, 18 Nov 2026). |
 
@@ -186,7 +186,10 @@ script in `app/layout.tsx` sets before first paint unless the visitor prefers re
   icons draw in and a light crosses it.
   Tenth pass: the hero is `LockupHero` (`.rl-*`: lettering, artwork, two gold price tiles, one gilt button); gold
   only at key points (buttons, prices, current chapter, the band, night stars), headline accents in olive italic; one
-  button identity (gilt main, stone outline with WhatsApp's mark, text links); repeats cut (ADR 0006). In one-page
+  button identity (gilt main, stone outline with WhatsApp's mark, text links); repeats cut (ADR 0006).
+  Twelfth pass (21 Nov 2026): liquid glass on the floating parts only (header, phone bar, garden path, round phone
+  buttons, WhatsApp outlines, the ground-only tile): frosted blur and saturate, a bright top edge, a soft shadow; the
+  gold Book button stays solid. A simpler hero to compare (`LockupHero simple`). In one-page
   mode the whole site wears the poster: `<html data-skin="1448">` turns the top strip, header and footer from cocoa
   to the poster's olive and stone, the logo stone, and the browser bar olive (`layout.tsx`, `globals.css`). One-page header: call, logo, WhatsApp on
   phones; the trip, logo, WhatsApp and "Book your place" on desktop (`src/lib/site-mode.ts`); what's included as photo cards (`IncludedCards`, `plan.cards`; the hotels card says room only and breakfast, so no tick list repeats it under the cards, `perksAlso: []`; "Photo to come" frames until Jibril
