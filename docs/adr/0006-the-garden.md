@@ -301,8 +301,9 @@ try first:
   Segoe on Windows), replacing DM Sans; labels, prices and small capitals too. Two families now: Cormorant for
   headings, the system font for the rest; Montserrat only in the poster lettering. SF is never hosted (Apple's licence
   allows it only for UI mock-ups), and the page downloads one font file fewer.
-- **A simpler hero, to compare** (`LockupHero simple`): the artwork alone (Sheikh Yahya in his own section), the
-  lettering, one line with both prices in gold over their labels, and the gold button; no small print. The current
-  hero stays at `?hero=full` while comparing; the switch comes out once Jibril picks.
+- **A simpler hero** (chosen the same day, with one change: "Yahya Raaby must be in the hero"): the artwork with Sheikh
+  Yahya standing in it, the lettering, one line with both prices in gold over their labels (each a link; ground only
+  opens the booking on ground only), and the gold button. Cut: the two price tiles, the Saudia mark, the early bird and
+  the small print under the button. The comparison switch is gone; the link preview was remade to match.
 - **Later**: restyle the other pages and switch one-page mode off after the Ramadan push; sharper photos from Rawdah or
   a shoot; Paper for mock-ups if wanted. 21st MCP set aside (ready-made components look templated).

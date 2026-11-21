@@ -1707,31 +1707,9 @@ html.motion .fb-item.rv.in .fb-text { opacity: 1; transform: none; }
 .rl-tablet-nights { left: 50.4%; top: 13%; }
 .rl-tablet-nights b { font-size: 9.5cqw; }
 .rl-foot { grid-area: foot; display: grid; grid-template-columns: minmax(0, 1fr); justify-items: center; width: 100%; max-width: 34rem; min-width: 0; box-sizing: border-box; }
-/* The two prices: the same shape each, the figures in gold (key points); with flights on the poster's olive with Saudia's
-   mark, ground only on stone. Both open the booking (ground only on ground only). Then the one gilt button. */
+/* The price line and the one gilt button under it. */
 .rl-buy { display: grid; grid-template-columns: minmax(0, 1fr); justify-items: center; gap: 0.9rem; width: 100%; margin-top: 1.3rem; }
-.rl-offer { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 0.6rem; width: 100%; }
-.rl-tile { position: relative; display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; min-height: 6.6rem; padding: 0.95rem 1rem; border-radius: 1.25rem; text-align: left; transition: transform 0.25s var(--ease-out), box-shadow 0.25s; }
-.rl-tile:hover { transform: translateY(-1px); }
-.rl-tile-words { display: grid; line-height: 1.05; }
-.rl-k { font-family: var(--font-display); font-size: 0.7rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; }
-.rl-price { margin-top: 0.3rem; font-family: var(--font-display); font-size: clamp(1.75rem, 7.6vw, 2.4rem); font-weight: 700; letter-spacing: 0.005em; line-height: 1; -webkit-background-clip: text; background-clip: text; color: transparent; -webkit-text-fill-color: transparent; }
-.rl-sub { margin-top: 0.3rem; font-family: var(--font-editorial, "Cormorant Garamond", Georgia, serif); font-size: 0.98rem; font-style: italic; }
-.rl-ended { margin-bottom: 0.2rem; font-size: 0.78rem; opacity: 0.6; text-decoration-thickness: 1px; }
-.rl-flights { color: #f1eee6; background: radial-gradient(120% 90% at 20% 0%, rgb(255 236 180 / 0.08) 0%, transparent 60%), linear-gradient(180deg, #57563f 0%, #45442e 100%); box-shadow: 0 22px 40px -26px rgb(37 36 24 / 0.75); }
-.rl-flights .rl-price { background-image: linear-gradient(180deg, #f6e8bb 0%, #dcbf76 60%, #c4a254 100%); }
-.rl-flights .rl-sub { color: rgb(241 238 230 / 0.72); }
-.rl-saudia { width: 2.4rem; height: auto; flex: none; filter: brightness(0) invert(1); opacity: 0.85; }
-.rl-k { white-space: nowrap; }
-/* Ground only keeps its light tile; its figure takes the gold of the with-flights one (Jibril, 20 Nov 2026: "the button
-   to be the same, just the gold writing"), a step deeper at its foot so it still reads on stone. */
-.rl-ground { color: #45442e; background: rgb(255 255 255 / 0.5); border: 1px solid rgb(255 255 255 / 0.85); box-shadow: 0 18px 34px -28px rgb(60 48 20 / 0.5); }
-.rl-ground .rl-price { background-image: linear-gradient(180deg, #d2b162 0%, #b8963f 50%, #94742f 100%); }
-.rl-ground .rl-sub { color: rgb(51 50 31 / 0.66); }
 .rl-book { display: inline-flex; width: 100%; min-height: 3.4rem; align-items: center; justify-content: center; gap: 0.5rem; border-radius: 1rem; font-size: 1rem; font-weight: 500; }
-.rl-note { display: flex; flex-wrap: wrap; justify-content: center; font-size: 0.86rem; line-height: 1.5; color: rgb(from var(--color-ink) r g b / 0.7); }
-@media (max-width: 23.99rem) { .rl-saudia { display: none; } }
-@media (min-width: 64rem) { .rl-saudia { width: 2.8rem; } }
 .rl .rh-price { justify-items: center; }
 .rl .poster-lockup { color: #4a4931; }
 .rl .poster-lockup .poster-kicker { color: #6b6a55; }
@@ -1792,7 +1770,7 @@ html.motion .fb-item.rv.in .fb-text { opacity: 1; transform: none; }
 .skin-1448 .stay-plate[aria-pressed="true"] { box-shadow: 0 0 0 2px #ece8df; }
 /* The booking panel's main button is a key point too. */
 .skin-1448 #join .btn-ink { background: linear-gradient(180deg, #efdfaa 0%, #d8ba6e 46%, #b99749 100%); color: #2b2a1a; box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.55), inset 0 -1px 0 rgb(120 92 40 / 0.35), 0 14px 30px -16px rgb(84 66 24 / 0.6); }
-/* --- The simpler hero (?hero default while comparing, 21 Nov 2026) ----------------------------------------------------
+/* --- The simpler hero (21 Nov 2026, chosen with Sheikh Yahya kept in it) ------------------------------------------------
    The artwork alone, the lettering, and one line with the two prices in gold, each a link (ground only opens the
    booking on ground only), a hairline between them; then the gold button. */
 .rl-line { display: flex; justify-content: center; align-items: stretch; margin: 0.2rem 0 0.3rem; }
@@ -1805,7 +1783,7 @@ html.motion .fb-item.rv.in .fb-text { opacity: 1; transform: none; }
 
 /* --- Liquid glass on the floating parts (21 Nov 2026: "liquid glass… on the buttons… more premium") --------------------
    Only what floats over the page: the header, the phone's bottom bar, the sticky navigator, the round phone buttons,
-   the WhatsApp outlines and the ground-only price tile. Each is a frosted pane (blur and a lift in colour from what's
+   and the WhatsApp outlines. Each is a frosted pane (blur and a lift in colour from what's
    behind), a bright top edge, a fainter side edge and a soft shadow, like Apple's glass. Safari has no refraction on
    the web, so this is the frosted version everywhere. The gold Book button stays solid: it's the one to press. */
 :root[data-skin="1448"] header.top-zone {
@@ -1840,7 +1818,7 @@ html.motion .fb-item.rv.in .fb-text { opacity: 1; transform: none; }
   box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.7), 0 10px 28px -22px rgb(40 38 24 / 0.5);
 }
 .skin-1448 .garden-path [data-state="here"] a { background: linear-gradient(180deg, rgb(255 255 255 / 0.85) 0%, rgb(255 255 255 / 0.55) 100%); box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.95), inset 0 0 0 1px rgb(255 255 255 / 0.5), 0 6px 16px -10px rgb(60 48 20 / 0.45); }
-.skin-1448 .rl-ground, .skin-1448 .wa-btn {
+.skin-1448 .wa-btn {
   background: linear-gradient(180deg, rgb(255 255 255 / 0.62) 0%, rgb(255 255 255 / 0.32) 100%);
   -webkit-backdrop-filter: blur(16px) saturate(170%); backdrop-filter: blur(16px) saturate(170%);
   border: 1px solid rgb(255 255 255 / 0.75);
