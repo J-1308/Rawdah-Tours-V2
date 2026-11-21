@@ -985,11 +985,12 @@ export const ramadanFull: Journey = {
           poster: { src: "/images/past/path-of-purity-ii-poster.jpg", alt: "The Path of Purity II: Summer Edition poster, 4–15 August 2026.", width: 1080, height: 1350 },
         },
       ],
-      /* The lead photo moved to the top of the journey (pack.photo), 20 Nov 2026. */
+      /* The lead photo moved to the top of the journey (pack.photo), 20 Nov 2026. The roof photo third, not first
+       *  (Jibril, 21 Nov 2026: it looked odd opening the strip on phones). */
       photos: [
-        { src: "/images/group-photos/group-photos-05.jpg", caption: "On the roof of Masjid an-Nabawi", alt: "The group on the roof of Masjid an-Nabawi at golden hour, a minaret behind them.", position: "object-[50%_62%]", width: 1350, height: 2400 },
         { src: "/images/past/masjid-al-haram.jpg", caption: "Masjid al-Haram", alt: "A Rawdah group together at Masjid al-Haram.", position: "object-[50%_60%]", width: 1200, height: 1600 },
         { src: "/images/group-photos/group-photos-04.jpg", caption: "Masjid Quba", alt: "The group outside Masjid Quba, its white minarets behind them.", position: "object-[50%_75%]", width: 2400, height: 1600 },
+        { src: "/images/group-photos/group-photos-05.jpg", caption: "On the roof of Masjid an-Nabawi", alt: "The group on the roof of Masjid an-Nabawi at golden hour, a minaret behind them.", position: "object-[50%_62%]", width: 1350, height: 2400 },
         { src: "/images/teaching/teaching-01.jpg", caption: "A reminder from Ustadh Abdulrahman Hassan", alt: "Ustadh Abdulrahman Hassan giving the group a reminder outdoors.", position: "object-[50%_30%]", width: 2250, height: 3000 },
         { src: "/images/candid/candid-02.jpg", caption: "Brothers and sisters together", alt: "Brothers and sisters from the group standing together under the trees.", position: "object-[50%_50%]", width: 3000, height: 2250 },
       ],
