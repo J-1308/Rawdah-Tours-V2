@@ -1176,7 +1176,7 @@ export const ramadanFull: Journey = {
       /* The cards: facts from the poster, the PDF and Jibril only. Jumuah dates follow from the hotel dates. */
       cards: [
         { icon: "plane", big: "Direct flights", small: "with Saudia", line: "Heathrow to Jeddah, 2 × 23kg checked and 7kg hand." },
-        { icon: "hotel", big: "Hotels", small: "Makkah and Madinah", line: "10 nights at Novotel Thakher City, 4 at Al Manakha Rotana." },
+        { icon: "hotel", big: "Hotels", small: "Makkah and Madinah", line: "10 nights at Novotel Thakher City (room only), 4 at Al Manakha Rotana (breakfast daily)." },
         { icon: "visa", big: "2 year", small: "entry visa", line: "Arranged for you." },
         { icon: "train", big: "Haramain", small: "train", line: "The high-speed train between the cities." },
         { icon: "bus", big: "Ground", small: "transport", line: "The group’s transfers throughout." },
@@ -1186,8 +1186,9 @@ export const ramadanFull: Journey = {
       ],
       /* Not included (Jibril, 19 Nov 2026): no suhoor in Makkah, no ihram provided. */
       includesNote: "Not included: suhoor in Makkah, and ihram, so bring your own. Ground only covers the hotels and ground transport; you book your own flights.",
-      /** Under the icon row on poster trips: what the icons don't say. */
-      perksAlso: [v("10 nights at Novotel Thakher City Makkah (room only) and 4 at Al Manakha Rotana, Madinah (breakfast daily)", "confirmed")],
+      /** Under the icon row on poster trips: what the icons don't say. Empty: the hotels card now carries room only and
+       *  breakfast, so the old line only repeated it (20 Nov 2026). */
+      perksAlso: [],
       /* No number of places on the page (Jibril, 20 Nov 2026: "don't say up to 60 places"). */
     },
     /* A Rawdah group for now; an Umrah poster from Rawdah will replace it (Jibril, 17 Nov 2026). */

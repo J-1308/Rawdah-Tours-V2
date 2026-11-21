@@ -188,7 +188,7 @@ script in `app/layout.tsx` sets before first paint unless the visitor prefers re
   button identity (gilt main, stone outline with WhatsApp's mark, text links); repeats cut (ADR 0006). In one-page
   mode the whole site wears the poster: `<html data-skin="1448">` turns the top strip, header and footer from cocoa
   to the poster's olive and stone, the logo stone, and the browser bar olive (`layout.tsx`, `globals.css`). One-page header: call, logo, WhatsApp on
-  phones; the trip, logo, WhatsApp and "Book your place" on desktop (`src/lib/site-mode.ts`); what's included as photo cards (`IncludedCards`, `plan.cards`, "Photo to come" frames until Jibril
+  phones; the trip, logo, WhatsApp and "Book your place" on desktop (`src/lib/site-mode.ts`); what's included as photo cards (`IncludedCards`, `plan.cards`; the hotels card says room only and breakfast, so no tick list repeats it under the cards, `perksAlso: []`; "Photo to come" frames until Jibril
   sends the shots); the trip's own
   questions first (`faqs`); three short lines by the closing form (`closing`). Not taken: the other sites' photos,
   copy, countdown and imam grids.
