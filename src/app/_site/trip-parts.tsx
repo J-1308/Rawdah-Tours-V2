@@ -1,13 +1,12 @@
 import Image from "next/image";
-import { HotelGallery } from "./hotel-gallery";
+import { HotelGallery, HotelPlates } from "./hotel-gallery";
 import { Fragment } from "react";
 
-import { PackageCards } from "@/app/_site/package-cards";
 import { ICONS, PosterPerks } from "@/app/_site/poster-parts";
 import { PosterText } from "@/app/_site/poster-type";
 import { anchors, gbp, hajjNusuk, journeyStay, leader, people, say, teachers, trust, wa, type Journey, type Status, type StayPhoto, type TripPlan, type Verse } from "@/app/_site/content";
 import { Mark } from "@/app/_site/marks";
-import { Emblem, gutter, Heading, Label, Tick } from "@/app/_site/shell";
+import { Emblem, gild, gutter, Heading, Label, Tick } from "@/app/_site/shell";
 import { slot, slotFilled } from "@/app/_site/slots";
 import { ItineraryLink } from "@/app/_site/step-form";
 import { Chevron } from "@/app/_site/whatsapp";
@@ -17,7 +16,7 @@ import { GardenCrown, GardenGlyph } from "@/app/_site/garden";
 /* The team, straightforward: a portrait, what they do, the name, one line.  */
 /* ------------------------------------------------------------------------ */
 
-export type Member = { name: string; does: string; line: string; status?: Status; guest?: boolean; short?: string; more?: string[]; photo?: { src: string; alt: string; position?: string } };
+export type Member = { name: string; does: string; line: string; status?: Status; guest?: boolean; short?: string; more?: string[]; photo?: { src: string; alt: string; position?: string; width?: number; height?: number } };
 
 export const leaderMember: Member = { name: leader.name, does: leader.does, line: leader.line, status: "confirmed", short: leader.short, more: leader.more, photo: leader.photo };
 /** Everyone who can be named on a trip, including guests shown on one trip only (tripOnly). */
@@ -114,9 +113,17 @@ export function TripPeople({ j, members }: { j: Journey; members: Member[] }) {
           <ul className={j.posterType ? "hosts mt-8" : "mt-6 grid gap-5 sm:grid-cols-2"}>
             {hosts.map((h) => (
               <li key={h.ref} data-reveal={j.posterType ? "" : undefined} className={j.posterType ? "host" : "host-card"}>
-                <div className={j.posterType ? "host-arch" : "host-photo"}>
-                  {h.m?.photo ? <Image src={h.m.photo.src} alt={h.m.photo.alt} fill sizes="(min-width: 1024px) 26rem, (min-width: 640px) 45vw, 90vw" quality={85} className={`object-cover ${h.m.photo.position ?? "object-[50%_25%]"}`} /> : null}
-                </div>
+                {/* Poster trips: each portrait at its own shape, the corners rounded (Jibril, 20 Nov 2026: "curve the edges but
+                    don't distort it"). */}
+                {j.posterType && h.m?.photo?.width && h.m.photo.height ? (
+                  <div className="host-frame">
+                    <Image src={h.m.photo.src} alt={h.m.photo.alt} width={h.m.photo.width} height={h.m.photo.height} sizes="(min-width: 1024px) 26rem, (min-width: 640px) 45vw, 90vw" quality={85} className="host-img" />
+                  </div>
+                ) : (
+                  <div className={j.posterType ? "host-arch" : "host-photo"}>
+                    {h.m?.photo ? <Image src={h.m.photo.src} alt={h.m.photo.alt} fill sizes="(min-width: 1024px) 26rem, (min-width: 640px) 45vw, 90vw" quality={85} className={`object-cover ${h.m.photo.position ?? "object-[50%_25%]"}`} /> : null}
+                  </div>
+                )}
                 <div className={j.posterType ? "host-text" : "p-5 sm:p-6"}>
                   <p className="poster-role">{h.label}</p>
                   <h3 className={j.posterType ? "host-name" : "mt-1 font-editorial text-[1.6rem] leading-tight"}>{h.m?.name ?? h.name}</h3>
@@ -225,7 +232,7 @@ export function WhereYouStay({ j }: { j: Journey }) {
   return (
     <section className={`py-[clamp(3.75rem,9vw,8rem)] ${gutter}`}>
       <Label>The journey</Label>
-      <Heading className="mt-4 max-w-[48rem] text-[clamp(2.3rem,4.2vw,4rem)]">{journeyStay.headline}</Heading>
+      <Heading className="mt-4 max-w-[48rem] section-title text-[clamp(2.3rem,4.2vw,4rem)]">{journeyStay.headline}</Heading>
       <p className="mt-4 max-w-[36rem] text-[1rem] leading-[1.65] text-ink/72">{past ? "Where our August 2026 group stayed, and how they travelled." : journeyStay.text}</p>
 
       <div className="mt-10 grid gap-14 sm:mt-14 sm:gap-20">
@@ -439,7 +446,7 @@ export function HaramNights({ n }: { n: NonNullable<Journey["nights"]> }) {
   return (
     <section id="nights" className={`trip-anchor pt-[clamp(3.75rem,9vw,8rem)] ${gutter}`}>
       <Label>{n.label}</Label>
-      <Heading className="mt-4 max-w-[44rem] text-[clamp(2.3rem,4.2vw,4rem)]">{n.title}</Heading>
+      <Heading className="mt-4 max-w-[44rem] section-title text-[clamp(2.3rem,4.2vw,4rem)]">{n.title}</Heading>
       <p className="mt-4 max-w-[34rem] text-[1rem] leading-[1.65] text-ink/72">{n.intro}</p>
       <ol className="nights-list mt-9 sm:mt-12">
         {n.items.map((it, i) => (
@@ -489,12 +496,22 @@ export function PastTrips({ p }: { p: NonNullable<Journey["pastTrips"]> }) {
           ))}
         </ul>
       </div>
-      <ul className="past-gallery mt-8">
-        {p.photos.map((ph) => (
-          <li key={ph.src} data-reveal>
-            <StayFrame photo={ph} className="aspect-[4/3] rounded-[1rem]! sm:rounded-[1rem]!" sizes="(min-width: 1024px) 14rem, 78vw" />
-          </li>
-        ))}
+      {/* Each photo at its own shape, one height, in a row you swipe (Jibril, 20 Nov 2026: no cropping). */}
+      <ul className="past-gallery past-strip mt-8">
+        {p.photos.map((ph) =>
+          ph.src && ph.width && ph.height ? (
+            <li key={ph.src} data-reveal>
+              <figure className="past-shot">
+                <Image src={ph.src} alt={ph.alt ?? ""} width={ph.width} height={ph.height} sizes="(min-width: 1024px) 30rem, 80vw" quality={85} className="past-shot-img" />
+                {ph.caption ? <figcaption>{ph.caption}</figcaption> : null}
+              </figure>
+            </li>
+          ) : (
+            <li key={ph.src ?? ph.slot} data-reveal>
+              <StayFrame photo={ph} className="aspect-[4/3] rounded-[1rem]! sm:rounded-[1rem]!" sizes="(min-width: 1024px) 14rem, 78vw" />
+            </li>
+          ),
+        )}
       </ul>
     </section>
   );
@@ -525,7 +542,7 @@ export function WhyRawdah({ w }: { w: NonNullable<Journey["why"]> }) {
       <div className="mt-3 grid gap-6 sm:grid-cols-[minmax(0,1fr)_minmax(0,0.85fr)] sm:items-center">
         <div>
           <Heading className="text-[clamp(1.9rem,3.2vw,2.6rem)] leading-tight">
-            {w.title} <span lang="ar" dir="rtl" className="font-editorial text-bronze">{w.ar}</span>
+            {gild(w.title)} <span lang="ar" dir="rtl" className="font-editorial text-bronze">{w.ar}</span>
           </Heading>
           <p className="mt-3 text-[0.98rem] leading-relaxed text-ink/75">{w.text}</p>
           <p className="mt-1.5 text-[0.875rem] text-ink/55">{w.source}</p>
@@ -766,7 +783,7 @@ export function JourneyPart({
   return (
     <section id={id} className={`trip-anchor ${className}`}>
       <Label>{label}</Label>
-      <Heading className="mt-4 max-w-[48rem] text-[clamp(2.3rem,4.2vw,4rem)]">{title}</Heading>
+      <Heading className="mt-4 max-w-[48rem] section-title text-[clamp(2.3rem,4.2vw,4rem)]">{title}</Heading>
       {intro ? <p className="mt-4 max-w-[36rem] text-[1rem] leading-[1.65] text-ink/72">{intro}</p> : null}
       {line ? (
         <div className="mt-9 sm:mt-12">
@@ -795,7 +812,7 @@ export function EidSection({ e, className = "" }: { e: NonNullable<Journey["eid"
         <GardenGlyph stage="crescent" className="size-full" />
       </span>
       <Label>{e.label}</Label>
-      <Heading className="mt-4 max-w-[44rem] text-[clamp(2.3rem,4.2vw,4rem)]">{e.title}</Heading>
+      <Heading className="mt-4 max-w-[44rem] section-title text-[clamp(2.3rem,4.2vw,4rem)]">{e.title}</Heading>
       <p className="mt-4 max-w-[34rem] text-[1.02rem] leading-[1.7] text-ink/75">{e.text}</p>
     </section>
   );
@@ -825,7 +842,7 @@ export function TripJourney({ j }: { j: Journey }) {
   return (
     <section className={`py-[clamp(3.75rem,9vw,8rem)] ${gutter}`}>
       <Label>The journey</Label>
-      <Heading className="mt-4 max-w-[48rem] text-[clamp(2.3rem,4.2vw,4rem)]">
+      <Heading className="mt-4 max-w-[48rem] section-title text-[clamp(2.3rem,4.2vw,4rem)]">
         Flights and hotels
         <Mark s={plan.status} />
       </Heading>
@@ -860,13 +877,14 @@ export function TripJourney({ j }: { j: Journey }) {
 }
 
 /** What a planned trip includes, as a list of ticks. */
-export function TripIncludes({ plan }: { plan: TripPlan }) {
-  // With the poster's icon row above, the list says only what the icons don't (poster trips, 19 Nov 2026); an empty
+export function TripIncludes({ plan, checklist = false }: { plan: TripPlan; checklist?: boolean }) {
+  // With the poster's icon row above, the list says only what the icons don't (poster trips, 19 Nov 2026).
+  // `checklist` (poster trips, 20 Nov 2026): the feature band already shows the icons, so here only the full list. An empty
   // perksAlso means the cards say it all, so no list.
-  const items = (plan.cards || plan.perks) && plan.perksAlso ? plan.perksAlso : plan.includes;
+  const items = checklist ? plan.includes : (plan.cards || plan.perks) && plan.perksAlso ? plan.perksAlso : plan.includes;
   return (
     <>
-    {plan.showcase ? (
+    {!checklist && plan.showcase ? (
       <ul className="showcase mt-6">
         {plan.showcase.map((s) => (
           <li key={s.src}>
@@ -876,9 +894,9 @@ export function TripIncludes({ plan }: { plan: TripPlan }) {
         ))}
       </ul>
     ) : null}
-    {plan.cards ? <IncludedCards cards={plan.cards} /> : plan.perks ? <PosterPerks perks={plan.perks} className="mt-6" /> : null}
+    {checklist ? null : plan.cards ? <IncludedCards cards={plan.cards} /> : plan.perks ? <PosterPerks perks={plan.perks} className="mt-6" /> : null}
     {items.length ? (
-    <ul className={`glass-phone ${plan.perks ? "mt-4" : "mt-6"} grid grid-cols-1 rounded-[1.25rem] px-4 py-1 [--glass-shadow:none] sm:grid-cols-2 sm:gap-1.5 sm:p-0`}>
+    <ul className={`glass-phone ${plan.perks && !checklist ? "mt-4" : "mt-6"} grid grid-cols-1 rounded-[1.25rem] px-4 py-1 [--glass-shadow:none] sm:grid-cols-2 sm:gap-1.5 sm:p-0`}>
       {items.map((h, i) => (
         <li key={h.value} className={`glass-wide flex items-start gap-3 py-3 text-[0.95rem] sm:rounded-[1.1rem] sm:px-4 sm:py-3.5 ${i ? "border-t border-ink/8" : ""}`}>
           <Tick className="mt-[0.2em]" />
@@ -905,7 +923,6 @@ export function PosterPackages({ j }: { j: Journey }) {
   const deposit = rooms[0]?.schedule?.[0]?.amount;
   return (
     <>
-      {j.heroNote ? <p className="mt-3 font-editorial text-[1.2rem] text-ink/70 italic">{j.heroNote.replace(" · ", ", for ")}.</p> : null}
       {planned ? (
         <div className="plan-block mt-8">
           <p className="plan-title">
@@ -921,15 +938,13 @@ export function PosterPackages({ j }: { j: Journey }) {
             ))}
           </ul>
           <p className="mt-3 text-center text-[0.9rem] text-ink/62">
-            For the {planned.type.toLowerCase()}, {gbp(planned.price)} per person. Every package pays on the same dates: each one’s plan is below.
+            For the {planned.type.toLowerCase()}, {gbp(planned.price)} per person. Every package pays on the same dates; choose yours below to see its plan.
           </p>
         </div>
       ) : null}
-      <PackageCards j={j} />
-      <div className="mt-5 grid gap-1.5 text-[0.9rem] leading-relaxed text-ink/70">
-        {deposit ? <p>A {gbp(deposit)} deposit holds your place on every package. All deposits are non-refundable.</p> : null}
-        {j.plan?.places ? <p>{j.plan.places.value}.</p> : null}
-      </div>
+      {/* Every price at a glance (20 Nov 2026: the three package cards with their own timetables came out; the join panel
+          shows the plan of the package you choose). */}
+      <PackageGrid j={j} brief />
     </>
   );
 }
@@ -1012,7 +1027,7 @@ export function TripPackages({ j }: { j: Journey }) {
  * Packages as a grid (Ramadan, 19 Nov 2026): rooms down the side, with flights or ground only across, then how each
  * is paid. The early bird is shown crossed out. Prices and dates from src/lib/trips.ts.
  */
-function PackageGrid({ j }: { j: Journey }) {
+function PackageGrid({ j, brief = false }: { j: Journey; brief?: boolean }) {
   const rooms = j.rooms?.value ?? [];
   const name = (n: number) => ({ 4: "Quad", 3: "Triple", 2: "Double" })[n] ?? `${n} sharing`;
   const occs = [...new Set(rooms.map((r) => r.sharing))].sort((a, b) => b - a);
@@ -1055,7 +1070,7 @@ function PackageGrid({ j }: { j: Journey }) {
                   const r = at(f, n);
                   return (
                     <td key={String(f)} className="py-3 pl-3 text-right">
-                      <span className="display text-[clamp(1.45rem,4.6vw,2rem)] leading-none text-ink">{r ? gbp(r.price) : "–"}</span>
+                      <span className={`display text-[clamp(1.45rem,4.6vw,2rem)] leading-none text-ink ${brief ? "grid-price" : ""}`}>{r ? gbp(r.price) : "–"}</span>
                       {r && j.endedOffer?.room === r.type ? <s className="block text-[0.875rem] text-ink/50">{gbp(j.endedOffer.price)}</s> : null}
                     </td>
                   );
@@ -1067,7 +1082,7 @@ function PackageGrid({ j }: { j: Journey }) {
       </div>
       <div className="mt-4 grid gap-1.5 text-[0.9rem] leading-relaxed text-ink/70">
         {deposit ? <p>A {gbp(deposit)} deposit holds your place on every package. All deposits are non-refundable.</p> : null}
-        {dated.map((r) => (
+        {(brief ? [] : dated).map((r) => (
           <p key={r.type}>
             {r.type}: then{" "}
             {r
@@ -1077,7 +1092,7 @@ function PackageGrid({ j }: { j: Journey }) {
             .
           </p>
         ))}
-        {dated.length && dated.length < rooms.length ? <p>Every other package: the balance on dates we agree with you after booking.</p> : null}
+        {!brief && dated.length && dated.length < rooms.length ? <p>Every other package: the balance on dates we agree with you after booking.</p> : null}
         {j.plan?.places ? (
           <p>
             {j.plan.places.value}.
@@ -1184,9 +1199,14 @@ export function GuestIntimate({ j, members }: { j: Journey; members: Member[] })
         </div>
       </div>
       <div className={`gc-text ${gutter}`}>
-        <p className="gc-line">{g.line}</p>
         {g.bio ? <p className="gc-bio">{g.bio}</p> : null}
-        <a href={`#${anchors.join}`} className="gf-cta gc-cta">
+        {g.ways ? (
+          <>
+            <h3 className="gc-ways-title">{gild(g.ways.title)}</h3>
+            <Highlights items={g.ways.items} className="mt-5" one />
+          </>
+        ) : null}
+        <a href={`#${anchors.join}`} className="gc-link">
           {g.cta}
           <svg aria-hidden viewBox="0 0 12 12" className="size-3">
             <path d="M2.5 4.5 6 8l3.5-3.5" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
@@ -1199,70 +1219,82 @@ export function GuestIntimate({ j, members }: { j: Journey; members: Member[] })
 
 /**
  * Where you'll stay (Jibril, 20 Nov 2026: hotels "high in a section saying where you will stay… too minimalistic, we
- * want our reader to say wow"). Each hotel as a spread: its photos large (edge to edge on phones), the name big, three
- * facts at a glance, then the detail. Makkah, then Madinah, the second mirrored on desktop.
+ * want our reader to say wow"; then "The Umrah Company looks a bit more premium… where you will stay"). Each hotel as a
+ * spread: its first photo tall in a gilt-lined arch, every photo a plate that brings itself into the arch (HotelPlates),
+ * the name big, its nights in the gilt eight-pointed star, then the walk, the meals and the detail. Makkah, then Madinah,
+ * the second mirrored on desktop. No star ratings: the hotels' own ratings aren't stated.
  */
 export function StayShowcase({ j, s }: { j: Journey; s: NonNullable<Journey["stay"]> }) {
   const plan = j.plan!;
+  /** Rows the seal and the facts already show. */
+  const seal = ["Meals", "Nights", "Check in", "Check out"];
   return (
     <section id="stay" className="trip-anchor stay">
-      <div className={gutter}>
+      <Emblem className="stay-mark watermark pointer-events-none absolute" />
+      <div className={`stay-head ${gutter}`}>
         <Label>{s.label}</Label>
-        <Heading className="mt-4 max-w-[48rem] text-[clamp(2.3rem,4.2vw,4rem)]">{s.title}</Heading>
-        <p className="mt-4 max-w-[36rem] text-[1rem] leading-[1.65] text-ink/72">{s.intro}</p>
+        <Heading className="section-title mt-4 max-w-[48rem] text-[clamp(2.4rem,4.6vw,4.4rem)]">{s.title}</Heading>
+        <p className="mt-4 max-w-[36rem] text-[1.02rem] leading-[1.7] text-ink/72">{s.intro}</p>
       </div>
       {plan.hotels.map((h, i) => {
         const meals = h.rows.find((r) => r.k === "Meals")?.v;
-        const photos = slotFilled(h.slot) ? [{ src: slot(h.slot), alt: `${h.name}, ${h.city}.` }, ...(h.more ?? [])] : [];
+        // Every photo at its own shape: the slot photo's size from the plan, the others' from their own entries.
+        const photos = slotFilled(h.slot) && h.size
+          ? [{ src: slot(h.slot), alt: `${h.name}, ${h.city}.`, width: h.size[0], height: h.size[1] }, ...(h.more ?? []).flatMap((m) => (m.width && m.height ? [{ src: m.src, alt: m.alt, width: m.width, height: m.height }] : []))]
+          : [];
+        const madinah = /madinah/i.test(h.city);
         return (
-          <article key={h.city} className={`stay-hotel ${i % 2 ? "stay-flip" : ""}`}>
-            {photos.length ? (
-              <div className="stay-media">
-                <HotelGallery name={h.name} photos={photos} />
-              </div>
-            ) : null}
-            <div className={`stay-text ${gutter}`}>
-              <p className={`flex items-center gap-2.5 ${eyebrow}`}>
-                <span className="grid size-9 place-items-center rounded-full border border-ink/15 text-bronze">
-                  <GardenGlyph stage={/madinah/i.test(h.city) ? "dome" : "kaaba"} className="size-[1.15rem]" />
+          <article key={h.city} className={`stay-hotel ${gutter} ${i % 2 ? "stay-flip" : ""}`} data-reveal="">
+            {photos.length ? <HotelPlates name={h.name} photos={photos} /> : null}
+            <div className="stay-text">
+              <p className="stay-city">
+                <span className="stay-city-icon">
+                  <GardenGlyph stage={madinah ? "dome" : "kaaba"} className="size-[1.15rem]" />
                 </span>
                 {h.city}
               </p>
               <h3 className="stay-name">{h.name}</h3>
-              <dl className="stay-facts">
-                <div>
-                  <dt>{h.nights}</dt>
-                  <dd>nights</dd>
-                </div>
+              {/* The nights, in the eight-pointed star in gilt: Rawdah's own seal, not a badge. */}
+              <div className="stay-seal">
+                <span aria-hidden className="stay-seal-star">
+                  <GardenGlyph stage="star" className="size-full" />
+                  <b>{h.nights}</b>
+                </span>
+                <span className="stay-seal-words">
+                  <span className="sr-only">{h.nights} </span>
+                  nights
+                  {h.rows.find((r) => r.k === "Nights" || r.k === "Check in") ? (
+                    <small>
+                      {h.rows.find((r) => r.k === "Nights")?.v ??
+                        [h.rows.find((r) => r.k === "Check in")?.v, h.rows.find((r) => r.k === "Check out")?.v].filter(Boolean).join(" – ")}
+                    </small>
+                  ) : null}
+                </span>
+              </div>
+              <ul className="stay-facts">
                 {h.walk ? (
-                  <div>
-                    <dt>
-                      <Glyph d={h.walk.by === "foot" ? walker : bus} className="size-5" />
-                    </dt>
-                    <dd>{h.walk.text}</dd>
-                  </div>
+                  <li>
+                    <Glyph d={h.walk.by === "foot" ? walker : bus} className="size-5" />
+                    {h.walk.text}
+                  </li>
                 ) : null}
                 {meals ? (
-                  <div>
-                    <dt>
-                      <Glyph d={cup} className="size-5" />
-                    </dt>
-                    <dd>{meals}</dd>
-                  </div>
+                  <li>
+                    <Glyph d={cup} className="size-5" />
+                    {meals}
+                  </li>
                 ) : null}
-              </dl>
-              {h.about ? <p className="mt-5 text-[1rem] leading-relaxed text-ink/75">{h.about}</p> : null}
+              </ul>
+              {h.about ? <p className="stay-about">{h.about}</p> : null}
               {h.features ? (
-                <ul className="mt-4 flex flex-wrap gap-1.5">
+                <ul className="stay-features">
                   {h.features.map((f) => (
-                    <li key={f} className={pill}>
-                      {f}
-                    </li>
+                    <li key={f}>{f}</li>
                   ))}
                 </ul>
               ) : null}
-              <Rows rows={h.rows.filter((r) => r.k !== "Meals")} />
-              {h.note ? <p className="mt-3 text-[0.875rem] text-ink/62">{h.note}</p> : null}
+              {h.rows.some((r) => !seal.includes(r.k)) ? <Rows rows={h.rows.filter((r) => !seal.includes(r.k))} /> : null}
+              {h.note ? <p className="mt-4 text-[0.875rem] text-ink/62">{h.note}</p> : null}
             </div>
           </article>
         );
@@ -1271,18 +1303,32 @@ export function StayShowcase({ j, s }: { j: Journey; s: NonNullable<Journey["sta
   );
 }
 
-/** Madinah's moments in the garden chapter: facts from the plan, as three quiet tiles. */
+/** Madinah's moments in the garden chapter: facts from the plan, in the page's one list of highlights. */
 export function MadinahMoments({ items }: { items: { title: string; text: string }[] }) {
+  return <Highlights items={items} className="mt-8" />;
+}
+
+/**
+ * The page's one list of highlights (Jibril, 20 Nov 2026: "an easy to read and follow thing… throughout the website"):
+ * numbered in the gilt eight-pointed star, a short title and one line each, on fine rules; two columns on desktop
+ * unless `one`. The journey, Sheikh Yahya and Madinah all use it.
+ */
+export function Highlights({ items, className = "", one = false }: { items: { title: string; text: string }[]; className?: string; one?: boolean }) {
   return (
-    <ul className="madinah-moments mt-8">
+    <ol className={`highlights ${one ? "hl-one" : ""} ${className}`}>
       {items.map((it, i) => (
-        <li key={it.title} data-reveal="" data-rv={String(i)}>
-          <GardenGlyph stage={i === 0 ? "dome" : i === 1 ? "minaret" : "mihrab"} className="mm-glyph" />
-          <p className="mm-title">{it.title}</p>
-          <p className="mm-text">{it.text}</p>
+        <li key={it.title} data-reveal="" data-rv={String(i % 4)}>
+          <span aria-hidden className="hl-num">
+            <GardenGlyph stage="star" className="hl-star" />
+            <b>{i + 1}</b>
+          </span>
+          <div>
+            <h3 className="hl-title">{it.title}</h3>
+            <p className="hl-text">{it.text}</p>
+          </div>
         </li>
       ))}
-    </ul>
+    </ol>
   );
 }
 

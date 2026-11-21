@@ -145,8 +145,27 @@ const GROW = [
  * animation "earlier… with the journey"). A window on the sky: dusk over London, night with the stars and the plane
  * crossing on its arc, then dawn and the clock tower rising at the far end. Still without scroll timelines or motion:
  * the night, the plane mid-way, both ends labelled.
+ * `bg` (Jibril, 20 Nov 2026: "a whole section for a plane animation doesn't make sense… use it in the background"):
+ * only the arc and the plane, faint, behind the section it sits in (Getting there), drawn as you scroll through it.
  */
-export function FlightScene({ f }: { f: { from: string; fromWhen: string; to: string; toWhen: string } }) {
+export function FlightScene({ f, bg = false }: { f: { from: string; fromWhen: string; to: string; toWhen: string }; bg?: boolean }) {
+  if (bg) {
+    return (
+      <div className="flight-scene flight-bg" aria-hidden>
+        <svg className="fs-route" viewBox="0 0 1000 300" preserveAspectRatio="none">
+          <path d="M70 250 Q500 10 930 250" fill="none" stroke="currentColor" strokeWidth="1.5" strokeDasharray="2 9" vectorEffect="non-scaling-stroke" />
+          <path className="fs-trail" d="M70 250 Q500 10 930 250" pathLength={1} fill="none" stroke="currentColor" strokeWidth="2" vectorEffect="non-scaling-stroke" />
+        </svg>
+        <span className="fs-plane-x">
+          <span className="fs-plane-y">
+            <svg viewBox="0 0 24 24" className="fs-plane">
+              <path fill="currentColor" d="M21 16v-2l-8-5V3.5a1.5 1.5 0 0 0-3 0V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5z" />
+            </svg>
+          </span>
+        </span>
+      </div>
+    );
+  }
   return (
     <div className="flight-scene" role="img" aria-label={`The overnight flight: ${f.from}, ${f.fromWhen}, to ${f.to}, ${f.toWhen}.`}>
       <span className="fs-sky fs-dusk" />

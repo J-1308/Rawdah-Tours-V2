@@ -43,18 +43,29 @@ export function Square({ className = "bg-gold" }: { className?: string }) {
 export function Label({ children, tone = "ink", className = "" }: { children: ReactNode; tone?: "ink" | "canvas" | "gold"; className?: string }) {
   const color = tone === "canvas" ? "text-sand" : "text-bronze";
   return (
-    <p className={`flex items-center gap-2.5 font-editorial text-[1.12rem] italic ${color} ${className}`}>
+    <p className={`label flex items-center gap-2.5 font-editorial text-[1.12rem] italic ${color} ${className}`}>
       <Emblem className={`h-[1.05em] ${tone === "canvas" ? "text-sand/80" : "text-gold"}`} />
       <span>{children}</span>
     </p>
   );
 }
 
-/** A Cormorant headline. */
+/**
+ * Gilt words in a headline (Jibril, 20 Nov 2026: "some colours in the font like The Umrah Company"). In copy, wrap the
+ * key words in asterisks: "Ten nights in *Makkah*". They take Rawdah's gilt, in the Cormorant italic: never The Umrah
+ * Company's upright bronze. `plain` strips the asterisks where a title is used as plain text.
+ */
+export function gild(text: ReactNode): ReactNode {
+  if (typeof text !== "string" || !text.includes("*")) return text;
+  return text.split(/\*([^*]+)\*/).map((part, i) => (i % 2 ? <em key={i} className="gild">{part}</em> : part));
+}
+export const plain = (text: string) => text.replace(/\*/g, "");
+
+/** A Cormorant headline. Words in asterisks come out in gilt. */
 export function Heading({ as: Tag = "h2", children, className = "", id }: { as?: "h1" | "h2" | "h3"; children: ReactNode; className?: string; id?: string }) {
   return (
     <Tag id={id} className={`display ${className}`}>
-      {children}
+      {gild(children)}
     </Tag>
   );
 }
@@ -367,6 +378,10 @@ export function SiteFooter() {
             { label: "Terms and conditions", href: "/terms" },
             { label: "Privacy notice", href: "/privacy" },
             { label: "Cookies", href: "/cookies" },
+            /* The Rawdah Tours app's pages (App Store review, 20 Nov 2026): keep these paths for good. */
+            { label: "App privacy", href: "/app-privacy" },
+            { label: "App terms", href: "/app-terms" },
+            { label: "App support", href: "/support" },
           ],
         },
       ]
@@ -387,6 +402,9 @@ export function SiteFooter() {
         { label: "Terms and conditions", href: "/terms" },
         { label: "Privacy notice", href: "/privacy" },
         { label: "Cookies", href: "/cookies" },
+        { label: "App privacy", href: "/app-privacy" },
+        { label: "App terms", href: "/app-terms" },
+        { label: "App support", href: "/support" },
       ],
     },
   ];

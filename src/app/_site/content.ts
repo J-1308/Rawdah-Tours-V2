@@ -283,7 +283,8 @@ export const stay = {
  * we have them; `slot` marks a frame waiting for the hotel's official photograph
  * (from Rawdah or the hotel's media kit, never copied from another site).
  */
-export type StayPhoto = { src?: string; alt?: string; position?: string; caption?: string; slot?: string };
+/** `width` and `height`: the photo's own size, so it can show uncropped. */
+export type StayPhoto = { src?: string; alt?: string; position?: string; caption?: string; slot?: string; width?: number; height?: number };
 export const journeyStay = {
   headline: "Where you’ll stay, and how you’ll travel",
   text: "From our last trip. Each new trip confirms its hotels and travel when it’s announced.",
@@ -455,7 +456,7 @@ export const teachers = [
       "At eighteen he was accepted into the Islamic University of Madinah, where he spent close to ten years in full-time study and completed the requirements for a bachelor’s degree.",
       "He co-founded Rawdah Tours with Brother Ayuub. On our trips he guides and teaches, explaining each rite of Umrah before you perform it. He guided and taught our August 2026 group in Madinah and Makkah.",
     ],
-    photo: { src: "/images/portraits/issa-uthman.jpg", alt: "Ustadh Issa Uthman", position: "object-[40%_25%]" },
+    photo: { src: "/images/portraits/issa-uthman.jpg", alt: "Ustadh Issa Uthman", position: "object-[40%_25%]", width: 1719, height: 1679 },
   },
   {
     /** The special guest sheikh on Ramadan Umrah 2027 (Jibril and the GGC × Rawdah poster, 19 Nov 2026). Shown on that
@@ -495,7 +496,7 @@ export const leader = {
     "Alongside this, he is pursuing Islamic studies, continuing to deepen his knowledge and understanding of the deen.",
     "On a trip he runs things on the ground with the rest of the Rawdah team, so the group is looked after and you and your family can give your time to worship.",
   ],
-  photo: { src: "/images/portraits/ayuub-mohamed-musa.jpg", alt: "Brother Ayuub Mohamed Musa, co-founder of Rawdah Tours" },
+  photo: { src: "/images/portraits/ayuub-mohamed-musa.jpg", alt: "Brother Ayuub Mohamed Musa, co-founder of Rawdah Tours", width: 640, height: 800 },
 };
 
 /**
@@ -628,7 +629,7 @@ export type TripPlan = {
   marker?: { after: number; text: string };
   flights: { dir: "Outbound" | "Return"; date: string; airline: string; route: string; code: string; rows: { k: string; v: string }[]; note?: string; /** The night is spent flying (counts as a night away). */ overnight?: boolean }[];
   /** `walk`: how far from the Haram; `about`: two sentences; `features`: short chips. From the hotels' own listings. */
-  hotels: { city: string; nights: number; name: string; /** Not shown on poster trips. */ stars?: number; slot: string; more?: { src: string; alt: string }[]; walk?: { text: string; by: "foot" | "shuttle" }; about?: string; features?: string[]; rows: { k: string; v: string }[]; note?: string }[];
+  hotels: { city: string; nights: number; name: string; /** Not shown on poster trips. */ stars?: number; slot: string; /** `size`: the first (slot) photo's width and height, so it shows uncropped. */ size?: [number, number]; more?: { src: string; alt: string; width?: number; height?: number }[]; walk?: { text: string; by: "foot" | "shuttle" }; about?: string; features?: string[]; rows: { k: string; v: string }[]; note?: string }[];
   notes: { tone: "moon" | "alert"; text: string }[];
   includes: V[];
   /** One line under the list, e.g. what the ground-only package leaves out. */
@@ -687,11 +688,33 @@ export type Journey = {
   /** Why Rawdah: the name's meaning, a photo and short reasons (from the About page, Rawdah's own words). */
   why?: { label: string; title: string; ar: string; text: string; source: string; photo: { src: string; alt: string; caption?: string }; reasons: { title: string; text: string }[] };
   /** Poster trips: the special guest's own panel, above the hosts. `toCome` shows until Rawdah sends the bio. */
-  guestFeature?: { kicker: string; line: string; bio?: string; cta: string; portrait?: { src: string; width: number; height: number; position?: string } };
+  guestFeature?: {
+    kicker: string;
+    line: string;
+    bio?: string;
+    cta: string;
+    portrait?: { src: string; width: number; height: number; position?: string };
+    /** How he is with the group: a heading and three short points. */
+    ways?: { title: string; items: { title: string; text: string }[] };
+  };
   /** Poster trips: the heading over the hosts' cards. */
   hostsTitle?: string;
   /** Poster trips: the special guest stands in front of the poster in the hero (two versions, Jibril 20 Nov 2026). */
   heroGuest?: boolean;
+  /** The link preview (1200 × 630): the hero as the page shows it (Jibril, 20 Nov 2026: "when you share the link I want
+   * the preview to reflect this page"). Remake it when the hero's prices or dates change. */
+  shareImage?: { src: string; width: number; height: number; alt: string };
+  /**
+   * Poster trips: the package as its own section, right after the hero (Jibril, 20 Nov 2026: "not a pop up but an
+   * actual website section"). Two to compare: "day", a lighter section before the night; "night", the night itself
+   * opens with it.
+   */
+  pack?: { at: "day" | "night"; label: string; title: string; photo?: { src: string; width: number; height: number; alt: string; caption: string } };
+  /**
+   * The journey's highlights, numbered, in the order you live them (Jibril, 20 Nov 2026: "the highlights… similar to
+   * The Umrah Company… take from our journey part, the nights section and some parts from the package"). Facts only.
+   */
+  storyPoints?: { title: string; text: string }[];
   /** One line under "Your hosts" (poster trips). */
   hostsIntro?: string;
   /* The garden (Jibril, 20 Nov 2026; docs/adr/0006-the-garden.md): the page in the order you'd live the trip. */
@@ -821,7 +844,7 @@ export const ramadanFull: Journey = {
     posterType: true,
     heroLine: "The last ten nights in Makkah, then Eid and four nights in Madinah.",
     about: {
-      title: "Ramadan in Makkah, Eid in Madinah",
+      title: "Ramadan in *Makkah*, Eid in *Madinah*",
       text: "Fly from Heathrow on 27 February, straight to Makkah for the last ten nights of Ramadan. Then Eid in the blessed lands and four nights in Madinah, home on 13 March.",
     },
     /** The team as on the poster: role in capitals over the name (19 Nov 2026). */
@@ -836,11 +859,9 @@ export const ramadanFull: Journey = {
     faqs: [
       { q: "Are meals included?", a: "Breakfast each day in Madinah is the only meal included. The Makkah hotel is room only, with no suhoor.", status: "confirmed" },
       { q: "Is ihram provided?", a: "No. Please bring your own.", status: "confirmed" },
-      { q: "Where will we spend Eid?", a: "In the blessed lands. Eid al-Fitr falls on Tuesday 9 or Wednesday 10 March.", status: "confirmed" },
       { q: "What does ground only cover?", a: "The hotels and ground transport. You book your own flights.", status: "confirmed" },
-      { q: "How many places are there?", a: "Up to 60: around 30 with flights and 30 ground only.", status: "confirmed" },
       // Replaces the general answer, which says the dates are set when you book (they're fixed for this trip).
-      { q: "How do I pay for the trip?", a: "By bank transfer. A £399 deposit holds your place, and the bank details are in your confirmation email once you book. The rest is paid on 30 November, 30 December and 30 January; each package’s amounts are under Packages and payments.", status: "confirmed" },
+      /* "Where will we spend Eid?", "How many places?" and "How do I pay?" came out: the page answers them (20 Nov 2026). */
     ],
     groups: [
       { src: "/images/group-photos/group-photos-03.jpg", alt: "A Rawdah group in ihram at night, lit arcades and a minaret behind them." },
@@ -853,37 +874,82 @@ export const ramadanFull: Journey = {
       /* Public facts only (FOSIS speaker page; Badr Academy; his recitations on Muslim Central), 19 Nov 2026. Rawdah to
          confirm with him. No personal details. */
       portrait: { src: "/images/portraits/yahya-raaby-full.jpg", width: 1190, height: 2048, position: "object-[50%_14%]" },
+      /* Jibril, 20 Nov 2026: "how he will teach and help and how it's gonna be intimate and help u every step of the
+         way". Kept at that level, with the page's facts (three teachers with the group; no number of places, Jibril
+         20 Nov 2026). Rawdah to
+         confirm any session times or formats before they are named. */
+      ways: {
+        title: "With you *every step* of the way",
+        items: [
+          { title: "He teaches as you go", text: "Reminders and lessons through the trip, from the rites of Umrah to the meaning of the last ten nights." },
+          { title: "He’s there to help", text: "With the group in Makkah and Madinah, to guide you through your Umrah and answer your questions." },
+          { title: "Close, not a crowd", text: "Sheikh Yahya, Brother Ayuub and Ustadh Issa are beside you the whole way, so no one is lost in the crowd." },
+        ],
+      },
       bio: "A Qur’an reciter known for his calm, moving recitation, Sheikh Yahya teaches Arabic and the Islamic sciences at Badr Academy, and gives lectures and Friday khutbahs across the UK and abroad.",
       cta: "Travel with Sheikh Yahya",
     },
     hostsTitle: "Your hosts",
     heroGuest: true,
+    /* The hero captured at 1200 × 630, with the logo and without the button (20 Nov 2026). Prices and dates are in it:
+       remake it if they change (docs/content-inventory.md). */
+    shareImage: {
+      src: "/images/share/ramadan-1448-share.jpg",
+      width: 1200,
+      height: 630,
+      alt: "Rawdah Tours: Ramadan 1448, the last 10 nights, Sat 27 February to Sat 13 March 2027, with GGC and Sheikh Yahya Raaby; from £1,999 with flights, £1,299 ground only.",
+    },
+    /* Facts from the plan; the title after the poster's "Last 10 days". Gilt words in asterisks (shell.tsx gild). */
+    /* The journey: the package, the nights and our journey in one section, the old home hero's group photo at its top
+       (Jibril, 20 Nov 2026). */
+    pack: {
+      at: "day",
+      label: "The journey",
+      title: "Fourteen nights, *the last ten in Makkah*",
+      photo: {
+        src: "/images/group-photos/group-photos-01.jpg",
+        width: 2400,
+        height: 1600,
+        alt: "The Path of Purity II group with Ustadh Abdulrahman Hassan in the lobby of Address Jabal Omar, Makkah.",
+        caption: "Our last group in Makkah, August 2026",
+      },
+    },
+    /* From the plan, the nights and the FAQs (20 Nov 2026). */
+    storyPoints: [
+      { title: "Fly with Saudia from Heathrow", text: "An overnight flight on Saturday 27 February, straight to Makkah on arrival." },
+      { title: "Ten nights in Makkah", text: "For the last ten nights of Ramadan, at Novotel Thakher City, with its shuttle to the Haram." },
+      { title: "Taraweeh in the Haram", text: "Each night after Isha, behind the imams of Masjid al-Haram." },
+      { title: "Qiyam and Laylat al-Qadr", text: "The night prayer of the last ten, seeking the night better than a thousand months." },
+      { title: "Break your fast in the Haram", text: "Maghrib on the Haram’s floor, with dates and Zamzam among thousands breaking their fast together." },
+      { title: "The khatm", text: "The Qur’an completed in the Haram on one of the last nights, and the du‘a that follows." },
+      { title: "Eid in the blessed lands", text: "Eid al-Fitr on Tuesday 9 or Wednesday 10 March, as the moon is sighted." },
+      { title: "Four nights in Madinah", text: "At Al Manakha Rotana, an 8-minute walk from Masjid an-Nabawi, then home on Saturday 13 March." },
+    ],
     hostsIntro: "Rawdah’s two co-founders, with the group the whole way.",
     /* Facts only, from the plan below and the FAQs (Eid on Tue 9 or Wed 10 March; Makkah to Madinah on Tue 9 March). */
     gettingThere: {
       label: "Getting there",
-      title: "Saudia, from London Heathrow",
+      title: "*Saudia*, from London Heathrow",
       intro: "An overnight flight on Saturday 27 February, straight to Makkah on arrival; home from Madinah on Saturday 13 March.",
     },
     flightScene: { from: "London Heathrow", fromWhen: "Sat 27 Feb · 22:05", to: "Jeddah", toWhen: "Sun 28 Feb · 07:10" },
     stay: {
       label: "Where you’ll stay",
-      title: "Ten nights in Makkah, four in Madinah",
+      title: "Ten nights in *Makkah*, four in *Madinah*",
       intro: "Novotel Thakher City in Makkah, with its shuttle to the Haram, then Al Manakha Rotana, a short walk from Masjid an-Nabawi.",
     },
     eid: {
       label: "After the last ten nights",
-      title: "Eid in the blessed lands",
+      title: "Eid in *the blessed lands*",
       text: "Eid al-Fitr falls on Tuesday 9 or Wednesday 10 March, as the moon is sighted. Either way, you spend it in the blessed lands, then go on to Madinah.",
     },
     madinah: {
       label: "Madinah",
-      title: "Four nights in Madinah",
+      title: "Four nights in *Madinah*",
       intro: "In the city of the Prophet ﷺ, where the Rawdah is: an 8-minute walk to Masjid an-Nabawi, then home on Saturday 13 March.",
       moments: [
         { title: "Madinah ziyarah", text: "Visits to the historic sites of Madinah." },
         { title: "Jumuah in Masjid an-Nabawi", text: "Friday 12 March, after Jumuah in Masjid al-Haram on Friday 5 March." },
-        { title: "Walk to every prayer", text: "Al Manakha Rotana is an 8-minute walk from Masjid an-Nabawi, with breakfast daily." },
       ],
     },
     /* Checked 20 Nov 2026: al-Bukhari 1782 and Muslim 1256 (Ibn ‘Abbas); Surah al-Qadr 97:3; the takbir of Eid. */
@@ -899,7 +965,7 @@ export const ramadanFull: Journey = {
     },
     nights: {
       label: "Ramadan in the Haram",
-      title: "The last ten nights, at the House of Allah",
+      title: "The last ten nights, at *the House of Allah*",
       intro: "Ten nights in Makkah for the last ten of Ramadan, then Eid in the blessed lands.",
       items: [
         { title: "Taraweeh in the Haram", text: "Each night after Isha, behind the imams of Masjid al-Haram." },
@@ -919,21 +985,13 @@ export const ramadanFull: Journey = {
           poster: { src: "/images/past/path-of-purity-ii-poster.jpg", alt: "The Path of Purity II: Summer Edition poster, 4–15 August 2026.", width: 1080, height: 1350 },
         },
       ],
-      lead: {
-        src: "/images/group-photos/group-photos-01.jpg",
-        alt: "The Path of Purity II group with Ustadh Abdulrahman Hassan in the lobby of Address Jabal Omar, Makkah.",
-        caption: "The Path of Purity II group with Ustadh Abdulrahman Hassan in Makkah, August 2026.",
-        position: "object-[50%_62%]",
-      },
+      /* The lead photo moved to the top of the journey (pack.photo), 20 Nov 2026. */
       photos: [
-        { src: "/images/group-photos/group-photos-05.jpg", caption: "On the roof of Masjid an-Nabawi", alt: "The group on the roof of Masjid an-Nabawi at golden hour, a minaret behind them.", position: "object-[50%_62%]" },
-        { src: "/images/past/masjid-al-haram.jpg", caption: "Masjid al-Haram", alt: "A Rawdah group together at Masjid al-Haram.", position: "object-[50%_60%]" },
-        { src: "/images/group-photos/group-photos-04.jpg", caption: "Masjid Quba", alt: "The group outside Masjid Quba, its white minarets behind them.", position: "object-[50%_75%]" },
-        { src: "/images/teaching/teaching-01.jpg", caption: "A reminder from Ustadh Abdulrahman Hassan", alt: "Ustadh Abdulrahman Hassan giving the group a reminder outdoors.", position: "object-[50%_30%]" },
-        { src: "/images/group-photos/group-photos-03.jpg", caption: "In ihram, ready for Umrah", alt: "The group in ihram at night, lit arcades and a minaret behind them.", position: "object-[50%_60%]" },
-        { src: "/images/past/brotherhood.jpg", caption: "Brotherhood", alt: "Brothers from a Rawdah group in ihram, standing together under the palms.", position: "object-[50%_55%]" },
-        { src: "/images/candid/candid-02.jpg", caption: "Brothers and sisters together", alt: "Brothers and sisters from the group standing together under the trees.", position: "object-[50%_50%]" },
-        { src: "/images/friends/friends-05.jpg", caption: "Umrah complete", alt: "Three travellers in ihram outside Masjid al-Haram at dusk, the minarets lit behind them.", position: "object-[50%_50%]" },
+        { src: "/images/group-photos/group-photos-05.jpg", caption: "On the roof of Masjid an-Nabawi", alt: "The group on the roof of Masjid an-Nabawi at golden hour, a minaret behind them.", position: "object-[50%_62%]", width: 1350, height: 2400 },
+        { src: "/images/past/masjid-al-haram.jpg", caption: "Masjid al-Haram", alt: "A Rawdah group together at Masjid al-Haram.", position: "object-[50%_60%]", width: 1200, height: 1600 },
+        { src: "/images/group-photos/group-photos-04.jpg", caption: "Masjid Quba", alt: "The group outside Masjid Quba, its white minarets behind them.", position: "object-[50%_75%]", width: 2400, height: 1600 },
+        { src: "/images/teaching/teaching-01.jpg", caption: "A reminder from Ustadh Abdulrahman Hassan", alt: "Ustadh Abdulrahman Hassan giving the group a reminder outdoors.", position: "object-[50%_30%]", width: 2250, height: 3000 },
+        { src: "/images/candid/candid-02.jpg", caption: "Brothers and sisters together", alt: "Brothers and sisters from the group standing together under the trees.", position: "object-[50%_50%]", width: 3000, height: 2250 },
       ],
     },
     /* No Hajj band for now: on a one-trip page it confused people (Jibril, 19 Nov 2026). */
@@ -945,7 +1003,7 @@ export const ramadanFull: Journey = {
     ],
     why: {
       label: "Why Rawdah",
-      title: "Rawdah means garden.",
+      title: "Rawdah means *garden*.",
       ar: "روضة",
       text: "In the Prophet’s Mosque in Madinah, the space between his house and his minbar is called al-Rawdah. The Prophet ﷺ described it as a garden from the gardens of Paradise.",
       source: "Reported by al-Bukhari and Muslim.",
@@ -960,7 +1018,7 @@ export const ramadanFull: Journey = {
     steps: [
       { title: "Send the form", text: "About a minute: your name, how to reach you and the package you want." },
       { title: "We confirm your place", text: "Your confirmation email has the bank details for the £399 deposit, and the team gets in touch to confirm your place." },
-      { title: "Pay the rest in three parts", text: "On 30 November, 30 December and 30 January. Up to 60 places, around half with flights." },
+      { title: "Pay the rest in three parts", text: "On 30 November, 30 December and 30 January." },
     ],
     partner: "GGC × Rawdah Tours",
     partnerLogo: { src: "/images/brand/partners/ggc.png", width: 300, height: 100, alt: "Global Guidance Center (GGC)" },
@@ -1041,11 +1099,12 @@ export const ramadanFull: Journey = {
           nights: 10,
           name: "Novotel Thakher City Makkah",
           slot: "hotel-novotel-thakher",
+          size: [1800, 1350],
           /* The hotel's own photos (Accor), sent by Jibril 16 Nov 2026. The first is the slot photo. */
           more: [
-            { src: "/images/hotels/novotel-thakher-room.jpg", alt: "A room at Novotel Thakher City Makkah." },
-            { src: "/images/hotels/novotel-thakher-prayer-hall.jpg", alt: "The hotel’s prayer hall." },
-            { src: "/images/hotels/novotel-thakher-restaurant.jpg", alt: "The hotel restaurant." },
+            { src: "/images/hotels/novotel-thakher-room.jpg", alt: "A room at Novotel Thakher City Makkah.", width: 1800, height: 1350 },
+            { src: "/images/hotels/novotel-thakher-prayer-hall.jpg", alt: "The hotel’s prayer hall.", width: 1800, height: 1350 },
+            { src: "/images/hotels/novotel-thakher-restaurant.jpg", alt: "The hotel restaurant.", width: 1800, height: 1350 },
           ],
           /* From the hotel's own listings (Accor; trip.com, 19 Nov 2026): in Thakher, out of the centre, about 10 minutes
              by car from the Haram, with a shuttle to and from it, an in-house mosque and three restaurants. */
@@ -1065,11 +1124,12 @@ export const ramadanFull: Journey = {
           nights: 4,
           name: "Al Manakha Rotana",
           slot: "hotel-al-manakha-rotana",
+          size: [1200, 800],
           /* The hotel's own photos (from its Hotels.com listing), sent by Jibril 16 Nov 2026. The first is the slot photo. */
           more: [
-            { src: "/images/hotels/al-manakha-rotana-room-view.jpg", alt: "A room at Al Manakha Rotana, with the minarets of Masjid an-Nabawi outside." },
-            { src: "/images/hotels/al-manakha-rotana-room.jpg", alt: "A room at Al Manakha Rotana." },
-            { src: "/images/hotels/al-manakha-rotana-restaurant.jpg", alt: "The hotel restaurant." },
+            { src: "/images/hotels/al-manakha-rotana-room-view.jpg", alt: "A room at Al Manakha Rotana, with the minarets of Masjid an-Nabawi outside.", width: 1200, height: 800 },
+            { src: "/images/hotels/al-manakha-rotana-room.jpg", alt: "A room at Al Manakha Rotana.", width: 1200, height: 800 },
+            { src: "/images/hotels/al-manakha-rotana-restaurant.jpg", alt: "The hotel restaurant.", width: 1200, height: 675 },
           ],
           /* From the hotel's Hotels.com and Expedia listings (19 Nov 2026): 8 minutes' walk (0.7 km) to the Prophet's
              Mosque, steps from Masjid al-Ghamamah, two restaurants and a coffee shop. */
@@ -1129,7 +1189,7 @@ export const ramadanFull: Journey = {
       /** Under the icon row on poster trips: what the icons don't say. Empty: the hotels card now carries room only and
        *  breakfast, so the old line only repeated it (20 Nov 2026). */
       perksAlso: [],
-      places: v("Up to 60 places: around 30 with flights and 30 ground only", "confirmed"),
+      /* No number of places on the page (Jibril, 20 Nov 2026: "don't say up to 60 places"). */
     },
     /* A Rawdah group for now; an Umrah poster from Rawdah will replace it (Jibril, 17 Nov 2026). */
     photo: { src: "/images/group-photos/group-photos-02.jpg", width: 2400, height: 1600, alt: "A Rawdah group together on the hill at Uhud, the mountains behind them.", position: "object-[50%_70%]" },

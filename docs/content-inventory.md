@@ -83,8 +83,9 @@ is **not** identified on the site.
   package; the instalment plan is the poster's (£399, £600 on 30 Nov, £500 on 30 Dec, £500 on 30 Jan); the Saudia
   and Haramain train photos are cropped from Rawdah's poster (`public/images/brand/ramadan-*.jpg`), shown on phones
   only. Later still (19 Nov 2026): every package has a plan on the same dates (the quad's proportions, £10 steps);
-  Sheikh Yahya's panel has a short public-source background (`guestFeature.bio`); "Our last trip" leads with the old
-  home hero's group photo (`pastTrips.lead`, `group-photos-01.jpg`); host photos are portrait-shaped on phones.
+  Sheikh Yahya's panel has a short public-source background (`guestFeature.bio`); the old home hero's group photo
+  (`group-photos-01.jpg`, lightly sharpened) now tops the journey section (`pack.photo`), no longer "Our last trip";
+  the journey's numbered highlights are `storyPoints`; host photos show at their own shapes.
   The garden (20 Nov 2026): new Ramadan fields `gettingThere`, `eid`, `madinah`, `hostsIntro` and `closeVerse`, worded
   only from facts already on the page (Eid on Tue 9 or Wed 10 March; Makkah to Madinah on Tue 9 March; the Rotana's
   8-minute walk; home on 13 March; "the Rawdah Tours team with you the whole way"). The closing line is the Rawdah
@@ -93,7 +94,8 @@ is **not** identified on the site.
   early bird and portraits; its wording is "Last 10 days"); Sheikh Yahya's full-length portrait
   (`public/images/portraits/yahya-raaby-full.jpg`, from the same uploads); new fields `stay`, `flightScene`,
   `madinah.moments` and `heroGuest`, all from facts already on the page. `verses` (open: al-Bukhari 1782 and Muslim
-  1256; nights: Surah al-Qadr 97:3; eid: the takbir) and `closeVerse.ar`, checked 20 Nov 2026.
+  1256; nights: Surah al-Qadr 97:3; eid: the takbir) and `closeVerse.ar`, checked 20 Nov 2026. `guestFeature.ways`:
+  Jibril's words (he teaches, helps, close, every step of the way) with the page's facts; no session times named.
 - **Trust box** (trip pages, `trust` in `content.ts`): shows only the people on the trip and two buttons. Its
   numbers (years running, pilgrims taken, review rating and count) stay empty until Rawdah answers the
   questionnaire; never estimate them.
@@ -145,3 +147,8 @@ ggcenter.org; logo from GGC's own artwork as on the Ramadan itinerary), Saudia a
 August 2026 hotels, the Haramain railway (sar.com.sa) and Nusuk Hajj. Links go to each one's own site. Logos (31 Oct 2026, downloaded by
 Jibril from Wikipedia and the brands' sites) are one-colour cut-outs in `public/images/brand/partners/`. Brands
 usually expect permission for logo use; Jibril chose to show them.
+
+- **Link preview** (20 Nov 2026): sharing the site shows the hero itself, captured at 1200 × 630 with the logo and
+  without the button (`public/images/share/ramadan-1448-share.jpg`, `shareImage` on the Ramadan trip; the same image is
+  the site-wide `src/app/opengraph-image.jpg`). The prices (£1,999, £1,299) and dates are in the picture: remake it with
+  `scripts/share-image.py` when they change. WhatsApp keeps old previews for links already shared.

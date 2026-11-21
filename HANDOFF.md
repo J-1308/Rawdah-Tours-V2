@@ -57,7 +57,8 @@ Added on 16 Nov (the conversion brief, `prompt-rawdah-tours.md` in Jibril's Down
 - **Questionnaire** for Rawdah (`/questionnaire`): 43 questions; answers go to Blob and email.
 - **Design pass** led by Fable: 14px minimum text, no pills, quieter home, opaque phone bars, shorter phone footer;
   on phones the page head shows the title and status above a 4:3 photo (Jibril's pick).
-- **Ramadan hotel photos**: four each in a swipeable frame (`hotel-gallery.tsx`).
+- **Ramadan hotel photos**: four each, shown uncropped; tapping a plate shows that photo (`HotelPlates` in
+  `hotel-gallery.tsx`).
 - **Trust box** (`TrustBox` in `trip-parts.tsx`, switch and numbers in `trust` in `content.ts`): the people on the
   trip, then "Book your place" and "Get the full itinerary" (or WhatsApp). Years, pilgrims and rating stay empty
   until Rawdah confirms them.
@@ -103,7 +104,17 @@ Code fixes are on `review/launch-fixes`. Jibril still has to:
    to the Garden (Madinah, where the Rawdah is), the garden path as its guide, leaves from the mark behind the words,
    a Rawdah-green Madinah chapter after daybreak, Ayuub and Issa featured as the hosts, the Rawdah hadith last.
    Second pass: the poster as the hero (with and without Sheikh Yahya, `heroGuest`), Sheikh Yahya close at the top,
-   the overnight flight as a scroll scene, both hotels in "Where you'll stay" high in the page.
+   the overnight flight as a scroll scene, both hotels in "Where you'll stay" high in the page. Then closer to the deen
+   (deen icons, Qur'an and hadith in Arabic at the story's turns) and night first: the dark chapter right under the
+   hero, Sheikh Yahya inside it with "With you every step of the way", the light again for Madinah.
+   Then Rawdah's gold (gilt on olive, never on black) and the package as its own section after the hero (a lighter
+   section, or the first thing in the night: `j.pack.at`), gilt words in the titles, the hotels in gilt-lined arches,
+   a feature band under the hero (the poster's icon row on deep olive), Rawdah's mark faint behind sections, and the
+   overnight flight as a background to Getting there instead of its own section.
+   Then the journey in one section (package, nights and our journey, with numbered highlights), one highlights list
+   used through the page, photos shown uncropped, and the feature band animated.
+   Then the lettered hero (olive lockup, gold prices, ground package), gold at key points only, one button identity,
+   and a pass that cut the page's repeats (about 20 phone screens, from 26).
 
 Review items left for later: focus moves between form steps, the Private page's thin FAQ and empty desktop column,
 desktop hero buttons on Private and Groups, Ramadan reveal facts (the 30 November instalment for late bookings, an
@@ -168,3 +179,19 @@ On only while `SITE_PASSWORD` is set (Production). After launch, `PRIVATE_PASSWO
 `/questionnaire` behind the same `/gate`; with neither set those two pages return 404. Visitors type it once at `/gate`; a cookie keeps them in for 30
 days; robots.txt shuts search engines out meanwhile. To open the site, delete it in Vercel and redeploy. Code:
 `src/proxy.ts`, `src/lib/server/site-gate.ts`, `src/app/gate/page.tsx`.
+
+## The Rawdah Tours app's pages: keep them for good (20 Nov 2026)
+
+The app is in App Store review. App Store Connect and the app link to three pages on this site, and Apple re-checks them
+on every app update:
+
+- `/app-privacy`: the app privacy policy (Privacy Policy URL in App Store Connect)
+- `/app-terms`: the app terms of use (linked inside the app)
+- `/support`: app support (Support URL in App Store Connect)
+
+They live in `src/app/(site)/app-privacy`, `app-terms` and `support`, with the words copied exactly from the app team's
+handoff (`APP_POLICY_PAGES_HANDOFF.md`): change styling only, never the wording, unless the app team agrees. Never
+rename, redirect or gate them (not in `onePageRedirects`, not behind `SITE_PASSWORD`, no bot check or cookie wall), and
+keep them in any rebuild. They're in the footer under Policies and in the sitemap. The website's own `/privacy`,
+`/terms` and `/cookies` are separate and stay as they are.
+

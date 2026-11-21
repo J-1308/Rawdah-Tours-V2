@@ -930,6 +930,14 @@ html.motion .ticker-track { animation: ticker 48s linear infinite; }
 @media (min-width: 64rem) { .past-gallery { grid-auto-flow: row; grid-template-columns: repeat(2, minmax(0, 1fr)); overflow: visible; margin-inline: 0; padding: 0; } }
 @media (min-width: 80rem) { .past-gallery { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
 
+/* The last trip as a strip of photos at their own shapes, one height (20 Nov 2026: no cropping). */
+.past-strip, .skin-1448 .past-strip { display: flex; gap: 0.75rem; overflow-x: auto; scroll-snap-type: x mandatory; margin-inline: calc(var(--hero-pad-x) * -1); padding-inline: var(--hero-pad-x); padding-bottom: 0.5rem; }
+.past-strip > li { flex: none; scroll-snap-align: start; }
+.past-shot { margin: 0; }
+.past-shot-img { display: block; height: clamp(14rem, 62vw, 20rem); width: auto; max-width: none; border-radius: 1rem; box-shadow: var(--shadow-lift); }
+.past-shot figcaption { margin-top: 0.55rem; font-size: 0.875rem; color: rgb(from var(--color-ink) r g b / 0.7); }
+@media (min-width: 64rem) { .past-strip, .skin-1448 .past-strip { margin-inline: 0; padding-inline: 0; } }
+
 /* The other campaign at the foot of the Ramadan page: the guest panel's olive. */
 .other-trip { display: grid; gap: 1.5rem; border-radius: 1.75rem; padding: 1.75rem 1.4rem; color: #f1eee6; background: radial-gradient(80% 90% at 15% 0%, #6d6b4b 0%, #545234 55%, #434229 100%); box-shadow: var(--shadow-lift); }
 .other-trip-title { margin-top: 0.45rem; font-family: "Montserrat", "DM Sans", system-ui, sans-serif; font-size: clamp(2.2rem, 7vw, 3.4rem); font-weight: 700; line-height: 1; letter-spacing: 0.03em; text-transform: uppercase; }
@@ -1119,22 +1127,30 @@ details > summary::-webkit-details-marker { display: none; }
    A band of sky at the top of the night chapter. Without scroll-linked animation (or motion) it is a still night: the
    stars, the crescent and the ten stars of the last ten nights. With it, as the band scrolls in, the day's stone light
    drains away, the crescent rises, the sky fills and the ten stars come out one by one. */
-.nightfall { position: relative; height: clamp(23rem, 66vh, 36rem); margin-bottom: calc(-1 * clamp(3rem, 7vw, 6rem)); pointer-events: none; }
+.nightfall { position: relative; height: clamp(23rem, 66vh, 36rem); margin-top: -1px; margin-bottom: calc(-1 * clamp(3rem, 7vw, 6rem)); overflow: hidden; pointer-events: none; }
 .nightfall .sky { -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 55%, transparent 100%); mask-image: linear-gradient(to bottom, #000 0%, #000 55%, transparent 100%); }
 .nf-moon { position: absolute; top: 12%; right: 9%; width: clamp(4.5rem, 15vw, 9.5rem); height: auto; }
 .nf-ten { position: absolute; inset: 8% 4% 30%; }
 .nf-star { position: absolute; width: 5px; height: 5px; border-radius: 1.5px; transform: translate(-50%, -50%) rotate(45deg); background: #efe6cf; box-shadow: 0 0 8px 1px rgb(239 230 207 / 0.45); }
 .nf-odd { width: 9px; height: 9px; border-radius: 2px; background: linear-gradient(155deg, #f0dca8 0%, #c9a464 100%); box-shadow: 0 0 14px 3px rgb(222 190 120 / 0.55); }
-.nf-dusk { position: absolute; inset: 0; opacity: 0; border-radius: var(--sheet) var(--sheet) 0 0; background: linear-gradient(to bottom, #ece8df 0%, rgb(236 232 223 / 0.92) 38%, rgb(196 170 120 / 0.35) 72%, transparent 100%); }
+/* The light lifting away (20 Nov 2026, Jibril: "more seamless for light to dark… the black corners come up"): a tall
+   veil of the page's stone, square, covering the band, with a soft warm dusk at its foot. As you scroll it slides up
+   and out, so the night rises from below through the dusk and the light leaves last at the top: no edge, no corners.
+   Without scroll timelines it is gone, and the band is simply night. */
+.nf-dusk {
+  position: absolute; left: 0; right: 0; top: 0; height: 230%;
+  opacity: 0; transform: translate3d(0, 0, 0);
+  background: linear-gradient(to bottom, #ece8df 0%, #ece8df 42%, #e4d8bd 46%, rgb(201 170 112 / 0.75) 50%, rgb(120 104 68 / 0.45) 55%, rgb(46 45 32 / 0) 62%);
+}
 /* The night sheet doesn't cast its shadow up where dusk falls: the light changes instead. */
 .chapter:not(.night):not(.top-zone) + .chapter.night:has(> .nightfall) { box-shadow: none; }
 @supports (animation-timeline: view()) {
-  @keyframes nf-dusk { from { opacity: 1; } to { opacity: 0; } }
+  @keyframes nf-dusk { from { transform: translate3d(0, 0, 0); } to { transform: translate3d(0, -62%, 0); } }
   @keyframes nf-moon { from { opacity: 0; transform: translate3d(0, 55%, 0) rotate(-14deg); } to { opacity: 1; transform: none; } }
   @keyframes nf-fill { from { opacity: 0; } to { opacity: 1; } }
   @keyframes nf-star { from { opacity: 0; transform: translate(-50%, -50%) rotate(45deg) scale(0.2); } to { opacity: 1; transform: translate(-50%, -50%) rotate(45deg); } }
   html.motion .nightfall { view-timeline: --nightfall block; }
-  html.motion .nf-dusk { animation: nf-dusk linear both; animation-timeline: --nightfall; animation-range: cover 16% cover 50%; }
+  html.motion .nf-dusk { opacity: 1; animation: nf-dusk linear both; animation-timeline: --nightfall; animation-range: cover 8% cover 58%; }
   html.motion .nf-moon { animation: nf-moon linear both; animation-timeline: --nightfall; animation-range: cover 24% cover 54%; }
   html.motion .nightfall .sky-par { animation: nf-fill linear both; animation-timeline: --nightfall; animation-range: cover 28% cover 54%; }
   html.motion .nf-star { animation: nf-star linear both; animation-timeline: --nightfall; animation-range: cover calc(30% + var(--n) * 2.6%) cover calc(37% + var(--n) * 2.6%); }
@@ -1375,29 +1391,6 @@ html.motion .hosts .rv.in .host-arch img { transform: none; }
   html.motion .fs-from { animation: fs-fade-out linear both; animation-timeline: --flight; animation-range: cover 62% cover 72%; }
 }
 
-/* --- Where you'll stay (StayShowcase) -------------------------------------------------------------------------------
-   Each hotel as a spread: photos large (edge to edge on phones, 4:3), the name big, three facts, then the detail. */
-.stay { padding-top: clamp(4rem, 9vw, 7rem); padding-bottom: clamp(3.5rem, 8vw, 6rem); }
-.stay-hotel { margin-top: clamp(2.5rem, 6vw, 4.5rem); }
-.stay-media [role="group"][aria-label^="Photos of"] { aspect-ratio: 4 / 3; }
-.stay-text { padding-top: 1.4rem; }
-.stay-name { margin-top: 0.6rem; font-family: var(--font-editorial, "Cormorant Garamond", Georgia, serif); font-size: clamp(2.3rem, 7vw, 3.4rem); line-height: 1.02; font-weight: 500; }
-.stay-facts { display: grid; grid-template-columns: auto 1fr; gap: 0.75rem 1rem; margin-top: 1.3rem; padding: 1rem 0; border-block: 1px solid rgb(from var(--color-ink) r g b / 0.12); }
-.stay-facts > div { display: contents; }
-.stay-facts dt { display: grid; place-items: center start; min-width: 2.6rem; font-family: "Montserrat", "DM Sans", system-ui, sans-serif; font-size: 1.9rem; font-weight: 700; line-height: 1; color: var(--color-bronze); }
-.stay-facts dd { align-self: center; font-size: 0.98rem; color: rgb(from var(--color-ink) r g b / 0.8); }
-@supports (animation-timeline: view()) {
-  @keyframes stay-zoom { from { transform: scale(1.14); } to { transform: scale(1); } }
-  html.motion .stay-media [aria-label^="Photos of"] img { animation: stay-zoom linear both; animation-timeline: view(); animation-range: entry 0% cover 60%; }
-}
-@media (min-width: 64rem) {
-  .stay-hotel { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.75fr); gap: clamp(2rem, 4vw, 4rem); align-items: center; padding-inline: var(--hero-pad-x); }
-  .stay-flip { grid-template-columns: minmax(0, 0.75fr) minmax(0, 1.25fr); }
-  .stay-flip .stay-media { order: 2; }
-  .stay-media { overflow: hidden; border-radius: 1.75rem; box-shadow: var(--shadow-soft); background: var(--glass-bg); padding-bottom: 1rem; }
-  .stay-text { padding: 0; }
-}
-
 /* --- Madinah's moments (garden chapter) --- */
 .madinah-moments { display: grid; gap: 0.75rem; }
 .madinah-moments li { padding: 1.2rem 1.25rem; border-radius: 1.25rem; background: rgb(255 255 255 / 0.45); border: 1px solid rgb(255 255 255 / 0.6); }
@@ -1425,6 +1418,9 @@ html.motion .hosts .rv.in .host-arch img { transform: none; }
 .verse-text { margin-top: 0.15rem; font-family: var(--font-editorial, "Cormorant Garamond", Georgia, serif); font-size: clamp(1.15rem, 4.2vw, 1.5rem); font-style: italic; line-height: 1.35; color: rgb(from var(--color-ink) r g b / 0.8); text-wrap: balance; }
 .verse-source { margin-top: 0.65rem; font-size: 0.82rem; letter-spacing: 0.04em; color: rgb(from var(--color-ink) r g b / 0.58); }
 .verse-open { padding-block: clamp(3rem, 8vw, 5rem) clamp(1.5rem, 4vw, 3rem); }
+.verse-in-night { padding-top: clamp(4.5rem, 10vw, 7rem); padding-bottom: 0; }
+.verse-in-night .verse-star { color: #e2c98f; }
+.verse-in-night .verse-ar { color: #f4ecd6; text-shadow: 0 0 26px rgb(233 210 156 / 0.22); }
 /* In the night bands: light words, a soft gold glow, fading in with the sky. */
 .nf-verse, .db-verse { position: absolute; z-index: 3; left: var(--hero-pad-x); right: var(--hero-pad-x); }
 .nf-verse { top: 47%; }
@@ -1453,6 +1449,515 @@ html.motion .hosts .rv.in .host-arch img { transform: none; }
 .skin-1448 .chapter.night {
   background:
     var(--chapter-glow),
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='88' height='88' viewBox='0 0 88 88'%3E%3Cg fill='none' stroke='%23e9d29c' stroke-opacity='0.055' stroke-width='1'%3E%3Cpath d='M32 32h24v24H32z'/%3E%3Cpath d='M44 27l17 17-17 17-17-17z'/%3E%3Cpath d='M0 44h27M61 44h27M44 0v27M44 61v27'/%3E%3C/g%3E%3C/svg%3E"),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='88' height='88' viewBox='0 0 88 88'%3E%3Cg fill='none' stroke='%23e9d29c' stroke-opacity='0.04' stroke-width='1'%3E%3Cpath d='M32 32h24v24H32z'/%3E%3Cpath d='M44 27l17 17-17 17-17-17z'/%3E%3Cpath d='M0 44h27M61 44h27M44 0v27M44 61v27'/%3E%3C/g%3E%3C/svg%3E"),
     var(--color-canvas);
+}
+
+/* --- Night first (20 Nov 2026): the night chapter now opens under the hero and carries Sheikh Yahya, the journey and
+   the hotels, so those pieces take the night's light. --- */
+.gc-ways-title { margin-top: 2rem; font-family: var(--font-editorial, "Cormorant Garamond", Georgia, serif); font-size: clamp(1.6rem, 5vw, 2.1rem); line-height: 1.15; }
+.gc-ways { display: grid; gap: 0.7rem; margin-top: 1rem; }
+.gc-ways li { display: grid; grid-template-columns: 2.4rem 1fr; gap: 0.9rem; align-items: start; padding: 1rem 1.1rem; border-radius: 1.2rem; background: var(--glass-bg); border: 1px solid var(--glass-line, rgb(255 255 255 / 0.1)); }
+.gc-way-glyph { width: 1.7rem; height: 1.7rem; margin-top: 0.15rem; color: var(--color-gold); }
+.gc-way-title { font-family: var(--font-editorial, "Cormorant Garamond", Georgia, serif); font-size: 1.35rem; line-height: 1.2; }
+.gc-way-text { margin-top: 0.25rem; font-size: 0.95rem; line-height: 1.6; color: rgb(from var(--color-ink) r g b / 0.74); }
+.night .gc-cta, .skin-1448 .night .gc-cta { background: #ece8df; color: #2e2d20; }
+.night .gc-photo { background: #3c3b2a; }
+.night .gc-way-glyph { color: #e2c98f; }
+.night .flight-scene { box-shadow: 0 0 0 1px rgb(233 210 156 / 0.14), 0 30px 60px -30px rgb(0 0 0 / 0.6); }
+
+/* --- One content width on desktop (20 Nov 2026: "the spacing on the desktop can be better") ----------------------
+   Every section of a poster trip sits in the same centred column, so left edges line up from chapter to chapter and
+   wide screens don't leave an empty right half. Long reading (questions, hosts) stays narrower inside it. */
+.pw { width: 100%; max-width: 72rem; margin-inline: auto; }
+@media (min-width: 64rem) {
+  .skin-1448 #nights, .skin-1448 .stay-head { box-sizing: border-box; max-width: calc(72rem + 2 * var(--hero-pad-x)); margin-inline: auto; }
+  .skin-1448 .stay-hotel { box-sizing: border-box; max-width: calc(72rem + 2 * var(--hero-pad-x)); margin-inline: auto; }
+  .skin-1448 .guest-close { box-sizing: border-box; max-width: calc(72rem + 2 * var(--hero-pad-x)); margin-inline: auto; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); align-items: start; padding-top: clamp(4rem, 7vw, 6rem); }
+  .skin-1448 .guest-close .gc-photo { position: sticky; top: 10.5rem; }
+  .skin-1448 .gc-ways { max-width: 38rem; }
+  .skin-1448 .gc-photo { max-width: 30rem; }
+  .skin-1448 .hosts { max-width: 52rem; }
+  .skin-1448 #faq { max-width: 56rem; }
+  .skin-1448 #register-interest > div { max-width: 72rem; margin-inline: auto; }
+  .skin-1448 .stay { padding-top: clamp(5rem, 8vw, 7rem); }
+  .skin-1448 .stay-hotel { margin-top: clamp(3.5rem, 6vw, 5.5rem); }
+}
+
+/* === Rawdah's gold (20 Nov 2026) ================================================================================
+   Jibril: "the use of the golden… we need something similar". Rawdah's own: gilt on olive and green, after the
+   Rawdah's pillars (a gold inscription on a green circle in a golden wreath), never gold on black. A light gilt for the
+   night, a deep gilt for words on stone, a gilt button. Headings take more weight. */
+.skin-1448 {
+  --gilt: #d3b469;
+  --gilt-light: #ecdba6;
+  --gilt-deep: #7d6129;
+  --color-gold: #a8863f;
+  --color-bronze: #7d6129;
+}
+.skin-1448 .night { --color-gold: #d8bb72; --color-bronze: #e0c88e; --glass-line: rgb(216 187 114 / 0.17); }
+.skin-1448 .display { font-weight: 520; letter-spacing: -0.006em; }
+
+.btn-gilt {
+  background: linear-gradient(180deg, #efdfaa 0%, #d8ba6e 46%, #b99749 100%);
+  color: #2b2a1a;
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.55), inset 0 -1px 0 rgb(120 92 40 / 0.35), 0 14px 30px -16px rgb(84 66 24 / 0.6);
+  transition: filter 0.2s, transform 0.2s;
+}
+.btn-gilt:hover { filter: brightness(1.05) saturate(1.05); }
+.btn-gilt:active { transform: translateY(1px); }
+/* The main "Book your place" everywhere on the Ramadan page takes the gilt: the header, the phone bar, the night. */
+:root[data-skin="1448"] header .btn-ink, .skin-1448 [data-placement="phone bar"] .btn-ink, .skin-1448 .night .gc-cta {
+  background: linear-gradient(180deg, #efdfaa 0%, #d8ba6e 46%, #b99749 100%); color: #2b2a1a;
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.55), inset 0 -1px 0 rgb(120 92 40 / 0.35), 0 14px 30px -16px rgb(84 66 24 / 0.6);
+}
+
+/* --- Gilt words (20 Nov 2026: "some colours in the font like The Umrah Company") -----------------------------------
+   The key words of a headline in Rawdah's gilt, in the Cormorant italic (shell.tsx gild: words in *asterisks*). On
+   stone a deep gilt that keeps 3:1 at the top of the fall; in the night a light one. Headlines and the big prices only. */
+.gild {
+  font-style: italic;
+  padding-right: 0.03em;
+  background-image: linear-gradient(180deg, #9d7e38 0%, #86682c 50%, #6f5424 100%);
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-box-decoration-break: clone; box-decoration-break: clone;
+  color: transparent; -webkit-text-fill-color: transparent;
+}
+.night .gild, .pkg-night .gild { background-image: linear-gradient(180deg, #f6e9bd 0%, #dcc07a 55%, #c4a254 100%); }
+.skin-1448 .rh-from strong {
+  background-image: linear-gradient(180deg, #9a7b36 0%, #6f5424 100%);
+  -webkit-background-clip: text; background-clip: text; color: transparent; -webkit-text-fill-color: transparent;
+}
+.skin-1448 .night .rh-from strong { background-image: linear-gradient(180deg, #f6e9bd 0%, #d4b56c 100%); }
+
+/* --- The feature band (20 Nov 2026: "a feature kind of bar below the hero… that could be the contrasting thing") ----
+   What's included, from the poster's icon row, on deep olive between double gilt rules: the contrast that closes the
+   hero off. Still: four by two on phones, one row from tablets up. */
+.feature-band { position: relative; z-index: 2; color: #f1ebd9; background: radial-gradient(60% 140% at 50% 0%, rgb(255 236 180 / 0.07) 0%, transparent 70%), linear-gradient(180deg, #4b4a31 0%, #3a3926 100%); border-block: 1px solid rgb(216 187 114 / 0.6); box-shadow: 0 22px 34px -28px rgb(30 29 18 / 0.8); }
+.feature-band::before, .feature-band::after { content: ""; position: absolute; left: 0; right: 0; height: 1px; background: rgb(216 187 114 / 0.22); pointer-events: none; }
+.feature-band::before { top: 4px; }
+.feature-band::after { bottom: 4px; }
+/* Phones: one row that moves on its own (20 Nov 2026: "a moving bar on the phone… 1 layer"); without motion, a row to
+   swipe. Tablets up: one still row of eight. */
+.feature-band { overflow: hidden; }
+.fb-track { display: flex; width: max-content; }
+.fb-list { box-sizing: border-box; display: flex; flex: none; margin: 0; padding-block: 0.95rem; }
+.fb-item { display: flex; align-items: center; gap: 0.6rem; padding-inline: 1.15rem; white-space: nowrap; border-left: 1px solid rgb(216 187 114 / 0.2); }
+.fb-icon { width: 1.6rem; height: 1.6rem; flex: none; color: #dcbf76; }
+.fb-text { display: flex; gap: 0.3em; font-size: 0.8rem; line-height: 1.3; }
+.fb-text b { font-family: "Montserrat", "DM Sans", system-ui, sans-serif; font-weight: 600; letter-spacing: 0.03em; color: #f6f0de; }
+.fb-text span { color: rgb(241 235 217 / 0.7); }
+@keyframes fb-run { from { transform: translate3d(0, 0, 0); } to { transform: translate3d(-50%, 0, 0); } }
+html.motion .fb-track { animation: fb-run 40s linear infinite; }
+html:not(.motion) .fb-list.fb-copy { display: none; }
+html:not(.motion) .feature-band { overflow-x: auto; }
+@media (min-width: 48rem) {
+  .fb-track, html.motion .fb-track { display: block; width: auto; animation: none; }
+  .fb-list.fb-copy { display: none; }
+  .fb-list { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); max-width: calc(72rem + 2 * var(--hero-pad-x)); margin-inline: auto; padding-block: 1.75rem; }
+  .fb-item { display: grid; justify-items: center; align-content: start; gap: 0.5rem; padding-inline: 0.25rem; text-align: center; white-space: normal; }
+  .fb-item:first-child { border-left: 0; }
+  .fb-icon { width: 2.15rem; height: 2.15rem; }
+  .fb-text { display: grid; gap: 0; }
+}
+
+/* --- The garden path (20 Nov 2026: "a similar thing but a different, better effect, more subtle and guiding") --------
+   Chips without boxes: ahead, faint words and an outline stage; behind you, stronger words and an olive stage; the
+   chapter you're in, dark words, a gold stage that grows in, a soft raised ground, and a short gold line that glides
+   along under the row to sit beneath it (garden-path.tsx sets --gp-x and --gp-w; it scrolls with the row). Nothing
+   here looks like the Book button. */
+.skin-1448 .trip-jump.garden-path { background: rgb(247 244 237 / 0.94); border-bottom: 1px solid rgb(84 82 52 / 0.1); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
+.skin-1448 .garden-path ul { position: relative; gap: 0.15rem; background-image: linear-gradient(90deg, #c4a254, #e2c98f); background-repeat: no-repeat; background-size: var(--gp-w, 0px) 2px; background-position: var(--gp-x, 0px) calc(100% - 0.35rem); background-attachment: local; transition: background-position 0.55s cubic-bezier(0.22, 1, 0.36, 1), background-size 0.55s cubic-bezier(0.22, 1, 0.36, 1); }
+.skin-1448 .garden-path a { background: transparent; border-color: transparent; color: rgb(51 50 31 / 0.58); padding-inline: 0.85rem 0.95rem; transition: color 0.4s var(--ease-out), background-color 0.4s var(--ease-out), box-shadow 0.4s var(--ease-out); }
+.skin-1448 .garden-path a:hover { color: var(--color-ink); background: rgb(255 255 255 / 0.45); border-color: transparent; }
+.skin-1448 .garden-path .gp-glyph { color: rgb(84 82 52 / 0.32); }
+.skin-1448 .garden-path [data-state="passed"] a { color: rgb(51 50 31 / 0.82); }
+.skin-1448 .garden-path [data-state="passed"] .gp-glyph { color: #6b6a4c; }
+.skin-1448 .garden-path [data-state="here"] a { color: #1f1e13; background: rgb(255 255 255 / 0.7); border-color: transparent; box-shadow: 0 6px 16px -12px rgb(60 48 20 / 0.45); }
+.skin-1448 .garden-path [data-state="here"] .gp-glyph { color: #a8863f; }
+.skin-1448 .gp-progress { height: 2px; opacity: 0.55; box-shadow: none; }
+
+/* The path's guide line: gilt, along its foot, filling as you go down the page. */
+.gp-progress { position: absolute; left: 0; right: 0; bottom: -1px; height: 3px; z-index: 1; pointer-events: none; transform-origin: 0 50%; transform: scaleX(var(--gp, 0)); background: linear-gradient(90deg, #b99749 0%, #e2c98f 70%, #f3e4b4 100%); box-shadow: 0 0 10px rgb(216 187 114 / 0.6); transition: transform 0.6s var(--ease-out); }
+@supports (animation-timeline: scroll()) {
+  @keyframes gp-fill { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+  .gp-progress { transition: none; animation: gp-fill linear both; animation-timeline: scroll(root); }
+}
+.skin-1448 .trip-jump.garden-path { position: sticky; }
+
+/* --- Titles that tell the story (20 Nov 2026: "the titles and the images are enough to tell the story… our font
+   needs to be better: the sizing, thickness, colouring; good contrast") ---------------------------------------------
+   Section titles larger and heavier (Cormorant at 600), near-black olive on stone and warm white in the night, their
+   gilt words deeper on stone. Labels become small gilt capitals over them, so each section reads at a glance: label,
+   title, picture. Body text a step stronger. */
+.skin-1448 .display { font-weight: 600; letter-spacing: -0.014em; }
+.skin-1448 .section-title { font-size: clamp(2.65rem, 5.4vw, 4.9rem); line-height: 0.98; color: #1f1e13; text-wrap: balance; }
+.skin-1448 .night .section-title, .skin-1448 .pkg-night .section-title { color: #f7f2e5; }
+.skin-1448 .pkg-title { font-size: clamp(2.65rem, 5vw, 4.3rem); }
+.skin-1448 .gild { font-weight: 600; background-image: linear-gradient(180deg, #927433 0%, #7a5d26 50%, #5f4719 100%); }
+.skin-1448 .night .gild, .skin-1448 .pkg-night .gild { background-image: linear-gradient(180deg, #f8ecc4 0%, #e2c784 55%, #c9a75a 100%); }
+.skin-1448 .label { font-family: "Montserrat", "DM Sans", system-ui, sans-serif; font-size: 0.76rem; font-style: normal; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: #7d6129; }
+.skin-1448 .label .mark-mask { height: 1.35em; color: #a8863f; }
+.skin-1448 .night .label, .skin-1448 .pkg-night .label { color: #e2c98f; }
+.skin-1448 .night .label .mark-mask, .skin-1448 .pkg-night .label .mark-mask { color: #d8bb72; }
+.skin-1448 .label + .display, .skin-1448 .label + div > .display { margin-top: 1rem; }
+.skin-1448 .text-ink\/72, .skin-1448 .text-ink\/70, .skin-1448 .text-ink\/75 { color: color-mix(in oklab, var(--color-ink) 86%, transparent); }
+.skin-1448 .text-ink\/62, .skin-1448 .text-ink\/65 { color: color-mix(in oklab, var(--color-ink) 76%, transparent); }
+.skin-1448 .stay-name { font-weight: 600; }
+.skin-1448 .pkg-facts b { font-weight: 600; }
+
+/* --- The journey (JourneySection, 20 Nov 2026) ------------------------------------------------------------------------
+   The package, the nights and our journey in one lighter section: the title, the group photo uncropped in a gilt-lined
+   frame, the price, then the highlights, the route line and the hadith. Phones in that order; desktop the title and
+   price beside the photo, the rest full width under them. */
+.pkg-in.jr { grid-template-areas: "head" "photo" "points" "line" "verse"; gap: 2.25rem; }
+.jr-head { grid-area: head; }
+.jr-lead { margin-top: 1.1rem; max-width: 36rem; font-size: 1.08rem; line-height: 1.7; color: rgb(from var(--color-ink) r g b / 0.84); }
+.jr-photo { grid-area: photo; margin: 0; }
+.jr-photo-frame { position: relative; overflow: hidden; border-radius: 1.5rem; background: #d8d2c2; box-shadow: 0 0 0 1px rgb(168 134 63 / 0.35), 0 30px 60px -36px rgb(60 48 20 / 0.55); }
+.jr-photo-frame::after { content: ""; position: absolute; inset: 0.55rem; border: 1px solid rgb(255 248 228 / 0.65); border-radius: 1.05rem; pointer-events: none; }
+.jr-photo-img { display: block; width: 100%; height: auto; }
+.jr-photo figcaption { margin-top: 0.7rem; font-size: 0.86rem; color: rgb(from var(--color-ink) r g b / 0.66); }
+.jr-buy { grid-area: buy; }
+.jr-points { grid-area: points; padding-top: 0.5rem; }
+.jr-sub { margin-bottom: 1rem; font-family: "Montserrat", "DM Sans", system-ui, sans-serif; font-size: 0.74rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: #7d6129; }
+.jr-line { grid-area: line; }
+.jr-verse { grid-area: verse; margin-top: 0; }
+.pkg-night .jr-sub { color: #e2c98f; }
+@media (min-width: 64rem) {
+  .pkg-in.jr { grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); grid-template-areas: "head photo" "points points" "line line" "verse verse"; column-gap: clamp(3rem, 5vw, 5rem); row-gap: 2.75rem; align-items: center; }
+  .jr-buy { align-self: end; }
+  .jr-points { padding-top: 1.5rem; }
+}
+
+/* --- Highlights: the page's one list (20 Nov 2026: "easy to read and follow… throughout the website") ---------------
+   Numbered in the gilt eight-pointed star, a Cormorant title and one line, on fine rules; two columns on wider screens.
+   The journey, Sheikh Yahya and Madinah all use it. */
+.highlights { display: grid; border-top: 1px solid rgb(125 97 41 / 0.3); }
+.highlights li { display: grid; grid-template-columns: 2.9rem 1fr; gap: 1rem; align-items: start; padding-block: 1.2rem; border-bottom: 1px solid rgb(125 97 41 / 0.16); }
+.hl-num { position: relative; display: grid; place-items: center; width: 2.75rem; height: 2.75rem; margin-top: -0.2rem; filter: drop-shadow(0 6px 10px rgb(125 97 41 / 0.3)); }
+.hl-star { position: absolute; inset: 0; width: 100%; height: 100%; color: #c9a85c; }
+.hl-num b { position: relative; font-family: "Montserrat", "DM Sans", system-ui, sans-serif; font-size: 0.92rem; font-weight: 700; line-height: 1; color: #2b2a1a; }
+.hl-title { font-family: var(--font-editorial, "Cormorant Garamond", Georgia, serif); font-size: clamp(1.4rem, 4.6vw, 1.6rem); font-weight: 600; line-height: 1.15; color: var(--color-ink); }
+.hl-text { margin-top: 0.3rem; font-size: 0.98rem; line-height: 1.6; color: rgb(from var(--color-ink) r g b / 0.82); }
+.night .highlights, .pkg-night .highlights { border-top-color: rgb(216 187 114 / 0.3); }
+.night .highlights li, .pkg-night .highlights li { border-color: rgb(216 187 114 / 0.16); }
+.night .hl-star, .pkg-night .hl-star { color: #d8bb72; }
+.night .hl-num, .pkg-night .hl-num { filter: drop-shadow(0 0 12px rgb(216 187 114 / 0.25)); }
+@media (min-width: 48rem) {
+  .highlights:not(.hl-one) { grid-template-columns: 1fr 1fr; column-gap: 3rem; border-top: 0; }
+  .highlights:not(.hl-one) li { border-top: 1px solid rgb(125 97 41 / 0.16); border-bottom: 0; }
+  .highlights:not(.hl-one) li:nth-child(-n + 2) { border-top-color: rgb(125 97 41 / 0.32); }
+  .night .highlights:not(.hl-one) li { border-top-color: rgb(216 187 114 / 0.16); }
+  .night .highlights:not(.hl-one) li:nth-child(-n + 2) { border-top-color: rgb(216 187 114 / 0.32); }
+}
+
+/* --- Hosts: each portrait at its own shape, the corners rounded (20 Nov 2026: "curve the edges but don't distort") -- */
+.host-frame { position: relative; overflow: hidden; border-radius: 1.4rem; background: var(--color-beige); box-shadow: var(--shadow-lift); }
+.host-frame::after { content: ""; position: absolute; inset: 0.55rem; border: 1px solid rgb(255 255 255 / 0.55); border-radius: 0.9rem; pointer-events: none; }
+.host-img { display: block; width: 100%; height: auto; }
+.skin-1448 .hosts { align-items: start; }
+html.motion .hosts .rv .host-frame img { transform: scale(1.04); transition: transform 1.6s var(--ease-out); }
+html.motion .hosts .rv.in .host-frame img { transform: none; }
+
+/* --- The feature band, animated (20 Nov 2026: "animate the dark bar") -------------------------------------------------
+   Each icon draws itself in gilt as the band comes into view, one after another; a slow light crosses the band every
+   few seconds. Still with reduced motion. */
+.fb-sheen { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+.fb-sheen::before { content: ""; position: absolute; top: 0; bottom: 0; left: -30%; width: 30%; background: linear-gradient(100deg, transparent 0%, rgb(255 236 180 / 0.12) 50%, transparent 100%); }
+@keyframes fb-sheen { 0% { transform: translateX(0); } 40%, 100% { transform: translateX(460%); } }
+html.motion .fb-sheen::before { animation: fb-sheen 9s cubic-bezier(0.45, 0, 0.25, 1) 1.5s infinite; }
+.fb-icon * { stroke-dasharray: 180; stroke-dashoffset: 0; }
+html.motion .fb-item.rv { opacity: 1; filter: none; transform: none; }
+html.motion .fb-item.rv .fb-icon * { stroke-dashoffset: 180; transition: stroke-dashoffset 1.8s var(--ease-out); }
+html.motion .fb-item.rv .fb-text { opacity: 0; transform: translateY(0.35rem); transition: opacity 0.8s var(--ease-out), transform 0.8s var(--ease-out); }
+html.motion .fb-item.rv.in .fb-icon * { stroke-dashoffset: 0; }
+html.motion .fb-item.rv.in .fb-text { opacity: 1; transform: none; }
+.fb-item:nth-child(2) .fb-icon *, .fb-item:nth-child(2) .fb-text { transition-delay: 0.1s; }
+.fb-item:nth-child(3) .fb-icon *, .fb-item:nth-child(3) .fb-text { transition-delay: 0.2s; }
+.fb-item:nth-child(4) .fb-icon *, .fb-item:nth-child(4) .fb-text { transition-delay: 0.3s; }
+.fb-item:nth-child(5) .fb-icon *, .fb-item:nth-child(5) .fb-text { transition-delay: 0.4s; }
+.fb-item:nth-child(6) .fb-icon *, .fb-item:nth-child(6) .fb-text { transition-delay: 0.5s; }
+.fb-item:nth-child(7) .fb-icon *, .fb-item:nth-child(7) .fb-text { transition-delay: 0.6s; }
+.fb-item:nth-child(8) .fb-icon *, .fb-item:nth-child(8) .fb-text { transition-delay: 0.7s; }
+
+/* --- The hero with the poster's lettering (LockupHero, ?look=a/b/c, 20 Nov 2026) ----------------------------------------
+   Phones: the lockup, the artwork with our words in its tablets and Sheikh Yahya, then the line and the offer. Desktop:
+   the artwork on the left, the words centred on the right, as the poster sets them. */
+.rl { background: linear-gradient(180deg, #e3dfd3 0%, #e1dbce 45%, #e4ded2 72%, var(--color-canvas) 100%); padding-bottom: clamp(2rem, 6vw, 3.5rem); }
+.rl-mark { z-index: 0; right: -14%; bottom: 4%; height: 46%; }
+.rl-grid { position: relative; z-index: 1; display: grid; grid-template-columns: minmax(0, 1fr); grid-template-areas: "head" "art" "foot"; justify-items: center; text-align: center; }
+.rl-head { grid-area: head; display: grid; justify-items: center; padding-top: 1.25rem; }
+.rl-lockup { margin: 0; }
+.rl-date { margin-top: 0.55rem; }
+.rl-with { display: inline-flex; align-items: center; gap: 0.6rem; margin-top: 0.7rem; color: var(--color-ink); }
+.rl-with em { font-family: var(--font-editorial, "Cormorant Garamond", Georgia, serif); font-size: 1.15rem; font-style: italic; color: rgb(from var(--color-ink) r g b / 0.72); }
+.rl-art { grid-area: art; position: relative; width: 100%; max-width: 40rem; margin-top: 0.75rem; container-type: inline-size; }
+.rl-art-img { display: block; width: 100%; height: auto; -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 78%, transparent 100%), linear-gradient(to right, transparent 0%, #000 7%, #000 93%, transparent 100%); -webkit-mask-composite: source-in; mask-image: linear-gradient(to bottom, #000 0%, #000 78%, transparent 100%), linear-gradient(to right, transparent 0%, #000 7%, #000 93%, transparent 100%); mask-composite: intersect; }
+.rl-tablet { position: absolute; z-index: 1; display: grid; justify-items: center; width: 20.5%; margin: 0; font-family: "Montserrat", "DM Sans", system-ui, sans-serif; line-height: 1; text-align: center; text-transform: uppercase; color: #3f3e28; }
+.rl-tablet b { font-weight: 700; letter-spacing: 0.01em; }
+.rl-tablet em { margin-top: 0.4cqw; font-family: var(--font-editorial, "Cormorant Garamond", Georgia, serif); font-size: 2.7cqw; font-style: italic; text-transform: none; color: #545234; }
+.rl-tablet span { margin-top: 0.4cqw; font-size: 2.5cqw; font-weight: 700; letter-spacing: 0.04em; line-height: 1.1; }
+.rl-tablet-eid { left: 4.3%; top: 13%; }
+.rl-tablet-eid b { font-size: 7.4cqw; }
+.rl-tablet-nights { left: 50.4%; top: 13%; }
+.rl-tablet-nights b { font-size: 9.5cqw; }
+.rl-foot { grid-area: foot; display: grid; grid-template-columns: minmax(0, 1fr); justify-items: center; width: 100%; max-width: 34rem; min-width: 0; box-sizing: border-box; }
+/* The two prices: the same shape each, the figures in gold (key points); with flights on the poster's olive with Saudia's
+   mark, ground only on stone. Both open the booking (ground only on ground only). Then the one gilt button. */
+.rl-buy { display: grid; grid-template-columns: minmax(0, 1fr); justify-items: center; gap: 0.9rem; width: 100%; margin-top: 1.3rem; }
+.rl-offer { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 0.6rem; width: 100%; }
+.rl-tile { position: relative; display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; min-height: 6.6rem; padding: 0.95rem 1rem; border-radius: 1.25rem; text-align: left; transition: transform 0.25s var(--ease-out), box-shadow 0.25s; }
+.rl-tile:hover { transform: translateY(-1px); }
+.rl-tile-words { display: grid; line-height: 1.05; }
+.rl-k { font-family: "Montserrat", "DM Sans", system-ui, sans-serif; font-size: 0.7rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; }
+.rl-price { margin-top: 0.3rem; font-family: "Montserrat", "DM Sans", system-ui, sans-serif; font-size: clamp(1.75rem, 7.6vw, 2.4rem); font-weight: 700; letter-spacing: 0.005em; line-height: 1; -webkit-background-clip: text; background-clip: text; color: transparent; -webkit-text-fill-color: transparent; }
+.rl-sub { margin-top: 0.3rem; font-family: var(--font-editorial, "Cormorant Garamond", Georgia, serif); font-size: 0.98rem; font-style: italic; }
+.rl-ended { margin-bottom: 0.2rem; font-size: 0.78rem; opacity: 0.6; text-decoration-thickness: 1px; }
+.rl-flights { color: #f1eee6; background: radial-gradient(120% 90% at 20% 0%, rgb(255 236 180 / 0.08) 0%, transparent 60%), linear-gradient(180deg, #57563f 0%, #45442e 100%); box-shadow: 0 22px 40px -26px rgb(37 36 24 / 0.75); }
+.rl-flights .rl-price { background-image: linear-gradient(180deg, #f6e8bb 0%, #dcbf76 60%, #c4a254 100%); }
+.rl-flights .rl-sub { color: rgb(241 238 230 / 0.72); }
+.rl-saudia { width: 2.4rem; height: auto; flex: none; filter: brightness(0) invert(1); opacity: 0.85; }
+.rl-k { white-space: nowrap; }
+/* Ground only keeps its light tile; its figure takes the gold of the with-flights one (Jibril, 20 Nov 2026: "the button
+   to be the same, just the gold writing"), a step deeper at its foot so it still reads on stone. */
+.rl-ground { color: #45442e; background: rgb(255 255 255 / 0.5); border: 1px solid rgb(255 255 255 / 0.85); box-shadow: 0 18px 34px -28px rgb(60 48 20 / 0.5); }
+.rl-ground .rl-price { background-image: linear-gradient(180deg, #d2b162 0%, #b8963f 50%, #94742f 100%); }
+.rl-ground .rl-sub { color: rgb(51 50 31 / 0.66); }
+.rl-book { display: inline-flex; width: 100%; min-height: 3.4rem; align-items: center; justify-content: center; gap: 0.5rem; border-radius: 1rem; font-size: 1rem; font-weight: 500; }
+.rl-note { display: flex; flex-wrap: wrap; justify-content: center; font-size: 0.86rem; line-height: 1.5; color: rgb(from var(--color-ink) r g b / 0.7); }
+@media (max-width: 23.99rem) { .rl-saudia { display: none; } }
+@media (min-width: 64rem) { .rl-saudia { width: 2.8rem; } }
+.rl .rh-price { justify-items: center; }
+.rl .poster-lockup { color: #4a4931; }
+.rl .poster-lockup .poster-kicker { color: #6b6a55; }
+/* "SHEIKH" over Sheikh Yahya's name in gold (Jibril, 20 Nov 2026), the deep gilt that reads on stone. */
+.rl .poster-role { background-image: linear-gradient(180deg, #9a7b36 0%, #6f5424 100%); -webkit-background-clip: text; background-clip: text; color: transparent; -webkit-text-fill-color: transparent; }
+@media (min-width: 64rem) {
+  .rl { padding-bottom: 1.5rem; }
+  .rl-grid { grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr); grid-template-areas: "art head" "art foot"; column-gap: clamp(1.5rem, 3vw, 3rem); align-items: center; min-height: calc(100svh - 5.3rem - 1.5rem); padding: 1rem var(--hero-pad-x); }
+  .rl-head, .rl-foot { padding-inline: 0; }
+  .rl-head { align-self: end; padding-top: 0; }
+  .rl-foot { align-self: start; }
+  .rl-art { justify-self: end; max-width: 50rem; margin-top: 0; }
+  .rl .poster-lockup .poster-word { font-size: clamp(4rem, 6.4vw, 6.6rem); }
+  .rl .poster-lockup .poster-line { font-size: clamp(1.2rem, 1.9vw, 2rem); }
+  .rl-foot { max-width: 30rem; }
+  .rl-figure.ph-guest { right: -6%; width: 40%; }
+}
+
+/* --- Sheikh Yahya on phones as on desktop (21 Nov 2026: Jibril prefers the desktop card to the phone's full-width photo) ---
+   Phones and tablets: the photo as a card inside the page's margins, rounded, with a soft shadow and his name over its
+   foot at a card's size, then the words under it. Desktop is unchanged. */
+@media (max-width: 63.99rem) {
+  .skin-1448 .guest-close { padding-top: clamp(2.5rem, 8vw, 3.5rem); }
+  .skin-1448 .guest-close .gc-photo { margin-inline: var(--hero-pad-x); max-width: 30rem; border-radius: 1.5rem; box-shadow: 0 30px 60px -34px rgb(0 0 0 / 0.75); }
+  .skin-1448 .gc-name { left: 1.4rem; right: 1.4rem; bottom: 1.3rem; }
+  .skin-1448 .gc-kicker { font-size: 0.7rem; }
+  .skin-1448 .gc-name h2 { font-size: clamp(2.3rem, 10vw, 3.2rem); }
+}
+@media (min-width: 40rem) and (max-width: 63.99rem) { .skin-1448 .guest-close .gc-photo { margin-inline: auto; } }
+
+/* --- Gold at key points (20 Nov 2026: "throughout the whole site we should use gold in key points… careful not to make
+   our writing in gold look like The Umrah Company") -------------------------------------------------------------------
+   Gold only where it matters: the Book buttons, the prices, the chapter you're in, the dark feature band, the nights'
+   star. Headlines carry their key words in olive italic (warm cream in the night), never gold; labels are olive. */
+.skin-1448 .gild, .skin-1448 .night .gild, .skin-1448 .pkg-night .gild { background-image: none; -webkit-text-fill-color: currentColor; }
+.skin-1448 .gild { color: #5a5937; }
+.skin-1448 .night .gild, .skin-1448 .pkg-night .gild { color: #ebe4cc; }
+.skin-1448 .garden .gild { color: #3f5e31; }
+.skin-1448 .label, .skin-1448 .jr-sub { color: #545234; }
+.skin-1448 .label .mark-mask { color: #8a8664; }
+.skin-1448 .night .label { color: #d6d1b0; }
+.skin-1448 .night .label .mark-mask { color: #b3ae94; }
+.skin-1448 .grid-price { background-image: linear-gradient(180deg, #9a7b36 0%, #6f5424 100%); -webkit-background-clip: text; background-clip: text; color: transparent; -webkit-text-fill-color: transparent; }
+.skin-1448 .hl-star { color: #6b6a4c; }
+.skin-1448 .hl-num b { color: #f4f2ea; }
+.skin-1448 .hl-num { filter: none; }
+.skin-1448 .night .hl-star { color: #d8bb72; }
+.skin-1448 .night .hl-num b { color: #2b2a1a; }
+.skin-1448 .highlights, .skin-1448 .highlights li { border-color: rgb(84 82 52 / 0.16); }
+.skin-1448 .night .highlights, .skin-1448 .night .highlights li { border-color: rgb(214 209 176 / 0.16); }
+.skin-1448 .jr-photo-frame { box-shadow: 0 30px 60px -36px rgb(40 38 24 / 0.5); }
+.skin-1448 .stay-photo { box-shadow: 0 40px 80px -40px rgb(0 0 0 / 0.7); }
+.skin-1448 .stay-photo::after, .skin-1448 .jr-photo-frame::after { border-color: rgb(255 255 255 / 0.45); }
+.skin-1448 .stay-city-icon, .skin-1448 .stay-facts svg, .skin-1448 .stay-city { color: #d6d1b0; border-color: rgb(214 209 176 / 0.4); }
+.skin-1448 .stay-seal-words { color: #d6d1b0; }
+.skin-1448 .stay-features li::before { background: #b3ae94; }
+.skin-1448 .stay-facts { border-color: rgb(214 209 176 / 0.18); }
+.skin-1448 .stay-plate[aria-pressed="true"] { box-shadow: 0 0 0 2px #ece8df; }
+/* The booking panel's main button is a key point too. */
+.skin-1448 #join .btn-ink { background: linear-gradient(180deg, #efdfaa 0%, #d8ba6e 46%, #b99749 100%); color: #2b2a1a; box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.55), inset 0 -1px 0 rgb(120 92 40 / 0.35), 0 14px 30px -16px rgb(84 66 24 / 0.6); }
+/* --- One button identity (20 Nov 2026: "the buttons… at the top… and on the actual website… don't match") ------------
+   Three kinds, the same shape everywhere (0.95rem corners, 3.25rem tall, 500 weight; the header's a touch shorter):
+   the main action in gilt (Book your place in the header, the hero, the phone bar, the booking panel, and the form's
+   Next and Send); the second action as a stone outline (WhatsApp, with its green mark); anything lesser as a text link. */
+:root[data-skin="1448"] header .btn-ink, .skin-1448 [data-placement="phone bar"] .btn-ink, .skin-1448 #join .btn-ink, .skin-1448 #register-interest .btn-sand, .skin-1448 .btn-gilt {
+  position: relative; overflow: hidden; isolation: isolate;
+  border-radius: 0.95rem; font-weight: 600; letter-spacing: 0.01em; color: #2a2510;
+  /* Satin gold leaf (20 Nov 2026: "could it look better"): a warm light at the top, a deeper band low down, a fine
+     darker hairline at the edge and a soft warm glow under it, instead of a flat gradient. */
+  background:
+    radial-gradient(120% 140% at 50% -40%, rgb(255 250 228 / 0.85) 0%, rgb(255 250 228 / 0) 55%),
+    linear-gradient(180deg, #f0e0ad 0%, #dfc282 42%, #c9a65b 72%, #b8944c 100%);
+  box-shadow:
+    inset 0 0 0 1px rgb(138 104 42 / 0.45),
+    inset 0 1px 0 rgb(255 255 255 / 0.75),
+    inset 0 -6px 12px -6px rgb(122 90 32 / 0.35),
+    0 12px 26px -14px rgb(110 82 28 / 0.65);
+  transition: transform 0.25s var(--ease-out), box-shadow 0.25s var(--ease-out), filter 0.25s;
+}
+/* A slow light crosses it when you hover or press; still with reduced motion. */
+:root[data-skin="1448"] header .btn-ink::after, .skin-1448 [data-placement="phone bar"] .btn-ink::after, .skin-1448 #join .btn-ink::after, .skin-1448 #register-interest .btn-sand::after, .skin-1448 .btn-gilt::after {
+  content: ""; position: absolute; z-index: -1; top: 0; bottom: 0; left: -60%; width: 45%; pointer-events: none;
+  background: linear-gradient(100deg, transparent 0%, rgb(255 252 236 / 0.55) 50%, transparent 100%); transform: skewX(-18deg); opacity: 0;
+}
+html.motion[data-skin="1448"] header .btn-ink:hover::after, html.motion .skin-1448 [data-placement="phone bar"] .btn-ink:hover::after, html.motion .skin-1448 #join .btn-ink:hover::after, html.motion .skin-1448 #register-interest .btn-sand:hover::after, html.motion .skin-1448 .btn-gilt:hover::after { opacity: 1; animation: gilt-sheen 0.9s var(--ease-out) both; }
+@keyframes gilt-sheen { from { left: -60%; } to { left: 120%; } }
+:root[data-skin="1448"] header .btn-ink:hover, .skin-1448 [data-placement="phone bar"] .btn-ink:hover, .skin-1448 #join .btn-ink:hover, .skin-1448 #register-interest .btn-sand:hover, .skin-1448 .btn-gilt:hover { filter: none; transform: translateY(-1px); box-shadow: inset 0 0 0 1px rgb(138 104 42 / 0.5), inset 0 1px 0 rgb(255 255 255 / 0.8), inset 0 -6px 12px -6px rgb(122 90 32 / 0.35), 0 16px 30px -14px rgb(110 82 28 / 0.75); }
+:root[data-skin="1448"] header .btn-ink:active, .skin-1448 [data-placement="phone bar"] .btn-ink:active, .skin-1448 #join .btn-ink:active, .skin-1448 #register-interest .btn-sand:active, .skin-1448 .btn-gilt:active { transform: translateY(1px); }
+.skin-1448 .wa-btn { color: var(--color-ink); background: rgb(255 255 255 / 0.5); border: 1px solid rgb(84 82 52 / 0.22); box-shadow: none; }
+.skin-1448 .wa-btn:hover { border-color: rgb(84 82 52 / 0.45); }
+.skin-1448 .wa-btn svg { color: var(--color-wa); }
+.skin-1448 .rl-book { min-height: 3.25rem; border-radius: 0.95rem; }
+.hdr-wa { color: var(--color-ink); border: 1px solid rgb(from var(--color-ink) r g b / 0.28); transition: border-color 0.2s; }
+.hdr-wa:hover { border-color: rgb(from var(--color-ink) r g b / 0.6); }
+
+/* Sheikh Yahya's link: words, not another button. */
+.gc-link { display: inline-flex; align-items: center; gap: 0.45rem; margin-top: 1.4rem; font-size: 1rem; font-weight: 500; color: #ebe4cc; text-decoration: underline; text-decoration-color: rgb(235 228 204 / 0.4); text-underline-offset: 0.3em; }
+.gc-link:hover { text-decoration-color: currentColor; }
+/* Hosts side by side, at their own shapes, on every screen. */
+.skin-1448 .hosts { grid-template-columns: 1fr 1fr; gap: 1rem; }
+.skin-1448 .host-text { padding-top: 0.9rem; }
+.skin-1448 .host-name { font-size: clamp(1.25rem, 4.6vw, 2.1rem); }
+@media (max-width: 39.99rem) { .skin-1448 .host-text .mt-3 { font-size: 0.86rem; } }
+
+/* --- Rawdah's mark, faint in the background (20 Nov 2026: "the Rawdah logo faintly in the background") ---------------
+   Large and barely there: a deep gilt on stone, a light one in the night. Behind the hero's words, the package, the
+   hotels and the booking. */
+.skin-1448 { --watermark: rgb(125 97 41 / 0.06); }
+.skin-1448 .night { --watermark: rgb(216 187 114 / 0.05); }
+.rp-mark { z-index: 0; right: -14%; bottom: 4%; height: 48%; }
+.pkg { overflow: clip; }
+.pkg-mark { z-index: 0; right: -22%; top: 3rem; height: min(24rem, 80vw); }
+.pkg-in { position: relative; z-index: 1; }
+@media (min-width: 64rem) {
+  .rp-mark { right: -3%; top: 6%; bottom: auto; height: 92%; }
+  .pkg-mark { right: auto; left: -3%; top: auto; bottom: 1rem; height: 30rem; }
+}
+
+/* --- The flight, in the background of Getting there (20 Nov 2026) --------------------------------------------------
+   Only the arc and the plane, faint gilt, behind the words and the flight cards; drawn as you scroll through. */
+.night .flight-scene.flight-bg, .flight-scene.flight-bg { position: absolute; inset: 0; z-index: 0; height: auto; border-radius: 0; box-shadow: none; overflow: hidden; pointer-events: none; color: #ecd9a8; }
+.flight-bg .fs-route { color: rgb(216 187 114 / 0.3); }
+.flight-bg .fs-trail { color: rgb(236 217 168 / 0.55); }
+.flight-bg .fs-plane { width: 1.9rem; color: #ecd9a8; opacity: 0.85; filter: drop-shadow(0 0 12px rgb(236 217 168 / 0.45)); }
+.has-flight-bg > :not(.flight-bg) { position: relative; z-index: 1; }
+/* The cards frost what passes behind them, so the arc reads soft through the glass and never crosses the words. */
+.has-flight-bg .glass { background: rgb(46 45 32 / 0.8); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); }
+
+/* --- The hero's words (no card: the package is the next section) ---------------------------------------------------
+   Phones: under the poster, only the price and the buttons (the poster says the rest; the line is for screen readers).
+   Desktop: beside it, the trip with a kicker, a headline with its gilt words, a line, the price and the buttons. */
+.rp-kicker { display: none; }
+.rp-line { display: none; }
+.rp-title { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.rp-buy { display: grid; justify-items: center; gap: 1.1rem; width: 100%; }
+@media (min-width: 64rem) {
+  .rp-kicker { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 1rem; font-family: "Montserrat", "DM Sans", system-ui, sans-serif; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: #7d6129; }
+  .rp-with { display: inline-flex; align-items: center; gap: 0.5rem; padding-left: 1rem; border-left: 1px solid rgb(125 97 41 / 0.3); letter-spacing: 0.06em; text-transform: none; font-weight: 500; color: rgb(from var(--color-ink) r g b / 0.7); }
+  .rp-with > span { color: var(--color-ink); }
+  .rp-title { position: static; width: auto; height: auto; overflow: visible; clip-path: none; white-space: normal; margin-top: 1.1rem; font-size: clamp(2.9rem, 4vw, 4.1rem); line-height: 1.02; text-wrap: balance; }
+  .rp-line { display: block; margin-top: 1.1rem; max-width: 26rem; font-size: 1.12rem; line-height: 1.6; color: rgb(from var(--color-ink) r g b / 0.72); }
+  .rp-buy { justify-items: start; gap: 1.25rem; margin-top: 2rem; padding-top: 1.75rem; border-top: 1px solid rgb(125 97 41 / 0.22); }
+  .rp-buy .rh-price { justify-items: start; }
+  .rp-buy .rh-actions { grid-template-columns: auto auto; justify-content: start; max-width: none; }
+  .rp-buy .rh-book { padding-inline: 1.75rem; }
+}
+
+/* --- The package (PackageSection) -----------------------------------------------------------------------------------
+   Its own full-width section, never a card. The headline with its gilt words, the main points as a list with gilt
+   ringed icons and fine rules (two columns on desktop), then the price and the buttons. "day": a lighter ivory than the
+   hero, fading back to stone at its foot so the nightfall's veil carries on from it. "night": the same, in the night. */
+.pkg { position: relative; padding-block: clamp(3.5rem, 9vw, 6.5rem); }
+.pkg-day { background: linear-gradient(180deg, #f7f4ed 0%, #f5f1e8 72%, #ece8df 100%); }
+.pkg-night { padding-top: clamp(1.5rem, 5vw, 3rem); padding-bottom: clamp(1rem, 4vw, 2rem); }
+.pkg-in { box-sizing: border-box; display: grid; gap: 2rem; max-width: calc(72rem + 2 * var(--hero-pad-x)); margin-inline: auto; }
+.pkg-title { margin-top: 0.9rem; max-width: 34rem; font-size: clamp(2.4rem, 8vw, 3.5rem); line-height: 1.03; text-wrap: balance; }
+.pkg-note { margin-top: 1.1rem; font-family: "Montserrat", "DM Sans", system-ui, sans-serif; font-size: 0.74rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: #7d6129; }
+.pkg-facts { display: grid; border-top: 1px solid rgb(125 97 41 / 0.28); }
+.pkg-facts li { display: grid; grid-template-columns: 2.9rem 1fr; gap: 1rem; align-items: center; padding-block: 1.05rem; border-bottom: 1px solid rgb(125 97 41 / 0.16); }
+.pkg-icon { display: grid; place-items: center; width: 2.9rem; height: 2.9rem; border-radius: 999px; border: 1px solid rgb(168 134 63 / 0.5); color: #87692c; background: radial-gradient(circle at 50% 28%, rgb(255 251 240 / 0.95) 0%, rgb(238 228 204 / 0.6) 100%); box-shadow: 0 8px 18px -12px rgb(125 97 41 / 0.6); }
+.pkg-facts b { display: block; font-family: var(--font-editorial, "Cormorant Garamond", Georgia, serif); font-size: 1.32rem; font-weight: 560; line-height: 1.2; color: var(--color-ink); }
+.pkg-facts small { display: block; margin-top: 0.15rem; font-size: 0.88rem; line-height: 1.45; color: rgb(from var(--color-ink) r g b / 0.62); }
+.pkg-buy { display: grid; justify-items: start; gap: 1.2rem; }
+.pkg .rh-price { justify-items: start; }
+.pkg .rh-actions { max-width: 28rem; }
+.pkg-night .pkg-note { color: #dcbf76; }
+.pkg-night .pkg-facts { border-top-color: rgb(216 187 114 / 0.3); }
+.pkg-night .pkg-facts li { border-bottom-color: rgb(216 187 114 / 0.16); }
+.pkg-night .pkg-icon { border-color: rgb(216 187 114 / 0.5); color: #e2c98f; background: radial-gradient(circle at 50% 28%, rgb(255 240 200 / 0.12) 0%, rgb(255 240 200 / 0.03) 100%); box-shadow: 0 0 24px -8px rgb(216 187 114 / 0.35); }
+@media (min-width: 64rem) {
+  .pkg-in { grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr); grid-template-areas: "head facts" "buy facts"; column-gap: clamp(3rem, 6vw, 6rem); row-gap: 2.5rem; align-items: start; }
+  .pkg-head { grid-area: head; }
+  .pkg-facts { grid-area: facts; grid-template-columns: 1fr 1fr; column-gap: 2.75rem; border-top: 0; }
+  .pkg-facts li { padding-block: 1.3rem; border-top: 1px solid rgb(125 97 41 / 0.16); border-bottom: 0; }
+  .pkg-night .pkg-facts li { border-top-color: rgb(216 187 114 / 0.18); }
+  .pkg-facts li:nth-child(-n + 2) { border-top-color: rgb(125 97 41 / 0.32); }
+  .pkg-night .pkg-facts li:nth-child(-n + 2) { border-top-color: rgb(216 187 114 / 0.34); }
+  .pkg-buy { grid-area: buy; align-self: end; }
+  .pkg .rh-actions { grid-template-columns: auto auto; justify-content: start; max-width: none; }
+  .pkg .rh-book { padding-inline: 1.75rem; }
+}
+/* Narrow phones: the two buttons one above the other, so neither label wraps. */
+@media (max-width: 29.99rem) {
+  .pkg .rh-actions, .rp-buy .rh-actions { grid-template-columns: 1fr; }
+}
+
+/* --- Where you'll stay (StayShowcase) -------------------------------------------------------------------------------
+   Each hotel as a spread: its first photo tall in an arch with a fine gilt line inside (HotelPlates), every photo a
+   plate that brings itself into the arch, the name big, its nights in the gilt eight-pointed star, the walk and the
+   meals with gilt icons, then the detail. Phones: arch, plates, words. Desktop: the arch beside the words, the plates
+   under the words; Madinah mirrored. */
+.stay { position: relative; overflow: clip; padding-top: clamp(4.5rem, 10vw, 7.5rem); padding-bottom: clamp(3.5rem, 8vw, 6rem); }
+.stay-mark { z-index: 0; right: -16%; top: 2.5rem; height: min(34rem, 60vw); }
+.stay > :not(.stay-mark) { position: relative; z-index: 1; }
+@media (min-width: 64rem) { .stay-mark { right: 2%; top: 3rem; height: 30rem; } }
+.stay-hotel { display: grid; grid-template-areas: "photo" "plates" "text"; margin-top: clamp(3rem, 7vw, 5.5rem); }
+.stay-photo { grid-area: photo; position: relative; margin: 0; overflow: hidden; border-radius: 1.4rem; background: #3c3b2a; box-shadow: 0 0 0 1px rgb(216 187 114 / 0.35), 0 40px 80px -40px rgb(0 0 0 / 0.7), 0 0 70px -30px rgb(216 187 114 / 0.3); }
+.stay-photo::after { content: ""; position: absolute; inset: 0.55rem; border: 1px solid rgb(236 219 166 / 0.55); border-radius: 0.95rem; pointer-events: none; }
+.stay-photo-img { display: block; width: 100%; height: auto; }
+@keyframes stay-in { from { opacity: 0.15; } to { opacity: 1; } }
+html.motion .stay-photo-img { animation: stay-in 0.7s var(--ease-out); }
+.stay-plates { grid-area: plates; display: flex; gap: 0.55rem; margin-top: 0.75rem; overflow-x: auto; scrollbar-width: none; }
+.stay-plates::-webkit-scrollbar { display: none; }
+.stay-plate { position: relative; flex: none; height: 4.4rem; overflow: hidden; border-radius: 0.6rem; background: #2a291d; opacity: 0.55; box-shadow: 0 0 0 1px rgb(216 187 114 / 0.2); transition: opacity 0.3s, box-shadow 0.3s; }
+.stay-plate:hover { opacity: 0.85; }
+.stay-plate[aria-pressed="true"] { opacity: 1; box-shadow: 0 0 0 2px #d8bb72; }
+.stay-text { grid-area: text; padding-top: 1.75rem; }
+.stay-city { display: flex; align-items: center; gap: 0.7rem; font-family: var(--font-editorial, "Cormorant Garamond", Georgia, serif); font-size: 1.2rem; font-style: italic; color: var(--color-gold); }
+.stay-city-icon { display: grid; place-items: center; width: 2.4rem; height: 2.4rem; border-radius: 999px; border: 1px solid rgb(216 187 114 / 0.45); color: #e2c98f; }
+.stay-name { margin-top: 0.7rem; font-family: var(--font-editorial, "Cormorant Garamond", Georgia, serif); font-size: clamp(2.4rem, 8vw, 3.6rem); line-height: 1.02; font-weight: 520; text-wrap: balance; }
+.stay-seal { display: flex; align-items: center; gap: 1rem; margin-top: 1.4rem; }
+.stay-seal-star { position: relative; display: grid; place-items: center; width: 4.4rem; height: 4.4rem; flex: none; color: #d8bb72; filter: drop-shadow(0 10px 18px rgb(0 0 0 / 0.35)); }
+.stay-seal-star svg { position: absolute; inset: 0; }
+.stay-seal-star svg * { fill: currentColor; stroke: none; }
+.stay-seal-star b { position: relative; font-family: "Montserrat", "DM Sans", system-ui, sans-serif; font-size: 1.45rem; font-weight: 700; line-height: 1; color: #2e2d20; }
+.stay-seal-words { display: grid; font-family: "Montserrat", "DM Sans", system-ui, sans-serif; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: #e2c98f; }
+.stay-seal-words small { margin-top: 0.3rem; font-family: "DM Sans", system-ui, sans-serif; font-size: 0.95rem; font-weight: 400; letter-spacing: 0; text-transform: none; color: rgb(from var(--color-ink) r g b / 0.78); }
+.stay-facts { display: grid; gap: 0.7rem; margin-top: 1.4rem; padding-block: 1.1rem; border-block: 1px solid rgb(216 187 114 / 0.2); }
+.stay-facts li { display: grid; grid-template-columns: 1.6rem 1fr; gap: 0.8rem; align-items: center; font-size: 1rem; color: rgb(from var(--color-ink) r g b / 0.86); }
+.stay-facts svg { color: #e2c98f; }
+.stay-about { margin-top: 1.2rem; font-size: 1rem; line-height: 1.7; color: rgb(from var(--color-ink) r g b / 0.74); }
+.stay-features { display: flex; flex-wrap: wrap; gap: 0.5rem 1.3rem; margin-top: 1rem; }
+.stay-features li { display: inline-flex; align-items: center; gap: 0.55rem; font-size: 0.94rem; color: rgb(from var(--color-ink) r g b / 0.86); }
+.stay-features li::before { content: ""; width: 0.42rem; height: 0.42rem; flex: none; transform: rotate(45deg); background: linear-gradient(135deg, #efdfaa, #b99749); }
+@media (min-width: 40rem) and (max-width: 63.99rem) {
+  .stay-photo, .stay-plates { max-width: 40rem; }
+}
+@media (min-width: 64rem) {
+  .stay-hotel { grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr); grid-template-areas: "photo text" "plates text"; grid-template-rows: auto 1fr; column-gap: clamp(2.5rem, 5vw, 5rem); align-items: start; }
+  .stay-flip { grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr); grid-template-areas: "text photo" "text plates"; }
+  .stay-text { padding-top: 0.5rem; }
+  .stay-plate { height: 4.8rem; }
 }

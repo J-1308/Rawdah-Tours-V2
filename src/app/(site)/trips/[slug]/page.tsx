@@ -13,14 +13,13 @@ import { Mark } from "@/app/_site/marks";
 import { ArrivalTrigger } from "@/app/_site/arrival-trigger";
 import { Arrival, Mist } from "@/app/_site/poster-parts";
 import { PosterLockup, PosterText } from "@/app/_site/poster-type";
-import { PosterHero } from "@/app/_site/poster-hero";
+import { FeatureBand, JourneySection, LockupHero } from "@/app/_site/poster-hero";
 import { Daybreak, FlightScene, Nightfall } from "@/app/_site/night-sky";
-import { GardenLeaves } from "@/app/_site/garden";
 import { GardenPath } from "@/app/_site/garden-path";
 import { StepForm } from "@/app/_site/step-form";
 import { ReservePanel } from "@/app/_site/reserve";
 import { Chapter, ConfirmedPending, gutter, Heading, Label, Logo, PageLead, PartnerLogo, WaTile } from "@/app/_site/shell";
-import { ForWho, GroupStrip, PosterPackages, HaramNights, WhyRawdah, HajjOnNusuk, OtherTripBand, PastTrips, leaderMember, MomentStrip, TeamLine, TripPeople, TeamList, tripTeacherMembers, teamMembers, TripIncludes, TrustBox, TripJourney, JourneyPart, EidSection, ClosingVerse, GuestIntimate, StayShowcase, MadinahMoments, TripLine, VerseLine, TripPackages, WhereYouStay, type Member } from "@/app/_site/trip-parts";
+import { ForWho, GroupStrip, PosterPackages, HaramNights, WhyRawdah, HajjOnNusuk, OtherTripBand, PastTrips, leaderMember, MomentStrip, TeamLine, TripPeople, TeamList, tripTeacherMembers, teamMembers, TripIncludes, TrustBox, TripJourney, JourneyPart, ClosingVerse, GuestIntimate, StayShowcase, MadinahMoments, VerseLine, TripPackages, WhereYouStay, type Member } from "@/app/_site/trip-parts";
 import { StateTag } from "@/app/_site/trip-row";
 import { Chevron } from "@/app/_site/whatsapp";
 import { getTrip, isBookable, isDemoBooking } from "@/lib/trips";
@@ -38,7 +37,8 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const title = price ? `${j.name}, from ${gbp(price)} per person` : j.name;
   // The trip's own share card: without these, a shared link shows the site-wide (Hajj) one (Opus review).
   const share = { title: j.partner ? `${j.name} with ${j.partner.replace(/ × Rawdah Tours$/, "")}, from ${price ? gbp(price) : ""}`.replace(/, from $/, "") : title, description: `${j.dates.value}. ${j.tagline}` };
-  const image = j.photo ? [{ url: j.photo.src, width: j.photo.width, height: j.photo.height, alt: j.photo.alt }] : undefined;
+  const pic = j.shareImage ?? j.photo;
+  const image = pic ? [{ url: pic.src, width: pic.width, height: pic.height, alt: pic.alt }] : undefined;
   return {
     title,
     description: j.tagline,
@@ -115,6 +115,8 @@ export function TripView({ j }: { j: Journey }) {
       : [leaderMember, { name: j.teacher.value, does: "Certified ustadhs", line: "Every trip is guided by certified ustadhs. They’ll be named here when the trip is announced.", status: j.teacher.status }];
   /** On a trip with its plan set out above, the general answers about last year's itinerary, inclusions and meals would contradict it. */
   const shownAbove = ["What is included in the trip cost?", "What is the trip itinerary like?", "What about meal arrangements?"];
+  // Poster trips: how to pay is on the page already (the instalment plan, the join panel, the booking steps).
+  if (j.posterType) shownAbove.push("How do I pay for the trip?");
   const ownQs = new Set((j.faqs ?? []).map((f) => f.q));
   const qs = [
     // This trip's own questions first (Ramadan: meals, ihram, Eid, ground only, places).
@@ -146,6 +148,18 @@ export function TripView({ j }: { j: Journey }) {
     { k: price ? "From" : "Prices", v: price ? `${gbp(price)} per person` : "Published on Nusuk", s: j.rooms?.status ?? j.priceNote?.status },
   ];
 
+  /** The price and the buttons, as the hero and the package section show them (poster trips). */
+  const buy = {
+    j,
+    guest,
+    price: price ? gbp(price) : undefined,
+    ended: j.endedOffer ? `${j.endedOffer.label} ${gbp(j.endedOffer.price)}` : undefined,
+    ground: Number.isFinite(ground) ? gbp(ground) : undefined,
+    deposit: trip?.pricing ? gbp(trip.pricing.depositPence / 100) : undefined,
+    payments,
+    joinLabel,
+  };
+
   return (
     // The poster skin (Ramadan Umrah 2027): the page below the header takes the poster's stone and olive; the header
     // and footer stay Rawdah's (globals.css, "The poster skin").
@@ -159,16 +173,7 @@ export function TripView({ j }: { j: Journey }) {
       <TripPhoneBar j={j} price={price} deposit={trip?.pricing ? trip.pricing.depositPence / 100 : null} bookable={bookable} />
       {j.posterType ? (
         <Chapter tone="day">
-          <PosterHero
-            j={j}
-            guest={guest}
-            price={price ? gbp(price) : undefined}
-            ended={j.endedOffer ? `${j.endedOffer.label} ${gbp(j.endedOffer.price)}` : undefined}
-            ground={Number.isFinite(ground) ? gbp(ground) : undefined}
-            deposit={trip?.pricing ? gbp(trip.pricing.depositPence / 100) : undefined}
-            payments={payments}
-            joinLabel={joinLabel}
-          />
+          <LockupHero {...buy} />
         </Chapter>
       ) : (
       <Chapter tone="top">
@@ -223,15 +228,17 @@ export function TripView({ j }: { j: Journey }) {
       </Chapter>
       )}
 
+      {/* Poster trips: the feature band, the poster's icon row of what's included, closing the hero off. */}
+      {j.posterType && j.plan?.perks?.length ? <FeatureBand perks={j.plan.perks} /> : null}
+
       {/* Poster trips: the garden path, the page's guide and navigation, stuck under the header (garden-path.tsx). */}
       {j.posterType ? (
         <GardenPath
           stops={[
-            ...(j.guestFeature ? [{ id: "sheikh", label: "Sheikh Yahya", stage: "quran" as const }] : []),
             { id: "journey", label: "The journey", stage: "kaaba" as const },
+            ...(j.guestFeature ? [{ id: "sheikh", label: "Guest Sheikh", stage: "quran" as const }] : []),
+            ...(j.gettingThere ? [{ id: "flights", label: "Getting there", stage: "plane" as const }] : []),
             ...(j.stay ? [{ id: "stay", label: "Where you’ll stay", stage: "minaret" as const }] : []),
-            ...(j.nights ? [{ id: "nights", label: "The nights", stage: "lantern" as const }] : []),
-            ...(j.eid ? [{ id: "eid", label: "Eid", stage: "crescent" as const }] : []),
             ...(j.madinah ? [{ id: "madinah", label: "Madinah", stage: "dome" as const }] : []),
             { id: "prices", label: "Prices", stage: "star" as const },
             { id: anchors.form, label: "Book", stage: "mihrab" as const },
@@ -239,58 +246,14 @@ export function TripView({ j }: { j: Journey }) {
         />
       ) : null}
 
-      {/* Poster trips (Jibril, 20 Nov 2026): Sheikh Yahya first and close; then the journey as you'd live it: the trip at a
-          glance, the overnight flight as a scene, getting there, and where you'll stay, high and large. The join panel
-          comes after the prices on every screen. */}
-      {j.posterType ? (
-        <Chapter tone="day">
-          <GardenLeaves count={9} seed={11} />
-          {j.verses?.open ? (
-            <div className={gutter}>
-              <VerseLine v={j.verses.open} className="verse-open" />
-            </div>
-          ) : null}
-          <GuestIntimate j={j} members={members} />
-          <div className={`pt-[clamp(3.5rem,8vw,6.5rem)] ${gutter}`}>
-            <section id="journey" className="trip-anchor max-w-[60rem]">
-              <Label>Our journey</Label>
-              {j.about ? (
-                <>
-                  <Heading className="mt-4 max-w-[48rem] text-[clamp(2.3rem,4.2vw,4rem)]">{j.about.title}</Heading>
-                  <p className="mt-4 max-w-[38rem] text-[1.05rem] leading-relaxed text-ink/75">{j.about.text}</p>
-                </>
-              ) : null}
-              {j.plan ? (
-                <div className="mt-8 sm:mt-10">
-                  <TripLine plan={j.plan} draw />
-                </div>
-              ) : null}
-              {j.forWho ? <ForWho items={j.forWho} /> : null}
-            </section>
-          </div>
-          {j.flightScene ? (
-            <div className={`mt-12 sm:mt-16 ${gutter}`}>
-              <FlightScene f={j.flightScene} />
-            </div>
-          ) : null}
-          {j.gettingThere && j.plan ? (
-            <div className={gutter}>
-              <JourneyPart
-                j={j}
-                id="flights"
-                label={j.gettingThere.label}
-                title={j.gettingThere.title}
-                intro={j.gettingThere.intro}
-                cards={[{ flight: 0 }, { flight: 1 }]}
-                className="mt-12 max-w-[60rem] sm:mt-16"
-              />
-            </div>
-          ) : null}
-          {j.stay && j.plan ? <StayShowcase j={j} s={j.stay} /> : null}
-        </Chapter>
-      ) : (
+      {/* The package as its own section (Jibril, 20 Nov 2026): here, a lighter section before the night ("day"), or the
+          first thing in the night ("night", below). */}
+      {/* Not a chapter of its own: the night after it keeps its square top, so the nightfall's veil has no corners. */}
+      {j.posterType && j.pack?.at === "day" ? <JourneySection j={j} /> : null}
+
+      {/* Poster trips go straight from the hero into the night (Jibril, 20 Nov 2026): see the night chapter below. */}
+      {j.posterType ? null : (
       <Chapter tone="day">
-        {j.posterType ? <GardenLeaves count={9} seed={11} /> : null}
       <div className={`grid grid-cols-1 gap-x-14 gap-y-12 py-[clamp(2.5rem,5vw,4.5rem)] lg:grid-cols-12 ${gutter}`}>
         {/* The join panel: beside the story on desktop, straight after the header on phones. Poster trips: desktop
             only here; on phones it comes after the prices instead (below), so the story comes first (Jibril, 19 Nov 2026). */}
@@ -348,18 +311,7 @@ export function TripView({ j }: { j: Journey }) {
 
           {/* Poster trips: the people straight after the trip, as the best trip pages do (Sheikh Yahya is the draw),
               then Rawdah's own groups from earlier trips. */}
-          {j.posterType && j.gettingThere && j.plan ? (
-            <JourneyPart
-              j={j}
-              id="journey"
-              label={j.gettingThere.label}
-              title={j.gettingThere.title}
-              intro={j.gettingThere.intro}
-              cards={[{ flight: 0 }, { hotel: 0 }]}
-              line
-              className="mt-14 sm:mt-20"
-            />
-          ) : j.posterTeam ? (
+          {j.posterTeam ? (
             <section id="people" aria-label="The people on this trip" className="trip-anchor mt-12 sm:mt-16">
               <TripPeople j={j} members={members} />
             </section>
@@ -402,7 +354,34 @@ export function TripView({ j }: { j: Journey }) {
           j.plan ? (
             <>
               {j.posterType ? <Nightfall>{j.verses?.nights ? <VerseLine v={j.verses.nights} className="verse-night" /> : null}</Nightfall> : null}
-              {j.nights ? <HaramNights n={j.nights} /> : null}
+              {j.posterType && j.pack?.at === "night" ? <JourneySection j={j} /> : null}
+              {/* Poster trips: the nights are in the journey's highlights now (20 Nov 2026). */}
+              {j.nights && !j.storyPoints ? <HaramNights n={j.nights} /> : null}
+              {/* Poster trips, in the night (Jibril, 20 Nov 2026: "the journey… then Guest Sheikh, then where you will stay,
+                  and the rest kinda the same"): Sheikh Yahya, getting there, where you'll stay; then daybreak into the
+                  garden. */}
+              {j.posterType ? (
+                <>
+                  <GuestIntimate j={j} members={members} />
+                  {/* The overnight flight in the background of Getting there, not a section of its own (Jibril, 20 Nov
+                      2026): its arc drawn behind the flight cards as you scroll, the plane along it. */}
+                  {j.gettingThere && j.plan ? (
+                    <div className={`has-flight-bg relative ${gutter}`}>
+                      {j.flightScene ? <FlightScene f={j.flightScene} bg /> : null}
+                      <JourneyPart
+                        j={j}
+                        id="flights"
+                        label={j.gettingThere.label}
+                        title={j.gettingThere.title}
+                        intro={j.gettingThere.intro}
+                        cards={[{ flight: 0 }, { flight: 1 }]}
+                        className="pw mt-12 sm:mt-16"
+                      />
+                    </div>
+                  ) : null}
+                  {j.stay && j.plan ? <StayShowcase j={j} s={j.stay} /> : null}
+                </>
+              ) : null}
               {j.posterType ? (
                 <Daybreak>{j.verses?.eid ? <VerseLine v={j.verses.eid} className="verse-dawn" /> : null}</Daybreak>
               ) : (
@@ -417,7 +396,7 @@ export function TripView({ j }: { j: Journey }) {
         ) : (
           <section className={`py-[clamp(3.75rem,9vw,8rem)] ${gutter}`}>
             <Label>Hajj 2027</Label>
-            <Heading className="mt-4 max-w-[44rem] text-[clamp(2.3rem,4.2vw,4rem)]">Guidance that walks with you</Heading>
+            <Heading className="mt-4 max-w-[44rem] section-title text-[clamp(2.3rem,4.2vw,4rem)]">Guidance that walks with you</Heading>
             <p className="mt-4 max-w-[36rem] text-[1rem] leading-[1.65] text-ink/72">From your first question in the UK to the last tawaf, the same people with you the whole way.</p>
             <TeamList members={members} cols="lg:grid-cols-3" className="mt-10" />
             {j.itinerary ? (
@@ -440,25 +419,23 @@ export function TripView({ j }: { j: Journey }) {
       {/* The garden (poster trips): Eid at daybreak, then Madinah in the Rawdah's green, and why Rawdah is Rawdah. */}
       {j.posterType && j.plan && (j.eid || j.madinah) ? (
         <Chapter tone="garden">
-          <GardenLeaves count={22} seed={47} edges={false} className="gl-lush" />
           <div className={`py-[clamp(3.5rem,8vw,7rem)] ${gutter}`}>
-            <div className="max-w-[60rem]">
-              {j.eid ? <EidSection e={j.eid} /> : null}
+            <div className="pw">
+              {/* Eid is in the journey's highlights and the takbir at daybreak; its own section and "Rawdah means garden"
+                  came out as repeats (Jibril, 20 Nov 2026: "not repeat ourselves"). */}
               {j.madinah ? (
-                <JourneyPart j={j} id="madinah" label={j.madinah.label} title={j.madinah.title} intro={j.madinah.intro} cards={[]} className="mt-16 sm:mt-24">
+                <JourneyPart j={j} id="madinah" label={j.madinah.label} title={j.madinah.title} intro={j.madinah.intro} cards={[]}>
                   {j.madinah.moments ? <MadinahMoments items={j.madinah.moments} /> : null}
                 </JourneyPart>
               ) : null}
-              {j.why ? <WhyRawdah w={j.why} /> : null}
             </div>
           </div>
         </Chapter>
       ) : null}
 
       <Chapter tone="day">
-        {j.posterType ? <GardenLeaves count={7} seed={83} /> : null}
         <div className={`py-[clamp(3.75rem,9vw,8rem)] ${gutter}`}>
-          <div className="max-w-[60rem]">
+          <div className={j.posterType ? "pw" : "max-w-[60rem]"}>
             {/* Poster trips: who walks with you, after the journey (trust after desire), then our last trip. */}
             {j.posterType && j.posterTeam ? (
               <section id="people" aria-label="The people on this trip" className="trip-anchor">
@@ -470,7 +447,7 @@ export function TripView({ j }: { j: Journey }) {
               <>
                 <section id="included" className={`trip-anchor ${j.posterType ? "mt-12 sm:mt-16" : ""}`}>
                   <Heading className={h2}>What’s included</Heading>
-                  <TripIncludes plan={j.plan} />
+                  <TripIncludes plan={j.plan} checklist={j.posterType} />
                 </section>
                 <section id="prices" className="trip-anchor mt-12 sm:mt-16">
                   <Heading className={h2}>Packages and payments</Heading>

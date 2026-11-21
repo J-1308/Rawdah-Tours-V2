@@ -166,7 +166,26 @@ script in `app/layout.tsx` sets before first paint unless the visitor prefers re
   flight as you scroll; `StayShowcase` (`.stay-*`) shows both hotels high in the page; the join panel follows the prices
   on every screen. Closer to the deen: deen icons in `GardenGlyph` (kaaba, lantern, dome, minaret, quran, star, mihrab),
   `VerseLine` (`.verse`) for Qur'an and hadith in Arabic with meaning and source, Arabic numerals in eight-pointed stars
-  for the nights, a star lattice behind the night chapter. In one-page
+  for the nights, a star lattice behind the night chapter. Night first (same day): the night chapter opens right under
+  the hero and holds the nights, Sheikh Yahya (with `guestFeature.ways`), the journey and the hotels; desktop sections
+  share one centred column (`.pw`, 72rem). The one-page header on desktop: the logo on the left, the trip line in the
+  middle, WhatsApp and Book on the right (phones keep call, logo, WhatsApp). Rawdah's gold (ADR 0006, fifth pass):
+  `--gilt`, `--gilt-light`, `--gilt-deep` on the poster skin, `.btn-gilt` for the main "Book your place", gold labels
+  and gold-edged night cards, headings at weight 520. Gold on olive and green, never on black (The Umrah Company is gold on black).
+  Sixth pass (ADR 0006): the package is its own section (`PackageSection`, `.pkg-*`, `j.pack.at` "day" or "night"),
+  never a card on the hero; gilt words in titles (`*asterisks*`, `gild` in `shell.tsx`, `.gild`); the garden path is a
+  light frosted row with a gilt rule; hotels stand in gilt-lined arches with photo plates and the nights in a gilt
+  star (`HotelPlates`, `.stay-*`). Seventh pass: `FeatureBand` (`.feature-band`) under the hero is the dark contrast
+  (the poster's icon row, still, never a ticker); Rawdah's mark faint behind the hero, package and hotels (`.watermark`);
+  the overnight flight is a background to Getting there (`FlightScene bg`, `.flight-bg`), not a section.
+  Type on the poster skin: `.section-title` (Cormorant 600, clamp(2.65rem, 5.4vw, 4.9rem), #1f1e13 on stone),
+  `.label` as gilt Montserrat capitals, body text stronger; the garden path's `.gp-progress` gilt line fills with scroll.
+  Eighth pass: `JourneySection` merges the package, the nights and our journey; `Highlights` (`.highlights`) is the
+  page's one numbered list; photos show uncropped (`HotelPlates`, `.host-frame`, `.past-strip`); the feature band's
+  icons draw in and a light crosses it.
+  Tenth pass: the hero is `LockupHero` (`.rl-*`: lettering, artwork, two gold price tiles, one gilt button); gold
+  only at key points (buttons, prices, current chapter, the band, night stars), headline accents in olive italic; one
+  button identity (gilt main, stone outline with WhatsApp's mark, text links); repeats cut (ADR 0006). In one-page
   mode the whole site wears the poster: `<html data-skin="1448">` turns the top strip, header and footer from cocoa
   to the poster's olive and stone, the logo stone, and the browser bar olive (`layout.tsx`, `globals.css`). One-page header: call, logo, WhatsApp on
   phones; the trip, logo, WhatsApp and "Book your place" on desktop (`src/lib/site-mode.ts`); what's included as photo cards (`IncludedCards`, `plan.cards`; the hotels card says room only and breakfast, so no tick list repeats it under the cards, `perksAlso: []`; "Photo to come" frames until Jibril
