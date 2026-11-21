@@ -12,12 +12,13 @@ export const metadata: Metadata = {
 
 // Rawdah's own Cancellation Policy and Terms and Conditions (October 2026), word for word, sent by Jibril on
 // 31 Oct 2026. Their privacy section lives on /privacy. "About us", ATOL and Hajj are ours, added after.
+// 4.5 (visa prices based on the Saudi ETA for UK citizens) added at Jibril's request, 21 Nov 2026.
 
 export default function TermsPage() {
   return (
     <LegalPage
       title="Terms and conditions"
-      updated="October 2026"
+      updated="November 2026"
       intro={
         <p>
           These Terms and Conditions apply to all trips, packages and travel services organised and provided by Rawdah Tours. By making a booking and
@@ -64,6 +65,7 @@ export default function TermsPage() {
         <p>4.2 Participants must comply with all relevant visa and entry requirements and provide accurate personal information and documentation for visa processing.</p>
         <p>4.3 Any additional costs, delays or consequences resulting from incorrect, incomplete or late information provided by a participant will be the participant’s responsibility.</p>
         <p>4.4 If Rawdah Tours is unable to obtain a visa for a participant, Rawdah Tours cannot guarantee entry into the destination country. Any applicable refund or alternative arrangements will be assessed in accordance with the agreed booking terms and applicable law.</p>
+        <p>4.5 Our visa prices are based on the Saudi Electronic Travel Authorisation (ETA) for UK citizens. Any extra fees for a visa other than the ETA will be covered by the participant.</p>
       </LegalSection>
       <LegalSection title="5. Travel Insurance">
         <p>5.1 Participants are strongly advised to obtain adequate travel insurance before departure.</p>
