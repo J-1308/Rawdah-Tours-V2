@@ -283,3 +283,6 @@ our writing in gold look like The Umrah Company"), agreed to the cuts, and asked
 - **Icons redrawn** (`GardenGlyph`): the Green Dome (crescent finial, pointed dome, a drum with three arched windows,
   two steps) for Madinah; the mus'haf as two full pages on its rehal for the Guest Sheikh; an arched door with a tick
   for Book.
+- **Sheikh Yahya on desktop as on phones** (20 Nov 2026, from Jibril's phone screenshot): the photo runs from the
+  screen's left edge to the middle, full height of the section, square-cornered, his name large over its foot; the
+  words beside it. Not the rounded card. Phones unchanged.
