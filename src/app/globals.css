@@ -1746,18 +1746,17 @@ html.motion .fb-item.rv.in .fb-text { opacity: 1; transform: none; }
   .rl-figure.ph-guest { right: -6%; width: 40%; }
 }
 
-/* --- Sheikh Yahya on desktop as on phones (20 Nov 2026: Jibril prefers the phone's photo to the desktop card) ----------
-   The photo runs from the screen's left edge to the middle, full height of the section, square-cornered, with his name
-   large over its foot as on phones; the words sit beside it. Phones are unchanged. */
-@media (min-width: 64rem) {
-  .skin-1448 .guest-close { max-width: none; margin-inline: 0; padding: 0; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: stretch; gap: 0; }
-  .skin-1448 .guest-close .gc-photo { position: relative; top: auto; max-width: none; aspect-ratio: auto; min-height: min(58rem, calc(100svh - 9.5rem)); border-radius: 0; box-shadow: none; }
-  .skin-1448 .guest-close .gc-photo img { object-position: 50% 6%; }
-  .skin-1448 .gc-name { left: clamp(2.5rem, 5vw, 5rem); right: clamp(2rem, 4vw, 4rem); bottom: clamp(2rem, 4vw, 3.5rem); }
-  .skin-1448 .gc-kicker { font-size: 0.86rem; }
-  .skin-1448 .gc-name h2 { font-size: clamp(3.6rem, 5.6vw, 5.8rem); }
-  .skin-1448 .guest-close .gc-text { align-self: center; box-sizing: border-box; max-width: 44rem; padding: clamp(3rem, 6vw, 5rem) var(--hero-pad-x) clamp(3rem, 6vw, 5rem) clamp(2.5rem, 5vw, 5rem); }
+/* --- Sheikh Yahya on phones as on desktop (21 Nov 2026: Jibril prefers the desktop card to the phone's full-width photo) ---
+   Phones and tablets: the photo as a card inside the page's margins, rounded, with a soft shadow and his name over its
+   foot at a card's size, then the words under it. Desktop is unchanged. */
+@media (max-width: 63.99rem) {
+  .skin-1448 .guest-close { padding-top: clamp(2.5rem, 8vw, 3.5rem); }
+  .skin-1448 .guest-close .gc-photo { margin-inline: var(--hero-pad-x); max-width: 30rem; border-radius: 1.5rem; box-shadow: 0 30px 60px -34px rgb(0 0 0 / 0.75); }
+  .skin-1448 .gc-name { left: 1.4rem; right: 1.4rem; bottom: 1.3rem; }
+  .skin-1448 .gc-kicker { font-size: 0.7rem; }
+  .skin-1448 .gc-name h2 { font-size: clamp(2.3rem, 10vw, 3.2rem); }
 }
+@media (min-width: 40rem) and (max-width: 63.99rem) { .skin-1448 .guest-close .gc-photo { margin-inline: auto; } }
 
 /* --- Gold at key points (20 Nov 2026: "throughout the whole site we should use gold in key points… careful not to make
    our writing in gold look like The Umrah Company") -------------------------------------------------------------------
