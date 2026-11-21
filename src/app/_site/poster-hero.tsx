@@ -108,15 +108,16 @@ export function FeatureBand({ perks }: { perks: Perk[] }) {
  * the price should be golden… ground package on the hero as well… gold in key points"). The poster's artwork on one
  * side, our words in its tablets (Eid in the blessed lands, 14 nights) and Sheikh Yahya standing in it; on the other the
  * lettering as the poster sets it, in olive (1448, RAMADAN, LAST 10 NIGHTS), the dates in the italic and "with GGC".
- * Then the two prices side by side, the same shape each, the figures in gold: with flights (with Saudia's mark) and
- * ground only (it opens the booking on ground only), and one gilt button. No line of copy: the poster says it.
+ * Then one line with the two prices in gold over their labels, each a link (ground only opens the booking on ground
+ * only), and the gilt button. Simpler since 21 Nov 2026 ("the hero should be one photo and no extra stuff", but
+ * "Yahya Raaby must be in the hero"): no price tiles, no Saudia mark, no early bird, no small print under the button.
  * Phones: the lettering, the artwork, then the prices and the button.
  */
-export function LockupHero({ j, guest, price, ended, ground, deposit, payments, joinLabel }: Buy & { guest?: Person }) {
+export function LockupHero({ j, guest, price, ground, joinLabel }: Buy & { guest?: Person }) {
   const withGuest = Boolean(j.heroGuest && guest);
   const dates = j.dates.value.replace(/\bFeb\b/, "February").replace(/\bMar\b/, "March");
   return (
-    <section className="rl wash-hero relative overflow-hidden">
+    <section className="rl rl-simple wash-hero relative overflow-hidden">
       <Emblem className="rl-mark watermark pointer-events-none absolute" />
       <div className="rl-grid">
         <div className={`rl-head ${gutter}`}>
@@ -161,40 +162,22 @@ export function LockupHero({ j, guest, price, ended, ground, deposit, payments, 
           {/* `.ph-buy`: the phone bar waits until this has scrolled away (page-watch.tsx). */}
           <div style={at(860)} className="ph-buy rl-buy follow">
             {price ? (
-              <div className="rl-offer">
-                <a href={`#${anchors.join}`} className="rl-tile rl-flights">
-                  <span className="rl-tile-words">
-                    {ended ? <s className="rl-ended">{ended}</s> : null}
-                    <span className="rl-k">With flights</span>
-                    <strong className="rl-price">{price}</strong>
-                    <span className="rl-sub">per person</span>
-                  </span>
-                  <Image src="/images/brand/partners/saudia.png" alt="Saudia" width={246} height={311} className="rl-saudia" />
+              <p className="rl-line">
+                <a href={`#${anchors.join}`} className="rl-line-item">
+                  <strong className="rl-line-price">{price}</strong>
+                  <span>with flights</span>
                 </a>
                 {ground ? (
-                  <a href={`#${anchors.join}`} data-pick="ground" className="rl-tile rl-ground">
-                    <span className="rl-tile-words">
-                      <span className="rl-k">Ground only</span>
-                      <strong className="rl-price">{ground}</strong>
-                      <span className="rl-sub">your own flights</span>
-                    </span>
+                  <a href={`#${anchors.join}`} data-pick="ground" className="rl-line-item">
+                    <strong className="rl-line-price">{ground}</strong>
+                    <span>ground only</span>
                   </a>
                 ) : null}
-              </div>
+              </p>
             ) : null}
             <a href={`#${anchors.join}`} className="btn-gilt rl-book">
               {joinLabel} <Chevron dir="down" className="size-3 opacity-70" />
             </a>
-            {deposit || j.heroNote ? (
-              <p className="rl-note">
-                                {[...(deposit ? [`${deposit} deposit${payments ? `, then ${payments} payments` : ""}`] : []), ...(j.heroNote ? j.heroNote.split(" · ") : [])].map((part, i, arr) => (
-                  <span key={part} className="whitespace-nowrap">
-                    {part}
-                    {i < arr.length - 1 ? <span aria-hidden>{"\u00a0·\u00a0"}</span> : null}
-                  </span>
-                ))}
-              </p>
-            ) : null}
           </div>
         </div>
       </div>

@@ -26,7 +26,7 @@ Replace everything visible with a language built from Rawdah's own material:
 |---|---|---|
 | Source motif | arches | the square-kufic grid of the cream logo |
 | Ground | near-black and ivory, alternating by chapter | date brown, ivory, sand and sand-gold (V1 and live site) |
-| Type | Instrument Serif + Outfit; second line italic | Cormorant Garamond semibold, upright, one colour + DM Sans |
+| Type | Instrument Serif + Outfit; second line italic | Cormorant Garamond semibold, upright, one colour + the device's own font (DM Sans until 21 Nov 2026) |
 | Labels | tracked capitals over every heading | sentence case, a small gold square, only where they inform |
 | Buttons | pills with a trailing arrow | squared "tile" buttons: label plus a square icon cell |
 | Photos | one full-bleed photo per chapter | mosaics of square tiles; single photos framed with an offset gold tile |

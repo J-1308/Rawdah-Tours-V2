@@ -30,7 +30,6 @@ export const viewport: Viewport = { themeColor: ONE_PAGE ? "#45442e" : "#1b1410"
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   preload("/fonts/cormorant-garamond-latin-wght-normal.woff2", { as: "font", type: "font/woff2", crossOrigin: "anonymous" });
-  preload("/fonts/dm-sans-latin-wght-normal.woff2", { as: "font", type: "font/woff2", crossOrigin: "anonymous" });
   return (
     <html lang="en-GB" data-top="night" data-skin={ONE_PAGE ? "1448" : undefined} className="h-full antialiased" suppressHydrationWarning /* the top is dark, beige-gold logo (Jibril, 31 Oct 2026; ADR 0004) */>
       <head>

@@ -1,5 +1,6 @@
 /* Self-hosted fonts (OFL), from @fontsource. Latin and latin-ext only.
-   Cormorant Garamond for headlines, DM Sans for everything else: Rawdah's own pairing (V1 and the live site). */
+   Cormorant Garamond for headlines. Body text is the device's own font now (21 Nov 2026, --font-display in globals.css);
+   DM Sans stays declared for any rule that still names it, and isn't downloaded unless one does. */
 
 @font-face {
   font-family: 'Cormorant Garamond';
