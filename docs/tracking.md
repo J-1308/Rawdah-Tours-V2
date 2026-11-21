@@ -11,8 +11,9 @@ Google Ads tags (those would need one).
    TEST sign-up. In Vercel → Analytics → **Events** you should see `whatsapp_click` and `interest_registered` within
    a few minutes.
 3. **Get an alert for every sign-up** (pick one, today):
-   - **Google Sheet (10 minutes, no domain setup):** follow `docs/signups-sheet.md`. Its script adds the row *and*
-     emails rawdahtours@gmail.com. Then add `SIGNUPS_SHEET_URL` and `SIGNUPS_SHEET_SECRET` in Vercel.
+   - **Google Sheet (10 minutes, no domain setup):** follow `docs/signups-sheet.md`. Its script adds bookings and
+     sign-ups to the "Rawdah Tours bookings" sheet (it sends no email; Resend does that). Then add
+     `SIGNUPS_SHEET_URL` and `SIGNUPS_SHEET_SECRET` in Vercel.
    - **Resend (15 minutes, branded emails):** add `RESEND_API_KEY` in Vercel after verifying rawdahtours.co.uk in
      Resend. Also sends the traveller a confirmation.
 4. **Use the tagged links below on Instagram** so every lead shows where it came from.

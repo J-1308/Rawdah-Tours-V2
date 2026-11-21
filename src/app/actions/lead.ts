@@ -1,6 +1,6 @@
 'use server'
 
-import { bookingRef, sendBookingConfirmation, sendBookingToTeam } from '@/lib/server/booking-request'
+import { bookingRef, bookingSheetRow, sendBookingConfirmation, sendBookingToTeam } from '@/lib/server/booking-request'
 import { sendLeadAcknowledgement, sendLeadToOwner } from '@/lib/server/email'
 import { keepLead } from '@/lib/server/leads'
 import { addToSheet } from '@/lib/server/sheet'
@@ -108,7 +108,8 @@ export async function saveLead(raw: LeadInput): Promise<LeadResult> {
     if (form === 'group' && answers['Package'] && !/not sure/i.test(answers['Package'])) {
       const request = { id, trip, name, whatsapp, email, answers, came }
       const b = await Promise.allSettled([
-        addToSheet({ ...sheetRow, journey: `Booking request ${bookingRef(id)}: ${trip}` }),
+        // Its own row on the sheet's Bookings tab, with the package, the money and the payment plan in columns.
+        addToSheet({ receivedAt: lead.updatedAt, ...bookingSheetRow(request) }),
         sendBookingToTeam(request),
         email ? sendBookingConfirmation(request) : Promise.resolve(),
       ])
