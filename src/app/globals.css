@@ -1746,6 +1746,18 @@ html.motion .fb-item.rv.in .fb-text { opacity: 1; transform: none; }
   .rl-figure.ph-guest { right: -6%; width: 40%; }
 }
 
+/* --- Sheikh Yahya on phones as on desktop (21 Nov 2026: Jibril prefers the desktop card to the phone's full-width photo) ---
+   Phones and tablets: the photo as a card inside the page's margins, rounded, with a soft shadow and his name over its
+   foot at a card's size, then the words under it. Desktop is unchanged. */
+@media (max-width: 63.99rem) {
+  .skin-1448 .guest-close { padding-top: clamp(2.5rem, 8vw, 3.5rem); }
+  .skin-1448 .guest-close .gc-photo { margin-inline: var(--hero-pad-x); max-width: 30rem; border-radius: 1.5rem; box-shadow: 0 30px 60px -34px rgb(0 0 0 / 0.75); }
+  .skin-1448 .gc-name { left: 1.4rem; right: 1.4rem; bottom: 1.3rem; }
+  .skin-1448 .gc-kicker { font-size: 0.7rem; }
+  .skin-1448 .gc-name h2 { font-size: clamp(2.3rem, 10vw, 3.2rem); }
+}
+@media (min-width: 40rem) and (max-width: 63.99rem) { .skin-1448 .guest-close .gc-photo { margin-inline: auto; } }
+
 /* --- Gold at key points (20 Nov 2026: "throughout the whole site we should use gold in key points… careful not to make
    our writing in gold look like The Umrah Company") -------------------------------------------------------------------
    Gold only where it matters: the Book buttons, the prices, the chapter you're in, the dark feature band, the nights'
