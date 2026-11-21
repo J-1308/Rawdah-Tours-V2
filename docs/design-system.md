@@ -181,7 +181,8 @@ script in `app/layout.tsx` sets before first paint unless the visitor prefers re
   Type on the poster skin: `.section-title` (Cormorant 600, clamp(2.65rem, 5.4vw, 4.9rem), #1f1e13 on stone),
   `.label` as gilt Montserrat capitals, body text stronger; the garden path's `.gp-progress` gilt line fills with scroll.
   Eighth pass: `JourneySection` merges the package, the nights and our journey; `Highlights` (`.highlights`) is the
-  page's one numbered list; photos show uncropped (`HotelPlates`, `.host-frame`, `.past-strip`); the feature band's
+  page's one numbered list; photos show uncropped (`HotelPlates`, `.host-frame`, `.past-strip`; a swiped strip that
+  bleeds to the screen edge sets `scroll-padding-inline` to its padding, or snapping opens it flush left); the feature band's
   icons draw in and a light crosses it.
   Tenth pass: the hero is `LockupHero` (`.rl-*`: lettering, artwork, two gold price tiles, one gilt button); gold
   only at key points (buttons, prices, current chapter, the band, night stars), headline accents in olive italic; one
