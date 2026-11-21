@@ -141,7 +141,7 @@ script in `app/layout.tsx` sets before first paint unless the visitor prefers re
   group photos); Ramadan in the Haram on the night ground before the flights and hotels (`HaramNights`: Taraweeh,
   qiyam and Laylat al-Qadr, iftar in the Haram, the khatm; tall photo cards); hotel cards with how far each is from
   the Haram (`.hotel-walk`, on foot or by shuttle), two sentences and feature chips, from the hotels' own listings;
-  the ended early bird crossed out beside every price (hero, join panel, packages table, phone bar); a Hajj 2027 band
+  the ended early bird crossed out beside every price (hero, join panel, packages table, phone bar); in the packages table (`PackageGrid`) each room's "4 sharing" stays on one line, so a phone row is two lines, not three (21 Nov 2026); a Hajj 2027 band
   in the guest panel's olive at the foot (`OtherTripBand`, to WhatsApp in one-page mode). Final pass for the one-page
   launch (19 Nov 2026): no photo placeholders; Ramadan in the Haram is words only (`.nights-list`, numbered); what's
   included is icon tiles without photos; who it's for under the trip's two sentences (`ForWho`); Why Rawdah with the

@@ -1064,7 +1064,7 @@ function PackageGrid({ j, brief = false }: { j: Journey; brief?: boolean }) {
               <tr key={n} className="border-t border-ink/10">
                 <th scope="row" className="py-3 pr-2 text-left font-normal">
                   <span className="block font-medium">{name(n)}</span>
-                  <span className="block text-[0.875rem] text-ink/62">{n} sharing</span>
+                  <span className="block whitespace-nowrap text-[0.875rem] text-ink/62">{n} sharing</span>
                 </th>
                 {cols.map((f) => {
                   const r = at(f, n);
