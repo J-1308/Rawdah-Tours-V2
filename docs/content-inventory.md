@@ -137,7 +137,8 @@ See `docs/project/open-questions.md`.
 ## Legal text
 
 `/terms` is Rawdah's own Cancellation Policy and Terms and Conditions (October 2026), word for word, sent by Jibril on
-31 Oct 2026; "About us", ATOL and Hajj sections are ours. Their privacy section's points on children and outside links
+31 Oct 2026; "About us", ATOL and Hajj sections are ours. Clause 4.5 (visa prices are based on the Saudi ETA for UK
+citizens; other visas' extra fees are the participant's) was added at Jibril's request on 21 Nov 2026. Their privacy section's points on children and outside links
 are added to `/privacy`, which otherwise describes how this website handles data.
 
 ## Who we work with
