@@ -316,9 +316,12 @@ try first:
   Book button **in one centred row** (the one change from the stacked phone layout, so it all fits the first screen).
   The faint Rawdah mark moves in from the right edge so it shows beside the artwork. Phones and tablets are unchanged.
   Cut: the side-by-side grid.
-- Then: "spread out the hero a bit more, it doesn't need to fit in that narrow page." The lettering, the artwork (up to
-  54rem, 58vw) and the price row are larger and no longer sized to fit one screen; on a 1440×900 laptop the prices sit
-  just under the fold, and the header keeps the Book button.
+- Then: "spread out the hero a bit more, it doesn't need to fit in that narrow page." The lettering, the artwork and the
+  price row grew (artwork up to 54rem), with the prices under the fold on a 1440×900 laptop. Then: "can we just see a
+  bit more of the hero like the prices." Final: one width (`--rl-w`) sizes the artwork and the lettering together, as
+  large as the screen's height allows with the price row still on the first screen; the lettering is a little smaller
+  beside the artwork than on phones, so the picture keeps the space. Checked at 1024×768, 1280×800, 1440×900, about
+  1470×840 (13" MacBook Air), 1512×860 and 1920×1080.
 - **Ten lamps** for the last ten nights hang in the side margins (`HeroLamps` in `poster-hero.tsx`, `.rl-lamp*`;
   desktop only, hidden from screen readers), chosen over a hadith on the left and a lattice at the edges (mocked the
   same evening). Fine olive line like the garden's icons, at different heights; they sway slowly and light one after

@@ -1718,21 +1718,25 @@ html.motion .fb-item.rv.in .fb-text { opacity: 1; transform: none; }
 /* Desktop: the poster stacked, as on phones and tablets, and spread wide (22 Nov 2026: Jibril wants desktop closer to the
    stacked poster than the side by side, then "spread out the hero a bit more, it doesn't need to fit in that narrow
    page"). The lettering centred on top, the artwork with Sheikh Yahya under it at a large size, then one row with the two
-   prices and the Book button. It no longer has to fit the first screen: on a 1440x900 laptop the prices sit just under
-   the fold (the header keeps the Book button). Ten lamps hang in the margins either side (`HeroLamps`). */
+   prices and the Book button. One width (`--rl-w`) sizes the artwork and the lettering together: as large as the
+   screen's height allows with the price row still on the first screen (checked 1024x768 to 1920x1080, 13" MacBook Air
+   at about 1470x840 included). Ten lamps hang in the margins either side (`HeroLamps`). */
 @media (min-width: 64rem) {
-  .rl { padding-bottom: clamp(1.5rem, 3vw, 2.5rem); }
-  .rl-grid { min-height: calc(100svh - 5.3rem); align-content: center; padding: clamp(1.25rem, 2.5vw, 2.5rem) var(--hero-pad-x) 0; }
+  .rl { padding-bottom: clamp(1rem, 2.5svh, 2.5rem); }
+  .rl-grid { min-height: calc(100svh - 5.3rem); align-content: center; padding: clamp(0.75rem, 2svh, 2rem) var(--hero-pad-x) 0; }
   .rl-head { padding-top: 0; }
-  .rl .poster-lockup .poster-kicker { font-size: clamp(1.9rem, 2.8vw, 3rem); }
-  .rl .poster-lockup .poster-word { font-size: clamp(4.4rem, 7.2vw, 8.2rem); }
-  .rl .poster-lockup .poster-line { font-size: clamp(1.35rem, 2.1vw, 2.35rem); }
-  .rl .rl-date { font-size: clamp(1.7rem, 2.4vw, 2.5rem); margin-top: 0.55rem; }
-  .rl-with { margin-top: 0.6rem; }
+  /* One size for the whole poster: as wide as the screen allows, but short enough that the prices show on the first
+     screen (22 Nov 2026: "can we just see a bit more of the hero like the prices"). The lettering scales with it. */
+  .rl { --rl-w: min(54rem, 60vw, max(32rem, calc((100svh - 15.5rem) * 0.96))); }
+  .rl .poster-lockup .poster-kicker { font-size: calc(var(--rl-w) * 0.043); }
+  .rl .poster-lockup .poster-word { font-size: calc(var(--rl-w) * 0.113); }
+  .rl .poster-lockup .poster-line { font-size: calc(var(--rl-w) * 0.033); }
+  .rl .rl-date { font-size: max(1.45rem, calc(var(--rl-w) * 0.039)); margin-top: 0.4rem; }
+  .rl-with { margin-top: 0.4rem; }
   .rl-with em { font-size: 1.3rem; }
-  .rl-art { width: min(100%, 54rem, 58vw); max-width: none; margin-top: clamp(0.5rem, 1.2vw, 1.25rem); }
+  .rl-art { width: min(100%, var(--rl-w)); max-width: none; margin-top: 0.35rem; }
   .rl-foot { width: auto; max-width: none; }
-  .rl-simple .rl-buy { grid-template-columns: auto auto; align-items: center; width: max-content; max-width: 100%; gap: clamp(2.25rem, 4vw, 4rem); margin-top: 0.75rem; }
+  .rl-simple .rl-buy { grid-template-columns: auto auto; align-items: center; width: max-content; max-width: 100%; gap: clamp(2.25rem, 4vw, 4rem); margin-top: 0.35rem; }
   .rl-line { margin: 0; }
   .rl-line-item { padding-inline: clamp(1.5rem, 2.6vw, 2.75rem); font-size: 1.05rem; }
   .rl-line-price { font-size: clamp(2.6rem, 3.3vw, 3.4rem); }
