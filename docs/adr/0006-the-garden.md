@@ -314,6 +314,13 @@ try first:
   this where it makes sense over the side by side it currently has." Desktop (64rem and up) now stacks like phones
   and tablets: the lettering centred on top, the artwork with Sheikh Yahya under it, then the two gold prices and the
   Book button **in one centred row** (the one change from the stacked phone layout, so it all fits the first screen).
-  Type and artwork sizes follow the screen's height; checked at 1024×768, 1280×800, 1440×900, 1512×860 and 1920×1080.
   The faint Rawdah mark moves in from the right edge so it shows beside the artwork. Phones and tablets are unchanged.
   Cut: the side-by-side grid.
+- Then: "spread out the hero a bit more, it doesn't need to fit in that narrow page." The lettering, the artwork (up to
+  54rem, 58vw) and the price row are larger and no longer sized to fit one screen; on a 1440×900 laptop the prices sit
+  just under the fold, and the header keeps the Book button.
+- **Ten lamps** for the last ten nights hang in the side margins (`HeroLamps` in `poster-hero.tsx`, `.rl-lamp*`;
+  desktop only, hidden from screen readers), chosen over a hadith on the left and a lattice at the edges (mocked the
+  same evening). Fine olive line like the garden's icons, at different heights; they sway slowly and light one after
+  another as the page opens, left to right as nights 21 to 30, the odd nights (when Laylat al-Qadr is sought) a little
+  brighter. The glow is light, not gold lettering. With reduced motion they are still and lit.
