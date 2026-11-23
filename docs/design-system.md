@@ -130,9 +130,13 @@ script in `app/layout.tsx` sets before first paint unless the visitor prefers re
   Rawdah's look, facts and photos only:** Sheikh Yahya in the hero (`HeroFigures`: his portrait cut out of its
   background, `public/images/portraits/cut/`, fading into the mist with a radial mask) standing inside the artwork,
   right; the left tablet's two faces take turns (`tab-swap`, one fully out before the other comes in). Phones: the
-  artwork full width above the words. Desktop: two columns, the artwork left and the title, dates, price and button
-  right, so the price is on the first screen (a first try with all three people flanking the artwork looked bad,
-  Jibril 19 Nov). The price, then the button (`.ph-buy`), with one line of real facts under it (`heroNote`); the poster
+  artwork full width above the words. Desktop: the same stacked poster (22 Nov 2026; it was two columns, artwork left
+  and words right, until Jibril asked for desktop to look closer to the stacked version, then spread out): lettering
+  centred on top, the artwork large under it (up to 54rem), then one row with both prices and the button. One width
+  (`--rl-w`, from the screen's height) sizes the artwork and the lettering together, so the prices always show on the
+  first screen of a laptop and taller screens get the full size. Ten fine-line lamps hang in the
+  margins (`HeroLamps`, desktop only): nights 21 to 30, lit one after another, the odd nights brighter (a first try with
+  all three people flanking the artwork looked bad, Jibril 19 Nov). The price, then the button (`.ph-buy`), with one line of real facts under it (`heroNote`); the poster
   icons as a slow ticker under the hero (`PerkTicker`, transform only, paused off screen and on hover, scrolls by
   hand without motion); jump links (`.trip-jump`, stuck under the header on phones, `.trip-anchor` scroll margins);
   the people straight after the trip (`TripPeople`: Sheikh Yahya in his own olive panel, `.guest-feature`, the one

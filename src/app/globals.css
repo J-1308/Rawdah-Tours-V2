@@ -1715,17 +1715,56 @@ html.motion .fb-item.rv.in .fb-text { opacity: 1; transform: none; }
 .rl .poster-lockup .poster-kicker { color: #6b6a55; }
 /* "SHEIKH" over Sheikh Yahya's name in gold (Jibril, 20 Nov 2026), the deep gilt that reads on stone. */
 .rl .poster-role { background-image: linear-gradient(180deg, #9a7b36 0%, #6f5424 100%); -webkit-background-clip: text; background-clip: text; color: transparent; -webkit-text-fill-color: transparent; }
+/* Desktop: the poster stacked, as on phones and tablets, and spread wide (22 Nov 2026: Jibril wants desktop closer to the
+   stacked poster than the side by side, then "spread out the hero a bit more, it doesn't need to fit in that narrow
+   page"). The lettering centred on top, the artwork with Sheikh Yahya under it at a large size, then one row with the two
+   prices and the Book button. One width (`--rl-w`) sizes the artwork and the lettering together: as large as the
+   screen's height allows with the price row still on the first screen (checked 1024x768 to 1920x1080, 13" MacBook Air
+   at about 1470x840 included). Ten lamps hang in the margins either side (`HeroLamps`). */
 @media (min-width: 64rem) {
-  .rl { padding-bottom: 1.5rem; }
-  .rl-grid { grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr); grid-template-areas: "art head" "art foot"; column-gap: clamp(1.5rem, 3vw, 3rem); align-items: center; min-height: calc(100svh - 5.3rem - 1.5rem); padding: 1rem var(--hero-pad-x); }
-  .rl-head, .rl-foot { padding-inline: 0; }
-  .rl-head { align-self: end; padding-top: 0; }
-  .rl-foot { align-self: start; }
-  .rl-art { justify-self: end; max-width: 50rem; margin-top: 0; }
-  .rl .poster-lockup .poster-word { font-size: clamp(4rem, 6.4vw, 6.6rem); }
-  .rl .poster-lockup .poster-line { font-size: clamp(1.2rem, 1.9vw, 2rem); }
-  .rl-foot { max-width: 30rem; }
-  .rl-figure.ph-guest { right: -6%; width: 40%; }
+  .rl { padding-bottom: clamp(1rem, 2.5svh, 2.5rem); }
+  .rl-grid { min-height: calc(100svh - 5.3rem); align-content: center; padding: clamp(0.75rem, 2svh, 2rem) var(--hero-pad-x) 0; }
+  .rl-head { padding-top: 0; }
+  /* One size for the whole poster: as wide as the screen allows, but short enough that the prices show on the first
+     screen (22 Nov 2026: "can we just see a bit more of the hero like the prices"). The lettering scales with it. */
+  .rl { --rl-w: min(54rem, 60vw, max(32rem, calc((100svh - 15.5rem) * 0.96))); }
+  .rl .poster-lockup .poster-kicker { font-size: calc(var(--rl-w) * 0.043); }
+  .rl .poster-lockup .poster-word { font-size: calc(var(--rl-w) * 0.113); }
+  .rl .poster-lockup .poster-line { font-size: calc(var(--rl-w) * 0.033); }
+  .rl .rl-date { font-size: max(1.45rem, calc(var(--rl-w) * 0.039)); margin-top: 0.4rem; }
+  .rl-with { margin-top: 0.4rem; }
+  .rl-with em { font-size: 1.3rem; }
+  .rl-art { width: min(100%, var(--rl-w)); max-width: none; margin-top: 0.35rem; }
+  .rl-foot { width: auto; max-width: none; }
+  .rl-simple .rl-buy { grid-template-columns: auto auto; align-items: center; width: max-content; max-width: 100%; gap: clamp(2.25rem, 4vw, 4rem); margin-top: 0.35rem; }
+  .rl-line { margin: 0; }
+  .rl-line-item { padding-inline: clamp(1.5rem, 2.6vw, 2.75rem); font-size: 1.05rem; }
+  .rl-line-price { font-size: clamp(2.6rem, 3.3vw, 3.4rem); }
+  .rl-book { width: auto; min-width: 19rem; min-height: 3.6rem; padding-inline: 2.5rem; font-size: 1.05rem; }
+  .rl-mark { right: -6%; bottom: 6%; height: 46%; }
+}
+
+/* The ten lamps (desktop only). Fine olive line like the garden's icons; the glow is light, not gold lettering. */
+.rl-lamps { display: none; }
+@media (min-width: 64rem) {
+  .rl-lamps { display: block; position: absolute; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+  .rl-lamp { position: absolute; top: 0; display: flex; flex-direction: column; align-items: center; width: 2.6rem; color: rgb(74 73 49 / 0.66); transform-origin: 50% 0; animation: lamp-sway 7s ease-in-out calc(var(--i) * -0.73s) infinite alternate; }
+  .rl-lamp::before { content: ""; width: 1px; height: var(--len); background: rgb(74 73 49 / 0.38); }
+  .rl-lamp-l { left: var(--x); }
+  .rl-lamp-r { right: var(--x); }
+  .rl-lamp svg { display: block; width: 100%; height: auto; overflow: visible; }
+  .rl-lamp-light { fill: #efd58c; fill-opacity: 0; animation: lamp-light 0.9s ease-out calc(0.5s + var(--i) * 0.17s) forwards; }
+  .rl-lamp-glow { position: absolute; left: 50%; top: calc(var(--len) + 1.55rem); width: 5.5rem; aspect-ratio: 1; translate: -50% -50%; border-radius: 50%; background: radial-gradient(circle, rgb(243 220 154 / 0.85) 0%, rgb(243 220 154 / 0) 68%); opacity: 0; animation: lamp-glow 1.2s ease-out calc(0.5s + var(--i) * 0.17s) forwards; }
+  .rl-lamp { --on: 0.42; --glow: 0.42; }
+  .rl-lamp-odd { --on: 0.68; --glow: 0.7; }
+}
+@keyframes lamp-sway { from { transform: rotate(-1.5deg); } to { transform: rotate(1.5deg); } }
+@keyframes lamp-light { to { fill-opacity: var(--on); } }
+@keyframes lamp-glow { to { opacity: var(--glow); } }
+@media (prefers-reduced-motion: reduce) {
+  .rl-lamp { animation: none; }
+  .rl-lamp-light { animation: none; fill-opacity: var(--on); }
+  .rl-lamp-glow { animation: none; opacity: var(--glow); }
 }
 
 /* --- Sheikh Yahya on phones as on desktop (21 Nov 2026: Jibril prefers the desktop card to the phone's full-width photo) ---
@@ -1779,7 +1818,6 @@ html.motion .fb-item.rv.in .fb-text { opacity: 1; transform: none; }
 .rl-line-item:hover span { color: var(--color-ink); }
 .rl-line-price { font-family: var(--font-display); font-size: clamp(2rem, 8.2vw, 2.5rem); font-weight: 700; letter-spacing: -0.01em; line-height: 1; background-image: linear-gradient(180deg, #a8873c 0%, #7e6128 100%); -webkit-background-clip: text; background-clip: text; color: transparent; -webkit-text-fill-color: transparent; }
 .rl-simple .rl-buy { gap: 1.1rem; }
-@media (min-width: 64rem) { .rl-simple .rl-art { max-width: 46rem; } }
 
 /* --- Liquid glass on the floating parts (21 Nov 2026: "liquid glass… on the buttons… more premium") --------------------
    Only what floats over the page: the header, the phone's bottom bar, the sticky navigator, the round phone buttons,

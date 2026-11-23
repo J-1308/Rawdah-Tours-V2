@@ -307,3 +307,23 @@ try first:
   the small print under the button. The comparison switch is gone; the link preview was remade to match.
 - **Later**: restyle the other pages and switch one-page mode off after the Ramadan push; sharper photos from Rawdah or
   a shoot; Paper for mock-ups if wanted. 21st MCP set aside (ready-made components look templated).
+
+## Desktop hero stacked like the poster (22 November 2026)
+
+- Jibril, with a screenshot of the stacked hero in a narrow window: "I want the full desktop version to look closer to
+  this where it makes sense over the side by side it currently has." Desktop (64rem and up) now stacks like phones
+  and tablets: the lettering centred on top, the artwork with Sheikh Yahya under it, then the two gold prices and the
+  Book button **in one centred row** (the one change from the stacked phone layout, so it all fits the first screen).
+  The faint Rawdah mark moves in from the right edge so it shows beside the artwork. Phones and tablets are unchanged.
+  Cut: the side-by-side grid.
+- Then: "spread out the hero a bit more, it doesn't need to fit in that narrow page." The lettering, the artwork and the
+  price row grew (artwork up to 54rem), with the prices under the fold on a 1440×900 laptop. Then: "can we just see a
+  bit more of the hero like the prices." Final: one width (`--rl-w`) sizes the artwork and the lettering together, as
+  large as the screen's height allows with the price row still on the first screen; the lettering is a little smaller
+  beside the artwork than on phones, so the picture keeps the space. Checked at 1024×768, 1280×800, 1440×900, about
+  1470×840 (13" MacBook Air), 1512×860 and 1920×1080.
+- **Ten lamps** for the last ten nights hang in the side margins (`HeroLamps` in `poster-hero.tsx`, `.rl-lamp*`;
+  desktop only, hidden from screen readers), chosen over a hadith on the left and a lattice at the edges (mocked the
+  same evening). Fine olive line like the garden's icons, at different heights; they sway slowly and light one after
+  another as the page opens, left to right as nights 21 to 30, the odd nights (when Laylat al-Qadr is sought) a little
+  brighter. The glow is light, not gold lettering. With reduced motion they are still and lit.

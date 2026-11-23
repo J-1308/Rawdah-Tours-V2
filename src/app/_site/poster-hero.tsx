@@ -113,12 +113,58 @@ export function FeatureBand({ perks }: { perks: Perk[] }) {
  * "Yahya Raaby must be in the hero"): no price tiles, no Saudia mark, no early bird, no small print under the button.
  * Phones: the lettering, the artwork, then the prices and the button.
  */
+/**
+ * Ten lamps for the last ten nights, hung either side of the hero on desktop (22 Nov 2026). Left to right they are nights
+ * 21 to 30 and light one after another as the page opens; the odd nights, when Laylat al-Qadr is sought, burn a little
+ * brighter. Decoration only: hidden below desktop width and from screen readers. `x` is the distance from the page's
+ * edge in %, `len` the cord in px.
+ */
+const LAMPS = [
+  { side: "l", x: 4, len: 120 },
+  { side: "l", x: 8.5, len: 380 },
+  { side: "l", x: 13, len: 52 },
+  { side: "l", x: 17.5, len: 250 },
+  { side: "l", x: 22, len: 150 },
+  { side: "r", x: 22, len: 64 },
+  { side: "r", x: 17.5, len: 236 },
+  { side: "r", x: 13, len: 120 },
+  { side: "r", x: 8.5, len: 330 },
+  { side: "r", x: 4, len: 170 },
+] as const;
+
+function HeroLamps() {
+  return (
+    <div aria-hidden className="rl-lamps">
+      {LAMPS.map((l, i) => (
+        <span
+          key={i}
+          className={`rl-lamp rl-lamp-${l.side}${i % 2 === 0 ? " rl-lamp-odd" : ""}`}
+          style={{ "--x": `${l.x}%`, "--len": `${l.len}px`, "--i": i } as CSSProperties}
+        >
+          <span className="rl-lamp-glow" />
+          <svg viewBox="0 0 38 72" fill="none" stroke="currentColor" strokeWidth="1.2" strokeLinejoin="round">
+            <circle cx="19" cy="3" r="2.6" />
+            <path d="M11.5 17 Q19 4.5 26.5 17 Z" />
+            <path d="M8.5 17 H29.5 L31.5 21.5 H6.5 Z" />
+            <path d="M7.5 21.5 L10 50 H28 L30.5 21.5" />
+            <path className="rl-lamp-light" d="M14 27 Q19 20.5 24 27 V45 H14 Z" />
+            <path d="M10 50 H28 L24.5 57 H13.5 Z" />
+            <path d="M19 57 V66" />
+            <circle cx="19" cy="68.5" r="1.8" />
+          </svg>
+        </span>
+      ))}
+    </div>
+  );
+}
+
 export function LockupHero({ j, guest, price, ground, joinLabel }: Buy & { guest?: Person }) {
   const withGuest = Boolean(j.heroGuest && guest);
   const dates = j.dates.value.replace(/\bFeb\b/, "February").replace(/\bMar\b/, "March");
   return (
     <section className="rl rl-simple wash-hero relative overflow-hidden">
       <Emblem className="rl-mark watermark pointer-events-none absolute" />
+      <HeroLamps />
       <div className="rl-grid">
         <div className={`rl-head ${gutter}`}>
           <h1 className="poster-lockup rl-lockup">
