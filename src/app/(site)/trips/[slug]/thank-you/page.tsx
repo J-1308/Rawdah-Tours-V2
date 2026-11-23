@@ -42,6 +42,11 @@ export default async function ThankYouPage({ params, searchParams }: { params: P
           <Image src="/images/brand/ramadan-1448-art-cut.png" alt="" width={830} height={622} priority sizes="(min-width: 640px) 26rem, 80vw" className="mx-auto w-[min(80%,26rem)]" />
           <p className="poster-date mt-2">Booking request received</p>
           <h1 className="display mt-3 text-[clamp(2.2rem,7vw,3.4rem)] leading-[1.08]">Thank you. Your booking request is in.</h1>
+          {/* Jibril (23 Nov 2026): "Jazakallahu khayran" in Arabic, with its meaning. */}
+          <p lang="ar" dir="rtl" className="ty-ar mt-5">جَزَاكَ ٱللَّٰهُ خَيْرًا</p>
+          <p className="mt-1 text-[0.95rem] text-ink/70">
+            <span className="font-editorial text-[1.1rem] text-bronze italic">Jazakallahu khayran:</span> may Allah reward you with good.
+          </p>
           <p className="mx-auto mt-4 max-w-[30rem] text-[1.05rem] leading-relaxed text-ink/75">
             Your request for {j.name} is with the Rawdah Tours team.{emailed ? " We’ve emailed you a copy, with how to pay your deposit." : ""}
           </p>

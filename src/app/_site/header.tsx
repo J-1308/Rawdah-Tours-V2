@@ -83,14 +83,16 @@ export function SiteHeader() {
             <Logo className="logo-gold h-10" />
           </Link>
           <Link href={ONE_PAGE_HOME} className="hidden text-center text-[0.9rem] whitespace-nowrap text-ink/75 transition-colors hover:text-ink lg:block">
-            <span className="font-editorial text-[1.15rem] text-ink italic">Ramadan Umrah 2027</span> · 27 Feb – 13 Mar, with GGC
+            <span className="font-editorial text-[1.15rem] text-ink italic">Ramadan Umrah 2027</span>
+            {/* The dates only from 1280px: at 1024px they pushed the two buttons onto two lines (23 Nov 2026). */}
+            <span className="hidden xl:inline"> · 27 Feb – 13 Mar, with GGC</span>
           </Link>
           <div className="flex items-center justify-end gap-[clamp(1rem,1.6vw,1.5rem)]">
             {/* The page's second button, as everywhere (one button identity, 20 Nov 2026): an outline with WhatsApp's mark. */}
-            <a href={pageWa(pathname)} target="_blank" rel="noopener noreferrer" className="hdr-wa hidden h-11 items-center gap-2 rounded-[0.95rem] px-4 text-[0.88rem] font-medium lg:inline-flex">
+            <a href={pageWa(pathname)} target="_blank" rel="noopener noreferrer" className="hdr-wa hidden h-11 items-center gap-2 rounded-[0.95rem] px-4 text-[0.88rem] font-medium whitespace-nowrap lg:inline-flex">
               <WaGlyph className="size-[1.1rem] text-wa" /> WhatsApp us
             </a>
-            <Link href={`${ONE_PAGE_HOME}#join`} className="btn-ink hidden h-11 items-center rounded-[0.95rem] px-5 text-[0.88rem] font-medium lg:inline-flex">
+            <Link href={`${ONE_PAGE_HOME}#join`} className="btn-ink hidden h-11 items-center rounded-[0.95rem] px-5 text-[0.88rem] font-medium whitespace-nowrap lg:inline-flex">
               Book your place
             </Link>
             <a href={pageWa(pathname)} target="_blank" rel="noopener noreferrer" aria-label="WhatsApp us" className="-mr-1 grid size-11 place-items-center rounded-full bg-(--raise) text-wa shadow-[0_6px_18px_-10px_rgb(58_43_36/0.4)] lg:hidden">

@@ -19,8 +19,10 @@ Last updated 23 November 2026.
 4. **Next (agreed with Jibril, 23 Nov):** one booking form on the Ramadan page (`booking/one-form`), then restyle the
    hidden pages in the poster skin and the garden (ADR 0006), in this order: home, trips list, Hajj 2027, Groups,
    Private, About; then `ONE_PAGE = false`. Each page with 390px and 1440px previews and a note of what was cut.
-   Smaller items: header buttons wrap at exactly 1024px; the thank-you page says bank details come on WhatsApp though
-   the email has them; maybe a few lamps on phones (Jibril undecided); old branches to delete (`terms/visa-eta`,
+   Done since: one booking form (#48), "Jazakallahu khayran" in Arabic on the thank-you page, header buttons no longer
+   wrap at 1024px (the trip line drops its dates below 1280px). The thank-you page already says the bank details are
+   in the email when one was sent, and WhatsApp only when no email was given. Smaller items left: maybe a few lamps on
+   phones (Jibril undecided); old branches to delete (`terms/visa-eta`,
    `hero/desktop-stacked`, `ramadan/package-in-night`). Open PRs #42 and #43 (small improvements) await review.
 
 ## The business
