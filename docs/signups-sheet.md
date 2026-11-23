@@ -57,8 +57,9 @@ function doPost(e) {
       const r = sheet.getLastRow() + 1;
       sheet.getRange(r, 1, 1, 17).setValues([clean([
         when, d.reference, 'New', d.name, asText(d.whatsapp), d.email, d.package, d.travellers, d.sharing,
-        d.pricePerPerson, d.total, d.depositDue, '', '=IF(K' + r + '="","",K' + r + '-M' + r + ')', d.plan, d.came, '',
+        d.pricePerPerson, d.total, d.depositDue, '', '', d.plan, d.came, '',
       ])]);
+      sheet.getRange(r, 14).setFormula('=IF(K' + r + '="","",K' + r + '-M' + r + ')'); // Balance
     } else {
       book.getSheetByName('Leads').appendRow(clean([
         when, d.journey, d.name, d.email, asText(d.phone), d.travellers, d.travellingFrom, d.message,
@@ -74,8 +75,14 @@ function doPost(e) {
 // A leading apostrophe keeps a phone number as text, so its first 0 stays.
 function asText(v) { return v ? "'" + v : ''; }
 
-// Empty cells for anything the form left out.
-function clean(row) { return row.map(function (v) { return v === undefined || v === null ? '' : v; }); }
+// Empty cells for anything the form left out. Text that starts with = + - or @ gets a leading apostrophe, so
+// something typed into the form (a name such as "=HYPERLINK(...)") is shown as text and never runs as a formula.
+function clean(row) {
+  return row.map(function (v) {
+    if (v === undefined || v === null) return '';
+    return typeof v === 'string' && /^[=+\-@]/.test(v) ? "'" + v : v;
+  });
+}
 
 function out(obj) {
   return ContentService.createTextOutput(JSON.stringify(obj)).setMimeType(ContentService.MimeType.JSON);
