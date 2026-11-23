@@ -41,6 +41,7 @@ If you change the script later, use Deploy → Manage deployments → edit → N
 Never put the password or the URL in the repo or in chat: only in the script and in Vercel.
 
 ```js
+/** @OnlyCurrentDoc */ // Google asks for this one sheet only, not all of your spreadsheets.
 // Rawdah Tours bookings: the website sends each booking request and sign-up here (docs/signups-sheet.md).
 const SECRET = 'CHANGE-ME'; // the same long password as SIGNUPS_SHEET_SECRET in Vercel
 
