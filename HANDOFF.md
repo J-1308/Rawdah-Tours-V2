@@ -1,15 +1,27 @@
 # Rawdah Tours V2 — handoff
 
 A self-contained briefing for whoever (or whatever tool) picks this up next. Keep it current.
-Last updated 18 November 2026.
+Last updated 23 November 2026.
 
 ## Start here (next session)
 
 1. Read this file, then `CLAUDE.md` (rules), `docs/design-system.md`, `docs/lessons.md` and
    `docs/project/open-questions.md`.
-2. 16 Nov's work is merged (PR #16). **Merge `review/launch-fixes` if Jibril hasn't** (Fable's pre-launch review,
-   17 Nov). Base new work on `main` once merged.
-3. Then carry on with **Before launch** and **What's next** below.
+2. **State on 23 Nov 2026:** live on www.rawdahtours.co.uk in one-page mode (`src/lib/site-mode.ts`): only
+   `/trips/ramadan-umrah-2027`, the legal pages and the app pages (`/app-privacy`, `/app-terms`, `/support`, never
+   touched). Merged recently: #44 (liquid glass, device font, simpler hero with Sheikh Yahya), #45 (terms 4.5: visa
+   prices on the Saudi ETA), #47 (desktop hero stacked like the poster, ten lamps), #46 (bookings to the Google Sheet).
+3. **Bookings work end to end (tested 23 Nov 2026, RT-UK8WX4):** a booking request lands as a row on the Bookings tab
+   of "Rawdah Tours bookings" (Jibril's Drive; `docs/signups-sheet.md`), the team email reaches rawdahtours@gmail.com
+   and the traveller's email carries the bank details. The Apps Script is deployed from Jibril's account with
+   `@OnlyCurrentDoc` (this sheet only); `SIGNUPS_SHEET_URL` and `SIGNUPS_SHEET_SECRET` are set in Vercel. The sheet
+   isn't shared with rawdahtours@gmail.com yet: ask Jibril first.
+4. **Next (agreed with Jibril, 23 Nov):** one booking form on the Ramadan page (`booking/one-form`), then restyle the
+   hidden pages in the poster skin and the garden (ADR 0006), in this order: home, trips list, Hajj 2027, Groups,
+   Private, About; then `ONE_PAGE = false`. Each page with 390px and 1440px previews and a note of what was cut.
+   Smaller items: header buttons wrap at exactly 1024px; the thank-you page says bank details come on WhatsApp though
+   the email has them; maybe a few lamps on phones (Jibril undecided); old branches to delete (`terms/visa-eta`,
+   `hero/desktop-stacked`, `ramadan/package-in-night`). Open PRs #42 and #43 (small improvements) await review.
 
 ## The business
 
@@ -30,15 +42,16 @@ mouth. Phone +44 7809 281429, rawdahtours@gmail.com, @rawdahtours.
 
 ## Where it runs
 
-Runs on **https://rawdah-tours-v2.vercel.app** (Vercel project `rawdah-tours-v2`, team `j-1308s-projects`), behind
-`SITE_PASSWORD` (whole site, `/gate`). **Not on rawdahtours.co.uk yet:** that domain still shows a temporary
-placeholder. `rawdahtours.co.uk` and `www.rawdahtours.co.uk` are added to the Vercel project but unverified (checked
+Live on **https://www.rawdahtours.co.uk** since 19 Nov 2026 (Vercel project `rawdah-tours-v2`, team
+`j-1308s-projects`). The notes below on the domain and the site password are from before launch. `rawdahtours.co.uk` and `www.rawdahtours.co.uk` are added to the Vercel project but unverified (checked
 17 Nov 2026); going live there means pointing the domain's DNS at Vercel, which Jibril does when he's ready. Every branch gets a preview at
 `rawdah-tours-v2-git-<branch-with-dashes>-j-1308s-projects.vercel.app` (behind Vercel login).
 
-Env vars set in Vercel (16 Nov): `SITE_PASSWORD`, `BLOB_READ_WRITE_TOKEN` (private Blob store). **Not set:**
-`RESEND_API_KEY` (no emails go out yet; Jibril has the steps), `PRIVATE_PASSWORD`, Stripe keys,
-`NEXT_PUBLIC_CALL_URL` (Cal.com link).
+Env vars set in Vercel (23 Nov): `RESEND_API_KEY`, `BANK_ACCOUNT_NAME`, `BANK_SORT_CODE`, `BANK_ACCOUNT_NUMBER`,
+`BLOB_READ_WRITE_TOKEN` (not yet marked Sensitive), `SIGNUPS_SHEET_URL`, `SIGNUPS_SHEET_SECRET`. **Not set:**
+`EMAIL_FROM` and `EMAIL_OWNER_TO` (the defaults apply), `PRIVATE_PASSWORD`, Stripe keys, `NEXT_PUBLIC_CALL_URL`
+(Cal.com link). `SITE_PASSWORD` was removed at launch (19 Nov). Vercel Web Analytics is off for the project (Jibril
+can turn it on in Vercel → Analytics), so the custom events in `docs/tracking.md` aren't recorded.
 Jibril adds env vars himself; secrets never go in chat or the repo.
 
 ## What is built
