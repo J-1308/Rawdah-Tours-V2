@@ -179,6 +179,31 @@ function bookingSections(r: BookingRequest, ref: string) {
   return { booking, paying, depositTotal, depositEach, label: room?.label ?? '', count, dates, summary: trip?.summary ?? '' }
 }
 
+/**
+ * One row for the Bookings tab of Rawdah's Google Sheet (docs/signups-sheet.md). The money comes from the server's
+ * price list, in pounds, so the sheet can add it up. With "5 or more" travellers the total is left for the team, and the
+ * deposit is one person's, as in the emails.
+ */
+export function bookingSheetRow(r: BookingRequest) {
+  const { room, count, deposit, travellers, sharing } = priced(r)
+  const pounds = (pence: number) => pence / 100
+  return {
+    kind: 'booking',
+    reference: bookingRef(r.id),
+    name: r.name,
+    whatsapp: r.whatsapp,
+    email: r.email,
+    package: room?.label ?? (r.answers['Package'] || 'Not sure yet'),
+    travellers: count ?? travellers,
+    sharing,
+    pricePerPerson: room ? pounds(room.pricePence) : '',
+    total: room && count ? pounds(room.pricePence * count) : '',
+    depositDue: deposit ? pounds(deposit * (count ?? 1)) : '',
+    plan: (room?.schedule ?? []).map(({ due, pence }) => `${due.replace(/, final$/i, ' (final)')}: ${formatPence(pence)}`).join('\n'),
+    came: r.came,
+  }
+}
+
 /** The visitor's confirmation. Sent only when they gave an email. */
 export function buildBookingConfirmation(r: BookingRequest) {
   const ref = bookingRef(r.id)
