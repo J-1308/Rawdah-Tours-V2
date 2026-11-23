@@ -5,7 +5,8 @@ import { useEffect, useId, useRef, useState } from "react";
 
 import { useRouter } from "next/navigation";
 import { saveLead, type LeadInput } from "@/app/actions/lead";
-import { brand, roomSharing, wa } from "@/app/_site/content";
+import { brand, roomSharing, wa, type Journey } from "@/app/_site/content";
+import { PackagePicker, type PickerChoice } from "@/app/_site/reserve";
 import { readSource } from "@/app/_site/tracking";
 import { Chevron, WaGlyph } from "@/app/_site/whatsapp";
 
@@ -28,7 +29,8 @@ type Path = { form: LeadInput["form"]; title: string; sub?: string; steps: Step[
 export type StepFormProps =
   | { path: "hajj"; trip?: string }
   | { path: "interest"; trip: string; sub?: string }
-  | { path: "group"; trip: string; sub?: string; packages: string[]; deposit?: string; bookHref?: string }
+  // `journey`: poster trips (Ramadan). The package picker is step 1 and your details step 2, so the page has one form.
+  | { path: "group"; trip: string; sub?: string; packages: string[]; deposit?: string; bookHref?: string; journey?: Journey }
   | { path: "private" }
   | { path: "community" };
 
@@ -153,7 +155,12 @@ const chipOn = "border-ink bg-ink text-canvas";
 
 export function StepForm(props: StepFormProps) {
   const path = pathFor(props);
-  const total = path.steps.length + 1;
+  /* One form (23 Nov 2026): on poster trips the package picker is step 1 and the contact step comes last. */
+  const journey = props.path === "group" ? props.journey : undefined;
+  const pick = Boolean(journey?.rooms?.value.length);
+  const total = pick ? 2 : path.steps.length + 1;
+  const contactAt = pick ? 2 : 1;
+  const [picked, setPicked] = useState<PickerChoice | null>(null);
   const trip = "trip" in props ? (props.trip ?? "") : props.path === "hajj" ? "Hajj 2027" : "";
   const uid = useId();
   const id = useRef("");
@@ -181,12 +188,24 @@ export function StepForm(props: StepFormProps) {
     id.current = crypto.randomUUID?.() ?? `${Date.now()}-${Math.random().toString(36).slice(2)}`;
   }, []);
 
-  /* The join panel's "Book your place" carries its choices here (package, travellers, sharing). */
+  /* The join panel's "Book your place" carries its choices here (package, travellers, sharing). With the picker in the
+     form, a price elsewhere on the page (the packages table, the hero) also brings the form back to the picker. */
   useEffect(() => {
-    const fill = (e: Event) => setAnswers((a) => ({ ...a, ...((e as CustomEvent<Record<string, string>>).detail ?? {}) }));
+    const fill = (e: Event) => {
+      setAnswers((a) => ({ ...a, ...((e as CustomEvent<Record<string, string>>).detail ?? {}) }));
+      if (pick) setStep(1);
+    };
+    // The hero's ground-only price (data-pick="ground") sets the picker itself; it only needs to be showing.
+    const ground = (e: MouseEvent) => {
+      if (pick && e.target instanceof Element && e.target.closest('[data-pick="ground"]')) setStep(1);
+    };
     window.addEventListener(PREFILL_EVENT, fill);
-    return () => window.removeEventListener(PREFILL_EVENT, fill);
-  }, []);
+    document.addEventListener("click", ground);
+    return () => {
+      window.removeEventListener(PREFILL_EVENT, fill);
+      document.removeEventListener("click", ground);
+    };
+  }, [pick]);
 
   /* "Get the full itinerary" elsewhere on the page (the trust box) ticks the itinerary box here. */
   useEffect(() => {
@@ -227,13 +246,21 @@ export function StepForm(props: StepFormProps) {
   }
 
   function next(skip = false) {
-    if (step === 1) {
+    if (pick && step === 1) {
+      setErrors({});
+      setStep(2);
+      track("form_step", { form: path.form, step, trip });
+      requestAnimationFrame(() => top.current?.scrollIntoView({ behavior: "smooth", block: "start" }));
+      return;
+    }
+    if (step === contactAt) {
       const e: Record<string, string> = {};
       if (!name.trim()) e.name = "Please tell us your first name.";
       if (!whatsapp.trim() && !email.trim()) e.contact = "Add a WhatsApp number or an email. One is enough.";
+      if (pick && itinerary && !email.trim()) e.email = "Add an email so we can send the itinerary.";
       if (Object.keys(e).length) return setErrors(e);
     }
-    const s = path.steps[step - 2];
+    const s = pick ? undefined : path.steps[step - 2];
     if (s && !skip) {
       const missing = s.questions.find((q) => q.kind === "text" && q.required && !answers[q.key]?.trim());
       if (missing) return setErrors({ [missing.key]: "Please add your organisation’s name." });
@@ -250,9 +277,9 @@ export function StepForm(props: StepFormProps) {
 
   if (done) return <Ending props={props} name={name.trim().split(/\s+/)[0] ?? ""} waText={waText} trip={trip} answers={answers} bookingRef={ref} emailed={emailed} />;
 
-  const current = path.steps[step - 2];
+  const current = pick ? undefined : path.steps[step - 2];
   return (
-    <div ref={top} className="scroll-mt-28">
+    <div ref={top} className="scroll-mt-40">
       <div className="flex items-center justify-between gap-4 text-[0.875rem] text-ink/62">
         {step > 1 ? (
           <button type="button" onClick={() => setStep(step - 1)} className="-ml-2 inline-flex min-h-10 items-center gap-1 rounded-lg px-2 hover:text-ink">
@@ -278,14 +305,66 @@ export function StepForm(props: StepFormProps) {
         className="mt-6"
       >
         <input ref={hp} name="website" tabIndex={-1} autoComplete="off" aria-hidden className="absolute -left-[9999px] h-0 w-0 opacity-0" />
-        {step === 1 ? (
+        {/* Kept mounted on the details step, so "Change" comes back to the same choice. */}
+        {pick && journey ? (
+          <fieldset key="step-pick" hidden={step !== 1} className="step-in">
+            <legend className="display text-[clamp(1.7rem,4.5vw,2.2rem)] leading-tight">{path.title}</legend>
+            {path.sub ? <p className="mt-2 text-[0.95rem] text-ink/68">{path.sub}</p> : null}
+            <div className="mt-5">
+              <PackagePicker
+                j={journey}
+                listen
+                onChoice={(c) => {
+                  setPicked(c);
+                  setAnswers((a) => ({ ...a, ...c.answers }));
+                }}
+              />
+            </div>
+          </fieldset>
+        ) : null}
+        {pick && step === 2 ? (
+          <fieldset key="step-details" className="step-in space-y-5">
+            <legend className="display text-[clamp(1.7rem,4.5vw,2.2rem)] leading-tight">Your details</legend>
+            <p className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1 rounded-[0.9rem] bg-(--raise) px-4 py-3 text-[0.95rem] ring-1 ring-ink/10">
+              <span>
+                {[answers.Package?.replace(/, £[\d,]+ per person$/, ""), answers.Travellers ? `${answers.Travellers} ${answers.Travellers === "1" ? "traveller" : "travellers"}` : "", answers.Sharing ? `sharing with ${answers.Sharing.toLowerCase()}` : ""].filter(Boolean).join(", ")}
+              </span>
+              <button type="button" onClick={() => setStep(1)} className="inline-flex min-h-10 items-center text-[0.9rem] text-ink/70 underline underline-offset-4 hover:text-ink">
+                Change
+              </button>
+            </p>
+            <p className="text-[0.95rem] text-ink/70">Your name and one way to reach you. The team confirms your place and how to pay the deposit.</p>
+            <Text id={f("name")} label="First name" value={name} onChange={setName} error={errors.name} autoComplete="given-name" />
+            <Text id={f("wa")} label="WhatsApp number" value={whatsapp} onChange={setWhatsapp} error={errors.whatsapp} type="tel" autoComplete="tel" inputMode="tel" />
+            <Text id={f("email")} label="Email" value={email} onChange={setEmail} error={errors.email} type="email" autoComplete="email" inputMode="email" />
+            {errors.contact ? (
+              <p role="alert" className="text-[0.9rem] text-error">
+                {errors.contact}
+              </p>
+            ) : (
+              <p className="text-[0.875rem] text-ink/62">A WhatsApp number or an email: one is enough.</p>
+            )}
+            <div className="space-y-3 border-t border-ink/10 pt-4 text-[0.88rem] text-ink/72">
+              <Tick checked={itinerary} onChange={setItinerary} label="Send me the full itinerary" />
+              {email.trim() ? <Tick checked={marketing} onChange={setMarketing} label="Send me trip updates by email." /> : null}
+              <p className="text-[0.875rem] text-ink/62">
+                We’ll use your details only to answer this request.{" "}
+                <a href="/privacy" className="underline underline-offset-2">
+                  Privacy policy
+                </a>
+                .
+              </p>
+            </div>
+          </fieldset>
+        ) : null}
+        {!pick && step === 1 ? (
           <fieldset key="step-1" className="step-in space-y-5">
             <legend className="display text-[clamp(1.7rem,4.5vw,2.2rem)] leading-tight">{path.title}</legend>
             {path.sub ? <p className="-mt-2 text-[0.95rem] text-ink/68">{path.sub}</p> : null}
             {path.form === "group" && answers.Package ? (
               <p className="rounded-[0.9rem] bg-(--raise) px-4 py-3 text-[0.95rem] ring-1 ring-ink/10">
                 <span className="text-ink/62">Your choice: </span>
-                {[answers.Package.replace(/,.*/, ""), answers.Travellers ? `${answers.Travellers} ${answers.Travellers === "1" ? "traveller" : "travellers"}` : "", answers.Sharing ? `sharing with ${answers.Sharing.toLowerCase()}` : ""].filter(Boolean).join(", ")}
+                {[answers.Package.replace(/, £[\d,]+ per person$/, ""), answers.Travellers ? `${answers.Travellers} ${answers.Travellers === "1" ? "traveller" : "travellers"}` : "", answers.Sharing ? `sharing with ${answers.Sharing.toLowerCase()}` : ""].filter(Boolean).join(", ")}
                 <span className="text-ink/62">. You can change it on the next step.</span>
               </p>
             ) : null}
@@ -342,7 +421,7 @@ export function StepForm(props: StepFormProps) {
         ) : null}
         <div className="mt-8 flex items-center gap-3">
           <button type="submit" disabled={saving} className="btn-sand flex min-h-[3.25rem] flex-1 items-center justify-center gap-2 rounded-[0.95rem] px-5 text-[0.98rem] font-medium disabled:opacity-60">
-            {saving ? "Saving…" : step === total ? (path.submit ?? "Send") : "Next"}
+            {saving ? "Saving…" : step === total ? (pick ? (picked?.ground ? "Send my enquiry" : "Send my booking request") : (path.submit ?? "Send")) : pick ? "Next: your details" : "Next"}
             {saving ? null : <Chevron className="size-3 opacity-70" />}
           </button>
           {step > 1 && step < total ? (
@@ -351,6 +430,24 @@ export function StepForm(props: StepFormProps) {
             </button>
           ) : null}
         </div>
+        {pick && step === 1 ? (
+          <p className="mt-4 text-center text-[0.9rem] text-ink/70">
+            Prefer to talk?{" "}
+            <a href={wa(picked?.message ?? "", trip || undefined)} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-11 items-center gap-1.5 font-medium text-ink underline decoration-ink/25 underline-offset-4">
+              <WaGlyph className="size-4 text-wa" />
+              WhatsApp us
+            </a>{" "}
+            or{" "}
+            <a href={brand.phone.href} className="inline-flex min-h-11 items-center font-medium text-ink underline decoration-ink/25 underline-offset-4">
+              call {brand.phone.display}
+            </a>
+          </p>
+        ) : null}
+        {pick && step === 2 ? (
+          <p className="mt-4 text-[0.875rem] leading-relaxed text-ink/68">
+            Pay the deposit by bank transfer: the details are in your confirmation email, or we send them on WhatsApp. Deposits are non-refundable.
+          </p>
+        ) : null}
       </form>
     </div>
   );
@@ -485,7 +582,7 @@ function Ending({ props, name, waText, trip, bookingRef, emailed }: { props: Ste
 }
 
 const ITINERARY_EVENT = "rawdah:itinerary";
-const PREFILL_EVENT = "rawdah:prefill";
+export const PREFILL_EVENT = "rawdah:prefill";
 /** Who a traveller shares a room with: the same four options as the join panel. */
 export const SHARING = roomSharing.options;
 

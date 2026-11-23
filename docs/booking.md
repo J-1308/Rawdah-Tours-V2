@@ -11,7 +11,7 @@ from it, and the checkout reads it on the server. A trip is bookable only when i
 
 | Route | What it does |
 | --- | --- |
-| `/trips/[slug]` | Trip page with the join panel (`reserve.tsx`): rooms, travellers, who you share a room with (`roomSharing` in `content.ts`, the same list as the step form, with the confirmed same-gender note under it), live total, deposit, instalments. "Pay the deposit" appears only when the trip is bookable. |
+| `/trips/[slug]` | Trip page with the join panel (`reserve.tsx`): rooms, travellers, who you share a room with (`roomSharing` in `content.ts`, the same list as the step form, with the confirmed same-gender note under it), live total, deposit, instalments. "Pay the deposit" appears only when the trip is bookable. Poster trips (Ramadan) have no join panel: the same picker (`PackagePicker`) is step 1 of the booking form at the bottom, and step 2 asks for the name and a WhatsApp number or email, then sends the request (23 Nov 2026). |
 | `/trips/[slug]/book` | Booking form (`booking-form.tsx`) → server action `createBooking` (`src/app/actions/booking.ts`). 404 unless bookable. |
 | `/booking/confirmed` | Stripe success return. |
 | `/booking/cancelled` | Stripe cancel return, with a retry link to `/trips/[slug]/book`. |

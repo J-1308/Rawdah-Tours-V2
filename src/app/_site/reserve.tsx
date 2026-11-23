@@ -5,7 +5,7 @@ import { useEffect, useId, useRef, useState } from "react";
 
 import { anchors, brand, gbp, monthly, roomSharing, routes, wa, type Journey } from "@/app/_site/content";
 import { Mark } from "@/app/_site/marks";
-import { prefillForm, SHARING } from "@/app/_site/step-form";
+import { PREFILL_EVENT, prefillForm, SHARING } from "@/app/_site/step-form";
 import { Chevron, WaGlyph } from "@/app/_site/whatsapp";
 
 /**
@@ -23,7 +23,18 @@ const head = "flex flex-wrap items-center justify-between gap-x-3 gap-y-1 border
 const waBtn = "wa-btn flex min-h-[3.25rem] items-center justify-center gap-2.5 rounded-[0.95rem] bg-wa px-4 text-[0.95rem] font-medium text-white shadow-[0_14px_30px_-16px_rgb(31_168_85/0.7)]";
 const waCell = "grid place-items-center";
 
-export function ReservePanel({ j, bookable = false }: { j: Journey; bookable?: boolean }) {
+
+/** What the package picker currently shows: the form's answers (keys as in the step form), and what the join panel's
+ * buttons need (ground only is an enquiry; the WhatsApp message carries the same choice). */
+export type PickerChoice = { answers: Record<string, string>; ground: boolean; message: string };
+
+/**
+ * The package picker: flights or ground only, the room, who's coming and who you'd share with, with the total, deposit
+ * and instalments updating live. Used inside the join panel, and as the first step of the booking form on poster trips
+ * (one form, 23 Nov 2026: "why is there 2 forms"). With `listen`, a price elsewhere on the page that calls
+ * `prefillForm` (the packages table, the hero) sets the picker to that package.
+ */
+export function PackagePicker({ j, onChoice, listen = false }: { j: Journey; onChoice: (c: PickerChoice) => void; listen?: boolean }) {
   const rooms = j.rooms?.value ?? [];
   const [room, setRoom] = useState(rooms[0]?.type ?? "");
   const [flights, setFlights] = useState(true);
@@ -32,19 +43,6 @@ export function ReservePanel({ j, bookable = false }: { j: Journey; bookable?: b
   const shareOptions = SHARING;
   const [share, setShare] = useState(shareOptions[0]);
   const shareId = useId();
-  // Once someone has changed the panel, the form below follows it (not only on "Book your place").
-  const touched = useRef(false);
-  const picked = rooms.find((r) => r.type === room) ?? rooms[0];
-  const choice = picked ? { Package: `${picked.type}, ${gbp(picked.price)} per person`, Travellers: adults + children >= 5 ? "5 or more" : String(adults + children), Sharing: share } : null;
-  const choiceKey = JSON.stringify(choice);
-  useEffect(() => {
-    if (!touched.current) {
-      touched.current = true;
-      return;
-    }
-    if (choice && j.state === "open") prefillForm(choice);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [choiceKey]);
   // The hero's ground-only price (data-pick="ground", poster-hero.tsx) lands here on ground only, in the same room.
   // From PR #27 (an improvement run), carried over to the poster hero (20 Nov 2026).
   useEffect(() => {
@@ -61,65 +59,19 @@ export function ReservePanel({ j, bookable = false }: { j: Journey; bookable?: b
     document.addEventListener("click", onPick);
     return () => document.removeEventListener("click", onPick);
   }, [j]);
-
-  if (j.state === "past") {
-    return (
-      <div className={box}>
-        <div className={head}>
-          <span className="font-editorial text-[1.15rem] italic text-bronze">Completed</span>
-          <span className="text-[0.875rem] text-ink/65">{j.dates.value}</span>
-        </div>
-        <div className="p-5">
-          <p className="display text-[1.9rem]">This trip is complete.</p>
-          <p className="mt-2 text-[0.93rem] text-ink/70">Be the first to hear when the next one is out.</p>
-          <a href={wa(j.waText, j.name)} target="_blank" rel="noopener noreferrer" className={`mt-5 ${waBtn}`}>
-            <span aria-hidden className={waCell}>
-              <WaGlyph className="size-5" />
-            </span>
-            <span>Tell me about the next trip</span>
-          </a>
-          <Link href={`${routes.nextUmrah}#${anchors.form}`} className="mt-3 block text-center text-[0.875rem] text-ink/70 underline decoration-ink/25 underline-offset-4">
-            Or register for Ramadan 1448
-          </Link>
-        </div>
-      </div>
-    );
-  }
-
-  if (!rooms.length) {
-    const message = [`Salaam Rawdah Tours, I’d like to register my interest in ${j.name}.`, "Travellers:", "Travelling from:", "Name:"].join("\n");
-    return (
-      <div className={box}>
-        <div className={head}>
-          <span className="font-editorial text-[1.15rem] italic text-bronze">Register your interest</span>
-          <span className="text-[0.875rem] text-ink/65">{j.name}</span>
-        </div>
-        <div className="p-5">
-          <p className="display text-[1.8rem]">Start with a message.</p>
-          <p className="mt-2 text-[0.93rem] text-ink/70">Tell us about your plans and someone from Rawdah will be in touch. It doesn’t reserve a place or commit you to anything.</p>
-          <a href={wa(message)} target="_blank" rel="noopener noreferrer" className={`mt-5 ${waBtn}`}>
-            <span aria-hidden className={waCell}>
-              <WaGlyph className="size-5" />
-            </span>
-            <span>Register on WhatsApp</span>
-          </a>
-          <a href={`#${anchors.form}`} className="mt-2 flex min-h-[3.25rem] items-center justify-center gap-2 rounded-[0.95rem] border border-ink/15 bg-(--raise) text-[0.95rem] font-medium hover:border-ink/40">
-            <span>Or use the form</span>
-            <Chevron dir="down" className="size-3 opacity-60" />
-          </a>
-          {j.kind === "hajj" ? (
-            <p className="mt-4 text-[0.875rem] leading-relaxed text-ink/68">
-              Hajj packages are booked and paid on{" "}
-              <a href={brand.nusuk} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2">
-                Nusuk
-              </a>
-              . Rawdah Tours does not take payment for Hajj packages.
-            </p>
-          ) : null}
-        </div>
-      </div>
-    );
-  }
+  useEffect(() => {
+    if (!listen) return;
+    const fill = (e: Event) => {
+      const d = (e as CustomEvent<Record<string, string>>).detail ?? {};
+      const r = d.Package ? rooms.find((x) => d.Package.startsWith(`${x.type},`)) : undefined;
+      if (r) setRoom(r.type);
+      if (d.Travellers) setAdults(d.Travellers === "5 or more" ? 5 : Math.max(1, Number(d.Travellers) || 1));
+      if (d.Sharing && shareOptions.includes(d.Sharing)) setShare(d.Sharing);
+    };
+    window.addEventListener(PREFILL_EVENT, fill);
+    return () => window.removeEventListener(PREFILL_EVENT, fill);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [listen, j]);
 
   const chosen = rooms.find((r) => r.type === room) ?? rooms[0];
   /** Packages with a set payment timetable (the Ramadan trip): one price per person, no child rate. */
@@ -131,7 +83,6 @@ export function ReservePanel({ j, bookable = false }: { j: Journey; bookable?: b
   const total = each * adults + childEach * kids;
   const deposit = (j.deposit?.value ?? 0) * (adults + kids);
   const open = j.state === "open";
-  const confirmedPrices = j.rooms?.status === "confirmed";
   /**
    * Packages in a grid (Ramadan, 19 Nov 2026): with flights or ground only, then the room (quad, triple, double).
    * Ground only is an enquiry, as on the poster.
@@ -176,16 +127,15 @@ export function ReservePanel({ j, bookable = false }: { j: Journey; bookable?: b
 
   const label = "font-editorial text-[1.05rem] italic text-bronze";
 
+  const answers = { Package: `${chosen.type}, ${gbp(chosen.price)} per person`, Travellers: adults + kids >= 5 ? "5 or more" : String(adults + kids), Sharing: share };
+  const key = JSON.stringify([answers, matrix && ground, message]);
+  useEffect(() => {
+    onChoice({ answers, ground: matrix && ground, message });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [key]);
+
   return (
-    <div className={box}>
-      <div className={head}>
-        <span className="font-editorial text-[1.15rem] italic text-bronze">{open ? "Book your place" : "Register your interest"}</span>
-        <span className="text-[0.875rem] text-ink/65">
-          {j.dates.value}
-          <Mark s={j.dates.status} />
-        </span>
-      </div>
-      <div className="p-5">
+    <>
         <p className={label}>
           {packages ? "Package, per person" : "Room, per person"}
           <Mark s={j.rooms?.status} />
@@ -331,6 +281,102 @@ export function ReservePanel({ j, bookable = false }: { j: Journey; bookable?: b
                 </div>
               ) : null}
         </dl>
+    </>
+  );
+}
+
+export function ReservePanel({ j, bookable = false }: { j: Journey; bookable?: boolean }) {
+  const rooms = j.rooms?.value ?? [];
+  const [picked, setPicked] = useState<PickerChoice | null>(null);
+  // Once someone has changed the panel, the form below follows it (not only on "Book your place").
+  const touched = useRef(false);
+  const choice = picked?.answers ?? null;
+  const choiceKey = JSON.stringify(choice);
+  useEffect(() => {
+    if (!choice) return;
+    if (!touched.current) {
+      touched.current = true;
+      return;
+    }
+    if (j.state === "open") prefillForm(choice);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [choiceKey]);
+
+  if (j.state === "past") {
+    return (
+      <div className={box}>
+        <div className={head}>
+          <span className="font-editorial text-[1.15rem] italic text-bronze">Completed</span>
+          <span className="text-[0.875rem] text-ink/65">{j.dates.value}</span>
+        </div>
+        <div className="p-5">
+          <p className="display text-[1.9rem]">This trip is complete.</p>
+          <p className="mt-2 text-[0.93rem] text-ink/70">Be the first to hear when the next one is out.</p>
+          <a href={wa(j.waText, j.name)} target="_blank" rel="noopener noreferrer" className={`mt-5 ${waBtn}`}>
+            <span aria-hidden className={waCell}>
+              <WaGlyph className="size-5" />
+            </span>
+            <span>Tell me about the next trip</span>
+          </a>
+          <Link href={`${routes.nextUmrah}#${anchors.form}`} className="mt-3 block text-center text-[0.875rem] text-ink/70 underline decoration-ink/25 underline-offset-4">
+            Or register for Ramadan 1448
+          </Link>
+        </div>
+      </div>
+    );
+  }
+
+  if (!rooms.length) {
+    const message = [`Salaam Rawdah Tours, I’d like to register my interest in ${j.name}.`, "Travellers:", "Travelling from:", "Name:"].join("\n");
+    return (
+      <div className={box}>
+        <div className={head}>
+          <span className="font-editorial text-[1.15rem] italic text-bronze">Register your interest</span>
+          <span className="text-[0.875rem] text-ink/65">{j.name}</span>
+        </div>
+        <div className="p-5">
+          <p className="display text-[1.8rem]">Start with a message.</p>
+          <p className="mt-2 text-[0.93rem] text-ink/70">Tell us about your plans and someone from Rawdah will be in touch. It doesn’t reserve a place or commit you to anything.</p>
+          <a href={wa(message)} target="_blank" rel="noopener noreferrer" className={`mt-5 ${waBtn}`}>
+            <span aria-hidden className={waCell}>
+              <WaGlyph className="size-5" />
+            </span>
+            <span>Register on WhatsApp</span>
+          </a>
+          <a href={`#${anchors.form}`} className="mt-2 flex min-h-[3.25rem] items-center justify-center gap-2 rounded-[0.95rem] border border-ink/15 bg-(--raise) text-[0.95rem] font-medium hover:border-ink/40">
+            <span>Or use the form</span>
+            <Chevron dir="down" className="size-3 opacity-60" />
+          </a>
+          {j.kind === "hajj" ? (
+            <p className="mt-4 text-[0.875rem] leading-relaxed text-ink/68">
+              Hajj packages are booked and paid on{" "}
+              <a href={brand.nusuk} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2">
+                Nusuk
+              </a>
+              . Rawdah Tours does not take payment for Hajj packages.
+            </p>
+          ) : null}
+        </div>
+      </div>
+    );
+  }
+
+  const open = j.state === "open";
+  const confirmedPrices = j.rooms?.status === "confirmed";
+  const ground = Boolean(picked?.ground); // ground only on a packages grid is an enquiry
+  const message = picked?.message ?? "";
+
+  return (
+    <div className={box}>
+      <div className={head}>
+        <span className="font-editorial text-[1.15rem] italic text-bronze">{open ? "Book your place" : "Register your interest"}</span>
+        <span className="text-[0.875rem] text-ink/65">
+          {j.dates.value}
+          <Mark s={j.dates.status} />
+        </span>
+      </div>
+      <div className="p-5">
+        <PackagePicker j={j} onChoice={setPicked} />
 
         {bookable ? (
           <Link href={`/trips/${j.slug}/book`} className="btn-ink mt-4 flex min-h-[3.25rem] items-center justify-center gap-2 rounded-[0.95rem] text-[0.95rem] font-medium">
@@ -348,14 +394,14 @@ export function ReservePanel({ j, bookable = false }: { j: Journey; bookable?: b
             }}
             className="btn-ink mt-4 flex min-h-[3.25rem] items-center justify-center gap-2 rounded-[0.95rem] text-[0.95rem] font-medium"
           >
-            {matrix && ground ? "Enquire about ground only" : "Book your place"} <Chevron dir="down" className="size-3 opacity-70" />
+            {ground ? "Enquire about ground only" : "Book your place"} <Chevron dir="down" className="size-3 opacity-70" />
           </a>
         ) : null}
         <a href={wa(message)} target="_blank" rel="noopener noreferrer" className={`${bookable || open ? "mt-2" : "mt-4"} ${waBtn}`}>
           <span aria-hidden className={waCell}>
             <WaGlyph className="size-5" />
           </span>
-          <span>{matrix && ground ? "Enquire on WhatsApp" : open ? "Book on WhatsApp" : "Register interest on WhatsApp"}</span>
+          <span>{ground ? "Enquire on WhatsApp" : open ? "Book on WhatsApp" : "Register interest on WhatsApp"}</span>
         </a>
         {open ? (
           <p className="mt-3 text-center text-[0.9rem] text-ink/70">
@@ -383,3 +429,4 @@ export function ReservePanel({ j, bookable = false }: { j: Journey; bookable?: b
     </div>
   );
 }
+

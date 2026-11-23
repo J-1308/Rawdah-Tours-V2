@@ -73,7 +73,8 @@ pages the trip bar replaces the floating WhatsApp button.
 | `Framed` | One soft rounded photo. |
 | `PageLead` | Inner-page head: words beside a PhotoStack on `.wash-hero` with the mark embossed. On phones and tablets the title and status come first and the photo (4:3) follows; mark the first child that belongs below the photo `lead-after`. |
 | `TripRow` | A trip as a glass card: photo with state, facts, price panel and actions. |
-| `ReservePanel` | The join panel: rooms, travellers, live total, deposit, instalments. |
+| `ReservePanel` | The join panel: header, `PackagePicker`, then Book / WhatsApp / call. Not on poster trips. |
+| `PackagePicker` | Flights or ground only, room, travellers, sharing, live total, deposit, instalments (`reserve.tsx`). Inside `ReservePanel`, and step 1 of the booking form on poster trips (`StepForm` with `journey`). |
 | `PaymentPlan` | The worked deposit example with a proportional bar. |
 | `TeacherList` | Glass cards with rounded portraits. |
 | `FaqList` | Accordions with a soft round +. |
@@ -168,7 +169,8 @@ script in `app/layout.tsx` sets before first paint unless the visitor prefers re
   (`GardenLeaves`); hosts are arched portraits (`.hosts`, `.host-arch`); `ClosingVerse` ends the page. Second pass the same day: the hero is the poster itself (`.rp-*`, `heroGuest` adds
   Sheikh Yahya); `GuestIntimate` (`.guest-close`) sits at the top; `FlightScene` (`.flight-scene`) plays the overnight
   flight as you scroll; `StayShowcase` (`.stay-*`) shows both hotels high in the page; the join panel follows the prices
-  on every screen. Closer to the deen: deen icons in `GardenGlyph` (kaaba, lantern, dome, minaret, quran, star, mihrab),
+  on every screen. One form (23 Nov 2026): poster trips have no join panel; the package picker is step 1 of the booking
+  form and your details step 2, and "#join" links go to the form (`page-watch.tsx`). Closer to the deen: deen icons in `GardenGlyph` (kaaba, lantern, dome, minaret, quran, star, mihrab),
   `VerseLine` (`.verse`) for Qur'an and hadith in Arabic with meaning and source, Arabic numerals in eight-pointed stars
   for the nights, a star lattice behind the night chapter. Night first (same day): the night chapter opens right under
   the hero and holds the nights, Sheikh Yahya (with `guestFeature.ways`), the journey and the hotels; desktop sections

@@ -453,13 +453,8 @@ export function TripView({ j }: { j: Journey }) {
                   <Heading className={h2}>Packages and payments</Heading>
                   {j.posterType ? <PosterPackages j={j} /> : <TripPackages j={j} />}
                 </section>
-                {/* Phones, poster trips: the join panel, once the prices have been read. "#join" links land here on
-                    phones and on the desktop panel above on wide screens (page-watch.tsx). */}
-                {j.posterType ? (
-                  <section id={anchors.join} className="trip-anchor mt-12 max-w-[34rem] sm:mt-16">
-                    <ReservePanel j={j} bookable={bookable} />
-                  </section>
-                ) : null}
+                {/* Poster trips have no join panel of their own (one form, 23 Nov 2026): the package picker is the booking
+                    form's first step, and "#join" links land on the form (page-watch.tsx). */}
                 {/* Poster trips show the people higher up, after the trip itself. */}
                 {j.posterTeam ? null : (
                   <section className="mt-12 sm:mt-16">
@@ -556,7 +551,7 @@ export function TripView({ j }: { j: Journey }) {
               {j.kind === "hajj" ? (
                 <StepForm path="hajj" />
               ) : packages.length ? (
-                <StepForm path="group" trip={j.name} sub={j.dates.value} packages={packages} deposit={trip?.pricing ? gbp(trip.pricing.depositPence / 100) : undefined} bookHref={bookable ? `/trips/${j.slug}/book` : undefined} />
+                <StepForm path="group" trip={j.name} sub={j.dates.value} packages={packages} deposit={trip?.pricing ? gbp(trip.pricing.depositPence / 100) : undefined} bookHref={bookable ? `/trips/${j.slug}/book` : undefined} journey={j.posterType && !bookable ? j : undefined} />
               ) : (
                 <StepForm path="interest" trip={j.name} />
               )}

@@ -17,8 +17,8 @@ export function NotOn({ href, children }: { href: string; children: ReactNode })
  * - the night sky, the mist and the icon ticker pause when off screen, so they cost nothing while you read the rest;
  * - the trip phone bar steps aside while the join panel or the booking form is on screen, so it never covers the
  *   fields or sends someone back up the page;
- * - "#join" links (and a page opened at #join) go to whichever join panel is showing: on poster trips the phone copy
- *   sits after the prices and is hidden on desktop, where the panel beside the story is the one to scroll to.
+ * - "#join" links (and a page opened at #join) go to whichever join panel is showing; on poster trips, which have no
+ *   join panel (the package picker is the booking form's first step), they go to the booking form.
  */
 export function PageWatch() {
   const path = usePathname();
@@ -46,7 +46,8 @@ export function PageWatch() {
     const toJoin = (hash: string) => {
       if (hash !== `#${anchors.join}`) return false;
       const shown = document.getElementById(anchors.join);
-      const desk = document.getElementById(anchors.joinDesktop);
+      // Poster trips have no join panel (one form, 23 Nov 2026): "#join" goes to the booking form.
+      const desk = document.getElementById(anchors.joinDesktop) ?? (shown ? null : document.getElementById(anchors.form));
       if (!desk || (shown && shown.getClientRects().length > 0)) return false;
       desk.scrollIntoView({ block: "start", behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
       return true;
