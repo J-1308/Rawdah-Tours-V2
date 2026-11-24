@@ -4,16 +4,17 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
-import { brand, hajjRegister, nav, say, tripLinks, wa } from "@/app/_site/content";
+import { brand, hajjRegister, nav, tripLinks } from "@/app/_site/content";
+import { HeaderLinks } from "@/app/_site/header-links";
 import { Emblem, Logo } from "@/app/_site/shell";
 import { Chevron, pageWa, WaGlyph } from "@/app/_site/whatsapp";
 import { ONE_PAGE, ONE_PAGE_HOME } from "@/lib/site-mode";
 
 /**
  * The header: soft glass in the top zone (night with the beige-gold logo, or
- * cream with the cocoa logo, ADR 0004), the logo at its centre and the menu
- * split either side on desktop. Phones: menu, logo, WhatsApp; the menu opens
- * a full-screen sheet in the same colours.
+ * cream with the cocoa logo, ADR 0004). Desktop: the logo on the left, the links
+ * in the middle (header-links.tsx), the buttons on the right. Phones: menu,
+ * logo, WhatsApp; the menu opens a full-screen sheet in the same colours.
  */
 export function SiteHeader() {
   const pathname = usePathname();
@@ -54,12 +55,10 @@ export function SiteHeader() {
   }, [open, panel]);
 
   const pad = "px-[max(var(--hero-pad-x),env(safe-area-inset-left))]";
-  const isCurrent = (href: string) => pathname === href || pathname.startsWith(href + "/");
-  const linkCls = "relative py-2 text-[0.9rem] text-ink/75 transition-colors hover:text-ink aria-[current=page]:text-ink aria-[current=page]:after:absolute aria-[current=page]:after:inset-x-1 aria-[current=page]:after:-bottom-0.5 aria-[current=page]:after:h-px aria-[current=page]:after:bg-gold";
-  const [hajj, trips, priv, groups, about] = nav;
 
-  // One-page mode (src/lib/site-mode.ts): no menu. Phones: call, logo, WhatsApp. Desktop: the trip, the logo, then
-  // WhatsApp and "Book your place".
+  // One-page mode (src/lib/site-mode.ts). Phones: call, logo, WhatsApp (the garden path under the hero is their menu).
+  // Desktop: the logo, the page's sections (header-links.tsx; they take over from the garden path), then WhatsApp and
+  // "Book your place".
   if (ONE_PAGE) {
     return (
       <header
@@ -67,7 +66,7 @@ export function SiteHeader() {
           scrolled ? "border-b border-ink/6 bg-canvas/85 shadow-[0_10px_40px_-28px_rgb(58_43_36/0.5)]" : "border-b border-transparent bg-canvas/60"
         }`}
       >
-        <div className={`grid h-[4.5rem] grid-cols-[1fr_auto_1fr] items-center gap-4 lg:h-[5.25rem] ${pad}`}>
+        <div className={`hdr-grid grid h-[4.5rem] items-center gap-4 lg:h-[5.25rem] ${pad}`}>
           <div className="flex items-center">
             <a href={brand.phone.href} aria-label={`Call ${brand.phone.display}`} className="-ml-1 grid size-11 place-items-center rounded-full bg-(--raise) text-ink/80 shadow-[0_6px_18px_-10px_rgb(58_43_36/0.4)] lg:hidden">
               <svg aria-hidden viewBox="0 0 24 24" className="size-[1.1rem]" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
@@ -82,11 +81,7 @@ export function SiteHeader() {
           <Link href={ONE_PAGE_HOME} className="text-ink lg:hidden" aria-label="Rawdah Tours, Ramadan Umrah 2027">
             <Logo className="logo-gold h-10" />
           </Link>
-          <Link href={ONE_PAGE_HOME} className="hidden text-center text-[0.9rem] whitespace-nowrap text-ink/75 transition-colors hover:text-ink lg:block">
-            <span className="font-editorial text-[1.15rem] text-ink italic">Ramadan Umrah 2027</span>
-            {/* The dates only from 1280px: at 1024px they pushed the two buttons onto two lines (23 Nov 2026). */}
-            <span className="hidden xl:inline"> · 27 Feb – 13 Mar, with GGC</span>
-          </Link>
+          <HeaderLinks className="hidden lg:block" />
           <div className="flex items-center justify-end gap-[clamp(1rem,1.6vw,1.5rem)]">
             {/* The page's second button, as everywhere (one button identity, 20 Nov 2026): an outline with WhatsApp's mark. */}
             <a href={pageWa(pathname)} target="_blank" rel="noopener noreferrer" className="hdr-wa hidden h-11 items-center gap-2 rounded-[0.95rem] px-4 text-[0.88rem] font-medium whitespace-nowrap lg:inline-flex">
@@ -110,8 +105,8 @@ export function SiteHeader() {
         scrolled ? "border-b border-ink/6 bg-canvas/85 shadow-[0_10px_40px_-28px_rgb(58_43_36/0.5)]" : "border-b border-transparent bg-canvas/60"
       }`}
     >
-      <div className={`grid h-[4.5rem] grid-cols-[1fr_auto_1fr] items-center gap-4 lg:h-[5.25rem] ${pad}`}>
-        {/* Left: menu button on phones, half the menu on desktop */}
+      <div className={`hdr-grid grid h-[4.5rem] items-center gap-4 lg:h-[5.25rem] ${pad}`}>
+        {/* Left: menu button on phones, the logo on desktop */}
         <div className="flex items-center">
           <button
             type="button"
@@ -125,62 +120,19 @@ export function SiteHeader() {
               <span className="absolute top-3 left-0 h-px w-3.5 bg-ink" />
             </span>
           </button>
-          <nav aria-label="Main" className="hidden lg:block">
-            <ul className="flex items-center gap-[clamp(1.1rem,2vw,2rem)]">
-              <li>
-                <Link href={hajj.href} aria-current={isCurrent(hajj.href) ? "page" : undefined} className={linkCls}>
-                  {hajj.label}
-                </Link>
-              </li>
-              {"children" in trips ? (
-                <li className="relative" onMouseEnter={() => setPanel(true)} onMouseLeave={() => setPanel(false)}>
-                  <button type="button" aria-expanded={panel} onClick={() => setPanel((x) => !x)} className="flex items-center gap-1.5 py-2 text-[0.9rem] text-ink/75 hover:text-ink">
-                    {trips.label}
-                    <Chevron dir="down" className={`size-3 transition-transform ${panel ? "-scale-x-100" : ""}`} />
-                  </button>
-                  {panel ? (
-                    <div className="absolute top-full left-0 w-[22rem] pt-2">
-                      <ul className="rounded-[1.25rem] border border-(--edge) bg-canvas/95 p-2 shadow-[var(--shadow-float)] backdrop-blur-md">
-                        {trips.children.map((c) => (
-                          <li key={c.href}>
-                            <Link href={c.href} className="flex items-baseline justify-between gap-4 rounded-[0.9rem] px-4 py-3 transition-colors hover:bg-(--raise-hi)">
-                              <span className="font-editorial text-[1.2rem]">{c.label}</span>
-                              <span className="text-[0.875rem] text-ink/62">{c.note}</span>
-                            </Link>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  ) : null}
-                </li>
-              ) : null}
-              <li>
-                <Link href={priv.href} aria-current={isCurrent(priv.href) ? "page" : undefined} className={linkCls}>
-                  {priv.label}
-                </Link>
-              </li>
-            </ul>
-          </nav>
+          <Link href="/" className="hidden text-ink lg:block" aria-label="Rawdah Tours, home">
+            <Logo className="logo-gold h-[3.4rem]" />
+          </Link>
         </div>
 
-        {/* Centre: the logo */}
-        <Link href="/" className="text-ink" aria-label="Rawdah Tours, home">
-          <Logo className="logo-gold h-10 lg:h-[3.4rem]" />
+        {/* Centre: the logo on phones; the pages on desktop (header-links.tsx, 24 Nov 2026). */}
+        <Link href="/" className="text-ink lg:hidden" aria-label="Rawdah Tours, home">
+          <Logo className="logo-gold h-10" />
         </Link>
+        <HeaderLinks className="hidden lg:block" />
 
-        {/* Right: the other half on desktop, WhatsApp on phones */}
+        {/* Right: the main button on desktop, WhatsApp on phones */}
         <div className="flex items-center justify-end gap-[clamp(1.1rem,2vw,2rem)]">
-          <nav aria-label="More" className="hidden lg:block">
-            <ul className="flex items-center gap-[clamp(1.1rem,2vw,2rem)]">
-              {[groups, about].map((item) => (
-                <li key={item.href}>
-                  <Link href={item.href} aria-current={isCurrent(item.href) ? "page" : undefined} className={linkCls}>
-                    {item.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </nav>
           <Link href={hajjRegister} className="btn-ink hidden h-11 items-center rounded-[0.85rem] px-5 text-[0.88rem] font-medium lg:inline-flex">
             Register interest
           </Link>
