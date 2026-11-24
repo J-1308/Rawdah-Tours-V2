@@ -2039,3 +2039,32 @@ html.motion .stay-photo-img { animation: stay-in 0.7s var(--ease-out); }
   .stay-text { padding-top: 0.5rem; }
   .stay-plate { height: 4.8rem; }
 }
+
+/* --- The desktop header's links (header-links.tsx, 24 Nov 2026) -------------------------------------------------------
+   Phones: call (or menu), logo, WhatsApp. Desktop: the logo, the links, the buttons. The links share the middle column
+   until there is room to centre them on the page. The place you're in: full stone, with a short gold line under it that
+   glides from link to link, like the garden path's. In one-page mode they replace the garden path on desktop. */
+.hdr-grid { grid-template-columns: 1fr auto 1fr; }
+@media (min-width: 64rem) { .hdr-grid { grid-template-columns: auto 1fr auto; } }
+@media (min-width: 85rem) { .hdr-grid { grid-template-columns: 1fr auto 1fr; } }
+.hdr-links {
+  position: relative; display: flex; justify-content: center; align-items: center; gap: clamp(0.15rem, 0.6vw, 0.6rem);
+  background-image: linear-gradient(90deg, #c4a254, #e2c98f); background-repeat: no-repeat;
+  background-size: var(--hl-w, 0px) 2px; background-position: var(--hl-x, 0px) calc(100% - 0.15rem);
+  transition: background-position 0.5s cubic-bezier(0.22, 1, 0.36, 1), background-size 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.hdr-links a {
+  display: inline-flex; align-items: center; min-height: 2.75rem; padding: 0 clamp(0.45rem, 0.9vw, 0.8rem);
+  font-size: 0.9rem; white-space: nowrap; color: rgb(from var(--color-ink) r g b / 0.66); border-radius: 0.7rem;
+  transition: color 0.35s var(--ease-out), background-color 0.35s var(--ease-out);
+}
+.hdr-links a:hover { color: var(--color-ink); background: rgb(255 255 248 / 0.07); }
+.hdr-links a[data-lit] { color: var(--color-ink); }
+.hdr-links a:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+@media (prefers-reduced-motion: reduce) { .hdr-links { transition: none; } }
+@media (min-width: 64rem) {
+  /* One menu on desktop: in one-page mode the header's links take over from the garden path (phones keep it). With the
+     full site the header links go to pages, so the Ramadan page keeps its garden path. */
+  :root[data-skin="1448"] .skin-1448 .trip-jump.garden-path { display: none; }
+  :root[data-skin="1448"] .skin-1448 .trip-anchor { scroll-margin-top: 6.75rem; }
+}

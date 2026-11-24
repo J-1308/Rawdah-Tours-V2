@@ -175,7 +175,12 @@ script in `app/layout.tsx` sets before first paint unless the visitor prefers re
   for the nights, a star lattice behind the night chapter. Night first (same day): the night chapter opens right under
   the hero and holds the nights, Sheikh Yahya (with `guestFeature.ways`), the journey and the hotels; desktop sections
   share one centred column (`.pw`, 72rem). The one-page header on desktop: the logo on the left, the trip line in the
-  middle, WhatsApp and Book on the right (phones keep call, logo, WhatsApp). Rawdah's gold (ADR 0006, fifth pass):
+  middle, WhatsApp and Book on the right (phones keep call, logo, WhatsApp). Since 24 Nov 2026 the middle holds real
+  links (`HeaderLinks`, `header-links.tsx`, `.hdr-links`): The journey · Guest Sheikh · Hotels · Prices · Questions,
+  the section in view in full stone with a short gold line under it that glides between links (the garden path's line,
+  not The Umrah Company's menu, ADR 0001). On desktop it replaces the garden path, so there is one menu (phones keep the
+  garden path). With the full site (`ONE_PAGE` false) the same slot links pages: Ramadan 2027 · Private & family ·
+  Groups · Hajj 2027 · About, the page you're on lit, and the Ramadan page keeps its garden path. Rawdah's gold (ADR 0006, fifth pass):
   `--gilt`, `--gilt-light`, `--gilt-deep` on the poster skin, `.btn-gilt` for the main "Book your place", gold labels
   and gold-edged night cards, headings at weight 520. Gold on olive and green, never on black (The Umrah Company is gold on black).
   Sixth pass (ADR 0006): the package is its own section (`PackageSection`, `.pkg-*`, `j.pack.at` "day" or "night"),
