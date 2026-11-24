@@ -163,21 +163,7 @@ body {
   background-color: #1b1410;
 }
 
-/* A faint paper grain over everything, so the creams feel like stock, not screen.
-   Desktop only: on phones it is a full-screen fixed layer that iPhone Safari
-   has to redraw on every scroll, and at this strength you can't see it there. */
-@media (hover: none), (pointer: coarse) {
-  body::after { display: none; }
-}
-body::after {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: 100;
-  pointer-events: none;
-  opacity: 0.045;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.23 0 0 0 0 0.17 0 0 0 0 0.14 0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-}
+/* No paper grain (24 Nov 2026, Jibril: the grain and tile patterns "look like wallpaper"). The grounds are flat. */
 
 ::selection {
   background: var(--color-sand);
@@ -490,9 +476,14 @@ html.motion .step-in { animation: step-in 0.45s var(--ease-out) both; }
    GGC × Rawdah poster's colours inside the page: stone and mist instead of cream, olive instead of cocoa and bronze.
    Only tokens change, so every component follows. Colours sampled from the poster. */
 .skin-1448 {
-  --color-canvas: #ece8df;
-  --color-canvas-warm: #e3ded2;
-  --color-beige: #d8d2c2;
+  /* One warm cream for every day section, hero included, and one dark olive for the night (24 Nov 2026, Jibril: five
+     off-whites "read grey and patchy, with visible seams"). Cards and insets sit on the cream in white glass, not in
+     other creams. */
+  --cream: #f4efe4;
+  --night: #2a2c20;
+  --color-canvas: var(--cream);
+  --color-canvas-warm: #ece6d8;
+  --color-beige: #e0d8c6;
   --color-sand: #b4ae92;
   --color-gold-soft: #b4ae92;
   --color-gold: #8a8664;
@@ -501,8 +492,8 @@ html.motion .step-in { animation: step-in 0.45s var(--ease-out) both; }
   --color-ink-deep: #25241a;
   --color-clay: #4a4831;
   --color-muted: #66634b;
-  --color-cream: #ece8df;
-  --glass-bg: rgb(250 249 244 / 0.58);
+  --color-cream: var(--cream);
+  --glass-bg: rgb(255 253 248 / 0.62);
   --glass-line: rgb(255 255 255 / 0.75);
   --raise: rgb(255 255 252 / 0.55);
   --edge: rgb(255 255 255 / 0.7);
@@ -513,18 +504,15 @@ html.motion .step-in { animation: step-in 0.45s var(--ease-out) both; }
   --btn-bg-hover: linear-gradient(180deg, #69673f 0%, #4f4d33 100%);
   --btn-fg: #f4f2ea;
   --btn-shadow: inset 0 1px 0 rgb(255 255 255 / 0.14), 0 14px 30px -16px rgb(37 36 26 / 0.55);
-  --hero-glow:
-    radial-gradient(55% 45% at 85% 12%, rgb(255 255 255 / 0.75) 0%, transparent 70%),
-    radial-gradient(60% 50% at 10% 70%, rgb(255 255 255 / 0.55) 0%, transparent 70%),
-    linear-gradient(180deg, #dcd6c8 0%, #e6e1d6 55%, #ece8df 100%);
+  --hero-glow: linear-gradient(var(--cream), var(--cream));
   --watermark: rgb(84 82 52 / 0.07);
   color: var(--color-ink);
 }
 /* Its dark band (flights and hotels): the olive of the poster's price panel, not cocoa. */
 .skin-1448 .night {
-  --color-canvas: #2e2d20;
-  --color-canvas-warm: #353425;
-  --color-beige: #3c3b2a;
+  --color-canvas: var(--night);
+  --color-canvas-warm: #333528;
+  --color-beige: #3a3c2e;
   --color-gold: #c9c3a0;
   --color-bronze: #d6d1b0;
   --color-ink: #ece8df;
@@ -535,6 +523,8 @@ html.motion .step-in { animation: step-in 0.45s var(--ease-out) both; }
   --btn-bg-hover: linear-gradient(180deg, #f4f1ea 0%, #dad4c0 100%);
   --btn-fg: #2e2d20;
 }
+/* No bands inside the day: the booking section and the journey sit on the same cream as everything else. */
+.skin-1448 .wash-linen, .skin-1448 .wash-beige { background: none; }
 
 /* One-page mode (only the Ramadan page live; Jibril, 19 Nov 2026): the top (strip, header) and the footer wear the
    poster's olive and stone instead of cocoa, the logo turns stone. <html data-skin="1448"> is set in layout.tsx. */
@@ -1146,7 +1136,7 @@ details > summary::-webkit-details-marker { display: none; }
 .nf-dusk {
   position: absolute; left: 0; right: 0; top: 0; height: 230%;
   opacity: 0; transform: translate3d(0, 0, 0);
-  background: linear-gradient(to bottom, #ece8df 0%, #ece8df 42%, #e4d8bd 46%, rgb(201 170 112 / 0.75) 50%, rgb(120 104 68 / 0.45) 55%, rgb(46 45 32 / 0) 62%);
+  background: linear-gradient(to bottom, var(--cream, #ece8df) 0%, var(--cream, #ece8df) 40%, #ddd5c2 45%, rgb(164 156 128 / 0.9) 50%, rgb(78 76 56 / 0.55) 56%, rgb(42 44 32 / 0) 63%);
 }
 /* The night sheet doesn't cast its shadow up where dusk falls: the light changes instead. */
 .chapter:not(.night):not(.top-zone) + .chapter.night:has(> .nightfall) { box-shadow: none; }
@@ -1173,37 +1163,21 @@ html.motion .past-gallery .rv.in img, html.motion .past-lead.rv.in img { filter:
 /* The garden chapter: Madinah in the Rawdah's green (its carpet is light green with a floral design, where the rest of
    the masjid is red), with that floral lattice faint in the ground and a gold dawn at the top, after the night. */
 .skin-1448 .garden {
-  --color-canvas: #dfe6d1;
-  --color-canvas-warm: #e6ebda;
-  --color-beige: #cfd9bd;
-  --color-sand: #9fb08a;
+  /* Madinah (24 Nov 2026): the same cream as the day, the Rawdah's green only in the headline accent, the labels and
+     the icons. No carpet lattice, no gold glow, no sheet. */
   --color-gold-soft: #b9a274;
   --color-gold: #93783f;
   --color-bronze: #46613a;
-  --color-ink: #23311b;
-  --color-ink-deep: #182214;
-  --color-clay: #3a5030;
-  --color-muted: #54664a;
-  --glass-bg: rgb(250 252 244 / 0.62);
   --field-ring: rgb(70 97 58 / 0.3);
   --focus: #46613a;
-  --btn-bg: linear-gradient(180deg, #557a43 0%, #3f5e31 100%);
-  --btn-bg-hover: linear-gradient(180deg, #5f8649 0%, #466836 100%);
-  --btn-fg: #f3f6ec;
-  --watermark: rgb(70 97 58 / 0.08);
-  --chapter-glow:
-    radial-gradient(90% 26rem at 50% 0%, rgb(236 214 158 / 0.85) 0%, rgb(236 214 158 / 0.25) 45%, transparent 75%),
-    radial-gradient(60% 40% at 100% 100%, rgb(255 255 255 / 0.35) 0%, transparent 70%);
-  --carpet: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64' viewBox='0 0 64 64'%3E%3Cg fill='%23466437' fill-opacity='0.075'%3E%3Cellipse cx='32' cy='24' rx='3.2' ry='6'/%3E%3Cellipse cx='32' cy='40' rx='3.2' ry='6'/%3E%3Cellipse cx='24' cy='32' rx='6' ry='3.2'/%3E%3Cellipse cx='40' cy='32' rx='6' ry='3.2'/%3E%3Ccircle cx='0' cy='0' r='3.4'/%3E%3Ccircle cx='64' cy='0' r='3.4'/%3E%3Ccircle cx='0' cy='64' r='3.4'/%3E%3Ccircle cx='64' cy='64' r='3.4'/%3E%3C/g%3E%3Cg fill='none' stroke='%23466437' stroke-opacity='0.06'%3E%3Cpath d='M0 32h14M50 32h14M32 0v14M32 50v14'/%3E%3C/g%3E%3C/svg%3E");
-  color: var(--color-ink);
 }
-.chapter.garden { background: var(--chapter-glow), var(--carpet), var(--color-canvas); }
-/* Stone comes back over the green as a sheet, as night meets day. */
-.chapter.garden + .chapter:not(.night):not(.garden) {
-  margin-top: calc(-1 * var(--sheet));
-  border-top-left-radius: var(--sheet);
-  border-top-right-radius: var(--sheet);
-  box-shadow: 0 -26px 54px -38px rgb(35 49 27 / 0.5);
+.skin-1448 .chapter.garden { background: var(--color-canvas); }
+/* Night into Madinah, Madinah into the day: one ground, so no sheet edge, radius or shadow. */
+.skin-1448 .chapter.night + .chapter.garden,
+.skin-1448 .chapter.garden + .chapter {
+  margin-top: 0;
+  border-radius: 0;
+  box-shadow: none;
 }
 .chapter.garden .hotel-walk { background: rgb(255 255 255 / 0.5); }
 
@@ -1237,13 +1211,15 @@ html.motion .garden-path [data-state="here"] .gp-glyph { animation: gp-grow 0.9s
 /* Daybreak: stars go out, gold rises, then the garden sheet comes up over it. */
 .daybreak { position: relative; height: clamp(20rem, 56vh, 30rem); margin-top: clamp(1rem, 4vw, 3rem); pointer-events: none; }
 .daybreak .sky { -webkit-mask-image: linear-gradient(to bottom, #000 0%, transparent 80%); mask-image: linear-gradient(to bottom, #000 0%, transparent 80%); opacity: 0.55; }
-.db-dawn { position: absolute; inset: 0; background: linear-gradient(to bottom, transparent 0%, rgb(160 132 74 / 0.18) 45%, rgb(236 214 158 / 0.55) 100%); }
+.db-dawn { position: absolute; inset: 0; background: linear-gradient(to bottom, transparent 0%, transparent 46%, rgb(80 76 54 / 0.9) 62%, #a8997a 78%, #e0d5bc 90%, var(--cream, #ece8df) 100%); }
+/* Room for the fade under the takbir (24 Nov 2026). */
+.skin-1448 .daybreak { height: clamp(26rem, 70vh, 38rem); }
 @supports (animation-timeline: view()) {
   @keyframes db-out { from { opacity: 1; } to { opacity: 0.08; } }
   @keyframes db-in { from { opacity: 0; } to { opacity: 1; } }
   html.motion .daybreak { view-timeline: --daybreak block; }
   html.motion .daybreak .sky { animation: db-out linear both; animation-timeline: --daybreak; animation-range: cover 20% cover 75%; }
-  html.motion .db-dawn { animation: db-in linear both; animation-timeline: --daybreak; animation-range: cover 15% cover 70%; }
+  /* The fade to cream stays put (24 Nov 2026): the night always meets Madinah on the same cream, never half-faded. */
 }
 
 /* Eid: the crescent rises over the heading as the section comes in. */
@@ -1405,14 +1381,6 @@ html.motion .hosts .rv.in .host-arch img { transform: none; }
 .mm-text { margin-top: 0.3rem; font-size: 0.95rem; line-height: 1.55; color: rgb(from var(--color-ink) r g b / 0.72); }
 @media (min-width: 48rem) { .madinah-moments { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
 
-/* --- The garden grows at daybreak --- */
-.db-garden { position: absolute; left: 0; right: 0; bottom: calc(var(--sheet) - 0.2rem); height: 4.5rem; }
-.db-plant { position: absolute; bottom: 0; width: auto; color: #7d9c63; transform-origin: 50% 100%; }
-@supports (animation-timeline: view()) {
-  @keyframes db-grow { from { transform: scaleY(0) scaleX(0.6); opacity: 0; } to { transform: none; opacity: 1; } }
-  html.motion .db-plant { animation: db-grow linear both; animation-timeline: --daybreak; animation-range: cover calc(30% + var(--n) * 3%) cover calc(52% + var(--n) * 3%); }
-}
-
 /* === Closer to the deen (20 Nov 2026) ===========================================================================
    Words of the deen at the story's turns (VerseLine): the Arabic large in Amiri, its meaning in the serif, its source
    small, under an eight-pointed star. After the hero: the hadith of Umrah in Ramadan. In the nightfall, under the arch
@@ -1451,13 +1419,8 @@ html.motion .hosts .rv.in .host-arch img { transform: none; }
 .ns-star { position: absolute; inset: 0; width: 100%; height: 100%; color: rgb(233 210 156 / 0.16); }
 .nights-star > span { position: relative; font-family: var(--font-arabic); font-size: 1.2rem; line-height: 1; letter-spacing: 0; color: #e9d29c; }
 
-/* Behind the night chapter, faint: a lattice of eight-pointed stars. */
-.skin-1448 .chapter.night {
-  background:
-    var(--chapter-glow),
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='88' height='88' viewBox='0 0 88 88'%3E%3Cg fill='none' stroke='%23e9d29c' stroke-opacity='0.04' stroke-width='1'%3E%3Cpath d='M32 32h24v24H32z'/%3E%3Cpath d='M44 27l17 17-17 17-17-17z'/%3E%3Cpath d='M0 44h27M61 44h27M44 0v27M44 61v27'/%3E%3C/g%3E%3C/svg%3E"),
-    var(--color-canvas);
-}
+/* The night chapter: one flat olive, no lattice or glows (24 Nov 2026). */
+.skin-1448 .chapter.night { background: var(--color-canvas); }
 
 /* --- Night first (20 Nov 2026): the night chapter now opens under the hero and carries Sheikh Yahya, the journey and
    the hotels, so those pieces take the night's light. --- */
@@ -1572,7 +1535,7 @@ html:not(.motion) .feature-band { overflow-x: auto; }
    chapter you're in, dark words, a gold stage that grows in, a soft raised ground, and a short gold line that glides
    along under the row to sit beneath it (garden-path.tsx sets --gp-x and --gp-w; it scrolls with the row). Nothing
    here looks like the Book button. */
-.skin-1448 .trip-jump.garden-path { background: rgb(247 244 237 / 0.94); border-bottom: 1px solid rgb(84 82 52 / 0.1); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
+.skin-1448 .trip-jump.garden-path { background: rgb(244 239 228 / 0.94); border-bottom: 1px solid rgb(84 82 52 / 0.1); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
 .skin-1448 .garden-path ul { position: relative; gap: 0.15rem; background-image: linear-gradient(90deg, #c4a254, #e2c98f); background-repeat: no-repeat; background-size: var(--gp-w, 0px) 2px; background-position: var(--gp-x, 0px) calc(100% - 0.35rem); background-attachment: local; transition: background-position 0.55s cubic-bezier(0.22, 1, 0.36, 1), background-size 0.55s cubic-bezier(0.22, 1, 0.36, 1); }
 .skin-1448 .garden-path a { background: transparent; border-color: transparent; color: rgb(51 50 31 / 0.58); padding-inline: 0.85rem 0.95rem; transition: color 0.4s var(--ease-out), background-color 0.4s var(--ease-out), box-shadow 0.4s var(--ease-out); }
 .skin-1448 .garden-path a:hover { color: var(--color-ink); background: rgb(255 255 255 / 0.45); border-color: transparent; }
@@ -1690,7 +1653,7 @@ html.motion .fb-item.rv.in .fb-text { opacity: 1; transform: none; }
 /* --- The hero with the poster's lettering (LockupHero, ?look=a/b/c, 20 Nov 2026) ----------------------------------------
    Phones: the lockup, the artwork with our words in its tablets and Sheikh Yahya, then the line and the offer. Desktop:
    the artwork on the left, the words centred on the right, as the poster sets them. */
-.rl { background: linear-gradient(180deg, #e3dfd3 0%, #e1dbce 45%, #e4ded2 72%, var(--color-canvas) 100%); padding-bottom: clamp(2rem, 6vw, 3.5rem); }
+.rl { background: var(--color-canvas); padding-bottom: clamp(2rem, 6vw, 3.5rem); }
 .rl-mark { z-index: 0; right: -14%; bottom: 4%; height: 46%; }
 .rl-grid { position: relative; z-index: 1; display: grid; grid-template-columns: minmax(0, 1fr); grid-template-areas: "head" "art" "foot"; justify-items: center; text-align: center; }
 .rl-head { grid-area: head; display: grid; justify-items: center; padding-top: 1.25rem; }
@@ -1852,7 +1815,7 @@ html.motion .fb-item.rv.in .fb-text { opacity: 1; transform: none; }
   box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.26), inset 0 0 0 1px rgb(255 255 245 / 0.08);
 }
 .skin-1448 .trip-jump.garden-path {
-  background: linear-gradient(180deg, rgb(250 248 242 / 0.8) 0%, rgb(244 241 233 / 0.72) 100%);
+  background: rgb(244 239 228 / 0.86);
   -webkit-backdrop-filter: blur(22px) saturate(180%); backdrop-filter: blur(22px) saturate(180%);
   border-bottom: 1px solid rgb(255 255 255 / 0.6);
   box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.7), 0 10px 28px -22px rgb(40 38 24 / 0.5);
@@ -1958,7 +1921,7 @@ html.motion[data-skin="1448"] header .btn-ink:hover::after, html.motion .skin-14
    ringed icons and fine rules (two columns on desktop), then the price and the buttons. "day": a lighter ivory than the
    hero, fading back to stone at its foot so the nightfall's veil carries on from it. "night": the same, in the night. */
 .pkg { position: relative; padding-block: clamp(3.5rem, 9vw, 6.5rem); }
-.pkg-day { background: linear-gradient(180deg, #f7f4ed 0%, #f5f1e8 72%, #ece8df 100%); }
+.pkg-day { background: var(--color-canvas); }
 .pkg-night { padding-top: clamp(1.5rem, 5vw, 3rem); padding-bottom: clamp(1rem, 4vw, 2rem); }
 .pkg-in { box-sizing: border-box; display: grid; gap: 2rem; max-width: calc(72rem + 2 * var(--hero-pad-x)); margin-inline: auto; }
 .pkg-title { margin-top: 0.9rem; max-width: 34rem; font-size: clamp(2.4rem, 8vw, 3.5rem); line-height: 1.03; text-wrap: balance; }

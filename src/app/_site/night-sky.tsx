@@ -1,6 +1,5 @@
 import type { CSSProperties } from "react";
 
-import { GardenCrown } from "@/app/_site/garden";
 
 /**
  * A Ramadan night sky for the Ramadan Umrah 2027 page (Jibril, 17 Nov 2026: the client values good animation):
@@ -113,9 +112,9 @@ export function Nightfall({ children }: { children?: React.ReactNode }) {
 }
 
 /**
- * Daybreak, at the foot of the night chapter, before Eid (20 Nov 2026): the nightfall in reverse. As it scrolls past,
- * the stars go out and a gold light rises from below, and the garden chapter comes up over it. Still where scroll
- * timelines aren't supported, and with reduced motion: a night sky warming at the bottom.
+ * Daybreak, at the foot of the night chapter, before Madinah (20 Nov 2026): the nightfall in reverse. As it scrolls
+ * past, the stars go out and the night fades straight into the cream of the day (24 Nov 2026: no gold band, no
+ * sprouts). Still where scroll timelines aren't supported, and with reduced motion.
  */
 export function Daybreak({ children }: { children?: React.ReactNode }) {
   return (
@@ -124,21 +123,11 @@ export function Daybreak({ children }: { children?: React.ReactNode }) {
       <div aria-hidden className="db-art">
       <NightSky count={40} seed={30} className="db-sky" />
       <span className="db-dawn" />
-      {/* The garden grows up into Madinah: the mark's crown, a row of them, rising with the light. */}
-      <span className="db-garden">
-        {GROW.map((g, i) => (
-          <GardenCrown key={i} className="db-plant" style={{ left: `${g.x}%`, height: `${g.h}rem`, "--n": i } as CSSProperties} />
-        ))}
-      </span>
       </div>
     </div>
   );
 }
 
-const GROW = [
-  { x: 4, h: 2.2 }, { x: 13, h: 3.4 }, { x: 22, h: 2.6 }, { x: 33, h: 4 }, { x: 44, h: 2.8 },
-  { x: 55, h: 3.6 }, { x: 66, h: 2.4 }, { x: 76, h: 3.8 }, { x: 87, h: 2.7 }, { x: 95, h: 3.2 },
-];
 
 /**
  * The overnight flight, as a scene that plays as you scroll past it (Jibril, 20 Nov 2026: the last-ten-nights
