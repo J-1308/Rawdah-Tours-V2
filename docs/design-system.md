@@ -116,17 +116,17 @@ script in `app/layout.tsx` sets before first paint unless the visitor prefers re
   framed photos (`.rise`, with the photo easing out of a slight zoom) rise into view, on phones too. Only elements
   still below the screen at load are hidden, so nothing in view blinks; add `data-reveal` to opt anything else in.
 - **Buttons:** a light sweep across `.btn-sand` on hover. Photos zoom very slightly on hover.
-- **The day-and-night hero (24 Nov 2026):** `NightHero` (`poster-hero.tsx`, `.nh-*`) replaces the poster collage
-  (`LockupHero`, kept in the file for now). First pass (Jibril: "something is off… this empty feeling… the nav bar and
-  background… the face is prominent"): a night hero with a photo. Second pass ("combine the two… elements of the
-  original hero on the left… both light and dark… the wording in the original hero", with the journey's group photo):
-  desktop is two halves. The day (cream): the poster's lockup (1448 / RAMADAN / LAST 10 NIGHTS), the dates, "with
-  GGC", "Eid in the blessed lands" and "14 nights" side by side, the two prices, the gilt button, the deposit and
-  WhatsApp in a line. The night (olive): our last group in the Address lobby (`heroPhoto`, `group-photos-01.jpg`) at
-  its own 3:2 shape with its caption, never cropped, and Sheikh Yahya as a small round credit under it. The ten lamps
-  hang over both, olive line by day and glowing at night, on short strings. Phones: the day first (words, prices,
-  button, all on the first screen), then the night (photo and credit). The journey section now shows the group in
-  ihram at night (`group-photos-03.jpg`), so the page doesn't repeat a photo.
+- **The Ramadan hero (24 Nov 2026):** `NightHero` (`poster-hero.tsx`, `.nh-*`) replaces the poster collage
+  (`LockupHero`, kept in the file for now). Jibril: "something is off… this empty feeling… the nav bar and background…
+  the face is prominent", then, of the first pass, "it looked clean… the image was the perfect size", and "the wording
+  in the original hero". So: the original words on the left (the lockup 1448 / RAMADAN / LAST 10 NIGHTS, the dates,
+  "14 nights · Eid in the blessed lands · with GGC", Sheikh Yahya as a small round credit, the two prices, one gilt
+  button, the deposit and WhatsApp in a line) and our last group large on the right (`heroPhoto`,
+  `group-photos-01.jpg`, at its own 3:2 shape, never cropped). Two versions while Jibril chooses: dark (`data-look`
+  "dark", the night's olive; the header floats over it, clear, until you scroll) and light ("light", the cream;
+  `?hero=light` previews it, `hero-look.tsx`). The ten lamps run along the top on desktop on short strings, glowing in
+  the dark version, olive line in the light. Phones: the photo full width under the header, then the words. The journey
+  section now shows the group in ihram at night (`group-photos-03.jpg`), so the page doesn't repeat a photo.
 - **One cream, one night (24 Nov 2026, Jibril: five off-whites "read grey and patchy, with visible seams"; ADR 0006
   addendum):** on the poster skin every day section, hero included, is one warm cream, `--cream: #f4efe4`
   (`--color-canvas`); cards and insets sit on it in white glass (`--glass-bg`), not in other creams; no washes or bands

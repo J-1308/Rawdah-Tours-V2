@@ -7,6 +7,7 @@ import { HeroFigures, ICONS, type Perk } from "@/app/_site/poster-parts";
 import { PosterLockup } from "@/app/_site/poster-type";
 import { Emblem, gutter, Heading, Label, PartnerLogo } from "@/app/_site/shell";
 import { Chevron } from "@/app/_site/whatsapp";
+import { HeroLook } from "@/app/_site/hero-look";
 
 type Person = ComponentProps<typeof HeroFigures>["people"][number];
 
@@ -232,89 +233,85 @@ export function LockupHero({ j, guest, price, ground, joinLabel }: Buy & { guest
 }
 
 /**
- * The day-and-night hero (Jibril, 24 Nov 2026). First pass: the night hero ("something is off… this empty feeling… the
- * face is prominent"). Second pass: "combine the two… take elements of the original hero and place it on the left, make
- * it both light and dark… the wording in the original hero", with the group photo from the journey section. Desktop: the
- * day on the left, the poster's own words (1448 / RAMADAN / LAST 10 NIGHTS, the dates, with GGC, Eid in the blessed
- * lands, 14 nights), the prices and the button; the night on the right, our last group at its own shape (never
- * cropped) with Sheikh Yahya credited under it. The lamps hang over both: olive line by day, glowing at night. Phones:
- * the day first (the words, the prices and the button, on the first screen), then the night (the photo and the credit).
+ * The Ramadan hero (Jibril, 24 Nov 2026). First pass ("something is off… this empty feeling… the face is prominent"): a
+ * clean hero, the words on the left and a large photo on the right, which he liked ("it looked clean… the image was
+ * the perfect size"). Second pass: the original hero's wording (1448 / RAMADAN / LAST 10 NIGHTS, the dates, with GGC,
+ * 14 nights and Eid in the blessed lands) in that layout, with the journey's group photo, in a dark and a light version
+ * (`data-look`; `?hero=light` previews the light one, hero-look.tsx). The photo at its own shape, never cropped; Sheikh
+ * Yahya as a credit; one gold button; the ten lamps along the top on desktop. Phones: the photo, then the words.
  */
 export function NightHero({ j, guest, price, ground, deposit, joinLabel, waHref }: Buy & { guest?: Person; waHref: string }) {
   const dates = j.dates.value.replace(/\bFeb\b/, "February").replace(/\bMar\b/, "March");
   const photo = j.heroPhoto;
   return (
-    <section className="nh">
+    <section className="nh" data-look="dark">
+      <HeroLook />
       <HeroLamps />
-      <div className="nh-head">
-        <h1 className="poster-lockup rl-lockup">
-          <span className="sr-only">Ramadan Umrah 2027: </span>
-          <PosterLockup year="1448" word="Ramadan" line="Last 10 nights" />
-        </h1>
-        <p style={at(650)} className="poster-date rl-date follow">
-          {dates}
-        </p>
-        {j.partnerLogo ? (
-          <p style={at(740)} className="rl-with follow">
-            <em>with</em>
-            <PartnerLogo logo={j.partnerLogo} className="h-6" />
-          </p>
+      <div className={`nh-grid ${gutter}`}>
+        {photo ? (
+          <figure className="nh-photo settle">
+            <Image src={photo.src} alt={photo.alt} width={photo.width} height={photo.height} priority quality={85} sizes="(min-width: 1024px) 58vw, 100vw" />
+          </figure>
         ) : null}
-        <p style={at(800)} className="nh-facts follow">
-          <span className="nh-fact">
-            <b>Eid</b>
-            <em>in the</em>
-            <span>Blessed lands</span>
-          </span>
-          <span className="nh-fact">
-            <b>14</b>
-            <span>Nights</span>
-          </span>
-        </p>
-      </div>
-      {/* `.ph-buy`: the phone bar waits until this has scrolled away (page-watch.tsx). */}
-      <div style={at(860)} className="ph-buy rl-buy nh-buy follow">
-        {price ? (
-          <p className="rl-line">
-            <a href={`#${anchors.join}`} className="rl-line-item">
-              <strong className="rl-line-price">{price}</strong>
-              <span>with flights</span>
-            </a>
-            {ground ? (
-              <a href={`#${anchors.join}`} data-pick="ground" className="rl-line-item">
-                <strong className="rl-line-price">{ground}</strong>
-                <span>ground only</span>
-              </a>
+        <div className="nh-words">
+          <h1 className="poster-lockup nh-lockup">
+            <span className="sr-only">Ramadan Umrah 2027: </span>
+            <PosterLockup year="1448" word="Ramadan" line="Last 10 nights" />
+          </h1>
+          <p style={at(650)} className="nh-dates follow">
+            {dates}
+          </p>
+          <p style={at(720)} className="nh-meta follow">
+            <span>14 nights</span>
+            <span aria-hidden>·</span>
+            <span>Eid in the blessed lands</span>
+            {j.partnerLogo ? (
+              <>
+                <span aria-hidden className="nh-with-dot">·</span>
+                <span className="nh-with">
+                  <em>with</em>
+                  <PartnerLogo logo={j.partnerLogo} className="h-[1rem]" />
+                </span>
+              </>
             ) : null}
           </p>
-        ) : null}
-        <a href={`#${anchors.join}`} className="btn-gilt rl-book">
-          {joinLabel} <Chevron dir="down" className="size-3 opacity-70" />
-        </a>
-        <p className="nh-small">
-          {deposit ? <>A {deposit} deposit holds your place. </> : null}
-          <a href={waHref} target="_blank" rel="noopener noreferrer">
-            Or ask us on WhatsApp
-          </a>
-        </p>
+          {guest ? (
+            <p style={at(800)} className="nh-guest follow">
+              {guest.photo ? <Image src={guest.photo.src} alt="" width={96} height={96} className={`nh-guest-img ${guest.photo.position ?? ""}`} /> : null}
+              <span>
+                <span className="nh-guest-role">Special guest</span>
+                <span className="nh-guest-name">
+                  {guest.label} {guest.name}
+                </span>
+              </span>
+            </p>
+          ) : null}
+          {/* `.ph-buy`: the phone bar waits until this has scrolled away (page-watch.tsx). */}
+          <div style={at(880)} className="ph-buy nh-buy follow">
+            {price ? (
+              <p className="nh-price">
+                <a href={`#${anchors.join}`}>
+                  <strong>{price}</strong> with flights
+                </a>
+                {ground ? (
+                  <a href={`#${anchors.join}`} data-pick="ground">
+                    <strong>{ground}</strong> ground only
+                  </a>
+                ) : null}
+              </p>
+            ) : null}
+            <a href={`#${anchors.join}`} className="btn-gilt nh-book">
+              {joinLabel} <Chevron dir="down" className="size-3 opacity-70" />
+            </a>
+            <p className="nh-small">
+              {deposit ? <>A {deposit} deposit holds your place. </> : null}
+              <a href={waHref} target="_blank" rel="noopener noreferrer">
+                Or ask us on WhatsApp
+              </a>
+            </p>
+          </div>
+        </div>
       </div>
-      {photo ? (
-        <figure className="nh-photo settle">
-          <Image src={photo.src} alt={photo.alt} width={photo.width} height={photo.height} priority quality={85} sizes="(min-width: 1024px) 42vw, 100vw" />
-          <figcaption>{photo.caption}</figcaption>
-        </figure>
-      ) : null}
-      {guest ? (
-        <p style={at(560)} className="nh-guest follow">
-          {guest.photo ? <Image src={guest.photo.src} alt="" width={96} height={96} className={`nh-guest-img ${guest.photo.position ?? ""}`} /> : null}
-          <span>
-            <span className="nh-guest-role">Special guest</span>
-            <span className="nh-guest-name">
-              {guest.label} {guest.name}
-            </span>
-          </span>
-        </p>
-      ) : null}
     </section>
   );
 }
