@@ -327,3 +327,19 @@ try first:
   same evening). Fine olive line like the garden's icons, at different heights; they sway slowly and light one after
   another as the page opens, left to right as nights 21 to 30, the odd nights (when Laylat al-Qadr is sought) a little
   brighter. The glow is light, not gold lettering. With reduced motion they are still and lit.
+
+## Addendum, 24 November 2026: one cream, a clean night, green as an accent
+
+Jibril: the page "currently uses five different off-whites… they read grey and patchy, with visible seams between
+them", the night into Madinah went "olive → mustard band → pale green with sprouts and a rounded sheet", and "the '+'
+tile patterns and paper grain look like wallpaper".
+
+**Decision.** Colour still follows the story, but with fewer grounds: one warm cream (`#f4efe4`) for every day section,
+hero and Madinah included; one dark olive (`#2a2c20`) for the night, flat, which fades straight into the cream at both
+ends with no dusk or dawn band. Madinah's green moves from the ground to the accents (the headline's gilt word, labels,
+icons). The floral carpet lattice, the night's star lattice, the daybreak sprouts, the garden sheet's rounded edge and
+the paper grain are removed. This replaces "the Rawdah's light green with its floral lattice faint in the ground and a
+gold dawn at its top", "dawn gold at Eid, Rawdah green for Madinah" and "the garden sheet comes up" above.
+
+**Consequences.** Fewer seams and a calmer page; the garden is carried by the path, the glyphs, the green accents and
+the words, not by patterned grounds. `GardenLeaves` remains available but is not on the Ramadan page.

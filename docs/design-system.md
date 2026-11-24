@@ -29,7 +29,7 @@ sections never meet at a hard edge. Heroes use `.wash-hero` (cream lit from the 
 is `.panel-dark`: a rounded cocoa panel lit from a corner, inset from the page edge (Hajj 2027, the closing
 invitation, the planner summary, the footer's rounded top).
 
-A faint paper grain sits over the page (`body::after`).
+No paper grain and no tile patterns (removed 24 Nov 2026: they read as wallpaper). Grounds are flat.
 
 **Readable greys:** quieter text is cocoa at reduced opacity, never below `text-ink/62` (about 4:1 on cream) and
 `text-ink/68` or more for anything people read in sentences (4.5:1 and up). Many travellers are older and read
@@ -116,6 +116,15 @@ script in `app/layout.tsx` sets before first paint unless the visitor prefers re
   framed photos (`.rise`, with the photo easing out of a slight zoom) rise into view, on phones too. Only elements
   still below the screen at load are hidden, so nothing in view blinks; add `data-reveal` to opt anything else in.
 - **Buttons:** a light sweep across `.btn-sand` on hover. Photos zoom very slightly on hover.
+- **One cream, one night (24 Nov 2026, Jibril: five off-whites "read grey and patchy, with visible seams"; ADR 0006
+  addendum):** on the poster skin every day section, hero included, is one warm cream, `--cream: #f4efe4`
+  (`--color-canvas`); cards and insets sit on it in white glass (`--glass-bg`), not in other creams; no washes or bands
+  (`.wash-linen` and `.wash-beige` are flat there). The night is one flat dark olive, `--night: #2a2c20`, with no star
+  lattice or glows. It fades straight to the cream: at the nightfall the cream lifts off the night, and at the daybreak
+  the night fades into the cream through warm steps (`.db-dawn`, fixed, never half-faded), with no gold band and no
+  sprouts. Madinah (`Chapter tone="garden"`) sits on the same cream with no sheet edge, carpet lattice or glow; the
+  Rawdah's green is only an accent: the headline's gilt word, the labels and the icons (`--color-bronze: #46613a`).
+  No paper grain anywhere.
 - **Poster skin (Ramadan Umrah 2027, 19 Nov 2026):** the page below the header takes the GGC poster's stone, mist
   and olive (`.skin-1448`, tokens only; header and footer stay Rawdah's). The head is its own centred hero
   (`.poster-hero`), image first: the poster's Ka‘bah artwork cut out of its background (`ramadan-1448-art-cut.png`,
@@ -165,14 +174,14 @@ script in `app/layout.tsx` sets before first paint unless the visitor prefers re
   last trip's photos develop. The garden (20 Nov 2026, `docs/adr/0006-the-garden.md`): the page runs in the order
   you'd live the trip (getting there, nights, Eid, Madinah, hosts, proof, price, book, the Rawdah hadith); the guide is
   the garden path (`garden-path.tsx`, stages in `garden.tsx`); the Madinah chapter is `Chapter tone="garden"` (Rawdah
-  green, floral lattice, dawn at the top) after `Daybreak`; leaves from the mark sit faintly behind chapters
+  green, floral lattice, dawn at the top) after `Daybreak` (superseded 24 Nov 2026, below); leaves from the mark sit faintly behind chapters
   (`GardenLeaves`); hosts are arched portraits (`.hosts`, `.host-arch`); `ClosingVerse` ends the page. Second pass the same day: the hero is the poster itself (`.rp-*`, `heroGuest` adds
   Sheikh Yahya); `GuestIntimate` (`.guest-close`) sits at the top; `FlightScene` (`.flight-scene`) plays the overnight
   flight as you scroll; `StayShowcase` (`.stay-*`) shows both hotels high in the page; the join panel follows the prices
   on every screen. One form (23 Nov 2026): poster trips have no join panel; the package picker is step 1 of the booking
   form and your details step 2, and "#join" links go to the form (`page-watch.tsx`). Closer to the deen: deen icons in `GardenGlyph` (kaaba, lantern, dome, minaret, quran, star, mihrab),
   `VerseLine` (`.verse`) for Qur'an and hadith in Arabic with meaning and source, Arabic numerals in eight-pointed stars
-  for the nights, a star lattice behind the night chapter. Night first (same day): the night chapter opens right under
+  for the nights, a star lattice behind the night chapter (removed 24 Nov 2026). Night first (same day): the night chapter opens right under
   the hero and holds the nights, Sheikh Yahya (with `guestFeature.ways`), the journey and the hotels; desktop sections
   share one centred column (`.pw`, 72rem). The one-page header on desktop: the logo on the left, the trip line in the
   middle, WhatsApp and Book on the right (phones keep call, logo, WhatsApp). Rawdah's gold (ADR 0006, fifth pass):
