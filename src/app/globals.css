@@ -992,6 +992,8 @@ html.motion .ticker-track { animation: ticker 48s linear infinite; }
 .pkg-btn:not(.btn-ink):hover { border-color: rgb(84 82 52 / 0.55); }
 
 .ty-ref { font-family: var(--font-display); font-size: 1.7rem; font-weight: 700; letter-spacing: 0.1em; }
+/* "Jazakallahu khayran" on the thank-you page, in the Arabic face used for the verses (23 Nov 2026). */
+.ty-ar { font-family: var(--font-arabic); font-size: clamp(2rem, 8vw, 2.8rem); line-height: 1.7; color: var(--color-ink); }
 
 /* The mist: big soft clouds, drifting by transform only. */
 .mist .cloud { position: absolute; border-radius: 50%; background: radial-gradient(closest-side, rgb(255 255 255 / 0.85), rgb(255 255 255 / 0)); }
