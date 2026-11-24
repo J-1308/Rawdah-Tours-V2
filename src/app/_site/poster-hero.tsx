@@ -230,3 +230,88 @@ export function LockupHero({ j, guest, price, ground, joinLabel }: Buy & { guest
     </section>
   );
 }
+
+/**
+ * The night hero (Jibril, 24 Nov 2026: "something is off… this empty feeling… the nav bar and background… the face is
+ * prominent"). The last ten nights are nights, so the hero is the night: Rawdah's own photo of the group in ihram under
+ * the lit arcades, at its own shape (never cropped), beside a few quiet words; the header floats over it until you
+ * scroll; Sheikh Yahya is credited, not the headline; one gold button. The ten lamps glow in the dark on desktop.
+ * Phones: the photo full width under the header, then the words.
+ */
+export function NightHero({ j, guest, price, ground, deposit, joinLabel, waHref }: Buy & { guest?: Person; waHref: string }) {
+  const dates = j.dates.value.replace(/\bFeb\b/, "February").replace(/\bMar\b/, "March");
+  return (
+    <section className="nh night relative overflow-hidden">
+      <HeroLamps />
+      <div className={`nh-grid ${gutter}`}>
+        <figure className="nh-photo settle">
+          <Image
+            src="/images/group-photos/group-photos-03.jpg"
+            alt="A Rawdah group in ihram at night in Makkah, the lit arcades and a minaret behind them."
+            width={3000}
+            height={2250}
+            priority
+            quality={85}
+            sizes="(min-width: 1024px) 58vw, 100vw"
+          />
+        </figure>
+        <div className="nh-words">
+          <p style={at(200)} className="nh-kicker follow">
+            <span>
+              Ramadan 1448 <span className="sr-only">(Ramadan Umrah 2027)</span>
+            </span>
+            {j.partnerLogo ? (
+              <span className="nh-with">
+                <span aria-hidden>·</span> <em>with</em>
+                <PartnerLogo logo={j.partnerLogo} className="h-[0.95rem]" />
+              </span>
+            ) : null}
+          </p>
+          <h1 style={at(300)} className="nh-title follow">
+            The last ten nights in <em>Makkah</em>
+          </h1>
+          <p style={at(420)} className="nh-dates follow">
+            {dates}
+          </p>
+          {guest ? (
+            <p style={at(520)} className="nh-guest follow">
+              {guest.photo ? (
+                <Image src={guest.photo.src} alt="" width={96} height={96} className={`nh-guest-img ${guest.photo.position ?? ""}`} />
+              ) : null}
+              <span>
+                <span className="nh-guest-role">Special guest</span>
+                <span className="nh-guest-name">
+                  {guest.label} {guest.name}
+                </span>
+              </span>
+            </p>
+          ) : null}
+          {/* `.ph-buy`: the phone bar waits until this has scrolled away (page-watch.tsx). */}
+          <div style={at(640)} className="ph-buy nh-buy follow">
+            {price ? (
+              <p className="nh-price">
+                <a href={`#${anchors.join}`}>
+                  <strong>{price}</strong> with flights
+                </a>
+                {ground ? (
+                  <a href={`#${anchors.join}`} data-pick="ground">
+                    <strong>{ground}</strong> ground only
+                  </a>
+                ) : null}
+              </p>
+            ) : null}
+            <a href={`#${anchors.join}`} className="btn-gilt nh-book">
+              {joinLabel} <Chevron dir="down" className="size-3 opacity-70" />
+            </a>
+            <p className="nh-small">
+              {deposit ? <>A {deposit} deposit holds your place. </> : null}
+              <a href={waHref} target="_blank" rel="noopener noreferrer">
+                Or ask us on WhatsApp
+              </a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
