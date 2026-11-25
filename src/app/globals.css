@@ -2043,34 +2043,36 @@ html.motion .stay-photo-img { animation: stay-in 0.7s var(--ease-out); }
 .nh-grid { position: relative; z-index: 1; display: grid; }
 .nh-photo { margin: 0 calc(-1 * var(--hero-pad-x)); overflow: hidden; }
 .nh-photo img { display: block; width: 100%; height: auto; }
-.nh-words { padding-block: 1.6rem 2.5rem; }
+.nh-words { padding-block: 1.3rem 2.5rem; }
 .nh-lockup { margin: 0; color: var(--nh-ink); }
 .nh-lockup .poster-kicker { font-size: 1.35rem; color: var(--nh-soft); margin-bottom: 0.2em; }
 .nh-lockup .poster-word { font-size: clamp(3rem, 15vw, 4rem); }
 .nh-lockup .poster-line { font-size: clamp(0.95rem, 4.4vw, 1.2rem); margin-right: 0; letter-spacing: 0.36em; color: var(--nh-ink); }
-.nh-dates { margin-top: 0.75rem; font-family: var(--font-editorial, "Cormorant Garamond", Georgia, serif); font-style: italic; font-size: 1.3rem; color: var(--nh-ink); }
+.nh-dates { margin-top: 0.6rem; font-family: var(--font-editorial, "Cormorant Garamond", Georgia, serif); font-style: italic; font-size: 1.3rem; color: var(--nh-ink); }
 .nh-meta { margin-top: 0.35rem; display: flex; flex-wrap: wrap; align-items: center; gap: 0.25rem 0.55rem; font-size: 0.92rem; color: var(--nh-soft); }
 .nh-with { display: inline-flex; align-items: center; gap: 0.4rem; }
-/* Phones: "with GGC" on its own line under "14 nights · Eid in the blessed lands". */
-@media (max-width: 63.99rem) { .nh-with-dot { display: none; } .nh-with { flex-basis: 100%; } }
 .nh-with em { font-family: var(--font-editorial, "Cormorant Garamond", Georgia, serif); font-size: 1.05rem; }
-.nh-guest { margin-top: 1.2rem; display: flex; align-items: center; gap: 0.85rem; }
+.nh-guest { margin-top: 1rem; display: flex; align-items: center; gap: 0.85rem; }
 .nh-guest-img { width: 3.1rem; height: 3.1rem; flex: none; border-radius: 999px; object-fit: cover; box-shadow: 0 0 0 1px var(--nh-line), 0 0 0 4px rgb(255 255 255 / 0.06); }
 .nh-guest > span { display: grid; line-height: 1.25; }
 .nh-guest-role { font-size: 0.75rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--nh-gold); }
 .nh-guest-name { font-size: 1rem; color: var(--nh-ink); }
-.nh-buy { margin-top: 1.25rem; }
+.nh-buy { margin-top: 1rem; }
 .nh-book { margin-top: 1rem; display: inline-flex; width: 100%; min-height: 3.4rem; align-items: center; justify-content: center; gap: 0.5rem; padding-inline: 2rem; font-size: 1rem; font-weight: 500; }
 .nh-small { margin-top: 0.85rem; font-size: 0.88rem; color: var(--nh-soft); }
 .nh-small a { color: var(--nh-ink); text-decoration: underline; text-decoration-color: var(--nh-line); text-underline-offset: 0.25em; }
-/* The poster's elements (25 Nov 2026). The prices: the poster's large gold figures, set to the left. The Makkah art and
-   its tablets only on desktop, behind the photo. */
+/* The poster's elements (25 Nov 2026): its two tablets as a row under the dates, and its large gold prices, set to the
+   left. */
 .nh-line { justify-content: flex-start; margin: 0 0 0.2rem; }
 .nh-line .rl-line-item { align-items: flex-start; padding-inline: 0 1.4rem; color: var(--nh-soft); }
 .nh-line .rl-line-item + .rl-line-item { padding-left: 1.4rem; border-left-color: var(--nh-line); }
 .nh[data-look="dark"] .nh-line .rl-line-price { background-image: linear-gradient(180deg, #f2dfa6 0%, #d2b064 100%); }
-.nh-stage { position: relative; }
-.nh-art { display: none; }
+.nh-tabs { margin-top: 0.9rem; display: flex; align-items: stretch; font-family: "Montserrat", "DM Sans", system-ui, sans-serif; text-transform: uppercase; color: var(--nh-ink); }
+.nh-tab { display: grid; justify-items: start; align-content: start; gap: 0.15rem; line-height: 1; padding-right: 1.3rem; }
+.nh-tab + .nh-tab { padding-left: 1.3rem; border-left: 1px solid var(--nh-line); }
+.nh-tab b { font-size: 1.65rem; font-weight: 700; letter-spacing: 0.01em; }
+.nh-tab em { font-family: var(--font-editorial, "Cormorant Garamond", Georgia, serif); font-size: 0.95rem; font-style: italic; text-transform: none; color: var(--nh-soft); }
+.nh-tab span { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em; }
 /* The lamps: short strings in a row along the top, glowing in the dark version, olive line in the light one. */
 .nh .rl-lamps { z-index: 2; top: var(--hdr); }
 .nh .rl-lamp { color: var(--nh-lamp); }
@@ -2078,16 +2080,14 @@ html.motion .stay-photo-img { animation: stay-in 0.7s var(--ease-out); }
 .nh .rl-lamp-glow { top: calc(var(--len) * 0.2 + 2.05rem); }
 @media (min-width: 64rem) {
   .nh { --hdr: 5.25rem; }
-  .nh-grid { grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr); column-gap: clamp(2.5rem, 5vw, 6rem); align-items: center; min-height: min(calc(100svh - var(--hdr)), 50rem); padding-block: clamp(6.5rem, 12vh, 9rem) clamp(2.5rem, 5vh, 4rem); }
-  .nh-stage { order: 2; margin-top: clamp(3rem, 9vh, 5.5rem); }
-  .nh-art { display: block; position: absolute; z-index: 0; left: 1%; width: 72%; bottom: 57%; container-type: inline-size; }
-  .nh-art-img { display: block; width: 100%; height: auto; }
-  .nh[data-look="dark"] .nh-art .rl-tablet { color: #f1ece0; }
-  .nh[data-look="dark"] .nh-art .rl-tablet em { color: rgb(241 236 224 / 0.8); }
-  .nh-fact, .nh-with-dot { display: none; }
-  .nh-photo { position: relative; z-index: 1; margin: 0; border-radius: 1.5rem; box-shadow: 0 50px 90px -50px rgb(0 0 0 / 0.85), 0 0 0 1px rgb(241 236 224 / 0.12); }
+  .nh-grid { grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr); column-gap: clamp(2.5rem, 5vw, 6rem); align-items: center; min-height: min(calc(100svh - var(--hdr)), 50rem); padding-block: clamp(8rem, 15vh, 9.5rem) clamp(2.5rem, 5vh, 4rem); }
+  .nh-photo { order: 2; margin: 0; border-radius: 1.5rem; box-shadow: 0 50px 90px -50px rgb(0 0 0 / 0.85), 0 0 0 1px rgb(241 236 224 / 0.12); }
   .nh[data-look="light"] .nh-photo { box-shadow: 0 40px 80px -46px rgb(40 38 24 / 0.55), 0 0 0 1px rgb(255 255 255 / 0.7); }
-  .nh-words { order: 1; padding-block: 0; }
+  /* The words sit a little low, so the longest lamps never reach "1448". */
+  .nh-words { order: 1; padding-block: clamp(2rem, 5vh, 3.5rem) 0; }
+  .nh-tabs { margin-top: 1.4rem; }
+  .nh-tab b { font-size: 2rem; }
+  .nh-tab span { font-size: 0.76rem; }
   .nh-line .rl-line-item { padding-right: clamp(1.4rem, 2.2vw, 2.25rem); }
   .nh-line .rl-line-item + .rl-line-item { padding-left: clamp(1.4rem, 2.2vw, 2.25rem); }
   .nh-lockup .poster-kicker { font-size: clamp(1.4rem, 2vw, 2rem); }

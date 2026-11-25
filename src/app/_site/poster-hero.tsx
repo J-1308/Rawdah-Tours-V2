@@ -239,8 +239,8 @@ export function LockupHero({ j, guest, price, ground, joinLabel }: Buy & { guest
  * 14 nights and Eid in the blessed lands) in that layout, with the journey's group photo, in a dark and a light version
  * (`data-look`; `?hero=light` previews the light one, hero-look.tsx). The photo at its own shape, never cropped; Sheikh
  * Yahya as a credit; one gold button; the ten lamps along the top on desktop. Third pass ("fit some of the poster
- * elements"): on desktop the poster's Makkah rises behind the photo with its EID and 14 NIGHTS tablets either side of
- * the tower, and the prices are the poster's, large and gold. Phones: the photo, then the words.
+ * elements"): the poster's EID and 14 NIGHTS tablets as a row in its lettering under the dates, and the poster's prices,
+ * large and gold. Phones: the photo, then the words.
  */
 export function NightHero({ j, guest, price, ground, deposit, joinLabel, waHref }: Buy & { guest?: Person; waHref: string }) {
   const dates = j.dates.value.replace(/\bFeb\b/, "February").replace(/\bMar\b/, "March");
@@ -251,25 +251,9 @@ export function NightHero({ j, guest, price, ground, deposit, joinLabel, waHref 
       <HeroLamps />
       <div className={`nh-grid ${gutter}`}>
         {photo ? (
-          <div className="nh-stage">
-            {/* Desktop: the poster's Makkah (the clock tower and the Ka'bah) rises behind the photo, with its two tablets
-                either side of the tower, as on the poster (25 Nov 2026: "fit some of the poster elements"). */}
-            <div aria-hidden className="nh-art">
-              <Image src="/images/brand/ramadan-1448-art-cut.png" alt="" width={830} height={622} quality={85} sizes="36vw" className="nh-art-img settle" />
-              <p className="rl-tablet rl-tablet-eid follow" style={at(900)}>
-                <b>Eid</b>
-                <em>in the</em>
-                <span>Blessed lands</span>
-              </p>
-              <p className="rl-tablet rl-tablet-nights follow" style={at(980)}>
-                <b>14</b>
-                <span>Nights</span>
-              </p>
-            </div>
-            <figure className="nh-photo settle">
-              <Image src={photo.src} alt={photo.alt} width={photo.width} height={photo.height} priority quality={85} sizes="(min-width: 1024px) 58vw, 100vw" />
-            </figure>
-          </div>
+          <figure className="nh-photo settle">
+            <Image src={photo.src} alt={photo.alt} width={photo.width} height={photo.height} priority quality={85} sizes="(min-width: 1024px) 58vw, 100vw" />
+          </figure>
         ) : null}
         <div className="nh-words">
           <h1 className="poster-lockup nh-lockup">
@@ -279,20 +263,25 @@ export function NightHero({ j, guest, price, ground, deposit, joinLabel, waHref 
           <p style={at(650)} className="nh-dates follow">
             {dates}
           </p>
-          <p style={at(720)} className="nh-meta follow">
-            {/* On desktop the poster's tablets say these, by the tower. */}
-            <span className="nh-fact">14 nights</span>
-            <span aria-hidden className="nh-fact">·</span>
-            <span className="nh-fact">Eid in the blessed lands</span>
-            {j.partnerLogo ? (
-              <>
-                <span aria-hidden className="nh-with-dot">·</span>
-                <span className="nh-with">
-                  <em>with</em>
-                  <PartnerLogo logo={j.partnerLogo} className="h-[1rem]" />
-                </span>
-              </>
-            ) : null}
+          {j.partnerLogo ? (
+            <p style={at(720)} className="nh-meta follow">
+              <span className="nh-with">
+                <em>with</em>
+                <PartnerLogo logo={j.partnerLogo} className="h-[1rem]" />
+              </span>
+            </p>
+          ) : null}
+          {/* The poster's two tablets, in its lettering, as a row (25 Nov 2026). */}
+          <p style={at(780)} className="nh-tabs follow">
+            <span className="nh-tab">
+              <b>Eid</b>
+              <em>in the</em>
+              <span>Blessed lands</span>
+            </span>
+            <span className="nh-tab">
+              <b>14</b>
+              <span>Nights</span>
+            </span>
           </p>
           {guest ? (
             <p style={at(800)} className="nh-guest follow">
