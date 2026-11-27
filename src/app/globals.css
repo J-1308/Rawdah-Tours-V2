@@ -932,30 +932,40 @@ html.motion .ticker-track { animation: ticker 48s linear infinite; }
 .past-shot figcaption { margin-top: 0.55rem; font-size: 0.875rem; color: rgb(from var(--color-ink) r g b / 0.7); }
 @media (min-width: 64rem) { .past-strip, .skin-1448 .past-strip { margin-inline: 0; padding-inline: 0; scroll-padding-inline: 0; } }
 
-/* Our last trip (LastTripFeature): the home page's section on the Ramadan page (27 Nov 2026). The facts and the team
-   in two quiet cards; the photos a swipe row on phones (.past-strip) and three columns on desktop, each at its own shape. */
-.lt-grid { display: grid; gap: 1.75rem; }
-.lt-title { font-size: clamp(2.2rem, 4.2vw, 3.5rem); line-height: 1.04; }
-.lt-line { margin-top: 0.7rem; max-width: 26rem; font-size: 1.02rem; line-height: 1.5; color: rgb(from var(--color-ink) r g b / 0.74); }
-.lt-card { margin-top: 1rem; border-radius: 1.25rem; border: 1px solid rgb(from var(--color-ink) r g b / 0.09); background: rgb(255 255 255 / 0.5); box-shadow: 0 1px 0 rgb(255 255 255 / 0.7) inset, 0 10px 30px -22px rgb(31 30 19 / 0.35); }
-.lt-facts { margin-top: 1.4rem; padding: 0.3rem 1.15rem; font-size: 0.93rem; }
-.lt-facts > div { display: grid; grid-template-columns: 5.4rem minmax(0, 1fr); gap: 0.75rem; padding: 0.72rem 0; }
-.lt-facts > div + div { border-top: 1px solid rgb(from var(--color-ink) r g b / 0.08); }
-.lt-facts dt { color: rgb(from var(--color-ink) r g b / 0.58); }
-.lt-team { padding: 0.95rem 1.15rem 1.05rem; }
-.lt-team-title { font-size: 0.86rem; color: rgb(from var(--color-ink) r g b / 0.58); }
-.lt-team ul { margin-top: 0.75rem; display: grid; gap: 0.75rem; }
-.lt-team li { display: flex; align-items: center; gap: 0.8rem; font-size: 0.94rem; line-height: 1.25; }
-.lt-face { position: relative; flex: none; width: 2.9rem; height: 2.9rem; overflow: hidden; border-radius: 0.8rem; background: var(--color-canvas-warm); }
-.lt-role { font-size: 0.85rem; color: rgb(from var(--color-ink) r g b / 0.6); }
-.lt-photos.past-strip { margin-top: 0.25rem; }
+/* Our last trip (LastTripFeature, 27 Nov 2026): photo-led. Ustadh Abdulrahman Hassan's reminder large, the guest
+   sheikh beside it with his portrait, the trip as chips, the team in a line; then a row of photos, each at its own shape
+   (equal height on desktop, a swipe row on phones). */
+.lt-title { font-size: clamp(2.4rem, 4.6vw, 4rem); line-height: 1; }
+.lt-sub { margin-top: 0.55rem; font-size: 1rem; color: rgb(from var(--color-ink) r g b / 0.62); }
+.lt-main { display: grid; gap: 1.75rem; margin-top: 1.75rem; }
+.lt-lead { margin: 0; }
+.lt-lead-img { display: block; width: 100%; height: auto; border-radius: 1.5rem; }
+.lt-lead figcaption, .md-photo figcaption { margin-top: 0.6rem; font-size: 0.86rem; color: rgb(from var(--color-ink) r g b / 0.6); }
+.lt-guest { display: flex; align-items: center; gap: 1.1rem; }
+.lt-guest-photo { position: relative; flex: none; width: clamp(5.5rem, 9vw, 7.5rem); aspect-ratio: 1; overflow: hidden; border-radius: 1.25rem; background: var(--color-canvas-warm); }
+.lt-guest-role { font-size: 0.74rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-olive, #4a4931); }
+.lt-guest-name { margin-top: 0.3rem; font-family: var(--font-editorial); font-size: clamp(1.6rem, 2.4vw, 2.1rem); line-height: 1.05; color: var(--color-ink); }
+.lt-guest-line { margin-top: 0.4rem; font-size: 0.95rem; color: rgb(from var(--color-ink) r g b / 0.66); }
+.lt-chips { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.4rem; }
+.lt-chips li { padding: 0.45rem 0.85rem; border-radius: 999px; border: 1px solid rgb(from var(--color-ink) r g b / 0.12); background: rgb(255 255 255 / 0.5); font-size: 0.88rem; }
+.lt-team { margin-top: 1.1rem; max-width: 28rem; font-size: 0.95rem; line-height: 1.5; color: rgb(from var(--color-ink) r g b / 0.7); }
+.lt-row.past-strip { margin-top: 1.75rem; }
 @media (min-width: 64rem) {
-  .lt-grid { grid-template-columns: minmax(0, 22rem) minmax(0, 1fr); gap: clamp(2.5rem, 4vw, 4rem); align-items: start; }
-  .lt-side { position: sticky; top: 7.5rem; }
-  .lt-photos.past-strip, .skin-1448 .lt-photos.past-strip { display: block; columns: 3; column-gap: 1rem; overflow: visible; margin: 0; padding: 0; }
-  .lt-photos.past-strip > li { break-inside: avoid; margin-bottom: 1.1rem; }
-  .lt-photos .past-shot { width: auto; }
-  .lt-photos .past-shot-img { width: 100%; height: auto; }
+  .lt-main { grid-template-columns: minmax(0, 25rem) minmax(0, 1fr); gap: clamp(2.5rem, 5vw, 4.5rem); align-items: center; }
+  .lt-row.past-strip, .skin-1448 .lt-row.past-strip { display: flex; gap: 1rem; overflow: visible; margin-inline: 0; padding-inline: 0; margin-top: 2.25rem; }
+  .lt-row.past-strip > li { flex: var(--ar) 1 0; min-width: 0; }
+  .lt-row .past-shot { width: auto; }
+  .lt-row .past-shot-img { width: 100%; height: auto; }
+  .lt-row figcaption { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+}
+
+/* Madinah (MadinahPart, 27 Nov 2026): the moments in one column beside the group on the roof of Masjid an-Nabawi. */
+.md-part { display: grid; gap: 2.25rem; }
+.md-photo { margin: 0 auto; width: min(100%, 19rem); }
+.md-photo-img { display: block; width: 100%; height: auto; border-radius: 1.5rem; }
+@media (min-width: 64rem) {
+  .md-part { grid-template-columns: minmax(0, 1fr) minmax(0, 23rem); gap: clamp(3rem, 6vw, 5.5rem); align-items: center; }
+  .md-photo { width: 100%; }
 }
 
 /* "ATOL protected · ATOL 5311" (AtolLine): the booking section and the footer (27 Nov 2026). */

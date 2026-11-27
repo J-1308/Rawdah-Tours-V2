@@ -343,3 +343,15 @@ gold dawn at its top", "dawn gold at Eid, Rawdah green for Madinah" and "the gar
 
 **Consequences.** Fewer seams and a calmer page; the garden is carried by the path, the glyphs, the green accents and
 the words, not by patterned grounds. `GardenLeaves` remains available but is not on the Ramadan page.
+
+## Madinah and our last trip filled out (27 November 2026)
+
+- Jibril: "why is the medinah section so empty… only 2 bullet points doesn't make sense. Either we add some things we
+  will do, which we can, or change it." Madinah (`MadinahPart`) now has six moments from the plan and the poster (the
+  Haramain train, every salah in Masjid an-Nabawi an 8-minute walk away, Jumuah on 12 March, the ziyarah, breakfast each
+  morning, the flight home via Jeddah) in one column beside a real photo: Rawdah's last group on the roof of Masjid
+  an-Nabawi, August 2026, at its own shape. Nothing that needs a permit or Rawdah's word (the Rawdah itself, named
+  ziyarah sites) is promised.
+- "I don't like how it looks right now in terms of the Path of Purity part": our last trip (`LastTripFeature`) went
+  photo-led, with Ustadh Abdulrahman Hassan first (his reminder large, his portrait card beside it), the trip as chips,
+  "Led by the same team as this trip", and a row of five photos. The roof photo moved to Madinah so nothing repeats.

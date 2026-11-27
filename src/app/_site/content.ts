@@ -730,7 +730,14 @@ export type Journey = {
   /** After the nights: daybreak and Eid. */
   eid?: { label: string; title: string; text: string };
   /** The garden chapter: Madinah, with its moments (facts from the plan). */
-  madinah?: { label: string; title: string; intro: string; moments?: { title: string; text: string }[] };
+  madinah?: {
+    label: string;
+    title: string;
+    intro: string;
+    moments?: { title: string; text: string }[];
+    /** A real photo from Rawdah's own trips, shown at its own shape beside the moments. */
+    photo?: { src: string; width: number; height: number; alt: string; caption: string };
+  };
   /** Where you'll stay: both hotels, high in the page. */
   stay?: { label: string; title: string; intro: string };
   /** The overnight flight, as a scene that plays as you scroll: from and to, with times. */
@@ -955,11 +962,24 @@ export const ramadanFull: Journey = {
     madinah: {
       label: "Madinah",
       title: "Four nights in *Madinah*",
-      intro: "In the city of the Prophet ﷺ, where the Rawdah is: an 8-minute walk to Masjid an-Nabawi, then home on Saturday 13 March.",
+      intro: "In the city of the Prophet ﷺ, where the Rawdah is.",
+      /* Six, not two (Jibril, 27 Nov 2026: "why is the medinah section so empty"): all from the plan and the poster. The
+         train is the poster's Haramain train; breakfast and the flight home are in the plan. */
       moments: [
-        { title: "Madinah ziyarah", text: "Visits to the historic sites of Madinah." },
-        { title: "Jumuah in Masjid an-Nabawi", text: "Friday 12 March, after Jumuah in Masjid al-Haram on Friday 5 March." },
+        { title: "The Haramain train", text: "From Makkah to Madinah on the high-speed train." },
+        { title: "Every salah in Masjid an-Nabawi", text: "Al Manakha Rotana is an 8-minute walk away." },
+        { title: "Jumuah in Masjid an-Nabawi", text: "Friday 12 March, a week after Jumuah in Masjid al-Haram." },
+        { title: "Madinah ziyarah", text: "Visits to the historic sites of the city, with your guides." },
+        { title: "Breakfast each morning", text: "Included at the hotel in Madinah." },
+        { title: "Home from Madinah", text: "Saudia on Saturday 13 March, via Jeddah to Heathrow." },
       ],
+      photo: {
+        src: "/images/group-photos/group-photos-05.jpg",
+        width: 1350,
+        height: 2400,
+        alt: "Rawdah's last group on the roof of Masjid an-Nabawi at golden hour, a minaret behind them.",
+        caption: "Our last group on the roof of Masjid an-Nabawi, August 2026",
+      },
     },
     /* Checked 20 Nov 2026: al-Bukhari 1782 and Muslim 1256 (Ibn ‘Abbas); Surah al-Qadr 97:3; the takbir of Eid. */
     verses: {
