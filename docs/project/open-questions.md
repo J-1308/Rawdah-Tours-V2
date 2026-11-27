@@ -10,7 +10,9 @@ Things only Rawdah (or Jibril) can answer. Each one is marked on the page where 
 2. **Testimonials.** The three quotes from V1 ("Brother Abdullah / Yusuf / Hamza"): are they real travellers, and
    do we have permission to use them? If not, remove them until real ones are collected.
 3. **ATOL:** settled. Jibril confirmed Rawdah's Umrah trips are ATOL protected (ATOL 5311). The site doesn't name the
-   ATOL provider (Jibril's instruction, 31 Oct 2026). Hajj is booked on Nusuk, so ATOL doesn't apply to it.
+   ATOL provider (Jibril's instruction, 31 Oct 2026). Since 27 Nov 2026 (the client's wording) "ATOL protected · ATOL
+   5311" shows in the footer and under the booking steps, "on packages with flights" there: ground-only packages have
+   no flight to protect. Hajj is booked on Nusuk, so ATOL doesn't apply to it.
 4. **Ramadan Umrah 2027 (GGC × Rawdah Tours):** revealed (`ramadanReveal = true`): GGC and Rawdah confirmed
    everything (Jibril, 17 Nov 2026). Before that it was hidden behind a "Ramadan 1448 · Coming soon" teaser. Settled with Jibril (31 Oct 2026): the £399 deposit is right (terms
    6.1 updated from £299), visas are included, open to brothers, sisters and families, booking on WhatsApp with
@@ -66,7 +68,8 @@ Things only Rawdah (or Jibril) can answer. Each one is marked on the page where 
 **Last trip (31 Oct 2026, Jibril):** Path of Purity II no longer has its own page or a "Completed" list; it lives in
 the "Our last trip" section on the home and Trips pages. `/trips/path-of-purity-ii` redirects there.
 
-**31 Oct 2026, Jibril:** ATOL (5311) appears only in the terms. The About page shows only Brother Ayuub and Ustadh
+**31 Oct 2026, Jibril:** ATOL (5311) appears only in the terms (changed 27 Nov 2026: also the footer and the booking
+section, see item 3). The About page shows only Brother Ayuub and Ustadh
 Issa for now. No Supabase on this site: card payments will use Stripe, and emails Resend, when they're set up
 (update the privacy notice then). Partner logos to come from Jibril for the "Who we travel with" row.
 

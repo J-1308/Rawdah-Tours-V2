@@ -1,10 +1,10 @@
 import Image from "next/image";
 import { HotelGallery, HotelPlates } from "./hotel-gallery";
-import { Fragment } from "react";
+import { Fragment, type CSSProperties } from "react";
 
 import { ICONS, PosterPerks } from "@/app/_site/poster-parts";
 import { PosterText } from "@/app/_site/poster-type";
-import { anchors, gbp, hajjNusuk, journeyStay, leader, people, say, teachers, trust, wa, type Journey, type Status, type StayPhoto, type TripPlan, type Verse } from "@/app/_site/content";
+import { anchors, gbp, hajjNusuk, journeyStay, lastTrip, leader, people, say, teachers, trust, wa, type Journey, type Status, type StayPhoto, type TripPlan, type Verse } from "@/app/_site/content";
 import { Mark } from "@/app/_site/marks";
 import { Emblem, gild, gutter, Heading, Label, Tick } from "@/app/_site/shell";
 import { slot, slotFilled } from "@/app/_site/slots";
@@ -466,6 +466,81 @@ export function HaramNights({ n }: { n: NonNullable<Journey["nights"]> }) {
 }
 
 /** Rawdah's earlier trips: their posters, then a gallery of the groups (after The Umrah Company's past journeys). */
+/**
+ * Our last trip on the Ramadan page (Jibril, 27 Nov 2026: from the home page's section, then "I don't like how it
+ * looks"): photo-led. Ustadh Abdulrahman Hassan's reminder to the group large; beside it the guest sheikh with his
+ * portrait, the trip in one line and the team that led it (the same two who lead this one); then a row of the trip's
+ * photos, each at its own shape (a swipe row on phones). The table of facts, the team list and the eighth photo went.
+ */
+const LAST_TRIP_LEAD = "/images/teaching/teaching-01.jpg";
+const LAST_TRIP_ROW = [
+  "/images/group-photos/group-photos-03.jpg",
+  "/images/past/masjid-al-haram.jpg",
+  "/images/group-photos/group-photos-04.jpg",
+  "/images/candid/candid-02.jpg",
+  "/images/friends/friends-05.jpg",
+];
+
+export function LastTripFeature() {
+  const [name, edition] = lastTrip.name.split(": ");
+  const dates = lastTrip.facts.find((f) => f.k === "Dates")?.v;
+  const guest = lastTrip.team.find((t) => /guest/i.test(t.role));
+  const guestPhoto = guest ? allMembers.find((m) => m.name === guest.name)?.photo : undefined;
+  const leads = lastTrip.team.filter((t) => t !== guest).map((t) => t.name);
+  const lead = lastTrip.photos.find((p) => p.src === LAST_TRIP_LEAD);
+  const row = LAST_TRIP_ROW.map((src) => lastTrip.photos.find((p) => p.src === src)).filter((p): p is (typeof lastTrip.photos)[number] => Boolean(p));
+  const chips = lastTrip.facts.filter((f) => f.k !== "Dates").map((f) => (f.k === "Flights" ? f.v : `${f.v.split(",")[0]} in ${f.k}`));
+  return (
+    <section id="last-trip" aria-labelledby="last-trip-title" className="lt mt-16 scroll-mt-28 sm:mt-24">
+      <Label>{lastTrip.label}</Label>
+      <Heading id="last-trip-title" className="lt-title mt-3">
+        {name}
+      </Heading>
+      <p className="lt-sub">{[edition, dates].filter(Boolean).join(" · ")}</p>
+      <div className="lt-main">
+        {lead ? (
+          <figure className="lt-lead" data-reveal="">
+            <Image src={lead.src} alt={lead.alt} width={lead.width} height={lead.height} sizes="(min-width: 1024px) 26rem, 92vw" quality={85} className="lt-lead-img" />
+            <figcaption>{lead.caption}, August 2026</figcaption>
+          </figure>
+        ) : null}
+        <div className="lt-side">
+          {guest ? (
+            <div className="lt-guest">
+              {guestPhoto ? (
+                <span className="lt-guest-photo">
+                  <Image src={guestPhoto.src} alt={`${guest.name}`} fill sizes="8rem" className={`object-cover ${guestPhoto.position ?? "object-[50%_25%]"}`} />
+                </span>
+              ) : null}
+              <div>
+                <p className="lt-guest-role">{guest.role}</p>
+                <p className="lt-guest-name">{guest.name}</p>
+                <p className="lt-guest-line">With the group in Madinah and Makkah.</p>
+              </div>
+            </div>
+          ) : null}
+          <ul className="lt-chips" aria-label="The trip">
+            {chips.map((c) => (
+              <li key={c}>{c}</li>
+            ))}
+          </ul>
+          {leads.length ? <p className="lt-team">Led by the same team as this trip: {leads.join(" and ")}.</p> : null}
+        </div>
+      </div>
+      <ul className="lt-row past-strip" aria-label="More photos from our last trip">
+        {row.map((ph) => (
+          <li key={ph.src} style={{ "--ar": ph.width / ph.height } as CSSProperties} data-reveal="">
+            <figure className="past-shot">
+              <Image src={ph.src} alt={ph.alt} width={ph.width} height={ph.height} sizes="(min-width: 1024px) 16rem, 70vw" quality={82} className="past-shot-img" />
+              <figcaption>{ph.caption}</figcaption>
+            </figure>
+          </li>
+        ))}
+      </ul>
+    </section>
+  );
+}
+
 export function PastTrips({ p }: { p: NonNullable<Journey["pastTrips"]> }) {
   return (
     <section className="mt-12 sm:mt-16">
@@ -1306,6 +1381,29 @@ export function StayShowcase({ j, s }: { j: Journey; s: NonNullable<Journey["sta
 /** Madinah's moments in the garden chapter: facts from the plan, in the page's one list of highlights. */
 export function MadinahMoments({ items }: { items: { title: string; text: string }[] }) {
   return <Highlights items={items} className="mt-8" />;
+}
+
+/**
+ * Madinah (poster trips): the moments in one column beside a real photo from Rawdah's last trip, the group on the roof
+ * of Masjid an-Nabawi, at its own shape (Jibril, 27 Nov 2026: the section was two points and no picture).
+ */
+export function MadinahPart({ m }: { m: NonNullable<Journey["madinah"]> }) {
+  return (
+    <section id="madinah" className="trip-anchor md-part">
+      <div>
+        <Label>{m.label}</Label>
+        <Heading className="mt-4 max-w-[40rem] section-title text-[clamp(2.3rem,4.2vw,4rem)]">{m.title}</Heading>
+        <p className="mt-4 max-w-[34rem] text-[1rem] leading-[1.65] text-ink/72">{m.intro}</p>
+        {m.moments ? <Highlights items={m.moments} one className="mt-8" /> : null}
+      </div>
+      {m.photo ? (
+        <figure className="md-photo" data-reveal="">
+          <Image src={m.photo.src} alt={m.photo.alt} width={m.photo.width} height={m.photo.height} sizes="(min-width: 1024px) 24rem, 80vw" quality={85} className="md-photo-img" />
+          <figcaption>{m.photo.caption}</figcaption>
+        </figure>
+      ) : null}
+    </section>
+  );
 }
 
 /**

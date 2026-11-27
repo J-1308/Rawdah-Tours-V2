@@ -57,6 +57,9 @@ export const brand = {
   /** Registered office (Ayuub, 2 Nov 2026). */
   address: "66 Paul Street, London, England, EC2A 4NA",
   companyNumber: v("16527917", "confirmed"),
+  /** Rawdah's Umrah trips are ATOL protected. Shown as "ATOL protected" with the number only, the licence holder not
+   *  named (the client's wording, 27 Nov 2026). Packages with flights only: ground-only packages have no flight to protect. */
+  atol: "5311",
   nusuk: "https://hajj.nusuk.sa/?language=en",
 } as const;
 
@@ -181,8 +184,8 @@ export const lastTrip = {
   name: "Path of Purity II: Summer Edition",
   facts: [
     { k: "Dates", v: "4–15 August 2026" },
-    { k: "Madinah", v: "5 nights, Peninsula Worth Hotel ★★★★★" },
-    { k: "Makkah", v: "5 nights, Address Jabal Omar ★★★★★" },
+    { k: "Madinah", v: "5 nights, Peninsula Worth Hotel" },
+    { k: "Makkah", v: "5 nights, Address Jabal Omar" },
     { k: "Flights", v: "Qatar Airways from London Heathrow" },
   ],
   /** Who travelled with this group: on a past trip, guests count as that trip's team (Jibril, 1 Nov 2026). */
@@ -192,14 +195,18 @@ export const lastTrip = {
     { name: "Ustadh Abdulrahman Hassan", role: "Guest sheikh" },
   ],
   status: "confirmed" as Status, // V1 and POSTER
+  /** Each photo with its size, so it shows at its own shape (no cropping). Ustadh Abdulrahman Hassan's reminder leads:
+   *  the guest sheikh is the point of the section on the Ramadan page (Jibril, 27 Nov 2026). Hotel stars dropped: a hotel
+   *  is never called 5-star on the site. */
   photos: [
-    { src: "/images/group-photos/group-photos-05.jpg", caption: "On the roof of Masjid an-Nabawi", alt: "The group on the roof of Masjid an-Nabawi at golden hour, a minaret behind them.", position: "object-[50%_62%]" },
-    { src: "/images/group-photos/group-photos-04.jpg", caption: "Masjid Quba", alt: "The group outside Masjid Quba, its white minarets behind them.", position: "object-[50%_75%]" },
-    { src: "/images/teaching/teaching-01.jpg", caption: "A reminder from Ustadh Abdulrahman Hassan", alt: "Ustadh Abdulrahman Hassan giving the group a reminder outdoors.", position: "object-[50%_30%]" },
-    { src: "/images/candid/candid-02.jpg", caption: "Brothers and sisters together", alt: "Brothers and sisters from the group standing together under the trees.", position: "object-[50%_50%]" },
-    { src: "/images/group-photos/group-photos-03.jpg", caption: "In ihram, ready for Umrah", alt: "The group in ihram at night, lit arcades and a minaret behind them.", position: "object-[50%_60%]" },
-    { src: "/images/bird-park/bird-park-01.jpg", caption: "Between lessons", alt: "A young traveller holding two macaws, a friend beside him.", position: "object-[50%_40%]" },
-    { src: "/images/friends/friends-05.jpg", caption: "Umrah complete", alt: "Three travellers in ihram outside Masjid al-Haram at dusk, the minarets lit behind them.", position: "object-[50%_50%]" },
+    { src: "/images/teaching/teaching-01.jpg", caption: "A reminder from Ustadh Abdulrahman Hassan", alt: "Ustadh Abdulrahman Hassan giving the group a reminder outdoors.", position: "object-[50%_30%]", width: 2250, height: 3000 },
+    { src: "/images/group-photos/group-photos-05.jpg", caption: "On the roof of Masjid an-Nabawi", alt: "The group on the roof of Masjid an-Nabawi at golden hour, a minaret behind them.", position: "object-[50%_62%]", width: 1350, height: 2400 },
+    { src: "/images/past/masjid-al-haram.jpg", caption: "Masjid al-Haram", alt: "A Rawdah group together at Masjid al-Haram.", position: "object-[50%_60%]", width: 1200, height: 1600 },
+    { src: "/images/group-photos/group-photos-03.jpg", caption: "In ihram, ready for Umrah", alt: "The group in ihram at night, lit arcades and a minaret behind them.", position: "object-[50%_60%]", width: 3000, height: 2250 },
+    { src: "/images/group-photos/group-photos-04.jpg", caption: "Masjid Quba", alt: "The group outside Masjid Quba, its white minarets behind them.", position: "object-[50%_75%]", width: 2400, height: 1600 },
+    { src: "/images/candid/candid-02.jpg", caption: "Brothers and sisters together", alt: "Brothers and sisters from the group standing together under the trees.", position: "object-[50%_50%]", width: 3000, height: 2250 },
+    { src: "/images/friends/friends-05.jpg", caption: "Umrah complete", alt: "Three travellers in ihram outside Masjid al-Haram at dusk, the minarets lit behind them.", position: "object-[50%_50%]", width: 2400, height: 1800 },
+    { src: "/images/bird-park/bird-park-01.jpg", caption: "Between lessons", alt: "A young traveller holding two macaws, a friend beside him.", position: "object-[50%_40%]", width: 2400, height: 1600 },
   ],
 };
 
@@ -723,7 +730,14 @@ export type Journey = {
   /** After the nights: daybreak and Eid. */
   eid?: { label: string; title: string; text: string };
   /** The garden chapter: Madinah, with its moments (facts from the plan). */
-  madinah?: { label: string; title: string; intro: string; moments?: { title: string; text: string }[] };
+  madinah?: {
+    label: string;
+    title: string;
+    intro: string;
+    moments?: { title: string; text: string }[];
+    /** A real photo from Rawdah's own trips, shown at its own shape beside the moments. */
+    photo?: { src: string; width: number; height: number; alt: string; caption: string };
+  };
   /** Where you'll stay: both hotels, high in the page. */
   stay?: { label: string; title: string; intro: string };
   /** The overnight flight, as a scene that plays as you scroll: from and to, with times. */
@@ -735,6 +749,8 @@ export type Journey = {
   /** Ramadan in the Haram: what the nights hold (worship, not a Rawdah service). `slot` = the photo Jibril will source. */
   nights?: { label: string; title: string; intro: string; items: { title: string; text: string }[] };
   /** Rawdah's earlier trips: poster cards and a photo gallery (proof, after The Umrah Company's past journeys). */
+  /** Show the home page's "Our last trip" section (lastTrip: facts, the team, the photos) instead of pastTrips. */
+  lastTrip?: boolean;
   pastTrips?: {
     title: string;
     trips: { name: string; dates: string; line: string; href?: string; poster?: { src: string; alt: string; width: number; height: number } }[];
@@ -946,11 +962,24 @@ export const ramadanFull: Journey = {
     madinah: {
       label: "Madinah",
       title: "Four nights in *Madinah*",
-      intro: "In the city of the Prophet ﷺ, where the Rawdah is: an 8-minute walk to Masjid an-Nabawi, then home on Saturday 13 March.",
+      intro: "In the city of the Prophet ﷺ, where the Rawdah is.",
+      /* Six, not two (Jibril, 27 Nov 2026: "why is the medinah section so empty"): all from the plan and the poster. The
+         train is the poster's Haramain train; breakfast and the flight home are in the plan. */
       moments: [
-        { title: "Madinah ziyarah", text: "Visits to the historic sites of Madinah." },
-        { title: "Jumuah in Masjid an-Nabawi", text: "Friday 12 March, after Jumuah in Masjid al-Haram on Friday 5 March." },
+        { title: "The Haramain train", text: "From Makkah to Madinah on the high-speed train." },
+        { title: "Every salah in Masjid an-Nabawi", text: "Al Manakha Rotana is an 8-minute walk away." },
+        { title: "Jumuah in Masjid an-Nabawi", text: "Friday 12 March, a week after Jumuah in Masjid al-Haram." },
+        { title: "Madinah ziyarah", text: "Visits to the historic sites of the city, with your guides." },
+        { title: "Breakfast each morning", text: "Included at the hotel in Madinah." },
+        { title: "Home from Madinah", text: "Saudia on Saturday 13 March, via Jeddah to Heathrow." },
       ],
+      photo: {
+        src: "/images/group-photos/group-photos-05.jpg",
+        width: 1350,
+        height: 2400,
+        alt: "Rawdah's last group on the roof of Masjid an-Nabawi at golden hour, a minaret behind them.",
+        caption: "Our last group on the roof of Masjid an-Nabawi, August 2026",
+      },
     },
     /* Checked 20 Nov 2026: al-Bukhari 1782 and Muslim 1256 (Ibn ‘Abbas); Surah al-Qadr 97:3; the takbir of Eid. */
     verses: {
@@ -974,27 +1003,9 @@ export const ramadanFull: Journey = {
         { title: "The khatm", text: "The Qur’an completed in the Haram on one of the last nights, and the du‘a that follows." },
       ],
     },
-    /* Rawdah's own: the last trip (lastTrip, V1 and its poster) and V1's gallery photos (19 Nov 2026). */
-    pastTrips: {
-      title: "Our last trip",
-      trips: [
-        {
-          name: "Path of Purity II: Summer Edition",
-          dates: "4–15 August 2026",
-          line: "Five nights in Madinah, five in Makkah, with Ustadh Abdulrahman Hassan as guest sheikh.",
-          poster: { src: "/images/past/path-of-purity-ii-poster.jpg", alt: "The Path of Purity II: Summer Edition poster, 4–15 August 2026.", width: 1080, height: 1350 },
-        },
-      ],
-      /* The lead photo moved to the top of the journey (pack.photo), 20 Nov 2026. The roof photo third, not first
-       *  (Jibril, 21 Nov 2026: it looked odd opening the strip on phones). */
-      photos: [
-        { src: "/images/past/masjid-al-haram.jpg", caption: "Masjid al-Haram", alt: "A Rawdah group together at Masjid al-Haram.", position: "object-[50%_60%]", width: 1200, height: 1600 },
-        { src: "/images/group-photos/group-photos-04.jpg", caption: "Masjid Quba", alt: "The group outside Masjid Quba, its white minarets behind them.", position: "object-[50%_75%]", width: 2400, height: 1600 },
-        { src: "/images/group-photos/group-photos-05.jpg", caption: "On the roof of Masjid an-Nabawi", alt: "The group on the roof of Masjid an-Nabawi at golden hour, a minaret behind them.", position: "object-[50%_62%]", width: 1350, height: 2400 },
-        { src: "/images/teaching/teaching-01.jpg", caption: "A reminder from Ustadh Abdulrahman Hassan", alt: "Ustadh Abdulrahman Hassan giving the group a reminder outdoors.", position: "object-[50%_30%]", width: 2250, height: 3000 },
-        { src: "/images/candid/candid-02.jpg", caption: "Brothers and sisters together", alt: "Brothers and sisters from the group standing together under the trees.", position: "object-[50%_50%]", width: 3000, height: 2250 },
-      ],
-    },
+    /* Our last trip: the home page's section (facts, the team with Ustadh Abdulrahman Hassan, the photos), which
+     *  replaced the poster card and photo strip (Jibril, 27 Nov 2026: "making the client trust us more"). */
+    lastTrip: true,
     /* No Hajj band for now: on a one-trip page it confused people (Jibril, 19 Nov 2026). */
     /* From the About page and V1, Rawdah's own words (19 Nov 2026: only this page is live, so its best bits come here). */
     forWho: [

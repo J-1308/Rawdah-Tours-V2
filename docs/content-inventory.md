@@ -23,7 +23,8 @@ This file says where the facts came from and what is still missing. Last updated
 - Registered office: 66 Paul Street, London, England, EC2A 4NA (client, 2 Nov 2026; V1 had a Birmingham address)
 - Based in: West London (Jibril, 16 Nov 2026), shown on the About page
 - Company number: **missing**
-- ATOL: 5311 via Polani Travel Ltd for the 2026 trips (V1 terms). **Future trips to confirm.**
+- ATOL: 5311. Shown as "ATOL protected · ATOL 5311" in the footer and under the booking steps ("on packages with
+  flights" there), and in the terms. The licence holder is never named (the client's wording, 27 Nov 2026).
 
 ## People
 

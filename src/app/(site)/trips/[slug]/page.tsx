@@ -18,8 +18,8 @@ import { Daybreak, FlightScene, Nightfall } from "@/app/_site/night-sky";
 import { GardenPath } from "@/app/_site/garden-path";
 import { StepForm } from "@/app/_site/step-form";
 import { ReservePanel } from "@/app/_site/reserve";
-import { Chapter, ConfirmedPending, gutter, Heading, Label, Logo, PageLead, PartnerLogo, WaTile } from "@/app/_site/shell";
-import { ForWho, GroupStrip, PosterPackages, HaramNights, WhyRawdah, HajjOnNusuk, OtherTripBand, PastTrips, leaderMember, MomentStrip, TeamLine, TripPeople, TeamList, tripTeacherMembers, teamMembers, TripIncludes, TrustBox, TripJourney, JourneyPart, ClosingVerse, GuestIntimate, StayShowcase, MadinahMoments, VerseLine, TripPackages, WhereYouStay, type Member } from "@/app/_site/trip-parts";
+import { Chapter, ConfirmedPending, gutter, Heading, Label, Logo, PageLead, PartnerLogo, WaTile, AtolLine } from "@/app/_site/shell";
+import { ForWho, GroupStrip, PosterPackages, HaramNights, WhyRawdah, HajjOnNusuk, OtherTripBand, PastTrips, leaderMember, MomentStrip, TeamLine, TripPeople, TeamList, tripTeacherMembers, teamMembers, TripIncludes, TrustBox, TripJourney, JourneyPart, ClosingVerse, GuestIntimate, StayShowcase, MadinahMoments, VerseLine, TripPackages, WhereYouStay, type Member, LastTripFeature, MadinahPart } from "@/app/_site/trip-parts";
 import { StateTag } from "@/app/_site/trip-row";
 import { Chevron } from "@/app/_site/whatsapp";
 import { getTrip, isBookable, isDemoBooking } from "@/lib/trips";
@@ -424,9 +424,7 @@ export function TripView({ j }: { j: Journey }) {
               {/* Eid is in the journey's highlights and the takbir at daybreak; its own section and "Rawdah means garden"
                   came out as repeats (Jibril, 20 Nov 2026: "not repeat ourselves"). */}
               {j.madinah ? (
-                <JourneyPart j={j} id="madinah" label={j.madinah.label} title={j.madinah.title} intro={j.madinah.intro} cards={[]}>
-                  {j.madinah.moments ? <MadinahMoments items={j.madinah.moments} /> : null}
-                </JourneyPart>
+                <MadinahPart m={j.madinah} />
               ) : null}
             </div>
           </div>
@@ -442,7 +440,7 @@ export function TripView({ j }: { j: Journey }) {
                 <TripPeople j={j} members={members} />
               </section>
             ) : null}
-            {j.posterType && j.pastTrips ? <PastTrips p={j.pastTrips} /> : null}
+            {j.posterType && j.lastTrip ? <LastTripFeature /> : j.posterType && j.pastTrips ? <PastTrips p={j.pastTrips} /> : null}
             {j.kind === "umrah" && j.plan ? (
               <>
                 <section id="included" className={`trip-anchor ${j.posterType ? "mt-12 sm:mt-16" : ""}`}>
@@ -536,6 +534,7 @@ export function TripView({ j }: { j: Journey }) {
                     : "About a minute, and the Rawdah Tours team will be in touch. Registering doesn’t reserve a place or commit you to anything."}
               </p>
               )}
+              {j.kind === "umrah" && j.steps ? <AtolLine flights className="mt-6" /> : null}
               {j.closing ? (
                 <ul className="mt-6 grid gap-2.5 text-[0.98rem]">
                   {j.closing.map((c) => (
