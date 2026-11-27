@@ -1916,6 +1916,12 @@ html.motion[data-skin="1448"] header .btn-ink:hover::after, html.motion .skin-14
 .skin-1448 .host-text { padding-top: 0.9rem; }
 .skin-1448 .host-name { font-size: clamp(1.25rem, 4.6vw, 2.1rem); }
 @media (max-width: 39.99rem) { .skin-1448 .host-text .mt-3 { font-size: 0.86rem; } }
+/* The two hosts line up (21 Nov 2026): their portraits are different shapes (kept uncropped), so each card spans the
+   same two rows (photo, words) and the shorter photo sits on the shared baseline. Role and name start on one line. */
+@supports (grid-template-rows: subgrid) {
+  .skin-1448 .hosts > .host { display: grid; grid-row: span 2; grid-template-rows: subgrid; grid-template-columns: minmax(0, 1fr); min-width: 0; row-gap: 0; }
+  .skin-1448 .hosts > .host > .host-frame { align-self: end; }
+}
 
 /* --- Rawdah's mark, faint in the background (20 Nov 2026: "the Rawdah logo faintly in the background") ---------------
    Large and barely there: a deep gilt on stone, a light one in the night. Behind the hero's words, the package, the
