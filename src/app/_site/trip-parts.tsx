@@ -4,7 +4,7 @@ import { Fragment } from "react";
 
 import { ICONS, PosterPerks } from "@/app/_site/poster-parts";
 import { PosterText } from "@/app/_site/poster-type";
-import { anchors, gbp, hajjNusuk, journeyStay, leader, people, say, teachers, trust, wa, type Journey, type Status, type StayPhoto, type TripPlan, type Verse } from "@/app/_site/content";
+import { anchors, gbp, hajjNusuk, journeyStay, lastTrip, leader, people, say, teachers, trust, wa, type Journey, type Status, type StayPhoto, type TripPlan, type Verse } from "@/app/_site/content";
 import { Mark } from "@/app/_site/marks";
 import { Emblem, gild, gutter, Heading, Label, Tick } from "@/app/_site/shell";
 import { slot, slotFilled } from "@/app/_site/slots";
@@ -466,6 +466,67 @@ export function HaramNights({ n }: { n: NonNullable<Journey["nights"]> }) {
 }
 
 /** Rawdah's earlier trips: their posters, then a gallery of the groups (after The Umrah Company's past journeys). */
+/**
+ * Our last trip, the home page's section brought to the Ramadan page (Jibril, 27 Nov 2026): the trip's facts, the team
+ * that travelled with it (Ustadh Abdulrahman Hassan as guest sheikh) and the photos. Each photo at its own shape: a row
+ * you swipe on phones, three columns on desktop. The facts and team stay beside the photos on desktop.
+ */
+export function LastTripFeature() {
+  const guest = lastTrip.team.find((t) => /guest/i.test(t.role));
+  return (
+    <section id="last-trip" aria-labelledby="last-trip-title" className="lt mt-14 scroll-mt-28 sm:mt-20">
+      <div className="lt-grid">
+        <div className="lt-side">
+          <Label>{lastTrip.label}</Label>
+          <Heading id="last-trip-title" className="lt-title mt-3">
+            {lastTrip.name}
+          </Heading>
+          {guest ? (
+            <p className="lt-line">
+              With {guest.name} as {guest.role.toLowerCase()}.
+            </p>
+          ) : null}
+          <dl className="lt-card lt-facts">
+            {lastTrip.facts.map((f) => (
+              <div key={f.k}>
+                <dt>{f.k}</dt>
+                <dd>{f.v}</dd>
+              </div>
+            ))}
+          </dl>
+          <div className="lt-card lt-team">
+            <p className="lt-team-title">The team on this trip</p>
+            <ul>
+              {lastTrip.team.map((t) => {
+                const photo = allMembers.find((m) => m.name === t.name)?.photo;
+                return (
+                  <li key={t.name}>
+                    <span className="lt-face">{photo ? <Image src={photo.src} alt="" fill sizes="3rem" className={`object-cover ${photo.position ?? "object-[50%_25%]"}`} /> : null}</span>
+                    <span>
+                      <span className="block">{t.name}</span>
+                      <span className="lt-role">{t.role}</span>
+                    </span>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        </div>
+        <ul className="lt-photos past-strip" aria-label="Photos from our last trip">
+          {lastTrip.photos.map((ph) => (
+            <li key={ph.src} data-reveal>
+              <figure className="past-shot">
+                <Image src={ph.src} alt={ph.alt} width={ph.width} height={ph.height} sizes="(min-width: 1024px) 18rem, 80vw" quality={85} className="past-shot-img" />
+                <figcaption>{ph.caption}</figcaption>
+              </figure>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  );
+}
+
 export function PastTrips({ p }: { p: NonNullable<Journey["pastTrips"]> }) {
   return (
     <section className="mt-12 sm:mt-16">

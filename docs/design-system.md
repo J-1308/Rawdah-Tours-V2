@@ -152,7 +152,9 @@ script in `app/layout.tsx` sets before first paint unless the visitor prefers re
   the people straight after the trip (`TripPeople`: Sheikh Yahya in his own olive panel, `.guest-feature`, the one
   dark block there, with his original photo cropped and never faded; then the hosts' photo cards, `.host-card`), then
   Rawdah's previous trips (`PastTrips`: the Path of Purity II poster, a "to come" frame, a gallery of eight captioned
-  group photos); Ramadan in the Haram on the night ground before the flights and hotels (`HaramNights`: Taraweeh,
+  group photos; on the Ramadan page since 27 Nov 2026 the home page's version instead, `LastTripFeature`: the trip's
+  facts and the team with Ustadh Abdulrahman Hassan as guest sheikh beside a gallery, each photo at its own shape, a
+  swipe row on phones and three columns on desktop; the old poster with its 2026 prices dropped); Ramadan in the Haram on the night ground before the flights and hotels (`HaramNights`: Taraweeh,
   qiyam and Laylat al-Qadr, iftar in the Haram, the khatm; tall photo cards); hotel cards with how far each is from
   the Haram (`.hotel-walk`, on foot or by shuttle), two sentences and feature chips, from the hotels' own listings;
   the ended early bird crossed out beside every price (hero, join panel, packages table, phone bar); a Hajj 2027 band

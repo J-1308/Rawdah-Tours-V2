@@ -82,7 +82,8 @@ Added on 16 Nov (the conversion brief, `prompt-rawdah-tours.md` in Jibril's Down
 
 - Booking: WhatsApp with the deposit by bank transfer now; card payments with Stripe later, **both** offered. No
   Supabase: bookings will be stored in Blob. Open trips say "Book your place" everywhere.
-- ATOL 5311 only in the terms and footer. Don't name the ATOL provider.
+- ATOL 5311 in the terms, the footer and under the booking steps, as "ATOL protected · ATOL 5311" (the client's
+  wording, 27 Nov 2026). Never name the ATOL provider.
 - Cookieless: no Meta Pixel or Google Ads tags. No fake urgency or countdowns.
 - Fable (the `fable` model via the Agent tool) only for judgement calls: plan reviews, design passes, specs for new
   pieces, the final review before each release. Jibril wants its usage kept for those.

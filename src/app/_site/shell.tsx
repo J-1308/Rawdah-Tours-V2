@@ -427,6 +427,7 @@ export function SiteFooter() {
               </span>
             </a>
           </div>
+          <AtolLine className="atol-foot mt-6 sm:mt-7" />
           {/* Phones: the rest of "Get in touch" on one line under the two buttons. */}
           <p className="mt-4 flex flex-wrap gap-x-4 gap-y-1 text-[0.94rem] sm:hidden">
             <a href={`mailto:${brand.email}`} className={`break-all ${link}`}>
@@ -506,5 +507,21 @@ export function Tick({ className = "" }: { className?: string }) {
         <path d="M2.5 6.2 5 8.5l4.5-5" strokeLinecap="round" strokeLinejoin="round" />
       </svg>
     </span>
+  );
+}
+
+/** "ATOL protected", with the number (the client's wording, 27 Nov 2026). The licence holder is not named. */
+export function AtolLine({ className = "", flights = false }: { className?: string; flights?: boolean }) {
+  return (
+    <p className={`atol-line ${className}`}>
+      <svg aria-hidden viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M12 3 4.5 6v5.5c0 4.6 3.1 8.3 7.5 9.5 4.4-1.2 7.5-4.9 7.5-9.5V6L12 3Z" />
+        <path d="m8.8 12.2 2.2 2.2 4.3-4.6" />
+      </svg>
+      <span>
+        <strong>ATOL protected</strong> · ATOL {brand.atol}
+        {flights ? <span className="atol-scope">, on packages with flights</span> : null}
+      </span>
+    </p>
   );
 }
