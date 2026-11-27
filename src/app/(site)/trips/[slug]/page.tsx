@@ -7,13 +7,13 @@ import { notFound } from "next/navigation";
 
 import { ComingSoonTrip } from "@/app/_site/coming-soon";
 import { TripPhoneBar } from "@/app/_site/trip-bar";
-import { anchors, covers, faqs, fromPrice, gbp, hajjNusuk, journey, journeys, nightsOf, ramadanReveal, routes, routeText, say, type Journey } from "@/app/_site/content";
+import { anchors, covers, faqs, fromPrice, gbp, hajjNusuk, journey, journeys, nightsOf, ramadanReveal, routes, routeText, say, wa, type Journey } from "@/app/_site/content";
 import { CoverGroups, FaqList, PaymentPlan, Tick } from "@/app/_site/home-sections";
 import { Mark } from "@/app/_site/marks";
 import { ArrivalTrigger } from "@/app/_site/arrival-trigger";
 import { Arrival, Mist } from "@/app/_site/poster-parts";
 import { PosterLockup, PosterText } from "@/app/_site/poster-type";
-import { FeatureBand, JourneySection, LockupHero } from "@/app/_site/poster-hero";
+import { FeatureBand, JourneySection, NightHero } from "@/app/_site/poster-hero";
 import { Daybreak, FlightScene, Nightfall } from "@/app/_site/night-sky";
 import { GardenPath } from "@/app/_site/garden-path";
 import { StepForm } from "@/app/_site/step-form";
@@ -173,7 +173,7 @@ export function TripView({ j }: { j: Journey }) {
       <TripPhoneBar j={j} price={price} deposit={trip?.pricing ? trip.pricing.depositPence / 100 : null} bookable={bookable} />
       {j.posterType ? (
         <Chapter tone="day">
-          <LockupHero {...buy} />
+          <NightHero {...buy} waHref={wa(`Assalamu alaykum, I have a question about ${j.name}.`, j.name)} />
         </Chapter>
       ) : (
       <Chapter tone="top">

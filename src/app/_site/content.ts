@@ -717,6 +717,8 @@ export type Journey = {
    * opens with it.
    */
   pack?: { at: "day" | "night"; label: string; title: string; photo?: { src: string; width: number; height: number; alt: string; caption: string } };
+  /** The hero's photo (NightHero, 24 Nov 2026), at its own shape. */
+  heroPhoto?: { src: string; width: number; height: number; alt: string; caption: string };
   /**
    * The journey's highlights, numbered, in the order you live them (Jibril, 20 Nov 2026: "the highlights… similar to
    * The Umrah Company… take from our journey part, the nights section and some parts from the package"). Facts only.
@@ -922,13 +924,21 @@ export const ramadanFull: Journey = {
       at: "day",
       label: "The journey",
       title: "Fourteen nights, *the last ten in Makkah*",
+      // The lobby photo moved up to the hero (24 Nov 2026); the journey shows the same group in ihram at night.
       photo: {
-        src: "/images/group-photos/group-photos-01.jpg",
-        width: 2400,
-        height: 1600,
-        alt: "The Path of Purity II group with Ustadh Abdulrahman Hassan in the lobby of Address Jabal Omar, Makkah.",
-        caption: "Our last group in Makkah, August 2026",
+        src: "/images/group-photos/group-photos-03.jpg",
+        width: 3000,
+        height: 2250,
+        alt: "The Path of Purity II group in ihram at night in Makkah, the lit arcades and a minaret behind them.",
+        caption: "Our last group in ihram, Makkah, August 2026",
       },
+    },
+    heroPhoto: {
+      src: "/images/group-photos/group-photos-01.jpg",
+      width: 2400,
+      height: 1600,
+      alt: "The Path of Purity II group with Ustadh Abdulrahman Hassan in the lobby of Address Jabal Omar, Makkah.",
+      caption: "Our last group in Makkah, August 2026",
     },
     /* From the plan, the nights and the FAQs (20 Nov 2026). */
     storyPoints: [

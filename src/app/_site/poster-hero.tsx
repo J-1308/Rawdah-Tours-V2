@@ -7,6 +7,7 @@ import { HeroFigures, ICONS, type Perk } from "@/app/_site/poster-parts";
 import { PosterLockup } from "@/app/_site/poster-type";
 import { Emblem, gutter, Heading, Label, PartnerLogo } from "@/app/_site/shell";
 import { Chevron } from "@/app/_site/whatsapp";
+import { HeroLook } from "@/app/_site/hero-look";
 
 type Person = ComponentProps<typeof HeroFigures>["people"][number];
 
@@ -224,6 +225,101 @@ export function LockupHero({ j, guest, price, ground, joinLabel }: Buy & { guest
             <a href={`#${anchors.join}`} className="btn-gilt rl-book">
               {joinLabel} <Chevron dir="down" className="size-3 opacity-70" />
             </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/**
+ * The Ramadan hero (Jibril, 24 Nov 2026). First pass ("something is off… this empty feeling… the face is prominent"): a
+ * clean hero, the words on the left and a large photo on the right, which he liked ("it looked clean… the image was
+ * the perfect size"). Second pass: the original hero's wording (1448 / RAMADAN / LAST 10 NIGHTS, the dates, with GGC,
+ * 14 nights and Eid in the blessed lands) in that layout, with the journey's group photo, in a dark and a light version
+ * (`data-look`; `?hero=light` previews the light one, hero-look.tsx). The photo at its own shape, never cropped; Sheikh
+ * Yahya as a credit; one gold button; the ten lamps along the top on desktop. Third pass ("fit some of the poster
+ * elements"): the poster's EID and 14 NIGHTS tablets as a row in its lettering under the dates, and the poster's prices,
+ * large and gold. Phones: the photo, then the words.
+ */
+export function NightHero({ j, guest, price, ground, deposit, joinLabel, waHref }: Buy & { guest?: Person; waHref: string }) {
+  const dates = j.dates.value.replace(/\bFeb\b/, "February").replace(/\bMar\b/, "March");
+  const photo = j.heroPhoto;
+  return (
+    <section className="nh" data-look="dark">
+      <HeroLook />
+      <HeroLamps />
+      <div className={`nh-grid ${gutter}`}>
+        {photo ? (
+          <figure className="nh-photo settle">
+            <Image src={photo.src} alt={photo.alt} width={photo.width} height={photo.height} priority quality={85} sizes="(min-width: 1024px) 58vw, 100vw" />
+          </figure>
+        ) : null}
+        <div className="nh-words">
+          <h1 className="poster-lockup nh-lockup">
+            <span className="sr-only">Ramadan Umrah 2027: </span>
+            <PosterLockup year="1448" word="Ramadan" line="Last 10 nights" />
+          </h1>
+          <p style={at(650)} className="nh-dates follow">
+            {dates}
+          </p>
+          {j.partnerLogo ? (
+            <p style={at(720)} className="nh-meta follow">
+              <span className="nh-with">
+                <em>with</em>
+                <PartnerLogo logo={j.partnerLogo} className="h-[1rem]" />
+              </span>
+            </p>
+          ) : null}
+          {/* The poster's two tablets, in its lettering, as a row (25 Nov 2026). */}
+          <p style={at(780)} className="nh-tabs follow">
+            <span className="nh-tab">
+              <b>Eid</b>
+              <em>in the</em>
+              <span>Blessed lands</span>
+            </span>
+            <span className="nh-tab">
+              <b>14</b>
+              <span>Nights</span>
+            </span>
+          </p>
+          {guest ? (
+            <p style={at(800)} className="nh-guest follow">
+              {guest.photo ? <Image src={guest.photo.src} alt="" width={96} height={96} className={`nh-guest-img ${guest.photo.position ?? ""}`} /> : null}
+              <span>
+                <span className="nh-guest-role">Special guest</span>
+                <span className="nh-guest-name">
+                  {guest.label} {guest.name}
+                </span>
+              </span>
+            </p>
+          ) : null}
+          {/* `.ph-buy`: the phone bar waits until this has scrolled away (page-watch.tsx). */}
+          <div style={at(880)} className="ph-buy nh-buy follow">
+            {/* The poster's prices: large, in gold. */}
+            {price ? (
+              <p className="rl-line nh-line">
+                <a href={`#${anchors.join}`} className="rl-line-item">
+                  <strong className="rl-line-price">{price}</strong>
+                  <span>with flights</span>
+                </a>
+                {ground ? (
+                  <a href={`#${anchors.join}`} data-pick="ground" className="rl-line-item">
+                    <strong className="rl-line-price">{ground}</strong>
+                    <span>ground only</span>
+                  </a>
+                ) : null}
+              </p>
+            ) : null}
+            <a href={`#${anchors.join}`} className="btn-gilt nh-book">
+              {joinLabel} <Chevron dir="down" className="size-3 opacity-70" />
+            </a>
+            <p className="nh-small">
+              {deposit ? <>A {deposit} deposit holds your place. </> : null}
+              <a href={waHref} target="_blank" rel="noopener noreferrer">
+                Or ask us on WhatsApp
+              </a>
+            </p>
           </div>
         </div>
       </div>

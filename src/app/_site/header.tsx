@@ -60,9 +60,11 @@ export function SiteHeader() {
   // Desktop: the logo, the page's sections (header-links.tsx; they take over from the garden path), then WhatsApp and
   // "Book your place".
   if (ONE_PAGE) {
+    // Over the Ramadan page's dark hero, the header is clear until you scroll (globals.css, "The Ramadan hero").
+    const over = pathname === ONE_PAGE_HOME && !scrolled;
     return (
       <header
-        className={`top-zone motion-drop sticky top-0 z-40 backdrop-blur-md transition-[box-shadow,border-color] duration-300 ${
+        className={`top-zone motion-drop sticky top-0 z-40 backdrop-blur-md transition-[box-shadow,border-color] duration-300 ${over ? "hdr-over " : ""}${
           scrolled ? "border-b border-ink/6 bg-canvas/85 shadow-[0_10px_40px_-28px_rgb(58_43_36/0.5)]" : "border-b border-transparent bg-canvas/60"
         }`}
       >
